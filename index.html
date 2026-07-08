@@ -914,48 +914,82 @@ body.theme-corporate .sim-reset-btn:focus-visible{
 }
 /* XCMG SIMULATOR RESET CONTROLS END */
 
-
-
 /* XCMG QUADRANT EXPLANATION START */
-body.theme-corporate .visual-quadrant-card .quadrant-explain{
-  margin-top:12px;
+#visuals .visual-quadrant-card{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:10px;
+  grid-template-columns:minmax(600px,1.45fr) minmax(360px,.75fr);
+  grid-template-areas:
+    "title title"
+    "chart explain";
+  gap:8px 18px;
+  align-items:start;
 }
-body.theme-corporate .visual-quadrant-card .quadrant-explain-card{
+#visuals .visual-quadrant-card h3{
+  grid-area:title;
+  margin-bottom:2px;
+}
+#visuals .visual-quadrant-card .quadrant-hover-note{
+  grid-area:note;
+  width:min(720px,100%);
+  max-width:720px!important;
+  margin:0 auto 4px!important;
+}
+#visuals .visual-quadrant-card .quadrant{
+  grid-area:chart;
+  display:block;
+  width:min(720px,100%)!important;
+  max-width:720px!important;
+  height:auto!important;
+  margin:0 auto!important;
+}
+#visuals .visual-quadrant-card .quadrant-explain{
+  grid-area:explain;
+  margin-top:0!important;
+  display:grid;
+  grid-template-columns:1fr!important;
+  gap:10px;
+  align-self:stretch;
+}
+#visuals .visual-quadrant-card .quadrant-explain-card{
   border:1px solid #D6E2EE;
   background:#FFFFFF;
   border-radius:4px;
   padding:10px 12px;
   color:#24405C;
-  min-height:112px;
+  min-height:0;
 }
-body.theme-corporate .visual-quadrant-card .quadrant-explain-card b{
+#visuals .visual-quadrant-card .quadrant-explain-card b{
   display:block;
   color:#003A70;
   font-size:13px;
   margin-bottom:6px;
 }
-body.theme-corporate .visual-quadrant-card .quadrant-explain-card p{
+#visuals .visual-quadrant-card .quadrant-explain-card p{
   margin:0;
   font-size:12px;
   line-height:1.62;
 }
-body.theme-corporate .visual-quadrant-card .quadrant-explain-card strong{
+#visuals .visual-quadrant-card .quadrant-explain-card strong{
   color:#B42318;
 }
-body.theme-corporate .visual-quadrant-card .quadrant-explain-card em{
+#visuals .visual-quadrant-card .quadrant-explain-card em{
   color:#007A4D;
   font-style:normal;
   font-weight:900;
 }
-body.theme-corporate .visual-quadrant-card .quadrant-explain-card.xcmg{
+#visuals .visual-quadrant-card .quadrant-explain-card.xcmg{
   border-left:4px solid #F2B705;
   background:#FFFCF0;
 }
 @media(max-width:1100px){
-  body.theme-corporate .visual-quadrant-card .quadrant-explain{
+  #visuals .visual-quadrant-card{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "title"
+      "chart"
+      "explain";
+  }
+  #visuals .visual-quadrant-card .quadrant-explain{
     grid-template-columns:1fr;
   }
 }
