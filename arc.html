@@ -7,19 +7,17 @@
   <style>
     :root{
       --blue:#004C97;
-      --blue-2:#003A70;
-      --blue-3:#072A4A;
-      --yellow:#F5B400;
+      --blue-deep:#00335F;
       --ink:#102A43;
-      --muted:#5A6B7D;
-      --line:#D4E0EA;
-      --paper:#FFFFFF;
+      --muted:#5B6B7C;
+      --line:#D2DEE9;
       --bg:#F3F7FA;
+      --paper:#FFFFFF;
       --soft:#EAF2F8;
-      --good:#09824A;
-      --warn:#B7791F;
-      --bad:#B42318;
-      --shadow:0 18px 45px rgba(0,58,112,.10);
+      --yellow:#F5B400;
+      --green:#0B7A4B;
+      --red:#B42318;
+      --shadow:0 14px 32px rgba(0,58,112,.08);
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -30,87 +28,82 @@
       font-family:"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
       line-height:1.5;
     }
-    a{color:inherit;text-decoration:none}
-    .shell{max-width:1440px;margin:0 auto;padding:0 28px}
+    a{text-decoration:none;color:inherit}
+    button{font-family:inherit}
+    .shell{max-width:1480px;margin:0 auto;padding:0 28px}
     .topbar{
       position:sticky;
       top:0;
       z-index:20;
-      background:rgba(255,255,255,.94);
+      background:rgba(255,255,255,.96);
       border-bottom:1px solid var(--line);
-      backdrop-filter:blur(14px);
+      backdrop-filter:blur(12px);
     }
     .nav{
-      height:72px;
+      min-height:74px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:24px;
+      gap:18px;
     }
     .brand{
       display:flex;
       align-items:center;
       gap:14px;
-      min-width:260px;
+      min-width:300px;
     }
-    .logoBox{
-      width:120px;
+    .logo{
+      width:118px;
       height:34px;
       display:grid;
       place-items:center;
       background:var(--blue);
       padding:7px 12px;
     }
-    .logoBox img{max-width:100%;max-height:100%;object-fit:contain}
-    .brandText b{display:block;font-size:16px;color:var(--blue-3);letter-spacing:.2px}
-    .brandText span{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;font-weight:800;letter-spacing:.12em}
+    .logo img{max-width:100%;max-height:100%;object-fit:contain}
+    .brand b{display:block;font-size:17px;color:var(--blue-deep)}
+    .brand span{display:block;font-size:11px;font-weight:900;color:#65778A;letter-spacing:.12em;text-transform:uppercase}
     .navLinks{
       display:flex;
-      align-items:center;
       gap:4px;
+      align-items:center;
       flex-wrap:wrap;
       justify-content:flex-end;
     }
     .navLinks a{
-      padding:9px 12px;
-      color:#31506B;
+      padding:10px 12px;
       font-size:13px;
-      font-weight:800;
+      font-weight:900;
+      color:#2C4962;
       border-bottom:3px solid transparent;
     }
     .navLinks a:hover{color:var(--blue);border-bottom-color:var(--yellow)}
     .hero{
-      min-height:560px;
-      color:#fff;
+      padding:44px 0 32px;
       background:
-        linear-gradient(90deg,rgba(0,36,70,.92) 0%,rgba(0,58,112,.78) 48%,rgba(0,36,70,.38) 100%),
-        url("assets/arc/xcmg-excavator.webp") center/cover no-repeat;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero:after{
-      content:"";
-      position:absolute;
-      inset:auto -10% -35% auto;
-      width:62%;
-      height:72%;
-      background:linear-gradient(135deg,rgba(245,180,0,.95),rgba(245,180,0,.08));
-      clip-path:polygon(34% 0,100% 0,66% 100%,0 100%);
-      opacity:.9;
+        linear-gradient(180deg,#FFFFFF 0%,#F3F7FA 100%);
+      border-bottom:1px solid var(--line);
     }
     .heroGrid{
-      position:relative;
-      z-index:1;
       display:grid;
-      grid-template-columns:minmax(0,1fr) 420px;
-      gap:34px;
-      align-items:end;
-      min-height:560px;
-      padding:72px 0 46px;
+      grid-template-columns:minmax(0,.86fr) minmax(640px,1.14fr);
+      gap:24px;
+      align-items:stretch;
+    }
+    .heroCopy{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-left:8px solid var(--blue);
+      padding:34px 34px 30px;
+      box-shadow:var(--shadow);
+      min-height:470px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
     }
     .eyebrow{
-      color:#FFD65A;
-      font-size:13px;
+      color:var(--blue);
+      font-size:12px;
       font-weight:900;
       letter-spacing:.16em;
       text-transform:uppercase;
@@ -118,327 +111,277 @@
     }
     h1{
       margin:0;
-      font-size:clamp(42px,5vw,74px);
-      line-height:.98;
+      font-size:clamp(36px,4.8vw,62px);
+      line-height:1.04;
+      color:var(--blue-deep);
       letter-spacing:0;
-      max-width:920px;
+      max-width:720px;
     }
     .lead{
-      max-width:760px;
-      margin:22px 0 0;
-      color:#E9F2FA;
-      font-size:18px;
+      max-width:720px;
+      margin:18px 0 0;
+      color:#2F4D66;
+      font-size:17px;
       line-height:1.75;
     }
-    .heroActions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .heroActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
     .btn{
+      min-height:42px;
+      padding:0 16px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-height:44px;
-      padding:0 18px;
       border:1px solid transparent;
-      border-radius:4px;
+      border-radius:3px;
       font-weight:900;
-      font-size:14px;
+      font-size:13px;
       cursor:pointer;
-      transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+      transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
     }
-    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.16)}
-    .btn.primary{background:var(--yellow);color:#102A43}
-    .btn.ghost{border-color:rgba(255,255,255,.62);color:#fff;background:rgba(255,255,255,.08)}
-    .heroPanel{
-      background:rgba(255,255,255,.94);
-      color:var(--ink);
-      border-top:5px solid var(--yellow);
-      box-shadow:var(--shadow);
-      padding:22px;
+    .btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,58,112,.14)}
+    .btn.primary{background:var(--blue);color:#fff}
+    .btn.yellow{background:var(--yellow);color:#102A43}
+    .btn.light{background:#EEF5FB;color:var(--blue-deep);border-color:#C9D8E6}
+    .btn.disabled{
+      background:#EEF2F6;
+      color:#7B8B9A;
+      border-color:#D8E1EA;
+      cursor:not-allowed;
+      box-shadow:none;
+      transform:none;
     }
-    .heroPanel h2{margin:0 0 14px;font-size:18px;color:var(--blue-2)}
-    .metricGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .metric{
+    .statusStrip{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+      margin-top:30px;
+    }
+    .statusBox{
       border:1px solid var(--line);
-      background:#F8FBFD;
+      background:#F8FBFE;
       padding:12px;
-      min-height:82px;
+      min-height:78px;
     }
-    .metric strong{display:block;color:var(--blue);font-size:26px;line-height:1}
-    .metric span{display:block;color:var(--muted);font-size:12px;margin-top:8px}
-    section{padding:56px 0}
+    .statusBox strong{display:block;color:var(--blue);font-size:28px;line-height:1}
+    .statusBox span{display:block;color:var(--muted);font-size:12px;margin-top:8px}
+    .productConsole{
+      background:var(--paper);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    .consoleHead{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:end;
+      margin-bottom:14px;
+    }
+    .consoleHead h2{margin:0;color:var(--blue-deep);font-size:20px}
+    .consoleHead p{margin:4px 0 0;color:var(--muted);font-size:12px}
+    .consoleHead a{font-size:12px;color:var(--blue);font-weight:900;border-bottom:1px solid rgba(0,76,151,.25)}
+    .lineGrid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .lineCard{
+      border:1px solid var(--line);
+      background:#fff;
+      min-height:116px;
+      display:grid;
+      grid-template-columns:132px 1fr;
+      overflow:hidden;
+    }
+    .lineImage{
+      background:#E8EEF4 center/cover no-repeat;
+      min-height:116px;
+    }
+    .lineBody{padding:12px;display:grid;gap:7px}
+    .lineBody h3{margin:0;color:var(--blue-deep);font-size:16px}
+    .lineBody p{margin:0;color:#566A7E;font-size:12px;line-height:1.45}
+    .badgeRow{display:flex;gap:6px;flex-wrap:wrap}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      min-height:22px;
+      padding:0 7px;
+      border-radius:3px;
+      font-size:11px;
+      font-weight:900;
+      background:#EEF5FB;
+      color:#31506B;
+    }
+    .badge.live{background:#FFF0B8;color:#624600}
+    .badge.next{background:#E8F6EF;color:#09633E}
+    .lineActions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .lineActions .btn{min-height:30px;padding:0 10px;font-size:12px}
+    section{padding:48px 0}
     .sectionTitle{
       display:flex;
       align-items:end;
       justify-content:space-between;
       gap:20px;
-      margin-bottom:20px;
+      margin-bottom:18px;
     }
-    .sectionTitle h2{
-      margin:0;
-      font-size:28px;
-      color:var(--blue-3);
-    }
-    .sectionTitle p{
-      margin:0;
-      max-width:700px;
-      color:var(--muted);
-      line-height:1.7;
-      font-size:14px;
-    }
+    .sectionTitle h2{margin:0;color:var(--blue-deep);font-size:28px}
     .sectionTitle h2:after{
       content:"";
       display:block;
       width:58px;
       height:3px;
       background:var(--yellow);
-      margin-top:12px;
+      margin-top:10px;
     }
-    .projectGrid{
+    .sectionTitle p{margin:0;color:var(--muted);max-width:720px;font-size:14px;line-height:1.7}
+    .benchGrid{
       display:grid;
-      grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);
-      gap:18px;
-      align-items:stretch;
+      grid-template-columns:minmax(0,.92fr) minmax(360px,.58fr);
+      gap:16px;
+      align-items:start;
     }
-    .projectCard{
+    .projectCard,.reservePanel,.methodCard,.dataCard{
       background:var(--paper);
       border:1px solid var(--line);
-      box-shadow:var(--shadow);
+      box-shadow:0 8px 24px rgba(0,58,112,.05);
+    }
+    .projectCard{
       display:grid;
-      grid-template-columns:290px minmax(0,1fr);
-      min-height:330px;
+      grid-template-columns:300px 1fr;
+      min-height:300px;
       overflow:hidden;
     }
-    .projectImage{
-      background:url("assets/arc/xcmg-product-1.png") center/cover no-repeat;
+    .projectVisual{
+      background:url("assets/arc/category-excavators.jpg") center/cover no-repeat;
+      min-height:300px;
       position:relative;
-      min-height:320px;
     }
-    .projectImage:after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg,rgba(0,58,112,0),rgba(0,58,112,.62));
-    }
-    .status{
+    .projectVisual span{
       position:absolute;
       left:16px;
       top:16px;
-      z-index:1;
+      padding:6px 10px;
       background:var(--yellow);
       color:#102A43;
       font-size:12px;
       font-weight:900;
-      padding:6px 10px;
       border-radius:3px;
     }
-    .projectBody{padding:24px}
-    .projectBody h3{margin:0;color:var(--blue-2);font-size:24px}
-    .projectBody .sub{margin:8px 0 0;color:var(--muted);font-size:13px}
-    .chipRow{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
-    .chip{
-      border:1px solid var(--line);
-      background:#F7FAFD;
-      color:#294B68;
-      font-size:12px;
-      font-weight:800;
-      padding:6px 9px;
-      border-radius:3px;
-    }
-    .projectFacts{
+    .projectInfo{padding:22px}
+    .projectInfo h3{margin:0;color:var(--blue-deep);font-size:24px}
+    .projectInfo .sub{margin:8px 0 0;color:var(--muted);font-size:13px}
+    .facts{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:10px;
-      margin:16px 0 20px;
+      margin:18px 0;
     }
-    .projectFacts div{
+    .fact{
+      background:#F7FAFD;
       border-left:4px solid var(--yellow);
-      background:#F6FAFE;
-      padding:9px 10px;
+      padding:10px;
     }
-    .projectFacts b{display:block;color:var(--blue);font-size:20px;line-height:1.1}
-    .projectFacts span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
-    .list{
+    .fact b{display:block;color:var(--blue);font-size:22px;line-height:1.1}
+    .fact span{font-size:12px;color:var(--muted)}
+    .bulletList{
       margin:0;
       padding:0;
       list-style:none;
       display:grid;
       gap:8px;
-      color:#264963;
       font-size:13px;
+      color:#2F4D66;
     }
-    .list li{display:grid;grid-template-columns:14px 1fr;gap:8px}
-    .list li:before{
+    .bulletList li{display:grid;grid-template-columns:14px 1fr;gap:8px}
+    .bulletList li:before{
       content:"";
       width:7px;
       height:7px;
       margin-top:7px;
       background:var(--yellow);
     }
-    .projectActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-    .btn.blue{background:var(--blue);color:#fff}
-    .btn.light{background:#EEF5FB;color:var(--blue-2);border-color:#C8D7E5}
-    .systemPanel{
-      background:var(--blue-3);
-      color:#fff;
-      padding:24px;
+    .reservePanel{padding:18px}
+    .reservePanel h3{margin:0 0 12px;color:var(--blue-deep)}
+    .reserveList{display:grid;gap:9px}
+    .reserveItem{
       display:grid;
-      align-content:space-between;
-      min-height:330px;
-      position:relative;
-      overflow:hidden;
-    }
-    .systemPanel:after{
-      content:"ARC";
-      position:absolute;
-      right:-18px;
-      bottom:-30px;
-      font-size:118px;
-      line-height:1;
-      font-weight:900;
-      color:rgba(255,255,255,.06);
-      letter-spacing:.04em;
-    }
-    .systemPanel h3{margin:0 0 10px;font-size:22px;color:#fff}
-    .systemPanel p{margin:0;color:#D5E3F0;line-height:1.7;font-size:14px}
-    .systemSteps{display:grid;gap:10px;margin-top:20px}
-    .systemSteps div{
-      display:grid;
-      grid-template-columns:80px 1fr;
+      grid-template-columns:1fr auto;
       gap:10px;
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(255,255,255,.07);
-      padding:12px;
+      align-items:center;
+      border:1px solid var(--line);
+      background:#F8FBFE;
+      padding:10px;
     }
-    .systemSteps b{color:#FFD65A;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
-    .systemSteps span{font-size:13px;color:#F3F7FA}
+    .reserveItem b{color:#1E3F5A}
+    .reserveItem span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+    .tag{
+      min-width:58px;
+      text-align:center;
+      padding:5px 8px;
+      background:#EEF2F6;
+      color:#6B7D8F;
+      font-size:12px;
+      font-weight:900;
+      border-radius:3px;
+    }
+    .tag.live{background:#FFF0B8;color:#6B4B00}
     .methodGrid{
       display:grid;
       grid-template-columns:repeat(4,minmax(0,1fr));
       gap:14px;
     }
-    .method{
-      background:var(--paper);
-      border:1px solid var(--line);
-      padding:18px;
-      min-height:210px;
-    }
-    .method b{
-      display:block;
-      font-size:14px;
-      color:var(--blue);
-      margin-bottom:10px;
-    }
-    .method strong{
-      display:block;
-      color:var(--blue-3);
-      font-size:19px;
-      margin-bottom:12px;
-    }
-    .method p{margin:0;color:#405B73;font-size:13px;line-height:1.7}
-    .portfolio{
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    .portfolio > *{min-width:0}
-    .mapCard,.roadmapCard,.sourceCard{
-      background:var(--paper);
-      border:1px solid var(--line);
-      box-shadow:0 8px 28px rgba(0,58,112,.06);
-      padding:20px;
-    }
-    .mapCard h3,.roadmapCard h3,.sourceCard h3{margin:0 0 14px;color:var(--blue-2)}
-    .matrix{
-      display:grid;
-      grid-template-columns:140px repeat(4,1fr);
-      width:100%;
-      max-width:100%;
-      border:1px solid var(--line);
-      overflow:auto;
-      font-size:12px;
-    }
-    .matrix div{
-      padding:10px;
-      border-right:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      min-height:48px;
-      background:#fff;
-    }
-    .matrix .head{background:var(--blue);color:#fff;font-weight:900}
-    .matrix .rowhead{background:#F1F6FA;color:var(--blue-3);font-weight:900}
-    .matrix .active{background:#FFF4CC;color:#6B4B00;font-weight:900}
-    .matrix .ready{background:#EAF7F0;color:#07633A;font-weight:900}
-    .matrix .plan{background:#EEF2F6;color:#526476}
-    .roadmap{display:grid;gap:12px}
-    .roadItem{
-      display:grid;
-      grid-template-columns:90px 1fr 84px;
-      gap:12px;
-      align-items:center;
-      border-left:4px solid var(--line);
-      background:#F8FBFD;
-      padding:12px;
-    }
-    .roadItem.live{border-left-color:var(--yellow)}
-    .roadItem b{color:var(--blue-2)}
-    .roadItem span{color:var(--muted);font-size:12px}
-    .roadItem strong{
-      justify-self:end;
-      color:#fff;
-      background:var(--blue);
-      padding:5px 8px;
-      border-radius:3px;
-      font-size:12px;
-    }
-    .roadItem:not(.live) strong{background:#8BA0B4}
-    .governance{
+    .methodCard{padding:18px;min-height:190px}
+    .methodCard b{display:block;color:var(--blue);font-size:13px;margin-bottom:9px}
+    .methodCard strong{display:block;color:var(--blue-deep);font-size:18px;margin-bottom:10px}
+    .methodCard p{margin:0;color:#405B73;font-size:13px;line-height:1.7}
+    .dataGrid{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:14px;
-      margin-top:18px;
     }
-    .gov{
-      background:var(--paper);
+    .dataCard{padding:18px;border-top:4px solid var(--blue)}
+    .dataCard:nth-child(2){border-top-color:var(--yellow)}
+    .dataCard h3{margin:0 0 10px;color:var(--blue-deep)}
+    .dataCard p{margin:0;color:#405B73;font-size:13px;line-height:1.7}
+    .sourceNote{
+      margin-top:16px;
+      background:#F8FBFE;
       border:1px solid var(--line);
-      padding:18px;
-      border-top:4px solid var(--blue);
-    }
-    .gov:nth-child(2){border-top-color:var(--yellow)}
-    .gov h3{margin:0 0 10px;color:var(--blue-2)}
-    .gov p{margin:0;color:#405B73;font-size:13px;line-height:1.7}
-    .sourceCard{
+      padding:14px 16px;
       display:flex;
       justify-content:space-between;
-      gap:16px;
-      align-items:center;
-      margin-top:18px;
-      background:#F9FBFD;
+      gap:20px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.7;
     }
-    .sourceCard p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}
-    .sourceCard a{color:var(--blue);font-weight:900;border-bottom:1px solid rgba(0,76,151,.3)}
+    .sourceNote a{color:var(--blue);font-weight:900;border-bottom:1px solid rgba(0,76,151,.28)}
     footer{
-      background:var(--blue-3);
-      color:#D7E5F1;
-      padding:26px 0;
+      padding:24px 0;
+      background:var(--blue-deep);
+      color:#D9E6F2;
       font-size:12px;
     }
     footer .shell{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-    @media(max-width:1100px){
-      .heroGrid,.projectGrid,.portfolio{grid-template-columns:1fr}
-      .heroPanel{max-width:560px}
-      .methodGrid,.governance{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media(max-width:1180px){
+      .heroGrid,.benchGrid{grid-template-columns:1fr}
+      .lineGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .projectCard{grid-template-columns:1fr}
+      .methodGrid,.dataGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
     @media(max-width:760px){
       .shell{padding:0 16px}
-      .nav{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}
+      .nav{align-items:flex-start;flex-direction:column;padding:14px 0}
+      .brand{min-width:0}
       .navLinks{justify-content:flex-start}
-      .heroGrid{padding:42px 0;min-height:auto}
-      .metricGrid,.projectFacts,.methodGrid,.governance{grid-template-columns:1fr}
+      .hero{padding:24px 0}
+      .heroCopy{padding:22px;min-height:0}
+      .lineGrid,.statusStrip,.facts,.methodGrid,.dataGrid{grid-template-columns:1fr}
+      .lineCard{grid-template-columns:110px 1fr}
       .sectionTitle{display:block}
-      .matrix{grid-template-columns:120px repeat(4,140px)}
-      .roadItem{grid-template-columns:1fr}
-      .roadItem strong{justify-self:start}
+      .sourceNote{display:block}
+      .reserveItem{grid-template-columns:1fr}
+      .tag{justify-self:start}
     }
   </style>
 </head>
@@ -446,14 +389,14 @@
   <header class="topbar">
     <div class="shell nav">
       <a class="brand" href="#top" aria-label="XCMG ARC 产品对标中心">
-        <span class="logoBox"><img src="assets/arc/xcmg-logo.webp" alt="XCMG"></span>
-        <span class="brandText"><b>ARC 产品对标中心</b><span>Benchmark Intelligence</span></span>
+        <span class="logo"><img src="assets/arc/xcmg-logo.webp" alt="XCMG"></span>
+        <span><b>ARC 产品对标中心</b><span>All Product Benchmarking</span></span>
       </a>
       <nav class="navLinks" aria-label="页面导航">
-        <a href="#projects">项目库</a>
+        <a href="#products">产品线入口</a>
+        <a href="#benchmarks">已上线项目</a>
         <a href="#method">对标方法</a>
-        <a href="#portfolio">产品线规划</a>
-        <a href="#governance">数据治理</a>
+        <a href="#data">数据口径</a>
         <a href="./">小挖看板</a>
       </nav>
     </div>
@@ -462,73 +405,138 @@
   <main id="top">
     <section class="hero">
       <div class="shell heroGrid">
-        <div>
-          <div class="eyebrow">XCMG ARC Product Benchmarking</div>
-          <h1>把产品对标做成可复用的决策平台</h1>
-          <p class="lead">面向工程机械北美产品定义、配置包、工况适配和竞品差距复盘，统一沉淀参数、标选配、工况表现、数据来源和改进路径。当前 3.5 吨小挖竞品看板作为第一个子项目接入。</p>
-          <div class="heroActions">
-            <a class="btn primary" href="#projects">查看项目库</a>
-            <a class="btn ghost" href="./">进入小挖对标看板</a>
+        <div class="heroCopy">
+          <div>
+            <div class="eyebrow">XCMG USA Product Benchmark Workspace</div>
+            <h1>面向全产品线的竞品对标工作台</h1>
+            <p class="lead">这个入口服务 XCMG USA 全产品竞品研究：按官网产品线建立对标项目，统一沉淀竞品参数、配置包、工况表现、价格/渠道备注、数据来源和改进建议。当前 3.5 吨小挖是第一个已上线子项目，原访问地址保持不变。</p>
+            <div class="heroActions">
+              <a class="btn primary" href="#products">查看产品线入口</a>
+              <a class="btn yellow" href="./">进入小挖看板</a>
+              <a class="btn light" href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">打开 XCMG USA 官网</a>
+            </div>
+          </div>
+          <div class="statusStrip" aria-label="平台状态">
+            <div class="statusBox"><strong>7</strong><span>官网产品线入口预留</span></div>
+            <div class="statusBox"><strong>1</strong><span>已上线竞品对标项目</span></div>
+            <div class="statusBox"><strong>10</strong><span>小挖竞品型号样例</span></div>
+            <div class="statusBox"><strong>同址</strong><span>小挖看板原链接不变</span></div>
           </div>
         </div>
-        <aside class="heroPanel" aria-label="平台当前状态">
-          <h2>当前上线范围</h2>
-          <div class="metricGrid">
-            <div class="metric"><strong>1</strong><span>已接入产品对标子项目</span></div>
-            <div class="metric"><strong>10</strong><span>小挖竞品型号横向对比</span></div>
-            <div class="metric"><strong>6</strong><span>典型工况量化拆解</span></div>
-            <div class="metric"><strong>100%</strong><span>结论绑定原始数据和规则</span></div>
+
+        <aside class="productConsole" id="products">
+          <div class="consoleHead">
+            <div>
+              <h2>XCMG USA 产品线入口</h2>
+              <p>按照官网产品分类预留对标按钮，先保留入口，不伪造未完成项目。</p>
+            </div>
+            <a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">官网来源</a>
+          </div>
+          <div class="lineGrid">
+            <article class="lineCard">
+              <div class="lineImage" style="background-image:url('assets/arc/category-excavators.jpg')"></div>
+              <div class="lineBody">
+                <h3>Excavators</h3>
+                <p>小挖、中挖、大挖；先上线 3.5 吨小挖竞品对标。</p>
+                <div class="badgeRow"><span class="badge live">1 个项目已上线</span><span class="badge next">继续扩展</span></div>
+                <div class="lineActions"><a class="btn yellow" href="./">3.5t 小挖</a><button class="btn disabled" type="button">中挖预留</button></div>
+              </div>
+            </article>
+            <article class="lineCard">
+              <div class="lineImage" style="background-image:url('assets/arc/category-wheel-loaders.jpg')"></div>
+              <div class="lineBody">
+                <h3>Wheel Loaders</h3>
+                <p>装载、堆料、装车效率、舒适性和油耗配置对标。</p>
+                <div class="badgeRow"><span class="badge">入口预留</span></div>
+                <div class="lineActions"><button class="btn disabled" type="button">新建对标</button></div>
+              </div>
+            </article>
+            <article class="lineCard">
+              <div class="lineImage" style="background-image:url('assets/arc/category-rollers.jpeg')"></div>
+              <div class="lineBody">
+                <h3>Rollers</h3>
+                <p>压实性能、振动参数、转场、维护便利性对标。</p>
+                <div class="badgeRow"><span class="badge">入口预留</span></div>
+                <div class="lineActions"><button class="btn disabled" type="button">新建对标</button></div>
+              </div>
+            </article>
+            <article class="lineCard">
+              <div class="lineImage" style="background-image:url('assets/arc/category-motor-graders.webp')"></div>
+              <div class="lineBody">
+                <h3>Motor Graders</h3>
+                <p>平地精度、牵引、刀板控制、驾驶辅助配置对标。</p>
+                <div class="badgeRow"><span class="badge">入口预留</span></div>
+                <div class="lineActions"><button class="btn disabled" type="button">新建对标</button></div>
+              </div>
+            </article>
+            <article class="lineCard">
+              <div class="lineImage" style="background-image:url('assets/arc/category-cranes.webp')"></div>
+              <div class="lineBody">
+                <h3>Cranes and Hoisting</h3>
+                <p>起重能力、工况表、支腿、转场和安全系统对标。</p>
+                <div class="badgeRow"><span class="badge">入口预留</span></div>
+                <div class="lineActions"><button class="btn disabled" type="button">新建对标</button></div>
+              </div>
+            </article>
+            <article class="lineCard">
+              <div class="lineImage" style="background-image:url('assets/arc/category-haul-trucks.webp')"></div>
+              <div class="lineBody">
+                <h3>Haul Trucks</h3>
+                <p>载重、动力、矿区循环效率、制动与维护成本对标。</p>
+                <div class="badgeRow"><span class="badge">入口预留</span></div>
+                <div class="lineActions"><button class="btn disabled" type="button">新建对标</button></div>
+              </div>
+            </article>
+            <article class="lineCard">
+              <div class="lineImage" style="background-image:url('assets/arc/category-mewp.jpg')"></div>
+              <div class="lineBody">
+                <h3>MEWP</h3>
+                <p>作业高度、平台载荷、越野能力、电池与租赁适配对标。</p>
+                <div class="badgeRow"><span class="badge">入口预留</span></div>
+                <div class="lineActions"><button class="btn disabled" type="button">新建对标</button></div>
+              </div>
+            </article>
           </div>
         </aside>
       </div>
     </section>
 
-    <section id="projects">
+    <section id="benchmarks">
       <div class="shell">
         <div class="sectionTitle">
-          <h2>产品对标项目库</h2>
-          <p>每个子项目保留独立的数据、评分规则和汇报看板；ARC 门户只做统一入口、方法框架和产品线管理，不改变既有小挖访问地址。</p>
+          <h2>已上线对标项目</h2>
+          <p>当前只把已经有数据、规则和交互看板的项目标为上线。后续产品线会用同一套结构接入，避免门户里出现空壳结论。</p>
         </div>
-        <div class="projectGrid">
+        <div class="benchGrid">
           <article class="projectCard">
-            <div class="projectImage"><span class="status">已上线</span></div>
-            <div class="projectBody">
+            <div class="projectVisual"><span>已上线</span></div>
+            <div class="projectInfo">
               <h3>3.5 吨小型挖掘机竞品对标</h3>
-              <p class="sub">Compact excavator | 工况能力、参数短板、配置贡献、XCMG 提升模拟</p>
-              <div class="chipRow">
-                <span class="chip">XCMG XE35U</span>
-                <span class="chip">沃尔沃 EC37</span>
-                <span class="chip">现代 HX35AZ</span>
-                <span class="chip">迪尔 35P</span>
-                <span class="chip">卡特 303.5CR</span>
-                <span class="chip">山猫 E35</span>
-                <span class="chip">久保田 / 三一 / 斗山</span>
+              <p class="sub">XCMG XE35U vs 沃尔沃、现代、迪尔、卡特、山猫、斗山、久保田、三一等竞品。</p>
+              <div class="facts">
+                <div class="fact"><b>6</b><span>典型工况</span></div>
+                <div class="fact"><b>参数+配置</b><span>双维评分</span></div>
+                <div class="fact"><b>可交互</b><span>雷达 / 排名 / 模拟</span></div>
               </div>
-              <div class="projectFacts">
-                <div><b>6</b><span>工况场景</span></div>
-                <div><b>参数+配置</b><span>双评分引擎</span></div>
-                <div><b>可交互</b><span>雷达 / 模拟 / 排名</span></div>
-              </div>
-              <ul class="list">
-                <li>按狭窄空间、沟槽、土方装车、破碎、坡地、租赁通用 6 类工况拆解。</li>
-                <li>区分硬参数差距和标配/选配贡献，避免只做参数表式对比。</li>
-                <li>保留原始 Excel 导出、数据状态、置信等级和补强路径。</li>
+              <ul class="bulletList">
+                <li>不是单纯参数对比，而是按狭窄空间、沟槽、土方装车、破碎、坡地、租赁通用等工况拆解。</li>
+                <li>每个结论都回到原始数据、配置状态、权重和置信度，方便领导追问时解释。</li>
+                <li>保留提升模拟器和原始数据下载，后续可作为其他产品线模板。</li>
               </ul>
-              <div class="projectActions">
-                <a class="btn blue" href="./">进入小挖对标看板</a>
+              <div class="heroActions">
+                <a class="btn primary" href="./">打开小挖看板</a>
                 <a class="btn light" href="original-data.xlsx" download>下载原始数据</a>
               </div>
             </div>
           </article>
-          <aside class="systemPanel">
-            <div>
-              <h3>ARC 对标平台定位</h3>
-              <p>不是一次性 PPT，也不是单一产品网页。它是面向产品定义的项目容器：把不同产品线的竞品数据、评分模型、结论证据和改进建议沉淀为同一种决策语言。</p>
-            </div>
-            <div class="systemSteps">
-              <div><b>Input</b><span>导入参数、配置、价格/渠道备注、工况适配和公开资料。</span></div>
-              <div><b>Model</b><span>按产品线定义权重，分离硬参数、配置包、运营适配和置信度。</span></div>
-              <div><b>Output</b><span>输出领导看板、差距路径、配置模拟和原始数据追溯。</span></div>
+          <aside class="reservePanel">
+            <h3>待接入项目位</h3>
+            <div class="reserveList">
+              <div class="reserveItem"><div><b>Excavators / 中挖或大挖</b><span>可复用小挖工况模型，重新定义吨位段参数权重。</span></div><span class="tag">预留</span></div>
+              <div class="reserveItem"><div><b>Wheel Loaders</b><span>建议优先对标装载效率、铲斗、转向半径、液压循环和油耗。</span></div><span class="tag">预留</span></div>
+              <div class="reserveItem"><div><b>MEWP</b><span>建议按作业高度、平台载荷、电池、越野能力和租赁维护拆分。</span></div><span class="tag">预留</span></div>
+              <div class="reserveItem"><div><b>Rollers / Motor Graders</b><span>道路机械可以单独做压实/平地工况模型。</span></div><span class="tag">预留</span></div>
+              <div class="reserveItem"><div><b>Cranes / Haul Trucks</b><span>大型设备需要按工况表、载荷曲线和总拥有成本另建规则。</span></div><span class="tag">预留</span></div>
             </div>
           </aside>
         </div>
@@ -538,87 +546,32 @@
     <section id="method">
       <div class="shell">
         <div class="sectionTitle">
-          <h2>统一对标方法</h2>
-          <p>对标网站的核心不是“谁分高”，而是把每一条分数拆回到可解释的产品语言：哪些工况需要什么参数，哪些配置真正改变作业效率、安全或租赁通用性。</p>
+          <h2>全产品通用对标方法</h2>
+          <p>对标平台的价值是把“产品差距”翻译成“参数、配置、工况和业务场景”的决策语言。</p>
         </div>
         <div class="methodGrid">
-          <article class="method">
-            <b>01 / Work Condition</b>
-            <strong>先定义典型使用场景</strong>
-            <p>按场地空间、土质、装车节拍、坡面稳定、破碎附件和租赁周转建立工况，而不是直接堆参数。</p>
-          </article>
-          <article class="method">
-            <b>02 / Engineering Specs</b>
-            <strong>只选对场景有影响的参数</strong>
-            <p>运输尺寸、尾部回转、挖掘力、液压流量、举升能力等参数必须和具体作业收益或限制绑定。</p>
-          </article>
-          <article class="method">
-            <b>03 / Option Package</b>
-            <strong>把配置转成业务影响</strong>
-            <p>后视摄像头、坡度系统、推土铲浮动、自动停机、远程管理等配置按标配、选配、无配置量化。</p>
-          </article>
-          <article class="method">
-            <b>04 / Decision Trace</b>
-            <strong>结论必须可追溯</strong>
-            <p>领导看到的结论要能回到原始值、配置状态、权重、置信度和竞品差距，减少主观判断空间。</p>
-          </article>
+          <article class="methodCard"><b>Product Line</b><strong>先按产品线建入口</strong><p>产品线按钮先预留，但只有完成数据导入和规则校验后才标为上线。</p></article>
+          <article class="methodCard"><b>Work Condition</b><strong>再按工况拆需求</strong><p>不同产品线用不同工况模型，避免所有设备套同一套参数表。</p></article>
+          <article class="methodCard"><b>Specs & Options</b><strong>区分硬参数和配置包</strong><p>参数看能力边界，配置看效率、安全、租赁适配和维护成本影响。</p></article>
+          <article class="methodCard"><b>Decision Evidence</b><strong>结论必须可追溯</strong><p>每个结论需要能回到原始值、来源、权重、缺失项和置信等级。</p></article>
         </div>
       </div>
     </section>
 
-    <section id="portfolio">
+    <section id="data">
       <div class="shell">
         <div class="sectionTitle">
-          <h2>产品线对标规划</h2>
-          <p>后续可以按产品线逐步导入数据，形成同一个 ARC 门户下的多产品对标体系；未导入数据的模块明确标记为规划状态，避免误导。</p>
+          <h2>数据口径与后续接入</h2>
+          <p>这个门户先把骨架搭好，后续每接入一个产品线，都按同一套字段和验证流程上线。</p>
         </div>
-        <div class="portfolio">
-          <article class="mapCard">
-            <h3>对标矩阵</h3>
-            <div class="matrix" role="table" aria-label="产品线对标矩阵">
-              <div class="head">产品线</div><div class="head">工况模型</div><div class="head">参数评分</div><div class="head">配置评分</div><div class="head">上线状态</div>
-              <div class="rowhead">小型挖掘机</div><div class="ready">6 类工况</div><div class="ready">已接入</div><div class="ready">已接入</div><div class="active">已上线</div>
-              <div class="rowhead">装载机</div><div class="plan">铲装 / 堆料 / 道路维护</div><div class="plan">待导入</div><div class="plan">待导入</div><div class="plan">规划</div>
-              <div class="rowhead">高空作业平台</div><div class="plan">室内 / 室外 / 越野</div><div class="plan">待导入</div><div class="plan">待导入</div><div class="plan">规划</div>
-              <div class="rowhead">起重与物料搬运</div><div class="plan">吊装 / 转场 / 稳定性</div><div class="plan">待导入</div><div class="plan">待导入</div><div class="plan">规划</div>
-            </div>
-          </article>
-          <article class="roadmapCard">
-            <h3>项目推进节奏</h3>
-            <div class="roadmap">
-              <div class="roadItem live"><b>已上线</b><span>3.5 吨小挖竞品对标，保留原访问地址，作为 ARC 第一个标准样例。</span><strong>Live</strong></div>
-              <div class="roadItem"><b>下一步</b><span>抽象评分字段模板：产品、竞品、工况、参数、配置、权重、证据来源。</span><strong>Template</strong></div>
-              <div class="roadItem"><b>扩展</b><span>按产品线导入新 Excel，复用门户和可视化组件，减少重复开发。</span><strong>Scale</strong></div>
-              <div class="roadItem"><b>汇报</b><span>每个子项目保留领导看板、可下载原始数据和可解释结论。</span><strong>Review</strong></div>
-            </div>
-          </article>
+        <div class="dataGrid">
+          <article class="dataCard"><h3>数据字段</h3><p>产品、品牌、型号、参数、单位、方向、配置状态、工况权重、来源、数据状态和备注统一管理。</p></article>
+          <article class="dataCard"><h3>上线标准</h3><p>没有原始数据、没有评分规则、没有异常检查的项目不展示结论，只保留预留按钮。</p></article>
+          <article class="dataCard"><h3>汇报口径</h3><p>领导视图只展示结论、差距、原因和补强路径；开发过程、无关备注和空壳模块不进入页面。</p></article>
         </div>
-      </div>
-    </section>
-
-    <section id="governance">
-      <div class="shell">
-        <div class="sectionTitle">
-          <h2>数据治理与汇报口径</h2>
-          <p>ARC 门户负责统一“怎么看、怎么比、怎么解释”，每个子项目负责自己的产品数据和业务判断。</p>
-        </div>
-        <div class="governance">
-          <article class="gov">
-            <h3>数据状态</h3>
-            <p>区分有效数据、缺失数据、未披露数据和同一配置多版本数据。类似动臂偏摆的多版本情况，需要按版本择值而不是机械相加。</p>
-          </article>
-          <article class="gov">
-            <h3>评分口径</h3>
-            <p>参数按“越高越好 / 越低越好 / 区间更优”归一化；配置按无配置、选配、标配拆分，再按工况影响权重汇总。</p>
-          </article>
-          <article class="gov">
-            <h3>领导汇报</h3>
-            <p>汇报页优先呈现差距、原因和可执行补强方案；开发备注、无关说明、过程性文字不进入领导视图。</p>
-          </article>
-        </div>
-        <div class="sourceCard">
-          <p>视觉和信息架构参考 XCMG 官方公开网站的品牌色、产品入口和北美市场语境；页面素材已本地化到仓库，避免外链加载失败。</p>
-          <p><a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA</a> · <a href="https://xcmg-usa.com/products/excavators/" target="_blank" rel="noreferrer">XCMG USA Excavators</a> · <a href="https://www.xcmgglobal.com/" target="_blank" rel="noreferrer">XCMG Global</a></p>
+        <div class="sourceNote">
+          <span>产品线分类和视觉元素参考 XCMG USA 官网公开页面；产品线缩略图已本地化，避免外链加载失败。</span>
+          <span><a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA</a> · <a href="https://xcmg-usa.com/products/excavators/" target="_blank" rel="noreferrer">Excavators</a></span>
         </div>
       </div>
     </section>
@@ -627,7 +580,7 @@
   <footer>
     <div class="shell">
       <span>XCMG ARC Product Benchmarking Center</span>
-      <span>当前小挖看板地址保持不变：根目录仍进入 3.5 吨小挖竞品对标。</span>
+      <span>小挖竞品看板原访问地址保持不变：根目录仍打开 3.5 吨小挖项目。</span>
     </div>
   </footer>
 </body>
