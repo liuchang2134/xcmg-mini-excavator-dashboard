@@ -291,7 +291,201 @@ body.theme-3d .back-to-top{
 .enhanced-sim .rank-panel{order:4;background:#F8FBFE;border:1px solid #D6E2EE;border-radius:5px;padding:10px}
 @media(max-width:900px){.enhanced-sim .sim-options{grid-template-columns:1fr}.enhanced-sim .sim-result{grid-template-columns:1fr}.enhanced-sim .sim-result strong{grid-row:auto}}
 /* XCMG ENHANCED OVERALL SIMULATOR END */
-</style></head><body class="theme-3d"><div class="shell"><nav><h1>小挖工况竞品看板</h1><a href="#summary">领导总览</a><a href="#ranking">工况综合排名</a><a href="#overallperf">整体性能评分</a><a href="#visuals">可视化驾驶舱</a><a href="#conditions">工况总览</a><a href="#cond1">狭窄空间 / 市政庭院</a><a href="#cond2">沟槽 / 基础深挖</a><a href="#cond3">土方装车 / 短循环效率</a><a href="#cond4">破碎 / 多属具作业</a><a href="#cond5">坡地 / 软土 / 吊装稳定</a><a href="#cond6">租赁 / 快速转场 / 多客户通用</a><a href="#allscore">全量明细</a></nav><main><div class="hero"><small>EXECUTIVE COMPETITIVE DASHBOARD</small><h1>XCMG 3.5 吨级小挖竞品工况全量数据看板</h1><p>土方短循环已补充经济模式、自动怠速、推土铲浮动等配置贡献，保留全量评分、覆盖率与置信等级。</p><div class="hero-actions"><a class="download-btn" href="original-data.xlsx" download="XCMG_原始竞品数据.xlsx">导出原始数据</a></div></div><section id="summary"><h2>领导总览</h2><div class="kpis"><div class="kpi"><span>工况综合领先</span><strong>沃尔沃 EC37</strong><span>57.8 分</span></div><div class="kpi"><span>XCMG工况位置</span><strong>第 7</strong><span>48.9 分 / 覆盖率 97%</span></div><div class="kpi"><span>分析工况</span><strong>6</strong><span>按常见小挖场景拆分</span></div><div class="kpi"><span>明细行数</span><strong>680</strong><span>指标 + 配置贡献</span></div></div>
+
+/* XCMG CORPORATE MINIMAL THEME START */
+body.theme-corporate{
+  background:#F5F7FA!important;
+  color:#102033;
+  font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;
+}
+body.theme-corporate .shell{
+  background:#F5F7FA;
+  grid-template-columns:252px minmax(0,1fr);
+}
+body.theme-corporate nav{
+  background:#FFFFFF!important;
+  color:#102033!important;
+  border-right:1px solid #DDE5EF!important;
+  border-left:6px solid #00529B;
+  box-shadow:4px 0 18px rgba(16,32,51,.06);
+}
+body.theme-corporate nav h1{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 0 18px;
+  color:#003A70;
+  font-size:17px;
+}
+body.theme-corporate nav h1:before{display:none!important}
+body.theme-corporate nav h1 img{width:82px;height:auto;display:block}
+body.theme-corporate nav h1 span{display:block;line-height:1.2}
+body.theme-corporate nav a{
+  color:#24405C!important;
+  background:transparent!important;
+  border:0!important;
+  border-left:3px solid transparent!important;
+  border-radius:2px;
+  box-shadow:none!important;
+  padding:8px 10px;
+}
+body.theme-corporate nav a:hover{
+  background:#F0F5FA!important;
+  border-left-color:#F2B705!important;
+  color:#003A70!important;
+  transform:none!important;
+}
+body.theme-corporate main{padding:24px 28px;background:#F5F7FA!important}
+body.theme-corporate .hero{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 360px;
+  gap:28px;
+  align-items:center;
+  min-height:250px;
+  background:#FFFFFF!important;
+  color:#0F253B!important;
+  border:1px solid #DDE5EF!important;
+  border-bottom:4px solid #F2B705!important;
+  border-radius:4px;
+  box-shadow:0 10px 24px rgba(16,32,51,.07)!important;
+  padding:28px 30px!important;
+}
+body.theme-corporate .hero:before,
+body.theme-corporate .hero:after{display:none!important}
+body.theme-corporate .brand-lockup{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:16px;
+  color:#526579;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+body.theme-corporate .brand-lockup img{width:112px;height:auto;display:block}
+body.theme-corporate .hero small,
+body.theme-corporate .eyebrow{
+  color:#00529B!important;
+  letter-spacing:.11em;
+}
+body.theme-corporate .hero h1{
+  margin:6px 0 10px;
+  color:#003A70;
+  font-size:32px;
+  line-height:1.18;
+  font-weight:900;
+}
+body.theme-corporate .hero p{
+  color:#40566B!important;
+  max-width:780px;
+  margin:0 0 16px;
+}
+body.theme-corporate .hero-media{
+  align-self:stretch;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  background:linear-gradient(180deg,#F8FAFC,#EEF3F8);
+  border:1px solid #E1E8F0;
+  border-radius:4px;
+  overflow:hidden;
+  min-height:190px;
+}
+body.theme-corporate .hero-media img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+  padding:10px 14px 0;
+}
+body.theme-corporate .download-btn{
+  background:#00529B!important;
+  color:#FFFFFF!important;
+  border-color:#00427D!important;
+  border-radius:3px!important;
+  box-shadow:none!important;
+}
+body.theme-corporate section{
+  background:#FFFFFF!important;
+  border:1px solid #DDE5EF!important;
+  border-radius:4px!important;
+  box-shadow:0 6px 18px rgba(16,32,51,.045)!important;
+}
+body.theme-corporate h2,
+body.theme-corporate h3{color:#0F2F4F}
+body.theme-corporate h2:after{
+  width:44px;
+  height:3px;
+  background:#F2B705;
+  box-shadow:none!important;
+}
+body.theme-corporate .kpi,
+body.theme-corporate .panel,
+body.theme-corporate article,
+body.theme-corporate .signal,
+body.theme-corporate .condition-card,
+body.theme-corporate .simulator,
+body.theme-corporate .condition-simulator,
+body.theme-corporate .rank-panel,
+body.theme-corporate .xrec .rec-card,
+body.theme-corporate .viz-insight-item,
+body.theme-corporate .sim-option{
+  background:#FFFFFF!important;
+  border:1px solid #DDE5EF!important;
+  border-radius:4px!important;
+  box-shadow:none!important;
+}
+body.theme-corporate .kpi{border-left:4px solid #00529B!important}
+body.theme-corporate .kpi:nth-child(2){border-left-color:#F2B705!important}
+body.theme-corporate .kpi strong{color:#00529B;text-shadow:none!important}
+body.theme-corporate .table,
+body.theme-corporate .indicator-matrix-wrap,
+body.theme-corporate .config-matrix-wrap{
+  border:1px solid #DDE5EF!important;
+  box-shadow:none!important;
+}
+body.theme-corporate th{
+  background:#00529B!important;
+  box-shadow:none!important;
+}
+body.theme-corporate .track{height:16px;background:#E8EEF5!important;box-shadow:none!important}
+body.theme-corporate .track i{
+  background:#00529B!important;
+  box-shadow:none!important;
+}
+body.theme-corporate .bar.xcmg .track i{background:#F2B705!important}
+body.theme-corporate .bar span,
+body.theme-corporate .indicator-cell,
+body.theme-corporate .config-cell{box-shadow:none!important}
+body.theme-corporate svg.radar,
+body.theme-corporate svg.quadrant,
+body.theme-corporate .factor-radar-wrap svg{filter:none!important}
+body.theme-corporate .rank-toggle,
+body.theme-corporate .radar-filter button{
+  box-shadow:none!important;
+  border-radius:3px!important;
+}
+body.theme-corporate .radar-filter button.is-active,
+body.theme-corporate .rank-toggle.active{
+  background:#F2B705!important;
+  color:#08213D!important;
+}
+body.theme-corporate .back-top{
+  box-shadow:0 4px 12px rgba(16,32,51,.12)!important;
+}
+body.theme-corporate .source-links{
+  background:#F8FAFC;
+  border-left-color:#00529B;
+}
+@media(max-width:1100px){
+  body.theme-corporate .shell{display:block}
+  body.theme-corporate .hero{grid-template-columns:1fr}
+  body.theme-corporate .hero-media{min-height:180px}
+  body.theme-corporate main{padding:14px}
+}
+/* XCMG CORPORATE MINIMAL THEME END */
+</style></head><body class="theme-corporate"><div class="shell"><nav><h1><img src="assets/xcmg-logo.svg" alt="XCMG"><span>小挖竞品看板</span></h1><a href="#summary">领导总览</a><a href="#ranking">工况综合排名</a><a href="#overallperf">整体性能评分</a><a href="#visuals">可视化驾驶舱</a><a href="#conditions">工况总览</a><a href="#cond1">狭窄空间 / 市政庭院</a><a href="#cond2">沟槽 / 基础深挖</a><a href="#cond3">土方装车 / 短循环效率</a><a href="#cond4">破碎 / 多属具作业</a><a href="#cond5">坡地 / 软土 / 吊装稳定</a><a href="#cond6">租赁 / 快速转场 / 多客户通用</a><a href="#allscore">全量明细</a></nav><main><div class="hero corporate-hero"><div class="hero-copy"><div class="brand-lockup"><img src="assets/xcmg-logo.svg" alt="XCMG"><span>Mini Excavator Competitive Dashboard</span></div><small>EXECUTIVE COMPETITIVE DASHBOARD</small><h1>XCMG 3.5 吨级小挖竞品分析看板</h1><p>围绕工况适配、参数短板、配置贡献和提升模拟，形成面向产品决策的竞品分析视图。</p><div class="hero-actions"><a class="download-btn" href="original-data.xlsx" download="XCMG_原始竞品数据.xlsx">导出原始数据</a></div></div><div class="hero-media"><img src="assets/xcmg-xe35u-official.png" alt="XCMG XE35U 官方产品图"></div></div><section id="summary"><h2>领导总览</h2><div class="kpis"><div class="kpi"><span>工况综合领先</span><strong>沃尔沃 EC37</strong><span>57.8 分</span></div><div class="kpi"><span>XCMG工况位置</span><strong>第 7</strong><span>48.9 分 / 覆盖率 97%</span></div><div class="kpi"><span>分析工况</span><strong>6</strong><span>按常见小挖场景拆分</span></div><div class="kpi"><span>明细行数</span><strong>680</strong><span>指标 + 配置贡献</span></div></div>
 
 
 
