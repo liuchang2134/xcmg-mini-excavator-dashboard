@@ -682,6 +682,113 @@ body.theme-corporate #ranking > .grid2 > .table td{
 }
 /* XCMG RANKING ALIGNMENT END */
 
+
+/* XCMG CONDITION RADAR DENSITY START */
+body.theme-corporate .condition-factor-radar{
+  overflow:hidden!important;
+}
+body.theme-corporate .condition-factor-radar .factor-radar-layout{
+  display:grid!important;
+  grid-template-columns:minmax(620px,700px) 360px!important;
+  gap:18px!important;
+  justify-content:center!important;
+  align-items:center!important;
+  width:100%!important;
+  margin:0!important;
+}
+body.theme-corporate .condition-factor-radar .factor-radar-wrap{
+  min-height:340px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  align-items:center!important;
+  overflow:visible!important;
+}
+body.theme-corporate .condition-factor-radar .factor-radar-svg{
+  width:min(100%,620px)!important;
+  max-width:620px!important;
+  height:auto!important;
+  margin:0 auto!important;
+}
+body.theme-corporate .condition-factor-radar .factor-legend{
+  max-width:760px!important;
+  justify-content:center!important;
+  gap:6px 10px!important;
+  margin:10px auto 0!important;
+  line-height:1.35!important;
+}
+body.theme-corporate .condition-factor-radar .factor-side{
+  width:100%!important;
+  max-width:360px!important;
+  align-self:center!important;
+}
+body.theme-corporate .condition-factor-radar .factor-side th,
+body.theme-corporate .condition-factor-radar .factor-side td{
+  padding:6px 8px!important;
+}
+body.theme-corporate .condition-factor-radar .factor-side-note{
+  padding:8px 10px!important;
+}
+@media(max-width:1250px){
+  body.theme-corporate .condition-factor-radar .factor-radar-layout{
+    grid-template-columns:1fr!important;
+  }
+  body.theme-corporate .condition-factor-radar .factor-side{
+    max-width:none!important;
+  }
+}
+/* XCMG CONDITION RADAR DENSITY END */
+
+
+
+/* XCMG CONDITION OVERVIEW DENSITY START */
+body.theme-corporate .condition-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+  align-items:stretch!important;
+}
+body.theme-corporate .condition-grid .condition-card{
+  padding:12px 14px!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+body.theme-corporate .condition-grid .condition-card h3{
+  margin:0 0 8px!important;
+  font-size:15px!important;
+  line-height:1.25!important;
+  color:#003A70!important;
+}
+body.theme-corporate .condition-grid .condition-card p{
+  margin:4px 0!important;
+  font-size:12px!important;
+  line-height:1.45!important;
+  color:#31475C!important;
+}
+body.theme-corporate .condition-grid .condition-card .tags{
+  margin:7px 0!important;
+  padding:6px 8px!important;
+  border-left:3px solid #F2B705!important;
+  background:#F8FAFC!important;
+  color:#003A70!important;
+  font-weight:800!important;
+}
+body.theme-corporate .condition-grid .condition-card b{
+  color:#003A70!important;
+}
+@media(max-width:1300px){
+  body.theme-corporate .condition-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:760px){
+  body.theme-corporate .condition-grid{
+    grid-template-columns:1fr!important;
+  }
+}
+/* XCMG CONDITION OVERVIEW DENSITY END */
+
 </style></head><body class="theme-corporate"><div class="shell"><nav><h1><img src="assets/xcmg-logo.svg" alt="XCMG"><span>小挖竞品看板</span></h1><a href="#summary">领导总览</a><a href="#ranking">工况综合排名</a><a href="#overallperf">整体性能评分</a><a href="#visuals">可视化驾驶舱</a><a href="#conditions">工况总览</a><a href="#cond1">狭窄空间 / 市政庭院</a><a href="#cond2">沟槽 / 基础深挖</a><a href="#cond3">土方装车 / 短循环效率</a><a href="#cond4">破碎 / 多属具作业</a><a href="#cond5">坡地 / 软土 / 吊装稳定</a><a href="#cond6">租赁 / 快速转场 / 多客户通用</a><a href="#allscore">全量明细</a></nav><main><div class="hero corporate-hero"><div class="hero-copy"><div class="brand-lockup"><img src="assets/xcmg-logo.svg" alt="XCMG"><span>Mini Excavator Competitive Dashboard</span></div><small>EXECUTIVE COMPETITIVE DASHBOARD</small><h1>XCMG 3.5 吨级小挖竞品分析看板</h1><p>围绕工况适配、参数短板、配置贡献和提升模拟，形成面向产品决策的竞品分析视图。</p><div class="hero-actions"><a class="download-btn" href="original-data.xlsx" download="XCMG_原始竞品数据.xlsx">导出原始数据</a></div></div><div class="hero-media"><img src="assets/xcmg-xe35u-official.png" alt="XCMG XE35U 官方产品图"></div></div><section id="summary"><h2>领导总览</h2><div class="kpis"><div class="kpi"><span>工况综合领先</span><strong>沃尔沃 EC37</strong><span>57.8 分</span></div><div class="kpi"><span>XCMG工况位置</span><strong>第 7</strong><span>48.9 分 / 覆盖率 97%</span></div><div class="kpi"><span>分析工况</span><strong>6</strong><span>按常见小挖场景拆分</span></div><div class="kpi"><span>明细行数</span><strong>680</strong><span>指标 + 配置贡献</span></div></div>
 
 
