@@ -1092,6 +1092,65 @@ body.theme-corporate section[id^="cond"] .condition-factor-radar .factor-side{
 }
 /* XCMG CONDITION RADAR RANKING ROW END */
 
+
+
+/* XCMG FACTOR RADAR INTERACTION START */
+body.theme-corporate .condition-factor-radar .factor-interaction-note{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin:0 0 8px;
+  color:#40566B;
+  font-size:12px;
+  line-height:1.45;
+}
+body.theme-corporate .condition-factor-radar .factor-current{
+  color:#003A70;
+  font-weight:900;
+  white-space:nowrap;
+}
+body.theme-corporate .condition-factor-radar .factor-poly{
+  cursor:pointer;
+  transition:opacity .16s ease, stroke-width .16s ease, fill-opacity .16s ease, filter .16s ease;
+}
+body.theme-corporate .condition-factor-radar .factor-poly.is-muted{
+  opacity:.08!important;
+  fill-opacity:.01!important;
+}
+body.theme-corporate .condition-factor-radar .factor-poly.is-active{
+  opacity:1!important;
+  stroke-width:4.2!important;
+  fill-opacity:.18!important;
+  filter:drop-shadow(0 2px 4px rgba(0,58,112,.22));
+}
+body.theme-corporate .condition-factor-radar .factor-poly.xcmg.is-active{
+  stroke-width:4.8!important;
+  fill-opacity:.24!important;
+}
+body.theme-corporate .condition-factor-radar .factor-legend span{
+  cursor:pointer;
+  border:1px solid transparent;
+  border-radius:3px;
+  padding:2px 4px;
+  user-select:none;
+}
+body.theme-corporate .condition-factor-radar .factor-legend span.is-muted{
+  opacity:.32;
+}
+body.theme-corporate .condition-factor-radar .factor-legend span.is-active{
+  border-color:#F2B705;
+  background:#FFF7D6;
+  color:#003A70;
+  font-weight:900;
+}
+body.theme-corporate .condition-factor-radar .factor-poly:focus-visible,
+body.theme-corporate .condition-factor-radar .factor-legend span:focus-visible{
+  outline:3px solid rgba(0,82,155,.25);
+  outline-offset:2px;
+}
+/* XCMG FACTOR RADAR INTERACTION END */
+
 </style></head><body class="theme-corporate"><div class="shell"><nav><h1><img src="assets/xcmg-logo.svg" alt="XCMG"><span>小挖竞品看板</span></h1><a href="#summary">领导总览</a><a href="#ranking">工况综合排名</a><a href="#overallperf">整体性能评分</a><a href="#visuals">可视化驾驶舱</a><a href="#conditions">工况总览</a><a href="#cond1">狭窄空间 / 市政庭院</a><a href="#cond2">沟槽 / 基础深挖</a><a href="#cond3">土方装车 / 短循环效率</a><a href="#cond4">破碎 / 多属具作业</a><a href="#cond5">坡地 / 软土 / 吊装稳定</a><a href="#cond6">租赁 / 快速转场 / 多客户通用</a><a href="#allscore">全量明细</a></nav><main><div class="hero corporate-hero"><div class="hero-copy"><div class="brand-lockup"><img src="assets/xcmg-logo.svg" alt="XCMG"><span>Mini Excavator Competitive Dashboard</span></div><small>EXECUTIVE COMPETITIVE DASHBOARD</small><h1>XCMG 3.5 吨级小挖竞品分析看板</h1><p>围绕工况适配、参数短板、配置贡献和提升模拟，形成面向产品决策的竞品分析视图。</p><div class="hero-actions"><a class="download-btn" href="original-data.xlsx" download="XCMG_原始竞品数据.xlsx">导出原始数据</a></div></div><div class="hero-media"><img src="assets/xcmg-xe35u-official.png" alt="XCMG XE35U 官方产品图"></div></div><section id="summary"><h2>领导总览</h2><div class="kpis"><div class="kpi"><span>工况综合领先</span><strong>沃尔沃 EC37</strong><span>57.8 分</span></div><div class="kpi"><span>XCMG工况位置</span><strong>第 7</strong><span>48.9 分 / 覆盖率 97%</span></div><div class="kpi"><span>分析工况</span><strong>6</strong><span>按常见小挖场景拆分</span></div><div class="kpi"><span>明细行数</span><strong>680</strong><span>指标 + 配置贡献</span></div></div>
 
 
@@ -1392,4 +1451,91 @@ syncTopButton();
   }
 })();
 </script>
+
+
+<script>
+/* XCMG FACTOR RADAR INTERACTION START */
+(function(){
+  function productNameFromLegend(node){
+    return (node.textContent || '').replace(/\s+/g,' ').trim();
+  }
+
+  function setupFactorRadars(){
+    document.querySelectorAll('.condition-factor-radar').forEach(function(panel){
+      if(panel.dataset.factorHoverReady === '1') return;
+      panel.dataset.factorHoverReady = '1';
+
+      var svg = panel.querySelector('.factor-radar-svg');
+      var series = Array.from(panel.querySelectorAll('.factor-poly'));
+      var legend = Array.from(panel.querySelectorAll('.factor-legend span'));
+      if(!svg || !series.length || !legend.length) return;
+
+      series.forEach(function(item){
+        var title = item.querySelector('title');
+        var product = title ? title.textContent.trim() : '';
+        item.dataset.product = product;
+        item.setAttribute('tabindex','0');
+        item.setAttribute('role','button');
+        item.setAttribute('aria-label', product ? ('突出显示 ' + product) : '突出显示品牌');
+      });
+      legend.forEach(function(item){
+        var product = productNameFromLegend(item);
+        item.dataset.product = product;
+        item.setAttribute('tabindex','0');
+        item.setAttribute('role','button');
+        item.setAttribute('aria-label', '突出显示 ' + product);
+      });
+
+      var note = panel.querySelector('.factor-interaction-note');
+      if(!note){
+        note = document.createElement('div');
+        note.className = 'factor-interaction-note';
+        note.innerHTML = '<span>悬浮品牌图例或雷达线，可单独查看该品牌；移开后恢复全部。</span><span class="factor-current">当前：全部品牌</span>';
+        var heading = panel.querySelector('h3');
+        if(heading && heading.nextSibling){
+          panel.insertBefore(note, heading.nextSibling);
+        }else{
+          panel.insertBefore(note, panel.firstChild);
+        }
+      }
+      var current = note.querySelector('.factor-current');
+
+      function showProduct(product){
+        panel.dataset.activeProduct = product || '';
+        series.forEach(function(item){
+          var active = !product || item.dataset.product === product;
+          item.classList.toggle('is-muted', !active);
+          item.classList.toggle('is-active', !!product && item.dataset.product === product);
+        });
+        legend.forEach(function(item){
+          var active = !product || item.dataset.product === product;
+          item.classList.toggle('is-muted', !active);
+          item.classList.toggle('is-active', !!product && item.dataset.product === product);
+        });
+        if(current) current.textContent = product ? ('当前：' + product) : '当前：全部品牌';
+      }
+
+      function bindHover(node){
+        node.addEventListener('mouseenter', function(){ showProduct(node.dataset.product); });
+        node.addEventListener('focus', function(){ showProduct(node.dataset.product); });
+      }
+      series.forEach(bindHover);
+      legend.forEach(bindHover);
+      panel.addEventListener('mouseleave', function(){ showProduct(''); });
+      panel.addEventListener('focusout', function(e){
+        if(!panel.contains(e.relatedTarget)) showProduct('');
+      });
+      showProduct('');
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', setupFactorRadars);
+  }else{
+    setupFactorRadars();
+  }
+})();
+/* XCMG FACTOR RADAR INTERACTION END */
+</script>
+
 </body></html>
