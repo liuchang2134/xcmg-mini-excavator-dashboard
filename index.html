@@ -864,6 +864,56 @@ body.theme-corporate .condition-factor-radar .factor-side-note{
 }
 /* XCMG FACTOR SIDE READABILITY END */
 
+
+/* XCMG SIMULATOR RESET CONTROLS START */
+body.theme-corporate .sim-controlbar{
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:0 0 8px;
+  padding:7px 9px;
+  background:#F8FBFE;
+  border:1px solid #D6E2EE;
+  border-radius:4px;
+  color:#40566B;
+  font-size:12px;
+  line-height:1.3;
+}
+body.theme-corporate .condition-simulator .sim-controlbar{
+  margin:0 0 2px;
+}
+body.theme-corporate .sim-selected-count{
+  color:#24405C;
+  font-weight:700;
+}
+body.theme-corporate .sim-reset-btn{
+  border:1px solid #C6D6E6;
+  background:#FFFFFF;
+  color:#00529B;
+  border-radius:4px;
+  padding:4px 9px;
+  font-size:12px;
+  font-weight:900;
+  line-height:1.2;
+  cursor:pointer;
+}
+body.theme-corporate .sim-reset-btn:hover:not(:disabled){
+  border-color:#00529B;
+  background:#EAF2FA;
+}
+body.theme-corporate .sim-reset-btn:disabled{
+  color:#8A9AAD;
+  background:#F3F7FB;
+  cursor:not-allowed;
+}
+body.theme-corporate .sim-reset-btn:focus-visible{
+  outline:3px solid rgba(0,82,155,.25);
+  outline-offset:2px;
+}
+/* XCMG SIMULATOR RESET CONTROLS END */
+
 </style></head><body class="theme-corporate"><div class="shell"><nav><h1><img src="assets/xcmg-logo.svg" alt="XCMG"><span>小挖竞品看板</span></h1><a href="#summary">领导总览</a><a href="#ranking">工况综合排名</a><a href="#overallperf">整体性能评分</a><a href="#visuals">可视化驾驶舱</a><a href="#conditions">工况总览</a><a href="#cond1">狭窄空间 / 市政庭院</a><a href="#cond2">沟槽 / 基础深挖</a><a href="#cond3">土方装车 / 短循环效率</a><a href="#cond4">破碎 / 多属具作业</a><a href="#cond5">坡地 / 软土 / 吊装稳定</a><a href="#cond6">租赁 / 快速转场 / 多客户通用</a><a href="#allscore">全量明细</a></nav><main><div class="hero corporate-hero"><div class="hero-copy"><div class="brand-lockup"><img src="assets/xcmg-logo.svg" alt="XCMG"><span>Mini Excavator Competitive Dashboard</span></div><small>EXECUTIVE COMPETITIVE DASHBOARD</small><h1>XCMG 3.5 吨级小挖竞品分析看板</h1><p>围绕工况适配、参数短板、配置贡献和提升模拟，形成面向产品决策的竞品分析视图。</p><div class="hero-actions"><a class="download-btn" href="original-data.xlsx" download="XCMG_原始竞品数据.xlsx">导出原始数据</a></div></div><div class="hero-media"><img src="assets/xcmg-xe35u-official.png" alt="XCMG XE35U 官方产品图"></div></div><section id="summary"><h2>领导总览</h2><div class="kpis"><div class="kpi"><span>工况综合领先</span><strong>沃尔沃 EC37</strong><span>57.8 分</span></div><div class="kpi"><span>XCMG工况位置</span><strong>第 7</strong><span>48.9 分 / 覆盖率 97%</span></div><div class="kpi"><span>分析工况</span><strong>6</strong><span>按常见小挖场景拆分</span></div><div class="kpi"><span>明细行数</span><strong>680</strong><span>指标 + 配置贡献</span></div></div>
 
 
@@ -971,9 +1021,23 @@ document.querySelectorAll('.simulator').forEach(sim=>{
   const summary=sim.querySelector('.rank-summary');
   const panel=sim.querySelector('.rank-panel');
   const toggle=sim.querySelector('.rank-toggle') || sim.closest('.condition-sim-block')?.querySelector('.rank-toggle');
+  const inputs=Array.from(sim.querySelectorAll('input[type="checkbox"]'));
+  let controlbar=Array.from(sim.children).find(el=>el.classList.contains('sim-controlbar'));
+  if(!controlbar){
+    controlbar=document.createElement('div');
+    controlbar.className='sim-controlbar';
+    controlbar.innerHTML='<span class="sim-selected-count">已选 0 项</span><button class="sim-reset-btn" type="button" disabled>复原所选</button>';
+    sim.insertBefore(controlbar, sim.firstElementChild);
+  }
+  const selectedText=controlbar.querySelector('.sim-selected-count');
+  const resetButton=controlbar.querySelector('.sim-reset-btn');
+  resetButton?.addEventListener('click',()=>{
+    inputs.forEach(i=>{ i.checked=false; });
+    update();
+  });
   function currentScore(){
     let score=base;
-    sim.querySelectorAll('input:checked').forEach(i=>score+=Number(i.dataset.delta||0));
+    inputs.filter(i=>i.checked).forEach(i=>score+=Number(i.dataset.delta||0));
     return Math.min(100, score);
   }
   function ranking(score){
@@ -992,12 +1056,15 @@ document.querySelectorAll('.simulator').forEach(sim=>{
       const next=xIndex>0?rows[xIndex-1]:null;
       summary.textContent=next?`距前一名 ${next.name} 还差 ${(next.score-score).toFixed(1)} 分`:'已达到该工况第一名';
     }
+    const selectedCount=inputs.filter(i=>i.checked).length;
+    if(selectedText) selectedText.textContent='已选 '+selectedCount+' 项';
+    if(resetButton) resetButton.disabled=selectedCount===0;
     if(panel){
       const max=Math.max(...rows.map(r=>r.score),1);
       panel.innerHTML=rows.map(r=>`<div class="${r.isXcmg?'rank-row xcmg':'rank-row'}"><span>${r.rank}</span><b>${r.name}</b><i><em style="width:${(r.score/max*100).toFixed(1)}%"></em></i><strong>${r.score.toFixed(1)}</strong></div>`).join('');
     }
   }
-  sim.querySelectorAll('input').forEach(i=>i.addEventListener('change', update));
+  inputs.forEach(i=>i.addEventListener('change', update));
   toggle?.addEventListener('click',()=>{
     if(!panel) return;
     panel.hidden=!panel.hidden;
