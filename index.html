@@ -914,6 +914,53 @@ body.theme-corporate .sim-reset-btn:focus-visible{
 }
 /* XCMG SIMULATOR RESET CONTROLS END */
 
+
+
+/* XCMG QUADRANT EXPLANATION START */
+body.theme-corporate .visual-quadrant-card .quadrant-explain{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+body.theme-corporate .visual-quadrant-card .quadrant-explain-card{
+  border:1px solid #D6E2EE;
+  background:#FFFFFF;
+  border-radius:4px;
+  padding:10px 12px;
+  color:#24405C;
+  min-height:112px;
+}
+body.theme-corporate .visual-quadrant-card .quadrant-explain-card b{
+  display:block;
+  color:#003A70;
+  font-size:13px;
+  margin-bottom:6px;
+}
+body.theme-corporate .visual-quadrant-card .quadrant-explain-card p{
+  margin:0;
+  font-size:12px;
+  line-height:1.62;
+}
+body.theme-corporate .visual-quadrant-card .quadrant-explain-card strong{
+  color:#B42318;
+}
+body.theme-corporate .visual-quadrant-card .quadrant-explain-card em{
+  color:#007A4D;
+  font-style:normal;
+  font-weight:900;
+}
+body.theme-corporate .visual-quadrant-card .quadrant-explain-card.xcmg{
+  border-left:4px solid #F2B705;
+  background:#FFFCF0;
+}
+@media(max-width:1100px){
+  body.theme-corporate .visual-quadrant-card .quadrant-explain{
+    grid-template-columns:1fr;
+  }
+}
+/* XCMG QUADRANT EXPLANATION END */
+
 </style></head><body class="theme-corporate"><div class="shell"><nav><h1><img src="assets/xcmg-logo.svg" alt="XCMG"><span>小挖竞品看板</span></h1><a href="#summary">领导总览</a><a href="#ranking">工况综合排名</a><a href="#overallperf">整体性能评分</a><a href="#visuals">可视化驾驶舱</a><a href="#conditions">工况总览</a><a href="#cond1">狭窄空间 / 市政庭院</a><a href="#cond2">沟槽 / 基础深挖</a><a href="#cond3">土方装车 / 短循环效率</a><a href="#cond4">破碎 / 多属具作业</a><a href="#cond5">坡地 / 软土 / 吊装稳定</a><a href="#cond6">租赁 / 快速转场 / 多客户通用</a><a href="#allscore">全量明细</a></nav><main><div class="hero corporate-hero"><div class="hero-copy"><div class="brand-lockup"><img src="assets/xcmg-logo.svg" alt="XCMG"><span>Mini Excavator Competitive Dashboard</span></div><small>EXECUTIVE COMPETITIVE DASHBOARD</small><h1>XCMG 3.5 吨级小挖竞品分析看板</h1><p>围绕工况适配、参数短板、配置贡献和提升模拟，形成面向产品决策的竞品分析视图。</p><div class="hero-actions"><a class="download-btn" href="original-data.xlsx" download="XCMG_原始竞品数据.xlsx">导出原始数据</a></div></div><div class="hero-media"><img src="assets/xcmg-xe35u-official.png" alt="XCMG XE35U 官方产品图"></div></div><section id="summary"><h2>领导总览</h2><div class="kpis"><div class="kpi"><span>工况综合领先</span><strong>沃尔沃 EC37</strong><span>57.8 分</span></div><div class="kpi"><span>XCMG工况位置</span><strong>第 7</strong><span>48.9 分 / 覆盖率 97%</span></div><div class="kpi"><span>分析工况</span><strong>6</strong><span>按常见小挖场景拆分</span></div><div class="kpi"><span>明细行数</span><strong>680</strong><span>指标 + 配置贡献</span></div></div>
 
 
@@ -991,7 +1038,22 @@ body.theme-corporate .sim-reset-btn:focus-visible{
       <div class="rank-panel" hidden></div>
     </div>
     </article>
-        <article class="visual-quadrant-card"><h3>竞品定位象限图</h3><svg class="quadrant" viewbox="0 0 380 260"><line x1="40" y1="230" x2="350" y2="230"></line><line x1="40" y1="230" x2="40" y2="30"></line><text x="160" y="252">综合工况能力</text><text x="4" y="28">配置贡献</text><g class="q-label" data-product="沃尔沃 EC37"><line x1="313.5" y1="74.6" x2="318" y2="54"></line><rect x="286" y="39" width="72" height="24"></rect><text x="291" y="50">沃尔沃 EC37</text><text class="score" x="291" y="59">工况60.7 / 配置49.4</text></g><g class="q-label" data-product="现代 HX35AZ"><line x1="296.2" y1="77.3" x2="316" y2="88"></line><rect x="286" y="88" width="74" height="24"></rect><text x="291" y="99">现代 HX35AZ</text><text class="score" x="291" y="108">工况59.4 / 配置50.4</text></g><g class="q-label" data-product="卡特 303.5CR"><line x1="225.8" y1="56.8" x2="238" y2="38"></line><rect x="206" y="20" width="78" height="24"></rect><text x="211" y="31">卡特 303.5CR</text><text class="score" x="211" y="40">工况54.1 / 配置60.8</text></g><g class="q-label" data-product="迪尔 35P"><line x1="232.5" y1="98.5" x2="258" y2="126"></line><rect x="248" y="126" width="64" height="24"></rect><text x="253" y="137">迪尔 35P</text><text class="score" x="253" y="146">工况54.6 / 配置33.5</text></g><g class="q-label" data-product="山猫 E35"><line x1="200.6" y1="77.0" x2="196" y2="142"></line><rect x="166" y="145" width="64" height="24"></rect><text x="171" y="156">山猫 E35</text><text class="score" x="171" y="165">工况52.2 / 配置40.8</text></g><g class="q-label" data-product="斗山 DX35Z-7"><line x1="156.8" y1="99.9" x2="112" y2="105"></line><rect x="55" y="90" width="78" height="24"></rect><text x="60" y="101">斗山 DX35Z-7</text><text class="score" x="60" y="110">工况48.9 / 配置32.4</text></g><g class="q-label xcmg" data-product="XCMG XE35U"><line x1="156.8" y1="78.7" x2="128" y2="67"></line><rect x="54" y="45" width="82" height="26"></rect><text x="59" y="57">XCMG XE35U</text><text class="score" x="59" y="66">工况48.9 / 配置33.2</text></g><g class="q-label" data-product="久保田 KX033"><line x1="125.0" y1="210.9" x2="139" y2="195"></line><rect x="140" y="174" width="78" height="24"></rect><text x="145" y="185">久保田 KX033</text><text class="score" x="145" y="194">工况46.5 / 配置33.4</text></g><g class="q-label" data-product="三一 SY35U"><line x1="87.8" y1="168.5" x2="83" y2="150"></line><rect x="42" y="126" width="66" height="24"></rect><text x="47" y="137">三一 SY35U</text><text class="score" x="47" y="146">工况43.7 / 配置25.6</text></g><g class="q-label" data-product="久保田 U35"><line x1="66.5" y1="223.2" x2="70" y2="215"></line><rect x="38" y="191" width="68" height="24"></rect><text x="43" y="202">久保田 U35</text><text class="score" x="43" y="211">工况42.1 / 配置29.6</text></g><g class="q-points"><g class="q-point" data-product="沃尔沃 EC37"><circle cx="313.5" cy="74.6" r="6"></circle></g><g class="q-point" data-product="现代 HX35AZ"><circle cx="296.2" cy="77.3" r="6"></circle></g><g class="q-point" data-product="迪尔 35P"><circle cx="232.5" cy="98.5" r="6"></circle></g><g class="q-point" data-product="卡特 303.5CR"><circle cx="225.8" cy="56.8" r="6"></circle></g><g class="q-point" data-product="山猫 E35"><circle cx="200.6" cy="77.0" r="6"></circle></g><g class="q-point" data-product="斗山 DX35Z-7"><circle cx="156.8" cy="99.9" r="6"></circle></g><g class="q-point q-xcmg" data-product="XCMG XE35U"><circle cx="156.8" cy="78.7" r="7"></circle></g><g class="q-point" data-product="久保田 KX033"><circle cx="125.0" cy="210.9" r="6"></circle></g><g class="q-point" data-product="三一 SY35U"><circle cx="87.8" cy="168.5" r="6"></circle></g><g class="q-point" data-product="久保田 U35"><circle cx="66.5" cy="223.2" r="6"></circle></g></g></svg></article>
+        <article class="visual-quadrant-card"><h3>竞品定位象限图</h3><svg class="quadrant" viewbox="0 0 380 260"><line x1="40" y1="230" x2="350" y2="230"></line><line x1="40" y1="230" x2="40" y2="30"></line><text x="160" y="252">综合工况能力</text><text x="4" y="28">配置贡献</text><g class="q-label" data-product="沃尔沃 EC37"><line x1="313.5" y1="74.6" x2="318" y2="54"></line><rect x="286" y="39" width="72" height="24"></rect><text x="291" y="50">沃尔沃 EC37</text><text class="score" x="291" y="59">工况60.7 / 配置49.4</text></g><g class="q-label" data-product="现代 HX35AZ"><line x1="296.2" y1="77.3" x2="316" y2="88"></line><rect x="286" y="88" width="74" height="24"></rect><text x="291" y="99">现代 HX35AZ</text><text class="score" x="291" y="108">工况59.4 / 配置50.4</text></g><g class="q-label" data-product="卡特 303.5CR"><line x1="225.8" y1="56.8" x2="238" y2="38"></line><rect x="206" y="20" width="78" height="24"></rect><text x="211" y="31">卡特 303.5CR</text><text class="score" x="211" y="40">工况54.1 / 配置60.8</text></g><g class="q-label" data-product="迪尔 35P"><line x1="232.5" y1="98.5" x2="258" y2="126"></line><rect x="248" y="126" width="64" height="24"></rect><text x="253" y="137">迪尔 35P</text><text class="score" x="253" y="146">工况54.6 / 配置33.5</text></g><g class="q-label" data-product="山猫 E35"><line x1="200.6" y1="77.0" x2="196" y2="142"></line><rect x="166" y="145" width="64" height="24"></rect><text x="171" y="156">山猫 E35</text><text class="score" x="171" y="165">工况52.2 / 配置40.8</text></g><g class="q-label" data-product="斗山 DX35Z-7"><line x1="156.8" y1="99.9" x2="112" y2="105"></line><rect x="55" y="90" width="78" height="24"></rect><text x="60" y="101">斗山 DX35Z-7</text><text class="score" x="60" y="110">工况48.9 / 配置32.4</text></g><g class="q-label xcmg" data-product="XCMG XE35U"><line x1="156.8" y1="78.7" x2="128" y2="67"></line><rect x="54" y="45" width="82" height="26"></rect><text x="59" y="57">XCMG XE35U</text><text class="score" x="59" y="66">工况48.9 / 配置33.2</text></g><g class="q-label" data-product="久保田 KX033"><line x1="125.0" y1="210.9" x2="139" y2="195"></line><rect x="140" y="174" width="78" height="24"></rect><text x="145" y="185">久保田 KX033</text><text class="score" x="145" y="194">工况46.5 / 配置33.4</text></g><g class="q-label" data-product="三一 SY35U"><line x1="87.8" y1="168.5" x2="83" y2="150"></line><rect x="42" y="126" width="66" height="24"></rect><text x="47" y="137">三一 SY35U</text><text class="score" x="47" y="146">工况43.7 / 配置25.6</text></g><g class="q-label" data-product="久保田 U35"><line x1="66.5" y1="223.2" x2="70" y2="215"></line><rect x="38" y="191" width="68" height="24"></rect><text x="43" y="202">久保田 U35</text><text class="score" x="43" y="211">工况42.1 / 配置29.6</text></g><g class="q-points"><g class="q-point" data-product="沃尔沃 EC37"><circle cx="313.5" cy="74.6" r="6"></circle></g><g class="q-point" data-product="现代 HX35AZ"><circle cx="296.2" cy="77.3" r="6"></circle></g><g class="q-point" data-product="迪尔 35P"><circle cx="232.5" cy="98.5" r="6"></circle></g><g class="q-point" data-product="卡特 303.5CR"><circle cx="225.8" cy="56.8" r="6"></circle></g><g class="q-point" data-product="山猫 E35"><circle cx="200.6" cy="77.0" r="6"></circle></g><g class="q-point" data-product="斗山 DX35Z-7"><circle cx="156.8" cy="99.9" r="6"></circle></g><g class="q-point q-xcmg" data-product="XCMG XE35U"><circle cx="156.8" cy="78.7" r="7"></circle></g><g class="q-point" data-product="久保田 KX033"><circle cx="125.0" cy="210.9" r="6"></circle></g><g class="q-point" data-product="三一 SY35U"><circle cx="87.8" cy="168.5" r="6"></circle></g><g class="q-point" data-product="久保田 U35"><circle cx="66.5" cy="223.2" r="6"></circle></g></g></svg>
+<div class="quadrant-explain">
+  <div class="quadrant-explain-card">
+    <b>读图方法</b>
+    <p>横轴是综合工况能力，越靠右说明 6 类典型工况适配越强；纵轴是配置贡献，越靠上说明配置对安全、效率和管理的支撑越充分。右上区域是“工况强、配置也强”的优先对标区，左下区域说明产品能力和配置包都偏弱。</p>
+  </div>
+  <div class="quadrant-explain-card xcmg">
+    <b>XCMG当前位置</b>
+    <p>XCMG XE35U 位于中左上位置，工况 <em>48.9</em>、配置 <em>33.2</em>。与沃尔沃 EC37 相比，工况低 <strong>11.8</strong>、配置低 <strong>16.2</strong>；与现代 HX35AZ 相比，工况低 <strong>10.5</strong>、配置低 <strong>17.2</strong>。说明 XCMG 当前不是单一配置问题，而是硬参数和配置包同时需要补齐。</p>
+  </div>
+  <div class="quadrant-explain-card">
+    <b>改进方向</b>
+    <p>短期先把点位向上推：补后视摄像头、坡度系统、自动停机、远程信息管理等可配置项目；中期再向右推：优化运输长度、动臂偏摆/紧凑尾部版本、行走速度和动力液压响应。目标是先超过斗山同工况位置，再接近山猫、卡特所在的中上区。</p>
+  </div>
+</div>
+</article>
       </div>
     </section><section id="ranking"><h2>工况综合排名（按6类工况）</h2><p class="rank-note plain-note">该排名按狭窄空间、沟槽、土方装车、破碎、坡地、租赁 6 类工况加权计算，用于判断不同产品在典型施工场景下的适配能力。</p><div class="grid2"><div><div class="bars"><div class="bar"><span>1</span><b>沃尔沃 EC37</b><div class="track"><i style="width:100.0%"></i></div><strong>60.7</strong><em>高</em></div><div class="bar"><span>2</span><b>现代 HX35AZ</b><div class="track"><i style="width:97.9%"></i></div><strong>59.4</strong><em>高</em></div><div class="bar"><span>3</span><b>迪尔 35P</b><div class="track"><i style="width:90.0%"></i></div><strong>54.6</strong><em>中</em></div><div class="bar"><span>4</span><b>卡特 303.5CR</b><div class="track"><i style="width:89.1%"></i></div><strong>54.1</strong><em>高</em></div><div class="bar"><span>5</span><b>山猫 E35</b><div class="track"><i style="width:86.0%"></i></div><strong>52.2</strong><em>低</em></div><div class="bar"><span>6</span><b>斗山 DX35Z-7</b><div class="track"><i style="width:80.6%"></i></div><strong>48.9</strong><em>中</em></div><div class="bar xcmg"><span>7</span><b>XCMG XE35U</b><div class="track"><i style="width:80.6%"></i></div><strong>48.9</strong><em>高</em></div><div class="bar"><span>8</span><b>久保田 KX033</b><div class="track"><i style="width:76.6%"></i></div><strong>46.5</strong><em>中</em></div><div class="bar"><span>9</span><b>三一 SY35U</b><div class="track"><i style="width:72.0%"></i></div><strong>43.7</strong><em>中</em></div><div class="bar"><span>10</span><b>久保田 U35</b><div class="track"><i style="width:69.4%"></i></div><strong>42.1</strong><em>中</em></div></div></div><div class="table "><table><thead><tr><th>产品</th><th>综合工况评分</th><th>平均数据覆盖率</th><th>综合置信等级</th><th>原表综合评分</th></tr></thead><tbody><tr><td>沃尔沃 EC37</td><td class="score-mid">60.7</td><td>1.0</td><td>高</td><td>3.5</td></tr><tr><td>现代 HX35AZ</td><td class="score-mid">59.4</td><td>1.0</td><td>高</td><td>3.0</td></tr><tr><td>迪尔 35P</td><td class="score-mid">54.6</td><td>0.8</td><td>中</td><td>2.9</td></tr><tr><td>卡特 303.5CR</td><td class="score-mid">54.1</td><td>1</td><td>高</td><td>3.3</td></tr><tr><td>山猫 E35</td><td class="score-mid">52.2</td><td>0.7</td><td>低</td><td>2.9</td></tr><tr><td>斗山 DX35Z-7</td><td class="score-bad">48.9</td><td>0.9</td><td>中</td><td>3.0</td></tr><tr class="xcmg-row"><td>XCMG XE35U</td><td class="score-bad">48.9</td><td>1.0</td><td>高</td><td>3.1</td></tr><tr><td>久保田 KX033</td><td class="score-bad">46.5</td><td>0.8</td><td>中</td><td>2.9</td></tr><tr><td>三一 SY35U</td><td class="score-bad">43.7</td><td>0.8</td><td>中</td><td>2.6</td></tr><tr><td>久保田 U35</td><td class="score-bad">42.1</td><td>0.8</td><td>中</td><td>3.2</td></tr></tbody></table></div></div><div class="xrec"><h3>综合竞争差距分析</h3><div class="rec-grid">
 <div class="rec-card"><b>狭窄与转场：尺寸、尾摆和视野要一起看</b><p>XCMG尾部回转半径表现不弱，但整机运输长度4960mm，较迪尔35P的4640mm长320mm；在庭院、巷道、拖车转运场景，这会直接影响掉头、装车和贴边作业。短期应把后视摄像头、坡度系统做成市政安全包，中期再压缩运输长度并优化动臂偏摆口径。</p></div>
