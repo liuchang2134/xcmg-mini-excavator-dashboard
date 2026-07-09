@@ -94,8 +94,19 @@
       font-size:13px;
       font-weight:900;
       border-bottom:3px solid transparent;
+      transition:color .16s ease,border-color .16s ease,background-color .16s ease,transform .16s ease;
     }
     .navLinks a:hover{color:var(--blue);border-bottom-color:var(--yellow)}
+    .navLinks a:focus-visible{
+      outline:3px solid rgba(245,180,0,.42);
+      outline-offset:2px;
+    }
+    .navLinks a:active,
+    .navLinks a.is-clicked{
+      transform:translateY(1px);
+      background:#edf5fb;
+      border-bottom-color:var(--yellow);
+    }
     .page{padding:22px 0 44px}
     .hero{
       display:grid;
@@ -146,23 +157,51 @@
       margin-top:24px;
     }
     .btn{
+      position:relative;
       min-height:38px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       padding:0 15px;
-      border:1px solid transparent;
+      border:1px solid #b9cde0;
       border-radius:4px;
       font-size:13px;
       font-weight:900;
       cursor:pointer;
-      transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+      overflow:hidden;
+      user-select:none;
+      transition:
+        transform .16s ease,
+        box-shadow .16s ease,
+        border-color .16s ease,
+        background-color .16s ease,
+        color .16s ease;
     }
-    .btn:hover{transform:translateY(-1px)}
-    .btn:active{transform:translateY(0)}
-    .btn.blue{background:var(--blue);color:#fff;box-shadow:0 8px 16px rgba(0,76,151,.18)}
-    .btn.yellow{background:var(--yellow);color:#102a43;box-shadow:0 8px 16px rgba(245,180,0,.18)}
+    .btn:hover{
+      transform:translateY(-1px);
+      border-color:var(--blue);
+      box-shadow:0 8px 18px rgba(0,76,151,.14);
+    }
+    .btn:active,
+    .btn.is-clicked{
+      transform:translateY(1px);
+      box-shadow:inset 0 0 0 2px rgba(245,180,0,.38);
+    }
+    .btn:focus-visible{
+      outline:3px solid rgba(245,180,0,.42);
+      outline-offset:2px;
+    }
+    .btn.blue{
+      background:var(--blue);
+      color:#fff;
+      border-color:var(--blue);
+      box-shadow:0 8px 16px rgba(0,76,151,.18);
+    }
+    .btn.blue:hover{background:#005cad;border-color:#005cad}
+    .btn.yellow{background:#edf5fb;color:var(--blue-ink);border-color:#bfd1e2}
     .btn.light{background:#edf5fb;color:var(--blue-ink);border-color:#bfd1e2}
+    .btn.yellow:hover,
+    .btn.light:hover{background:#fff;color:var(--blue)}
     .btn.disabled{background:#eef2f6;color:#728293;border-color:#d2dce6;cursor:not-allowed;box-shadow:none}
     .scopeLabel{
       display:inline-flex;
@@ -404,7 +443,11 @@
       font-size:11px;
       font-weight:900;
     }
-    .status.live{background:#fff0b8;color:#604500}
+    .status.live{
+      background:#edf5fb;
+      color:#31506b;
+      border:1px solid #bfd1e2;
+    }
     .lineBody p{
       margin:0;
       color:#405b73;
@@ -426,8 +469,8 @@
       border:1px solid var(--line);
     }
     .subLine.live{
-      background:#fffbec;
-      border-color:#e6c153;
+      background:#f7fafc;
+      border-color:var(--line);
     }
     .subLine b{
       display:block;
@@ -705,7 +748,7 @@
             <p class="heroLead">面向产品、销售和管理层的竞品竞争力总览，统一沉淀产品参数、配置差异、工况表现和数据来源。</p>
             <div class="heroActions">
               <a class="btn blue" href="#products">产品线矩阵</a>
-              <a class="btn yellow" href="#live">小挖分析资产</a>
+              <a class="btn light" href="#live">小挖分析资产</a>
               <a class="btn light" href="./">3.5 吨分析页</a>
             </div>
           </div>
@@ -776,18 +819,18 @@
                 <div class="subLine live">
                   <div><b>Small Excavators / 小挖</b><span>现有 1-2 吨、2-3 吨、3.5 吨三个吨级分析资产。</span></div>
                   <div class="tonnageLinks">
-                    <a class="btn yellow" href="./">3.5 吨</a>
-                    <a class="btn light" href="excavator-2-3t.html">2-3 吨</a>
-                    <a class="btn light" href="excavator-1-2t.html">1-2 吨</a>
+                    <a class="btn light" href="./" aria-label="打开 3.5 吨小挖分析页">3.5 吨</a>
+                    <a class="btn light" href="excavator-2-3t.html" aria-label="打开 2-3 吨小挖分析页">2-3 吨</a>
+                    <a class="btn light" href="excavator-1-2t.html" aria-label="打开 1-2 吨小挖分析页">1-2 吨</a>
                   </div>
                 </div>
                 <div class="subLine">
                   <div><b>Medium Excavators / 中挖</b><span>重点关注土方效率、破碎适配、吊装能力和油耗表现。</span></div>
-                  <div class="tonnageLinks"><span class="scopeLabel">评价维度</span></div>
+                  <div class="tonnageLinks"><a class="btn light" href="#method" aria-label="查看中挖评价维度">评价维度</a></div>
                 </div>
                 <div class="subLine">
                   <div><b>Large Excavators / 大挖</b><span>重点关注矿山装车、重载循环、可靠性和维护成本。</span></div>
-                  <div class="tonnageLinks"><span class="scopeLabel">评价维度</span></div>
+                  <div class="tonnageLinks"><a class="btn light" href="#method" aria-label="查看大挖评价维度">评价维度</a></div>
                 </div>
               </div>
             </div>
@@ -937,5 +980,13 @@
       <span>小挖 1-2 吨、2-3 吨、3.5 吨竞品分析资产</span>
     </div>
   </footer>
+  <script>
+    document.querySelectorAll('.btn[href], .navLinks a[href]').forEach((control) => {
+      control.addEventListener('click', () => {
+        control.classList.add('is-clicked');
+        window.setTimeout(() => control.classList.remove('is-clicked'), 260);
+      });
+    });
+  </script>
 </body>
 </html>
