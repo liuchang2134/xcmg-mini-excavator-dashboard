@@ -16,7 +16,19 @@ ASSET_DIR = ROOT / "assets" / "arc"
 
 SOURCE_FILES = [
     {
+        "slug": "excavator-35t",
+        "output": "index.html",
+        "label": "3.5 吨级",
+        "title": "XCMG XE35U 3.5 吨级小挖竞品分析看板",
+        "xcmg": "XCMG XE35U",
+        "source": DATA_DIR / "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
+        "download": "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe35u-official-cropped.jpg",
+        "image_source": "XCMG USA XE35U",
+    },
+    {
         "slug": "excavator-1-2t",
+        "output": "excavator-1-2t.html",
         "label": "1-2 吨级",
         "title": "XCMG XE19U 1-2 吨级小挖竞品分析看板",
         "xcmg": "XCMG XE19U",
@@ -27,6 +39,7 @@ SOURCE_FILES = [
     },
     {
         "slug": "excavator-2-3t",
+        "output": "excavator-2-3t.html",
         "label": "2-3 吨级",
         "title": "XCMG XE27U 2-3 吨级小挖竞品分析看板",
         "xcmg": "XCMG XE27U",
@@ -732,7 +745,7 @@ def render_simulator(model, condition):
                 continue
             delta = max(0, best - xs) * d["weight"]
             label = f"{d['item']}优化"
-            desc = "按本组竞品高水平测算，不代表立即可通过配置勾选实现。"
+            desc = "按竞品高水平目标测算，作为平台和尺寸优化方向。"
         if delta <= 0.25:
             continue
         options.append((delta, label, d["item"], desc))
@@ -880,7 +893,7 @@ def render_html(model):
       <div class="heroText">
         <span class="eyebrow">XCMG Excavator Competitive Dashboard</span>
         <h1>{esc(meta["title"])}</h1>
-        <p>按 3.5 吨小挖同一套方法，把参数、标选配、典型工况、配置贡献、差距来源和提升模拟拆开展示。结论均从用户提供 Excel 原始值计算，不用纯主观判断替代数据。</p>
+        <p>按统一小挖竞品对标方法，把参数、标选配、典型工况、配置贡献、差距来源和提升模拟拆开展示。结论均从用户提供 Excel 原始值计算，不用纯主观判断替代数据。</p>
         <div class="actions"><a class="btn blue" href="#conditions">查看工况分析</a><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="arc.html">返回 ARC</a></div>
       </div>
       <div class="heroMedia"><img src="{esc(meta["image"])}" alt="{esc(meta["xcmg"])} 产品图"></div>
@@ -1045,9 +1058,11 @@ def crop_product_image(src, dest):
 
 
 def sync_data_files():
-    DATA_DIR.mkdir(exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
     for meta in SOURCE_FILES:
-        shutil.copy2(meta["source"], DATA_DIR / meta["download"])
+        dest = DATA_DIR / meta["download"]
+        if meta["source"].resolve() != dest.resolve():
+            shutil.copy2(meta["source"], dest)
 
 
 def update_arc_page():
@@ -1108,7 +1123,7 @@ def update_arc_page():
           <div class="projectImage"><img src="assets/arc/xe27u-official-cropped.jpg" alt="XCMG XE27U"></div>
           <div class="projectBody">
             <h3>2-3 吨级小型挖掘机竞品对标</h3>
-            <p>XCMG XE27U 对比卡特、迪尔、山猫、久保田、沃尔沃、现代、斗山、三一等竞品，复用 3.5 吨项目的工况、参数和配置逻辑。</p>
+            <p>XCMG XE27U 对比卡特、迪尔、山猫、久保田、沃尔沃、现代、斗山、三一等竞品，复用统一工况、参数和配置逻辑。</p>
             <div class="factRow">
               <div class="fact"><b>6</b><span>典型工况</span></div>
               <div class="fact"><b>9</b><span>对标产品</span></div>
@@ -1147,7 +1162,7 @@ def main():
     for meta in SOURCE_FILES:
         wb = load_workbook(meta["source"])
         model = build_model(wb, meta)
-        (ROOT / f"{meta['slug']}.html").write_text(render_html(model), encoding="utf-8", newline="\n")
+        (ROOT / meta["output"]).write_text(render_html(model), encoding="utf-8", newline="\n")
     update_arc_page()
 
 
