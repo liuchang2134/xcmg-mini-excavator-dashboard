@@ -665,23 +665,6 @@
       font-size:13px;
       line-height:1.65;
     }
-    .sourceNote{
-      margin-top:18px;
-      background:#f7fafc;
-      border:1px solid var(--line);
-      padding:13px 16px;
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.65;
-      display:flex;
-      justify-content:space-between;
-      gap:16px;
-    }
-    .sourceNote a{
-      color:var(--blue);
-      font-weight:900;
-      border-bottom:1px solid rgba(0,76,151,.25);
-    }
     footer{
       background:var(--blue-deep);
       color:#d9e8f5;
@@ -732,7 +715,6 @@
       .projectFacts{grid-template-columns:1fr 1fr}
       .projectActions{grid-template-columns:1fr}
       .methodSteps{grid-template-columns:1fr}
-      .sourceNote{display:block}
       .page{padding-top:16px}
     }
     @media(max-width:560px){
@@ -759,7 +741,7 @@
         <a href="#top">平台总览</a>
         <a href="#products">产品线矩阵</a>
         <a href="#live">小挖分析</a>
-        <a href="#method">评价口径</a>
+        <a href="#method">业务价值</a>
         <a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA</a>
       </nav>
     </div>
@@ -842,11 +824,11 @@
                 </div>
                 <div class="subLine">
                   <div><b>Medium Excavators / 中挖</b><span>重点关注土方效率、破碎适配、吊装能力和油耗表现。</span></div>
-                  <div class="tonnageLinks"><a class="btn light" href="#method" aria-label="查看中挖评价维度">评价维度</a></div>
+                  <div class="tonnageLinks"><a class="btn light" href="#method" aria-label="查看中挖业务价值">业务价值</a></div>
                 </div>
                 <div class="subLine">
                   <div><b>Large Excavators / 大挖</b><span>重点关注矿山装车、重载循环、可靠性和维护成本。</span></div>
-                  <div class="tonnageLinks"><a class="btn light" href="#method" aria-label="查看大挖评价维度">评价维度</a></div>
+                  <div class="tonnageLinks"><a class="btn light" href="#method" aria-label="查看大挖业务价值">业务价值</a></div>
                 </div>
               </div>
             </div>
@@ -911,7 +893,7 @@
       <section class="section" id="live">
         <div class="sectionHead">
           <h2>小型挖掘机分析资产</h2>
-          <p>三个吨级使用同一评价口径，覆盖典型工况、竞品参数、配置贡献、综合排名和可追溯原始数据。</p>
+          <p>三个吨级使用同一分析框架，覆盖典型工况、竞品参数、配置贡献、综合排名和原始数据。</p>
         </div>
 
         <div class="liveGrid" aria-label="小型挖掘机分析资产">
@@ -971,22 +953,17 @@
       <section class="section" id="method">
         <div class="methodBand">
           <div class="methodIntro">
-            <h2>统一对标方法</h2>
-            <p>平台只展示与实际工况相关的参数和配置。每个结论都能回到原始值、配置状态和数据来源，避免把官网参数表简单堆叠成页面。</p>
+            <h2>管理层决策价值</h2>
+            <p>ARC 不是参数表汇总，而是把竞品数据转化为产品定位、短板识别、配置策略和销售论证。领导层可以直接看到 XCMG 在不同吨级、不同工况下的优势、差距和补强方向。</p>
           </div>
-          <div class="methodSteps" aria-label="对标方法">
-            <div class="methodStep"><b>Product line</b><strong>产品线分层</strong><span>按官网产品体系组织产品线、吨级和应用场景。</span></div>
-            <div class="methodStep"><b>Work condition</b><strong>按工况筛参数</strong><span>只选择会影响作业表现的参数和配置。</span></div>
-            <div class="methodStep"><b>Configuration</b><strong>配置转业务影响</strong><span>区分无配置、选配和标配，并解释对效率、安全和租赁的影响。</span></div>
-            <div class="methodStep"><b>Evidence</b><strong>结论可追溯</strong><span>每个结论对应原始数据、配置状态和评价权重。</span></div>
+          <div class="methodSteps" aria-label="管理层决策价值">
+            <div class="methodStep"><b>竞争格局</b><strong>看清产品位置</strong><span>按吨级和工况判断 XCMG 与核心竞品的相对强弱，识别适合主攻的应用场景。</span></div>
+            <div class="methodStep"><b>短板定位</b><strong>明确补强方向</strong><span>把差距落到运输尺寸、工作范围、液压动力、驾驶环境和配置包，避免只停留在总体排名。</span></div>
+            <div class="methodStep"><b>配置策略</b><strong>判断标选配优先级</strong><span>评估摄像头、坡度系统、远程管理、浮动推土铲等配置对安全、效率和租赁适配的影响。</span></div>
+            <div class="methodStep"><b>销售支撑</b><strong>形成对外论证素材</strong><span>把竞品对比转换成客户能理解的卖点、风险项和补强动作，支持渠道和重点客户沟通。</span></div>
           </div>
         </div>
       </section>
-
-      <div class="sourceNote">
-        <span>页面图片使用 XCMG USA 官网公开产品素材和本项目已整理素材，数据来自当前小挖三个吨级 Excel 数据集。</span>
-        <span><a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA 官网</a></span>
-      </div>
     </div>
   </main>
 
