@@ -262,6 +262,15 @@ def esc(value):
     return html.escape(str(value), quote=True)
 
 
+def display_value(value):
+    text = clean(value)
+    if not text:
+        return "/"
+    text = re.sub(r"\s*[\r\n]+\s*", "；", text)
+    text = re.sub(r"\s+", " ", text)
+    return text
+
+
 def fmt_score(value):
     if value is None or math.isnan(value):
         return "-"
@@ -298,6 +307,38 @@ def parse_metric_value(value, direction):
         positives = [x for x in nums if x >= 0]
         return min(positives) if positives else min(nums)
     return max(nums)
+
+
+def best_swing_pair(value):
+    text = clean(value)
+    if not text:
+        return None
+    groups = re.split(r"[;；\n]+", text)
+    pairs = []
+    for group in groups:
+        nums = [abs(x) for x in extract_numbers(group) if abs(x) <= 180]
+        if len(nums) >= 2:
+            pairs.append((nums[0], nums[1]))
+    if not pairs:
+        return None
+    return max(pairs, key=lambda pair: pair[0] + pair[1])
+
+
+def swing_gap_sentence(item, xraw_original, braw_original, best_product, suffix):
+    xpair = best_swing_pair(xraw_original)
+    bpair = best_swing_pair(braw_original)
+    if not xpair or not bpair:
+        return None
+    parts = []
+    for label, xv, bv in [("左", xpair[0], bpair[0]), ("右", xpair[1], bpair[1])]:
+        diff = bv - xv
+        if diff > 0:
+            parts.append(f"{label}偏摆少 {fmt_score(diff)}{suffix}")
+        elif diff < 0:
+            parts.append(f"{label}偏摆多 {fmt_score(abs(diff))}{suffix}")
+        else:
+            parts.append(f"{label}偏摆相同")
+    return f"{item}：XCMG {display_value(xraw_original)}{suffix}，{best_product} {display_value(braw_original)}{suffix}；XCMG {'，'.join(parts)}。"
 
 
 def option_score(value):
@@ -682,45 +723,109 @@ def render_detail_matrix(model, condition):
     )
 
 
+def direction_key(detail):
+    if detail["item"] == "动臂偏摆（左/右）":
+        return "swing"
+    if detail["direction"] == "越低越好":
+        return "low"
+    return "high"
+
+
+def best_reference(detail, xcmg):
+    xs = detail["scores"].get(xcmg)
+    candidates = [(p, s) for p, s in detail["scores"].items() if p != xcmg and s is not None]
+    if xs is None or not candidates:
+        return None
+    best_product, best_score = max(candidates, key=lambda item: item[1])
+    delta = max(0, best_score - xs) * detail["weight"]
+    if delta <= 0.05:
+        return None
+    return best_product, best_score, delta
+
+
+def metric_gap_text(detail, xcmg, best_product):
+    xraw_original = detail["values"].get(xcmg, "") or "-"
+    braw_original = detail["values"].get(best_product, "") or "-"
+    xraw = display_value(xraw_original)
+    braw = display_value(braw_original)
+    unit = detail.get("unit", "")
+    key = direction_key(detail)
+    xv = parse_metric_value(xraw_original, key)
+    bv = parse_metric_value(braw_original, key)
+    suffix = f" {unit}" if unit and unit != "配置" else ""
+    if key == "swing":
+        swing_text = swing_gap_sentence(detail["item"], xraw_original, braw_original, best_product, suffix)
+        if swing_text:
+            return swing_text
+    if xv is None or bv is None:
+        return f"{detail['item']}：XCMG {xraw}，{best_product} {braw}。"
+    if key == "low":
+        diff = max(0, xv - bv)
+        if diff > 0:
+            return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，XCMG 多 {fmt_score(diff)}{suffix}。"
+        return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，已接近标杆。"
+    diff = max(0, bv - xv)
+    if diff > 0:
+        return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，XCMG 少 {fmt_score(diff)}{suffix}。"
+    return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，已接近标杆。"
+
+
+def option_gap_text(detail, xcmg, best_product):
+    xraw = display_value(detail["values"].get(xcmg, "") or "/")
+    braw = display_value(detail["values"].get(best_product, "") or "/")
+    xstatus = option_status(xraw)
+    bstatus = option_status(braw)
+    return f"{detail['item']}：XCMG {xstatus}（{xraw}），{best_product} {bstatus}（{braw}）。"
+
+
+def as_list(items, fallback):
+    if not items:
+        return f"<p>{esc(fallback)}</p>"
+    return '<ul class="gapList">' + "".join(f"<li>{esc(item)}</li>" for item in items) + "</ul>"
+
+
 def render_gap_cards(model, condition):
     xcmg = model["meta"]["xcmg"]
     scores = model["conditionScores"][condition["id"]]
-    rank, xscore, rows = xcmg_rank(scores, xcmg)
+    _, _, rows = xcmg_rank(scores, xcmg)
     leader = rows[0] if rows else {"product": "-", "score": 0}
-    gap = max(0, (leader["score"] or 0) - (xscore or 0))
     details = model["conditionDetails"][condition["id"]]
-    weighted_gaps = []
-    improvements = []
+    param_gaps = []
+    option_gaps = []
     for d in details:
-        xs = d["scores"].get(xcmg)
-        best = max([v for v in d["scores"].values() if v is not None], default=None)
-        if best is None or xs is None:
+        ref = best_reference(d, xcmg)
+        if not ref:
             continue
-        delta = max(0, best - xs) * d["weight"]
-        if delta > 0.05:
-            weighted_gaps.append((delta, d))
+        best_product, _, delta = ref
         if d["type"] == "配置":
-            raw = d["values"].get(xcmg, "")
-            current = option_score(raw)
-            if current < 100:
-                improvements.append(((100 - current) * d["weight"], d, raw))
-    weighted_gaps.sort(reverse=True, key=lambda x: x[0])
-    improvements.sort(reverse=True, key=lambda x: x[0])
-    gap_text = []
-    for delta, d in weighted_gaps[:4]:
-        gap_text.append(f"{d['item']} 约 {delta:.1f} 分")
-    improve_text = []
-    for delta, d, raw in improvements[:4]:
-        improve_text.append(f"{d['item']}由“{raw or '/'}”提升为标配，理论增益约 {delta:.1f} 分")
-    if not improve_text:
-        improve_text.append("该工况下 XCMG 主要差距来自硬参数，需要结合结构尺寸、液压匹配或工作装置方案评估。")
-    target_score = min(100, (xscore or 0) + sum(x[0] for x in improvements[:4]))
+            option_gaps.append((delta, option_gap_text(d, xcmg, best_product), d))
+        else:
+            param_gaps.append((delta, metric_gap_text(d, xcmg, best_product), d))
+    param_gaps.sort(reverse=True, key=lambda x: x[0])
+    option_gaps.sort(reverse=True, key=lambda x: x[0])
+
+    param_text = [x[1] for x in param_gaps[:4]]
+    option_text = [x[1] for x in option_gaps[:4]]
+    major_items = [x[2]["item"] for x in (param_gaps + option_gaps)[:3]]
+    leader_text = f"本工况建议以 {leader['product']} 作为第一参照；XCMG 需要重点看 {('、'.join(major_items)) if major_items else '已列关键项'}。"
+    actions = []
+    for _, _, d in option_gaps[:3]:
+        raw = display_value(d["values"].get(xcmg, "") or "/")
+        actions.append(f"{d['item']}从 {option_status(raw)} 调整到标配，先补配置可见短板。")
+    for _, _, d in param_gaps[:3]:
+        ref = best_reference(d, xcmg)
+        if ref:
+            best_product, _, _ = ref
+            target = display_value(d["values"].get(best_product, "-") or "-")
+            actions.append(f"{d['item']}以 {best_product} 的 {target} 为工程目标，评估结构尺寸、液压匹配或工作装置方案。")
+    if not actions:
+        actions.append("当前数据下未显示单项明显短板，后续重点补齐缺失样本和配置定义。")
     return (
         '<div class="gapPanel"><h3>XCMG 与竞品差距及弥补路径</h3><div class="gapGrid">'
-        f'<article><b>1. 对标差距</b><p>XCMG 当前约 {fmt_score(xscore)} 分，排名第 {rank or "-"}；领先产品为 {esc(leader["product"])} {fmt_score(leader["score"])} 分，差距约 {fmt_score(gap)} 分。</p></article>'
-        f'<article><b>2. 差距来源</b><p>{"；".join(esc(x) for x in gap_text) if gap_text else "暂无明显可量化差距，主要看数据覆盖和配置定义。"}</p></article>'
-        f'<article><b>3. 弥补动作</b><p>{"；".join(esc(x) for x in improve_text)}</p></article>'
-        f'<article><b>4. 量化目标</b><p>优先补齐前述配置项后，该工况理论可提升至约 {fmt_score(target_score)} 分；若仍落后，则需要进入硬参数平台方案优化。</p></article>'
+        f'<article><b>1. 对标对象</b><p>{esc(leader_text)}</p></article>'
+        f'<article><b>2. 硬参数差距</b>{as_list(param_text, "硬参数未显示明显短板，当前差距主要来自配置完整度或数据缺失。")}</article>'
+        f'<article><b>3. 配置缺口</b>{as_list(option_text, "配置项暂未发现明确弱项，重点维护现有标配口径并补齐竞品资料。")}</article>'
+        f'<article><b>4. 弥补路径</b>{as_list(actions[:5], "补齐缺失数据后再确认工程动作。")}</article>'
         "</div></div>"
     )
 
@@ -792,10 +897,85 @@ def render_summary_cards(model):
     return "".join(cards)
 
 
+def raw_param_gap_text(row, model, xcmg):
+    item = row["item"]
+    direction = "low" if item in LOWER_BETTER else ("swing" if item == "动臂偏摆（左/右）" else "high")
+    values = {p: parse_metric_value(row["values"].get(p), direction) for p in model["products"]}
+    scores = normalize(values, "low" if direction == "low" else "high")
+    xscore = scores.get(xcmg)
+    candidates = [(p, s) for p, s in scores.items() if p != xcmg and s is not None]
+    if xscore is None or not candidates:
+        return None
+    best_product, best_score = max(candidates, key=lambda item: item[1])
+    delta = max(0, best_score - xscore)
+    if delta <= 3:
+        return None
+    xv = values.get(xcmg)
+    bv = values.get(best_product)
+    if xv is None or bv is None:
+        return None
+    unit = row.get("unit", "")
+    suffix = f" {unit}" if unit and unit != "配置" else ""
+    xraw = display_value(row["values"].get(xcmg))
+    braw = display_value(row["values"].get(best_product))
+    if direction == "swing":
+        text = swing_gap_sentence(item, row["values"].get(xcmg), row["values"].get(best_product), best_product, suffix)
+        if text:
+            return delta * PARAM_CATEGORY_WEIGHTS.get(row["category"], 0.05), text, item
+    if direction == "low":
+        diff = max(0, xv - bv)
+        if diff <= 0:
+            return None
+        text = f"{item}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，XCMG 多 {fmt_score(diff)}{suffix}。"
+    else:
+        diff = max(0, bv - xv)
+        if diff <= 0:
+            return None
+        text = f"{item}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，XCMG 少 {fmt_score(diff)}{suffix}。"
+    return delta * PARAM_CATEGORY_WEIGHTS.get(row["category"], 0.05), text, item
+
+
+def raw_option_gap_text(row, model, xcmg):
+    xraw = display_value(row["values"].get(xcmg))
+    xscore = option_score(xraw)
+    candidates = []
+    for p in model["products"]:
+        if p == xcmg:
+            continue
+        raw = display_value(row["values"].get(p))
+        candidates.append((p, option_score(raw), raw))
+    candidates = [c for c in candidates if c[1] is not None]
+    if not candidates:
+        return None
+    best_product, best_score, braw = max(candidates, key=lambda item: item[1])
+    delta = best_score - xscore
+    if delta <= 0:
+        return None
+    text = f"{row['item']}：XCMG {option_status(xraw)}（{xraw}），{best_product} {option_status(braw)}（{braw}）。"
+    return delta * OPTION_CATEGORY_WEIGHTS.get(row["category"], 0.05), text, row["item"]
+
+
+def render_overall_gap_notes(model, xcmg, leader):
+    param_gaps = [x for row in model["rawParamRows"] if (x := raw_param_gap_text(row, model, xcmg))]
+    option_gaps = [x for row in model["rawOptionRows"] if (x := raw_option_gap_text(row, model, xcmg))]
+    param_gaps.sort(reverse=True, key=lambda item: item[0])
+    option_gaps.sort(reverse=True, key=lambda item: item[0])
+    focus_items = [x[2] for x in (param_gaps + option_gaps)[:4]]
+    focus_text = "、".join(focus_items) if focus_items else "已列核心指标"
+    return (
+        '<div class="overallNotes">'
+        f'<p><b>对标对象：</b>总体排名第一的参照产品是 {esc(leader["product"])}；单项追赶不只看整机排名，重点拆到 {esc(focus_text)} 等具体指标。</p>'
+        f'<p><b>硬参数差距：</b></p>{as_list([x[1] for x in param_gaps[:4]], "当前原始参数没有显示明显落后项，重点复核缺失值和口径一致性。")}'
+        f'<p><b>配置差距：</b></p>{as_list([x[1] for x in option_gaps[:4]], "标选配口径下暂无明显配置短板，后续以客户场景验证配置价值。")}'
+        '</div>'
+    )
+
+
 def render_overall_section(model):
     xcmg = model["meta"]["xcmg"]
     rank, xscore, rows = xcmg_rank(model["overall"], xcmg)
     leader = rows[0] if rows else {"product": "-", "score": 0}
+    gap_notes = render_overall_gap_notes(model, xcmg, leader)
     overall_table = "".join(
         f'<tr class="{ "xcmg-row" if p == xcmg else ""}"><td>{esc(p)}</td><td class="{score_class(model["overall"].get(p))}">{fmt_score(model["overall"].get(p))}</td>'
         f'<td>{fmt_score(model["conditionTotal"].get(p))}</td><td>{fmt_score(model["paramScore"].get(p))}</td><td>{fmt_score(model["optionScore"].get(p))}</td></tr>'
@@ -806,9 +986,8 @@ def render_overall_section(model):
         '<div class="split">'
         f'<div class="panel"><h3>总体评分排名</h3><div class="bars">{render_bar_ranking(model["overall"], xcmg)}</div></div>'
         '<div class="panel"><h3>XCMG 总体差距判断</h3>'
-        f'<p>XCMG 当前总体约 <b>{fmt_score(xscore)}</b> 分，第 {rank or "-"}；领先产品为 {esc(leader["product"])} {fmt_score(leader["score"])} 分，差距约 {fmt_score((leader["score"] or 0)-(xscore or 0))} 分。</p>'
-        '<p>总体分由工况适配、参数能力和标选配完整度组合得到：工况适配 50%，参数能力 30%，标选配 20%。这部分不替代工况判断，而是用于快速判断产品基础竞争力。</p>'
-        '<div class="tableScroll compact"><table><thead><tr><th>产品</th><th>总体</th><th>工况</th><th>参数</th><th>配置</th></tr></thead><tbody>'
+        + gap_notes
+        + '<div class="tableScroll compact"><table><thead><tr><th>产品</th><th>总体</th><th>工况</th><th>参数</th><th>配置</th></tr></thead><tbody>'
         + overall_table
         + '</tbody></table></div></div></div></section>'
     )
@@ -865,7 +1044,7 @@ def render_html(model):
     .bars{{display:grid;gap:7px}}.bar{{display:grid;grid-template-columns:30px minmax(120px,170px) minmax(180px,1fr) 54px;gap:9px;align-items:center}}.bar span{{background:#e6f0fa;color:var(--blue);font-weight:900;text-align:center;border-radius:3px;padding:3px 0}}.bar b{{font-size:13px}}.bar i{{height:17px;background:#e3ecf5;border-radius:3px;overflow:hidden}}.bar i em{{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#2878bd)}}.bar strong{{color:#08335d}}.bar.xcmg span{{background:var(--yellow);color:#08213d}}.bar.xcmg i em{{background:linear-gradient(90deg,var(--yellow),#ffd86d)}}.bar.xcmg b,.bar.xcmg strong{{color:var(--blue);font-weight:900}}
     .radarBox{{min-width:0}}.radarHead{{display:flex;justify-content:space-between;gap:10px;align-items:center;padding-right:6px}}.radarCurrent{{font-size:12px;color:var(--blue);font-weight:900;white-space:nowrap}}.radarSvg{{display:block;margin:6px auto;max-width:100%;height:360px}}.radarSvg.small{{height:300px}}.radar-grid{{fill:none;stroke:#d9e6f2;stroke-width:1}}.radar-axis{{stroke:#d9e6f2;stroke-width:1}}.radar-label{{font-size:12px;font-weight:800;fill:#0b3155;text-anchor:middle;dominant-baseline:middle}}.radar-series{{fill:var(--series-color);fill-opacity:.08;stroke:var(--series-color);stroke-width:2.3;transition:.18s;cursor:pointer}}.radarBox.compare .radar-series,.factorRadar.compare .radar-series{{opacity:.08;fill-opacity:.03}}.radarBox.compare .radar-series.selected,.factorRadar.compare .radar-series.selected{{opacity:1;fill-opacity:.18;stroke-width:3.6}}.radarLegend{{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}}.radarLegend button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:5px 7px;font-size:12px;cursor:pointer;font-weight:700}}.radarLegend i{{display:inline-block;width:10px;height:10px;margin-right:5px;border-radius:2px}}.radarLegend button:hover,.radarLegend button.selected{{border-color:var(--yellow);box-shadow:0 0 0 2px rgba(245,180,0,.18)}}.radarLegend button.selected{{background:#fff7d6;color:#08213d}}.radarLegend.compact button{{font-size:11px;padding:4px 6px}}
     .factorRadar{{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:12px;align-items:center}}.keyTable{{width:100%;border-collapse:collapse;font-size:12px}}.keyTable th{{background:var(--blue);color:#fff}}.keyTable th,.keyTable td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left}}.tableScroll{{overflow:auto;border:1px solid var(--line);border-radius:4px;max-height:520px;background:white}}.tableScroll.compact{{max-height:360px}}table{{border-collapse:collapse;width:100%;font-size:12px}}th,td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left;vertical-align:top;white-space:nowrap}}th{{position:sticky;top:0;background:var(--blue);color:#fff;z-index:2}}td:first-child,th:first-child{{position:sticky;left:0;z-index:3}}td:first-child{{background:#fff;font-weight:800;color:#0b3155;box-shadow:2px 0 0 rgba(0,76,151,.08)}}tr:nth-child(even) td{{background:#f8fbfe}}tr.xcmg-row td{{box-shadow:inset 3px 0 0 var(--yellow)}}.scoreCell{{min-width:124px;white-space:normal}}.scoreCell b{{display:block}}.scoreCell span{{display:block;font-weight:900}}.scoreCell small{{display:block;color:#51677a}}.good{{background:#e6f4ea!important;color:#0c6a36!important;font-weight:800}}.mid{{background:#fff4cc!important;color:#785700!important;font-weight:800}}.bad{{background:#fde9e9!important;color:#ad1d1d!important;font-weight:800}}.missing{{background:#eef2f6!important;color:#607080!important}}
-    .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18)}}
+    .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18)}}
     @media(max-width:1200px){{.layout{{display:block}}aside.nav{{height:auto;position:relative}}main{{padding:14px}}.hero,.split,.conditionTop,.factorRadar{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}}}
     @media(max-width:720px){{.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr}}h1{{font-size:30px}}.bar{{grid-template-columns:28px 118px 1fr 48px}}th,td{{padding:7px 6px}}}}
   </style>
