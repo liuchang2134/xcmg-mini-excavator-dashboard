@@ -1,10 +1,15 @@
-# XCMG 3.5t Mini Excavator Competitive Analysis
+# XCMG ARC Excavator Competitive Analysis
 
-Executive dashboard and presentation materials for the 3.5-ton mini excavator competitive analysis.
+Executive dashboard and presentation materials for XCMG mini excavator competitive analysis.
 
 ## Deliverables
 
-- `index.html` - interactive executive dashboard
+- `arc.html` - ARC product benchmarking homepage
+- `index.html` - 3.5-ton interactive executive dashboard
+- `excavator-1-2t.html` - 1-2 ton mini excavator dashboard
+- `excavator-2-3t.html` - 2-3 ton mini excavator dashboard
+- `data/1-2.xlsx` - source workbook for the 1-2 ton dashboard
+- `data/2-3.xlsx` - source workbook for the 2-3 ton dashboard
 - `html-ppt/index.html` - browser-based executive presentation with presenter notes
 - `xcmg-mini-excavator-briefing.pptx` - downloadable PowerPoint deck
 - `xcmg-mini-excavator-briefing-script.md` - presentation script
@@ -13,11 +18,14 @@ Executive dashboard and presentation materials for the 3.5-ton mini excavator co
 
 ## Published Links
 
-- Dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/
+- ARC homepage: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/arc.html
+- 3.5t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/
+- 1-2t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/excavator-1-2t.html
+- 2-3t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/excavator-2-3t.html
 - HTML presentation: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/html-ppt/
 - PowerPoint: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/xcmg-mini-excavator-briefing.pptx
 - Script: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/xcmg-mini-excavator-briefing-script.md
 
 ## Notes
 
-The dashboard is based on the provided 3-4.xlsx source data. Product naming, missing-value handling, condition weights, and confidence levels have been standardized before publishing.
+The 3.5t dashboard is based on the provided 3-4.xlsx source data. The 1-2t and 2-3t dashboards are based on the provided 1-2.xlsx and 2-3.xlsx workbooks. Product naming, missing-value handling, condition weights, and confidence levels have been standardized before publishing.
