@@ -16,23 +16,12 @@ ASSET_DIR = ROOT / "assets" / "arc"
 
 SOURCE_FILES = [
     {
-        "slug": "excavator-35t",
-        "output": "index.html",
-        "label": "3.5 吨级",
-        "title": "XCMG XE35U 3.5 吨级小挖竞品分析看板",
-        "xcmg": "XCMG XE35U",
-        "source": DATA_DIR / "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
-        "download": "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
-        "image": "assets/arc/xe35u-official-cropped.jpg",
-        "image_source": "XCMG USA XE35U",
-    },
-    {
         "slug": "excavator-1-2t",
         "output": "excavator-1-2t.html",
         "label": "1-2 吨级",
-        "title": "XCMG XE19U 1-2 吨级小挖竞品分析看板",
+        "title": "XCMG XE19U 1-2 吨级挖掘机竞品分析看板",
         "xcmg": "XCMG XE19U",
-        "source": Path(r"C:\Users\xcmgusa\Downloads\1-2.xlsx"),
+        "source": DATA_DIR / "XCMG_1-2t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_1-2t_mini_excavator_competitor_source.xlsx",
         "image": "assets/arc/xe19u-official-cropped.png",
         "image_source": "XCMG Australia XE19U",
@@ -41,12 +30,67 @@ SOURCE_FILES = [
         "slug": "excavator-2-3t",
         "output": "excavator-2-3t.html",
         "label": "2-3 吨级",
-        "title": "XCMG XE27U 2-3 吨级小挖竞品分析看板",
+        "title": "XCMG XE27U 2-3 吨级挖掘机竞品分析看板",
         "xcmg": "XCMG XE27U",
-        "source": Path(r"C:\Users\xcmgusa\Downloads\2-3.xlsx"),
+        "source": DATA_DIR / "XCMG_2-3t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_2-3t_mini_excavator_competitor_source.xlsx",
         "image": "assets/arc/xe27u-official-cropped.jpg",
         "image_source": "XCMG USA XE27U",
+    },
+    {
+        "slug": "excavator-35t",
+        "output": "index.html",
+        "label": "3.5 吨级",
+        "title": "XCMG XE35U 3.5 吨级挖掘机竞品分析看板",
+        "xcmg": "XCMG XE35U",
+        "source": DATA_DIR / "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
+        "download": "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe35u-official-cropped.jpg",
+        "image_source": "XCMG USA XE35U",
+    },
+    {
+        "slug": "excavator-4-5t",
+        "output": "excavator-4-5t.html",
+        "label": "4-5 吨级",
+        "title": "XCMG XE45U 4-5 吨级挖掘机竞品分析看板",
+        "xcmg": "XCMG XE45U",
+        "source": DATA_DIR / "XCMG_4-5t_mini_excavator_competitor_source.xlsx",
+        "download": "XCMG_4-5t_mini_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe45u-official-cropped.png",
+        "image_source": "XCMG USA XE45U",
+    },
+    {
+        "slug": "excavator-5-6t",
+        "output": "excavator-5-6t.html",
+        "label": "5-6 吨级",
+        "title": "XCMG XE55U 5-6 吨级挖掘机竞品分析看板",
+        "xcmg": "XCMG XE55U",
+        "source": DATA_DIR / "XCMG_5-6t_mini_excavator_competitor_source.xlsx",
+        "download": "XCMG_5-6t_mini_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe55u-official-cropped.jpg",
+        "image_source": "XCMG USA XE55U",
+    },
+    {
+        "slug": "excavator-7-8t",
+        "output": "excavator-7-8t.html",
+        "label": "7-8 吨级",
+        "title": "XCMG XE75U 7-8 吨级挖掘机竞品分析看板",
+        "xcmg": "XCMG XE75U",
+        "source": DATA_DIR / "XCMG_7-8t_mini_excavator_competitor_source.xlsx",
+        "download": "XCMG_7-8t_mini_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe75u-official-cropped.jpg",
+        "image_source": "XCMG USA XE75U",
+    },
+    {
+        "slug": "excavator-8-10t",
+        "output": "excavator-8-10t.html",
+        "label": "8-10 吨级",
+        "title": "XCMG XE80U 8-10 吨级挖掘机竞品分析看板",
+        "xcmg": "XCMG XE80U",
+        "source": DATA_DIR / "XCMG_8-10t_mini_excavator_competitor_source.xlsx",
+        "download": "XCMG_8-10t_mini_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe80u-official-cropped.jpg",
+        "image_source": "XCMG USA XE80U",
     },
 ]
 
@@ -260,6 +304,21 @@ def clean(v):
 
 def esc(value):
     return html.escape(str(value), quote=True)
+
+
+def page_href(meta):
+    return "./" if meta["output"] == "index.html" else meta["output"]
+
+
+def nav_label(meta):
+    return meta["label"].replace("级", "").strip()
+
+
+def render_tonnage_nav():
+    return "".join(
+        f'<a href="{esc(page_href(meta))}">{esc(nav_label(meta))}看板</a>'
+        for meta in SOURCE_FILES
+    )
 
 
 def display_value(value):
@@ -1054,12 +1113,10 @@ def render_html(model):
 <div class="layout" id="top">
   <aside class="nav">
     <img src="assets/xcmg-logo.svg" alt="XCMG">
-    <h1>{esc(meta["label"])}小挖对标</h1>
+    <h1>{esc(meta["label"])}挖掘机对标</h1>
     <small>{esc(meta["xcmg"])}</small>
     <a class="home" href="arc.html">返回 ARC 主页</a>
-    <a href="./">3.5 吨看板</a>
-    <a href="excavator-1-2t.html">1-2 吨看板</a>
-    <a href="excavator-2-3t.html">2-3 吨看板</a>
+    {render_tonnage_nav()}
     <a href="#summary">领导总览</a>
     <a href="#overall">总体评分</a>
     <a href="#radar">可视化驾驶舱</a>
@@ -1072,7 +1129,7 @@ def render_html(model):
       <div class="heroText">
         <span class="eyebrow">XCMG Excavator Competitive Dashboard</span>
         <h1>{esc(meta["title"])}</h1>
-        <p>按统一小挖竞品对标方法，把参数、标选配、典型工况、配置贡献、差距来源和提升模拟拆开展示。结论均从用户提供 Excel 原始值计算，不用纯主观判断替代数据。</p>
+        <p>按统一挖掘机竞品对标方法，把参数、标选配、典型工况、配置贡献、差距来源和提升模拟拆开展示。结论均从用户提供 Excel 原始值计算，不用纯主观判断替代数据。</p>
         <div class="actions"><a class="btn blue" href="#conditions">查看工况分析</a><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="arc.html">返回 ARC</a></div>
       </div>
       <div class="heroMedia"><img src="{esc(meta["image"])}" alt="{esc(meta["xcmg"])} 产品图"></div>
@@ -1214,6 +1271,10 @@ def download_assets():
     assets = [
         ("https://xcmg-usa.com/wp-content/uploads/2022/05/XE27U-1.jpg", ASSET_DIR / "xe27u-official.jpg"),
         ("https://xcmg.net.au/wp-content/uploads/2023/12/XE19U.png", ASSET_DIR / "xe19u-official.png"),
+        ("https://xcmg-usa.com/wp-content/uploads/2025/08/XE45U_no-shadow-1-scaled.png", ASSET_DIR / "xe45u-official.png"),
+        ("https://xcmg-usa.com/wp-content/uploads/2022/05/XE55U-1.jpg", ASSET_DIR / "xe55u-official.jpg"),
+        ("https://xcmg-usa.com/wp-content/uploads/2024/03/XE75U_image.jpg", ASSET_DIR / "xe75u-official.jpg"),
+        ("https://xcmg-usa.com/wp-content/uploads/2022/05/XE80U-1.jpg", ASSET_DIR / "xe80u-official.jpg"),
     ]
     for url, dest in assets:
         if dest.exists() and dest.stat().st_size > 10000:
@@ -1223,6 +1284,10 @@ def download_assets():
             dest.write_bytes(response.read())
     crop_product_image(ASSET_DIR / "xe19u-official.png", ASSET_DIR / "xe19u-official-cropped.png")
     crop_product_image(ASSET_DIR / "xe27u-official.jpg", ASSET_DIR / "xe27u-official-cropped.jpg")
+    crop_product_image(ASSET_DIR / "xe45u-official.png", ASSET_DIR / "xe45u-official-cropped.png")
+    crop_product_image(ASSET_DIR / "xe55u-official.jpg", ASSET_DIR / "xe55u-official-cropped.jpg")
+    crop_product_image(ASSET_DIR / "xe75u-official.jpg", ASSET_DIR / "xe75u-official-cropped.jpg")
+    crop_product_image(ASSET_DIR / "xe80u-official.jpg", ASSET_DIR / "xe80u-official-cropped.jpg")
 
 
 def crop_product_image(src, dest):
@@ -1239,7 +1304,8 @@ def crop_product_image(src, dest):
             r, g, b = pixels[x, y]
             if min(r, g, b) < 245:
                 mask_pixels[x, y] = 255
-    bbox = near_white_mask.getbbox() or alpha_bbox
+    full_bbox = (0, 0, img.width, img.height)
+    bbox = alpha_bbox if alpha_bbox and alpha_bbox != full_bbox else near_white_mask.getbbox()
     if not bbox:
         if dest.suffix.lower() in {".jpg", ".jpeg"}:
             canvas = Image.new("RGB", img.size, "white")
@@ -1368,7 +1434,6 @@ def main():
         wb = load_workbook(meta["source"])
         model = build_model(wb, meta)
         (ROOT / meta["output"]).write_text(render_html(model), encoding="utf-8", newline="\n")
-    update_arc_page()
 
 
 if __name__ == "__main__":
