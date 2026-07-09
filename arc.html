@@ -256,6 +256,7 @@
     }
     .section{
       margin-top:28px;
+      scroll-margin-top:88px;
     }
     .sectionHead{
       margin:0 0 14px;
@@ -283,39 +284,43 @@
     }
     .productMatrix{
       display:grid;
-      grid-template-columns:1.35fr 1fr 1fr;
-      gap:14px;
+      grid-template-columns:minmax(420px,1.18fr) repeat(2,minmax(300px,1fr));
+      gap:16px;
+      align-items:stretch;
     }
     .lineCard{
       background:var(--paper);
       border:1px solid var(--line);
-      box-shadow:0 10px 26px rgba(0,55,101,.06);
+      box-shadow:0 10px 26px rgba(0,55,101,.055);
       display:flex;
       flex-direction:column;
-      min-height:310px;
+      min-height:314px;
       overflow:hidden;
     }
     .lineCard.featured{
       grid-row:span 2;
-      min-height:636px;
+      min-height:644px;
     }
     .lineImage{
-      height:168px;
-      background:#e8f0f7;
+      height:188px;
+      background:#f8fbfd;
       border-bottom:1px solid var(--line);
       overflow:hidden;
+      position:relative;
     }
-    .lineCard.featured .lineImage{height:278px}
+    .lineCard.featured .lineImage{height:282px}
     .lineImage img{
       width:100%;
       height:100%;
       object-fit:cover;
       object-position:center;
+      filter:none;
     }
+    .lineImage.scene img{object-position:center}
     .lineImage.machine img{
       object-fit:contain;
       background:#fff;
-      padding:14px;
+      padding:18px 24px;
     }
     .lineBody{
       padding:16px;
@@ -667,16 +672,16 @@
             <span>Official XCMG product imagery</span>
           </div>
           <div class="fleetGrid">
-            <figure class="fleetItem main machine">
-              <img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U excavator">
+            <figure class="fleetItem main">
+              <img src="assets/arc/category-excavators.jpg" alt="XCMG excavators">
               <figcaption class="fleetCaption"><span>Excavators</span><em>已上线</em></figcaption>
             </figure>
             <figure class="fleetItem">
-              <img src="assets/arc/category-wheel-loaders.jpg" alt="XCMG wheel loader">
+              <img src="assets/arc/category-wheel-loaders-clean.jpg" alt="XCMG wheel loader">
               <figcaption class="fleetCaption"><span>Wheel loaders</span><em>待接入</em></figcaption>
             </figure>
             <figure class="fleetItem">
-              <img src="assets/arc/category-motor-graders.jpg" alt="XCMG motor grader">
+              <img src="assets/arc/category-motor-graders.webp" alt="XCMG motor grader">
               <figcaption class="fleetCaption"><span>Motor graders</span><em>待接入</em></figcaption>
             </figure>
           </div>
@@ -720,7 +725,7 @@
           </article>
 
           <article class="lineCard">
-            <div class="lineImage"><img src="assets/arc/category-wheel-loaders.jpg" alt="XCMG wheel loader"></div>
+            <div class="lineImage scene"><img src="assets/arc/category-wheel-loaders-clean.jpg" alt="XCMG wheel loader"></div>
             <div class="lineBody">
               <div class="lineTop"><div><h3>Wheel Loaders</h3><small>装载与堆料</small></div><span class="status">待接入</span></div>
               <p>重点围绕装车效率、斗容匹配、行驶效率、油耗和驾驶舒适性。</p>
@@ -729,7 +734,7 @@
           </article>
 
           <article class="lineCard">
-            <div class="lineImage"><img src="assets/arc/category-rollers.jpg" alt="XCMG roller"></div>
+            <div class="lineImage scene"><img src="assets/arc/category-rollers.jpeg" alt="XCMG roller"></div>
             <div class="lineBody">
               <div class="lineTop"><div><h3>Rollers</h3><small>压实设备</small></div><span class="status">待接入</span></div>
               <p>重点围绕压实能力、振动参数、转场效率和维护便利性。</p>
@@ -738,7 +743,7 @@
           </article>
 
           <article class="lineCard">
-            <div class="lineImage"><img src="assets/arc/category-motor-graders.jpg" alt="XCMG motor grader"></div>
+            <div class="lineImage scene"><img src="assets/arc/category-motor-graders.webp" alt="XCMG motor grader"></div>
             <div class="lineBody">
               <div class="lineTop"><div><h3>Motor Graders</h3><small>平地机</small></div><span class="status">待接入</span></div>
               <p>重点围绕平地精度、牵引能力、刀板控制和驾驶辅助配置。</p>
@@ -747,7 +752,7 @@
           </article>
 
           <article class="lineCard">
-            <div class="lineImage"><img src="assets/arc/category-cranes.jpg" alt="XCMG crane"></div>
+            <div class="lineImage scene"><img src="assets/arc/category-cranes.webp" alt="XCMG crane"></div>
             <div class="lineBody">
               <div class="lineTop"><div><h3>Cranes and Hoisting</h3><small>起重设备</small></div><span class="status">待接入</span></div>
               <p>重点围绕起重能力、工况表、支腿布置、转场效率和安全系统。</p>
@@ -756,7 +761,7 @@
           </article>
 
           <article class="lineCard">
-            <div class="lineImage"><img src="assets/arc/category-haul-trucks.jpg" alt="XCMG haul truck"></div>
+            <div class="lineImage scene"><img src="assets/arc/category-haul-trucks.webp" alt="XCMG haul truck"></div>
             <div class="lineBody">
               <div class="lineTop"><div><h3>Haul Trucks</h3><small>矿用运输</small></div><span class="status">待接入</span></div>
               <p>重点围绕载重、动力、矿区循环效率、制动性能和维护成本。</p>
@@ -765,7 +770,7 @@
           </article>
 
           <article class="lineCard">
-            <div class="lineImage"><img src="assets/arc/category-mewp.jpg" alt="XCMG MEWP"></div>
+            <div class="lineImage scene"><img src="assets/arc/category-mewp-card.jpg" alt="XCMG MEWP"></div>
             <div class="lineBody">
               <div class="lineTop"><div><h3>MEWP</h3><small>高空作业平台</small></div><span class="status">待接入</span></div>
               <p>重点围绕作业高度、平台载荷、越野能力、电池系统和租赁适配。</p>
