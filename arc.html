@@ -83,12 +83,12 @@
     }
     .workbench{
       display:grid;
-      grid-template-columns:minmax(0,1fr) 360px;
+      grid-template-columns:1fr;
       gap:16px;
       align-items:stretch;
       margin-bottom:16px;
     }
-    .brief,.statusPanel,.panel{
+    .brief,.panel{
       background:var(--paper);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
@@ -180,48 +180,6 @@
       font-size:10px;
       font-weight:900;
       letter-spacing:.04em;
-    }
-    .statusPanel{
-      padding:18px;
-      display:grid;
-      align-content:start;
-      gap:12px;
-    }
-    .statusPanel h2{
-      margin:0;
-      color:var(--blue-ink);
-      font-size:18px;
-    }
-    .metricGrid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    .metric{
-      min-height:82px;
-      border:1px solid var(--line);
-      background:#F8FBFE;
-      padding:12px;
-    }
-    .metric strong{
-      display:block;
-      color:var(--blue);
-      font-size:28px;
-      line-height:1;
-    }
-    .metric span{
-      display:block;
-      color:var(--muted);
-      font-size:12px;
-      margin-top:8px;
-    }
-    .nextBox{
-      border-left:4px solid var(--yellow);
-      background:#FFFAEA;
-      padding:12px;
-      color:#435A70;
-      font-size:13px;
-      line-height:1.65;
     }
     .sectionHead{
       display:flex;
@@ -552,7 +510,7 @@
       .navLinks{justify-content:flex-start}
       .brief,.project{grid-template-columns:1fr}
       .briefVisual,.projectImage{border-left:0;border-right:0;border-top:1px solid var(--line)}
-      .productGrid,.methodGrid,.factRow,.metricGrid{grid-template-columns:1fr}
+      .productGrid,.methodGrid,.factRow{grid-template-columns:1fr}
       .productCard.excavators{grid-column:span 1;display:flex}
       .productCard.excavators .productImage{height:178px;min-height:178px;border-right:0;border-bottom:1px solid var(--line)}
       .productCard.excavators .productImage img{max-width:calc(100% - 20px);max-height:158px}
@@ -605,17 +563,6 @@
             </div>
           </div>
         </article>
-
-        <aside class="statusPanel">
-          <h2>覆盖概览</h2>
-          <div class="metricGrid">
-            <div class="metric"><strong>7</strong><span>产品线入口</span></div>
-            <div class="metric"><strong>3</strong><span>已上线看板</span></div>
-            <div class="metric"><strong>30</strong><span>竞品型号</span></div>
-            <div class="metric"><strong>同址</strong><span>原地址保留</span></div>
-          </div>
-          <div class="nextBox">已上线：1-2 吨、2-3 吨、3.5 吨挖掘机吨级看板；其余产品线展示资料覆盖状态。</div>
-        </aside>
       </section>
 
       <div class="sectionHead" id="products">
