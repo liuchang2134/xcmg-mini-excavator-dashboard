@@ -306,21 +306,6 @@ def esc(value):
     return html.escape(str(value), quote=True)
 
 
-def page_href(meta):
-    return "./" if meta["output"] == "index.html" else meta["output"]
-
-
-def nav_label(meta):
-    return meta["label"].replace("级", "").strip()
-
-
-def render_tonnage_nav():
-    return "".join(
-        f'<a href="{esc(page_href(meta))}">{esc(nav_label(meta))}看板</a>'
-        for meta in SOURCE_FILES
-    )
-
-
 def display_value(value):
     text = clean(value)
     if not text:
@@ -1116,7 +1101,6 @@ def render_html(model):
     <h1>{esc(meta["label"])}挖掘机对标</h1>
     <small>{esc(meta["xcmg"])}</small>
     <a class="home" href="arc.html">返回 ARC 主页</a>
-    {render_tonnage_nav()}
     <a href="#summary">领导总览</a>
     <a href="#overall">总体评分</a>
     <a href="#radar">可视化驾驶舱</a>
@@ -1340,7 +1324,7 @@ def update_arc_page():
     arc_path = ROOT / "arc.html"
     text = arc_path.read_text(encoding="utf-8")
     text = text.replace("当前先上线 3.5 吨小挖项目，其他产品线保留入口，不伪造未完成结论。", "当前已上线 1-2 吨、2-3 吨、3.5 吨三个小挖吨级项目，其他产品线保留入口，不伪造未完成结论。")
-    text = text.replace("<a class=\"btn yellow\" href=\"./\">进入小挖看板</a>", "<a class=\"btn yellow\" href=\"./\">进入 3.5 吨看板</a>")
+    text = text.replace("<a class=\"btn yellow\" href=\"./\">进入小挖看板</a>", "<a class=\"btn yellow\" href=\"./\">进入挖掘机分析页</a>")
     text = text.replace("<div class=\"metric\"><strong>1</strong><span>已上线对标项目</span></div>", "<div class=\"metric\"><strong>3</strong><span>已上线对标项目</span></div>")
     text = text.replace("<div class=\"metric\"><strong>10</strong><span>小挖竞品型号</span></div>", "<div class=\"metric\"><strong>30</strong><span>小挖竞品型号</span></div>")
     text = text.replace("下一步建议先接入 Wheel Loaders 或 MEWP，二者更适合复用“工况 + 参数 + 配置包”的对标结构。", "小挖已形成 1-2 吨、2-3 吨、3.5 吨三个子板块；下一步建议接入 Wheel Loaders 或 MEWP。")
