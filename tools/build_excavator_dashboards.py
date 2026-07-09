@@ -95,6 +95,27 @@ SOURCE_FILES = [
 ]
 
 
+MIN_SCORE_COVERAGE = 0.60
+OVERALL_WEIGHTS = {"parameter": 0.65, "option": 0.35}
+
+# Virtual labels keep cross-tonnage terminology consistent without rewriting the source files.
+PARAM_ALIASES = {
+    "行走速度（高速）": ("行走速度（低速/高速）",),
+    "行走速度（低速）": ("行走速度（低速/高速）",),
+}
+
+OPTION_ALIASES = {
+    "安全摄像头": ("后视摄像头", "270°摄像头", "270°视摄像头"),
+    "密码启动/防盗": ("密码启动", "密码防盗"),
+    "驾驶室温控": ("驾驶室冷暖空调", "驾驶室版本制热", "驾驶室版本制冷"),
+    "电子围栏": ("电子围栏", "电子栅栏"),
+}
+
+OPTION_ALIAS_STRATEGY = {
+    "驾驶室温控": "all",
+}
+
+
 CONDITIONS = [
     {
         "id": "narrow",
@@ -109,7 +130,7 @@ CONDITIONS = [
             ("参数", "动臂偏摆（左/右）", 0.18, "swing", "越能贴边开沟、贴墙清底，狭窄空间收益越高。"),
             ("配置", "可伸缩底盘", 0.08, "option", "窄处收窄、开阔处展开，兼顾通过性和稳定性。"),
             ("配置", "推土铲偏摆", 0.07, "option", "角落回填和边沟修整时减少重复调车。"),
-            ("配置", "后视摄像头", 0.06, "option", "城市巷道和庭院倒车安全配置。"),
+            ("配置", "安全摄像头", 0.06, "option", "后视或环视能力可以降低城市巷道和庭院倒车风险。"),
             ("配置", "行走报警", 0.04, "option", "人车混行环境降低安全风险。"),
             ("配置", "报警灯", 0.03, "option", "市政施工和租赁场景提高周边可感知性。"),
         ],
@@ -143,10 +164,11 @@ CONDITIONS = [
             ("参数", "最大卸载高度", 0.18, "high", "影响能否顺利装车和越过车厢。"),
             ("参数", "铲斗挖掘力", 0.13, "high", "装料、切土和短循环满斗能力。"),
             ("参数", "斗杆挖掘力", 0.08, "high", "连续挖装时保持切入力。"),
-            ("参数", "系统流量", 0.14, "high", "复合动作速度与液压响应。"),
+            ("参数", "系统流量", 0.14, "flow_sum", "复合动作速度与液压响应。"),
             ("参数", "发动机净功率", 0.10, "high", "连续循环中的动力储备。"),
             ("参数", "发动机总功率", 0.08, "high", "动力系统基础能力。"),
-            ("参数", "行走速度（低速/高速）", 0.07, "high", "场内短距离转场效率。"),
+            ("参数", "行走速度（高速）", 0.05, "speed_high", "场内短距离转场效率。"),
+            ("参数", "行走速度（低速）", 0.02, "speed_low", "接近卡车和料堆时的精细行走控制。"),
             ("参数", "回转速度", 0.07, "high", "短循环挖装回转效率。"),
             ("配置", "经济模式", 0.05, "option", "轻载和市政土方循环中控制油耗。"),
             ("配置", "自动怠速", 0.04, "option", "等待装车和短暂停顿时降低怠速油耗。"),
@@ -161,7 +183,7 @@ CONDITIONS = [
         "feature": "重点是液压系统流量、压力和 AUX 管路覆盖。",
         "benefit": "AUX1/AUX2、卸油管路、流量保持和快换管路决定破碎锤、拇指夹、螺旋钻等属具适配效率。",
         "items": [
-            ("参数", "系统流量", 0.14, "high", "液压属具连续工作基础。"),
+            ("参数", "系统流量", 0.14, "flow_sum", "液压属具连续工作基础。"),
             ("参数", "工作压力", 0.12, "high", "破碎、夹持和钻孔属具输出能力。"),
             ("参数", "AUX1流量", 0.14, "high", "主属具回路供油能力。"),
             ("参数", "AUX1压力", 0.10, "high", "主属具负载能力。"),
@@ -197,27 +219,28 @@ CONDITIONS = [
         "name": "租赁 / 快速转场 / 多客户通用",
         "weight": 0.14,
         "feature": "看运输尺寸、油耗管理、易用性、安全提醒和远程管理。",
-        "benefit": "自动怠速、自动停机、远程信息处理、报警灯、行走报警和驾驶舒适配置直接影响租赁周转。",
+        "benefit": "自动怠速、自动停机、远程信息处理、防盗、摄像头、报警和驾驶舒适配置直接影响租赁周转。",
         "items": [
-            ("参数", "整机运输宽度", 0.12, "low", "拖车、仓库和门洞通过性。"),
-            ("参数", "整机运输长度", 0.10, "low", "拖车装载和仓储占地。"),
-            ("参数", "整机运输高度", 0.08, "low", "低矮通道和运输合规性。"),
+            ("参数", "整机运输宽度", 0.10, "low", "拖车、仓库和门洞通过性。"),
+            ("参数", "整机运输长度", 0.08, "low", "拖车装载和仓储占地。"),
+            ("参数", "整机运输高度", 0.07, "low", "低矮通道和运输合规性。"),
             ("参数", "操作重量", 0.08, "low", "拖车级别和租赁客户自提门槛。"),
-            ("参数", "行走速度（低速/高速）", 0.08, "high", "场内转场效率。"),
-            ("配置", "自动怠速", 0.08, "option", "降低怠速油耗和新手误操作成本。"),
-            ("配置", "自动停机", 0.09, "option", "降低无效怠速、油耗和租赁客户使用成本。"),
+            ("参数", "行走速度（高速）", 0.05, "speed_high", "场内快速转场效率。"),
+            ("参数", "行走速度（低速）", 0.02, "speed_low", "多客户使用时的低速操控友好性。"),
+            ("配置", "自动怠速", 0.06, "option", "降低怠速油耗和新手误操作成本。"),
+            ("配置", "自动停机", 0.08, "option", "降低无效怠速、油耗和租赁客户使用成本。"),
             ("配置", "远程信息处理系统", 0.09, "option", "定位、工时、维保和资产管理。"),
-            ("配置", "密码防盗", 0.05, "option", "租赁资产防盗。"),
-            ("配置", "密码启动", 0.05, "option", "租赁资产防盗。"),
-            ("配置", "一键启动", 0.04, "option", "多客户使用更方便。"),
-            ("配置", "USB电源", 0.03, "option", "基础便利配置。"),
-            ("配置", "蓝牙收音机", 0.03, "option", "驾驶舒适性。"),
-            ("配置", "手机托", 0.03, "option", "租赁客户通用便利性。"),
+            ("配置", "密码启动/防盗", 0.05, "option", "租赁资产防盗和授权使用。"),
+            ("配置", "一键启动", 0.03, "option", "多客户使用更方便。"),
+            ("配置", "USB电源", 0.02, "option", "基础便利配置。"),
+            ("配置", "蓝牙收音机", 0.02, "option", "驾驶舒适性。"),
+            ("配置", "手机托", 0.02, "option", "租赁客户通用便利性。"),
             ("配置", "报警灯", 0.04, "option", "工地安全可视化。"),
-            ("配置", "行走报警", 0.04, "option", "人员密集场景安全提醒。"),
-            ("配置", "驾驶室冷暖空调", 0.04, "option", "租赁客户跨季节适用。"),
-            ("配置", "驾驶室版本制热", 0.02, "option", "低温地区租赁适配。"),
-            ("配置", "驾驶室版本制冷", 0.02, "option", "高温地区租赁适配。"),
+            ("配置", "行走报警", 0.05, "option", "人员密集场景安全提醒。"),
+            ("配置", "驾驶室温控", 0.05, "option", "跨季节租赁适用性。"),
+            ("配置", "安全摄像头", 0.04, "option", "多客户倒车和近机作业安全。"),
+            ("配置", "电子围栏", 0.03, "option", "租赁资产区域管理。"),
+            ("配置", "工作灯延迟关闭", 0.02, "option", "夜间停机和离场便利性。"),
         ],
     },
 ]
@@ -321,12 +344,51 @@ def fmt_score(value):
     return f"{value:.1f}".rstrip("0").rstrip(".")
 
 
+def fmt_percent(value):
+    if value is None:
+        return "-"
+    return f"{value * 100:.0f}%"
+
+
+def confidence_label(coverage):
+    if coverage is None or coverage < MIN_SCORE_COVERAGE:
+        return "数据不足"
+    if coverage >= 0.90:
+        return "高"
+    if coverage >= 0.75:
+        return "中"
+    return "有限"
+
+
 def extract_numbers(value):
     text = clean(value)
     if not text or text in {"/", "-", "—"}:
         return []
     text = text.replace("，", ",")
-    return [float(x) for x in re.findall(r"-?\d+(?:\.\d+)?", text)]
+    # A hyphen between two numbers is a range separator, not a negative sign.
+    return [float(x) for x in re.findall(r"(?<!\d)-?\d+(?:\.\d+)?", text)]
+
+
+def parse_flow_total(value):
+    text = clean(value).lower().replace("×", "x").replace("*", "x")
+    if not text:
+        return None
+    if "+" not in text and "x" not in text:
+        nums = extract_numbers(text)
+        return max(nums) if nums else None
+    total = 0.0
+    matched = False
+    for part in re.split(r"\s*\+\s*", text):
+        product = re.search(r"(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)", part)
+        if product:
+            total += float(product.group(1)) * float(product.group(2))
+            matched = True
+            continue
+        nums = extract_numbers(part)
+        if nums:
+            total += nums[0]
+            matched = True
+    return total if matched else None
 
 
 def parse_metric_value(value, direction):
@@ -334,6 +396,8 @@ def parse_metric_value(value, direction):
     nums = extract_numbers(text)
     if not nums:
         return None
+    if direction == "flow_sum":
+        return parse_flow_total(text)
     if direction == "swing":
         groups = re.split(r"[;；\n]+", text)
         best = None
@@ -347,10 +411,20 @@ def parse_metric_value(value, direction):
                 continue
             best = candidate if best is None else max(best, candidate)
         return best
-    if direction == "low":
+    if direction == "speed_low":
         positives = [x for x in nums if x >= 0]
         return min(positives) if positives else min(nums)
-    return max(nums)
+    if direction == "speed_high":
+        return max(nums)
+    if direction == "low":
+        positives = [x for x in nums if x >= 0]
+        if len(positives) > 1 and re.search(r"\d\s*[-~/]\s*\d", text):
+            return sum(positives) / len(positives)
+        return positives[0] if positives else nums[0]
+    positives = [x for x in nums if x >= 0]
+    if len(positives) > 1 and re.search(r"\d\s*[-~/]\s*\d", text):
+        return sum(positives) / len(positives)
+    return positives[0] if positives else nums[0]
 
 
 def best_swing_pair(value):
@@ -387,7 +461,9 @@ def swing_gap_sentence(item, xraw_original, braw_original, best_product, suffix)
 
 def option_score(value):
     text = clean(value)
-    if not text or text in {"/", "-", "—", "nan"}:
+    if not text:
+        return None
+    if text in {"/", "-", "—", "nan"} or text.startswith("无") or "未配置" in text:
         return 0
     if "标配" in text:
         return 100
@@ -400,8 +476,10 @@ def option_score(value):
     return 40
 
 
-def option_status(value):
-    score = option_score(value)
+def option_status(value, score=None):
+    score = option_score(value) if score is None else score
+    if score is None:
+        return "待核验"
     if score >= 100:
         return "标配"
     if score >= 60:
@@ -409,6 +487,55 @@ def option_status(value):
     if score > 0:
         return "需确认"
     return "无配置"
+
+
+def resolve_parameter_record(wb, item):
+    for source_item in PARAM_ALIASES.get(item, (item,)):
+        rec = wb.param_map.get(source_item)
+        if rec:
+            resolved = dict(rec)
+            resolved["item"] = item
+            return resolved
+    return None
+
+
+def resolve_option_record(wb, item):
+    source_items = OPTION_ALIASES.get(item, (item,))
+    records = [wb.option_map[name] for name in source_items if name in wb.option_map]
+    if not records:
+        return None
+
+    strategy = OPTION_ALIAS_STRATEGY.get(item, "max")
+    values = {}
+    scores = {}
+    for product in wb.products:
+        raw_parts = []
+        product_scores = []
+        for rec in records:
+            raw = clean(rec["values"].get(product))
+            raw_parts.append((rec["item"], raw))
+            product_scores.append(option_score(raw))
+
+        if len(raw_parts) == 1:
+            values[product] = raw_parts[0][1]
+        else:
+            values[product] = "；".join(f"{name}：{raw or '待核验'}" for name, raw in raw_parts)
+
+        known_scores = [score for score in product_scores if score is not None]
+        if not known_scores:
+            scores[product] = None
+        elif strategy == "all" and len(product_scores) > 1:
+            scores[product] = None if len(known_scores) != len(product_scores) else min(known_scores)
+        else:
+            scores[product] = max(known_scores)
+
+    return {
+        "category": records[0]["category"],
+        "item": item,
+        "unit": "配置",
+        "values": values,
+        "scores": scores,
+    }
 
 
 def score_class(score):
@@ -471,8 +598,20 @@ def normalize(values, direction):
     return {k: (v - lo) / (hi - lo) * 100 for k, v in valid.items()}
 
 
-def weighted_average(parts):
-    valid = [(score, weight) for score, weight in parts if score is not None and weight > 0]
+def coverage_ratio(parts):
+    weighted = [(score, weight) for score, weight in parts if weight > 0]
+    total_weight = sum(weight for _, weight in weighted)
+    if total_weight <= 0:
+        return 0.0
+    known_weight = sum(weight for score, weight in weighted if score is not None)
+    return known_weight / total_weight
+
+
+def weighted_average(parts, min_coverage=0.0):
+    weighted = [(score, weight) for score, weight in parts if weight > 0]
+    if coverage_ratio(weighted) + 1e-9 < min_coverage:
+        return None
+    valid = [(score, weight) for score, weight in weighted if score is not None]
     if not valid:
         return None
     total_weight = sum(weight for _, weight in valid)
@@ -482,36 +621,47 @@ def weighted_average(parts):
 def condition_scores(wb):
     result = {}
     details = {}
+    coverage = {}
     for condition in CONDITIONS:
         raw_details = []
         product_parts = {p: [] for p in wb.products}
         for typ, item, weight, direction, note in condition["items"]:
             if typ == "参数":
-                rec = wb.param_map.get(item)
+                rec = resolve_parameter_record(wb, item)
                 if not rec:
                     continue
                 metric_values = {p: parse_metric_value(rec["values"].get(p), direction) for p in wb.products}
                 norm = normalize(metric_values, "low" if direction == "low" else "high")
                 for p in wb.products:
                     score = norm.get(p)
-                    if score is not None:
-                        product_parts[p].append((score, weight))
+                    product_parts[p].append((score, weight))
+                if direction == "low":
+                    direction_label = "越低越好"
+                elif direction == "speed_low":
+                    direction_label = "低速档能力"
+                elif direction == "speed_high":
+                    direction_label = "高速档能力"
+                elif direction == "flow_sum":
+                    direction_label = "总流量越高越好"
+                else:
+                    direction_label = "越高越好"
                 raw_details.append({
                     "type": typ,
                     "category": rec["category"],
                     "item": item,
                     "unit": rec["unit"],
-                    "direction": "越低越好" if direction == "low" else "越高越好",
+                    "direction": direction_label,
+                    "parser": direction,
                     "weight": weight,
                     "note": note,
                     "values": rec["values"],
                     "scores": {p: norm.get(p) for p in wb.products},
                 })
             else:
-                rec = wb.option_map.get(item)
+                rec = resolve_option_record(wb, item)
                 if not rec:
                     continue
-                scores = {p: option_score(rec["values"].get(p)) for p in wb.products}
+                scores = rec.get("scores") or {p: option_score(rec["values"].get(p)) for p in wb.products}
                 for p in wb.products:
                     product_parts[p].append((scores[p], weight))
                 raw_details.append({
@@ -525,10 +675,11 @@ def condition_scores(wb):
                     "values": rec["values"],
                     "scores": scores,
                 })
-        scores = {p: weighted_average(product_parts[p]) for p in wb.products}
+        scores = {p: weighted_average(product_parts[p], MIN_SCORE_COVERAGE) for p in wb.products}
         result[condition["id"]] = scores
         details[condition["id"]] = raw_details
-    return result, details
+        coverage[condition["id"]] = {p: coverage_ratio(product_parts[p]) for p in wb.products}
+    return result, details, coverage
 
 
 def category_scores(wb, rows, weights, is_option=False):
@@ -541,41 +692,61 @@ def category_scores(wb, rows, weights, is_option=False):
         item = row["item"]
         if is_option:
             scores = {p: option_score(row["values"].get(p)) for p in wb.products}
+            entries = [(item, scores)]
         else:
-            if item in LOWER_BETTER:
-                direction = "low"
+            variants = []
+            if item == "行走速度（低速/高速）":
+                variants = [("行走速度（低速）", "speed_low"), ("行走速度（高速）", "speed_high")]
+            elif item == "系统流量":
+                variants = [(item, "flow_sum")]
             else:
-                direction = "swing" if item == "动臂偏摆（左/右）" else "high"
-            vals = {p: parse_metric_value(row["values"].get(p), direction) for p in wb.products}
-            scores = normalize(vals, "low" if direction == "low" else "high")
-        by_cat[cat].append((item, scores))
-        metric_detail.append((cat, item, scores))
+                direction = "low" if item in LOWER_BETTER else ("swing" if item == "动臂偏摆（左/右）" else "high")
+                variants = [(item, direction)]
+            entries = []
+            for display_item, direction in variants:
+                vals = {p: parse_metric_value(row["values"].get(p), direction) for p in wb.products}
+                scores = normalize(vals, "low" if direction == "low" else "high")
+                entries.append((display_item, scores))
+        for display_item, scores in entries:
+            by_cat[cat].append((display_item, scores))
+            metric_detail.append((cat, display_item, scores))
 
     product_category_scores = {p: {} for p in wb.products}
     for cat, items in by_cat.items():
         for p in wb.products:
-            vals = [(scores.get(p), 1) for _, scores in items if scores.get(p) is not None]
+            vals = [(scores.get(p), 1) for _, scores in items]
             product_category_scores[p][cat] = weighted_average(vals)
 
+    coverage = {
+        p: coverage_ratio([(scores.get(p), 1) for _, _, scores in metric_detail])
+        for p in wb.products
+    }
     product_scores = {}
     for p in wb.products:
-        product_scores[p] = weighted_average([(product_category_scores[p].get(cat), w) for cat, w in weights.items()])
-    return product_scores, product_category_scores
+        score = weighted_average([(product_category_scores[p].get(cat), w) for cat, w in weights.items()])
+        product_scores[p] = score if coverage[p] + 1e-9 >= MIN_SCORE_COVERAGE else None
+    return product_scores, product_category_scores, coverage
 
 
 def build_model(wb, meta):
-    cond_scores, cond_details = condition_scores(wb)
-    param_score, param_categories = category_scores(wb, wb.param_rows, PARAM_CATEGORY_WEIGHTS, is_option=False)
-    option_score_map, option_categories = category_scores(wb, wb.option_rows, OPTION_CATEGORY_WEIGHTS, is_option=True)
+    cond_scores, cond_details, cond_coverage = condition_scores(wb)
+    param_score, param_categories, param_coverage = category_scores(wb, wb.param_rows, PARAM_CATEGORY_WEIGHTS, is_option=False)
+    option_score_map, option_categories, option_coverage = category_scores(wb, wb.option_rows, OPTION_CATEGORY_WEIGHTS, is_option=True)
     condition_total = {}
+    condition_total_coverage = {}
     for p in wb.products:
-        condition_total[p] = weighted_average([(cond_scores[c["id"]].get(p), c["weight"]) for c in CONDITIONS])
+        parts = [(cond_scores[c["id"]].get(p), c["weight"]) for c in CONDITIONS]
+        condition_total[p] = weighted_average(parts, MIN_SCORE_COVERAGE)
+        condition_total_coverage[p] = coverage_ratio(parts)
+    overall_coverage = {
+        p: param_coverage[p] * OVERALL_WEIGHTS["parameter"] + option_coverage[p] * OVERALL_WEIGHTS["option"]
+        for p in wb.products
+    }
     overall = {
         p: weighted_average([
-            (condition_total.get(p), 0.50),
-            (param_score.get(p), 0.30),
-            (option_score_map.get(p), 0.20),
-        ])
+            (param_score.get(p), OVERALL_WEIGHTS["parameter"]),
+            (option_score_map.get(p), OVERALL_WEIGHTS["option"]),
+        ], min_coverage=1.0)
         for p in wb.products
     }
     return {
@@ -585,10 +756,15 @@ def build_model(wb, meta):
         "conditions": CONDITIONS,
         "conditionScores": cond_scores,
         "conditionDetails": cond_details,
+        "conditionCoverage": cond_coverage,
         "conditionTotal": condition_total,
+        "conditionTotalCoverage": condition_total_coverage,
         "paramScore": param_score,
+        "paramCoverage": param_coverage,
         "optionScore": option_score_map,
+        "optionCoverage": option_coverage,
         "overall": overall,
+        "overallCoverage": overall_coverage,
         "paramCategories": param_categories,
         "optionCategories": option_categories,
         "rawParamRows": wb.param_rows,
@@ -616,11 +792,11 @@ def table_rows(rows, products, limit=None):
     out = []
     for row in rows[: limit or len(rows)]:
         cells = "".join(f"<td>{esc(row['values'].get(p, '')) or '-'}</td>" for p in products)
-        out.append(f"<tr><td>{esc(row['category'])}</td><td>{esc(row['item'])}</td><td>{esc(row.get('unit',''))}</td>{cells}</tr>")
+        out.append(f"<tr><th scope=\"row\">{esc(row['category'])}</th><td>{esc(row['item'])}</td><td>{esc(row.get('unit',''))}</td>{cells}</tr>")
     return "\n".join(out)
 
 
-def render_bar_ranking(scores, xcmg, max_rows=None):
+def render_bar_ranking(scores, xcmg, max_rows=None, coverage=None):
     rows = ranking(scores)[: max_rows or 99]
     max_score = max([r["score"] for r in rows] + [1])
     html_rows = []
@@ -629,15 +805,28 @@ def render_bar_ranking(scores, xcmg, max_rows=None):
         width = max(2, row["score"] / max_score * 100)
         html_rows.append(
             f'<div class="{cls}"><span>{idx}</span><b>{esc(row["product"])}</b>'
-            f'<i><em style="width:{width:.1f}%"></em></i><strong>{fmt_score(row["score"])}</strong></div>'
+            f'<i><em style="width:{width:.1f}%"></em></i><strong>{fmt_score(row["score"])}</strong>'
+            + (f'<small class="barCoverage" title="数据覆盖率">覆盖 {fmt_percent(coverage.get(row["product"]))}</small>' if coverage else "")
+            + '</div>'
         )
     return "".join(html_rows)
 
 
-def render_radar(model, score_map, title, small=False):
+def default_radar_products(model, ranking_map):
+    xcmg = model["meta"]["xcmg"]
+    rows = ranking(ranking_map)
+    leader = rows[0]["product"] if rows else None
+    defaults = [xcmg]
+    if leader and leader != xcmg:
+        defaults.append(leader)
+    return defaults
+
+
+def render_radar(model, score_map, title, small=False, ranking_map=None):
     products = model["products"]
     conditions = model["conditions"]
     colors = model["colors"]
+    defaults = default_radar_products(model, ranking_map or model["conditionTotal"])
     axes = [c["name"].split(" / ")[0] for c in conditions]
     if len(axes) < 3:
         return ""
@@ -660,7 +849,7 @@ def render_radar(model, score_map, title, small=False):
         x, y = point(i, 100)
         axis_lines.append(f'<line x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}" class="radar-axis"/>')
         lx, ly = point(i, 118)
-        labels.append(f'<text x="{lx:.1f}" y="{ly:.1f}" class="radar-label">{esc(label)}</text>')
+        labels.append(f'<text x="{lx:.1f}" y="{ly:.1f}" class="radar-label"><title>{esc(conditions[i]["name"])}</title>{esc(label)}</text>')
 
     series = []
     for p in products:
@@ -671,7 +860,10 @@ def render_radar(model, score_map, title, small=False):
             f'<polygon class="radar-series" data-product="{esc(p)}" points="{path}" '
             f'style="--series-color:{colors[p]}"/>'
         )
-    legend = "".join(f'<button type="button" data-product="{esc(p)}"><i style="background:{colors[p]}"></i>{esc(p)}</button>' for p in products)
+    legend = "".join(
+        f'<button type="button" data-product="{esc(p)}" data-default="{str(p in defaults).lower()}"><i style="background:{colors[p]}"></i>{esc(p)}</button>'
+        for p in products
+    )
     return (
         f'<div class="radarBox"><div class="radarHead"><h3>{esc(title)}</h3><span class="radarCurrent">当前：全部品牌</span></div>'
         f'<svg class="radarSvg" viewBox="0 0 {size} {size}" role="img" aria-label="{esc(title)}">'
@@ -688,6 +880,7 @@ def render_condition_factor_radar(model, condition):
     details = model["conditionDetails"][condition["id"]][:8]
     products = model["products"]
     colors = model["colors"]
+    defaults = default_radar_products(model, model["conditionScores"][condition["id"]])
     if len(details) < 3:
         return ""
     size = 360
@@ -713,30 +906,38 @@ def render_condition_factor_radar(model, condition):
         x, y = point(i, 100)
         lines.append(f'<line x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}" class="radar-axis"/>')
         lx, ly = point(i, 118)
-        labels.append(f'<text x="{lx:.1f}" y="{ly:.1f}" class="radar-label">{esc(short(detail["item"]))}</text>')
+        labels.append(f'<text x="{lx:.1f}" y="{ly:.1f}" class="radar-label"><title>{esc(detail["item"])}</title>{esc(short(detail["item"]))}</text>')
     series = []
     for p in products:
         pts = [point(i, detail["scores"].get(p) or 0) for i, detail in enumerate(details)]
         path = " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
         series.append(f'<polygon class="radar-series" data-product="{esc(p)}" points="{path}" style="--series-color:{colors[p]}"/>')
-    legend = "".join(f'<button type="button" data-product="{esc(p)}"><i style="background:{colors[p]}"></i>{esc(p)}</button>' for p in products)
+    legend = "".join(
+        f'<button type="button" data-product="{esc(p)}" data-default="{str(p in defaults).lower()}"><i style="background:{colors[p]}"></i>{esc(p)}</button>'
+        for p in products
+    )
     key_rows = "".join(
         f'<tr><td>{esc(d["type"])}</td><td>{esc(d["item"])}</td><td>{int(d["weight"]*100)}%</td></tr>' for d in details
     )
     return (
         '<div class="factorRadar">'
-        '<div>'
-        f'<svg class="radarSvg small" viewBox="0 0 {size} {size}">' + "".join(grid + lines + labels + series) + "</svg>"
+        '<div class="radarHead factorRadarHead"><h3>关键参数 / 配置对比</h3><span class="radarCurrent"></span></div>'
+        '<div class="factorRadarGrid"><div>'
+        f'<svg class="radarSvg small" viewBox="0 0 {size} {size}" role="img" aria-label="{esc(condition["name"])}关键参数与配置雷达图">' + "".join(grid + lines + labels + series) + "</svg>"
         f'<div class="radarLegend compact">{legend}</div>'
         "</div>"
-        f'<table class="keyTable"><thead><tr><th>类型</th><th>关键项</th><th>权重</th></tr></thead><tbody>{key_rows}</tbody></table>'
-        "</div>"
+        f'<table class="keyTable"><caption class="srOnly">{esc(condition["name"])}关键项及权重</caption><thead><tr><th scope="col">类型</th><th scope="col">关键项</th><th scope="col">权重</th></tr></thead><tbody>{key_rows}</tbody></table>'
+        "</div></div>"
     )
 
 
 def render_detail_matrix(model, condition):
     products = model["products"]
     details = model["conditionDetails"][condition["id"]]
+    known_weight = {
+        p: sum(d["weight"] for d in details if d["scores"].get(p) is not None)
+        for p in products
+    }
     rows = []
     for d in details:
         cells = []
@@ -745,21 +946,21 @@ def render_detail_matrix(model, condition):
             score = d["scores"].get(p)
             cls = score_class(score)
             if d["type"] == "配置":
-                status = option_status(value)
+                status = option_status(value, score)
             else:
-                status = "有效数据" if score is not None else "缺失"
-            contribution = "" if score is None else fmt_score(score * d["weight"])
+                status = "有效数据" if score is not None else "待核验"
+            contribution = "" if score is None or known_weight[p] <= 0 else fmt_score(score * d["weight"] / known_weight[p])
             cells.append(
                 f'<td class="scoreCell {cls}"><b>{esc(value) if value else "-"}</b>'
                 f'<span>{fmt_score(score)}分</span><small>贡献 {contribution or "-"} · {esc(status)}</small></td>'
             )
         rows.append(
-            f'<tr><td>{esc(d["item"])}</td><td>{esc(d["type"])}</td><td>{int(d["weight"]*100)}%</td>'
+            f'<tr><th scope="row">{esc(d["item"])}</th><td>{esc(d["type"])}</td><td>{int(d["weight"]*100)}%</td>'
             f'<td>{esc(d["note"])}</td>{"".join(cells)}</tr>'
         )
-    head = "".join(f"<th>{esc(p)}</th>" for p in products)
+    head = "".join(f'<th scope="col">{esc(p)}</th>' for p in products)
     return (
-        '<div class="tableScroll detailMatrix"><table><thead><tr><th>指标/配置</th><th>类型</th><th>权重</th><th>对工况影响</th>'
+        f'<div class="tableScroll detailMatrix"><table><caption class="srOnly">{esc(condition["name"])}全部指标与配置贡献明细</caption><thead><tr><th scope="col">指标/配置</th><th scope="col">类型</th><th scope="col">权重</th><th scope="col">对工况影响</th>'
         + head
         + "</tr></thead><tbody>"
         + "".join(rows)
@@ -768,6 +969,8 @@ def render_detail_matrix(model, condition):
 
 
 def direction_key(detail):
+    if detail.get("parser"):
+        return detail["parser"]
     if detail["item"] == "动臂偏摆（左/右）":
         return "swing"
     if detail["direction"] == "越低越好":
@@ -817,8 +1020,8 @@ def metric_gap_text(detail, xcmg, best_product):
 def option_gap_text(detail, xcmg, best_product):
     xraw = display_value(detail["values"].get(xcmg, "") or "/")
     braw = display_value(detail["values"].get(best_product, "") or "/")
-    xstatus = option_status(xraw)
-    bstatus = option_status(braw)
+    xstatus = option_status(xraw, detail["scores"].get(xcmg))
+    bstatus = option_status(braw, detail["scores"].get(best_product))
     return f"{detail['item']}：XCMG {xstatus}（{xraw}），{best_product} {bstatus}（{braw}）。"
 
 
@@ -884,7 +1087,9 @@ def render_simulator(model, condition):
         raw = d["values"].get(xcmg, "")
         xs = d["scores"].get(xcmg)
         if d["type"] == "配置":
-            current = option_score(raw)
+            current = xs
+            if current is None:
+                continue
             delta = (100 - current) * d["weight"]
             label = f"{d['item']}标配"
             desc = f"当前 {raw or '/'}，按标配测算。"
@@ -927,7 +1132,12 @@ def render_summary_cards(model):
         if config_details:
             cfg_scores = {}
             for p in model["products"]:
-                cfg_scores[p] = sum((d["scores"].get(p) or 0) * d["weight"] for d in config_details)
+                parts = [(d["scores"].get(p), d["weight"]) for d in config_details]
+                cfg_scores[p] = (
+                    sum(score * weight for score, weight in parts if score is not None)
+                    if coverage_ratio(parts) + 1e-9 >= MIN_SCORE_COVERAGE
+                    else None
+                )
             cfg_rows = ranking(cfg_scores)
             best_cfg = cfg_rows[0] if cfg_rows else None
         cards.append(
@@ -943,7 +1153,14 @@ def render_summary_cards(model):
 
 def raw_param_gap_text(row, model, xcmg):
     item = row["item"]
-    direction = "low" if item in LOWER_BETTER else ("swing" if item == "动臂偏摆（左/右）" else "high")
+    if item in LOWER_BETTER:
+        direction = "low"
+    elif item == "动臂偏摆（左/右）":
+        direction = "swing"
+    elif item == "系统流量":
+        direction = "flow_sum"
+    else:
+        direction = "high"
     values = {p: parse_metric_value(row["values"].get(p), direction) for p in model["products"]}
     scores = normalize(values, "low" if direction == "low" else "high")
     xscore = scores.get(xcmg)
@@ -980,14 +1197,18 @@ def raw_param_gap_text(row, model, xcmg):
 
 
 def raw_option_gap_text(row, model, xcmg):
-    xraw = display_value(row["values"].get(xcmg))
-    xscore = option_score(xraw)
+    xraw_original = row["values"].get(xcmg)
+    xscore = option_score(xraw_original)
+    if xscore is None:
+        return None
+    xraw = display_value(xraw_original)
     candidates = []
     for p in model["products"]:
         if p == xcmg:
             continue
-        raw = display_value(row["values"].get(p))
-        candidates.append((p, option_score(raw), raw))
+        raw_original = row["values"].get(p)
+        raw = display_value(raw_original)
+        candidates.append((p, option_score(raw_original), raw))
     candidates = [c for c in candidates if c[1] is not None]
     if not candidates:
         return None
@@ -1020,18 +1241,22 @@ def render_overall_section(model):
     rank, xscore, rows = xcmg_rank(model["overall"], xcmg)
     leader = rows[0] if rows else {"product": "-", "score": 0}
     gap_notes = render_overall_gap_notes(model, xcmg, leader)
+    ranked_products = [row["product"] for row in rows]
+    ordered_products = ranked_products + [p for p in model["products"] if p not in ranked_products]
     overall_table = "".join(
-        f'<tr class="{ "xcmg-row" if p == xcmg else ""}"><td>{esc(p)}</td><td class="{score_class(model["overall"].get(p))}">{fmt_score(model["overall"].get(p))}</td>'
-        f'<td>{fmt_score(model["conditionTotal"].get(p))}</td><td>{fmt_score(model["paramScore"].get(p))}</td><td>{fmt_score(model["optionScore"].get(p))}</td></tr>'
-        for p in [r["product"] for r in rows]
+        f'<tr class="{ "xcmg-row" if p == xcmg else ""}"><th scope="row">{esc(p)}</th><td class="{score_class(model["overall"].get(p))}">{fmt_score(model["overall"].get(p))}</td>'
+        f'<td>{fmt_score(model["paramScore"].get(p))}</td><td>{fmt_score(model["optionScore"].get(p))}</td>'
+        f'<td>{fmt_percent(model["overallCoverage"].get(p))}</td><td>{confidence_label(model["overallCoverage"].get(p))}</td></tr>'
+        for p in ordered_products
     )
     return (
         '<section id="overall"><h2>总体评分（不分细分工况）</h2>'
+        f'<p class="methodNote">评分口径：参数综合分 {int(OVERALL_WEIGHTS["parameter"]*100)}% + 标选配综合分 {int(OVERALL_WEIGHTS["option"]*100)}%；工况评分单独展示，不重复计入总体分。</p>'
         '<div class="split">'
-        f'<div class="panel"><h3>总体评分排名</h3><div class="bars">{render_bar_ranking(model["overall"], xcmg)}</div></div>'
+        f'<div class="panel"><h3>总体评分排名</h3><div class="bars">{render_bar_ranking(model["overall"], xcmg, coverage=model["overallCoverage"])}</div><p class="coverageNote">覆盖率低于 {int(MIN_SCORE_COVERAGE*100)}% 的产品不进入排名，仍在右侧表格中保留并标记为“数据不足”。</p></div>'
         '<div class="panel"><h3>XCMG 总体差距判断</h3>'
         + gap_notes
-        + '<div class="tableScroll compact"><table><thead><tr><th>产品</th><th>总体</th><th>工况</th><th>参数</th><th>配置</th></tr></thead><tbody>'
+        + '<div class="tableScroll compact"><table><caption class="srOnly">总体评分、参数评分、配置评分及数据覆盖率</caption><thead><tr><th scope="col">产品</th><th scope="col">总体</th><th scope="col">参数</th><th scope="col">配置</th><th scope="col">数据覆盖</th><th scope="col">置信度</th></tr></thead><tbody>'
         + overall_table
         + '</tbody></table></div></div></div></section>'
     )
@@ -1057,17 +1282,17 @@ def render_html(model):
             "</div>"
             '<div class="conditionTop">'
             f'<div class="panel">{render_condition_factor_radar(model, c)}</div>'
-            f'<div class="panel"><h3>工况评分排名</h3><div class="bars">{render_bar_ranking(cond_scores[c["id"]], xcmg)}</div></div>'
+            f'<div class="panel"><h3>工况评分排名</h3><div class="bars">{render_bar_ranking(cond_scores[c["id"]], xcmg, coverage=model["conditionCoverage"][c["id"]])}</div><p class="coverageNote">覆盖率低于 {int(MIN_SCORE_COVERAGE*100)}% 的产品不进入正式排名。</p></div>'
             "</div>"
             + render_detail_matrix(model, c)
             + render_gap_cards(model, c)
             + render_simulator(model, c)
             + "</section>"
         )
-    param_head = "".join(f"<th>{esc(p)}</th>" for p in model["products"])
+    param_head = "".join(f'<th scope="col">{esc(p)}</th>' for p in model["products"])
     param_rows = table_rows(model["rawParamRows"], model["products"])
     option_rows = table_rows(model["rawOptionRows"], model["products"])
-    radar = render_radar(model, cond_scores, "工况雷达图")
+    radar = render_radar(model, cond_scores, "工况雷达图", ranking_map=cond_total)
     data_json = json.dumps({
         "xcmg": xcmg,
         "products": model["products"],
@@ -1082,31 +1307,34 @@ def render_html(model):
   <style>
     :root{{--blue:#004c97;--blue-dark:#003765;--ink:#0a2d4f;--muted:#5f7285;--line:#cfdae6;--bg:#f3f7fa;--paper:#fff;--yellow:#f5b400;--green:#0f7b45;--red:#ba1f1f;--shadow:0 8px 24px rgba(0,58,112,.07)}}
     *{{box-sizing:border-box}}html{{scroll-behavior:smooth}}body{{margin:0;background:var(--bg);color:#102a43;font-family:"Segoe UI",Arial,"Microsoft YaHei",sans-serif;line-height:1.55}}a{{color:inherit;text-decoration:none}}button,input{{font-family:inherit}}
-    .layout{{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}}aside.nav{{position:sticky;top:0;height:100vh;overflow:auto;background:linear-gradient(180deg,var(--blue-dark),#001e3d);color:white;border-right:5px solid var(--yellow);padding:18px 14px;z-index:20}}.nav h1{{font-size:18px;margin:10px 0 6px;color:#fff!important}}.nav img{{width:118px;background:#fff;padding:6px;border-radius:2px}}.nav small{{display:block;color:#bcd3e8;font-weight:800;letter-spacing:.08em;text-transform:uppercase}}.nav a{{display:block;padding:8px 10px;border-left:3px solid transparent;border-radius:3px;margin:2px 0;color:#eef7ff;font-size:13px;font-weight:700}}.nav a:hover{{background:rgba(255,255,255,.10);border-left-color:var(--yellow)}}.nav .home{{background:var(--yellow);color:#08213d;font-weight:900;margin:12px 0}}
+    .layout{{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}}aside.nav{{position:sticky;top:0;height:100vh;overflow:auto;background:linear-gradient(180deg,var(--blue-dark),#001e3d);color:white;border-right:5px solid var(--yellow);padding:18px 14px;z-index:20}}.navTitle{{font-size:18px;margin:10px 0 6px;color:#fff;font-weight:900}}.nav img{{width:118px;background:#fff;padding:6px;border-radius:2px}}.nav small{{display:block;color:#bcd3e8;font-weight:800;letter-spacing:.08em;text-transform:uppercase}}.navMenu a{{display:block;padding:8px 10px;border-left:3px solid transparent;border-radius:3px;margin:2px 0;color:#eef7ff;font-size:13px;font-weight:700}}.navMenu a:hover{{background:rgba(255,255,255,.10);border-left-color:var(--yellow)}}.navMenu .home{{background:var(--yellow);color:#08213d;font-weight:900;margin:12px 0}}.navToggle,.mobileTop{{display:none}}
     main{{padding:22px;min-width:0}}.hero{{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:center;border-left:6px solid var(--blue);margin-bottom:16px}}.heroText{{padding:28px 28px 24px}}.eyebrow{{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}}h1{{font-size:38px;line-height:1.1;color:#082b4d;margin:8px 0 12px}}h2{{font-size:22px;color:#082b4d;margin:0 0 14px}}h2:after{{content:"";display:block;width:46px;height:3px;background:var(--yellow);margin-top:8px}}h3{{color:#0b3155;margin:0 0 8px;font-size:16px}}.hero p{{max-width:980px}}.heroMedia{{height:260px;display:grid;place-items:center;background:#f7fafc;border-left:1px solid var(--line);padding:18px}}.heroMedia img{{max-width:100%;max-height:100%;object-fit:contain}}.actions{{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}}.btn{{display:inline-flex;align-items:center;justify-content:center;border:1px solid #b9cadb;border-radius:4px;padding:9px 13px;font-weight:900;font-size:13px;background:#f7fbff}}.btn.blue{{background:var(--blue);color:#fff;border-color:var(--blue)}}.btn.yellow{{background:var(--yellow);border-color:var(--yellow);color:#08213d}}
     section{{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:5px;padding:18px;margin:14px 0}}.kpis{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}}.kpi{{border:1px solid #c9d8e7;border-left:5px solid var(--blue);padding:12px;background:#fbfdff}}.kpi:nth-child(2){{border-left-color:var(--yellow)}}.kpi b{{display:block;font-size:30px;color:var(--blue)}}.kpi span{{font-size:12px;color:var(--muted)}}.split{{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.9fr);gap:14px}}.panel{{border:1px solid #c8d7e6;border-radius:5px;background:#fff;padding:14px;min-width:0}}.summaryGrid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}.summaryCard{{border:1px solid #c8d7e6;border-top:4px solid var(--blue);padding:12px;background:#fbfdff}}.summaryCard p{{margin:7px 0;font-size:13px}}.conditionTitle{{display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid #e2ebf3;padding-bottom:12px;margin-bottom:12px}}.conditionTitle span{{display:block;color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.14em}}.conditionTitle em{{font-style:normal;font-weight:900;color:#4f6172}}.conditionIntro{{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}}.conditionIntro p{{margin:0;background:#f7fafc;border-left:4px solid var(--yellow);padding:10px 12px}}.conditionTop{{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(390px,.8fr);gap:12px;margin-bottom:12px}}
-    .bars{{display:grid;gap:7px}}.bar{{display:grid;grid-template-columns:30px minmax(120px,170px) minmax(180px,1fr) 54px;gap:9px;align-items:center}}.bar span{{background:#e6f0fa;color:var(--blue);font-weight:900;text-align:center;border-radius:3px;padding:3px 0}}.bar b{{font-size:13px}}.bar i{{height:17px;background:#e3ecf5;border-radius:3px;overflow:hidden}}.bar i em{{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#2878bd)}}.bar strong{{color:#08335d}}.bar.xcmg span{{background:var(--yellow);color:#08213d}}.bar.xcmg i em{{background:linear-gradient(90deg,var(--yellow),#ffd86d)}}.bar.xcmg b,.bar.xcmg strong{{color:var(--blue);font-weight:900}}
+    .bars{{display:grid;gap:7px}}.bar{{display:grid;grid-template-columns:28px minmax(100px,145px) minmax(90px,1fr) 48px 64px;gap:8px;align-items:center;min-width:0}}.bar span{{background:#e6f0fa;color:var(--blue);font-weight:900;text-align:center;border-radius:3px;padding:3px 0}}.bar b{{font-size:13px;min-width:0;overflow-wrap:anywhere}}.bar i{{height:17px;background:#e3ecf5;border-radius:3px;overflow:hidden}}.bar i em{{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#2878bd)}}.bar strong{{color:#08335d}}.barCoverage{{font-size:11px;color:#65798c;white-space:nowrap}}.bar.xcmg span{{background:var(--yellow);color:#08213d}}.bar.xcmg i em{{background:linear-gradient(90deg,var(--yellow),#ffd86d)}}.bar.xcmg b,.bar.xcmg strong{{color:var(--blue);font-weight:900}}
     .radarBox{{min-width:0}}.radarHead{{display:flex;justify-content:space-between;gap:10px;align-items:center;padding-right:6px}}.radarCurrent{{font-size:12px;color:var(--blue);font-weight:900;white-space:nowrap}}.radarSvg{{display:block;margin:6px auto;max-width:100%;height:360px}}.radarSvg.small{{height:300px}}.radar-grid{{fill:none;stroke:#d9e6f2;stroke-width:1}}.radar-axis{{stroke:#d9e6f2;stroke-width:1}}.radar-label{{font-size:12px;font-weight:800;fill:#0b3155;text-anchor:middle;dominant-baseline:middle}}.radar-series{{fill:var(--series-color);fill-opacity:.08;stroke:var(--series-color);stroke-width:2.3;transition:.18s;cursor:pointer}}.radarBox.compare .radar-series,.factorRadar.compare .radar-series{{opacity:.08;fill-opacity:.03}}.radarBox.compare .radar-series.selected,.factorRadar.compare .radar-series.selected{{opacity:1;fill-opacity:.18;stroke-width:3.6}}.radarLegend{{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}}.radarLegend button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:5px 7px;font-size:12px;cursor:pointer;font-weight:700}}.radarLegend i{{display:inline-block;width:10px;height:10px;margin-right:5px;border-radius:2px}}.radarLegend button:hover,.radarLegend button.selected{{border-color:var(--yellow);box-shadow:0 0 0 2px rgba(245,180,0,.18)}}.radarLegend button.selected{{background:#fff7d6;color:#08213d}}.radarLegend.compact button{{font-size:11px;padding:4px 6px}}
-    .factorRadar{{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:12px;align-items:center}}.keyTable{{width:100%;border-collapse:collapse;font-size:12px}}.keyTable th{{background:var(--blue);color:#fff}}.keyTable th,.keyTable td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left}}.tableScroll{{overflow:auto;border:1px solid var(--line);border-radius:4px;max-height:520px;background:white}}.tableScroll.compact{{max-height:360px}}table{{border-collapse:collapse;width:100%;font-size:12px}}th,td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left;vertical-align:top;white-space:nowrap}}th{{position:sticky;top:0;background:var(--blue);color:#fff;z-index:2}}td:first-child,th:first-child{{position:sticky;left:0;z-index:3}}td:first-child{{background:#fff;font-weight:800;color:#0b3155;box-shadow:2px 0 0 rgba(0,76,151,.08)}}tr:nth-child(even) td{{background:#f8fbfe}}tr.xcmg-row td{{box-shadow:inset 3px 0 0 var(--yellow)}}.scoreCell{{min-width:124px;white-space:normal}}.scoreCell b{{display:block}}.scoreCell span{{display:block;font-weight:900}}.scoreCell small{{display:block;color:#51677a}}.good{{background:#e6f4ea!important;color:#0c6a36!important;font-weight:800}}.mid{{background:#fff4cc!important;color:#785700!important;font-weight:800}}.bad{{background:#fde9e9!important;color:#ad1d1d!important;font-weight:800}}.missing{{background:#eef2f6!important;color:#607080!important}}
-    .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18)}}
-    @media(max-width:1200px){{.layout{{display:block}}aside.nav{{height:auto;position:relative}}main{{padding:14px}}.hero,.split,.conditionTop,.factorRadar{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}}}
-    @media(max-width:720px){{.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr}}h1{{font-size:30px}}.bar{{grid-template-columns:28px 118px 1fr 48px}}th,td{{padding:7px 6px}}}}
+    .factorRadar{{min-width:0}}.factorRadarHead{{margin-bottom:4px}}.factorRadarGrid{{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:12px;align-items:center}}.keyTable{{width:100%;border-collapse:collapse;font-size:12px}}.keyTable th{{background:var(--blue);color:#fff}}.keyTable th,.keyTable td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left}}.tableScroll{{overflow:auto;border:1px solid var(--line);border-radius:4px;max-height:520px;background:white}}.tableScroll.compact{{max-height:360px}}table{{border-collapse:collapse;width:100%;font-size:12px}}th,td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left;vertical-align:top;white-space:nowrap}}th{{position:sticky;top:0;background:var(--blue);color:#fff;z-index:2}}td:first-child,th:first-child{{position:sticky;left:0;z-index:3}}td:first-child,tbody th:first-child{{background:#fff;font-weight:800;color:#0b3155;box-shadow:2px 0 0 rgba(0,76,151,.08)}}tr:nth-child(even) td,tr:nth-child(even) th:first-child{{background:#f8fbfe}}tr.xcmg-row td{{box-shadow:inset 3px 0 0 var(--yellow)}}.scoreCell{{min-width:124px;white-space:normal}}.scoreCell b{{display:block}}.scoreCell span{{display:block;font-weight:900}}.scoreCell small{{display:block;color:#51677a}}.good{{background:#e6f4ea!important;color:#0c6a36!important;font-weight:800}}.mid{{background:#fff4cc!important;color:#785700!important;font-weight:800}}.bad{{background:#fde9e9!important;color:#ad1d1d!important;font-weight:800}}.missing{{background:#eef2f6!important;color:#607080!important}}.srOnly{{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}}
+    .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.methodNote,.coverageNote,.sourceNote{{font-size:12px;color:#526a7f;background:#f6f9fc;border-left:4px solid var(--yellow);padding:9px 11px;margin:0 0 12px}}.coverageNote{{margin:10px 0 0}}.sourceNote{{display:flex;gap:10px;align-items:flex-start}}.sourceNote b{{color:#08335d;white-space:nowrap}}.simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
+    @media(max-width:1200px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home{{grid-column:1/-1;margin:0}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
+    @media(max-width:720px){{.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr}}h1{{font-size:30px}}.bar{{grid-template-columns:28px 105px minmax(90px,1fr) 44px}}.barCoverage{{display:none}}th,td{{padding:7px 6px}}.navTitle{{font-size:13px}}.heroText{{padding:22px 18px}}.sourceNote{{display:block}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}}.conditionTitle h2{{font-size:19px;overflow-wrap:anywhere}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:anywhere}}.radarSvg.small{{width:100%;height:auto;max-height:300px}}.radarLegend{{min-width:0}}.radarLegend button{{white-space:normal;overflow-wrap:anywhere}}}}
   </style>
 </head>
 <body>
-<a class="backTop" href="#top">回到顶部</a>
+<a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
 <div class="layout" id="top">
   <aside class="nav">
     <img src="assets/xcmg-logo.svg" alt="XCMG">
-    <h1>{esc(meta["label"])}挖掘机对标</h1>
-    <small>{esc(meta["xcmg"])}</small>
-    <a class="home" href="arc.html">返回 ARC 主页</a>
-    <a href="#summary">领导总览</a>
-    <a href="#overall">总体评分</a>
-    <a href="#radar">可视化驾驶舱</a>
-    <a href="#conditions">工况总览</a>
-    {''.join(f'<a href="#cond{i}">{esc(c["name"])}</a>' for i,c in enumerate(model["conditions"],1))}
-    <a href="#raw">原始数据</a>
+    <div><div class="navTitle">{esc(meta["label"])}挖掘机对标</div><small>{esc(meta["xcmg"])}</small></div>
+    <button class="navToggle" type="button" aria-expanded="false" aria-controls="page-nav">页面导航</button>
+    <a class="mobileTop" href="#top">顶部</a>
+    <div class="navMenu" id="page-nav">
+      <a class="home" href="arc.html">返回 ARC 主页</a>
+      <a href="#summary">领导总览</a>
+      <a href="#overall">总体评分</a>
+      <a href="#radar">可视化驾驶舱</a>
+      <a href="#conditions">工况总览</a>
+      {''.join(f'<a href="#cond{i}">{esc(c["name"])}</a>' for i,c in enumerate(model["conditions"],1))}
+      <a href="#raw">原始数据</a>
+    </div>
   </aside>
   <main>
     <div class="hero">
@@ -1123,9 +1351,9 @@ def render_html(model):
       <h2>领导总览</h2>
       <div class="kpis">
         <div class="kpi"><span>对标产品数</span><b>{product_count}</b><span>含 XCMG 与主流竞品</span></div>
-        <div class="kpi"><span>XCMG 工况综合</span><b>第 {condition_rank or "-"}</b><span>{fmt_score(condition_score)} 分</span></div>
-        <div class="kpi"><span>工况领先</span><b>{esc(leader["product"])}</b><span>{fmt_score(leader["score"])} 分</span></div>
-        <div class="kpi"><span>明细项</span><b>{total_detail_rows}</b><span>按工况筛选后计算</span></div>
+        <div class="kpi"><span>XCMG 总体排名</span><b>第 {overall_rank or "-"}</b><span>参数与配置综合</span></div>
+        <div class="kpi"><span>XCMG 总体得分</span><b>{fmt_score(overall_score)}</b><span>参数 65% / 配置 35%</span></div>
+        <div class="kpi"><span>XCMG 数据覆盖</span><b>{fmt_percent(model["overallCoverage"].get(xcmg))}</b><span>置信度：{confidence_label(model["overallCoverage"].get(xcmg))}</span></div>
       </div>
       <div class="summaryGrid" style="margin-top:12px">{summary_cards}</div>
     </section>
@@ -1136,7 +1364,7 @@ def render_html(model):
       <h2>可视化驾驶舱</h2>
       <div class="split">
         <div class="panel">{radar}</div>
-        <div class="panel"><h3>工况综合排名（按 6 类工况）</h3><div class="bars">{render_bar_ranking(cond_total, xcmg)}</div><p class="muted">点击雷达图例可多选品牌进行对比；再次点击已选品牌可取消，全部取消后恢复全品牌展示。</p></div>
+        <div class="panel"><h3>工况综合排名（按 6 类工况）</h3><div class="bars">{render_bar_ranking(cond_total, xcmg, coverage=model["conditionTotalCoverage"])}</div><p class="muted">默认显示 XCMG 与工况标杆；点击图例可增加或取消品牌，全部取消后恢复全品牌展示。</p></div>
       </div>
     </section>
 
@@ -1149,10 +1377,11 @@ def render_html(model):
 
     <section id="raw">
       <h2>原始数据与全量展示</h2>
-      <div class="actions"><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a></div>
+      <div class="sourceNote"><b>数据口径</b><span>评分以本页对应原始 Excel 为基准；空白项标记为“待核验”，不等同于无配置。多配置数值范围按区间中值计算，系统流量按泵组流量合计，行走速度拆分高、低速档；厂商文档和配置形态在来源登记表中持续补充。</span></div>
+      <div class="actions"><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="data/source-register.csv" download>下载来源登记表</a></div>
       <div class="rawTabs"><button type="button" class="active" data-table="param">参数</button><button type="button" data-table="option">标选配</button></div>
-      <div class="tableScroll rawTable" data-name="param" data-open="true"><table><thead><tr><th>类别</th><th>指标</th><th>单位</th>{param_head}</tr></thead><tbody>{param_rows}</tbody></table></div>
-      <div class="tableScroll rawTable" data-name="option" data-open="false"><table><thead><tr><th>类别</th><th>配置</th><th>单位</th>{param_head}</tr></thead><tbody>{option_rows}</tbody></table></div>
+      <div class="tableScroll rawTable" data-name="param" data-open="true"><table><caption class="srOnly">全部原始参数数据</caption><thead><tr><th scope="col">类别</th><th scope="col">指标</th><th scope="col">单位</th>{param_head}</tr></thead><tbody>{param_rows}</tbody></table></div>
+      <div class="tableScroll rawTable" data-name="option" data-open="false"><table><caption class="srOnly">全部原始标选配数据</caption><thead><tr><th scope="col">类别</th><th scope="col">配置</th><th scope="col">单位</th>{param_head}</tr></thead><tbody>{option_rows}</tbody></table></div>
     </section>
   </main>
 </div>
@@ -1164,6 +1393,7 @@ function setupRadars(){{
     const selected=new Set();
     const series=[...box.querySelectorAll('.radar-series[data-product]')];
     const controls=[...box.querySelectorAll('.radarLegend [data-product]')];
+    controls.filter(btn=>btn.dataset.default==='true').forEach(btn=>selected.add(btn.dataset.product));
     const label=()=>{{
       if(!current) return;
       if(selected.size===0) current.textContent='当前：全部品牌';
@@ -1239,9 +1469,34 @@ function setupRawTabs(){{
     document.querySelectorAll('.rawTable').forEach(t=>t.dataset.open=String(t.dataset.name===btn.dataset.table));
   }}));
 }}
+function setupPageNavigation(){{
+  const toggle=document.querySelector('.navToggle');
+  const menu=document.querySelector('.navMenu');
+  if(toggle&&menu){{
+    toggle.addEventListener('click',()=>{{
+      const open=menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',String(open));
+      toggle.textContent=open?'收起导航':'页面导航';
+    }});
+    menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{{
+      if(window.matchMedia('(max-width:1200px)').matches){{
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+        toggle.textContent='页面导航';
+      }}
+    }}));
+  }}
+  const backTop=document.querySelector('.backTop');
+  if(backTop){{
+    const update=()=>backTop.classList.toggle('show',window.scrollY>640);
+    window.addEventListener('scroll',update,{{passive:true}});
+    update();
+  }}
+}}
 setupRadars();
 setupSimulators();
 setupRawTabs();
+setupPageNavigation();
 </script>
 </body>
 </html>
@@ -1320,7 +1575,7 @@ def sync_data_files():
             shutil.copy2(meta["source"], dest)
 
 
-def update_arc_page():
+def _legacy_update_arc_page():
     arc_path = ROOT / "arc.html"
     text = arc_path.read_text(encoding="utf-8")
     text = text.replace("当前先上线 3.5 吨小挖项目，其他产品线保留入口，不伪造未完成结论。", "当前已上线 1-2 吨、2-3 吨、3.5 吨三个小挖吨级项目，其他产品线保留入口，不伪造未完成结论。")
@@ -1411,13 +1666,83 @@ def update_arc_page():
     arc_path.write_text(text, encoding="utf-8", newline="\n")
 
 
+def update_arc_metrics(models):
+    arc_path = ROOT / "arc.html"
+    text = arc_path.read_text(encoding="utf-8")
+    values = {
+        "ARC_PRODUCT_LINES": 7,
+        "ARC_TONNAGES": len(models),
+        "ARC_PRODUCTS": sum(len(model["products"]) for model in models),
+        "ARC_SOURCES": len(SOURCE_FILES),
+    }
+    for marker, value in values.items():
+        pattern = rf"<!-- {marker} -->.*?<!-- /{marker} -->"
+        replacement = f"<!-- {marker} -->{value}<!-- /{marker} -->"
+        text, count = re.subn(pattern, replacement, text, flags=re.S)
+        if count != 1:
+            raise ValueError(f"ARC metric marker missing or duplicated: {marker}")
+    arc_path.write_text(text, encoding="utf-8", newline="\n")
+
+
+def write_project_manifest(models):
+    manifest = {
+        "productLineCount": 7,
+        "excavatorTonnageCount": len(models),
+        "benchmarkProductCount": sum(len(model["products"]) for model in models),
+        "sourceWorkbookCount": len(SOURCE_FILES),
+        "minimumScoreCoverage": MIN_SCORE_COVERAGE,
+        "overallWeights": OVERALL_WEIGHTS,
+        "dashboards": [
+            {
+                "label": model["meta"]["label"],
+                "output": model["meta"]["output"],
+                "xcmg": model["meta"]["xcmg"],
+                "productCount": len(model["products"]),
+                "source": f'data/source-excel/{model["meta"]["download"]}',
+            }
+            for model in models
+        ],
+    }
+    (ROOT / "data" / "project-manifest.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+def externalize_dashboard_assets(page_html):
+    style_start = page_html.index("  <style>")
+    style_end = page_html.index("  </style>", style_start) + len("  </style>")
+    css = page_html[style_start + len("  <style>"): style_end - len("  </style>")].strip() + "\n"
+
+    script_start = page_html.rfind("<script>")
+    script_end = page_html.index("</script>", script_start) + len("</script>")
+    javascript = page_html[script_start + len("<script>"): script_end - len("</script>")].strip() + "\n"
+
+    assets_dir = ROOT / "assets"
+    assets_dir.mkdir(parents=True, exist_ok=True)
+    (assets_dir / "dashboard.css").write_text(css, encoding="utf-8", newline="\n")
+    (assets_dir / "dashboard.js").write_text(javascript, encoding="utf-8", newline="\n")
+
+    page_html = page_html[:style_start] + '  <link rel="stylesheet" href="assets/dashboard.css">' + page_html[style_end:]
+    script_start = page_html.rfind("<script>")
+    script_end = page_html.index("</script>", script_start) + len("</script>")
+    page_html = page_html[:script_start] + '<script src="assets/dashboard.js"></script>' + page_html[script_end:]
+    return page_html
+
+
 def main():
     download_assets()
     sync_data_files()
+    models = []
     for meta in SOURCE_FILES:
         wb = load_workbook(meta["source"])
         model = build_model(wb, meta)
-        (ROOT / meta["output"]).write_text(render_html(model), encoding="utf-8", newline="\n")
+        models.append(model)
+        page_html = externalize_dashboard_assets(render_html(model))
+        (ROOT / meta["output"]).write_text(page_html, encoding="utf-8", newline="\n")
+    write_project_manifest(models)
+    update_arc_metrics(models)
 
 
 if __name__ == "__main__":

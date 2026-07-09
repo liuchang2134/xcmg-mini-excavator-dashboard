@@ -107,6 +107,20 @@
       background:rgba(255,255,255,.11);
       border-bottom-color:var(--yellow);
     }
+    .navToggle{
+      display:none;
+      min-height:36px;
+      border:1px solid rgba(255,255,255,.35);
+      border-radius:4px;
+      background:transparent;
+      color:#fff;
+      padding:0 12px;
+      font-weight:900;
+      cursor:pointer;
+      white-space:nowrap;
+      min-width:82px;
+    }
+    section{scroll-margin-top:86px}
     .page{padding:0 0 44px}
     .hero{
       position:relative;
@@ -114,7 +128,7 @@
       grid-template-columns:minmax(0,1.05fr) minmax(440px,.64fr);
       gap:34px;
       align-items:end;
-      min-height:620px;
+      min-height:570px;
       padding:48px;
       background:
         linear-gradient(90deg,rgba(0,18,36,.92) 0%,rgba(0,33,62,.76) 42%,rgba(0,30,54,.30) 73%,rgba(0,20,35,.62) 100%),
@@ -157,7 +171,7 @@
     h1{
       margin:0;
       color:#fff;
-      font-size:clamp(44px,5.4vw,82px);
+      font-size:clamp(42px,4.5vw,64px);
       line-height:1.05;
       letter-spacing:0;
       max-width:860px;
@@ -436,7 +450,7 @@
     }
     .productMatrix{
       display:grid;
-      grid-template-columns:minmax(420px,1.18fr) repeat(2,minmax(300px,1fr));
+      grid-template-columns:repeat(3,minmax(0,1fr));
       gap:16px;
       align-items:stretch;
     }
@@ -450,8 +464,12 @@
       overflow:hidden;
     }
     .lineCard.featured{
-      grid-row:span 2;
-      min-height:644px;
+      display:grid;
+      grid-column:1 / -1;
+      grid-row:auto;
+      grid-template-columns:minmax(360px,.72fr) minmax(0,1fr);
+      min-height:0;
+      height:320px;
     }
     .lineImage{
       height:188px;
@@ -460,7 +478,8 @@
       overflow:hidden;
       position:relative;
     }
-    .lineCard.featured .lineImage{height:282px}
+    .lineCard.featured .lineImage{height:320px;border-bottom:0;border-right:1px solid var(--line)}
+    .lineCard.featured .lineBody{padding:28px;justify-content:center}
     .lineImage img{
       width:100%;
       height:100%;
@@ -729,7 +748,8 @@
       .heroMain{min-height:auto}
       .heroModel{min-height:0}
       .productMatrix{grid-template-columns:1fr 1fr}
-      .lineCard.featured{grid-column:span 2;grid-row:span 1;min-height:auto}
+      .lineCard.featured{grid-column:span 2;grid-row:span 1;grid-template-columns:320px minmax(0,1fr);min-height:0;height:280px}
+      .lineCard.featured .lineImage{height:280px}
       .projectRow{grid-template-columns:190px minmax(0,1fr)}
       .projectActions{grid-column:1 / -1;border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
       .methodBand{grid-template-columns:1fr}
@@ -737,10 +757,12 @@
     }
     @media(max-width:860px){
       .shell{padding:0 16px}
-      .nav{height:auto;align-items:flex-start;flex-direction:column;padding:12px 0}
+      .nav{height:60px;align-items:center;padding:8px 0;position:relative}
       .brand{min-width:0}
-      .navLinks{width:100%;justify-content:flex-start;overflow-x:visible;flex-wrap:wrap;white-space:normal}
-      .navLinks a{min-height:32px;padding:0 8px;font-size:12px}
+      .navToggle{display:inline-flex;align-items:center;justify-content:center}
+      .navLinks{display:none;position:absolute;top:52px;left:0;right:0;width:100%;padding:8px;background:#021a32;border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 30px rgba(0,24,48,.24);grid-template-columns:1fr 1fr;white-space:normal}
+      .navLinks.open{display:grid}
+      .navLinks a{min-height:38px;padding:0 10px;font-size:12px}
       .hero{min-height:auto;padding:34px 22px;background-position:center top}
       .heroMain{padding:0}
       .platformStrip{grid-template-columns:1fr 1fr}
@@ -750,8 +772,9 @@
       .logicNode:not(:last-child)::after{display:none}
       .modelGrid{grid-template-columns:1fr}
       .productMatrix{grid-template-columns:1fr}
-      .lineCard.featured{grid-column:span 1}
-      .lineCard.featured .lineImage,.lineImage{height:210px}
+      .lineCard.featured{grid-column:span 1;grid-template-columns:1fr;min-height:auto;height:auto}
+      .lineCard.featured .lineImage,.lineImage{height:210px;border-right:0;border-bottom:1px solid var(--line)}
+      .lineCard.featured .lineBody{padding:18px}
       .subLine{grid-template-columns:1fr}
       .tonnageLinks{justify-content:flex-start}
       .projectRow{grid-template-columns:1fr}
@@ -781,7 +804,8 @@
         <span class="logo"><img src="assets/arc/xcmg-logo.webp" alt="XCMG"></span>
         <span class="brandText"><b>ARC 产品对标平台</b><span>All product benchmarking</span></span>
       </a>
-      <nav class="navLinks" aria-label="页面导航">
+      <button class="navToggle" type="button" aria-expanded="false" aria-controls="arc-nav">页面导航</button>
+      <nav class="navLinks" id="arc-nav" aria-label="页面导航">
         <a href="#top">平台总览</a>
         <a href="#products">产品线矩阵</a>
         <a href="#live">挖掘机分析</a>
@@ -806,10 +830,10 @@
             </div>
           </div>
           <div class="platformStrip" aria-label="平台关键状态">
-            <div class="platformMetric"><b>7</b><span>产品线覆盖</span></div>
-            <div class="platformMetric"><b>7</b><span>挖掘机吨级分析</span></div>
-            <div class="platformMetric"><b>62</b><span>对标产品型号</span></div>
-            <div class="platformMetric"><b>7</b><span>原始数据表</span></div>
+            <div class="platformMetric"><b><!-- ARC_PRODUCT_LINES -->7<!-- /ARC_PRODUCT_LINES --></b><span>产品线覆盖</span></div>
+            <div class="platformMetric"><b><!-- ARC_TONNAGES -->7<!-- /ARC_TONNAGES --></b><span>挖掘机吨级分析</span></div>
+            <div class="platformMetric"><b><!-- ARC_PRODUCTS -->62<!-- /ARC_PRODUCTS --></b><span>对标产品型号</span></div>
+            <div class="platformMetric"><b><!-- ARC_SOURCES -->7<!-- /ARC_SOURCES --></b><span>原始数据表</span></div>
           </div>
         </article>
         <aside class="heroModel" aria-label="ARC 项目价值">
@@ -857,30 +881,12 @@
                 <span class="status live">数据资产</span>
               </div>
               <p>挖掘机系列已形成吨级、工况、参数、配置贡献、综合排名和提升模拟的完整对标数据，当前覆盖 1-10 吨区间。</p>
-              <div class="subLineGrid">
-                <div class="subLine live">
-                  <div><b>Compact Excavators / 1-3.5 吨</b><span>适合入户、市政庭院、管线沟槽、租赁和轻型属具作业。</span></div>
-                  <div class="tonnageLinks">
-                    <a class="btn light" href="./" aria-label="打开 3.5 吨挖掘机分析页">3.5 吨</a>
-                    <a class="btn light" href="excavator-2-3t.html" aria-label="打开 2-3 吨挖掘机分析页">2-3 吨</a>
-                    <a class="btn light" href="excavator-1-2t.html" aria-label="打开 1-2 吨挖掘机分析页">1-2 吨</a>
-                  </div>
-                </div>
-                <div class="subLine live">
-                  <div><b>Utility Excavators / 4-6 吨</b><span>更关注转场尺寸、装车效率、液压属具适配和租赁通用性。</span></div>
-                  <div class="tonnageLinks">
-                    <a class="btn light" href="excavator-5-6t.html" aria-label="打开 5-6 吨挖掘机分析页">5-6 吨</a>
-                    <a class="btn light" href="excavator-4-5t.html" aria-label="打开 4-5 吨挖掘机分析页">4-5 吨</a>
-                  </div>
-                </div>
-                <div class="subLine live">
-                  <div><b>8-ton Class / 7-10 吨</b><span>重点看沟槽深挖、破碎属具、吊装稳定、运输边界和土方短循环效率。</span></div>
-                  <div class="tonnageLinks">
-                    <a class="btn light" href="excavator-8-10t.html" aria-label="打开 8-10 吨挖掘机分析页">8-10 吨</a>
-                    <a class="btn light" href="excavator-7-8t.html" aria-label="打开 7-8 吨挖掘机分析页">7-8 吨</a>
-                  </div>
-                </div>
+              <div class="tagRow" aria-label="挖掘机吨级分层">
+                <span class="tag">1-3.5 吨紧凑型</span>
+                <span class="tag">4-6 吨通用型</span>
+                <span class="tag">7-10 吨级</span>
               </div>
+              <div class="heroActions"><a class="btn blue" href="#live">查看全部吨级分析</a></div>
             </div>
           </article>
 
@@ -1098,6 +1104,20 @@
         window.setTimeout(() => control.classList.remove('is-clicked'), 260);
       });
     });
+    const navToggle = document.querySelector('.navToggle');
+    const navLinks = document.querySelector('.navLinks');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.textContent = open ? '收起导航' : '页面导航';
+      });
+      navLinks.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.textContent = '页面导航';
+      }));
+    }
   </script>
 </body>
 </html>

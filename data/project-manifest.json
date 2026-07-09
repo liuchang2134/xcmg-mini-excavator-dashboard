@@ -1,0 +1,62 @@
+{
+  "productLineCount": 7,
+  "excavatorTonnageCount": 7,
+  "benchmarkProductCount": 62,
+  "sourceWorkbookCount": 7,
+  "minimumScoreCoverage": 0.6,
+  "overallWeights": {
+    "parameter": 0.65,
+    "option": 0.35
+  },
+  "dashboards": [
+    {
+      "label": "1-2 吨级",
+      "output": "excavator-1-2t.html",
+      "xcmg": "XCMG XE19U",
+      "productCount": 11,
+      "source": "data/source-excel/XCMG_1-2t_mini_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "2-3 吨级",
+      "output": "excavator-2-3t.html",
+      "xcmg": "XCMG XE27U",
+      "productCount": 9,
+      "source": "data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "3.5 吨级",
+      "output": "index.html",
+      "xcmg": "XCMG XE35U",
+      "productCount": 10,
+      "source": "data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "4-5 吨级",
+      "output": "excavator-4-5t.html",
+      "xcmg": "XCMG XE45U",
+      "productCount": 7,
+      "source": "data/source-excel/XCMG_4-5t_mini_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "5-6 吨级",
+      "output": "excavator-5-6t.html",
+      "xcmg": "XCMG XE55U",
+      "productCount": 10,
+      "source": "data/source-excel/XCMG_5-6t_mini_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "7-8 吨级",
+      "output": "excavator-7-8t.html",
+      "xcmg": "XCMG XE75U",
+      "productCount": 6,
+      "source": "data/source-excel/XCMG_7-8t_mini_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "8-10 吨级",
+      "output": "excavator-8-10t.html",
+      "xcmg": "XCMG XE80U",
+      "productCount": 9,
+      "source": "data/source-excel/XCMG_8-10t_mini_excavator_competitor_source.xlsx"
+    }
+  ]
+}
