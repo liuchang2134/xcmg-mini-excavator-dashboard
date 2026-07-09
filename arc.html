@@ -225,8 +225,8 @@
     }
     .productGrid{
       display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:14px;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
     }
     .productCard{
       background:var(--paper);
@@ -234,30 +234,48 @@
       box-shadow:0 8px 22px rgba(0,58,112,.05);
       display:flex;
       flex-direction:column;
-      min-height:300px;
+      min-height:360px;
       overflow:hidden;
+    }
+    .productCard.excavators{
+      grid-column:span 2;
+      display:grid;
+      grid-template-columns:320px minmax(0,1fr);
+      min-height:360px;
     }
     .productCard.live{
       border-top:5px solid var(--yellow);
     }
     .productImage{
-      height:132px;
-      background:#F6FAFE;
+      height:178px;
+      background:linear-gradient(180deg,#F8FBFE,#EDF4FA);
       border-bottom:1px solid var(--line);
       display:grid;
       place-items:center;
       overflow:hidden;
     }
     .productImage img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
+      width:auto;
+      height:auto;
+      max-width:calc(100% - 20px);
+      max-height:158px;
+      object-fit:contain;
       display:block;
     }
-    .productImage.contain img{
+    .productImage.photo img{
+      max-width:100%;
+      max-height:178px;
       object-fit:contain;
-      padding:12px;
-      background:#F8FBFE;
+    }
+    .productCard.excavators .productImage{
+      height:100%;
+      min-height:360px;
+      border-bottom:0;
+      border-right:1px solid var(--line);
+    }
+    .productCard.excavators .productImage img{
+      max-width:280px;
+      max-height:250px;
     }
     .productBody{
       padding:14px 14px 16px;
@@ -310,6 +328,45 @@
       font-weight:900;
     }
     .chip.live{background:#E6F5EC;color:#0B6B43}
+    .excavatorRoutes{
+      display:grid;
+      grid-template-columns:1.35fr .9fr .9fr;
+      gap:10px;
+      margin-top:2px;
+    }
+    .excavatorRoute{
+      border:1px solid #D5E2EF;
+      background:#F8FBFE;
+      padding:10px;
+      min-height:118px;
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+    .excavatorRoute.live{
+      border-color:#E8B900;
+      background:#FFFBEC;
+    }
+    .excavatorRoute b{
+      color:var(--blue-ink);
+      font-size:14px;
+    }
+    .excavatorRoute small{
+      color:#5C7185;
+      line-height:1.45;
+      font-size:12px;
+    }
+    .tonnageLinks{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:auto;
+    }
+    .tonnageLinks .btn{
+      min-height:30px;
+      padding:0 9px;
+      font-size:12px;
+    }
     .cardActions{
       margin-top:auto;
       display:flex;
@@ -457,7 +514,8 @@
     @media(max-width:1260px){
       .workbench,.dashboardRow{grid-template-columns:1fr}
       .brief{grid-template-columns:minmax(0,1fr) 260px}
-      .productGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .productGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .productCard.excavators{grid-column:span 2}
       .methodGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
     @media(max-width:860px){
@@ -468,6 +526,10 @@
       .brief,.project{grid-template-columns:1fr}
       .briefVisual,.projectImage{border-left:0;border-right:0;border-top:1px solid var(--line)}
       .productGrid,.methodGrid,.factRow,.metricGrid{grid-template-columns:1fr}
+      .productCard.excavators{grid-column:span 1;display:flex}
+      .productCard.excavators .productImage{height:178px;min-height:178px;border-right:0;border-bottom:1px solid var(--line)}
+      .productCard.excavators .productImage img{max-width:calc(100% - 20px);max-height:158px}
+      .excavatorRoutes{grid-template-columns:1fr}
       .sectionHead{display:block}
       .sourceNote{display:block}
       .reserveItem{grid-template-columns:1fr}
@@ -528,18 +590,37 @@
       </div>
 
       <section class="productGrid" aria-label="XCMG USA 产品线入口">
-        <article class="productCard live">
-          <div class="productImage contain"><img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U"></div>
+        <article class="productCard live excavators">
+          <div class="productImage"><img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U"></div>
           <div class="productBody">
             <div class="productTop"><h3>Excavators</h3><span class="state live">已上线</span></div>
-            <p>小挖、中挖、大挖；当前已上线 1-2 吨、2-3 吨、3.5 吨三个小挖子板块。</p>
-            <div class="chips"><span class="chip live">1-2t</span><span class="chip live">2-3t</span><span class="chip live">3.5t</span></div>
-            <div class="cardActions"><a class="btn yellow" href="./">3.5 吨</a><a class="btn light" href="excavator-2-3t.html">2-3 吨</a><a class="btn light" href="excavator-1-2t.html">1-2 吨</a></div>
+            <p>挖掘机按吨级拆分管理，避免把小挖、中挖、大挖混在同一张看板里比较。</p>
+            <div class="excavatorRoutes">
+              <div class="excavatorRoute live">
+                <b>Small Excavators / 小挖</b>
+                <small>已上线 1-2 吨、2-3 吨、3.5 吨三个子板块，沿用同一套工况、参数和配置评分口径。</small>
+                <div class="tonnageLinks">
+                  <a class="btn yellow" href="./">3.5 吨</a>
+                  <a class="btn light" href="excavator-2-3t.html">2-3 吨</a>
+                  <a class="btn light" href="excavator-1-2t.html">1-2 吨</a>
+                </div>
+              </div>
+              <div class="excavatorRoute">
+                <b>Medium Excavators / 中挖</b>
+                <small>建议后续按土方、破碎、矿山辅助、燃油效率和属具适配建立单独模型。</small>
+                <div class="tonnageLinks"><button class="btn disabled" type="button">预留</button></div>
+              </div>
+              <div class="excavatorRoute">
+                <b>Large Excavators / 大挖</b>
+                <small>建议后续按矿山装车、重载循环、可靠性、油耗和维护成本单独建模。</small>
+                <div class="tonnageLinks"><button class="btn disabled" type="button">预留</button></div>
+              </div>
+            </div>
           </div>
         </article>
 
         <article class="productCard">
-          <div class="productImage"><img src="assets/arc/category-wheel-loaders.jpg" alt="XCMG Wheel Loader"></div>
+          <div class="productImage photo"><img src="assets/arc/category-wheel-loaders.jpg" alt="XCMG Wheel Loader"></div>
           <div class="productBody">
             <div class="productTop"><h3>Wheel Loaders</h3><span class="state">预留</span></div>
             <p>装载、堆料、装车效率、舒适性和油耗配置对标。</p>
@@ -549,7 +630,7 @@
         </article>
 
         <article class="productCard">
-          <div class="productImage"><img src="assets/arc/category-rollers.jpeg" alt="XCMG Roller"></div>
+          <div class="productImage photo"><img src="assets/arc/category-rollers.jpeg" alt="XCMG Roller"></div>
           <div class="productBody">
             <div class="productTop"><h3>Rollers</h3><span class="state">预留</span></div>
             <p>压实性能、振动参数、转场效率和维护便利性对标。</p>
@@ -559,7 +640,7 @@
         </article>
 
         <article class="productCard">
-          <div class="productImage"><img src="assets/arc/category-motor-graders.webp" alt="XCMG Motor Grader"></div>
+          <div class="productImage photo"><img src="assets/arc/category-motor-graders.webp" alt="XCMG Motor Grader"></div>
           <div class="productBody">
             <div class="productTop"><h3>Motor Graders</h3><span class="state">预留</span></div>
             <p>平地精度、牵引、刀板控制、驾驶辅助配置对标。</p>
@@ -569,7 +650,7 @@
         </article>
 
         <article class="productCard">
-          <div class="productImage"><img src="assets/arc/category-cranes.webp" alt="XCMG Crane"></div>
+          <div class="productImage photo"><img src="assets/arc/category-cranes.webp" alt="XCMG Crane"></div>
           <div class="productBody">
             <div class="productTop"><h3>Cranes and Hoisting</h3><span class="state">预留</span></div>
             <p>起重能力、工况表、支腿、转场和安全系统对标。</p>
@@ -579,7 +660,7 @@
         </article>
 
         <article class="productCard">
-          <div class="productImage"><img src="assets/arc/category-haul-trucks.webp" alt="XCMG Haul Truck"></div>
+          <div class="productImage photo"><img src="assets/arc/category-haul-trucks.webp" alt="XCMG Haul Truck"></div>
           <div class="productBody">
             <div class="productTop"><h3>Haul Trucks</h3><span class="state">预留</span></div>
             <p>载重、动力、矿区循环效率、制动与维护成本对标。</p>
@@ -589,7 +670,7 @@
         </article>
 
         <article class="productCard">
-          <div class="productImage"><img src="assets/arc/category-mewp.jpg" alt="XCMG MEWP"></div>
+          <div class="productImage photo"><img src="assets/arc/category-mewp.jpg" alt="XCMG MEWP"></div>
           <div class="productBody">
             <div class="productTop"><h3>MEWP</h3><span class="state">预留</span></div>
             <p>作业高度、平台载荷、越野能力、电池与租赁适配对标。</p>
@@ -623,7 +704,7 @@
           <div class="projectImage"><img src="assets/arc/xe27u-official-cropped.jpg" alt="XCMG XE27U"></div>
           <div class="projectBody">
             <h3>2-3 吨级小型挖掘机竞品对标</h3>
-            <p>XCMG XE27U 对比卡特、迪尔、山猫、久保田、沃尔沃、现代、斗山、三一等竞品，复用 3.5 吨项目的工况、参数和配置逻辑。</p>
+            <p>XCMG XE27U 对比卡特、迪尔、山猫、久保田、沃尔沃、现代、斗山、三一等竞品，复用统一工况、参数和配置逻辑。</p>
             <div class="factRow">
               <div class="fact"><b>6</b><span>典型工况</span></div>
               <div class="fact"><b>9</b><span>对标产品</span></div>
