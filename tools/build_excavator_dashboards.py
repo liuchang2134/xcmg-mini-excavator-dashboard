@@ -10,7 +10,7 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = ROOT / "data"
+DATA_DIR = ROOT / "data" / "source-excel"
 ASSET_DIR = ROOT / "assets" / "arc"
 
 
@@ -21,7 +21,7 @@ SOURCE_FILES = [
         "title": "XCMG XE19U 1-2 吨级小挖竞品分析看板",
         "xcmg": "XCMG XE19U",
         "source": Path(r"C:\Users\xcmgusa\Downloads\1-2.xlsx"),
-        "download": "1-2.xlsx",
+        "download": "XCMG_1-2t_mini_excavator_competitor_source.xlsx",
         "image": "assets/arc/xe19u-official-cropped.png",
         "image_source": "XCMG Australia XE19U",
     },
@@ -31,7 +31,7 @@ SOURCE_FILES = [
         "title": "XCMG XE27U 2-3 吨级小挖竞品分析看板",
         "xcmg": "XCMG XE27U",
         "source": Path(r"C:\Users\xcmgusa\Downloads\2-3.xlsx"),
-        "download": "2-3.xlsx",
+        "download": "XCMG_2-3t_mini_excavator_competitor_source.xlsx",
         "image": "assets/arc/xe27u-official-cropped.jpg",
         "image_source": "XCMG USA XE27U",
     },
@@ -881,7 +881,7 @@ def render_html(model):
         <span class="eyebrow">XCMG Excavator Competitive Dashboard</span>
         <h1>{esc(meta["title"])}</h1>
         <p>按 3.5 吨小挖同一套方法，把参数、标选配、典型工况、配置贡献、差距来源和提升模拟拆开展示。结论均从用户提供 Excel 原始值计算，不用纯主观判断替代数据。</p>
-        <div class="actions"><a class="btn blue" href="#conditions">查看工况分析</a><a class="btn yellow" href="data/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="arc.html">返回 ARC</a></div>
+        <div class="actions"><a class="btn blue" href="#conditions">查看工况分析</a><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="arc.html">返回 ARC</a></div>
       </div>
       <div class="heroMedia"><img src="{esc(meta["image"])}" alt="{esc(meta["xcmg"])} 产品图"></div>
     </div>
@@ -916,7 +916,7 @@ def render_html(model):
 
     <section id="raw">
       <h2>原始数据与全量展示</h2>
-      <div class="actions"><a class="btn yellow" href="data/{esc(meta["download"])}" download>导出原始 Excel</a></div>
+      <div class="actions"><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a></div>
       <div class="rawTabs"><button type="button" class="active" data-table="param">参数</button><button type="button" data-table="option">标选配</button></div>
       <div class="tableScroll rawTable" data-name="param" data-open="true"><table><thead><tr><th>类别</th><th>指标</th><th>单位</th>{param_head}</tr></thead><tbody>{param_rows}</tbody></table></div>
       <div class="tableScroll rawTable" data-name="option" data-open="false"><table><thead><tr><th>类别</th><th>配置</th><th>单位</th>{param_head}</tr></thead><tbody>{option_rows}</tbody></table></div>
@@ -1058,6 +1058,9 @@ def update_arc_page():
     text = text.replace("<div class=\"metric\"><strong>1</strong><span>已上线对标项目</span></div>", "<div class=\"metric\"><strong>3</strong><span>已上线对标项目</span></div>")
     text = text.replace("<div class=\"metric\"><strong>10</strong><span>小挖竞品型号</span></div>", "<div class=\"metric\"><strong>30</strong><span>小挖竞品型号</span></div>")
     text = text.replace("下一步建议先接入 Wheel Loaders 或 MEWP，二者更适合复用“工况 + 参数 + 配置包”的对标结构。", "小挖已形成 1-2 吨、2-3 吨、3.5 吨三个子板块；下一步建议接入 Wheel Loaders 或 MEWP。")
+    text = text.replace("data/1-2.xlsx", "data/source-excel/XCMG_1-2t_mini_excavator_competitor_source.xlsx")
+    text = text.replace("data/2-3.xlsx", "data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx")
+    text = text.replace("original-data.xlsx", "data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx")
     text = text.replace("小挖、中挖、大挖；当前已上线 3.5 吨小挖竞品对标。", "小挖、中挖、大挖；当前已上线 1-2 吨、2-3 吨、3.5 吨三个小挖子板块。")
     text = text.replace('<div class="chips"><span class="chip live">3.5t 小挖</span><span class="chip">中挖预留</span></div>', '<div class="chips"><span class="chip live">1-2t</span><span class="chip live">2-3t</span><span class="chip live">3.5t</span></div>')
     text = text.replace('<div class="cardActions"><a class="btn yellow" href="./">打开小挖</a><button class="btn disabled" type="button">中挖待接入</button></div>', '<div class="cardActions"><a class="btn yellow" href="./">3.5 吨</a><a class="btn light" href="excavator-2-3t.html">2-3 吨</a><a class="btn light" href="excavator-1-2t.html">1-2 吨</a></div>')
@@ -1073,7 +1076,7 @@ def update_arc_page():
               <div class="fact"><b>680</b><span>明细行</span></div>
               <div class="fact"><b>可交互</b><span>雷达 / 排名 / 模拟</span></div>
             </div>
-            <div class="actions"><a class="btn blue" href="./">打开小挖看板</a><a class="btn light" href="original-data.xlsx" download>下载原始数据</a></div>
+            <div class="actions"><a class="btn blue" href="./">打开小挖看板</a><a class="btn light" href="data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx" download>下载原始数据</a></div>
           </div>
         </article>
 
@@ -1097,7 +1100,7 @@ def update_arc_page():
               <div class="fact"><b>11</b><span>对标产品</span></div>
               <div class="fact"><b>可交互</b><span>雷达 / 排名 / 模拟</span></div>
             </div>
-            <div class="actions"><a class="btn blue" href="excavator-1-2t.html">打开 1-2 吨</a><a class="btn light" href="data/1-2.xlsx" download>下载原始数据</a></div>
+            <div class="actions"><a class="btn blue" href="excavator-1-2t.html">打开 1-2 吨</a><a class="btn light" href="data/source-excel/XCMG_1-2t_mini_excavator_competitor_source.xlsx" download>下载原始数据</a></div>
           </div>
         </article>
 
@@ -1111,7 +1114,7 @@ def update_arc_page():
               <div class="fact"><b>9</b><span>对标产品</span></div>
               <div class="fact"><b>可交互</b><span>雷达 / 排名 / 模拟</span></div>
             </div>
-            <div class="actions"><a class="btn blue" href="excavator-2-3t.html">打开 2-3 吨</a><a class="btn light" href="data/2-3.xlsx" download>下载原始数据</a></div>
+            <div class="actions"><a class="btn blue" href="excavator-2-3t.html">打开 2-3 吨</a><a class="btn light" href="data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx" download>下载原始数据</a></div>
           </div>
         </article>
 
@@ -1125,7 +1128,7 @@ def update_arc_page():
               <div class="fact"><b>10</b><span>对标产品</span></div>
               <div class="fact"><b>可交互</b><span>雷达 / 排名 / 模拟</span></div>
             </div>
-            <div class="actions"><a class="btn blue" href="./">打开 3.5 吨</a><a class="btn light" href="original-data.xlsx" download>下载原始数据</a></div>
+            <div class="actions"><a class="btn blue" href="./">打开 3.5 吨</a><a class="btn light" href="data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx" download>下载原始数据</a></div>
           </div>
         </article>
       </section>'''

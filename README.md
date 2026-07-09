@@ -8,8 +8,9 @@ Executive dashboard and presentation materials for XCMG mini excavator competiti
 - `index.html` - 3.5-ton interactive executive dashboard
 - `excavator-1-2t.html` - 1-2 ton mini excavator dashboard
 - `excavator-2-3t.html` - 2-3 ton mini excavator dashboard
-- `data/1-2.xlsx` - source workbook for the 1-2 ton dashboard
-- `data/2-3.xlsx` - source workbook for the 2-3 ton dashboard
+- `data/source-excel/XCMG_1-2t_mini_excavator_competitor_source.xlsx` - source workbook for the 1-2 ton dashboard
+- `data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx` - source workbook for the 2-3 ton dashboard
+- `data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx` - source workbook for the 3.5 ton dashboard
 - `html-ppt/index.html` - browser-based executive presentation with presenter notes
 - `xcmg-mini-excavator-briefing.pptx` - downloadable PowerPoint deck
 - `xcmg-mini-excavator-briefing-script.md` - presentation script
