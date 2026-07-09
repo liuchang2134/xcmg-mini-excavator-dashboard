@@ -146,13 +146,40 @@
       border-left:1px solid var(--line);
       display:grid;
       place-items:center;
-      padding:20px;
+      padding:14px;
       min-width:0;
     }
-    .briefVisual img{
+    .heroMosaic{
       width:100%;
-      max-height:220px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+    }
+    .heroTile{
+      min-height:100px;
+      position:relative;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      border:1px solid #DCE7F2;
+      background:#fff;
+    }
+    .heroTile img{
+      max-width:100%;
+      max-height:112px;
       object-fit:contain;
+      display:block;
+    }
+    .heroTile span{
+      position:absolute;
+      left:8px;
+      bottom:7px;
+      padding:3px 6px;
+      background:rgba(0,76,151,.9);
+      color:#fff;
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.04em;
     }
     .statusPanel{
       padding:18px;
@@ -529,6 +556,8 @@
       .productCard.excavators{grid-column:span 1;display:flex}
       .productCard.excavators .productImage{height:178px;min-height:178px;border-right:0;border-bottom:1px solid var(--line)}
       .productCard.excavators .productImage img{max-width:calc(100% - 20px);max-height:158px}
+      .heroTile{min-height:86px}
+      .heroTile img{max-height:92px}
       .excavatorRoutes{grid-template-columns:1fr}
       .sectionHead{display:block}
       .sourceNote{display:block}
@@ -546,7 +575,7 @@
       </a>
       <nav class="navLinks" aria-label="页面导航">
         <a href="#products">产品线</a>
-        <a href="#live">已上线项目</a>
+        <a href="#live">已上线看板</a>
         <a href="#method">对标方法</a>
         <a href="./">小挖看板</a>
       </nav>
@@ -560,33 +589,38 @@
           <div class="briefText">
             <p class="eyebrow">XCMG USA Product Benchmark Workspace</p>
             <h1>全产品线竞品对标工作台</h1>
-            <p>按 XCMG USA 官网产品线建立对标入口，把竞品参数、配置包、工况表现、数据来源和改进建议统一管理。当前已上线 1-2 吨、2-3 吨、3.5 吨三个小挖吨级项目，其他产品线保留入口，不伪造未完成结论。</p>
+            <p>按 XCMG USA 官网产品线集中呈现竞品对标入口，统一展示已上线看板、资料来源和产品线覆盖。当前小挖 1-2 吨、2-3 吨、3.5 吨已接入，其他产品线按资料成熟度逐步纳入同一套看板体系。</p>
             <div class="actions">
               <a class="btn blue" href="#products">查看产品线</a>
-              <a class="btn yellow" href="./">进入 3.5 吨看板</a>
+              <a class="btn yellow" href="./">打开小挖看板</a>
               <a class="btn light" href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA 官网</a>
             </div>
           </div>
-          <div class="briefVisual">
-            <img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U 官方产品图">
+          <div class="briefVisual" aria-label="XCMG 全产品线示意">
+            <div class="heroMosaic">
+              <div class="heroTile"><img src="assets/arc/category-excavators.jpg" alt="XCMG Excavators"><span>Excavators</span></div>
+              <div class="heroTile"><img src="assets/arc/category-wheel-loaders.jpg" alt="XCMG Wheel Loaders"><span>Loaders</span></div>
+              <div class="heroTile"><img src="assets/arc/category-motor-graders.webp" alt="XCMG Motor Graders"><span>Graders</span></div>
+              <div class="heroTile"><img src="assets/arc/category-mewp.jpg" alt="XCMG MEWP"><span>MEWP</span></div>
+            </div>
           </div>
         </article>
 
         <aside class="statusPanel">
-          <h2>当前建设状态</h2>
+          <h2>覆盖概览</h2>
           <div class="metricGrid">
-            <div class="metric"><strong>7</strong><span>官网产品线入口</span></div>
-            <div class="metric"><strong>3</strong><span>已上线对标项目</span></div>
-            <div class="metric"><strong>30</strong><span>小挖竞品型号</span></div>
-            <div class="metric"><strong>同址</strong><span>小挖链接保持不变</span></div>
+            <div class="metric"><strong>7</strong><span>产品线入口</span></div>
+            <div class="metric"><strong>3</strong><span>已上线看板</span></div>
+            <div class="metric"><strong>30</strong><span>竞品型号</span></div>
+            <div class="metric"><strong>同址</strong><span>原地址保留</span></div>
           </div>
-          <div class="nextBox">小挖已形成 1-2 吨、2-3 吨、3.5 吨三个子板块；下一步建议接入 Wheel Loaders 或 MEWP。</div>
+          <div class="nextBox">已上线：1-2 吨、2-3 吨、3.5 吨小挖看板；其余产品线展示资料覆盖状态。</div>
         </aside>
       </section>
 
       <div class="sectionHead" id="products">
         <h2>产品线对标入口</h2>
-        <p>按官网产品分类预留按钮。只有具备原始数据、评分规则和异常校验的项目才标为上线；其他产品线只保留入口。</p>
+        <p>按官网产品线分组展示，对已接入产品提供看板入口，对其他产品线显示资料覆盖状态。</p>
       </div>
 
       <section class="productGrid" aria-label="XCMG USA 产品线入口">
@@ -594,11 +628,11 @@
           <div class="productImage"><img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U"></div>
           <div class="productBody">
             <div class="productTop"><h3>Excavators</h3><span class="state live">已上线</span></div>
-            <p>挖掘机按吨级拆分管理，避免把小挖、中挖、大挖混在同一张看板里比较。</p>
+            <p>挖掘机按吨级分层对标，小挖已形成 1-2 吨、2-3 吨、3.5 吨三个看板。</p>
             <div class="excavatorRoutes">
               <div class="excavatorRoute live">
                 <b>Small Excavators / 小挖</b>
-                <small>已上线 1-2 吨、2-3 吨、3.5 吨三个子板块，沿用同一套工况、参数和配置评分口径。</small>
+                <small>覆盖工况、参数、配置贡献、综合排名和提升模拟。</small>
                 <div class="tonnageLinks">
                   <a class="btn yellow" href="./">3.5 吨</a>
                   <a class="btn light" href="excavator-2-3t.html">2-3 吨</a>
@@ -607,13 +641,13 @@
               </div>
               <div class="excavatorRoute">
                 <b>Medium Excavators / 中挖</b>
-                <small>建议后续按土方、破碎、矿山辅助、燃油效率和属具适配建立单独模型。</small>
-                <div class="tonnageLinks"><button class="btn disabled" type="button">预留</button></div>
+                <small>重点关注土方、破碎、矿山辅助、燃油效率和属具适配。</small>
+                <div class="tonnageLinks"><button class="btn disabled" type="button">资料覆盖中</button></div>
               </div>
               <div class="excavatorRoute">
                 <b>Large Excavators / 大挖</b>
-                <small>建议后续按矿山装车、重载循环、可靠性、油耗和维护成本单独建模。</small>
-                <div class="tonnageLinks"><button class="btn disabled" type="button">预留</button></div>
+                <small>重点关注矿山装车、重载循环、可靠性、油耗和维护成本。</small>
+                <div class="tonnageLinks"><button class="btn disabled" type="button">资料覆盖中</button></div>
               </div>
             </div>
           </div>
@@ -622,67 +656,61 @@
         <article class="productCard">
           <div class="productImage photo"><img src="assets/arc/category-wheel-loaders.jpg" alt="XCMG Wheel Loader"></div>
           <div class="productBody">
-            <div class="productTop"><h3>Wheel Loaders</h3><span class="state">预留</span></div>
+            <div class="productTop"><h3>Wheel Loaders</h3><span class="state">资料覆盖中</span></div>
             <p>装载、堆料、装车效率、舒适性和油耗配置对标。</p>
             <div class="chips"><span class="chip">装载效率</span><span class="chip">油耗</span></div>
-            <div class="cardActions"><button class="btn disabled" type="button">新建对标</button></div>
           </div>
         </article>
 
         <article class="productCard">
           <div class="productImage photo"><img src="assets/arc/category-rollers.jpeg" alt="XCMG Roller"></div>
           <div class="productBody">
-            <div class="productTop"><h3>Rollers</h3><span class="state">预留</span></div>
+            <div class="productTop"><h3>Rollers</h3><span class="state">资料覆盖中</span></div>
             <p>压实性能、振动参数、转场效率和维护便利性对标。</p>
             <div class="chips"><span class="chip">压实</span><span class="chip">转场</span></div>
-            <div class="cardActions"><button class="btn disabled" type="button">新建对标</button></div>
           </div>
         </article>
 
         <article class="productCard">
           <div class="productImage photo"><img src="assets/arc/category-motor-graders.webp" alt="XCMG Motor Grader"></div>
           <div class="productBody">
-            <div class="productTop"><h3>Motor Graders</h3><span class="state">预留</span></div>
+            <div class="productTop"><h3>Motor Graders</h3><span class="state">资料覆盖中</span></div>
             <p>平地精度、牵引、刀板控制、驾驶辅助配置对标。</p>
             <div class="chips"><span class="chip">平地精度</span><span class="chip">牵引</span></div>
-            <div class="cardActions"><button class="btn disabled" type="button">新建对标</button></div>
           </div>
         </article>
 
         <article class="productCard">
           <div class="productImage photo"><img src="assets/arc/category-cranes.webp" alt="XCMG Crane"></div>
           <div class="productBody">
-            <div class="productTop"><h3>Cranes and Hoisting</h3><span class="state">预留</span></div>
+            <div class="productTop"><h3>Cranes and Hoisting</h3><span class="state">资料覆盖中</span></div>
             <p>起重能力、工况表、支腿、转场和安全系统对标。</p>
             <div class="chips"><span class="chip">载荷曲线</span><span class="chip">安全系统</span></div>
-            <div class="cardActions"><button class="btn disabled" type="button">新建对标</button></div>
           </div>
         </article>
 
         <article class="productCard">
           <div class="productImage photo"><img src="assets/arc/category-haul-trucks.webp" alt="XCMG Haul Truck"></div>
           <div class="productBody">
-            <div class="productTop"><h3>Haul Trucks</h3><span class="state">预留</span></div>
+            <div class="productTop"><h3>Haul Trucks</h3><span class="state">资料覆盖中</span></div>
             <p>载重、动力、矿区循环效率、制动与维护成本对标。</p>
             <div class="chips"><span class="chip">载重</span><span class="chip">TCO</span></div>
-            <div class="cardActions"><button class="btn disabled" type="button">新建对标</button></div>
           </div>
         </article>
 
         <article class="productCard">
           <div class="productImage photo"><img src="assets/arc/category-mewp.jpg" alt="XCMG MEWP"></div>
           <div class="productBody">
-            <div class="productTop"><h3>MEWP</h3><span class="state">预留</span></div>
+            <div class="productTop"><h3>MEWP</h3><span class="state">资料覆盖中</span></div>
             <p>作业高度、平台载荷、越野能力、电池与租赁适配对标。</p>
             <div class="chips"><span class="chip">作业高度</span><span class="chip">租赁适配</span></div>
-            <div class="cardActions"><button class="btn disabled" type="button">新建对标</button></div>
           </div>
         </article>
       </section>
 
       <div class="sectionHead" id="live">
-        <h2>已上线项目</h2>
-        <p>把可用项目单独放出来，避免和预留入口混在一起。3.5 吨小挖项目仍使用原访问地址。</p>
+        <h2>已上线看板</h2>
+        <p>已接入的小挖吨级看板集中展示，3.5 吨小挖看板仍使用原访问地址。</p>
       </div>
 
       <section class="dashboardRow">
@@ -731,18 +759,18 @@
 
       <div class="sectionHead" id="method">
         <h2>对标方法</h2>
-        <p>统一方法，但不统一结论。每条产品线的权重、工况、参数方向都要按真实业务重新定义。</p>
+        <p>统一数据口径和展示结构，每条产品线的权重、工况和参数方向按真实业务场景定义。</p>
       </div>
 
       <section class="methodGrid">
-        <article class="method"><b>01 / Product line</b><strong>按产品线建项目</strong><p>先建立入口和模板，只有完成数据导入与规则校验后才进入已上线区。</p></article>
+        <article class="method"><b>01 / Product line</b><strong>按产品线分层</strong><p>按产品类型、吨级和应用场景分层管理，已接入看板统一展示入口、数据来源和结论口径。</p></article>
         <article class="method"><b>02 / Work condition</b><strong>按工况筛参数</strong><p>每个产品线只选择对工况有影响的参数，避免把官网参数表搬上来。</p></article>
         <article class="method"><b>03 / Options</b><strong>配置转成业务影响</strong><p>配置不只写有无，要说明对效率、安全、租赁和维护成本的影响。</p></article>
         <article class="method"><b>04 / Evidence</b><strong>结论可追溯</strong><p>每个结论回到原始值、来源、缺失项、权重和置信度，方便领导追问。</p></article>
       </section>
 
       <div class="sourceNote">
-        <span>图片使用 XCMG USA 官网公开素材；XE35U 项目图取自官网 XE35U 产品页并仅做显示裁切，产品线缩略图取自对应官网产品页面。</span>
+        <span>图片使用 XCMG USA 官网公开素材；XE35U 图取自官网 XE35U 产品页并仅做显示裁切，产品线缩略图取自对应官网产品页面。</span>
         <span><a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA</a> · <a href="https://xcmg-usa.com/products/excavators/xe35u/" target="_blank" rel="noreferrer">XE35U</a></span>
       </div>
     </div>
@@ -751,7 +779,7 @@
   <footer>
     <div class="shell">
       <span>XCMG ARC Product Benchmarking Center</span>
-      <span>小挖 1-2 吨、2-3 吨、3.5 吨子板块已上线；3.5 吨原地址保持不变。</span>
+      <span>小挖 1-2 吨、2-3 吨、3.5 吨看板已上线；3.5 吨原地址保持不变。</span>
     </div>
   </footer>
 </body>
