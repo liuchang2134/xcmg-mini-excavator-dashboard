@@ -38,9 +38,9 @@
       position:sticky;
       top:0;
       z-index:20;
-      background:rgba(255,255,255,.96);
-      border-bottom:1px solid var(--line);
-      backdrop-filter:blur(14px);
+      background:rgba(2,18,35,.94);
+      border-bottom:1px solid rgba(255,255,255,.14);
+      backdrop-filter:blur(16px);
     }
     .nav{
       height:68px;
@@ -66,13 +66,13 @@
     .logo img{max-height:100%;object-fit:contain}
     .brandText b{
       display:block;
-      color:var(--blue-ink);
+      color:#fff;
       font-size:16px;
       letter-spacing:.02em;
     }
     .brandText span{
       display:block;
-      color:#6b7f91;
+      color:#a9bfd2;
       font-size:11px;
       font-weight:900;
       letter-spacing:.12em;
@@ -90,13 +90,13 @@
       display:inline-flex;
       align-items:center;
       padding:0 13px;
-      color:#314e69;
+      color:#d9e8f5;
       font-size:13px;
       font-weight:900;
       border-bottom:3px solid transparent;
       transition:color .16s ease,border-color .16s ease,background-color .16s ease,transform .16s ease;
     }
-    .navLinks a:hover{color:var(--blue);border-bottom-color:var(--yellow)}
+    .navLinks a:hover{color:#fff;border-bottom-color:var(--yellow);background:rgba(255,255,255,.07)}
     .navLinks a:focus-visible{
       outline:3px solid rgba(245,180,0,.42);
       outline-offset:2px;
@@ -104,31 +104,51 @@
     .navLinks a:active,
     .navLinks a.is-clicked{
       transform:translateY(1px);
-      background:#edf5fb;
+      background:rgba(255,255,255,.11);
       border-bottom-color:var(--yellow);
     }
-    .page{padding:22px 0 44px}
+    .page{padding:0 0 44px}
     .hero{
+      position:relative;
       display:grid;
-      grid-template-columns:minmax(0,1.06fr) minmax(520px,.94fr);
-      gap:18px;
-      align-items:stretch;
-      min-height:410px;
+      grid-template-columns:minmax(0,1.05fr) minmax(440px,.64fr);
+      gap:34px;
+      align-items:end;
+      min-height:620px;
+      padding:48px;
+      background:
+        linear-gradient(90deg,rgba(0,18,36,.92) 0%,rgba(0,33,62,.76) 42%,rgba(0,30,54,.30) 73%,rgba(0,20,35,.62) 100%),
+        linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.38)),
+        url("assets/arc/category-excavators.jpg");
+      background-size:cover;
+      background-position:center;
+      box-shadow:0 24px 58px rgba(0,35,70,.22);
+      overflow:hidden;
+    }
+    .hero:after{
+      content:"";
+      position:absolute;
+      inset:auto 0 0 0;
+      height:5px;
+      background:linear-gradient(90deg,var(--yellow),rgba(245,180,0,0),var(--blue));
+      opacity:.95;
     }
     .heroMain{
-      background:var(--paper);
-      border:1px solid var(--line);
-      border-left:8px solid var(--blue);
-      box-shadow:var(--shadow);
-      padding:32px 34px;
+      position:relative;
+      z-index:1;
+      background:transparent;
+      border:0;
+      box-shadow:none;
+      padding:0;
       display:flex;
       flex-direction:column;
       justify-content:space-between;
       min-width:0;
+      min-height:520px;
     }
     .kicker{
       margin:0 0 12px;
-      color:var(--blue);
+      color:var(--yellow);
       font-size:12px;
       font-weight:900;
       letter-spacing:.14em;
@@ -136,17 +156,18 @@
     }
     h1{
       margin:0;
-      color:var(--blue-ink);
-      font-size:clamp(36px,4vw,58px);
+      color:#fff;
+      font-size:clamp(44px,5.4vw,82px);
       line-height:1.05;
       letter-spacing:0;
+      max-width:860px;
     }
     .mobileBreak{display:none}
     .heroLead{
       max-width:760px;
       margin:18px 0 0;
-      color:#31506b;
-      font-size:17px;
+      color:#d7e5f0;
+      font-size:18px;
       line-height:1.75;
       overflow-wrap:anywhere;
     }
@@ -192,14 +213,24 @@
       outline-offset:2px;
     }
     .btn.blue{
-      background:var(--blue);
-      color:#fff;
-      border-color:var(--blue);
-      box-shadow:0 8px 16px rgba(0,76,151,.18);
+      background:#fff;
+      color:#061d35;
+      border-color:#fff;
+      box-shadow:0 12px 26px rgba(0,0,0,.22);
     }
-    .btn.blue:hover{background:#005cad;border-color:#005cad}
+    .btn.blue:hover{background:#f3f8fc;border-color:#fff;color:#061d35}
     .btn.light{background:#edf5fb;color:var(--blue-ink);border-color:#bfd1e2}
     .btn.light:hover{background:#fff;color:var(--blue)}
+    .hero .btn.light{
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      border-color:rgba(255,255,255,.42);
+    }
+    .hero .btn.light:hover{
+      background:rgba(255,255,255,.18);
+      color:#fff;
+      border-color:#fff;
+    }
     .btn.disabled{background:#eef2f6;color:#728293;border-color:#d2dce6;cursor:not-allowed;box-shadow:none}
     .scopeLabel{
       display:inline-flex;
@@ -217,38 +248,49 @@
     .platformStrip{
       display:grid;
       grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:10px;
-      margin-top:28px;
+      gap:0;
+      margin-top:42px;
+      max-width:780px;
+      border:1px solid rgba(255,255,255,.20);
+      border-left:4px solid var(--yellow);
+      background:rgba(0,25,48,.58);
+      backdrop-filter:blur(10px);
     }
     .platformMetric{
-      background:#f7fafc;
-      border:1px solid var(--line);
-      padding:14px;
-      min-height:90px;
+      background:transparent;
+      border:0;
+      border-right:1px solid rgba(255,255,255,.16);
+      padding:16px 18px;
+      min-height:92px;
     }
+    .platformMetric:last-child{border-right:0}
     .platformMetric b{
       display:block;
-      color:var(--blue);
-      font-size:30px;
+      color:#fff;
+      font-size:34px;
       line-height:1;
     }
     .platformMetric span{
       display:block;
       margin-top:8px;
-      color:var(--muted);
+      color:#b8cde0;
       font-size:12px;
       font-weight:800;
     }
     .heroModel{
-      background:var(--blue-deep);
-      border:1px solid #0d4d86;
-      box-shadow:var(--shadow);
-      padding:22px;
+      position:relative;
+      z-index:1;
+      background:rgba(2,27,53,.72);
+      border:1px solid rgba(255,255,255,.22);
+      border-top:4px solid var(--yellow);
+      box-shadow:0 18px 44px rgba(0,0,0,.24);
+      padding:24px;
       display:grid;
       grid-template-rows:auto auto 1fr;
       gap:16px;
       min-width:0;
       overflow:hidden;
+      backdrop-filter:blur(14px);
     }
     .modelHeader{
       display:flex;
@@ -261,20 +303,20 @@
     }
     .modelHeader strong{
       color:#fff;
-      font-size:16px;
+      font-size:17px;
       letter-spacing:.02em;
     }
-    .modelHeader span{color:#b7cce0}
+    .modelHeader span{color:var(--yellow);text-transform:uppercase;letter-spacing:.12em}
     .introLead{
-      padding:18px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.2);
-      border-left:4px solid var(--yellow);
+      padding:18px 0 4px;
+      background:transparent;
+      border:0;
+      border-bottom:1px solid rgba(255,255,255,.16);
     }
     .introLead b{
       display:block;
       color:#fff;
-      font-size:24px;
+      font-size:25px;
       line-height:1.25;
       letter-spacing:0;
       overflow-wrap:anywhere;
@@ -326,10 +368,10 @@
       gap:10px;
     }
     .modelBlock{
-      min-height:112px;
+      min-height:116px;
       padding:14px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.16);
     }
     .modelBlock h3{
       margin:0 0 10px;
@@ -684,6 +726,7 @@
     }
     @media(max-width:1240px){
       .hero{grid-template-columns:1fr}
+      .heroMain{min-height:auto}
       .heroModel{min-height:0}
       .productMatrix{grid-template-columns:1fr 1fr}
       .lineCard.featured{grid-column:span 2;grid-row:span 1;min-height:auto}
@@ -698,7 +741,8 @@
       .brand{min-width:0}
       .navLinks{width:100%;justify-content:flex-start;overflow-x:visible;flex-wrap:wrap;white-space:normal}
       .navLinks a{min-height:32px;padding:0 8px;font-size:12px}
-      .heroMain{padding:24px 22px}
+      .hero{min-height:auto;padding:34px 22px;background-position:center top}
+      .heroMain{padding:0}
       .platformStrip{grid-template-columns:1fr 1fr}
       .modelHeader{align-items:flex-start;flex-direction:column}
       .modelFlow{grid-template-columns:1fr}
@@ -754,11 +798,11 @@
           <div>
             <p class="kicker">XCMG USA Product Benchmark Platform</p>
             <h1>全产品线竞品<span class="mobileBreak"></span>对标平台</h1>
-            <p class="heroLead">面向产品、销售和管理层的竞品竞争力总览，统一沉淀产品参数、配置差异、工况表现和数据来源。</p>
+            <p class="heroLead">把分散的竞品参数、配置状态、典型工况表现和原始数据统一沉淀为可复核、可汇报、可用于产品决策的竞争力资产。</p>
             <div class="heroActions">
               <a class="btn blue" href="#products">产品线矩阵</a>
               <a class="btn light" href="#live">挖掘机分析资产</a>
-              <a class="btn light" href="./">3.5 吨分析页</a>
+              <a class="btn light" href="#method">业务价值</a>
             </div>
           </div>
           <div class="platformStrip" aria-label="平台关键状态">
@@ -768,31 +812,31 @@
             <div class="platformMetric"><b>7</b><span>原始数据表</span></div>
           </div>
         </article>
-        <aside class="heroModel" aria-label="ARC 项目介绍">
+        <aside class="heroModel" aria-label="ARC 项目价值">
           <div class="modelHeader">
-            <strong>项目介绍</strong>
-            <span>XCMG 美研中心独立开发</span>
+            <strong>XCMG 美研中心独立研发</strong>
+            <span>ARC Benchmark</span>
           </div>
           <div class="introLead">
-            <b>XCMG 美研中心独立开发</b>
-            <p>面向北美市场打造全产品线竞品对标平台，服务产品规划、销售支持和管理层汇报，统一沉淀竞品参数、配置差异、典型工况表现和原始数据来源。</p>
+            <b>把竞品数据变成决策资产</b>
+            <p>面向北美市场，把产品参数、配置包、工况表现和竞品差距放在同一张经营视图里，服务产品定义、配置策略、销售论证和管理层汇报。</p>
           </div>
           <div class="modelGrid">
             <section class="modelBlock">
-              <h3>开发主体</h3>
-              <p><strong>XCMG 美研中心</strong>独立完成数据整理、评价逻辑、可视化页面和交互功能设计。</p>
+              <h3>产品定义</h3>
+              <p>按吨级和工况拆解差距，帮助判断下一代产品该补尺寸、液压、工作范围还是配置包。</p>
             </section>
             <section class="modelBlock">
-              <h3>项目定位</h3>
-              <p>把分散的竞品资料转化为可复核、可汇报、可横向比较的产品竞争力资产。</p>
+              <h3>销售支持</h3>
+              <p>把复杂参数翻译成客户能理解的应用场景、卖点和风险项，支撑重点客户沟通。</p>
             </section>
             <section class="modelBlock">
-              <h3>当前资产</h3>
-              <p>覆盖 7 条产品线入口，挖掘机 1-2 吨、2-3 吨、3.5 吨、4-5 吨、5-6 吨、7-8 吨、8-10 吨已形成完整竞品分析页面。</p>
+              <h3>管理决策</h3>
+              <p>用同一口径看排名、差距来源和补强路径，减少只看单项参数导致的判断偏差。</p>
             </section>
             <section class="modelBlock">
-              <h3>业务价值</h3>
-              <p>支撑产品定义、配置策略、销售论证和管理层决策，结论可回到原始数据复核。</p>
+              <h3>数据沉淀</h3>
+              <p>所有结论可以回到原始 Excel，后续产品线接入时沿用同一套数据口径和展示结构。</p>
             </section>
           </div>
         </aside>
@@ -801,7 +845,7 @@
       <section class="section" id="products">
         <div class="sectionHead">
           <h2>产品线竞争力矩阵</h2>
-          <p>按 XCMG USA 产品线组织对标维度。小型挖掘机已沉淀完整竞品数据，其他产品线按同一口径归集关键竞争力维度。</p>
+          <p>按 XCMG USA 产品线组织对标维度。挖掘机 1-10 吨区间已沉淀完整竞品数据，其他产品线按同一口径归集关键竞争力维度。</p>
         </div>
 
         <div class="productMatrix" aria-label="产品线竞争力矩阵">
