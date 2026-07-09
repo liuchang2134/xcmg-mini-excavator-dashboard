@@ -165,9 +165,10 @@
       background:#fff;
     }
     .heroTile img{
-      max-width:100%;
-      max-height:112px;
-      object-fit:contain;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
       display:block;
     }
     .heroTile span{
@@ -248,9 +249,12 @@
       display:block;
     }
     .productImage.photo img{
-      max-width:100%;
-      max-height:178px;
-      object-fit:contain;
+      width:100%;
+      height:100%;
+      max-width:none;
+      max-height:none;
+      object-fit:cover;
+      object-position:center;
     }
     .productCard.excavators .productImage{
       height:100%;
@@ -515,7 +519,7 @@
       .productCard.excavators .productImage{height:178px;min-height:178px;border-right:0;border-bottom:1px solid var(--line)}
       .productCard.excavators .productImage img{max-width:calc(100% - 20px);max-height:158px}
       .heroTile{min-height:86px}
-      .heroTile img{max-height:92px}
+      .heroTile img{height:100%}
       .excavatorRoutes{grid-template-columns:1fr}
       .sectionHead{display:block}
       .sourceNote{display:block}
@@ -558,7 +562,7 @@
             <div class="heroMosaic">
               <div class="heroTile"><img src="assets/arc/category-excavators.jpg" alt="XCMG Excavators"><span>Excavators</span></div>
               <div class="heroTile"><img src="assets/arc/category-wheel-loaders.jpg" alt="XCMG Wheel Loaders"><span>Loaders</span></div>
-              <div class="heroTile"><img src="assets/arc/category-motor-graders.webp" alt="XCMG Motor Graders"><span>Graders</span></div>
+              <div class="heroTile"><img src="assets/arc/category-motor-graders.jpg" alt="XCMG Motor Graders"><span>Graders</span></div>
               <div class="heroTile"><img src="assets/arc/category-mewp.jpg" alt="XCMG MEWP"><span>MEWP</span></div>
             </div>
           </div>
@@ -610,7 +614,7 @@
         </article>
 
         <article class="productCard">
-          <div class="productImage photo"><img src="assets/arc/category-rollers.jpeg" alt="XCMG Roller"></div>
+          <div class="productImage photo"><img src="assets/arc/category-rollers.jpg" alt="XCMG Roller"></div>
           <div class="productBody">
             <div class="productTop"><h3>Rollers</h3><span class="state">资料覆盖中</span></div>
             <p>压实性能、振动参数、转场效率和维护便利性对标。</p>
@@ -619,7 +623,7 @@
         </article>
 
         <article class="productCard">
-          <div class="productImage photo"><img src="assets/arc/category-motor-graders.webp" alt="XCMG Motor Grader"></div>
+          <div class="productImage photo"><img src="assets/arc/category-motor-graders.jpg" alt="XCMG Motor Grader"></div>
           <div class="productBody">
             <div class="productTop"><h3>Motor Graders</h3><span class="state">资料覆盖中</span></div>
             <p>平地精度、牵引、刀板控制、驾驶辅助配置对标。</p>
@@ -628,7 +632,7 @@
         </article>
 
         <article class="productCard">
-          <div class="productImage photo"><img src="assets/arc/category-cranes.webp" alt="XCMG Crane"></div>
+          <div class="productImage photo"><img src="assets/arc/category-cranes.jpg" alt="XCMG Crane"></div>
           <div class="productBody">
             <div class="productTop"><h3>Cranes and Hoisting</h3><span class="state">资料覆盖中</span></div>
             <p>起重能力、工况表、支腿、转场和安全系统对标。</p>
@@ -637,7 +641,7 @@
         </article>
 
         <article class="productCard">
-          <div class="productImage photo"><img src="assets/arc/category-haul-trucks.webp" alt="XCMG Haul Truck"></div>
+          <div class="productImage photo"><img src="assets/arc/category-haul-trucks.jpg" alt="XCMG Haul Truck"></div>
           <div class="productBody">
             <div class="productTop"><h3>Haul Trucks</h3><span class="state">资料覆盖中</span></div>
             <p>载重、动力、矿区循环效率、制动与维护成本对标。</p>
