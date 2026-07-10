@@ -180,6 +180,68 @@ class DashboardModelTests(unittest.TestCase):
                 self.assertIn("返回对标平台主页", html)
                 self.assertNotIn("返回 ARC 主页", html)
 
+    def test_arc_homepage_has_three_level_quick_selector(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        for control_id in ("quick-line", "quick-tonnage", "quick-model", "quick-open"):
+            self.assertIn(f'id="{control_id}"', arc_html)
+        self.assertIn('id="quick-selection-summary"', arc_html)
+
+    def test_arc_homepage_kpis_are_actionable(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        for target in ("products", "live", "models", "sources"):
+            self.assertIn(f'data-kpi-target="{target}"', arc_html)
+        self.assertEqual(arc_html.count('class="platformMetric"'), 4)
+
+    def test_arc_product_lines_expose_dynamic_assets(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertEqual(arc_html.count('data-product-line="'), 7)
+        self.assertIn('id="product-line-detail"', arc_html)
+        self.assertIn("renderProductLineDetail", arc_html)
+        self.assertIn("lineDetail.scrollIntoView", arc_html)
+
+    def test_arc_excavator_projects_are_filterable_and_clickable(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn('id="excavator-tonnage-filter"', arc_html)
+        self.assertIn('id="excavator-model-search"', arc_html)
+        self.assertIn('id="project-filter-empty"', arc_html)
+        self.assertEqual(arc_html.count('data-project-url="'), len(SOURCE_FILES))
+        self.assertIn("filterProjectRows", arc_html)
+
+    def test_arc_navigation_and_mobile_drawer_have_persistent_state(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn('class="navBackdrop"', arc_html)
+        self.assertIn("IntersectionObserver", arc_html)
+        self.assertIn("aria-current", arc_html)
+        self.assertIn("Escape", arc_html)
+        self.assertIn("overflow-x:hidden", arc_html)
+
+    def test_arc_filters_round_trip_through_url(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn("URLSearchParams", arc_html)
+        self.assertIn("history.replaceState", arc_html)
+        for key in ("line", "tonnage", "model"):
+            self.assertIn(f"params.set('{key}'", arc_html)
+
+    def test_arc_tonnage_change_clears_stale_model_query(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn("modelSearch.value = '';", arc_html)
+
+    def test_arc_exact_model_search_updates_shared_product_state(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn("visibleRows.length === 1", arc_html)
+        self.assertIn("visibleRows[0].dataset.tonnage", arc_html)
+
+    def test_arc_mobile_drawer_does_not_expand_page_width(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn("clip-path:inset(0 0 0 100%)", arc_html)
+        self.assertNotIn("transform:translateX(105%)", arc_html)
+
+    def test_arc_mobile_drawer_stays_above_its_backdrop(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn("z-index:40;", arc_html)
+        self.assertIn("height:calc(100dvh - 60px)", arc_html)
+        self.assertIn("height:calc(100dvh - 56px)", arc_html)
+
     def test_condition_summary_is_concise_and_quantified(self):
         for meta in SOURCE_FILES:
             html = (ROOT / meta["output"]).read_text(encoding="utf-8")
