@@ -19,7 +19,7 @@ SOURCE_FILES = [
         "slug": "excavator-1-2t",
         "output": "excavator-1-2t.html",
         "label": "1-2 吨级",
-        "title": "XCMG XE19U 1-2 吨级挖掘机竞品分析看板",
+        "title": "XCMG XE19U 1-2 吨级挖掘机竞品对标看板",
         "xcmg": "XCMG XE19U",
         "source": DATA_DIR / "XCMG_1-2t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_1-2t_mini_excavator_competitor_source.xlsx",
@@ -30,7 +30,7 @@ SOURCE_FILES = [
         "slug": "excavator-2-3t",
         "output": "excavator-2-3t.html",
         "label": "2-3 吨级",
-        "title": "XCMG XE27U 2-3 吨级挖掘机竞品分析看板",
+        "title": "XCMG XE27U 2-3 吨级挖掘机竞品对标看板",
         "xcmg": "XCMG XE27U",
         "source": DATA_DIR / "XCMG_2-3t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_2-3t_mini_excavator_competitor_source.xlsx",
@@ -41,7 +41,7 @@ SOURCE_FILES = [
         "slug": "excavator-35t",
         "output": "index.html",
         "label": "3.5 吨级",
-        "title": "XCMG XE35U 3.5 吨级挖掘机竞品分析看板",
+        "title": "XCMG XE35U 3.5 吨级挖掘机竞品对标看板",
         "xcmg": "XCMG XE35U",
         "source": DATA_DIR / "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
@@ -52,7 +52,7 @@ SOURCE_FILES = [
         "slug": "excavator-4-5t",
         "output": "excavator-4-5t.html",
         "label": "4-5 吨级",
-        "title": "XCMG XE45U 4-5 吨级挖掘机竞品分析看板",
+        "title": "XCMG XE45U 4-5 吨级挖掘机竞品对标看板",
         "xcmg": "XCMG XE45U",
         "source": DATA_DIR / "XCMG_4-5t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_4-5t_mini_excavator_competitor_source.xlsx",
@@ -63,7 +63,7 @@ SOURCE_FILES = [
         "slug": "excavator-5-6t",
         "output": "excavator-5-6t.html",
         "label": "5-6 吨级",
-        "title": "XCMG XE55U 5-6 吨级挖掘机竞品分析看板",
+        "title": "XCMG XE55U 5-6 吨级挖掘机竞品对标看板",
         "xcmg": "XCMG XE55U",
         "source": DATA_DIR / "XCMG_5-6t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_5-6t_mini_excavator_competitor_source.xlsx",
@@ -74,7 +74,7 @@ SOURCE_FILES = [
         "slug": "excavator-7-8t",
         "output": "excavator-7-8t.html",
         "label": "7-8 吨级",
-        "title": "XCMG XE75U 7-8 吨级挖掘机竞品分析看板",
+        "title": "XCMG XE75U 7-8 吨级挖掘机竞品对标看板",
         "xcmg": "XCMG XE75U",
         "source": DATA_DIR / "XCMG_7-8t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_7-8t_mini_excavator_competitor_source.xlsx",
@@ -85,7 +85,7 @@ SOURCE_FILES = [
         "slug": "excavator-8-10t",
         "output": "excavator-8-10t.html",
         "label": "8-10 吨级",
-        "title": "XCMG XE80U 8-10 吨级挖掘机竞品分析看板",
+        "title": "XCMG XE80U 8-10 吨级挖掘机竞品对标看板",
         "xcmg": "XCMG XE80U",
         "source": DATA_DIR / "XCMG_8-10t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_8-10t_mini_excavator_competitor_source.xlsx",
@@ -97,6 +97,35 @@ SOURCE_FILES = [
 
 MIN_SCORE_COVERAGE = 0.60
 OVERALL_WEIGHTS = {"parameter": 0.65, "option": 0.35}
+
+UNIT_ALIASES = {
+    "mpa": "MPa",
+    "kpa": "kPa",
+    "kw": "kW",
+    "kn": "kN",
+    "l/min": "L/min",
+}
+
+ENGINEERING_GUIDANCE = {
+    "运输参数": "需评估整机布置、结构尺寸和运输合规性",
+    "接地参数": "需评估底盘尺寸、接地比压和整机稳定性",
+    "工作参数": "需评估动臂、斗杆、铰点和整机稳定性",
+    "动力": "需评估发动机匹配、冷却能力和油耗表现",
+    "工作装置": "需评估动臂斗杆结构、油缸规格和工作范围",
+    "液压系统": "需评估泵阀匹配、压力设定、流量分配和热平衡",
+    "行走": "需评估行走马达、减速机构、系统压力和操控标定",
+    "回转": "需评估回转液压匹配、减速机构和操控标定",
+    "挖掘力": "需评估油缸规格、系统压力和机构传动比",
+    "起吊能力": "需评估结构强度、整机稳定性和载荷表验证",
+}
+
+ITEM_ENGINEERING_GUIDANCE = {
+    "尾部回转半径": "需评估上车回转包络、配重和发动机舱布置",
+    "动臂偏摆（左/右）": "需评估偏摆机构、油缸行程、管路布置和结构干涉",
+    "接地比压": "需评估操作重量、履带接地长度和履带宽度",
+    "操作重量": "需评估结构减重、配重方案和拖车级别",
+    "爬坡能力": "需评估行走驱动、牵引、制动和安全边界",
+}
 
 # Virtual labels keep cross-tonnage terminology consistent without rewriting the source files.
 PARAM_ALIASES = {
@@ -121,8 +150,8 @@ CONDITIONS = [
         "id": "narrow",
         "name": "狭窄空间 / 市政庭院",
         "weight": 0.18,
-        "feature": "看重窄机身、短尾回转、低运输尺寸和边角贴墙作业能力。",
-        "benefit": "可伸缩底盘、动臂偏摆、推土铲偏摆、后视安全配置对庭院和市政抢修更有价值。",
+        "feature": "看重窄机身、短尾回转、较小运输尺寸和贴边作业能力。",
+        "benefit": "可伸缩底盘、动臂偏摆、推土铲偏摆和安全摄像头有助于庭院、市政和受限空间作业。",
         "items": [
             ("参数", "整机运输宽度", 0.18, "low", "越窄越适合入户、园林和人行道受限空间。"),
             ("参数", "整机运输长度", 0.12, "low", "短车身转场和狭小现场调头更灵活。"),
@@ -146,7 +175,7 @@ CONDITIONS = [
             ("参数", "最大挖掘半径", 0.14, "high", "半径越大，站位不变时覆盖面越宽。"),
             ("参数", "最大地面挖掘半径", 0.12, "high", "平面沟槽连续开挖效率更高。"),
             ("参数", "斗杆挖掘力", 0.12, "high", "深挖末端破土和清底能力。"),
-            ("参数", "标配斗杆", 0.08, "high", "斗杆长度影响天然深挖覆盖。"),
+            ("参数", "标配斗杆", 0.08, "high", "斗杆长度影响标配状态下的深挖覆盖。"),
             ("参数", "选配斗杆", 0.06, "high", "选配斗杆说明是否可向深挖场景扩展。"),
             ("配置", "长斗杆", 0.08, "option", "深沟和管线施工直接增益配置。"),
             ("配置", "动臂斗杆防爆阀", 0.06, "option", "基础施工和吊装附近作业的安全配置。"),
@@ -181,14 +210,14 @@ CONDITIONS = [
         "name": "破碎 / 多属具作业",
         "weight": 0.16,
         "feature": "重点是液压系统流量、压力和 AUX 管路覆盖。",
-        "benefit": "AUX1/AUX2、卸油管路、流量保持和快换管路决定破碎锤、拇指夹、螺旋钻等属具适配效率。",
+        "benefit": "AUX1/AUX2 管路、卸油管路、流量保持和快换管路影响破碎锤、拇指夹、螺旋钻等属具适配。",
         "items": [
-            ("参数", "系统流量", 0.14, "flow_sum", "液压属具连续工作基础。"),
+            ("参数", "系统流量", 0.14, "flow_sum", "决定液压属具连续工作的供油基础。"),
             ("参数", "工作压力", 0.12, "high", "破碎、夹持和钻孔属具输出能力。"),
             ("参数", "AUX1流量", 0.14, "high", "主属具回路供油能力。"),
             ("参数", "AUX1压力", 0.10, "high", "主属具负载能力。"),
             ("参数", "AUX2流量", 0.08, "high", "旋转/夹持类辅回路能力。"),
-            ("参数", "AUX2压力", 0.08, "high", "辅回路属具稳定性。"),
+            ("参数", "AUX2压力", 0.08, "high", "决定辅回路可匹配属具的压力范围。"),
             ("配置", "AUX1管路", 0.10, "option", "破碎锤和常规属具基础配置。"),
             ("配置", "AUX2管路", 0.08, "option", "旋转夹、拇指夹等复合属具更友好。"),
             ("配置", "卸油管路", 0.06, "option", "破碎锤回油保护和热管理。"),
@@ -201,17 +230,17 @@ CONDITIONS = [
         "name": "坡地 / 软土 / 吊装稳定",
         "weight": 0.14,
         "feature": "关注接地比压、履带宽度、牵引、爬坡和起吊能力。",
-        "benefit": "副配重、推土铲浮动、驾驶室安全和行走报警可以增强坡地和吊装边界。",
+        "benefit": "副配重和推土铲浮动有助于改善稳定性与整平效率；起吊边界仍应以载荷表和作业规范为准。",
         "items": [
-            ("参数", "履带宽度", 0.09, "high", "宽履带降低陷车风险并提升侧向稳定性。"),
+            ("参数", "履带宽度", 0.09, "high", "较宽履带通常有助于降低接地比压并改善稳定性，但会增加运输宽度。"),
             ("参数", "接地比压", 0.14, "low", "越低越适合软土、草地和回填土表面。"),
             ("参数", "最大牵引力", 0.13, "high", "坡地转场和湿软场地脱困能力。"),
-            ("参数", "爬坡能力", 0.13, "high", "坡地作业和上下车能力。"),
+            ("参数", "爬坡能力", 0.13, "high", "反映设备上下坡和转场能力，不等同于允许作业坡度。"),
             ("参数", "地面正前方3m远处起吊能力（放下推土铲）", 0.18, "high", "放铲吊装代表稳定边界。"),
             ("参数", "地面正前方3m远处起吊能力（抬起推土铲）", 0.12, "high", "无支撑状态下的保守吊装能力。"),
             ("参数", "地面侧方3m远处起吊能力", 0.12, "high", "侧方吊装稳定性。"),
-            ("配置", "副配重", 0.05, "option", "提升尾部稳定性和吊装边界。"),
-            ("配置", "推土铲浮动", 0.04, "option", "整平和坡面贴合更容易。"),
+            ("配置", "副配重", 0.05, "option", "可改善稳定性和额定起吊能力，具体以载荷表为准。"),
+            ("配置", "推土铲浮动", 0.04, "option", "可提升整平效率，不能替代坡地稳定性验证。"),
         ],
     },
     {
@@ -219,7 +248,7 @@ CONDITIONS = [
         "name": "租赁 / 快速转场 / 多客户通用",
         "weight": 0.14,
         "feature": "看运输尺寸、油耗管理、易用性、安全提醒和远程管理。",
-        "benefit": "自动怠速、自动停机、远程信息处理、防盗、摄像头、报警和驾驶舒适配置直接影响租赁周转。",
+        "benefit": "自动怠速、自动停机、远程信息处理、防盗、摄像头和报警配置会影响油耗管理、资产管理和多客户使用便利性。",
         "items": [
             ("参数", "整机运输宽度", 0.10, "low", "拖车、仓库和门洞通过性。"),
             ("参数", "整机运输长度", 0.08, "low", "拖车装载和仓储占地。"),
@@ -227,7 +256,7 @@ CONDITIONS = [
             ("参数", "操作重量", 0.08, "low", "拖车级别和租赁客户自提门槛。"),
             ("参数", "行走速度（高速）", 0.05, "speed_high", "场内快速转场效率。"),
             ("参数", "行走速度（低速）", 0.02, "speed_low", "多客户使用时的低速操控友好性。"),
-            ("配置", "自动怠速", 0.06, "option", "降低怠速油耗和新手误操作成本。"),
+            ("配置", "自动怠速", 0.06, "option", "减少等待和停顿阶段的怠速油耗。"),
             ("配置", "自动停机", 0.08, "option", "降低无效怠速、油耗和租赁客户使用成本。"),
             ("配置", "远程信息处理系统", 0.09, "option", "定位、工时、维保和资产管理。"),
             ("配置", "密码启动/防盗", 0.05, "option", "租赁资产防盗和授权使用。"),
@@ -235,7 +264,7 @@ CONDITIONS = [
             ("配置", "USB电源", 0.02, "option", "基础便利配置。"),
             ("配置", "蓝牙收音机", 0.02, "option", "驾驶舒适性。"),
             ("配置", "手机托", 0.02, "option", "租赁客户通用便利性。"),
-            ("配置", "报警灯", 0.04, "option", "工地安全可视化。"),
+            ("配置", "报警灯", 0.04, "option", "提高设备在市政和工地环境中的可见性。"),
             ("配置", "行走报警", 0.05, "option", "人员密集场景安全提醒。"),
             ("配置", "驾驶室温控", 0.05, "option", "跨季节租赁适用性。"),
             ("配置", "安全摄像头", 0.04, "option", "多客户倒车和近机作业安全。"),
@@ -350,7 +379,7 @@ def fmt_percent(value):
     return f"{value * 100:.0f}%"
 
 
-def confidence_label(coverage):
+def completeness_label(coverage):
     if coverage is None or coverage < MIN_SCORE_COVERAGE:
         return "数据不足"
     if coverage >= 0.90:
@@ -358,6 +387,37 @@ def confidence_label(coverage):
     if coverage >= 0.75:
         return "中"
     return "有限"
+
+
+def normalize_unit(unit):
+    text = clean(unit)
+    return UNIT_ALIASES.get(text.lower(), text)
+
+
+def value_with_unit(value, unit):
+    text = display_value(value)
+    normalized = normalize_unit(unit)
+    if text == "/" or not normalized or normalized in {"配置", "类别"}:
+        return text
+    if normalized.lower() in text.lower():
+        return text
+    return f"{text} {normalized}"
+
+
+def engineering_guidance(detail):
+    return ITEM_ENGINEERING_GUIDANCE.get(
+        detail.get("item"),
+        ENGINEERING_GUIDANCE.get(detail.get("category"), "需结合整机约束、客户需求和试验结果评估"),
+    )
+
+
+def reference_action_text(detail, xcmg, best_product):
+    current = value_with_unit(detail["values"].get(xcmg), detail.get("unit"))
+    reference = value_with_unit(detail["values"].get(best_product), detail.get("unit"))
+    return (
+        f"{detail['item']}：当前 {current}，对标参考 {best_product} {reference}。"
+        f"{engineering_guidance(detail)}；是否转为产品目标需通过工程与试验评审。"
+    )
 
 
 def extract_numbers(value):
@@ -561,7 +621,7 @@ def load_workbook(path):
         item = clean(row.iloc[1])
         if not item:
             continue
-        unit = clean(row.iloc[2])
+        unit = normalize_unit(row.iloc[2])
         values = {p: clean(v) for p, v in zip(products, row.iloc[3:].tolist())}
         rec = {"category": category, "item": item, "unit": unit, "values": values}
         param_rows.append(rec)
@@ -1011,12 +1071,12 @@ def metric_gap_text(detail, xcmg, best_product):
     if key == "low":
         diff = max(0, xv - bv)
         if diff > 0:
-            return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，XCMG 多 {fmt_score(diff)}{suffix}。"
-        return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，已接近标杆。"
+            return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}；XCMG 高于参考值 {fmt_score(diff)}{suffix}，该指标越低越有利。"
+        return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，已接近对标参考。"
     diff = max(0, bv - xv)
     if diff > 0:
-        return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，XCMG 少 {fmt_score(diff)}{suffix}。"
-    return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，已接近标杆。"
+        return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}；XCMG 低于参考值 {fmt_score(diff)}{suffix}。"
+    return f"{detail['item']}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，已接近对标参考。"
 
 
 def option_gap_text(detail, xcmg, best_product):
@@ -1055,26 +1115,33 @@ def render_gap_cards(model, condition):
 
     param_text = [x[1] for x in param_gaps[:4]]
     option_text = [x[1] for x in option_gaps[:4]]
-    major_items = [x[2]["item"] for x in (param_gaps + option_gaps)[:3]]
-    leader_text = f"本工况建议以 {leader['product']} 作为第一参照；XCMG 需要重点看 {('、'.join(major_items)) if major_items else '已列关键项'}。"
+    combined_gaps = sorted(param_gaps + option_gaps, reverse=True, key=lambda x: x[0])
+    major_items = [x[2]["item"] for x in combined_gaps[:3]]
+    leader_text = f"同工况排名第一的参考产品为 {leader['product']}；XCMG 的主要差距项为 {('、'.join(major_items)) if major_items else '已列关键项'}。"
     actions = []
     for _, _, d in option_gaps[:3]:
         raw = display_value(d["values"].get(xcmg, "") or "/")
-        actions.append(f"{d['item']}从 {option_status(raw)} 调整到标配，先补配置可见短板。")
+        ref = best_reference(d, xcmg)
+        if ref:
+            best_product, _, _ = ref
+            best_raw = display_value(d["values"].get(best_product, "") or "/")
+            actions.append(
+                f"{d['item']}：XCMG 当前为{option_status(raw)}，{best_product} 为{option_status(best_raw)}。"
+                "建议纳入标配或选配方案评估，并核算客户价值、成本和法规要求。"
+            )
     for _, _, d in param_gaps[:3]:
         ref = best_reference(d, xcmg)
         if ref:
             best_product, _, _ = ref
-            target = display_value(d["values"].get(best_product, "-") or "-")
-            actions.append(f"{d['item']}以 {best_product} 的 {target} 为工程目标，评估结构尺寸、液压匹配或工作装置方案。")
+            actions.append(reference_action_text(d, xcmg, best_product))
     if not actions:
-        actions.append("当前数据下未显示单项明显短板，后续重点补齐缺失样本和配置定义。")
+        actions.append("当前数据未显示单项明显短板。建议先复核缺失值和配置口径，再决定是否开展工程方案评估。")
     return (
-        '<div class="gapPanel"><h3>XCMG 与竞品差距及弥补路径</h3><div class="gapGrid">'
-        f'<article><b>1. 对标对象</b><p>{esc(leader_text)}</p></article>'
+        '<div class="gapPanel"><h3>XCMG 与竞品差距及建议动作</h3><div class="gapGrid">'
+        f'<article><b>1. 对标参照</b><p>{esc(leader_text)}</p></article>'
         f'<article><b>2. 硬参数差距</b>{as_list(param_text, "硬参数未显示明显短板，当前差距主要来自配置完整度或数据缺失。")}</article>'
-        f'<article><b>3. 配置缺口</b>{as_list(option_text, "配置项暂未发现明确弱项，重点维护现有标配口径并补齐竞品资料。")}</article>'
-        f'<article><b>4. 弥补路径</b>{as_list(actions[:5], "补齐缺失数据后再确认工程动作。")}</article>'
+        f'<article><b>3. 配置缺口</b>{as_list(option_text, "配置项暂未发现明确弱项，建议继续核验竞品配置资料并维护现有标配口径。")}</article>'
+        f'<article><b>4. 建议动作</b>{as_list(actions[:5], "复核缺失数据后再确认工程动作。")}</article>'
         "</div></div>"
     )
 
@@ -1093,15 +1160,23 @@ def render_simulator(model, condition):
             if current is None:
                 continue
             delta = (100 - current) * d["weight"]
-            label = f"{d['item']}标配"
-            desc = f"当前 {raw or '/'}，按标配测算。"
+            candidates = [(p, score) for p, score in d["scores"].items() if p != xcmg and score is not None]
+            best_product, _ = max(candidates, key=lambda item: item[1], default=("竞品参考", 0))
+            best_raw = display_value(d["values"].get(best_product, "") or "/")
+            label = f"{d['item']}模拟标配"
+            desc = f"模拟状态为标配；当前为{option_status(raw)}，参考 {best_product} 为{option_status(best_raw)}。"
         else:
-            best = max([v for v in d["scores"].values() if v is not None], default=None)
-            if xs is None or best is None:
+            candidates = [(p, score) for p, score in d["scores"].items() if p != xcmg and score is not None]
+            if xs is None or not candidates:
                 continue
+            best_product, best = max(candidates, key=lambda item: item[1])
             delta = max(0, best - xs) * d["weight"]
-            label = f"{d['item']}优化"
-            desc = "按竞品高水平目标测算，作为平台和尺寸优化方向。"
+            label = f"{d['item']}对标"
+            desc = (
+                f"当前 {value_with_unit(raw, d.get('unit'))}；"
+                f"参考 {best_product} {value_with_unit(d['values'].get(best_product), d.get('unit'))}。"
+                f"{engineering_guidance(d)}。"
+            )
         if delta <= 0.25:
             continue
         options.append((delta, label, d["item"], desc))
@@ -1112,10 +1187,11 @@ def render_simulator(model, condition):
         for delta, label, _, desc in options
     )
     if not option_html:
-        option_html = '<p class="muted">该工况 XCMG 当前没有可直接模拟的配置补齐项，主要差距应从硬参数和平台方案评估。</p>'
+        option_html = '<p class="muted">当前没有可量化的参数或配置提升项。建议先复核缺失数据，再开展方案评估。</p>'
     return (
         f'<div class="simulator" data-base="{base:.3f}" data-xcmg="{esc(xcmg)}" data-rivals="{esc(rivals)}">'
-        '<div class="simHead"><h3>XCMG 提升模拟器</h3><button type="button" class="resetSim">复原</button></div>'
+        '<div class="simHead"><h3>XCMG 提升模拟器</h3><button type="button" class="resetSim">清除选择</button></div>'
+        '<p class="simDisclaimer">模拟结果仅反映当前评分模型，不替代工程验证、成本评审和市场需求判断。</p>'
         f'<div class="simGrid"><div class="simOptions">{option_html}</div>'
         f'<div class="simResult"><strong>{fmt_score(base)}</strong><span>模拟工况分</span><b>排名计算中</b><small></small></div></div>'
         '<div class="rankPanel"></div></div>'
@@ -1131,6 +1207,7 @@ def render_summary_cards(model):
         leader = rows[0] if rows else {"product": "-", "score": 0}
         config_details = [d for d in model["conditionDetails"][c["id"]] if d["type"] == "配置"]
         best_cfg = None
+        xcmg_cfg = None
         if config_details:
             cfg_scores = {}
             for p in model["products"]:
@@ -1142,12 +1219,36 @@ def render_summary_cards(model):
                 )
             cfg_rows = ranking(cfg_scores)
             best_cfg = cfg_rows[0] if cfg_rows else None
+            xcmg_cfg = cfg_scores.get(xcmg)
+        score_gap = max(0, leader["score"] - xscore) if xscore is not None else None
+        cfg_gap = max(0, best_cfg["score"] - xcmg_cfg) if best_cfg and xcmg_cfg is not None else None
+        gap_candidates = []
+        for detail in model["conditionDetails"][c["id"]]:
+            ref = best_reference(detail, xcmg)
+            if ref:
+                _, _, delta = ref
+                gap_candidates.append((delta, detail["item"]))
+        gap_candidates.sort(reverse=True)
+        focus_text = "、".join(item for _, item in gap_candidates[:3]) or "暂无单项明显短板"
+        if leader["product"] == xcmg:
+            performance_text = f"XCMG {fmt_score(xscore)} 分，排名第 1。"
+        else:
+            performance_text = (
+                f"{leader['product']} {fmt_score(leader['score'])} 分；"
+                f"XCMG {fmt_score(xscore)} 分，第 {rank or '-'}，距领先产品 {fmt_score(score_gap)} 分。"
+            )
+        if best_cfg and best_cfg["product"] == xcmg:
+            config_text = f"XCMG {fmt_score(xcmg_cfg)} 分，配置项累计贡献最高。"
+        else:
+            config_text = (
+                f"{best_cfg['product'] if best_cfg else '-'} {fmt_score(best_cfg['score']) if best_cfg else '-'} 分；"
+                f"XCMG {fmt_score(xcmg_cfg)} 分，差 {fmt_score(cfg_gap)} 分。"
+            )
         cards.append(
             f'<article class="summaryCard"><h3>{esc(c["name"])}</h3>'
-            f'<p><b>工况特点：</b>{esc(c["feature"])}</p>'
-            f'<p><b>有益配置：</b>{esc(c["benefit"])}</p>'
-            f'<p><b>领先：</b>{esc(leader["product"])} {fmt_score(leader["score"])} 分；XCMG {fmt_score(xscore)} 分，第 {rank or "-"}。</p>'
-            f'<p><b>配置贡献领先：</b>{esc(best_cfg["product"]) if best_cfg else "-"} {fmt_score(best_cfg["score"]) if best_cfg else "-"} 分；XCMG 配置项按实际标选配测算。</p>'
+            f'<p><b>工况表现：</b>{esc(performance_text)}</p>'
+            f'<p><b>主要差距项：</b>{esc(focus_text)}。</p>'
+            f'<p><b>配置项累计贡献：</b>{esc(config_text)}</p>'
             "</article>"
         )
     return "".join(cards)
@@ -1189,12 +1290,12 @@ def raw_param_gap_text(row, model, xcmg):
         diff = max(0, xv - bv)
         if diff <= 0:
             return None
-        text = f"{item}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，XCMG 多 {fmt_score(diff)}{suffix}。"
+        text = f"{item}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}；XCMG 高于参考值 {fmt_score(diff)}{suffix}，该指标越低越有利。"
     else:
         diff = max(0, bv - xv)
         if diff <= 0:
             return None
-        text = f"{item}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}，XCMG 少 {fmt_score(diff)}{suffix}。"
+        text = f"{item}：XCMG {xraw}{suffix}，{best_product} {braw}{suffix}；XCMG 低于参考值 {fmt_score(diff)}{suffix}。"
     return delta * PARAM_CATEGORY_WEIGHTS.get(row["category"], 0.05), text, item
 
 
@@ -1231,7 +1332,7 @@ def render_overall_gap_notes(model, xcmg, leader):
     focus_text = "、".join(focus_items) if focus_items else "已列核心指标"
     return (
         '<div class="overallNotes">'
-        f'<p><b>对标对象：</b>总体排名第一的参照产品是 {esc(leader["product"])}；单项追赶不只看整机排名，重点拆到 {esc(focus_text)} 等具体指标。</p>'
+        f'<p><b>对标参照：</b>总体排名第一的参考产品为 {esc(leader["product"])}；单项差距主要集中在 {esc(focus_text)} 等具体指标。</p>'
         f'<p><b>硬参数差距：</b></p>{as_list([x[1] for x in param_gaps[:4]], "当前原始参数没有显示明显落后项，重点复核缺失值和口径一致性。")}'
         f'<p><b>配置差距：</b></p>{as_list([x[1] for x in option_gaps[:4]], "标选配口径下暂无明显配置短板，后续以客户场景验证配置价值。")}'
         '</div>'
@@ -1248,7 +1349,7 @@ def render_overall_section(model):
     overall_table = "".join(
         f'<tr class="{ "xcmg-row" if p == xcmg else ""}"><th scope="row">{esc(p)}</th><td class="{score_class(model["overall"].get(p))}">{fmt_score(model["overall"].get(p))}</td>'
         f'<td>{fmt_score(model["paramScore"].get(p))}</td><td>{fmt_score(model["optionScore"].get(p))}</td>'
-        f'<td>{fmt_percent(model["overallCoverage"].get(p))}</td><td>{confidence_label(model["overallCoverage"].get(p))}</td></tr>'
+        f'<td>{fmt_percent(model["overallCoverage"].get(p))}</td><td>{completeness_label(model["overallCoverage"].get(p))}</td></tr>'
         for p in ordered_products
     )
     return (
@@ -1256,9 +1357,9 @@ def render_overall_section(model):
         f'<p class="methodNote">评分口径：参数综合分 {int(OVERALL_WEIGHTS["parameter"]*100)}% + 标选配综合分 {int(OVERALL_WEIGHTS["option"]*100)}%；工况评分单独展示，不重复计入总体分。</p>'
         '<div class="split">'
         f'<div class="panel"><h3>总体评分排名</h3><div class="bars">{render_bar_ranking(model["overall"], xcmg, coverage=model["overallCoverage"])}</div><p class="coverageNote">覆盖率低于 {int(MIN_SCORE_COVERAGE*100)}% 的产品不进入排名，仍在右侧表格中保留并标记为“数据不足”。</p></div>'
-        '<div class="panel"><h3>XCMG 总体差距判断</h3>'
+        '<div class="panel"><h3>XCMG 总体差距分析</h3>'
         + gap_notes
-        + '<details class="mobileDisclosure overallTableDisclosure" open data-mobile-open="false"><summary>查看完整评分明细</summary><div class="tableScroll compact"><table><caption class="srOnly">总体评分、参数评分、配置评分及数据覆盖率</caption><thead><tr><th scope="col">产品</th><th scope="col">总体</th><th scope="col">参数</th><th scope="col">配置</th><th scope="col">数据覆盖</th><th scope="col">置信度</th></tr></thead><tbody>'
+        + '<details class="mobileDisclosure overallTableDisclosure" open data-mobile-open="false"><summary>完整评分明细</summary><div class="tableScroll compact"><table><caption class="srOnly">总体评分、参数评分、配置评分及数据覆盖率</caption><thead><tr><th scope="col">产品</th><th scope="col">总体</th><th scope="col">参数</th><th scope="col">配置</th><th scope="col">数据覆盖</th><th scope="col">完整度等级</th></tr></thead><tbody>'
         + overall_table
         + '</tbody></table></div></details></div></div></section>'
     )
@@ -1278,19 +1379,19 @@ def render_html(model):
     conditions_html = []
     for idx, c in enumerate(model["conditions"], start=1):
         conditions_html.append(
-            f'<section id="cond{idx}" class="conditionBlock"><div class="conditionTitle"><div><span>WORK CONDITION</span><h2>{esc(c["name"])}</h2></div><em>权重 {int(c["weight"]*100)}%</em></div>'
+            f'<section id="cond{idx}" class="conditionBlock"><div class="conditionTitle"><div><span>典型工况</span><h2>{esc(c["name"])}</h2></div><em>权重 {int(c["weight"]*100)}%</em></div>'
             '<div class="conditionIntro">'
             f'<p><b>工况特点：</b>{esc(c["feature"])}</p><p><b>有益配置：</b>{esc(c["benefit"])}</p>'
             "</div>"
             '<div class="conditionTop">'
             f'<details class="mobileDisclosure factorDisclosure" open data-mobile-open="false"><summary>关键参数 / 配置雷达图</summary><div class="panel">{render_condition_factor_radar(model, c)}</div></details>'
-            f'<div class="panel conditionRanking"><h3>工况评分排名</h3><div class="bars">{render_bar_ranking(cond_scores[c["id"]], xcmg, coverage=model["conditionCoverage"][c["id"]])}</div><p class="coverageNote">覆盖率低于 {int(MIN_SCORE_COVERAGE*100)}% 的产品不进入正式排名。</p></div>'
+            f'<div class="panel conditionRanking"><h3>工况评分排名</h3><div class="bars">{render_bar_ranking(cond_scores[c["id"]], xcmg, coverage=model["conditionCoverage"][c["id"]])}</div></div>'
             "</div>"
             + '<details class="mobileDisclosure matrixDisclosure" open data-mobile-open="false"><summary>全部指标贡献明细</summary>'
             + render_detail_matrix(model, c)
             + '</details>'
             + render_gap_cards(model, c)
-            + '<details class="mobileDisclosure simulatorDisclosure" open data-mobile-open="false"><summary>XCMG 提升模拟器</summary>'
+            + '<details class="mobileDisclosure simulatorDisclosure" open data-mobile-open="false"><summary>提升模拟方案</summary>'
             + render_simulator(model, c)
             + '</details>'
             + "</section>"
@@ -1319,7 +1420,7 @@ def render_html(model):
     .bars{{display:grid;gap:7px}}.bar{{display:grid;grid-template-columns:28px minmax(100px,145px) minmax(90px,1fr) 48px 64px;gap:8px;align-items:center;min-width:0}}.bar span{{background:#e6f0fa;color:var(--blue);font-weight:900;text-align:center;border-radius:3px;padding:3px 0}}.bar b{{font-size:13px;min-width:0;overflow-wrap:anywhere}}.bar i{{height:17px;background:#e3ecf5;border-radius:3px;overflow:hidden}}.bar i em{{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#2878bd)}}.bar strong{{color:#08335d}}.barCoverage{{font-size:11px;color:#65798c;white-space:nowrap}}.bar.xcmg span{{background:var(--yellow);color:#08213d}}.bar.xcmg i em{{background:linear-gradient(90deg,var(--yellow),#ffd86d)}}.bar.xcmg b,.bar.xcmg strong{{color:var(--blue);font-weight:900}}
     .radarBox{{min-width:0}}.radarHead{{display:flex;justify-content:space-between;gap:10px;align-items:center;padding-right:6px}}.radarCurrent{{font-size:12px;color:var(--blue);font-weight:900;white-space:nowrap}}.radarSvg{{display:block;margin:6px auto;max-width:100%;height:360px}}.radarSvg.small{{height:300px}}.radar-grid{{fill:none;stroke:#d9e6f2;stroke-width:1}}.radar-axis{{stroke:#d9e6f2;stroke-width:1}}.radar-label{{font-size:12px;font-weight:800;fill:#0b3155;text-anchor:middle;dominant-baseline:middle}}.radar-series{{fill:var(--series-color);fill-opacity:.08;stroke:var(--series-color);stroke-width:2.3;transition:.18s;cursor:pointer}}.radarBox.compare .radar-series,.factorRadar.compare .radar-series{{opacity:.08;fill-opacity:.03}}.radarBox.compare .radar-series.selected,.factorRadar.compare .radar-series.selected{{opacity:1;fill-opacity:.18;stroke-width:3.6}}.radarLegend{{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}}.radarLegend button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:5px 7px;font-size:12px;cursor:pointer;font-weight:700}}.radarLegend i{{display:inline-block;width:10px;height:10px;margin-right:5px;border-radius:2px}}.radarLegend button:hover,.radarLegend button.selected{{border-color:var(--yellow);box-shadow:0 0 0 2px rgba(245,180,0,.18)}}.radarLegend button.selected{{background:#fff7d6;color:#08213d}}.radarLegend.compact button{{font-size:11px;padding:4px 6px}}.mobileDisclosure,.radarPicker{{border:0;padding:0;margin:0;min-width:0}}.mobileDisclosure>summary,.radarPicker>summary{{display:none}}
     .factorRadar{{min-width:0}}.factorRadarHead{{margin-bottom:4px}}.factorRadarGrid{{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:12px;align-items:center}}.keyTable{{width:100%;border-collapse:collapse;font-size:12px}}.keyTable th{{background:var(--blue);color:#fff}}.keyTable th,.keyTable td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left}}.tableScroll{{overflow:auto;border:1px solid var(--line);border-radius:4px;max-height:520px;background:white}}.tableScroll.compact{{max-height:360px}}table{{border-collapse:collapse;width:100%;font-size:12px}}th,td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left;vertical-align:top;white-space:nowrap}}th{{position:sticky;top:0;background:var(--blue);color:#fff;z-index:2}}td:first-child,th:first-child{{position:sticky;left:0;z-index:3}}td:first-child,tbody th:first-child{{background:#fff;font-weight:800;color:#0b3155;box-shadow:2px 0 0 rgba(0,76,151,.08)}}tr:nth-child(even) td,tr:nth-child(even) th:first-child{{background:#f8fbfe}}tr.xcmg-row td{{box-shadow:inset 3px 0 0 var(--yellow)}}.scoreCell{{min-width:124px;white-space:normal}}.scoreCell b{{display:block}}.scoreCell span{{display:block;font-weight:900}}.scoreCell small{{display:block;color:#51677a}}.good{{background:#e6f4ea!important;color:#0c6a36!important;font-weight:800}}.mid{{background:#fff4cc!important;color:#785700!important;font-weight:800}}.bad{{background:#fde9e9!important;color:#ad1d1d!important;font-weight:800}}.missing{{background:#eef2f6!important;color:#607080!important}}.srOnly{{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}}
-    .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.methodNote,.coverageNote,.sourceNote{{font-size:12px;color:#526a7f;background:#f6f9fc;border-left:4px solid var(--yellow);padding:9px 11px;margin:0 0 12px}}.coverageNote{{margin:10px 0 0}}.sourceNote{{display:flex;gap:10px;align-items:flex-start}}.sourceNote b{{color:#08335d;white-space:nowrap}}.simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
+    .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.methodNote,.coverageNote,.sourceNote{{font-size:12px;color:#526a7f;background:#f6f9fc;border-left:4px solid var(--yellow);padding:9px 11px;margin:0 0 12px}}.coverageNote{{margin:10px 0 0}}.sourceNote{{display:flex;gap:10px;align-items:flex-start}}.sourceNote b{{color:#08335d;white-space:nowrap}}.simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:12px}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
     @media(max-width:1200px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home{{grid-column:1/-1;margin:0}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
     @media(max-width:720px){{body{{font-size:14px}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:12px;line-height:1.25}}.nav small{{font-size:9px}}.navToggle,.mobileTop{{padding:6px 8px;font-size:11px}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:12px;padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}h1{{font-size:26px;margin:6px 0 8px}}h2{{font-size:20px;margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:15px}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:12px}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:24px;line-height:1.15;margin:3px 0}}.kpi span{{font-size:11px;line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:12px;margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:18px;overflow-wrap:anywhere;margin-bottom:0}}.conditionTitle span{{font-size:10px}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:12px}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:12px}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:11px;padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:anywhere}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:anywhere;font-size:11px;padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:900;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:11px;color:var(--blue);font-weight:800}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:12px}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:12px;padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:28px}}.tableScroll{{max-height:62vh}}}}
   </style>
@@ -1334,9 +1435,9 @@ def render_html(model):
     <a class="mobileTop" href="#top">顶部</a>
     <div class="navMenu" id="page-nav">
       <a class="home" href="arc.html">返回 ARC 主页</a>
-      <a href="#summary">领导总览</a>
+      <a href="#summary">管理层摘要</a>
       <a href="#overall">总体评分</a>
-      <a href="#radar">可视化驾驶舱</a>
+      <a href="#radar">工况竞争格局</a>
       <a href="#conditions">工况总览</a>
       {''.join(f'<a href="#cond{i}">{esc(c["name"])}</a>' for i,c in enumerate(model["conditions"],1))}
       <a href="#raw">原始数据</a>
@@ -1345,46 +1446,47 @@ def render_html(model):
   <main>
     <div class="hero">
       <div class="heroText">
-        <span class="eyebrow">XCMG Excavator Competitive Dashboard</span>
+        <span class="eyebrow">XCMG ARC Product Benchmarking</span>
         <h1>{esc(meta["title"])}</h1>
-        <p class="heroDescription">按统一挖掘机竞品对标方法，把参数、标选配、典型工况、配置贡献、差距来源和提升模拟拆开展示。结论均从用户提供 Excel 原始值计算，不用纯主观判断替代数据。</p>
-        <div class="actions"><a class="btn blue" href="#conditions">查看工况分析</a><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="arc.html">返回 ARC</a></div>
+        <p class="heroDescription">本页按照统一口径展示参数、标选配、典型工况、配置贡献、差距来源和提升模拟。全部结论可追溯至原始数据表和来源登记。</p>
+        <div class="actions"><a class="btn blue" href="#conditions">查看工况对标</a><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="arc.html">返回 ARC 主页</a></div>
       </div>
       <div class="heroMedia"><img src="{esc(meta["image"])}" alt="{esc(meta["xcmg"])} 产品图"></div>
     </div>
 
     <section id="summary">
-      <h2>领导总览</h2>
+      <h2>管理层摘要</h2>
       <div class="kpis">
         <div class="kpi"><span>对标产品数</span><b>{product_count}</b><span>含 XCMG 与主流竞品</span></div>
         <div class="kpi"><span>XCMG 总体排名</span><b>第 {overall_rank or "-"}</b><span>参数与配置综合</span></div>
         <div class="kpi"><span>XCMG 总体得分</span><b>{fmt_score(overall_score)}</b><span>参数 65% / 配置 35%</span></div>
-        <div class="kpi"><span>XCMG 数据覆盖</span><b>{fmt_percent(model["overallCoverage"].get(xcmg))}</b><span>置信度：{confidence_label(model["overallCoverage"].get(xcmg))}</span></div>
+        <div class="kpi"><span>XCMG 数据覆盖</span><b>{fmt_percent(model["overallCoverage"].get(xcmg))}</b><span>完整度等级：{completeness_label(model["overallCoverage"].get(xcmg))}</span></div>
       </div>
     </section>
 
     {render_overall_section(model)}
 
     <section id="radar">
-      <h2>可视化驾驶舱</h2>
+      <h2>工况竞争格局</h2>
       <div class="split">
-        <details class="mobileDisclosure radarDisclosure" open data-mobile-open="false"><summary>展开工况雷达图</summary><div class="panel">{radar}</div></details>
-        <div class="panel"><h3>工况综合排名（按 6 类工况）</h3><div class="bars">{render_bar_ranking(cond_total, xcmg, coverage=model["conditionTotalCoverage"])}</div><p class="muted">默认显示 XCMG 与工况标杆；点击图例可增加或取消品牌，全部取消后恢复全品牌展示。</p></div>
+        <details class="mobileDisclosure radarDisclosure" open data-mobile-open="false"><summary>工况雷达图</summary><div class="panel">{radar}</div></details>
+        <div class="panel"><h3>工况综合排名（按 6 类工况）</h3><div class="bars">{render_bar_ranking(cond_total, xcmg, coverage=model["conditionTotalCoverage"])}</div><p class="muted">默认显示 XCMG 与工况领先产品；点击图例可增加或取消品牌，全部取消后恢复全品牌展示。</p></div>
       </div>
     </section>
 
     <section id="conditions">
       <h2>工况总览</h2>
+      <p class="methodNote">排名口径：工况字段覆盖率低于 {int(MIN_SCORE_COVERAGE*100)}% 的产品不进入正式排名；缺失项仍保留在指标明细中。</p>
       <div class="summaryGrid">{summary_cards}</div>
     </section>
 
     {''.join(conditions_html)}
 
     <section id="raw">
-      <h2>原始数据与全量展示</h2>
-      <div class="sourceNote"><b>数据口径</b><span>评分以本页对应原始 Excel 为基准；空白项标记为“待核验”，不等同于无配置。多配置数值范围按区间中值计算，系统流量按泵组流量合计，行走速度拆分高、低速档；厂商文档和配置形态在来源登记表中持续补充。</span></div>
+      <h2>原始数据</h2>
+      <div class="sourceNote"><b>数据口径</b><span>本页评分基于对应原始 Excel；空白项标记为“待核验”，不等同于无配置。数值范围按区间中值计算，系统流量按泵组流量合计，行走速度拆分高、低速档。数据来源及核验状态详见来源登记表。</span></div>
       <div class="actions"><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="data/source-register.csv" download>下载来源登记表</a></div>
-      <details class="mobileDisclosure rawDisclosure" open data-mobile-open="false"><summary>查看全量参数与配置</summary>
+      <details class="mobileDisclosure rawDisclosure" open data-mobile-open="false"><summary>全量参数与配置</summary>
         <div class="rawTabs"><button type="button" class="active" data-table="param">参数</button><button type="button" data-table="option">标选配</button></div>
         <div class="tableScroll rawTable" data-name="param" data-open="true"><table><caption class="srOnly">全部原始参数数据</caption><thead><tr><th scope="col">类别</th><th scope="col">指标</th><th scope="col">单位</th>{param_head}</tr></thead><tbody>{param_rows}</tbody></table></div>
         <div class="tableScroll rawTable" data-name="option" data-open="false"><table><caption class="srOnly">全部原始标选配数据</caption><thead><tr><th scope="col">类别</th><th scope="col">配置</th><th scope="col">单位</th>{param_head}</tr></thead><tbody>{option_rows}</tbody></table></div>

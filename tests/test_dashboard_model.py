@@ -129,6 +129,40 @@ class DashboardModelTests(unittest.TestCase):
                 self.assertIn('src="assets/dashboard.js"', html)
                 self.assertNotIn('class="summaryGrid" style="margin-top:12px"', html)
 
+    def test_leadership_copy_avoids_overclaiming(self):
+        banned_phrases = {
+            "置信度",
+            "用户提供 Excel",
+            "不用纯主观判断",
+            "工程目标",
+            "竞品高水平目标",
+            "平台和尺寸优化",
+            "完整竞品数据",
+            "完整对标数据",
+        }
+        pages = [ROOT / "arc.html"] + [ROOT / meta["output"] for meta in SOURCE_FILES]
+        for page in pages:
+            html = page.read_text(encoding="utf-8")
+            with self.subTest(page=page.name):
+                for phrase in banned_phrases:
+                    self.assertNotIn(phrase, html)
+
+    def test_condition_summary_is_concise_and_quantified(self):
+        for meta in SOURCE_FILES:
+            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
+            with self.subTest(page=meta["output"]):
+                for condition in CONDITIONS:
+                    self.assertEqual(html.count(condition["feature"]), 1)
+                    self.assertEqual(html.count(condition["benefit"]), 1)
+                self.assertLessEqual(html.count("覆盖率低于 60%"), 2)
+                self.assertIn("配置项累计贡献", html)
+
+    def test_parameter_units_are_normalized(self):
+        for model in self.models:
+            units = {row["unit"] for row in model["rawParamRows"]}
+            self.assertNotIn("Mpa", units)
+            self.assertIn("MPa", units)
+
     def test_local_page_references_exist(self):
         pages = [ROOT / "arc.html"] + [ROOT / meta["output"] for meta in SOURCE_FILES]
         for page in pages:
