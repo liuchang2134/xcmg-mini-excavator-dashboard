@@ -167,6 +167,19 @@ class DashboardModelTests(unittest.TestCase):
                 for phrase in banned_phrases:
                     self.assertNotIn(phrase, html)
 
+    def test_brand_and_project_names_are_not_mixed(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn("全产品线竞品对标平台｜XCMG ARC", arc_html)
+        self.assertIn("由 XCMG ARC 独立开发", arc_html)
+        self.assertNotIn("ARC 产品对标平台", arc_html)
+        self.assertNotIn("ARC 不是参数表汇总", arc_html)
+        for meta in SOURCE_FILES:
+            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
+            with self.subTest(page=meta["output"]):
+                self.assertIn("XCMG ARC 独立开发", html)
+                self.assertIn("返回对标平台主页", html)
+                self.assertNotIn("返回 ARC 主页", html)
+
     def test_condition_summary_is_concise_and_quantified(self):
         for meta in SOURCE_FILES:
             html = (ROOT / meta["output"]).read_text(encoding="utf-8")

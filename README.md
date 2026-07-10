@@ -1,10 +1,10 @@
-# XCMG ARC Excavator Product Benchmarking
+# 全产品线竞品对标平台（XCMG ARC 独立开发）
 
-Executive dashboards and source-backed materials for XCMG excavator product benchmarking.
+Executive dashboards and source-backed materials independently developed by XCMG ARC for excavator product benchmarking.
 
 ## Deliverables
 
-- `arc.html` - ARC product benchmarking homepage
+- `arc.html` - product benchmarking platform homepage
 - `index.html` - 3.5-ton interactive executive dashboard
 - `excavator-1-2t.html` - 1-2 ton excavator dashboard
 - `excavator-2-3t.html` - 2-3 ton excavator dashboard
@@ -31,7 +31,7 @@ Executive dashboards and source-backed materials for XCMG excavator product benc
 
 ## Published Links
 
-- ARC homepage: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/arc.html
+- Benchmarking platform homepage: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/arc.html
 - 3.5t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/
 - 1-2t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/excavator-1-2t.html
 - 2-3t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/excavator-2-3t.html

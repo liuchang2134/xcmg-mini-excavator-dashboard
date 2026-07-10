@@ -1460,7 +1460,7 @@ def render_html(model):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{esc(meta["title"])}</title>
+  <title>{esc(meta["title"])}｜XCMG ARC</title>
   <style>
     :root{{--blue:#004c97;--blue-dark:#003765;--ink:#0a2d4f;--muted:#5f7285;--line:#cfdae6;--bg:#f3f7fa;--paper:#fff;--yellow:#f5b400;--green:#0f7b45;--red:#ba1f1f;--shadow:0 8px 24px rgba(0,58,112,.07)}}
     *{{box-sizing:border-box}}html{{scroll-behavior:smooth}}body{{margin:0;background:var(--bg);color:#102a43;font-family:"Segoe UI",Arial,"Microsoft YaHei",sans-serif;line-height:1.55}}a{{color:inherit;text-decoration:none}}button,input{{font-family:inherit}}
@@ -1484,7 +1484,7 @@ def render_html(model):
     <button class="navToggle" type="button" aria-expanded="false" aria-controls="page-nav">页面导航</button>
     <a class="mobileTop" href="#top">顶部</a>
     <div class="navMenu" id="page-nav">
-      <a class="home" href="arc.html">返回 ARC 主页</a>
+      <a class="home" href="arc.html">返回对标平台主页</a>
       <a href="#summary">管理层摘要</a>
       <a href="#overall">总体评分</a>
       <a href="#radar">工况竞争格局</a>
@@ -1496,10 +1496,10 @@ def render_html(model):
   <main>
     <div class="hero">
       <div class="heroText">
-        <span class="eyebrow">XCMG ARC Product Benchmarking</span>
+        <span class="eyebrow">XCMG ARC 独立开发</span>
         <h1>{esc(meta["title"])}</h1>
         <p class="heroDescription">本页按照统一口径展示参数、标选配、典型工况、配置贡献、差距来源和提升模拟。全部结论可追溯至原始数据表和来源登记。</p>
-        <div class="actions"><a class="btn blue" href="#conditions">查看工况对标</a><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="arc.html">返回 ARC 主页</a></div>
+        <div class="actions"><a class="btn blue" href="#conditions">查看工况对标</a><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="arc.html">返回对标平台主页</a></div>
       </div>
       <div class="heroMedia"><img src="{esc(meta["image"])}" alt="{esc(meta["xcmg"])} 产品图"></div>
     </div>
