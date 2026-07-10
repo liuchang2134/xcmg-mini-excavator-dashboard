@@ -1,20 +1,20 @@
 function setupRadars(){
   document.querySelectorAll('.radarBox,.factorRadar').forEach(box=>{
     const current=box.querySelector('.radarCurrent');
-    const selected=new Set();
     const series=[...box.querySelectorAll('.radar-series[data-product]')];
     const controls=[...box.querySelectorAll('.radarLegend [data-product]')];
-    controls.filter(btn=>btn.dataset.default==='true').forEach(btn=>selected.add(btn.dataset.product));
+    const selected=new Set(controls.map(btn=>btn.dataset.product));
     const label=()=>{
       if(!current) return;
-      if(selected.size===0) current.textContent='当前：全部品牌';
+      if(selected.size===controls.length) current.textContent='当前：全部品牌';
+      else if(selected.size===0) current.textContent='当前：未选择品牌';
       else if(selected.size===1) current.textContent='当前：'+[...selected][0];
       else current.textContent='当前：'+selected.size+' 个品牌对比';
     };
     const render=()=>{
-      const hasSelection=selected.size>0;
-      box.classList.toggle('compare',hasSelection);
-      series.forEach(s=>s.classList.toggle('selected',hasSelection && selected.has(s.dataset.product)));
+      const allSelected=selected.size===controls.length;
+      box.classList.toggle('compare',!allSelected);
+      series.forEach(s=>s.classList.toggle('selected',selected.has(s.dataset.product)));
       controls.forEach(btn=>{
         const on=selected.has(btn.dataset.product);
         btn.classList.toggle('selected',on);
@@ -23,8 +23,7 @@ function setupRadars(){
       label();
     };
     const toggle=(product)=>{
-      if(selected.size===0) selected.add(product);
-      else if(selected.has(product)) selected.delete(product);
+      if(selected.has(product)) selected.delete(product);
       else selected.add(product);
       render();
     };

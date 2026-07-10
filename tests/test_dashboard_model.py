@@ -149,6 +149,21 @@ class DashboardModelTests(unittest.TestCase):
                 self.assertIn('src="assets/dashboard.js"', html)
                 self.assertNotIn('class="summaryGrid" style="margin-top:12px"', html)
 
+    def test_all_radars_start_with_every_product_selected(self):
+        dashboard_js = (ROOT / "assets" / "dashboard.js").read_text(encoding="utf-8")
+        builder_source = (ROOT / "tools" / "build_excavator_dashboards.py").read_text(
+            encoding="utf-8"
+        )
+        for source in (dashboard_js, builder_source):
+            self.assertIn(
+                "const selected=new Set(controls.map(btn=>btn.dataset.product));",
+                source,
+            )
+            self.assertIn("const allSelected=selected.size===controls.length;", source)
+            self.assertIn("box.classList.toggle('compare',!allSelected);", source)
+            self.assertIn("current.textContent='当前：未选择品牌';", source)
+            self.assertNotIn("controls.filter(btn=>btn.dataset.default", source)
+
     def test_leadership_copy_avoids_overclaiming(self):
         banned_phrases = {
             "置信度",
