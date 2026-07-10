@@ -1695,6 +1695,21 @@
         window.setTimeout(() => control.classList.remove('is-clicked'), 260);
       });
     });
+
+    document.querySelectorAll('a[href="#top"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        history.replaceState({}, '', location.pathname + location.search);
+        const root = document.documentElement;
+        const previousScrollBehavior = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+        window.scrollTo(0, 0);
+        window.requestAnimationFrame(() => {
+          root.style.scrollBehavior = previousScrollBehavior;
+        });
+      });
+    });
+
     const navToggle = document.querySelector('.navToggle');
     const navLinks = document.querySelector('.navLinks');
     const navBackdrop = document.querySelector('.navBackdrop');

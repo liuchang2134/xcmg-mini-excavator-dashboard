@@ -230,6 +230,13 @@ class DashboardModelTests(unittest.TestCase):
         self.assertIn("Escape", arc_html)
         self.assertIn("overflow-x:hidden", arc_html)
 
+    def test_arc_top_links_scroll_to_the_absolute_page_top(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn("document.querySelectorAll('a[href=\"#top\"]')", arc_html)
+        self.assertIn("event.preventDefault();", arc_html)
+        self.assertIn("window.scrollTo(0, 0);", arc_html)
+        self.assertIn("location.pathname + location.search", arc_html)
+
     def test_arc_filters_round_trip_through_url(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertIn("URLSearchParams", arc_html)
