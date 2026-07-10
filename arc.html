@@ -731,7 +731,7 @@
       border:1px solid var(--line);
       box-shadow:0 9px 22px rgba(0,55,101,.05);
       display:grid;
-      grid-template-columns:230px minmax(0,1fr) 280px;
+      grid-template-columns:230px minmax(0,1fr) 190px;
       gap:0;
       min-height:164px;
       overflow:hidden;
@@ -778,10 +778,10 @@
     }
     .projectFacts{
       display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:8px;
       margin-top:14px;
-      max-width:520px;
+      max-width:350px;
     }
     .fact{
       background:#f7fafc;
@@ -820,26 +820,6 @@
       font-weight:800;
     }
     .projectFilterEmpty.show{display:block}
-    .sourceGrid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:10px;
-    }
-    .sourceItem{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) auto;
-      align-items:center;
-      gap:12px;
-      min-height:78px;
-      padding:14px;
-      background:#fff;
-      border:1px solid var(--line);
-      transition:border-color .16s ease,box-shadow .16s ease;
-    }
-    .sourceItem:hover{border-color:#86a9c8;box-shadow:0 9px 20px rgba(0,55,101,.07)}
-    .sourceItem b{display:block;color:var(--blue-ink);font-size:14px}
-    .sourceItem span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
-    .sourceItem .btn{min-height:34px;padding:0 11px}
     .methodBand{
       background:var(--blue-deep);
       color:#d9e8f5;
@@ -919,10 +899,9 @@
       .lineCard.featured{grid-column:span 2;grid-row:span 1;grid-template-columns:320px minmax(0,1fr);min-height:0;height:280px}
       .lineCard.featured .lineImage{height:280px}
       .projectRow{grid-template-columns:190px minmax(0,1fr)}
-      .projectActions{grid-column:1 / -1;border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+      .projectActions{grid-column:1 / -1;border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr}
       .lineDetailPanel{grid-template-columns:1fr 1fr}
       .lineDetailAction{grid-column:1 / -1;min-width:0}
-      .sourceGrid{grid-template-columns:1fr 1fr}
       .methodBand{grid-template-columns:1fr}
       .methodIntro{border-right:0;border-bottom:1px solid rgba(255,255,255,.16)}
     }
@@ -989,7 +968,7 @@
       .projectImage{border-right:0;border-bottom:1px solid var(--line);height:180px}
       .projectFacts{grid-template-columns:1fr 1fr}
       .projectActions{grid-template-columns:1fr}
-      .lineDetailPanel,.projectToolbar,.sourceGrid{grid-template-columns:1fr}
+      .lineDetailPanel,.projectToolbar{grid-template-columns:1fr}
       .lineDetailAction{grid-column:auto}
       .projectResultCount{text-align:left;padding:0}
       .methodSteps{grid-template-columns:1fr}
@@ -1032,15 +1011,13 @@
       .lineBody,.lineCard.featured .lineBody{padding:14px}
       .projectImage{height:150px}
       .projectToolbar{padding:10px;gap:9px}
-      .projectFacts{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+      .projectFacts{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
       .fact{padding:8px 7px}
       .fact b{font-size:16px}
       .fact span{font-size:10px}
       .methodIntro,.methodStep{padding:16px}
       .brandText b{font-size:14px}
       .lineAssetStats{grid-template-columns:1fr 1fr}
-      .sourceItem{grid-template-columns:1fr}
-      .sourceItem .btn{width:100%}
     }
   </style>
 </head>
@@ -1056,7 +1033,7 @@
         <a href="#top" data-nav-target="top">平台总览</a>
         <a href="#products" data-nav-target="products">产品线矩阵</a>
         <a href="#live" data-nav-target="live">挖掘机对标</a>
-        <a href="#sources" data-nav-target="sources">数据来源</a>
+        <a href="data-downloads.html">原始数据中心</a>
         <a href="#method" data-nav-target="method">业务价值</a>
         <a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA</a>
       </nav>
@@ -1108,7 +1085,7 @@
             <a class="platformMetric" href="#products" data-kpi-target="products"><b><!-- ARC_PRODUCT_LINES -->7<!-- /ARC_PRODUCT_LINES --></b><span>产品线覆盖</span></a>
             <a class="platformMetric" href="#live" data-kpi-target="live"><b><!-- ARC_TONNAGES -->9<!-- /ARC_TONNAGES --></b><span>挖掘机吨级分析</span></a>
             <a class="platformMetric" href="#live" data-kpi-target="models"><b><!-- ARC_PRODUCTS -->80<!-- /ARC_PRODUCTS --></b><span>对标产品型号</span></a>
-            <a class="platformMetric" href="#sources" data-kpi-target="sources"><b><!-- ARC_SOURCES -->9<!-- /ARC_SOURCES --></b><span>原始数据表</span></a>
+            <a class="platformMetric" href="data-downloads.html" data-kpi-target="sources"><b><!-- ARC_SOURCES -->9<!-- /ARC_SOURCES --></b><span>数据集入口</span></a>
           </div>
         </article>
         <aside class="heroModel" aria-label="项目价值">
@@ -1135,7 +1112,7 @@
             </section>
             <section class="modelBlock">
               <h3>数据追溯</h3>
-              <p>所有结论可追溯至原始 Excel；不同产品线沿用统一的数据口径和展示结构。</p>
+              <p>所有结论可追溯至工程源表；不同产品线沿用统一的数据口径和展示结构。</p>
             </section>
           </div>
         </aside>
@@ -1226,7 +1203,7 @@
       <section class="section" id="live">
         <div class="sectionHead">
           <h2>挖掘机对标</h2>
-          <p>九个吨级采用同一对标口径，覆盖典型工况、竞品参数、配置贡献、综合排名、提升模拟和原始数据。</p>
+          <p>九个吨级采用同一对标口径，覆盖典型工况、竞品参数、配置贡献、综合排名和提升模拟。</p>
         </div>
 
         <div class="projectToolbar" aria-label="挖掘机吨级和型号筛选">
@@ -1259,12 +1236,10 @@
               <div class="projectFacts">
                 <div class="fact"><b>6</b><span>典型工况</span></div>
                 <div class="fact"><b>11</b><span>对标产品</span></div>
-                <div class="fact"><b>Excel</b><span>原始数据</span></div>
               </div>
             </div>
             <div class="projectActions">
               <a class="btn blue" href="excavator-1-2t.html">查看对标</a>
-              <a class="btn light" href="data/source-excel/XCMG_1-2t_mini_excavator_competitor_source.xlsx" download>原始数据</a>
             </div>
           </article>
 
@@ -1276,12 +1251,10 @@
               <div class="projectFacts">
                 <div class="fact"><b>6</b><span>典型工况</span></div>
                 <div class="fact"><b>9</b><span>对标产品</span></div>
-                <div class="fact"><b>Excel</b><span>原始数据</span></div>
               </div>
             </div>
             <div class="projectActions">
               <a class="btn blue" href="excavator-2-3t.html">查看对标</a>
-              <a class="btn light" href="data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx" download>原始数据</a>
             </div>
           </article>
 
@@ -1293,12 +1266,10 @@
               <div class="projectFacts">
                 <div class="fact"><b>6</b><span>典型工况</span></div>
                 <div class="fact"><b>10</b><span>对标产品</span></div>
-                <div class="fact"><b>Excel</b><span>原始数据</span></div>
               </div>
             </div>
             <div class="projectActions">
               <a class="btn blue" href="./">查看对标</a>
-              <a class="btn light" href="data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx" download>原始数据</a>
             </div>
           </article>
 
@@ -1310,12 +1281,10 @@
               <div class="projectFacts">
                 <div class="fact"><b>6</b><span>典型工况</span></div>
                 <div class="fact"><b>7</b><span>对标产品</span></div>
-                <div class="fact"><b>Excel</b><span>原始数据</span></div>
               </div>
             </div>
             <div class="projectActions">
               <a class="btn blue" href="excavator-4-5t.html">查看对标</a>
-              <a class="btn light" href="data/source-excel/XCMG_4-5t_mini_excavator_competitor_source.xlsx" download>原始数据</a>
             </div>
           </article>
 
@@ -1327,12 +1296,10 @@
               <div class="projectFacts">
                 <div class="fact"><b>6</b><span>典型工况</span></div>
                 <div class="fact"><b>10</b><span>对标产品</span></div>
-                <div class="fact"><b>Excel</b><span>原始数据</span></div>
               </div>
             </div>
             <div class="projectActions">
               <a class="btn blue" href="excavator-5-6t.html">查看对标</a>
-              <a class="btn light" href="data/source-excel/XCMG_5-6t_mini_excavator_competitor_source.xlsx" download>原始数据</a>
             </div>
           </article>
 
@@ -1344,12 +1311,10 @@
               <div class="projectFacts">
                 <div class="fact"><b>6</b><span>典型工况</span></div>
                 <div class="fact"><b>6</b><span>对标产品</span></div>
-                <div class="fact"><b>Excel</b><span>原始数据</span></div>
               </div>
             </div>
             <div class="projectActions">
               <a class="btn blue" href="excavator-7-8t.html">查看对标</a>
-              <a class="btn light" href="data/source-excel/XCMG_7-8t_mini_excavator_competitor_source.xlsx" download>原始数据</a>
             </div>
           </article>
 
@@ -1361,12 +1326,10 @@
               <div class="projectFacts">
                 <div class="fact"><b>6</b><span>典型工况</span></div>
                 <div class="fact"><b>9</b><span>对标产品</span></div>
-                <div class="fact"><b>Excel</b><span>原始数据</span></div>
               </div>
             </div>
             <div class="projectActions">
               <a class="btn blue" href="excavator-8-10t.html">查看对标</a>
-              <a class="btn light" href="data/source-excel/XCMG_8-10t_mini_excavator_competitor_source.xlsx" download>原始数据</a>
             </div>
           </article>
 
@@ -1378,12 +1341,10 @@
               <div class="projectFacts">
                 <div class="fact"><b>6</b><span>典型工况</span></div>
                 <div class="fact"><b>9</b><span>对标产品</span></div>
-                <div class="fact"><b>Excel</b><span>原始数据</span></div>
               </div>
             </div>
             <div class="projectActions">
               <a class="btn blue" href="excavator-12-14t.html">查看对标</a>
-              <a class="btn light" href="data/source-excel/XCMG_12-14t_excavator_competitor_source.xlsx" download>原始数据</a>
             </div>
           </article>
 
@@ -1395,34 +1356,14 @@
               <div class="projectFacts">
                 <div class="fact"><b>6</b><span>典型工况</span></div>
                 <div class="fact"><b>9</b><span>对标产品</span></div>
-                <div class="fact"><b>Excel</b><span>原始数据</span></div>
               </div>
             </div>
             <div class="projectActions">
               <a class="btn blue" href="excavator-14-16t-short-tail.html">查看对标</a>
-              <a class="btn light" href="data/source-excel/XCMG_14-16t_short_tail_excavator_competitor_source.xlsx" download>原始数据</a>
             </div>
           </article>
         </div>
         <div class="projectFilterEmpty" id="project-filter-empty">没有匹配的吨级或型号，请调整筛选条件。</div>
-      </section>
-
-      <section class="section" id="sources">
-        <div class="sectionHead">
-          <h2>原始数据来源</h2>
-          <p>九个吨级分析均可回到对应原始 Excel，便于复核参数、配置状态和结论依据。</p>
-        </div>
-        <div class="sourceGrid" aria-label="原始数据下载">
-          <article class="sourceItem"><div><b>1-2 吨级｜XE19U</b><span>竞品参数与标选配原始表</span></div><a class="btn light" href="data/source-excel/XCMG_1-2t_mini_excavator_competitor_source.xlsx" download>下载 Excel</a></article>
-          <article class="sourceItem"><div><b>2-3 吨级｜XE27U</b><span>竞品参数与标选配原始表</span></div><a class="btn light" href="data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx" download>下载 Excel</a></article>
-          <article class="sourceItem"><div><b>3.5 吨级｜XE35U</b><span>竞品参数与标选配原始表</span></div><a class="btn light" href="data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx" download>下载 Excel</a></article>
-          <article class="sourceItem"><div><b>4-5 吨级｜XE45U</b><span>竞品参数与标选配原始表</span></div><a class="btn light" href="data/source-excel/XCMG_4-5t_mini_excavator_competitor_source.xlsx" download>下载 Excel</a></article>
-          <article class="sourceItem"><div><b>5-6 吨级｜XE55U</b><span>竞品参数与标选配原始表</span></div><a class="btn light" href="data/source-excel/XCMG_5-6t_mini_excavator_competitor_source.xlsx" download>下载 Excel</a></article>
-          <article class="sourceItem"><div><b>7-8 吨级｜XE75U</b><span>竞品参数与标选配原始表</span></div><a class="btn light" href="data/source-excel/XCMG_7-8t_mini_excavator_competitor_source.xlsx" download>下载 Excel</a></article>
-          <article class="sourceItem"><div><b>8-10 吨级｜XE80U</b><span>竞品参数与标选配原始表</span></div><a class="btn light" href="data/source-excel/XCMG_8-10t_mini_excavator_competitor_source.xlsx" download>下载 Excel</a></article>
-          <article class="sourceItem"><div><b>12-14 吨级｜XE135U</b><span>竞品参数与标选配原始表</span></div><a class="btn light" href="data/source-excel/XCMG_12-14t_excavator_competitor_source.xlsx" download>下载 Excel</a></article>
-          <article class="sourceItem"><div><b>14-16 吨级短尾｜XE155UCR</b><span>竞品参数与标选配原始表</span></div><a class="btn light" href="data/source-excel/XCMG_14-16t_short_tail_excavator_competitor_source.xlsx" download>下载 Excel</a></article>
-        </div>
       </section>
 
       <section class="section" id="method">
@@ -1453,7 +1394,7 @@
       excavators: {
         name: 'Excavators / 挖掘机',
         summary: '已建立统一的吨级、工况、参数、配置贡献、综合排名和提升模拟模型，可直接进入九个吨级看板。',
-        stats: [['9', '吨级区间'], ['80', '对标型号'], ['9', '原始数据表']],
+        stats: [['9', '吨级区间'], ['80', '对标型号'], ['6', '典型工况']],
         actionLabel: '查看吨级项目',
         actionHref: '#live',
         groups: [
@@ -1776,7 +1717,7 @@
       });
     }
 
-    const observedSections = [...document.querySelectorAll('#top, #products, #live, #sources, #method')];
+    const observedSections = [...document.querySelectorAll('#top, #products, #live, #method')];
     const sectionLinks = [...document.querySelectorAll('[data-nav-target]')];
     const sectionObserver = new IntersectionObserver((entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];

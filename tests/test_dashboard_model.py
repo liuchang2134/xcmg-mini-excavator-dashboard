@@ -202,7 +202,9 @@ class DashboardModelTests(unittest.TestCase):
             "完整竞品数据",
             "完整对标数据",
         }
-        pages = [ROOT / "arc.html"] + [ROOT / meta["output"] for meta in SOURCE_FILES]
+        pages = [ROOT / "arc.html", ROOT / "data-downloads.html"] + [
+            ROOT / meta["output"] for meta in SOURCE_FILES
+        ]
         for page in pages:
             html = page.read_text(encoding="utf-8")
             with self.subTest(page=page.name):
@@ -233,6 +235,24 @@ class DashboardModelTests(unittest.TestCase):
         for target in ("products", "live", "models", "sources"):
             self.assertIn(f'data-kpi-target="{target}"', arc_html)
         self.assertEqual(arc_html.count('class="platformMetric"'), 4)
+
+    def test_raw_data_downloads_are_centralized_on_a_secondary_page(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        download_path = ROOT / "data-downloads.html"
+        self.assertTrue(download_path.exists())
+        download_html = download_path.read_text(encoding="utf-8")
+        self.assertGreaterEqual(arc_html.count('href="data-downloads.html"'), 2)
+        self.assertNotIn('id="sources"', arc_html)
+        self.assertNotIn("data/source-excel/", arc_html)
+        self.assertNotIn("<b>Excel</b><span>原始数据</span>", arc_html)
+        self.assertEqual(download_html.count('data-source-file="'), len(SOURCE_FILES))
+        for meta in SOURCE_FILES:
+            with self.subTest(page=meta["output"]):
+                self.assertIn(f'href="{meta["output"]}"', download_html)
+                self.assertIn(
+                    f'href="data/source-excel/{meta["download"]}"',
+                    download_html,
+                )
 
     def test_arc_product_lines_expose_dynamic_assets(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
@@ -323,7 +343,9 @@ class DashboardModelTests(unittest.TestCase):
             self.assertIn("MPa", units)
 
     def test_local_page_references_exist(self):
-        pages = [ROOT / "arc.html"] + [ROOT / meta["output"] for meta in SOURCE_FILES]
+        pages = [ROOT / "arc.html", ROOT / "data-downloads.html"] + [
+            ROOT / meta["output"] for meta in SOURCE_FILES
+        ]
         for page in pages:
             parser = StructureParser()
             parser.feed(page.read_text(encoding="utf-8"))
