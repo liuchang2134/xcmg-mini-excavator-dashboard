@@ -24,7 +24,7 @@
       "source": "data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx"
     },
     {
-      "label": "3.5 吨级",
+      "label": "3-4 吨级",
       "output": "index.html",
       "xcmg": "XCMG XE35U",
       "productCount": 10,

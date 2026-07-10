@@ -133,6 +133,20 @@ class DashboardModelTests(unittest.TestCase):
         weight_row = next(row for row in replacement["rawParamRows"] if row["item"] == "操作重量")
         self.assertEqual(weight_row["values"]["XCMG XE80U"], "9250/9500")
 
+    def test_xe35u_is_presented_as_3_to_4_tonnes_without_breaking_legacy_urls(self):
+        meta = next(item for item in SOURCE_FILES if item["xcmg"] == "XCMG XE35U")
+        self.assertEqual(meta["label"], "3-4 吨级")
+        self.assertEqual(meta["title"], "XCMG XE35U 3-4 吨级挖掘机竞品对标看板")
+        self.assertEqual(meta["output"], "index.html")
+        self.assertEqual(meta["source"].name, "XCMG_3.5t_mini_excavator_competitor_source.xlsx")
+
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn('<option value="3.5">3-4 吨级</option>', arc_html)
+        self.assertIn("XE35U 3-4 吨级小型挖掘机", arc_html)
+
+        downloads_html = (ROOT / "data-downloads.html").read_text(encoding="utf-8")
+        self.assertIn('<div class="dataCell tonnage">3-4 吨级</div>', downloads_html)
+
     def test_generated_pages_have_single_h1_and_table_captions(self):
         for meta in SOURCE_FILES:
             path = ROOT / meta["output"]

@@ -40,8 +40,8 @@ SOURCE_FILES = [
     {
         "slug": "excavator-35t",
         "output": "index.html",
-        "label": "3.5 吨级",
-        "title": "XCMG XE35U 3.5 吨级挖掘机竞品对标看板",
+        "label": "3-4 吨级",
+        "title": "XCMG XE35U 3-4 吨级挖掘机竞品对标看板",
         "xcmg": "XCMG XE35U",
         "source": DATA_DIR / "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
         "download": "XCMG_3.5t_mini_excavator_competitor_source.xlsx",
@@ -1801,18 +1801,18 @@ def sync_data_files():
 def _legacy_update_arc_page():
     arc_path = ROOT / "arc.html"
     text = arc_path.read_text(encoding="utf-8")
-    text = text.replace("当前先上线 3.5 吨小挖项目，其他产品线保留入口，不伪造未完成结论。", "当前已上线 1-2 吨、2-3 吨、3.5 吨三个小挖吨级项目，其他产品线保留入口，不伪造未完成结论。")
+    text = text.replace("当前先上线 3.5 吨小挖项目，其他产品线保留入口，不伪造未完成结论。", "当前已上线 1-2 吨、2-3 吨、3-4 吨三个小挖吨级项目，其他产品线保留入口，不伪造未完成结论。")
     text = text.replace("<a class=\"btn yellow\" href=\"./\">进入小挖看板</a>", "<a class=\"btn yellow\" href=\"./\">进入挖掘机分析页</a>")
     text = text.replace("<div class=\"metric\"><strong>1</strong><span>已上线对标项目</span></div>", "<div class=\"metric\"><strong>3</strong><span>已上线对标项目</span></div>")
     text = text.replace("<div class=\"metric\"><strong>10</strong><span>小挖竞品型号</span></div>", "<div class=\"metric\"><strong>30</strong><span>小挖竞品型号</span></div>")
-    text = text.replace("下一步建议先接入 Wheel Loaders 或 MEWP，二者更适合复用“工况 + 参数 + 配置包”的对标结构。", "小挖已形成 1-2 吨、2-3 吨、3.5 吨三个子板块；下一步建议接入 Wheel Loaders 或 MEWP。")
+    text = text.replace("下一步建议先接入 Wheel Loaders 或 MEWP，二者更适合复用“工况 + 参数 + 配置包”的对标结构。", "小挖已形成 1-2 吨、2-3 吨、3-4 吨三个子板块；下一步建议接入 Wheel Loaders 或 MEWP。")
     text = text.replace("data/1-2.xlsx", "data/source-excel/XCMG_1-2t_mini_excavator_competitor_source.xlsx")
     text = text.replace("data/2-3.xlsx", "data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx")
     text = text.replace("original-data.xlsx", "data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx")
-    text = text.replace("小挖、中挖、大挖；当前已上线 3.5 吨小挖竞品对标。", "小挖、中挖、大挖；当前已上线 1-2 吨、2-3 吨、3.5 吨三个小挖子板块。")
-    text = text.replace('<div class="chips"><span class="chip live">3.5t 小挖</span><span class="chip">中挖预留</span></div>', '<div class="chips"><span class="chip live">1-2t</span><span class="chip live">2-3t</span><span class="chip live">3.5t</span></div>')
-    text = text.replace('<div class="cardActions"><a class="btn yellow" href="./">打开小挖</a><button class="btn disabled" type="button">中挖待接入</button></div>', '<div class="cardActions"><a class="btn yellow" href="./">3.5 吨</a><a class="btn light" href="excavator-2-3t.html">2-3 吨</a><a class="btn light" href="excavator-1-2t.html">1-2 吨</a></div>')
-    text = text.replace("把可用项目单独放出来，避免和预留入口混在一起。当前小挖项目仍使用原访问地址。", "把可用项目单独放出来，避免和预留入口混在一起。3.5 吨小挖项目仍使用原访问地址。")
+    text = text.replace("小挖、中挖、大挖；当前已上线 3.5 吨小挖竞品对标。", "小挖、中挖、大挖；当前已上线 1-2 吨、2-3 吨、3-4 吨三个小挖子板块。")
+    text = text.replace('<div class="chips"><span class="chip live">3.5t 小挖</span><span class="chip">中挖预留</span></div>', '<div class="chips"><span class="chip live">1-2t</span><span class="chip live">2-3t</span><span class="chip live">3-4t</span></div>')
+    text = text.replace('<div class="cardActions"><a class="btn yellow" href="./">打开小挖</a><button class="btn disabled" type="button">中挖待接入</button></div>', '<div class="cardActions"><a class="btn yellow" href="./">3-4 吨</a><a class="btn light" href="excavator-2-3t.html">2-3 吨</a><a class="btn light" href="excavator-1-2t.html">1-2 吨</a></div>')
+    text = text.replace("把可用项目单独放出来，避免和预留入口混在一起。当前小挖项目仍使用原访问地址。", "把可用项目单独放出来，避免和预留入口混在一起。3-4 吨小挖项目仍使用原访问地址。")
     old = '''<section class="dashboardRow">
         <article class="panel project">
           <div class="projectImage"><img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U"></div>
@@ -1869,14 +1869,14 @@ def _legacy_update_arc_page():
         <article class="panel project">
           <div class="projectImage"><img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U"></div>
           <div class="projectBody">
-            <h3>3.5 吨小型挖掘机竞品对标</h3>
+            <h3>3-4 吨级小型挖掘机竞品对标</h3>
             <p>XCMG XE35U 对比沃尔沃、现代、迪尔、卡特、山猫、斗山、久保田、三一等竞品，原访问地址保持不变。</p>
             <div class="factRow">
               <div class="fact"><b>6</b><span>典型工况</span></div>
               <div class="fact"><b>10</b><span>对标产品</span></div>
               <div class="fact"><b>可交互</b><span>雷达 / 排名 / 模拟</span></div>
             </div>
-            <div class="actions"><a class="btn blue" href="./">打开 3.5 吨</a><a class="btn light" href="data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx" download>下载原始数据</a></div>
+            <div class="actions"><a class="btn blue" href="./">打开 3-4 吨</a><a class="btn light" href="data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx" download>下载原始数据</a></div>
           </div>
         </article>
       </section>'''
@@ -1885,7 +1885,7 @@ def _legacy_update_arc_page():
     else:
         text = text.replace("assets/arc/xe19u-official.png", "assets/arc/xe19u-official-cropped.png")
         text = text.replace("assets/arc/xe27u-official.jpg", "assets/arc/xe27u-official-cropped.jpg")
-    text = text.replace("小挖竞品看板原地址保持不变。", "小挖 1-2 吨、2-3 吨、3.5 吨子板块已上线；3.5 吨原地址保持不变。")
+    text = text.replace("小挖竞品看板原地址保持不变。", "小挖 1-2 吨、2-3 吨、3-4 吨子板块已上线；3-4 吨原地址保持不变。")
     arc_path.write_text(text, encoding="utf-8", newline="\n")
 
 
