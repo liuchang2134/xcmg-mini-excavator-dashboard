@@ -87,6 +87,10 @@ class DashboardModelTests(unittest.TestCase):
         self.assertAlmostEqual(parse_metric_value("2×37", "flow_sum"), 74.0)
         self.assertAlmostEqual(parse_metric_value("2.2/3.6", "speed_low"), 2.2)
         self.assertAlmostEqual(parse_metric_value("2.2/3.6", "speed_high"), 3.6)
+        self.assertIsNone(parse_metric_value("/5.7", "speed_low"))
+        self.assertAlmostEqual(parse_metric_value("/5.7", "speed_high"), 5.7)
+        self.assertAlmostEqual(parse_metric_value("3.5/", "speed_low"), 3.5)
+        self.assertIsNone(parse_metric_value("3.5/", "speed_high"))
         self.assertAlmostEqual(parse_metric_value("3480-4190", "low"), 3835.0)
 
     def test_low_coverage_products_do_not_receive_formal_scores(self):
@@ -99,11 +103,12 @@ class DashboardModelTests(unittest.TestCase):
                         self.assertIsNone(scores[product])
 
     def test_all_tonnage_pages_remain_published(self):
-        self.assertEqual(len(SOURCE_FILES), 9)
+        self.assertEqual(len(SOURCE_FILES), 10)
         expected_outputs = {
             "excavator-8-10t.html",
             "excavator-12-14t.html",
             "excavator-14-16t-short-tail.html",
+            "excavator-21-24t.html",
         }
         self.assertTrue(expected_outputs.issubset({meta["output"] for meta in SOURCE_FILES}))
         for meta in SOURCE_FILES:
@@ -111,7 +116,7 @@ class DashboardModelTests(unittest.TestCase):
             self.assertTrue(meta["source"].exists(), meta["source"])
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertEqual(arc_html.count('class="projectRow"'), len(SOURCE_FILES))
-        self.assertIn("九个吨级采用同一对标口径", arc_html)
+        self.assertIn("十个吨级采用同一对标口径", arc_html)
 
     def test_new_tonnage_sources_and_models_are_bound_correctly(self):
         by_output = {model["meta"]["output"]: model for model in self.models}
@@ -119,6 +124,10 @@ class DashboardModelTests(unittest.TestCase):
         self.assertEqual(
             by_output["excavator-14-16t-short-tail.html"]["meta"]["xcmg"],
             "XCMG XE155UCR",
+        )
+        self.assertEqual(
+            by_output["excavator-21-24t.html"]["meta"]["xcmg"],
+            "XCMG XE225U",
         )
         replacement = by_output["excavator-8-10t.html"]
         weight_row = next(row for row in replacement["rawParamRows"] if row["item"] == "操作重量")

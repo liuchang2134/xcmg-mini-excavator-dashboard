@@ -114,6 +114,17 @@ SOURCE_FILES = [
         "image": "assets/arc/xe155ucr-official-cropped.jpg",
         "image_source": "XCMG USA XE155UCR",
     },
+    {
+        "slug": "excavator-21-24t",
+        "output": "excavator-21-24t.html",
+        "label": "21-24 吨级",
+        "title": "XCMG XE225U 21-24 吨级挖掘机竞品对标看板",
+        "xcmg": "XCMG XE225U",
+        "source": DATA_DIR / "XCMG_21-24t_excavator_competitor_source.xlsx",
+        "download": "XCMG_21-24t_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe225u-official-cropped.png",
+        "image_source": "XCMG USA XE225U",
+    },
 ]
 
 
@@ -493,11 +504,18 @@ def parse_metric_value(value, direction):
                 continue
             best = candidate if best is None else max(best, candidate)
         return best
-    if direction == "speed_low":
+    if direction in {"speed_low", "speed_high"}:
+        speed_parts = re.split(r"[/／]", text, maxsplit=1)
+        if len(speed_parts) == 2:
+            part = speed_parts[0] if direction == "speed_low" else speed_parts[1]
+            part_nums = extract_numbers(part)
+            if not part_nums:
+                return None
+            positives = [x for x in part_nums if x >= 0]
+            return (min if direction == "speed_low" else max)(positives or part_nums)
         positives = [x for x in nums if x >= 0]
-        return min(positives) if positives else min(nums)
-    if direction == "speed_high":
-        return max(nums)
+        values = positives or nums
+        return (min if direction == "speed_low" else max)(values)
     if direction == "low":
         positives = [x for x in nums if x >= 0]
         if len(positives) > 1 and re.search(r"\d\s*[-~/]\s*\d", text):
@@ -1703,6 +1721,17 @@ def download_assets():
             xe135_source.write_bytes(response.read())
         crop_product_image(xe135_source, xe135_cropped, max_dimension=1600)
         xe135_source.unlink(missing_ok=True)
+    xe225_cropped = ASSET_DIR / "xe225u-official-cropped.png"
+    if not xe225_cropped.exists() or xe225_cropped.stat().st_size <= 10000:
+        xe225_source = ASSET_DIR / ".xe225u-official-source.png"
+        req = urllib.request.Request(
+            "https://xcmg-usa.com/wp-content/uploads/2025/04/225U_web-image.png",
+            headers={"User-Agent": "Mozilla/5.0"},
+        )
+        with urllib.request.urlopen(req, timeout=60) as response:
+            xe225_source.write_bytes(response.read())
+        crop_product_image(xe225_source, xe225_cropped, max_dimension=1600)
+        xe225_source.unlink(missing_ok=True)
     crop_product_image(ASSET_DIR / "xe19u-official.png", ASSET_DIR / "xe19u-official-cropped.png")
     crop_product_image(ASSET_DIR / "xe27u-official.jpg", ASSET_DIR / "xe27u-official-cropped.jpg")
     crop_product_image(ASSET_DIR / "xe45u-official.png", ASSET_DIR / "xe45u-official-cropped.png")

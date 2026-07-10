@@ -1,8 +1,8 @@
 {
   "productLineCount": 7,
-  "excavatorTonnageCount": 9,
-  "benchmarkProductCount": 80,
-  "sourceWorkbookCount": 9,
+  "excavatorTonnageCount": 10,
+  "benchmarkProductCount": 89,
+  "sourceWorkbookCount": 10,
   "minimumScoreCoverage": 0.6,
   "overallWeights": {
     "parameter": 0.65,
@@ -71,6 +71,13 @@
       "xcmg": "XCMG XE155UCR",
       "productCount": 9,
       "source": "data/source-excel/XCMG_14-16t_short_tail_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "21-24 吨级",
+      "output": "excavator-21-24t.html",
+      "xcmg": "XCMG XE225U",
+      "productCount": 9,
+      "source": "data/source-excel/XCMG_21-24t_excavator_competitor_source.xlsx"
     }
   ]
 }
