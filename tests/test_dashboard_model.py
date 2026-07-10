@@ -116,6 +116,19 @@ class DashboardModelTests(unittest.TestCase):
                 duplicates = [item for item, count in Counter(parser.ids).items() if count > 1]
                 self.assertEqual(duplicates, [])
 
+    def test_generated_pages_have_mobile_progressive_disclosure(self):
+        dashboard_js = (ROOT / "assets" / "dashboard.js").read_text(encoding="utf-8")
+        self.assertIn("setupMobileDisclosures();", dashboard_js)
+        for meta in SOURCE_FILES:
+            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
+            with self.subTest(page=meta["output"]):
+                self.assertEqual(html.count('class="mobileDisclosure factorDisclosure"'), 6)
+                self.assertEqual(html.count('class="mobileDisclosure matrixDisclosure"'), 6)
+                self.assertEqual(html.count('class="mobileDisclosure simulatorDisclosure"'), 6)
+                self.assertIn('class="mobileDisclosure rawDisclosure"', html)
+                self.assertIn('src="assets/dashboard.js"', html)
+                self.assertNotIn('class="summaryGrid" style="margin-top:12px"', html)
+
     def test_local_page_references_exist(self):
         pages = [ROOT / "arc.html"] + [ROOT / meta["output"] for meta in SOURCE_FILES]
         for page in pages:

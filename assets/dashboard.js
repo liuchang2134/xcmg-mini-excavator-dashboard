@@ -104,6 +104,18 @@ function setupPageNavigation(){
     update();
   }
 }
+function setupMobileDisclosures(){
+  const media=window.matchMedia('(max-width:720px)');
+  const apply=()=>{
+    document.querySelectorAll('[data-mobile-open]').forEach(item=>{
+      item.open=media.matches ? item.dataset.mobileOpen==='true' : true;
+    });
+  };
+  apply();
+  if(media.addEventListener) media.addEventListener('change',apply);
+  else if(media.addListener) media.addListener(apply);
+}
+setupMobileDisclosures();
 setupRadars();
 setupSimulators();
 setupRawTabs();
