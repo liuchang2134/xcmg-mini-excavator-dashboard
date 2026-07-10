@@ -86,6 +86,24 @@
       gap:4px;
       white-space:nowrap;
     }
+    .navControls{display:flex;align-items:center;gap:8px;margin-left:auto}
+    .languageToggle{
+      min-width:54px;
+      min-height:36px;
+      border:1px solid rgba(255,255,255,.42);
+      border-radius:4px;
+      background:transparent;
+      color:#fff;
+      padding:0 10px;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .languageToggle:hover,.languageToggle:focus-visible{
+      border-color:var(--yellow);
+      color:var(--yellow);
+      outline:none;
+    }
     .navLinks a{
       min-height:38px;
       display:inline-flex;
@@ -131,11 +149,8 @@
     .page{padding:0 0 44px}
     .hero{
       position:relative;
-      display:grid;
-      grid-template-columns:minmax(0,1.05fr) minmax(440px,.64fr);
-      gap:34px;
-      align-items:end;
-      min-height:570px;
+      display:block;
+      min-height:510px;
       padding:48px;
       background:
         linear-gradient(90deg,rgba(0,18,36,.92) 0%,rgba(0,33,62,.76) 42%,rgba(0,30,54,.30) 73%,rgba(0,20,35,.62) 100%),
@@ -165,7 +180,8 @@
       flex-direction:column;
       justify-content:space-between;
       min-width:0;
-      min-height:520px;
+      min-height:414px;
+      max-width:1040px;
     }
     .kicker{
       margin:0 0 12px;
@@ -200,7 +216,7 @@
     }
     .quickAccess{
       margin-top:22px;
-      max-width:820px;
+      max-width:940px;
       padding:14px;
       background:rgba(0,25,48,.72);
       border:1px solid rgba(255,255,255,.24);
@@ -319,10 +335,10 @@
     }
     .platformStrip{
       display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
+      grid-template-columns:repeat(3,minmax(0,1fr));
       gap:0;
       margin-top:16px;
-      max-width:780px;
+      max-width:760px;
       border:1px solid rgba(255,255,255,.20);
       border-left:4px solid var(--yellow);
       background:rgba(0,25,48,.58);
@@ -335,14 +351,7 @@
       border-right:1px solid rgba(255,255,255,.16);
       padding:16px 18px;
       min-height:92px;
-      cursor:pointer;
-      transition:background-color .16s ease,transform .16s ease;
-    }
-    .platformMetric:hover,
-    .platformMetric:focus-visible{
-      background:rgba(255,255,255,.10);
-      transform:translateY(-1px);
-      outline:none;
+      cursor:default;
     }
     .platformMetric:last-child{border-right:0}
     .platformMetric b{
@@ -545,6 +554,16 @@
       border-color:var(--yellow);
       box-shadow:0 0 0 3px rgba(245,180,0,.20),0 16px 32px rgba(0,55,101,.10);
     }
+    .lineCard.is-disabled{
+      cursor:not-allowed;
+      box-shadow:none;
+      opacity:.78;
+    }
+    .lineCard.is-disabled:hover{
+      border-color:var(--line);
+      box-shadow:none;
+      transform:none;
+    }
     .lineCard.featured{
       display:grid;
       grid-column:1 / -1;
@@ -731,7 +750,7 @@
       border:1px solid var(--line);
       box-shadow:0 9px 22px rgba(0,55,101,.05);
       display:grid;
-      grid-template-columns:230px minmax(0,1fr) 190px;
+      grid-template-columns:210px minmax(0,1fr);
       gap:0;
       min-height:164px;
       overflow:hidden;
@@ -775,6 +794,35 @@
       font-size:13px;
       line-height:1.65;
       max-width:760px;
+    }
+    .projectMeta{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .projectCount{
+      display:inline-flex;
+      align-items:baseline;
+      gap:6px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+    }
+    .projectCount b{color:var(--blue);font-size:19px;line-height:1}
+    .projectTags{display:flex;flex-wrap:wrap;gap:6px}
+    .projectTags span{
+      display:inline-flex;
+      min-height:25px;
+      align-items:center;
+      padding:0 8px;
+      border:1px solid #c7d8e7;
+      background:#f3f8fc;
+      color:#36546e;
+      border-radius:3px;
+      font-size:11px;
+      font-weight:800;
     }
     .projectFacts{
       display:grid;
@@ -890,10 +938,16 @@
       .btn{transition:none}
       .btn:hover{transform:none}
     }
+    @media(max-width:1380px){
+      .nav{gap:10px}
+      .brand{min-width:240px;gap:10px}
+      .logo{width:100px;padding:7px 10px}
+      .navLinks a{padding:0 8px;font-size:12px}
+      .navControls{gap:5px}
+      .languageToggle{min-width:44px;padding:0 8px}
+    }
     @media(max-width:1240px){
-      .hero{grid-template-columns:1fr}
       .heroMain{min-height:auto}
-      .heroModel{min-height:0}
       .quickAccess{max-width:none}
       .productMatrix{grid-template-columns:1fr 1fr}
       .lineCard.featured{grid-column:span 2;grid-row:span 1;grid-template-columns:320px minmax(0,1fr);min-height:0;height:280px}
@@ -910,6 +964,7 @@
       .nav{height:60px;align-items:center;padding:8px 0;position:relative}
       .brand{min-width:0}
       .navToggle{display:inline-flex;align-items:center;justify-content:center}
+      .navControls{gap:6px}
       .navLinks{
         display:flex;
         position:fixed;
@@ -948,11 +1003,11 @@
       }
       .navBackdrop.open{display:block}
       body.nav-open{overflow:hidden}
-      .hero{min-height:auto;padding:24px 18px;gap:22px;background-position:center top}
+      .hero{min-height:auto;padding:24px 18px;background-position:center top}
       .heroMain{padding:0}
       .quickAccessGrid{grid-template-columns:1fr 1fr}
       #quick-open{width:100%}
-      .platformStrip{grid-template-columns:1fr 1fr}
+      .platformStrip{grid-template-columns:repeat(3,minmax(0,1fr))}
       .modelHeader{align-items:flex-start;flex-direction:column}
       .modelFlow{grid-template-columns:1fr}
       .logicNode{min-height:auto;gap:12px}
@@ -981,18 +1036,23 @@
       .brandText span{display:none}
       .navLinks{top:56px;height:calc(100dvh - 56px)}
       .navBackdrop{inset:56px 0 0}
-      .hero{padding:18px 13px;gap:16px;margin-top:10px}
+      .languageToggle{min-width:42px;min-height:34px;padding:0 7px;font-size:11px}
+      .navToggle{min-width:68px;padding:0 8px}
+      .hero{padding:16px 13px;margin-top:10px}
       .kicker{font-size:10px;margin-bottom:9px}
-      h1{font-size:31px;line-height:1.1}
+      h1{font-size:29px;line-height:1.08}
       .mobileBreak{display:block}
       .heroLead{font-size:14px;line-height:1.6;margin-top:12px}
       .heroActions{margin-top:16px;gap:7px;flex-wrap:wrap;overflow:visible;padding-bottom:0}
       .heroActions .btn{flex:1 1 30%;min-height:38px;padding:0 10px;font-size:11px}
       .quickAccess{padding:10px;margin-top:14px}
       .quickAccessGrid{grid-template-columns:1fr}
-      .quickSelectionSummary{font-size:11px}
-      .platformStrip{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}
-      .platformMetric{padding:10px 4px;min-height:70px}
+      .quickField{gap:4px}
+      .quickField select{min-height:36px}
+      #quick-open{min-height:38px}
+      .quickSelectionSummary{display:none}
+      .platformStrip{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px}
+      .platformMetric{padding:9px 4px;min-height:64px}
       .platformMetric b{font-size:24px}
       .platformMetric span{font-size:10px;line-height:1.3}
       .heroModel{padding:13px}
@@ -1028,15 +1088,18 @@
         <span class="logo"><img src="assets/arc/xcmg-logo.webp" alt="XCMG"></span>
         <span class="brandText"><b>XCMG ARC</b><span>全产品线竞品对标平台</span></span>
       </a>
-      <button class="navToggle" type="button" aria-expanded="false" aria-controls="arc-nav">页面导航</button>
-      <nav class="navLinks" id="arc-nav" aria-label="页面导航">
-        <a href="#top" data-nav-target="top">平台总览</a>
-        <a href="#products" data-nav-target="products">产品线矩阵</a>
-        <a href="#live" data-nav-target="live">挖掘机对标</a>
-        <a href="data-downloads.html">原始数据中心</a>
-        <a href="#method" data-nav-target="method">业务价值</a>
-        <a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA</a>
-      </nav>
+      <div class="navControls">
+        <nav class="navLinks" id="arc-nav" aria-label="页面导航">
+          <a href="#top" data-nav-target="top">平台总览</a>
+          <a href="#products" data-nav-target="products">产品线入口</a>
+          <a href="#live" data-nav-target="live">挖掘机对标</a>
+          <a href="data-downloads.html">原始数据中心</a>
+          <a href="#method" data-nav-target="method">平台应用价值</a>
+          <a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA</a>
+        </nav>
+        <button class="languageToggle" type="button" aria-label="Switch to English">EN</button>
+        <button class="navToggle" type="button" aria-expanded="false" aria-controls="arc-nav">页面导航</button>
+      </div>
     </div>
   </header>
   <button class="navBackdrop" type="button" aria-label="关闭页面导航"></button>
@@ -1048,24 +1111,19 @@
           <div>
             <p class="kicker">Developed by XCMG ARC</p>
             <h1>全产品线竞品<span class="mobileBreak"></span>对标平台</h1>
-            <p class="heroLead">由 XCMG ARC 独立开发，将分散的竞品参数、配置状态和典型工况统一到可追溯的对标视图，支持产品定义、配置决策、销售论证和管理层汇报。</p>
-            <div class="heroActions">
-              <a class="btn blue" href="#products">产品线矩阵</a>
-              <a class="btn light" href="#live">挖掘机对标</a>
-              <a class="btn light" href="#method">业务价值</a>
-            </div>
+            <p class="heroLead">由 XCMG ARC 独立开发，将竞品参数、配置差异和典型工况统一为可追溯的产品对标资产。</p>
             <form class="quickAccess" id="quick-access" aria-label="快速进入产品分析">
               <div class="quickAccessGrid">
                 <div class="quickField">
                   <label for="quick-line">产品线</label>
                   <select id="quick-line" name="line">
                     <option value="excavators">Excavators / 挖掘机</option>
-                    <option value="wheel-loaders">Wheel Loaders / 装载机</option>
-                    <option value="rollers">Rollers / 压路机</option>
-                    <option value="motor-graders">Motor Graders / 平地机</option>
-                    <option value="cranes">Cranes and Hoisting / 起重设备</option>
-                    <option value="haul-trucks">Haul Trucks / 矿用运输</option>
-                    <option value="mewp">MEWP / 高空作业平台</option>
+                    <option value="wheel-loaders" disabled>Wheel Loaders / 装载机（待接入）</option>
+                    <option value="rollers" disabled>Rollers / 压路机（待接入）</option>
+                    <option value="motor-graders" disabled>Motor Graders / 平地机（待接入）</option>
+                    <option value="cranes" disabled>Cranes and Hoisting / 起重设备（待接入）</option>
+                    <option value="haul-trucks" disabled>Haul Trucks / 矿用运输（待接入）</option>
+                    <option value="mewp" disabled>MEWP / 高空作业平台（待接入）</option>
                   </select>
                 </div>
                 <div class="quickField">
@@ -1082,55 +1140,26 @@
             </form>
           </div>
           <div class="platformStrip" aria-label="平台关键状态">
-            <a class="platformMetric" href="#products" data-kpi-target="products"><b><!-- ARC_PRODUCT_LINES -->7<!-- /ARC_PRODUCT_LINES --></b><span>产品线覆盖</span></a>
-            <a class="platformMetric" href="#live" data-kpi-target="live"><b><!-- ARC_TONNAGES -->10<!-- /ARC_TONNAGES --></b><span>挖掘机吨级分析</span></a>
-            <a class="platformMetric" href="#live" data-kpi-target="models"><b><!-- ARC_PRODUCTS -->89<!-- /ARC_PRODUCTS --></b><span>对标产品型号</span></a>
-            <a class="platformMetric" href="data-downloads.html" data-kpi-target="sources"><b><!-- ARC_SOURCES -->10<!-- /ARC_SOURCES --></b><span>数据集入口</span></a>
+            <div class="platformMetric"><b><!-- ARC_PRODUCT_LINES -->7<!-- /ARC_PRODUCT_LINES --></b><span>产品线规划</span></div>
+            <div class="platformMetric"><b><!-- ARC_TONNAGES -->10<!-- /ARC_TONNAGES --></b><span>已建吨级资产</span></div>
+            <div class="platformMetric"><b><!-- ARC_PRODUCTS -->89<!-- /ARC_PRODUCTS --></b><span>对标产品型号</span></div>
           </div>
         </article>
-        <aside class="heroModel" aria-label="项目价值">
-          <div class="modelHeader">
-            <strong>项目价值</strong>
-            <span>XCMG ARC 独立开发</span>
-          </div>
-          <div class="introLead">
-            <b>把竞品数据转化为决策依据</b>
-            <p>面向北美市场，在同一视图中呈现产品参数、配置包、工况表现和竞品差距，服务产品定义、配置策略、销售论证和管理层汇报。</p>
-          </div>
-          <div class="modelGrid">
-            <section class="modelBlock">
-              <h3>产品定义</h3>
-              <p>按吨级和工况拆解差距，帮助判断下一代产品该补尺寸、液压、工作范围还是配置包。</p>
-            </section>
-            <section class="modelBlock">
-              <h3>销售支持</h3>
-              <p>把复杂参数翻译成客户能理解的应用场景、卖点和风险项，支撑重点客户沟通。</p>
-            </section>
-            <section class="modelBlock">
-              <h3>管理决策</h3>
-              <p>用同一口径看排名、差距来源和补强路径，减少只看单项参数导致的判断偏差。</p>
-            </section>
-            <section class="modelBlock">
-              <h3>数据追溯</h3>
-              <p>所有结论可追溯至工程源表；不同产品线沿用统一的数据口径和展示结构。</p>
-            </section>
-          </div>
-        </aside>
       </section>
 
       <section class="section" id="products">
         <div class="sectionHead">
-          <h2>产品线竞争力矩阵</h2>
-          <p>平台按 XCMG USA 产品线组织对标维度。挖掘机已覆盖 10 个吨级区间；其他产品线展示各自的核心对标维度。</p>
+          <h2>产品线对标入口</h2>
+          <p>已接入产品线可直接进入分析资产；其余产品线保留统一入口，完成数据和评价口径后开放。</p>
         </div>
 
         <div class="productMatrix" aria-label="产品线竞争力矩阵">
-          <article class="lineCard featured is-selected" id="line-excavators" data-product-line="excavators" role="button" tabindex="0" aria-pressed="true" aria-controls="product-line-detail">
+          <a class="lineCard is-live" id="line-excavators" data-product-line="excavators" href="#live" aria-label="进入挖掘机吨级资产列表">
             <div class="lineImage machine"><img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U excavator"></div>
             <div class="lineBody">
               <div class="lineTop">
                 <div><h3>Excavators</h3><small>按吨级和应用场景分层</small></div>
-                <span class="status live">查看资产</span>
+                <span class="status live">进入资产</span>
               </div>
               <p>挖掘机系列已建立统一的吨级、工况、参数、配置贡献、综合排名和提升模拟模型，覆盖 10 个吨级区间。</p>
               <div class="tagRow" aria-label="挖掘机吨级分层">
@@ -1139,71 +1168,69 @@
                 <span class="tag">7-10 吨级</span>
                 <span class="tag">12-24 吨级</span>
               </div>
-              <div class="heroActions"><span class="btn blue">查看分析资产</span></div>
             </div>
-          </article>
+          </a>
 
-          <article class="lineCard" id="line-wheel-loaders" data-product-line="wheel-loaders" role="button" tabindex="0" aria-pressed="false" aria-controls="product-line-detail">
+          <article class="lineCard is-disabled" id="line-wheel-loaders" data-product-line="wheel-loaders" aria-disabled="true">
             <div class="lineImage scene"><img src="assets/arc/category-wheel-loaders-clean.jpg" alt="XCMG wheel loader"></div>
             <div class="lineBody">
-              <div class="lineTop"><div><h3>Wheel Loaders</h3><small>装载与堆料</small></div><span class="status">查看资产</span></div>
+              <div class="lineTop"><div><h3>Wheel Loaders</h3><small>装载与堆料</small></div><span class="status">待接入</span></div>
               <p>重点围绕装车效率、斗容匹配、行驶效率、油耗和驾驶舒适性。</p>
               <div class="tagRow"><span class="tag">装载效率</span><span class="tag">油耗</span><span class="tag">舒适性</span></div>
             </div>
           </article>
 
-          <article class="lineCard" id="line-rollers" data-product-line="rollers" role="button" tabindex="0" aria-pressed="false" aria-controls="product-line-detail">
+          <article class="lineCard is-disabled" id="line-rollers" data-product-line="rollers" aria-disabled="true">
             <div class="lineImage scene"><img src="assets/arc/category-rollers.jpeg" alt="XCMG roller"></div>
             <div class="lineBody">
-              <div class="lineTop"><div><h3>Rollers</h3><small>压实设备</small></div><span class="status">查看资产</span></div>
+              <div class="lineTop"><div><h3>Rollers</h3><small>压实设备</small></div><span class="status">待接入</span></div>
               <p>重点围绕压实能力、振动参数、转场效率和维护便利性。</p>
               <div class="tagRow"><span class="tag">压实</span><span class="tag">振动</span><span class="tag">转场</span></div>
             </div>
           </article>
 
-          <article class="lineCard" id="line-motor-graders" data-product-line="motor-graders" role="button" tabindex="0" aria-pressed="false" aria-controls="product-line-detail">
+          <article class="lineCard is-disabled" id="line-motor-graders" data-product-line="motor-graders" aria-disabled="true">
             <div class="lineImage scene"><img src="assets/arc/category-motor-graders.webp" alt="XCMG motor grader"></div>
             <div class="lineBody">
-              <div class="lineTop"><div><h3>Motor Graders</h3><small>平地机</small></div><span class="status">查看资产</span></div>
+              <div class="lineTop"><div><h3>Motor Graders</h3><small>平地机</small></div><span class="status">待接入</span></div>
               <p>重点围绕平地精度、牵引能力、刀板控制和驾驶辅助配置。</p>
               <div class="tagRow"><span class="tag">平地精度</span><span class="tag">牵引</span><span class="tag">控制</span></div>
             </div>
           </article>
 
-          <article class="lineCard" id="line-cranes" data-product-line="cranes" role="button" tabindex="0" aria-pressed="false" aria-controls="product-line-detail">
+          <article class="lineCard is-disabled" id="line-cranes" data-product-line="cranes" aria-disabled="true">
             <div class="lineImage scene"><img src="assets/arc/category-cranes.webp" alt="XCMG crane"></div>
             <div class="lineBody">
-              <div class="lineTop"><div><h3>Cranes and Hoisting</h3><small>起重设备</small></div><span class="status">查看资产</span></div>
+              <div class="lineTop"><div><h3>Cranes and Hoisting</h3><small>起重设备</small></div><span class="status">待接入</span></div>
               <p>重点围绕起重能力、工况表、支腿布置、转场效率和安全系统。</p>
               <div class="tagRow"><span class="tag">载荷曲线</span><span class="tag">支腿</span><span class="tag">安全系统</span></div>
             </div>
           </article>
 
-          <article class="lineCard" id="line-haul-trucks" data-product-line="haul-trucks" role="button" tabindex="0" aria-pressed="false" aria-controls="product-line-detail">
+          <article class="lineCard is-disabled" id="line-haul-trucks" data-product-line="haul-trucks" aria-disabled="true">
             <div class="lineImage scene"><img src="assets/arc/category-haul-trucks.webp" alt="XCMG haul truck"></div>
             <div class="lineBody">
-              <div class="lineTop"><div><h3>Haul Trucks</h3><small>矿用运输</small></div><span class="status">查看资产</span></div>
+              <div class="lineTop"><div><h3>Haul Trucks</h3><small>矿用运输</small></div><span class="status">待接入</span></div>
               <p>重点围绕载重、动力、矿区循环效率、制动性能和维护成本。</p>
               <div class="tagRow"><span class="tag">载重</span><span class="tag">动力</span><span class="tag">TCO</span></div>
             </div>
           </article>
 
-          <article class="lineCard" id="line-mewp" data-product-line="mewp" role="button" tabindex="0" aria-pressed="false" aria-controls="product-line-detail">
+          <article class="lineCard is-disabled" id="line-mewp" data-product-line="mewp" aria-disabled="true">
             <div class="lineImage scene"><img src="assets/arc/category-mewp-card.jpg" alt="XCMG MEWP"></div>
             <div class="lineBody">
-              <div class="lineTop"><div><h3>MEWP</h3><small>高空作业平台</small></div><span class="status">查看资产</span></div>
+              <div class="lineTop"><div><h3>MEWP</h3><small>高空作业平台</small></div><span class="status">待接入</span></div>
               <p>重点围绕作业高度、平台载荷、越野能力、电池系统和租赁适配。</p>
               <div class="tagRow"><span class="tag">作业高度</span><span class="tag">平台载荷</span><span class="tag">租赁适配</span></div>
             </div>
           </article>
         </div>
-        <div class="lineDetailPanel" id="product-line-detail" aria-live="polite"></div>
       </section>
 
       <section class="section" id="live">
         <div class="sectionHead">
-          <h2>挖掘机对标</h2>
-          <p>十个吨级采用同一对标口径，覆盖典型工况、竞品参数、配置贡献、综合排名和提升模拟。</p>
+          <h2>挖掘机吨级资产</h2>
+          <p>十个吨级统一覆盖狭窄空间、沟槽、土方装车、破碎、坡地和租赁六类典型工况；卡片仅突出各吨级的差异化应用。</p>
         </div>
 
         <div class="projectToolbar" aria-label="挖掘机吨级和型号筛选">
@@ -1229,155 +1256,46 @@
         </div>
 
         <div class="liveGrid" aria-label="挖掘机对标">
-          <article class="projectRow" data-tonnage="1-2" data-model="XCMG XE19U" data-project-url="excavator-1-2t.html" role="link" tabindex="0" aria-label="进入 XCMG XE19U 1-2 吨级对标看板">
+          <a class="projectRow" data-tonnage="1-2" data-model="XCMG XE19U" href="excavator-1-2t.html" aria-label="进入 XCMG XE19U 1-2 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe19u-official-cropped.png" alt="XCMG XE19U"></div>
-            <div class="projectInfo">
-              <h3>XE19U 1-2 吨级小型挖掘机</h3>
-              <p>对比卡特、迪尔、山猫、久保田、沃尔沃、现代、斗山、三一等竞品，聚焦入户、市政、租赁和短循环场景表现。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>11</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="excavator-1-2t.html">查看对标</a>
-            </div>
-          </article>
-
-          <article class="projectRow" data-tonnage="2-3" data-model="XCMG XE27U" data-project-url="excavator-2-3t.html" role="link" tabindex="0" aria-label="进入 XCMG XE27U 2-3 吨级对标看板">
+            <div class="projectInfo"><h3>XE19U 1-2 吨级小型挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>11</b> 对标产品</span><div class="projectTags"><span>入户 / 庭院</span><span>市政施工</span><span>租赁</span></div></div></div>
+          </a>
+          <a class="projectRow" data-tonnage="2-3" data-model="XCMG XE27U" href="excavator-2-3t.html" aria-label="进入 XCMG XE27U 2-3 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe27u-official-cropped.jpg" alt="XCMG XE27U"></div>
-            <div class="projectInfo">
-              <h3>XE27U 2-3 吨级小型挖掘机</h3>
-              <p>对比卡特、迪尔、山猫、久保田、沃尔沃、现代、斗山、三一等竞品，聚焦窄场地、沟槽、装车和属具适配。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>9</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="excavator-2-3t.html">查看对标</a>
-            </div>
-          </article>
-
-          <article class="projectRow" data-tonnage="3.5" data-model="XCMG XE35U" data-project-url="./" role="link" tabindex="0" aria-label="进入 XCMG XE35U 3-4 吨级对标看板">
+            <div class="projectInfo"><h3>XE27U 2-3 吨级小型挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>窄场地</span><span>沟槽</span><span>属具适配</span></div></div></div>
+          </a>
+          <a class="projectRow" data-tonnage="3.5" data-model="XCMG XE35U" href="index.html" aria-label="进入 XCMG XE35U 3-4 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U"></div>
-            <div class="projectInfo">
-              <h3>XE35U 3-4 吨级小型挖掘机</h3>
-              <p>对比沃尔沃、现代、迪尔、卡特、山猫、斗山、久保田、三一等竞品，聚焦狭窄空间、沟槽、土方装车、破碎、坡地和租赁场景。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>10</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="./">查看对标</a>
-            </div>
-          </article>
-
-          <article class="projectRow" data-tonnage="4-5" data-model="XCMG XE45U" data-project-url="excavator-4-5t.html" role="link" tabindex="0" aria-label="进入 XCMG XE45U 4-5 吨级对标看板">
+            <div class="projectInfo"><h3>XE35U 3-4 吨级小型挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>10</b> 对标产品</span><div class="projectTags"><span>狭窄空间</span><span>短循环</span><span>破碎</span></div></div></div>
+          </a>
+          <a class="projectRow" data-tonnage="4-5" data-model="XCMG XE45U" href="excavator-4-5t.html" aria-label="进入 XCMG XE45U 4-5 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe45u-official-cropped.png" alt="XCMG XE45U"></div>
-            <div class="projectInfo">
-              <h3>XE45U 4-5 吨级挖掘机</h3>
-              <p>对比卡特、山猫、久保田、洋马、现代、斗山等竞品，聚焦运输边界、沟槽能力、土方短循环、属具适配和租赁通用性。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>7</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="excavator-4-5t.html">查看对标</a>
-            </div>
-          </article>
-
-          <article class="projectRow" data-tonnage="5-6" data-model="XCMG XE55U" data-project-url="excavator-5-6t.html" role="link" tabindex="0" aria-label="进入 XCMG XE55U 5-6 吨级对标看板">
+            <div class="projectInfo"><h3>XE45U 4-5 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>7</b> 对标产品</span><div class="projectTags"><span>运输边界</span><span>沟槽</span><span>租赁</span></div></div></div>
+          </a>
+          <a class="projectRow" data-tonnage="5-6" data-model="XCMG XE55U" href="excavator-5-6t.html" aria-label="进入 XCMG XE55U 5-6 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe55u-official-cropped.jpg" alt="XCMG XE55U"></div>
-            <div class="projectInfo">
-              <h3>XE55U 5-6 吨级挖掘机</h3>
-              <p>对比卡特、迪尔、山猫、久保田、沃尔沃、现代、斗山、三一等竞品，聚焦装车效率、液压系统、破碎属具和驾驶安全配置。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>10</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="excavator-5-6t.html">查看对标</a>
-            </div>
-          </article>
-
-          <article class="projectRow" data-tonnage="7-8" data-model="XCMG XE75U" data-project-url="excavator-7-8t.html" role="link" tabindex="0" aria-label="进入 XCMG XE75U 7-8 吨级对标看板">
+            <div class="projectInfo"><h3>XE55U 5-6 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>10</b> 对标产品</span><div class="projectTags"><span>土方装车</span><span>液压属具</span><span>驾驶安全</span></div></div></div>
+          </a>
+          <a class="projectRow" data-tonnage="7-8" data-model="XCMG XE75U" href="excavator-7-8t.html" aria-label="进入 XCMG XE75U 7-8 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe75u-official-cropped.jpg" alt="XCMG XE75U"></div>
-            <div class="projectInfo">
-              <h3>XE75U 7-8 吨级挖掘机</h3>
-              <p>对比卡特、迪尔、小松、神钢、三一等竞品，聚焦沟槽深挖、土方装车、破碎属具、坡地稳定和运输限制。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>6</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="excavator-7-8t.html">查看对标</a>
-            </div>
-          </article>
-
-          <article class="projectRow" data-tonnage="8-10" data-model="XCMG XE80U" data-project-url="excavator-8-10t.html" role="link" tabindex="0" aria-label="进入 XCMG XE80U 8-10 吨级对标看板">
+            <div class="projectInfo"><h3>XE75U 7-8 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>6</b> 对标产品</span><div class="projectTags"><span>沟槽深挖</span><span>坡地</span><span>吊装</span></div></div></div>
+          </a>
+          <a class="projectRow" data-tonnage="8-10" data-model="XCMG XE80U" href="excavator-8-10t.html" aria-label="进入 XCMG XE80U 8-10 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe80u-official-cropped.jpg" alt="XCMG XE80U"></div>
-            <div class="projectInfo">
-              <h3>XE80U 8-10 吨级挖掘机</h3>
-              <p>对比卡特、迪尔、山猫、久保田、沃尔沃、现代、斗山、三一等竞品，聚焦深挖覆盖、装车循环、液压属具、吊装稳定和转场运输。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>9</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="excavator-8-10t.html">查看对标</a>
-            </div>
-          </article>
-
-          <article class="projectRow" data-tonnage="12-14" data-model="XCMG XE135U" data-project-url="excavator-12-14t.html" role="link" tabindex="0" aria-label="进入 XCMG XE135U 12-14 吨级对标看板">
+            <div class="projectInfo"><h3>XE80U 8-10 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>土方装车</span><span>破碎</span><span>吊装稳定</span></div></div></div>
+          </a>
+          <a class="projectRow" data-tonnage="12-14" data-model="XCMG XE135U" href="excavator-12-14t.html" aria-label="进入 XCMG XE135U 12-14 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe135u-official-cropped.webp" alt="XCMG XE135U"></div>
-            <div class="projectInfo">
-              <h3>XE135U 12-14 吨级挖掘机</h3>
-              <p>对比卡特、迪尔、小松、神钢、沃尔沃、现代、斗山、三一等竞品，聚焦市政施工、沟槽深挖、土方装车、属具适配、吊装稳定和运输边界。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>9</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="excavator-12-14t.html">查看对标</a>
-            </div>
-          </article>
-
-          <article class="projectRow" data-tonnage="14-16-short-tail" data-model="XCMG XE155UCR" data-project-url="excavator-14-16t-short-tail.html" role="link" tabindex="0" aria-label="进入 XCMG XE155UCR 14-16 吨级短尾对标看板">
+            <div class="projectInfo"><h3>XE135U 12-14 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>基础深挖</span><span>重载挖掘</span><span>吊装</span></div></div></div>
+          </a>
+          <a class="projectRow" data-tonnage="14-16-short-tail" data-model="XCMG XE155UCR" href="excavator-14-16t-short-tail.html" aria-label="进入 XCMG XE155UCR 14-16 吨级短尾对标看板">
             <div class="projectImage"><img src="assets/arc/xe155ucr-official-cropped.jpg" alt="XCMG XE155UCR"></div>
-            <div class="projectInfo">
-              <h3>XE155UCR 14-16 吨级短尾挖掘机</h3>
-              <p>对比卡特、迪尔、小松、神钢、沃尔沃、现代、斗山、三一等短尾竞品，聚焦受限空间、工作范围、液压属具、装车效率、吊装稳定和机队通用性。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>9</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="excavator-14-16t-short-tail.html">查看对标</a>
-            </div>
-          </article>
-
-          <article class="projectRow" data-tonnage="21-24" data-model="XCMG XE225U" data-project-url="excavator-21-24t.html" role="link" tabindex="0" aria-label="进入 XCMG XE225U 21-24 吨级对标看板">
+            <div class="projectInfo"><h3>XE155UCR 14-16 吨级短尾挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>短尾回转</span><span>受限空间</span><span>装车</span></div></div></div>
+          </a>
+          <a class="projectRow" data-tonnage="21-24" data-model="XCMG XE225U" href="excavator-21-24t.html" aria-label="进入 XCMG XE225U 21-24 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe225u-official-cropped.png" alt="XCMG XE225U"></div>
-            <div class="projectInfo">
-              <h3>XE225U 21-24 吨级挖掘机</h3>
-              <p>对比卡特、迪尔、小松、神钢、沃尔沃、现代、斗山、三一等竞品，聚焦土方装车、沟槽深挖、重载挖掘、液压属具、吊装稳定和转场运输。</p>
-              <div class="projectFacts">
-                <div class="fact"><b>6</b><span>典型工况</span></div>
-                <div class="fact"><b>9</b><span>对标产品</span></div>
-              </div>
-            </div>
-            <div class="projectActions">
-              <a class="btn blue" href="excavator-21-24t.html">查看对标</a>
-            </div>
-          </article>
+            <div class="projectInfo"><h3>XE225U 21-24 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>重载土方</span><span>深挖</span><span>破碎</span></div></div></div>
+          </a>
         </div>
         <div class="projectFilterEmpty" id="project-filter-empty">没有匹配的吨级或型号，请调整筛选条件。</div>
       </section>
@@ -1385,14 +1303,14 @@
       <section class="section" id="method">
         <div class="methodBand">
           <div class="methodIntro">
-            <h2>管理层决策价值</h2>
-            <p>本平台不是参数表汇总，而是把竞品数据转化为产品定位、短板识别、配置策略和销售论证。领导层可以直接看到 XCMG 在不同吨级、不同工况下的优势、差距和补强方向。</p>
+            <h2>平台应用价值</h2>
+            <p>平台把竞品数据转化为统一、可追溯的产品对标资产，服务产品规划、工程评审、市场验证和数据治理。</p>
           </div>
-          <div class="methodSteps" aria-label="管理层决策价值">
-            <div class="methodStep"><b>竞争格局</b><strong>看清产品位置</strong><span>按吨级和工况判断 XCMG 与核心竞品的相对强弱，识别适合主攻的应用场景。</span></div>
-            <div class="methodStep"><b>短板定位</b><strong>明确补强方向</strong><span>把差距落到运输尺寸、工作范围、液压动力、驾驶环境和配置包，避免只停留在总体排名。</span></div>
-            <div class="methodStep"><b>配置策略</b><strong>判断标选配优先级</strong><span>评估摄像头、坡度系统、远程管理、浮动推土铲等配置对安全、效率和租赁适配的影响。</span></div>
-            <div class="methodStep"><b>销售支撑</b><strong>形成对外论证素材</strong><span>把竞品对比转换成客户能理解的卖点、风险项和补强动作，支持渠道和重点客户沟通。</span></div>
+          <div class="methodSteps" aria-label="平台应用价值">
+            <div class="methodStep"><b>产品规划</b><strong>明确产品目标</strong><span>按吨级和工况识别运输尺寸、工作范围、液压性能和配置包的优先改进项。</span></div>
+            <div class="methodStep"><b>工程评审</b><strong>量化竞品差距</strong><span>将结论落实到具体参数、配置状态和数据来源，便于跨专业复核与方案评估。</span></div>
+            <div class="methodStep"><b>市场与销售</b><strong>形成场景化论证</strong><span>把参数差异转化为客户工况、应用收益和配置建议，支持渠道与重点客户沟通。</span></div>
+            <div class="methodStep"><b>数据治理</b><strong>保持口径可追溯</strong><span>集中管理原始源表、评分规则和版本状态，确保不同产品线沿用一致的对标结构。</span></div>
           </div>
         </div>
       </section>
@@ -1475,9 +1393,7 @@
     const quickTonnage = document.querySelector('#quick-tonnage');
     const quickModel = document.querySelector('#quick-model');
     const quickSummary = document.querySelector('#quick-selection-summary');
-    const lineDetail = document.querySelector('#product-line-detail');
-    const productLineCards = [...document.querySelectorAll('[data-product-line]')];
-    const projectRows = [...document.querySelectorAll('[data-project-url]')];
+    const projectRows = [...document.querySelectorAll('a.projectRow')];
     const tonnageFilter = document.querySelector('#excavator-tonnage-filter');
     const modelSearch = document.querySelector('#excavator-model-search');
     const projectResultCount = document.querySelector('#project-result-count');
@@ -1526,27 +1442,6 @@
       setSelectOptions(quickModel, [{value: group.model, label: group.model}], model);
       updateQuickSummary();
       if (updateUrl) writeSelectionToUrl({line: quickLine.value, tonnage: group.tonnage, model: group.model});
-    }
-
-    function renderProductLineDetail(lineKey) {
-      const asset = productLineAssets[lineKey] || productLineAssets.excavators;
-      lineDetail.innerHTML = `
-        <div><h3>${asset.name}</h3><p>${asset.summary}</p></div>
-        <div class="lineAssetStats">${asset.stats.map(([value, label]) => `<div class="lineAssetStat"><b>${value}</b><span>${label}</span></div>`).join('')}</div>
-        <div class="lineDetailAction"><a class="btn" href="${asset.actionHref}"${asset.actionHref.startsWith('http') ? ' target="_blank" rel="noreferrer"' : ''}>${asset.actionLabel}</a></div>`;
-      productLineCards.forEach((card) => {
-        const selected = card.dataset.productLine === lineKey;
-        card.classList.toggle('is-selected', selected);
-        card.setAttribute('aria-pressed', String(selected));
-      });
-    }
-
-    function selectProductLine(lineKey, updateUrl = true, focusDetail = false) {
-      const safeLine = productLineAssets[lineKey] ? lineKey : 'excavators';
-      quickLine.value = safeLine;
-      populateQuickControls(undefined, undefined, updateUrl);
-      renderProductLineDetail(safeLine);
-      if (focusDetail) window.setTimeout(() => lineDetail.scrollIntoView({behavior: 'smooth', block: 'center'}), 80);
     }
 
     function normalizeSearchValue(value) {
@@ -1624,7 +1519,7 @@
       }
     }
 
-    quickLine.addEventListener('change', () => selectProductLine(quickLine.value));
+    quickLine.addEventListener('change', () => populateQuickControls());
     quickTonnage.addEventListener('change', () => populateQuickControls(quickTonnage.value));
     quickModel.addEventListener('change', () => {
       updateQuickSummary();
@@ -1634,26 +1529,7 @@
       event.preventDefault();
       const group = currentQuickGroup();
       writeSelectionToUrl({line: quickLine.value, tonnage: group.tonnage, model: group.model});
-      if (group.url.startsWith('#')) {
-        document.querySelector(group.url)?.scrollIntoView({behavior: 'smooth', block: 'center'});
-        renderProductLineDetail(quickLine.value);
-      } else {
-        window.location.href = group.url;
-      }
-    });
-
-    productLineCards.forEach((card) => {
-      const activate = () => selectProductLine(card.dataset.productLine, true, true);
-      card.addEventListener('click', (event) => {
-        if (event.target.closest('a')) return;
-        activate();
-      });
-      card.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          activate();
-        }
-      });
+      window.location.href = group.url;
     });
 
     tonnageFilter.addEventListener('change', () => {
@@ -1666,31 +1542,6 @@
       filterProjectRows();
     });
     modelSearch.addEventListener('input', () => filterProjectRows());
-
-    projectRows.forEach((row) => {
-      const openProject = () => { window.location.href = row.dataset.projectUrl; };
-      row.addEventListener('click', (event) => {
-        if (event.target.closest('a')) return;
-        openProject();
-      });
-      row.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openProject();
-        }
-      });
-    });
-
-    document.querySelectorAll('[data-kpi-target]').forEach((metric) => {
-      metric.addEventListener('click', () => {
-        if (metric.dataset.kpiTarget === 'models') {
-          window.setTimeout(() => modelSearch.focus(), 420);
-        }
-        if (metric.dataset.kpiTarget === 'live') {
-          window.setTimeout(() => tonnageFilter.focus(), 420);
-        }
-      });
-    });
 
     document.querySelectorAll('.btn[href], .navLinks a[href]').forEach((control) => {
       control.addEventListener('click', () => {
@@ -1746,10 +1597,9 @@
     }, {rootMargin: '-15% 0px -65% 0px', threshold: [0, .1, .35]});
     observedSections.forEach((section) => sectionObserver.observe(section));
 
-    const initialLine = productLineAssets[initialParams.get('line')] ? initialParams.get('line') : 'excavators';
+    const initialLine = 'excavators';
     quickLine.value = initialLine;
     populateQuickControls(initialParams.get('tonnage'), initialParams.get('model'), false);
-    renderProductLineDetail(initialLine);
     if (initialLine === 'excavators') {
       const initialTonnage = initialParams.get('tonnage') || '';
       const initialQuery = initialParams.get('q') || initialParams.get('model') || '';
@@ -1758,5 +1608,6 @@
       filterProjectRows(false);
     }
   </script>
+  <script src="assets/i18n.js?v=20260710i"></script>
 </body>
 </html>

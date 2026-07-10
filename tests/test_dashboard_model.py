@@ -116,7 +116,7 @@ class DashboardModelTests(unittest.TestCase):
             self.assertTrue(meta["source"].exists(), meta["source"])
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertEqual(arc_html.count('class="projectRow"'), len(SOURCE_FILES))
-        self.assertIn("十个吨级采用同一对标口径", arc_html)
+        self.assertIn("十个吨级统一覆盖狭窄空间、沟槽、土方装车、破碎、坡地和租赁六类典型工况", arc_html)
 
     def test_new_tonnage_sources_and_models_are_bound_correctly(self):
         by_output = {model["meta"]["output"]: model for model in self.models}
@@ -253,18 +253,30 @@ class DashboardModelTests(unittest.TestCase):
             self.assertIn(f'id="{control_id}"', arc_html)
         self.assertIn('id="quick-selection-summary"', arc_html)
 
-    def test_arc_homepage_kpis_are_actionable(self):
+    def test_arc_homepage_has_three_status_metrics(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
-        for target in ("products", "live", "models", "sources"):
-            self.assertIn(f'data-kpi-target="{target}"', arc_html)
-        self.assertEqual(arc_html.count('class="platformMetric"'), 4)
+        self.assertEqual(arc_html.count('class="platformMetric"'), 3)
+        self.assertNotIn('data-kpi-target=', arc_html)
+        self.assertNotIn('<div class="heroActions">', arc_html)
+        self.assertNotIn('class="heroModel"', arc_html)
+
+    def test_arc_homepage_uses_the_approved_five_section_structure(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn('<header class="topbar">', arc_html)
+        self.assertIn('class="hero"', arc_html)
+        self.assertIn('id="products"', arc_html)
+        self.assertIn('id="live"', arc_html)
+        self.assertIn('id="method"', arc_html)
+        self.assertIn("平台应用价值", arc_html)
+        self.assertNotIn("管理层决策价值", arc_html)
+        self.assertNotIn("项目价值", arc_html)
 
     def test_raw_data_downloads_are_centralized_on_a_secondary_page(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         download_path = ROOT / "data-downloads.html"
         self.assertTrue(download_path.exists())
         download_html = download_path.read_text(encoding="utf-8")
-        self.assertGreaterEqual(arc_html.count('href="data-downloads.html"'), 2)
+        self.assertEqual(arc_html.count('href="data-downloads.html"'), 1)
         self.assertNotIn('id="sources"', arc_html)
         self.assertNotIn("data/source-excel/", arc_html)
         self.assertNotIn("<b>Excel</b><span>原始数据</span>", arc_html)
@@ -277,20 +289,51 @@ class DashboardModelTests(unittest.TestCase):
                     download_html,
                 )
 
-    def test_arc_product_lines_expose_dynamic_assets(self):
+    def test_arc_product_lines_have_one_direct_action_or_pending_state(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertEqual(arc_html.count('data-product-line="'), 7)
-        self.assertIn('id="product-line-detail"', arc_html)
-        self.assertIn("renderProductLineDetail", arc_html)
-        self.assertIn("lineDetail.scrollIntoView", arc_html)
+        self.assertNotIn('id="product-line-detail"', arc_html)
+        self.assertNotIn("renderProductLineDetail", arc_html)
+        self.assertEqual(arc_html.count('class="lineCard is-live"'), 1)
+        self.assertEqual(arc_html.count('class="lineCard is-disabled"'), 6)
+        self.assertEqual(arc_html.count('aria-disabled="true"'), 6)
 
     def test_arc_excavator_projects_are_filterable_and_clickable(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertIn('id="excavator-tonnage-filter"', arc_html)
         self.assertIn('id="excavator-model-search"', arc_html)
         self.assertIn('id="project-filter-empty"', arc_html)
-        self.assertEqual(arc_html.count('data-project-url="'), len(SOURCE_FILES))
+        self.assertEqual(arc_html.count('<a class="projectRow"'), len(SOURCE_FILES))
+        self.assertNotIn('class="projectActions"', arc_html)
+        self.assertNotIn("典型工况</span>", arc_html)
         self.assertIn("filterProjectRows", arc_html)
+
+    def test_every_public_page_has_a_persistent_bilingual_switch(self):
+        i18n_path = ROOT / "assets" / "i18n.js"
+        self.assertTrue(i18n_path.exists())
+        i18n_js = i18n_path.read_text(encoding="utf-8")
+        for term in (
+            "Boom Swing",
+            "Stick Digging Force",
+            "Bucket Digging Force",
+            "Auxiliary Circuit 1 Flow",
+            "Operating Pressure - Travel",
+            "Ground Pressure",
+            "Operating Weight",
+            "Overall Shipping Width",
+        ):
+            self.assertIn(term, i18n_js)
+        self.assertIn("MutationObserver", i18n_js)
+        self.assertIn("localStorage", i18n_js)
+
+        pages = [ROOT / "arc.html", ROOT / "data-downloads.html"] + [
+            ROOT / meta["output"] for meta in SOURCE_FILES
+        ]
+        for page in pages:
+            html = page.read_text(encoding="utf-8")
+            with self.subTest(page=page.name):
+                self.assertIn('class="languageToggle"', html)
+                self.assertIn('src="assets/i18n.js?v=', html)
 
     def test_arc_model_search_supports_typo_tolerant_matching(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
