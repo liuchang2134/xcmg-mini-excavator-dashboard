@@ -1485,7 +1485,7 @@ def render_html(model):
     <a class="mobileTop" href="#top">顶部</a>
     <div class="navMenu" id="page-nav">
       <a class="home" href="arc.html">返回对标平台主页</a>
-      <a href="#summary">管理层摘要</a>
+      <a href="#summary">对标概览</a>
       <a href="#overall">总体评分</a>
       <a href="#radar">工况竞争格局</a>
       <a href="#conditions">工况总览</a>
@@ -1505,7 +1505,7 @@ def render_html(model):
     </div>
 
     <section id="summary">
-      <h2>管理层摘要</h2>
+      <h2>对标概览</h2>
       <div class="kpis">
         <div class="kpi"><span>对标产品数</span><b>{product_count}</b><span>含 XCMG 与主流竞品</span></div>
         <div class="kpi"><span>XCMG 总体排名</span><b>第 {overall_rank or "-"}</b><span>参数与配置综合</span></div>

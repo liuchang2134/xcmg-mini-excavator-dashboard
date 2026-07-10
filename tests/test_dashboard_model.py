@@ -149,6 +149,19 @@ class DashboardModelTests(unittest.TestCase):
                 self.assertIn('src="assets/dashboard.js"', html)
                 self.assertNotIn('class="summaryGrid" style="margin-top:12px"', html)
 
+    def test_generated_pages_use_an_inclusive_summary_label(self):
+        builder_source = (ROOT / "tools" / "build_excavator_dashboards.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("对标概览", builder_source)
+        self.assertNotIn("管理层摘要", builder_source)
+        for meta in SOURCE_FILES:
+            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
+            with self.subTest(page=meta["output"]):
+                self.assertIn('<a href="#summary">对标概览</a>', html)
+                self.assertIn("<h2>对标概览</h2>", html)
+                self.assertNotIn("管理层摘要", html)
+
     def test_all_radars_start_with_every_product_selected(self):
         dashboard_js = (ROOT / "assets" / "dashboard.js").read_text(encoding="utf-8")
         builder_source = (ROOT / "tools" / "build_excavator_dashboards.py").read_text(
