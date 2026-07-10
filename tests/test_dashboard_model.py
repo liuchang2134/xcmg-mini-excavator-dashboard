@@ -249,6 +249,14 @@ class DashboardModelTests(unittest.TestCase):
         self.assertEqual(arc_html.count('data-project-url="'), len(SOURCE_FILES))
         self.assertIn("filterProjectRows", arc_html)
 
+    def test_arc_model_search_supports_typo_tolerant_matching(self):
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn("function normalizeSearchValue", arc_html)
+        self.assertIn("function levenshteinDistance", arc_html)
+        self.assertIn("function fuzzyMatchesProject", arc_html)
+        self.assertIn("fuzzyMatchesProject(row, query)", arc_html)
+        self.assertNotIn(".toLowerCase().includes(query)", arc_html)
+
     def test_arc_navigation_and_mobile_drawer_have_persistent_state(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertIn('class="navBackdrop"', arc_html)
