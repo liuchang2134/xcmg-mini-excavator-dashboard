@@ -1,6 +1,6 @@
-# XCMG ARC Excavator Competitive Analysis
+# XCMG ARC Excavator Product Benchmarking
 
-Executive dashboard and presentation materials for XCMG excavator competitive analysis.
+Executive dashboards and source-backed materials for XCMG excavator product benchmarking.
 
 ## Deliverables
 
@@ -12,6 +12,8 @@ Executive dashboard and presentation materials for XCMG excavator competitive an
 - `excavator-5-6t.html` - 5-6 ton excavator dashboard
 - `excavator-7-8t.html` - 7-8 ton excavator dashboard
 - `excavator-8-10t.html` - 8-10 ton excavator dashboard
+- `excavator-12-14t.html` - 12-14 ton excavator dashboard
+- `excavator-14-16t-short-tail.html` - 14-16 ton short-tail excavator dashboard
 - `data/source-excel/XCMG_1-2t_mini_excavator_competitor_source.xlsx` - source workbook for the 1-2 ton dashboard
 - `data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx` - source workbook for the 2-3 ton dashboard
 - `data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx` - source workbook for the 3.5 ton dashboard
@@ -19,6 +21,8 @@ Executive dashboard and presentation materials for XCMG excavator competitive an
 - `data/source-excel/XCMG_5-6t_mini_excavator_competitor_source.xlsx` - source workbook for the 5-6 ton dashboard
 - `data/source-excel/XCMG_7-8t_mini_excavator_competitor_source.xlsx` - source workbook for the 7-8 ton dashboard
 - `data/source-excel/XCMG_8-10t_mini_excavator_competitor_source.xlsx` - source workbook for the 8-10 ton dashboard
+- `data/source-excel/XCMG_12-14t_excavator_competitor_source.xlsx` - source workbook for the 12-14 ton dashboard
+- `data/source-excel/XCMG_14-16t_short_tail_excavator_competitor_source.xlsx` - source workbook for the 14-16 ton short-tail dashboard
 - `html-ppt/index.html` - browser-based executive presentation with presenter notes
 - `xcmg-mini-excavator-briefing.pptx` - downloadable PowerPoint deck
 - `xcmg-mini-excavator-briefing-script.md` - presentation script
@@ -35,10 +39,12 @@ Executive dashboard and presentation materials for XCMG excavator competitive an
 - 5-6t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/excavator-5-6t.html
 - 7-8t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/excavator-7-8t.html
 - 8-10t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/excavator-8-10t.html
+- 12-14t dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/excavator-12-14t.html
+- 14-16t short-tail dashboard: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/excavator-14-16t-short-tail.html
 - HTML presentation: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/html-ppt/
 - PowerPoint: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/xcmg-mini-excavator-briefing.pptx
 - Script: https://liuchang2134.github.io/xcmg-mini-excavator-dashboard/xcmg-mini-excavator-briefing-script.md
 
 ## Notes
 
-The dashboards are based on the provided tonnage workbooks: 1-2.xlsx, 2-3.xlsx, the earlier 3.5t workbook, 4-5.xlsx, 5-6.xlsx, 7-8 无动臂偏摆.xlsx, and 8-10.xlsx. Product naming, missing-value handling, condition weights, and confidence levels have been standardized before publishing.
+The dashboards cover nine tonnage groups. The current 8-10 ton source is the revised `8-10 1.xlsx`; the two newest sources are `12-14.xlsx` and `14-16短尾.xlsx`. Product naming, missing-value handling, condition weights, and data-completeness rules are standardized before publishing.

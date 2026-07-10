@@ -47,7 +47,7 @@ function setupRadars(){
   });
 }
 function setupSimulators(){
-  document.querySelectorAll('.simulator').forEach(sim=>{
+    document.querySelectorAll('.simulator[data-base]').forEach(sim=>{
     const xcmg=sim.dataset.xcmg;
     const rivals=(sim.dataset.rivals||'').split('|').filter(Boolean).map(x=>{const i=x.lastIndexOf(':');return {product:x.slice(0,i),score:Number(x.slice(i+1))};});
     const base=Number(sim.dataset.base||0);

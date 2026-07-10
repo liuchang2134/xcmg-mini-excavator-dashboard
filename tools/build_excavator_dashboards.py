@@ -92,6 +92,28 @@ SOURCE_FILES = [
         "image": "assets/arc/xe80u-official-cropped.jpg",
         "image_source": "XCMG USA XE80U",
     },
+    {
+        "slug": "excavator-12-14t",
+        "output": "excavator-12-14t.html",
+        "label": "12-14 吨级",
+        "title": "XCMG XE135U 12-14 吨级挖掘机竞品对标看板",
+        "xcmg": "XCMG XE135U",
+        "source": DATA_DIR / "XCMG_12-14t_excavator_competitor_source.xlsx",
+        "download": "XCMG_12-14t_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe135u-official-cropped.webp",
+        "image_source": "XCMG USA XE135U",
+    },
+    {
+        "slug": "excavator-14-16t-short-tail",
+        "output": "excavator-14-16t-short-tail.html",
+        "label": "14-16 吨级短尾",
+        "title": "XCMG XE155UCR 14-16 吨级短尾挖掘机竞品对标看板",
+        "xcmg": "XCMG XE155UCR",
+        "source": DATA_DIR / "XCMG_14-16t_short_tail_excavator_competitor_source.xlsx",
+        "download": "XCMG_14-16t_short_tail_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe155ucr-official-cropped.jpg",
+        "image_source": "XCMG USA XE155UCR",
+    },
 ]
 
 
@@ -1096,7 +1118,7 @@ def as_list(items, fallback):
 def render_gap_cards(model, condition):
     xcmg = model["meta"]["xcmg"]
     scores = model["conditionScores"][condition["id"]]
-    _, _, rows = xcmg_rank(scores, xcmg)
+    _, xscore, rows = xcmg_rank(scores, xcmg)
     leader = rows[0] if rows else {"product": "-", "score": 0}
     details = model["conditionDetails"][condition["id"]]
     param_gaps = []
@@ -1117,7 +1139,15 @@ def render_gap_cards(model, condition):
     option_text = [x[1] for x in option_gaps[:4]]
     combined_gaps = sorted(param_gaps + option_gaps, reverse=True, key=lambda x: x[0])
     major_items = [x[2]["item"] for x in combined_gaps[:3]]
-    leader_text = f"同工况排名第一的参考产品为 {leader['product']}；XCMG 的主要差距项为 {('、'.join(major_items)) if major_items else '已列关键项'}。"
+    major_text = ("、".join(major_items)) if major_items else "已列关键项"
+    if xscore is None:
+        coverage = model["conditionCoverage"][condition["id"]].get(xcmg)
+        leader_text = (
+            f"XCMG 有效字段覆盖率为 {fmt_percent(coverage)}，暂不进入正式排名；"
+            f"当前资料中领先产品为 {leader['product']}，已知差距项为 {major_text}。"
+        )
+    else:
+        leader_text = f"同工况排名第一的参考产品为 {leader['product']}；XCMG 的主要差距项为 {major_text}。"
     actions = []
     for _, _, d in option_gaps[:3]:
         raw = display_value(d["values"].get(xcmg, "") or "/")
@@ -1149,7 +1179,15 @@ def render_gap_cards(model, condition):
 def render_simulator(model, condition):
     xcmg = model["meta"]["xcmg"]
     scores = model["conditionScores"][condition["id"]]
-    base = scores.get(xcmg) or 0
+    base = scores.get(xcmg)
+    if base is None:
+        coverage = model["conditionCoverage"][condition["id"]].get(xcmg)
+        return (
+            '<div class="simulator simulatorUnavailable">'
+            '<div class="simHead"><h3>XCMG 提升模拟器</h3></div>'
+            f'<p class="simDisclaimer">XCMG 有效字段覆盖率为 {fmt_percent(coverage)}，低于正式排名门槛，'
+            "暂不生成模拟排名。请先补齐该工况缺失参数或配置，再开展提升方案评估。</p></div>"
+        )
     rivals = "|".join(f"{p}:{scores[p]:.3f}" for p in model["products"] if p != xcmg and scores.get(p) is not None)
     options = []
     for d in model["conditionDetails"][condition["id"]]:
@@ -1205,6 +1243,7 @@ def render_summary_cards(model):
         scores = model["conditionScores"][c["id"]]
         rank, xscore, rows = xcmg_rank(scores, xcmg)
         leader = rows[0] if rows else {"product": "-", "score": 0}
+        condition_coverage = model["conditionCoverage"][c["id"]].get(xcmg)
         config_details = [d for d in model["conditionDetails"][c["id"]] if d["type"] == "配置"]
         best_cfg = None
         xcmg_cfg = None
@@ -1230,14 +1269,25 @@ def render_summary_cards(model):
                 gap_candidates.append((delta, detail["item"]))
         gap_candidates.sort(reverse=True)
         focus_text = "、".join(item for _, item in gap_candidates[:3]) or "暂无单项明显短板"
-        if leader["product"] == xcmg:
+        if xscore is None:
+            performance_text = (
+                f"XCMG 有效字段覆盖率 {fmt_percent(condition_coverage)}，暂不进入正式排名；"
+                f"当前资料领先产品为 {leader['product']} {fmt_score(leader['score'])} 分。"
+            )
+        elif leader["product"] == xcmg:
             performance_text = f"XCMG {fmt_score(xscore)} 分，排名第 1。"
         else:
             performance_text = (
                 f"{leader['product']} {fmt_score(leader['score'])} 分；"
                 f"XCMG {fmt_score(xscore)} 分，第 {rank or '-'}，距领先产品 {fmt_score(score_gap)} 分。"
             )
-        if best_cfg and best_cfg["product"] == xcmg:
+        if xcmg_cfg is None:
+            config_text = (
+                f"XCMG 配置字段覆盖不足，暂不比较；当前资料最高为 {best_cfg['product']} {fmt_score(best_cfg['score'])} 分。"
+                if best_cfg
+                else "配置字段覆盖不足，暂不比较。"
+            )
+        elif best_cfg and best_cfg["product"] == xcmg:
             config_text = f"XCMG {fmt_score(xcmg_cfg)} 分，配置项累计贡献最高。"
         else:
             config_text = (
@@ -1415,14 +1465,14 @@ def render_html(model):
     :root{{--blue:#004c97;--blue-dark:#003765;--ink:#0a2d4f;--muted:#5f7285;--line:#cfdae6;--bg:#f3f7fa;--paper:#fff;--yellow:#f5b400;--green:#0f7b45;--red:#ba1f1f;--shadow:0 8px 24px rgba(0,58,112,.07)}}
     *{{box-sizing:border-box}}html{{scroll-behavior:smooth}}body{{margin:0;background:var(--bg);color:#102a43;font-family:"Segoe UI",Arial,"Microsoft YaHei",sans-serif;line-height:1.55}}a{{color:inherit;text-decoration:none}}button,input{{font-family:inherit}}
     .layout{{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}}aside.nav{{position:sticky;top:0;height:100vh;overflow:auto;background:linear-gradient(180deg,var(--blue-dark),#001e3d);color:white;border-right:5px solid var(--yellow);padding:18px 14px;z-index:20}}.navTitle{{font-size:18px;margin:10px 0 6px;color:#fff;font-weight:900}}.nav img{{width:118px;background:#fff;padding:6px;border-radius:2px}}.nav small{{display:block;color:#bcd3e8;font-weight:800;letter-spacing:.08em;text-transform:uppercase}}.navMenu a{{display:block;padding:8px 10px;border-left:3px solid transparent;border-radius:3px;margin:2px 0;color:#eef7ff;font-size:13px;font-weight:700}}.navMenu a:hover{{background:rgba(255,255,255,.10);border-left-color:var(--yellow)}}.navMenu .home{{background:var(--yellow);color:#08213d;font-weight:900;margin:12px 0}}.navToggle,.mobileTop{{display:none}}
-    main{{padding:22px;min-width:0}}.hero{{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:center;border-left:6px solid var(--blue);margin-bottom:16px}}.heroText{{padding:28px 28px 24px}}.eyebrow{{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}}h1{{font-size:38px;line-height:1.1;color:#082b4d;margin:8px 0 12px}}h2{{font-size:22px;color:#082b4d;margin:0 0 14px}}h2:after{{content:"";display:block;width:46px;height:3px;background:var(--yellow);margin-top:8px}}h3{{color:#0b3155;margin:0 0 8px;font-size:16px}}.hero p{{max-width:980px}}.heroMedia{{height:260px;display:grid;place-items:center;background:#f7fafc;border-left:1px solid var(--line);padding:18px}}.heroMedia img{{max-width:100%;max-height:100%;object-fit:contain}}.actions{{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}}.btn{{display:inline-flex;align-items:center;justify-content:center;border:1px solid #b9cadb;border-radius:4px;padding:9px 13px;font-weight:900;font-size:13px;background:#f7fbff}}.btn.blue{{background:var(--blue);color:#fff;border-color:var(--blue)}}.btn.yellow{{background:var(--yellow);border-color:var(--yellow);color:#08213d}}
+    main{{padding:22px;min-width:0}}.hero{{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:center;border-left:6px solid var(--blue);margin-bottom:16px}}.heroText{{padding:28px 28px 24px}}.eyebrow{{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}}h1{{font-size:38px;line-height:1.1;color:#082b4d;margin:8px 0 12px}}h2{{font-size:22px;color:#082b4d;margin:0 0 14px}}h2:after{{content:"";display:block;width:46px;height:3px;background:var(--yellow);margin-top:8px}}h3{{color:#0b3155;margin:0 0 8px;font-size:16px}}.hero p{{max-width:980px}}.heroMedia{{height:260px;position:relative;background:#f7fafc;border-left:1px solid var(--line);padding:18px;overflow:hidden}}.heroMedia img{{position:absolute;inset:18px;width:calc(100% - 36px);height:calc(100% - 36px);object-fit:contain}}.actions{{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}}.btn{{display:inline-flex;align-items:center;justify-content:center;border:1px solid #b9cadb;border-radius:4px;padding:9px 13px;font-weight:900;font-size:13px;background:#f7fbff}}.btn.blue{{background:var(--blue);color:#fff;border-color:var(--blue)}}.btn.yellow{{background:var(--yellow);border-color:var(--yellow);color:#08213d}}
     section{{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:5px;padding:18px;margin:14px 0}}.kpis{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}}.kpi{{border:1px solid #c9d8e7;border-left:5px solid var(--blue);padding:12px;background:#fbfdff}}.kpi:nth-child(2){{border-left-color:var(--yellow)}}.kpi b{{display:block;font-size:30px;color:var(--blue)}}.kpi span{{font-size:12px;color:var(--muted)}}.split{{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.9fr);gap:14px}}.panel{{border:1px solid #c8d7e6;border-radius:5px;background:#fff;padding:14px;min-width:0}}.summaryGrid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}.summaryCard{{border:1px solid #c8d7e6;border-top:4px solid var(--blue);padding:12px;background:#fbfdff}}.summaryCard p{{margin:7px 0;font-size:13px}}.conditionTitle{{display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid #e2ebf3;padding-bottom:12px;margin-bottom:12px}}.conditionTitle span{{display:block;color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.14em}}.conditionTitle em{{font-style:normal;font-weight:900;color:#4f6172}}.conditionIntro{{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}}.conditionIntro p{{margin:0;background:#f7fafc;border-left:4px solid var(--yellow);padding:10px 12px}}.conditionTop{{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(390px,.8fr);gap:12px;margin-bottom:12px}}.conditionTop>.mobileDisclosure{{min-width:0}}.conditionTop>.mobileDisclosure>.panel{{height:100%}}
     .bars{{display:grid;gap:7px}}.bar{{display:grid;grid-template-columns:28px minmax(100px,145px) minmax(90px,1fr) 48px 64px;gap:8px;align-items:center;min-width:0}}.bar span{{background:#e6f0fa;color:var(--blue);font-weight:900;text-align:center;border-radius:3px;padding:3px 0}}.bar b{{font-size:13px;min-width:0;overflow-wrap:anywhere}}.bar i{{height:17px;background:#e3ecf5;border-radius:3px;overflow:hidden}}.bar i em{{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#2878bd)}}.bar strong{{color:#08335d}}.barCoverage{{font-size:11px;color:#65798c;white-space:nowrap}}.bar.xcmg span{{background:var(--yellow);color:#08213d}}.bar.xcmg i em{{background:linear-gradient(90deg,var(--yellow),#ffd86d)}}.bar.xcmg b,.bar.xcmg strong{{color:var(--blue);font-weight:900}}
     .radarBox{{min-width:0}}.radarHead{{display:flex;justify-content:space-between;gap:10px;align-items:center;padding-right:6px}}.radarCurrent{{font-size:12px;color:var(--blue);font-weight:900;white-space:nowrap}}.radarSvg{{display:block;margin:6px auto;max-width:100%;height:360px}}.radarSvg.small{{height:300px}}.radar-grid{{fill:none;stroke:#d9e6f2;stroke-width:1}}.radar-axis{{stroke:#d9e6f2;stroke-width:1}}.radar-label{{font-size:12px;font-weight:800;fill:#0b3155;text-anchor:middle;dominant-baseline:middle}}.radar-series{{fill:var(--series-color);fill-opacity:.08;stroke:var(--series-color);stroke-width:2.3;transition:.18s;cursor:pointer}}.radarBox.compare .radar-series,.factorRadar.compare .radar-series{{opacity:.08;fill-opacity:.03}}.radarBox.compare .radar-series.selected,.factorRadar.compare .radar-series.selected{{opacity:1;fill-opacity:.18;stroke-width:3.6}}.radarLegend{{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}}.radarLegend button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:5px 7px;font-size:12px;cursor:pointer;font-weight:700}}.radarLegend i{{display:inline-block;width:10px;height:10px;margin-right:5px;border-radius:2px}}.radarLegend button:hover,.radarLegend button.selected{{border-color:var(--yellow);box-shadow:0 0 0 2px rgba(245,180,0,.18)}}.radarLegend button.selected{{background:#fff7d6;color:#08213d}}.radarLegend.compact button{{font-size:11px;padding:4px 6px}}.mobileDisclosure,.radarPicker{{border:0;padding:0;margin:0;min-width:0}}.mobileDisclosure>summary,.radarPicker>summary{{display:none}}
     .factorRadar{{min-width:0}}.factorRadarHead{{margin-bottom:4px}}.factorRadarGrid{{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:12px;align-items:center}}.keyTable{{width:100%;border-collapse:collapse;font-size:12px}}.keyTable th{{background:var(--blue);color:#fff}}.keyTable th,.keyTable td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left}}.tableScroll{{overflow:auto;border:1px solid var(--line);border-radius:4px;max-height:520px;background:white}}.tableScroll.compact{{max-height:360px}}table{{border-collapse:collapse;width:100%;font-size:12px}}th,td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left;vertical-align:top;white-space:nowrap}}th{{position:sticky;top:0;background:var(--blue);color:#fff;z-index:2}}td:first-child,th:first-child{{position:sticky;left:0;z-index:3}}td:first-child,tbody th:first-child{{background:#fff;font-weight:800;color:#0b3155;box-shadow:2px 0 0 rgba(0,76,151,.08)}}tr:nth-child(even) td,tr:nth-child(even) th:first-child{{background:#f8fbfe}}tr.xcmg-row td{{box-shadow:inset 3px 0 0 var(--yellow)}}.scoreCell{{min-width:124px;white-space:normal}}.scoreCell b{{display:block}}.scoreCell span{{display:block;font-weight:900}}.scoreCell small{{display:block;color:#51677a}}.good{{background:#e6f4ea!important;color:#0c6a36!important;font-weight:800}}.mid{{background:#fff4cc!important;color:#785700!important;font-weight:800}}.bad{{background:#fde9e9!important;color:#ad1d1d!important;font-weight:800}}.missing{{background:#eef2f6!important;color:#607080!important}}.srOnly{{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}}
     .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.methodNote,.coverageNote,.sourceNote{{font-size:12px;color:#526a7f;background:#f6f9fc;border-left:4px solid var(--yellow);padding:9px 11px;margin:0 0 12px}}.coverageNote{{margin:10px 0 0}}.sourceNote{{display:flex;gap:10px;align-items:flex-start}}.sourceNote b{{color:#08335d;white-space:nowrap}}.simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:12px}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
     @media(max-width:1200px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home{{grid-column:1/-1;margin:0}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
-    @media(max-width:720px){{body{{font-size:14px}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:12px;line-height:1.25}}.nav small{{font-size:9px}}.navToggle,.mobileTop{{padding:6px 8px;font-size:11px}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:12px;padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}h1{{font-size:26px;margin:6px 0 8px}}h2{{font-size:20px;margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:15px}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:12px}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:24px;line-height:1.15;margin:3px 0}}.kpi span{{font-size:11px;line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:12px;margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:18px;overflow-wrap:anywhere;margin-bottom:0}}.conditionTitle span{{font-size:10px}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:12px}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:12px}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:11px;padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:anywhere}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:anywhere;font-size:11px;padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:900;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:11px;color:var(--blue);font-weight:800}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:12px}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:12px;padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:28px}}.tableScroll{{max-height:62vh}}}}
+    @media(max-width:720px){{body{{font-size:14px}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:12px;line-height:1.25}}.nav small{{font-size:9px}}.navToggle,.mobileTop{{padding:6px 8px;font-size:11px}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:12px;padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}.heroMedia img{{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}}h1{{font-size:26px;margin:6px 0 8px}}h2{{font-size:20px;margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:15px}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:12px}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:24px;line-height:1.15;margin:3px 0}}.kpi span{{font-size:11px;line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:12px;margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:18px;overflow-wrap:anywhere;margin-bottom:0}}.conditionTitle span{{font-size:10px}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:12px}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:12px}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:11px;padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:anywhere}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:anywhere;font-size:11px;padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:900;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:11px;color:var(--blue);font-weight:800}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:12px}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:12px;padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:28px}}.tableScroll{{max-height:62vh}}}}
   </style>
 </head>
 <body>
@@ -1545,7 +1595,7 @@ function setupRadars(){{
   }});
 }}
 function setupSimulators(){{
-  document.querySelectorAll('.simulator').forEach(sim=>{{
+    document.querySelectorAll('.simulator[data-base]').forEach(sim=>{{
     const xcmg=sim.dataset.xcmg;
     const rivals=(sim.dataset.rivals||'').split('|').filter(Boolean).map(x=>{{const i=x.lastIndexOf(':');return {{product:x.slice(0,i),score:Number(x.slice(i+1))}};}});
     const base=Number(sim.dataset.base||0);
@@ -1635,6 +1685,7 @@ def download_assets():
         ("https://xcmg-usa.com/wp-content/uploads/2022/05/XE55U-1.jpg", ASSET_DIR / "xe55u-official.jpg"),
         ("https://xcmg-usa.com/wp-content/uploads/2024/03/XE75U_image.jpg", ASSET_DIR / "xe75u-official.jpg"),
         ("https://xcmg-usa.com/wp-content/uploads/2022/05/XE80U-1.jpg", ASSET_DIR / "xe80u-official.jpg"),
+        ("https://xcmg-usa.com/wp-content/uploads/2022/05/XE155UCR-1.jpg", ASSET_DIR / "xe155ucr-official.jpg"),
     ]
     for url, dest in assets:
         if dest.exists() and dest.stat().st_size > 10000:
@@ -1642,30 +1693,45 @@ def download_assets():
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=30) as response:
             dest.write_bytes(response.read())
+    xe135_cropped = ASSET_DIR / "xe135u-official-cropped.webp"
+    if not xe135_cropped.exists() or xe135_cropped.stat().st_size <= 10000:
+        xe135_source = ASSET_DIR / ".xe135u-official-source.png"
+        req = urllib.request.Request(
+            "https://xcmg-usa.com/wp-content/uploads/2025/04/135U_web-image.png",
+            headers={"User-Agent": "Mozilla/5.0"},
+        )
+        with urllib.request.urlopen(req, timeout=60) as response:
+            xe135_source.write_bytes(response.read())
+        crop_product_image(xe135_source, xe135_cropped, max_dimension=1600)
+        xe135_source.unlink(missing_ok=True)
     crop_product_image(ASSET_DIR / "xe19u-official.png", ASSET_DIR / "xe19u-official-cropped.png")
     crop_product_image(ASSET_DIR / "xe27u-official.jpg", ASSET_DIR / "xe27u-official-cropped.jpg")
     crop_product_image(ASSET_DIR / "xe45u-official.png", ASSET_DIR / "xe45u-official-cropped.png")
     crop_product_image(ASSET_DIR / "xe55u-official.jpg", ASSET_DIR / "xe55u-official-cropped.jpg")
     crop_product_image(ASSET_DIR / "xe75u-official.jpg", ASSET_DIR / "xe75u-official-cropped.jpg")
     crop_product_image(ASSET_DIR / "xe80u-official.jpg", ASSET_DIR / "xe80u-official-cropped.jpg")
+    crop_product_image(ASSET_DIR / "xe155ucr-official.jpg", ASSET_DIR / "xe155ucr-official-cropped.jpg")
 
 
-def crop_product_image(src, dest):
+def crop_product_image(src, dest, max_dimension=None):
     from PIL import Image, ImageChops
 
     img = Image.open(src).convert("RGBA")
     alpha_bbox = img.split()[-1].getbbox()
-    rgb = img.convert("RGB")
-    near_white_mask = Image.new("L", img.size, 0)
-    pixels = rgb.load()
-    mask_pixels = near_white_mask.load()
-    for y in range(img.height):
-        for x in range(img.width):
-            r, g, b = pixels[x, y]
-            if min(r, g, b) < 245:
-                mask_pixels[x, y] = 255
     full_bbox = (0, 0, img.width, img.height)
-    bbox = alpha_bbox if alpha_bbox and alpha_bbox != full_bbox else near_white_mask.getbbox()
+    if alpha_bbox and alpha_bbox != full_bbox:
+        bbox = alpha_bbox
+    else:
+        rgb = img.convert("RGB")
+        near_white_mask = Image.new("L", img.size, 0)
+        pixels = rgb.load()
+        mask_pixels = near_white_mask.load()
+        for y in range(img.height):
+            for x in range(img.width):
+                r, g, b = pixels[x, y]
+                if min(r, g, b) < 245:
+                    mask_pixels[x, y] = 255
+        bbox = near_white_mask.getbbox()
     if not bbox:
         if dest.suffix.lower() in {".jpg", ".jpeg"}:
             canvas = Image.new("RGB", img.size, "white")
@@ -1680,10 +1746,18 @@ def crop_product_image(src, dest):
     right = min(img.width, bbox[2] + pad)
     bottom = min(img.height, bbox[3] + pad)
     cropped = img.crop((left, top, right, bottom))
+    if max_dimension and max(cropped.size) > max_dimension:
+        scale = max_dimension / max(cropped.size)
+        cropped = cropped.resize(
+            (round(cropped.width * scale), round(cropped.height * scale)),
+            Image.Resampling.LANCZOS,
+        )
     if dest.suffix.lower() in {".jpg", ".jpeg"}:
         canvas = Image.new("RGB", cropped.size, "white")
         canvas.paste(cropped, mask=cropped.split()[-1])
         canvas.save(dest, quality=92)
+    elif dest.suffix.lower() == ".webp":
+        cropped.save(dest, format="WEBP", quality=88, method=6)
     else:
         cropped.save(dest)
 

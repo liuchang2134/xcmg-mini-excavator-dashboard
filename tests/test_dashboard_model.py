@@ -99,10 +99,30 @@ class DashboardModelTests(unittest.TestCase):
                         self.assertIsNone(scores[product])
 
     def test_all_tonnage_pages_remain_published(self):
-        self.assertEqual(len(SOURCE_FILES), 7)
-        self.assertTrue((ROOT / "excavator-8-10t.html").exists())
+        self.assertEqual(len(SOURCE_FILES), 9)
+        expected_outputs = {
+            "excavator-8-10t.html",
+            "excavator-12-14t.html",
+            "excavator-14-16t-short-tail.html",
+        }
+        self.assertTrue(expected_outputs.issubset({meta["output"] for meta in SOURCE_FILES}))
         for meta in SOURCE_FILES:
             self.assertTrue((ROOT / meta["output"]).exists(), meta["output"])
+            self.assertTrue(meta["source"].exists(), meta["source"])
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertEqual(arc_html.count('class="projectRow"'), len(SOURCE_FILES))
+        self.assertIn("九个吨级采用同一对标口径", arc_html)
+
+    def test_new_tonnage_sources_and_models_are_bound_correctly(self):
+        by_output = {model["meta"]["output"]: model for model in self.models}
+        self.assertEqual(by_output["excavator-12-14t.html"]["meta"]["xcmg"], "XCMG XE135U")
+        self.assertEqual(
+            by_output["excavator-14-16t-short-tail.html"]["meta"]["xcmg"],
+            "XCMG XE155UCR",
+        )
+        replacement = by_output["excavator-8-10t.html"]
+        weight_row = next(row for row in replacement["rawParamRows"] if row["item"] == "操作重量")
+        self.assertEqual(weight_row["values"]["XCMG XE80U"], "9250/9500")
 
     def test_generated_pages_have_single_h1_and_table_captions(self):
         for meta in SOURCE_FILES:
@@ -156,6 +176,13 @@ class DashboardModelTests(unittest.TestCase):
                     self.assertEqual(html.count(condition["benefit"]), 1)
                 self.assertLessEqual(html.count("覆盖率低于 60%"), 2)
                 self.assertIn("配置项累计贡献", html)
+                self.assertNotIn("XCMG - 分", html)
+
+    def test_low_coverage_condition_has_no_zero_based_simulation(self):
+        html = (ROOT / "excavator-14-16t-short-tail.html").read_text(encoding="utf-8")
+        self.assertIn("暂不进入正式排名", html)
+        self.assertIn("暂不生成模拟排名", html)
+        self.assertNotIn("XCMG - 分，第 -", html)
 
     def test_parameter_units_are_normalized(self):
         for model in self.models:
