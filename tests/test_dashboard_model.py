@@ -162,6 +162,20 @@ class DashboardModelTests(unittest.TestCase):
                 self.assertIn("<h2>对标概览</h2>", html)
                 self.assertNotIn("管理层摘要", html)
 
+    def test_subpage_logos_link_back_to_the_platform_homepage(self):
+        expected = (
+            '<a class="navBrand" href="arc.html" '
+            'aria-label="返回全产品线竞品对标平台主页">'
+        )
+        builder_source = (ROOT / "tools" / "build_excavator_dashboards.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(expected, builder_source)
+        for meta in SOURCE_FILES:
+            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
+            with self.subTest(page=meta["output"]):
+                self.assertEqual(html.count(expected), 1)
+
     def test_all_radars_start_with_every_product_selected(self):
         dashboard_js = (ROOT / "assets" / "dashboard.js").read_text(encoding="utf-8")
         builder_source = (ROOT / "tools" / "build_excavator_dashboards.py").read_text(
