@@ -1090,7 +1090,7 @@
       </a>
       <div class="navControls">
         <nav class="navLinks" id="arc-nav" aria-label="页面导航">
-          <a href="#top" data-nav-target="top">平台总览</a>
+          <a href="#top" data-nav-target="top" aria-current="location">平台总览</a>
           <a href="#products" data-nav-target="products">产品线入口</a>
           <a href="#live" data-nav-target="live">挖掘机对标</a>
           <a href="data-downloads.html">原始数据中心</a>
@@ -1585,17 +1585,37 @@
       });
     }
 
-    const observedSections = [...document.querySelectorAll('#top, #products, #live, #method')];
     const sectionLinks = [...document.querySelectorAll('[data-nav-target]')];
-    const sectionObserver = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visible) return;
+    const topbar = document.querySelector('.topbar');
+    const navSections = sectionLinks.map((link) => ({
+      id: link.dataset.navTarget,
+      section: document.getElementById(link.dataset.navTarget)
+    })).filter((item) => item.section);
+    function updateActiveNav() {
+      const marker = window.scrollY + (topbar?.offsetHeight ?? 0) + 32;
+      let activeTarget = 'top';
+      navSections.forEach((item) => {
+        if (item.id !== 'top' && item.section.offsetTop <= marker) activeTarget = item.id;
+      });
+      const atPageBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atPageBottom && navSections.length) activeTarget = navSections[navSections.length - 1].id;
       sectionLinks.forEach((link) => {
-        if (link.dataset.navTarget === visible.target.id) link.setAttribute('aria-current', 'location');
+        if (link.dataset.navTarget === activeTarget) link.setAttribute('aria-current', 'location');
         else link.removeAttribute('aria-current');
       });
-    }, {rootMargin: '-15% 0px -65% 0px', threshold: [0, .1, .35]});
-    observedSections.forEach((section) => sectionObserver.observe(section));
+    }
+    let activeNavFrame = 0;
+    function scheduleActiveNav() {
+      if (activeNavFrame) return;
+      activeNavFrame = window.requestAnimationFrame(() => {
+        activeNavFrame = 0;
+        updateActiveNav();
+      });
+    }
+    window.addEventListener('scroll', scheduleActiveNav, {passive: true});
+    window.addEventListener('resize', scheduleActiveNav);
+    window.addEventListener('hashchange', scheduleActiveNav);
+    updateActiveNav();
 
     const initialLine = 'excavators';
     quickLine.value = initialLine;

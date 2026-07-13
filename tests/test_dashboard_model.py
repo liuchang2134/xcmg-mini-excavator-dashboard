@@ -346,7 +346,11 @@ class DashboardModelTests(unittest.TestCase):
     def test_arc_navigation_and_mobile_drawer_have_persistent_state(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertIn('class="navBackdrop"', arc_html)
-        self.assertIn("IntersectionObserver", arc_html)
+        self.assertIn("function updateActiveNav()", arc_html)
+        self.assertIn("const marker = window.scrollY + (topbar?.offsetHeight ?? 0) + 32;", arc_html)
+        self.assertIn("window.addEventListener('scroll', scheduleActiveNav, {passive: true});", arc_html)
+        self.assertIn("const atPageBottom = window.innerHeight + window.scrollY", arc_html)
+        self.assertNotIn("IntersectionObserver", arc_html)
         self.assertIn("aria-current", arc_html)
         self.assertIn("Escape", arc_html)
         self.assertIn("overflow-x:hidden", arc_html)
