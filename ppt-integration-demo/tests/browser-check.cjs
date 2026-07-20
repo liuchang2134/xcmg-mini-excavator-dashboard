@@ -31,6 +31,7 @@ async function assertPage(page, label, language, route) {
   if (state.brokenImages.length) throw new Error(`${label}: broken images ${state.brokenImages.join(", ")}`);
   if (/source_mapped_|requires_current_|historical_internal_/.test(state.text)) throw new Error(`${label}: exposes internal data key`);
   if (/\bPPT\b/i.test(state.text)) throw new Error(`${label}: exposes source-presentation language in the main reading flow`);
+  if (/查看依据|View evidence/.test(state.text)) throw new Error(`${label}: still exposes a secondary evidence action`);
   if (language === "en" && route === "excavator-overview.html" && /[\u3400-\u9fff]/.test(state.text)) throw new Error(`${label}: contains mixed Chinese/English body text`);
 }
 
@@ -68,15 +69,16 @@ async function assertPage(page, label, language, route) {
     if ((await desktop.locator(".comparisonMatrix tbody tr").count()) < 9) throw new Error("Paper comparison is incomplete");
     if ((await desktop.locator(".fieldMatrix tbody tr").count()) !== 11) throw new Error("Field evaluation is incomplete");
     if ((await desktop.locator(".roadmapRow").count()) !== 8) throw new Error("Roadmap is incomplete");
+    if ((await desktop.locator(".evidenceTrigger,.evidenceDrawer,.evidenceButtons").count()) !== 0) throw new Error("Evidence must be displayed inline without secondary controls");
+    if ((await desktop.locator("#ppt-market .inlineEvidenceCard").count()) !== 2) throw new Error("Market material is not displayed inline");
+    if ((await desktop.locator("#ppt-paper .inlineEvidenceCard").count()) !== 4) throw new Error("Paper-comparison material is incomplete");
+    if ((await desktop.locator("#ppt-field .inlineEvidenceCard").count()) !== 6) throw new Error("Field-evaluation material is incomplete");
+    if ((await desktop.locator("#ppt-actions .inlineEvidenceCard").count()) !== 2) throw new Error("Improvement material is incomplete");
     const firstTitle = await desktop.locator(".scenarioStage h3").innerText();
     await desktop.locator(".scenarioTabs button").nth(7).click();
     const lastTitle = await desktop.locator(".scenarioStage h3").innerText();
     if (firstTitle === lastTitle) throw new Error("Scenario tabs do not update the workspace");
-    await desktop.locator("#ppt-market .evidenceTrigger").first().click();
-    await desktop.locator(".evidenceDrawer.open").waitFor();
-    if (!(await desktop.locator(".evidenceSlideImage").isVisible())) throw new Error("Evidence image is not visible");
-    await desktop.locator(".drawerClose").click();
-    await desktop.waitForTimeout(300);
+    if ((await desktop.locator(".scenarioEvidence .inlineEvidenceCard").count()) !== 1) throw new Error("Scenario material is not displayed in the active module");
     await desktop.locator("#ppt-market").scrollIntoViewIfNeeded();
     await desktop.screenshot({ path: path.join(artifactDir, "desktop-integrated-3-4t.png"), fullPage: false });
     await desktop.close();
@@ -92,7 +94,9 @@ async function assertPage(page, label, language, route) {
     await overview.waitForTimeout(400);
     if ((await overview.locator("#page-nav a").count()) !== 1) throw new Error("Overview sidebar must contain only one return link");
     if ((await overview.locator(".hero").count()) !== 1 || (await overview.locator(".categoryHero").count()) !== 0) throw new Error("Overview must reuse the formal dashboard hero");
-    if ((await overview.locator('main img[src*="assets/slides/slide-"]').count()) !== 0) throw new Error("Overview main flow must use native web visuals rather than slide screenshots");
+    if ((await overview.locator(".evidenceTrigger,.evidenceDrawer,.evidenceButtons").count()) !== 0) throw new Error("Overview still contains secondary evidence controls");
+    if ((await overview.locator(".inlineEvidenceCard").count()) !== 13) throw new Error("Overview research material is not fully embedded in its modules");
+    if ((await overview.locator('main img[src*="assets/slides/slide-"]').count()) !== 13) throw new Error("Overview source images are not displayed inline");
     await overview.screenshot({ path: path.join(artifactDir, "desktop-excavator-overview.png"), fullPage: false });
     await overview.setViewportSize({ width: 390, height: 844 });
     await overview.waitForTimeout(200);

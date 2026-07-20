@@ -6,17 +6,13 @@
   try { stored = window.localStorage.getItem('xcmg-benchmark-language') || ''; } catch (_) { stored = ''; }
   const language = query.get('lang') === 'en' || (query.get('lang') !== 'zh' && stored === 'en') ? 'en' : 'zh';
   let records = [];
-  let lastFocus = null;
-
   const ui = {
     zh: {
-      evidence: '查看依据', slide: '第', slideSuffix: '页', drawer: '结论依据', close: '关闭',
-      sourceType: '来源类型', date: '数据时间', temporal: '时间属性', validation: '验证状态', raw: '原始记录',
+      raw: '原始记录', material: '模块资料', finding: '研究结论',
       verify: '需按当前市场、政策或产品版本复核'
     },
     en: {
-      evidence: 'View evidence', slide: 'Slide ', slideSuffix: '', drawer: 'Evidence', close: 'Close',
-      sourceType: 'Source type', date: 'Data date', temporal: 'Temporal status', validation: 'Validation status', raw: 'Original record',
+      raw: 'Original record', material: 'Module research material', finding: 'Research finding',
       verify: 'Current market, policy or product-version validation required'
     }
   }[language];
@@ -30,8 +26,6 @@
     ['宏观约束与机会', 'Macro Constraints and Opportunities'],
     ['战略标杆', 'Strategic Benchmarks'],
     ['核心吨级结构', 'Core Tonnage Structure'],
-    ['原始依据', 'Source Evidence'],
-    ['查看依据', 'View evidence'],
     ['北美挖掘机整体分析', 'North American Excavator Overall Analysis'],
     ['集中呈现不能归入单一吨级的行业周期、竞争格局、战略标杆和核心吨级结构；具体参数、配置和工况仍在对应吨级看板中分析。', 'Consolidates industry-cycle, competitive-landscape, strategic-benchmark and core-tonnage content that cannot be assigned to one class. Specifications, equipment and applications remain in the corresponding tonnage benchmark.'],
     ['XCMG ARC内部资料：', 'XCMG ARC INTERNAL:'],
@@ -77,9 +71,6 @@
     ['大挖', 'Large excavators'],
     ['33吨以上', 'Above 33 t'],
     ['核心：33–40、40–50吨', 'Core: 33–40 and 40–50 t'],
-    ['点击页码查看PPT第3–15页原页、原始文字、时间属性和验证状态。', 'Select a slide to inspect the original pages 3–15, source wording, temporal status and validation state.'],
-    ['数据依据', 'Data Evidence'],
-    ['点击记录查看原始图表、数据时间、历史状态和当前验证要求。', 'Select a record to inspect the source chart, data date, historical status and current validation requirement.'],
     ['回到页面顶部', 'Return to page top'],
     ['回到顶部', 'Back to top']
   ]);
@@ -113,8 +104,6 @@
     return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
   }
 
-  function page(value) { return `${ui.slide}${value}${ui.slideSuffix}`; }
-
   function status(value) {
     const labels = {
       historical_macro_observation: {zh: '历史宏观观察', en: 'Historical macro observation'},
@@ -145,67 +134,60 @@
     });
   }
 
+  function displayDate(value) {
+    const source = String(value || '');
+    if (language === 'en') return source.replace(/PPT/gi, 'Internal record').replace(/in source/gi, 'in the historical record');
+    const translations = {
+      '2023 population figures in source': '2023人口数据',
+      'PPT 11.14 version': '内部资料版本11.14',
+      '2023-2025 figures and forecast in source': '2023–2025数据及预测',
+      'PPT 11.14 version; current policy unverified': '内部资料版本11.14 / 当前政策待核验',
+      '2025 forecast in source; outcome not validated': '2025历史预测 / 结果待核验',
+      '2021-2024 series in source': '2021–2024历史记录序列',
+      'Five-year EDA series cited in source': 'EDA五年历史序列',
+      '2025 EDA snapshot in source': '2025 EDA市场快照',
+      'AEM data cited in source': 'AEM历史数据'
+    };
+    return translations[source] || source.replace(/PPT/gi, '内部资料').replace(/in source/gi, '历史记录').replace(/cited in source/gi, '历史记录引用');
+  }
+
+  function inlineRecord(record, includeConclusion) {
+    if (!record) return '';
+    const title = text(record.title);
+    const raw = language === 'en' ? narrative(record.conclusion) : narrative(record.zh?.raw_text || '');
+    return `<article class="inlineEvidenceCard" data-source-slide="${record.source_slide}">
+      <figure class="inlineEvidenceVisual"><img src="ppt-integration-demo/${esc(record.thumbnail)}" alt="${esc(title)}"></figure>
+      <div class="inlineEvidenceContent">
+        <div class="inlineEvidenceTop"><b>${esc(ui.material)}</b><span>${esc(displayDate(record.as_of_date))}</span></div>
+        <h4>${esc(title)}</h4>
+        ${includeConclusion ? `<p class="inlineEvidenceConclusion"><strong>${esc(ui.finding)}：</strong>${esc(narrative(record.conclusion))}</p>` : ''}
+        <div class="inlineEvidenceRaw"><b>${esc(ui.raw)}</b><pre>${esc(raw)}</pre></div>
+        <div class="inlineEvidenceMeta"><span>${esc(status(record.status))}</span><span>${esc(ui.verify)}</span></div>
+      </div>
+    </article>`;
+  }
+
   function row(record) {
-    return `<div class="overviewDecisionRow"><h3>${esc(text(record.title))}</h3><p>${esc(narrative(record.conclusion))}</p><button type="button" class="evidenceTrigger" data-overview-slide="${record.source_slide}">${esc(ui.evidence)}</button></div>`;
+    return `<div class="overviewDecisionRow"><h3>${esc(text(record.title))}</h3><p>${esc(narrative(record.conclusion))}</p>${inlineRecord(record, false)}</div>`;
   }
 
   function render() {
     const byTopic = Object.fromEntries(records.map((record) => [record.metric, record]));
-    const industryTopics = ['industry_cycle', 'competition_concentration', 'product_structure', 'brand_share'];
+    const industryTopics = ['industry_cycle', 'product_structure'];
     const macroTopics = ['macro_social', 'technology', 'economy_rental', 'emissions', 'trade_policy', 'macro_summary'];
     document.querySelector('#industry-rows').innerHTML = industryTopics.map((topic) => row(byTopic[topic])).join('');
+    document.querySelector('#overview-concentration-source').innerHTML = inlineRecord(byTopic.competition_concentration, true);
+    document.querySelector('#overview-rank-source').innerHTML = inlineRecord(byTopic.brand_share, true);
     document.querySelector('#macro-rows').innerHTML = macroTopics.map((topic) => row(byTopic[topic])).join('');
     document.querySelector('#benchmark-bands').innerHTML = ['benchmark_kubota', 'benchmark_caterpillar'].map((topic) => {
       const record = byTopic[topic];
-      return `<div class="panel benchmarkBand"><h3>${esc(text(record.title))}</h3><p>${esc(narrative(record.conclusion))}</p><button type="button" class="evidenceTrigger" data-overview-slide="${record.source_slide}">${esc(ui.evidence)}</button></div>`;
+      return `<div class="panel benchmarkBand"><h3>${esc(text(record.title))}</h3><p>${esc(narrative(record.conclusion))}</p>${inlineRecord(record, false)}</div>`;
     }).join('');
     document.querySelector('#tonnage-row').innerHTML = row(byTopic.core_tonnages);
-    document.querySelector('#overview-evidence-buttons').innerHTML = records.map((record) => `<button type="button" data-overview-slide="${record.source_slide}"><b>${esc(text(record.title))}</b><span>${esc(ui.evidence)}</span></button>`).join('');
-  }
-
-  function installDrawer() {
-    document.body.insertAdjacentHTML('beforeend', `<div class="evidenceOverlay" aria-hidden="true"></div><aside class="evidenceDrawer" aria-hidden="true" aria-labelledby="overview-drawer-title"><div class="evidenceDrawerHead"><h2 id="overview-drawer-title">${esc(ui.drawer)}</h2><button type="button" class="drawerClose" aria-label="${esc(ui.close)}">×</button></div><div class="evidenceDrawerBody"></div></aside>`);
-    document.querySelector('.drawerClose').addEventListener('click', closeDrawer);
-    document.querySelector('.evidenceOverlay').addEventListener('click', closeDrawer);
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeDrawer(); });
-    document.addEventListener('click', (event) => {
-      const button = event.target.closest('[data-overview-slide]');
-      if (button) openDrawer(Number(button.dataset.overviewSlide));
-    });
-  }
-
-  function openDrawer(slideNumber) {
-    const record = records.find((item) => Number(item.source_slide) === slideNumber);
-    if (!record) return;
-    const drawer = document.querySelector('.evidenceDrawer');
-    const overlay = document.querySelector('.evidenceOverlay');
-    const body = drawer.querySelector('.evidenceDrawerBody');
-    body.innerHTML = `<img class="evidenceSlideImage" src="ppt-integration-demo/${esc(record.thumbnail)}" alt="${esc(text(record.title))}"><dl class="evidenceMeta"><div><dt>${esc(ui.slide.replace(/\s+$/, ''))}</dt><dd>${esc(page(slideNumber))}</dd></div><div><dt>${esc(ui.sourceType)}</dt><dd>${language === 'en' ? 'XCMG ARC internal research record' : 'XCMG ARC内部研究记录'}</dd></div><div><dt>${esc(ui.date)}</dt><dd>${esc(record.as_of_date)}</dd></div><div><dt>${esc(ui.temporal)}</dt><dd>${esc(status(record.status))}</dd></div><div><dt>${esc(ui.validation)}</dt><dd>${esc(ui.verify)}</dd></div></dl><div class="evidenceConclusion"><b>${esc(text(record.title))}</b><br>${esc(narrative(record.conclusion))}</div><label class="evidenceRawLabel" for="overview-evidence-raw">${esc(ui.raw)}</label><textarea id="overview-evidence-raw" class="evidenceRaw" readonly></textarea>`;
-    body.querySelector('.evidenceRaw').value = record.zh?.raw_text || (record.zh?.paragraphs || []).join('\n');
-    lastFocus = document.activeElement;
-    drawer.classList.add('open');
-    overlay.classList.add('open');
-    drawer.setAttribute('aria-hidden', 'false');
-    overlay.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('evidenceOpen');
-    drawer.querySelector('.drawerClose').focus();
-  }
-
-  function closeDrawer() {
-    const drawer = document.querySelector('.evidenceDrawer');
-    const overlay = document.querySelector('.evidenceOverlay');
-    if (!drawer?.classList.contains('open')) return;
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-    drawer.setAttribute('aria-hidden', 'true');
-    overlay.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('evidenceOpen');
-    lastFocus?.focus?.();
   }
 
   async function init() {
     localizeStatic();
-    installDrawer();
     try {
       const response = await fetch('data/ppt-insights/excavator-overview.json');
       if (!response.ok) throw new Error(String(response.status));

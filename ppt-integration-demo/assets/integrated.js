@@ -32,13 +32,10 @@
       needs: '关键需求',
       steps: '典型作业步骤',
       finding: 'XCMG判断',
-      evidence: '查看依据',
       scenarioIndex: '作业场景与主要差距',
       workCondition: '工况',
       keyFinding: '关键判断',
       status: '状态',
-      page: '资料定位',
-      evidenceColumn: '依据',
       paperTitle: '关键参数与配置复核',
       paperSubtitle: '围绕市场适配和现场作业，对五款代表机型进行直接复核。',
       paperBoundary: '本矩阵作为现有Excel评分的补充证据，不重复计分；如不同版本存在差异，以最新核验数据为准。',
@@ -69,15 +66,8 @@
       verifyRequired: '需工程、试验与市场共同验证',
       portfolio: '型谱差距',
       historicalPositioning: '历史定位与目标',
-      evidenceIndex: '数据依据',
-      slide: '第',
-      slideSuffix: '页',
-      drawerTitle: '结论依据',
-      close: '关闭',
-      sourceType: '来源类型',
-      dataDate: '数据时间',
-      temporalStatus: '时间属性',
-      validationStatus: '验证状态',
+      inlineMaterials: '模块资料',
+      researchSummary: '研究结论',
       rawText: '原始记录',
       safety: '安全性',
       reliability: '可靠性与环境',
@@ -110,13 +100,10 @@
       needs: 'Critical requirements',
       steps: 'Representative work sequence',
       finding: 'XCMG finding',
-      evidence: 'View evidence',
       scenarioIndex: 'Application index and principal gaps',
       workCondition: 'Application',
       keyFinding: 'Key finding',
       status: 'Status',
-      page: 'Source reference',
-      evidenceColumn: 'Evidence',
       paperTitle: 'Key Specification and Equipment Review',
       paperSubtitle: 'Directly reviews five representative models against market fit and field applications.',
       paperBoundary: 'This matrix supplements the existing Excel-based scoring and is not scored again. Where versions differ, use the latest validated dataset.',
@@ -147,15 +134,8 @@
       verifyRequired: 'Engineering, test and market validation required',
       portfolio: 'Portfolio gap',
       historicalPositioning: 'Historical positioning and target',
-      evidenceIndex: 'Data Evidence',
-      slide: 'Slide ',
-      slideSuffix: '',
-      drawerTitle: 'Evidence',
-      close: 'Close',
-      sourceType: 'Source type',
-      dataDate: 'Data date',
-      temporalStatus: 'Temporal status',
-      validationStatus: 'Validation status',
+      inlineMaterials: 'Module research material',
+      researchSummary: 'Research finding',
       rawText: 'Original record',
       safety: 'Safety',
       reliability: 'Reliability and environment',
@@ -221,7 +201,7 @@
     future_recommendation: {zh: '建议动作', en: 'Recommended action'}
   };
 
-  const state = {data: null, lastFocus: null};
+  const state = {data: null};
 
   function text(value) {
     if (value == null) return '';
@@ -241,6 +221,7 @@
     ] : [
       [/PPT历史方案/g, '历史方案'],
       [/PPT记录的/g, '历史记录中的'],
+      [/PPT记录/g, '历史记录显示'],
       [/PPT明确列出的/g, '当前记录明确列出的'],
       [/PPT列出的/g, '对标记录中的'],
       [/PPT未列出/g, '当前记录未列出'],
@@ -269,11 +250,6 @@
       .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
   }
 
-  function pageText(value) {
-    const pages = Array.isArray(value) ? value : [value];
-    return pages.filter(Boolean).map((page) => `${copy.slide}${page}${copy.slideSuffix}`).join(', ');
-  }
-
   function findingKey(value) {
     if (value === '优势') return 'advantage';
     if (value === '差距') return 'gap';
@@ -299,23 +275,6 @@
     return copy.verifyRequired;
   }
 
-  function sourceTypeLabel(value) {
-    if (language === 'en') {
-      if (/EDA/i.test(value || '')) return 'EDA market data and internal analysis';
-      if (/transport|regulatory/i.test(value || '')) return 'Internal transport analysis and regulatory summary';
-      if (/use-case|market observation|customer/i.test(value || '')) return 'Internal market and application research';
-      if (/specification|configuration/i.test(value || '')) return 'Historical specification and equipment comparison';
-      if (/internal evaluation/i.test(value || '')) return 'Historical internal machine evaluation';
-      return 'XCMG ARC internal research record';
-    }
-    if (/EDA/i.test(value || '')) return 'EDA市场数据与内部分析';
-    if (/transport|regulatory/i.test(value || '')) return '内部运输测算与法规摘要';
-    if (/use-case|market observation|customer/i.test(value || '')) return '内部市场与工况调研';
-    if (/specification|configuration/i.test(value || '')) return '历史参数与配置对比';
-    if (/internal evaluation/i.test(value || '')) return '历史内部实机评价';
-    return 'XCMG ARC内部研究记录';
-  }
-
   function fieldGroup(metric) {
     if (metric === 'safety_systems') return copy.safety;
     if (/corrosion|temperature/.test(metric)) return copy.reliability;
@@ -332,9 +291,69 @@
     return section;
   }
 
-  function evidenceButton(slide, evidenceId, label) {
-    const idAttr = evidenceId ? ` data-evidence-id="${escapeHtml(Array.isArray(evidenceId) ? evidenceId[0] : evidenceId)}"` : '';
-    return `<button type="button" class="evidenceTrigger" data-slide="${escapeHtml(Array.isArray(slide) ? slide[0] : slide)}"${idAttr}>${escapeHtml(label || copy.evidence)}</button>`;
+  function slideNumbers(value) {
+    return (Array.isArray(value) ? value : [value]).map(Number).filter(Boolean);
+  }
+
+  function displayDate(value) {
+    const source = String(value || '');
+    if (language === 'en') {
+      return source
+        .replace(/PPT version/gi, 'Internal record version')
+        .replace(/PPT 11\.14 version/gi, 'Internal record version 11.14')
+        .replace(/on slide/gi, 'in the record');
+    }
+    const translations = {
+      '2025 market snapshot; 2026 forecast': '2025市场快照 / 2026预测',
+      '2025 snapshot; 2026 forecast': '2025市场快照 / 2026预测',
+      '2025 historical target; current outcome not provided': '2025历史目标 / 当前结果未提供',
+      'PPT version 11.14; year not stated on slide': '内部资料版本11.14 / 原记录未注明年份',
+      'PPT 11.14 version; year not stated on slide': '内部资料版本11.14 / 原记录未注明年份'
+    };
+    return translations[source] || source
+      .replace(/PPT/gi, '内部资料')
+      .replace(/on slide/gi, '在原记录中');
+  }
+
+  function inlineEvidenceCard(slide, evidenceId) {
+    const slideNumber = slideNumbers(slide)[0];
+    const slideRecord = state.data.slides.records.find((record) => Number(record.source_slide) === slideNumber);
+    if (!slideRecord) return '';
+    const evidence = state.data.evidence.records.find((record) => record.id === evidenceId)
+      || state.data.evidence.records.find((record) => slideNumbers(record.source_slide).includes(slideNumber));
+    const title = text(slideRecord[language]?.title || slideRecord.zh?.title || slideRecord.conclusion);
+    const conclusion = narrative(evidence?.conclusion || slideRecord.conclusion);
+    const raw = language === 'en'
+      ? narrative(slideRecord.en?.summary || evidence?.conclusion || slideRecord.conclusion)
+      : narrative(slideRecord.zh?.raw_text || (slideRecord.zh?.paragraphs || []).join('\n'));
+    const asOf = displayDate(evidence?.as_of_date || slideRecord.as_of_date);
+    const temporal = statusLabel(evidence?.status || slideRecord.status);
+    const validation = validationLabel(evidence?.validation_status || slideRecord.validation_status);
+    return `
+      <article class="inlineEvidenceCard" data-source-slide="${slideNumber}">
+        <figure class="inlineEvidenceVisual"><img src="ppt-integration-demo/${escapeHtml(slideRecord.thumbnail)}" alt="${escapeHtml(title)}"></figure>
+        <div class="inlineEvidenceContent">
+          <div class="inlineEvidenceTop"><b>${escapeHtml(copy.inlineMaterials)}</b><span>${escapeHtml(asOf)}</span></div>
+          <h4>${escapeHtml(title)}</h4>
+          <p class="inlineEvidenceConclusion"><strong>${escapeHtml(copy.researchSummary)}：</strong>${escapeHtml(conclusion)}</p>
+          <div class="inlineEvidenceRaw"><b>${escapeHtml(copy.rawText)}</b><pre>${escapeHtml(raw)}</pre></div>
+          <div class="inlineEvidenceMeta"><span>${escapeHtml(temporal)}</span><span>${escapeHtml(validation)}</span></div>
+        </div>
+      </article>`;
+  }
+
+  function inlineEvidenceGallery(items) {
+    const seen = new Set();
+    const cards = items.map((item) => typeof item === 'object' ? item : {slide: item})
+      .filter((item) => {
+        const slide = slideNumbers(item.slide)[0];
+        if (!slide || seen.has(slide)) return false;
+        seen.add(slide);
+        return true;
+      })
+      .map((item) => inlineEvidenceCard(item.slide, item.evidenceId))
+      .join('');
+    return cards ? `<div class="inlineEvidenceSection"><h3>${escapeHtml(copy.inlineMaterials)}</h3><div class="inlineEvidenceGrid${seen.size > 1 ? ' multi' : ''}">${cards}</div></div>` : '';
   }
 
   function renderMarket(view) {
@@ -356,12 +375,12 @@
       <p class="scopeBoundary">${escapeHtml(copy.scoringBoundary)}</p>
       <div class="marketDecisionGrid">
         <div class="pptModule">
-          <div class="pptModuleTitle"><span>${escapeHtml(copy.volumeTitle)}</span>${evidenceButton(48, 'ev-market-volume')}</div>
+          <div class="pptModuleTitle"><span>${escapeHtml(copy.volumeTitle)}</span></div>
           <div class="volumeSeries" role="img" aria-label="${escapeHtml(copy.volumeTitle)}">${volumes}</div>
           <div class="shareStrip"><div class="shareStripHead"><span>${escapeHtml(copy.shareTitle)}</span><b>${view.market.leading_share.value}%</b></div><div class="shareBar"><span></span></div><div class="brandNames"><span>${escapeHtml(copy.shareNote)}</span></div></div>
         </div>
         <div class="pptModule">
-          <div class="pptModuleTitle"><span>${escapeHtml(copy.customerTitle)}</span>${evidenceButton(49, 'ev-customer-mix')}</div>
+          <div class="pptModuleTitle"><span>${escapeHtml(copy.customerTitle)}</span></div>
           <div class="customerMix" aria-label="${escapeHtml(copy.customerTitle)}">${customers}</div>
           <ul class="customerLegend">${customerLegend}</ul>
           <p class="sourceCaveat">${escapeHtml(narrative(view.market.customer_mix_note))}</p>
@@ -370,10 +389,11 @@
         </div>
       </div>
       <div class="transportCompare">
-        <div class="pptModuleTitle"><span>${escapeHtml(copy.transportTitle)}</span>${evidenceButton(49, 'ev-transport-regulation')}</div>
+        <div class="pptModuleTitle"><span>${escapeHtml(copy.transportTitle)}</span></div>
         <div class="transportRows">${transports}</div>
         <p class="sourceCaveat">${escapeHtml(copy.historicalPlan)}</p>
-      </div>`);
+      </div>
+      ${inlineEvidenceGallery([{slide: 48, evidenceId: 'ev-market-volume'}, {slide: 49, evidenceId: 'ev-customer-mix'}])}`);
     return section;
   }
 
@@ -393,18 +413,18 @@
           <div class="scenarioFact"><dt>${escapeHtml(copy.steps)}</dt><dd><ol>${stepsList}</ol></dd></div>
           <div class="scenarioFact"><dt>${escapeHtml(copy.finding)}</dt><dd class="scenarioFinding">${escapeHtml(narrative(record.conclusion))}</dd></div>
         </dl>
-        ${evidenceButton(record.source_slide, record.evidence_id)}
-      </div>`;
+      </div>
+      <div class="scenarioEvidence">${inlineEvidenceCard(record.source_slide, record.evidence_id)}</div>`;
   }
 
   function renderScenarios(records) {
     const section = makeSection('ppt-scenarios', copy.scenarioTitle, copy.scenarioSubtitle, copy.sourcePages);
     const tabs = records.map((record, index) => `<button type="button" role="tab" id="scenario-tab-${index}" aria-controls="scenario-stage" aria-selected="${index === 0}" data-scenario-index="${index}">${escapeHtml(text(record.title))}</button>`).join('');
-    const indexRows = records.map((record) => `<tr><td>${escapeHtml(text(record.title))}</td><td><span class="scenarioStatus status-${findingKey(record.finding_status)}">${escapeHtml(findingLabel(record.finding_status))}</span></td><td>${escapeHtml(narrative(record.conclusion))}</td><td>${evidenceButton(record.source_slide, record.evidence_id)}</td></tr>`).join('');
+    const indexRows = records.map((record) => `<tr><td>${escapeHtml(text(record.title))}</td><td><span class="scenarioStatus status-${findingKey(record.finding_status)}">${escapeHtml(findingLabel(record.finding_status))}</span></td><td>${escapeHtml(narrative(record.conclusion))}</td></tr>`).join('');
     section.insertAdjacentHTML('beforeend', `
       <div class="scenarioTabs" role="tablist" aria-label="${escapeHtml(copy.scenarioTitle)}">${tabs}</div>
       <div class="scenarioStage" id="scenario-stage" role="tabpanel" aria-live="polite">${renderScenarioBody(records[0])}</div>
-      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.scenarioIndex)}</summary><div class="scenarioIndex"><table><thead><tr><th>${escapeHtml(copy.workCondition)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.keyFinding)}</th><th>${escapeHtml(copy.evidenceColumn)}</th></tr></thead><tbody>${indexRows}</tbody></table></div></details>`);
+      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.scenarioIndex)}</summary><div class="scenarioIndex"><table><thead><tr><th>${escapeHtml(copy.workCondition)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.keyFinding)}</th></tr></thead><tbody>${indexRows}</tbody></table></div></details>`);
     section.querySelectorAll('[data-scenario-index]').forEach((button) => {
       button.addEventListener('click', () => {
         section.querySelectorAll('[data-scenario-index]').forEach((item) => item.setAttribute('aria-selected', 'false'));
@@ -423,14 +443,17 @@
     const headerModels = view.paper_comparison.models.map((model, index) => `<th class="${index === 0 ? 'xcmgColumn' : ''}">${escapeHtml(model)}</th>`).join('');
     const rows = view.paper_comparison.metrics.map((metric) => {
       const values = metric.values.map((value, index) => `<td class="${index === 0 ? 'xcmgColumn' : ''}">${escapeHtml(value)}${value !== '/' ? ` <small>${escapeHtml(metric.unit)}</small>` : ''}</td>`).join('');
-      return `<tr class="metric-${escapeHtml(metric.status)}"><th>${escapeHtml(text(metric.name))}</th>${values}<td class="metricFinding">${escapeHtml(narrative(metric.finding))}</td><td>${evidenceButton(metric.source_slide)}</td></tr>`;
+      return `<tr class="metric-${escapeHtml(metric.status)}"><th>${escapeHtml(text(metric.name))}</th>${values}<td class="metricFinding">${escapeHtml(narrative(metric.finding))}</td></tr>`;
     }).join('');
-    const configRows = view.paper_comparison.configuration_findings.map((item) => `<div class="configRow"><b>${escapeHtml(text(item.label))}</b><strong>${escapeHtml(narrative(item.xcmg))}</strong><span>${escapeHtml(narrative(item.comparison))}</span>${evidenceButton(item.source_slide)}</div>`).join('');
+    const configRows = view.paper_comparison.configuration_findings.map((item) => `<div class="configRow"><b>${escapeHtml(text(item.label))}</b><strong>${escapeHtml(narrative(item.xcmg))}</strong><span>${escapeHtml(narrative(item.comparison))}</span></div>`).join('');
+    const paperSlides = view.paper_comparison.metrics.flatMap((metric) => slideNumbers(metric.source_slide))
+      .concat(view.paper_comparison.configuration_findings.flatMap((item) => slideNumbers(item.source_slide)));
     section.insertAdjacentHTML('beforeend', `
       <p class="scopeBoundary">${escapeHtml(copy.paperBoundary)}</p>
-      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.fullPaper)}</summary><div class="comparisonMatrix"><table><thead><tr><th>${escapeHtml(copy.metric)}</th>${headerModels}<th>${escapeHtml(copy.findingColumn)}</th><th>${escapeHtml(copy.evidenceColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div></details>
+      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.fullPaper)}</summary><div class="comparisonMatrix"><table><thead><tr><th>${escapeHtml(copy.metric)}</th>${headerModels}<th>${escapeHtml(copy.findingColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div></details>
       <div class="pptModuleTitle"><span>${escapeHtml(copy.configurationTitle)}</span></div>
-      <div class="configMatrix">${configRows}</div>`);
+      <div class="configMatrix">${configRows}</div>
+      ${inlineEvidenceGallery(paperSlides)}`);
     return section;
   }
 
@@ -442,97 +465,32 @@
       const key = findingKey(record.finding_status);
       const metricName = text(fieldMetricNames[record.metric]) || record.metric;
       const validation = validationLabel(record.validation_status);
-      return `<tr><td>${escapeHtml(fieldGroup(record.metric))}</td><td><b>${escapeHtml(metricName)}</b></td><td>${escapeHtml(narrative(record.conclusion))}</td><td><span class="scenarioStatus status-${key}">${escapeHtml(copy[key])}</span></td><td><span class="validationText">${escapeHtml(validation)}</span></td><td>${evidenceButton(record.source_slide, record.evidence_id)}</td></tr>`;
+      return `<tr><td>${escapeHtml(fieldGroup(record.metric))}</td><td><b>${escapeHtml(metricName)}</b></td><td>${escapeHtml(narrative(record.conclusion))}</td><td><span class="scenarioStatus status-${key}">${escapeHtml(copy[key])}</span></td><td><span class="validationText">${escapeHtml(validation)}</span></td></tr>`;
     }).join('');
+    const fieldSlides = records.flatMap((record) => slideNumbers(record.source_slide));
     section.insertAdjacentHTML('beforeend', `
       <p class="scopeBoundary">${escapeHtml(copy.fieldBoundary)}</p>
       <div class="fieldSummary">${summary}</div>
-      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.fullField)}</summary><div class="fieldMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.conclusion)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.validation)}</th><th>${escapeHtml(copy.evidenceColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div></details>`);
+      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.fullField)}</summary><div class="fieldMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.conclusion)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.validation)}</th></tr></thead><tbody>${rows}</tbody></table></div></details>
+      ${inlineEvidenceGallery(fieldSlides)}`);
     return section;
   }
 
-  function renderActions(roadmap, portfolio, slides) {
+  function renderActions(roadmap, portfolio) {
     const section = makeSection('ppt-actions', copy.actionTitle, copy.actionSubtitle, copy.source6768);
-    const rows = roadmap.map((record) => `<div class="roadmapRow" data-priority="${escapeHtml(record.priority)}"><span class="roadmapPriority">${escapeHtml(record.priority)}</span><span class="roadmapTopic">${escapeHtml(text(roadmapTopics[record.id]) || record.id)}</span><span class="roadmapAction">${escapeHtml(narrative(record.action))}</span><span class="roadmapValidation">${escapeHtml(copy.verifyRequired)}</span>${evidenceButton(record.source_slide)}</div>`).join('');
+    const rows = roadmap.map((record) => `<div class="roadmapRow" data-priority="${escapeHtml(record.priority)}"><span class="roadmapPriority">${escapeHtml(record.priority)}</span><span class="roadmapTopic">${escapeHtml(text(roadmapTopics[record.id]) || record.id)}</span><span class="roadmapAction">${escapeHtml(narrative(record.action))}</span><span class="roadmapValidation">${escapeHtml(copy.verifyRequired)}</span></div>`).join('');
     const portfolioGap = portfolio.find((record) => record.id === 'portfolio-current-gap');
     const positioning = portfolio.find((record) => record.id === 'portfolio-positioning');
     const target = portfolio.find((record) => record.id === 'portfolio-historical-target');
-    const evidenceButtons = slides.map((record) => `<button type="button" data-slide="${record.source_slide}"><b>${escapeHtml(text(record[language]?.title || record.zh?.title || record.conclusion))}</b><span>${escapeHtml(copy.evidence)}</span></button>`).join('');
     section.insertAdjacentHTML('beforeend', `
       <p class="scopeBoundary">${escapeHtml(copy.actionBoundary)}</p>
       <div class="roadmapTable">${rows}</div>
       <div class="portfolioNote">
-        <div><b>${escapeHtml(copy.portfolio)}</b><p>${escapeHtml(narrative(portfolioGap?.conclusion))}</p>${evidenceButton(portfolioGap?.source_slide || 67, portfolioGap?.evidence_id)}</div>
-        <div><b>${escapeHtml(copy.historicalPositioning)}</b><p>${escapeHtml([narrative(positioning?.conclusion), narrative(target?.conclusion)].filter(Boolean).join(' '))}</p>${evidenceButton(68, 'ev-positioning-target')}</div>
+        <div><b>${escapeHtml(copy.portfolio)}</b><p>${escapeHtml(narrative(portfolioGap?.conclusion))}</p></div>
+        <div><b>${escapeHtml(copy.historicalPositioning)}</b><p>${escapeHtml([narrative(positioning?.conclusion), narrative(target?.conclusion)].filter(Boolean).join(' '))}</p></div>
       </div>
-      <details class="evidenceIndex"><summary>${escapeHtml(copy.evidenceIndex)}</summary><div class="evidenceButtons">${evidenceButtons}</div></details>`);
+      ${inlineEvidenceGallery([{slide: 67, evidenceId: portfolioGap?.evidence_id}, {slide: 68, evidenceId: 'ev-positioning-target'}])}`);
     return section;
-  }
-
-  function installDrawer() {
-    document.body.insertAdjacentHTML('beforeend', `
-      <div class="evidenceOverlay" aria-hidden="true"></div>
-      <aside class="evidenceDrawer" aria-hidden="true" aria-labelledby="evidence-drawer-title">
-        <div class="evidenceDrawerHead"><h2 id="evidence-drawer-title">${escapeHtml(copy.drawerTitle)}</h2><button type="button" class="drawerClose" aria-label="${escapeHtml(copy.close)}">×</button></div>
-        <div class="evidenceDrawerBody"></div>
-      </aside>`);
-    document.querySelector('.drawerClose').addEventListener('click', closeDrawer);
-    document.querySelector('.evidenceOverlay').addEventListener('click', closeDrawer);
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeDrawer(); });
-    document.addEventListener('click', (event) => {
-      const button = event.target.closest('[data-slide]');
-      if (!button || button.closest('.volumeColumn')) return;
-      const slide = Number(button.dataset.slide);
-      if (slide) openEvidence(slide, button.dataset.evidenceId || '');
-    });
-  }
-
-  function openEvidence(slide, evidenceId) {
-    const drawer = document.querySelector('.evidenceDrawer');
-    const overlay = document.querySelector('.evidenceOverlay');
-    const body = drawer.querySelector('.evidenceDrawerBody');
-    const slideRecord = state.data.slides.records.find((record) => Number(record.source_slide) === Number(slide));
-    const evidence = state.data.evidence.records.find((record) => record.id === evidenceId) || state.data.evidence.records.find((record) => (Array.isArray(record.source_slide) ? record.source_slide : [record.source_slide]).includes(slide));
-    if (!slideRecord) return;
-    const conclusion = narrative(evidence?.conclusion || slideRecord.conclusion);
-    const title = text(slideRecord[language]?.title || slideRecord.zh?.title || slideRecord.conclusion);
-    const raw = slideRecord.zh?.raw_text || (slideRecord.zh?.paragraphs || []).join('\n');
-    const sourceType = evidence?.source_type || slideRecord.source_type;
-    const asOf = evidence?.as_of_date || slideRecord.as_of_date;
-    const temporal = statusLabel(evidence?.status || slideRecord.status);
-    const validation = validationLabel(evidence?.validation_status || slideRecord.validation_status);
-    body.innerHTML = `
-      <img class="evidenceSlideImage" src="ppt-integration-demo/${escapeHtml(slideRecord.thumbnail)}" alt="${escapeHtml(title)}">
-      <dl class="evidenceMeta">
-        <div><dt>${escapeHtml(copy.page)}</dt><dd>${escapeHtml(pageText(slide))}</dd></div>
-        <div><dt>${escapeHtml(copy.sourceType)}</dt><dd>${escapeHtml(sourceTypeLabel(sourceType))}</dd></div>
-        <div><dt>${escapeHtml(copy.dataDate)}</dt><dd>${escapeHtml(asOf)}</dd></div>
-        <div><dt>${escapeHtml(copy.temporalStatus)}</dt><dd>${escapeHtml(temporal)}</dd></div>
-        <div><dt>${escapeHtml(copy.validationStatus)}</dt><dd>${escapeHtml(validation)}</dd></div>
-      </dl>
-      <div class="evidenceConclusion"><b>${escapeHtml(title)}</b><br>${escapeHtml(conclusion)}</div>
-      <label class="evidenceRawLabel" for="evidence-raw">${escapeHtml(copy.rawText)}</label>
-      <textarea id="evidence-raw" class="evidenceRaw" readonly></textarea>`;
-    body.querySelector('.evidenceRaw').value = raw;
-    state.lastFocus = document.activeElement;
-    drawer.classList.add('open');
-    overlay.classList.add('open');
-    drawer.setAttribute('aria-hidden', 'false');
-    overlay.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('evidenceOpen');
-    drawer.querySelector('.drawerClose').focus();
-  }
-
-  function closeDrawer() {
-    const drawer = document.querySelector('.evidenceDrawer');
-    const overlay = document.querySelector('.evidenceOverlay');
-    if (!drawer?.classList.contains('open')) return;
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-    drawer.setAttribute('aria-hidden', 'true');
-    overlay.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('evidenceOpen');
-    state.lastFocus?.focus?.();
   }
 
   function setupSupplementDisclosures() {
@@ -577,12 +535,11 @@
       document.querySelector('#conditions')?.after(scenarios, paper);
 
       const field = renderField(state.data.fieldEvaluation.records);
-      const actions = renderActions(state.data.roadmap.records, state.data.portfolio.records, state.data.slides.records);
+      const actions = renderActions(state.data.roadmap.records, state.data.portfolio.records);
       document.querySelector('#cond6')?.after(field, actions);
 
-      installDrawer();
       setupSupplementDisclosures();
-      window.XCMGPPTIntegration = {language, data: state.data, openEvidence};
+      window.XCMGPPTIntegration = {language, data: state.data};
     } catch (error) {
       const section = makeSection('ppt-load-error', copy.marketTitle, '', copy.sourcePages);
       section.innerHTML += `<p class="scopeBoundary">${escapeHtml(copy.loadError)}</p>`;
