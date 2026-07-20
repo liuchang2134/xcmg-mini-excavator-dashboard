@@ -1,6 +1,8 @@
-# XCMG ARC 3-4 t PPT Integration Prototype
+# XCMG ARC 3-4 t Integrated PPT Prototype
 
-This directory is an isolated, local-only prototype. It maps PPT pages 48-68 into a bilingual web experience without changing the formal benchmark site or its scores.
+This is an isolated, local-only prototype. It keeps the formal 3-4 t benchmark as the page foundation and adds PPT slides 48-68 as market, customer, transport, application, field-evaluation, improvement and evidence modules.
+
+Only one additional page is retained for cross-tonnage excavator analysis using PPT slides 3-15.
 
 ## Local preview
 
@@ -14,6 +16,7 @@ Open:
 
 ```text
 http://127.0.0.1:4174/ppt-integration-demo/index.html
+http://127.0.0.1:4174/ppt-integration-demo/excavator-overview.html
 ```
 
 ## Validation
@@ -21,17 +24,13 @@ http://127.0.0.1:4174/ppt-integration-demo/index.html
 ```powershell
 python ppt-integration-demo/tests/test_demo.py
 cd ppt-integration-demo
-npm install --ignore-scripts
 npm run test:browser -- http://127.0.0.1:4174/ppt-integration-demo/
 ```
 
-The browser check uses an installed Microsoft Edge or Google Chrome executable. Set `XCMG_QA_BROWSER` when the browser is installed in a non-standard location.
-
 ## Boundaries
 
-- Scope is limited to the 3-4 t prototype and PPT pages 48-68.
-- Existing benchmark calculations remain in the formal 3-4 t page and are not recalculated here.
-- Field findings use qualitative states only: strength, gap, pending validation or not covered.
-- Historical plans are not presented as completed current-state results.
+- Formal site pages, formal scoring and `main` are unchanged.
+- The 3-4 t PPT scope is pages 48-68; the category overview uses pages 3-15.
+- Field findings are qualitative only: advantage, gap, pending validation or not covered.
+- Historical plans, forecasts and targets are not presented as current results.
 - Do not publish this directory through the public GitHub Pages entry.
-

@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "id": "ppt-3-4t-integrated-view",
+    "tonnage": "3-4t",
+    "model": "XCMG XE35U",
+    "classification": "XCMG ARC INTERNAL",
+    "source_slides": [48, 68],
+    "scoring_boundary": {
+      "zh": "本文件只补充市场、客户、工况和实机资料，不改变现有参数、配置及六类工况评分。",
+      "en": "This dataset supplements market, customer, application and field information only. It does not change the existing specification, equipment or six-condition scores."
+    }
+  },
+  "market": {
+    "volume": [
+      {"year": "2023", "units": 6663, "type": "historical", "source_slide": 48},
+      {"year": "2024", "units": 6107, "type": "historical", "source_slide": 48},
+      {"year": "2025", "units": 6495, "type": "source_estimate", "source_slide": 48},
+      {"year": "2026", "units": 6625, "type": "source_forecast", "source_slide": 48}
+    ],
+    "leading_share": {
+      "value": 74,
+      "brands": ["Kubota", "John Deere", "Bobcat", "Caterpillar"],
+      "source_slide": 48,
+      "status": "historical_source_statement"
+    },
+    "customer_mix": [
+      {"id": "contractor", "value": 40, "label": {"zh": "中小承包商", "en": "Small and midsize contractors"}},
+      {"id": "rental", "value": 30, "label": {"zh": "租赁商", "en": "Rental companies"}},
+      {"id": "municipal", "value": 15, "label": {"zh": "市政及公用事业", "en": "Municipalities and utilities"}},
+      {"id": "agriculture", "value": 5, "label": {"zh": "农业客户", "en": "Agricultural users"}}
+    ],
+    "customer_mix_note": {
+      "zh": "PPT明确列出的四类客户合计90%，剩余10%未在源页说明，不作推断。",
+      "en": "The four customer groups explicitly listed in the source total 90%. The remaining 10% is not described and is not inferred."
+    },
+    "purchase_logic": [
+      {"zh": "皮卡与14K拖车组合下的运输余量", "en": "Payload margin with a pickup and 14K trailer"},
+      {"zh": "非专业机手的操控易用性与稳定性", "en": "Ease of use and stability for non-professional operators"},
+      {"zh": "铲斗、拇指钳、破碎锤和高流量属具覆盖", "en": "Coverage for buckets, thumb, breaker and high-flow attachments"},
+      {"zh": "可靠性、维修便利性、舒适性与残值", "en": "Reliability, serviceability, comfort and residual value"}
+    ],
+    "transport": [
+      {
+        "id": "current",
+        "label": {"zh": "XE35U现款（PPT口径）", "en": "Current XE35U (PPT basis)"},
+        "base_kg": 4200,
+        "equipped_kg": 4579,
+        "status": "historical_assessment",
+        "source_slide": 49
+      },
+      {
+        "id": "historical_pro",
+        "label": {"zh": "XE35U PRO历史方案", "en": "Historical XE35U PRO proposal"},
+        "base_kg": 3800,
+        "equipped_kg": 4179,
+        "status": "historical_plan_unverified",
+        "source_slide": 49
+      }
+    ]
+  },
+  "paper_comparison": {
+    "models": ["XCMG XE35U", "Kubota U35-4", "Kubota KX033-4", "Kubota KX030-4", "SANY SY35U"],
+    "metrics": [
+      {
+        "id": "operating-weight",
+        "name": {"zh": "操作重量", "en": "Operating weight"},
+        "unit": "kg",
+        "direction": "lower",
+        "values": ["4200", "3687-4080", "3365-3764", "2845/2915", "3795/3855"],
+        "finding": {"zh": "XCMG重量偏高，典型附件组合会进一步压缩拖车载荷余量。", "en": "XCMG is heavier, and a representative attachment package further reduces trailer payload margin."},
+        "status": "gap",
+        "source_slide": 59
+      },
+      {
+        "id": "transport-width",
+        "name": {"zh": "整机运输宽度", "en": "Transport width"},
+        "unit": "mm",
+        "direction": "lower",
+        "values": ["1740", "1700", "1550", "1500", "1720"],
+        "finding": {"zh": "XCMG较KX033-4宽190 mm，受限场地与拖车布置灵活性较弱。", "en": "XCMG is 190 mm wider than the KX033-4, reducing flexibility in confined sites and trailer packaging."},
+        "status": "gap",
+        "source_slide": 59
+      },
+      {
+        "id": "transport-length",
+        "name": {"zh": "整机运输长度", "en": "Transport length"},
+        "unit": "mm",
+        "direction": "lower",
+        "values": ["4970", "4749", "4730", "4600", "4910"],
+        "finding": {"zh": "XCMG为五款样机中最长，需结合快换、铲斗和拖车甲板重新核算总包络。", "en": "XCMG is the longest of the five machines and requires a complete package review with coupler, bucket and trailer deck."},
+        "status": "gap",
+        "source_slide": 59
+      },
+      {
+        "id": "dig-depth",
+        "name": {"zh": "最大挖掘深度", "en": "Maximum digging depth"},
+        "unit": "mm",
+        "direction": "higher",
+        "values": ["3060", "2970", "3210", "2980", "3105"],
+        "finding": {"zh": "XCMG较KX033-4浅150 mm，深沟和基础开挖能力存在明确差距。", "en": "XCMG is 150 mm shallower than the KX033-4, creating a documented gap in deep trench and foundation work."},
+        "status": "gap",
+        "source_slide": 59
+      },
+      {
+        "id": "arm-force",
+        "name": {"zh": "斗杆挖掘力", "en": "Arm digging force"},
+        "unit": "kN",
+        "direction": "higher",
+        "values": ["20.3", "19.8", "17.2", "15.5", "18.3"],
+        "finding": {"zh": "XCMG为源页五款产品最高，是沟槽和硬土开挖的纸面优势。", "en": "XCMG is highest among the five products in the source, a paper advantage for trenching and firm-soil excavation."},
+        "status": "advantage",
+        "source_slide": 61
+      },
+      {
+        "id": "bucket-force",
+        "name": {"zh": "铲斗挖掘力", "en": "Bucket digging force"},
+        "unit": "kN",
+        "direction": "higher",
+        "values": ["28.6", "35.2", "36.2", "30.8", "28.4"],
+        "finding": {"zh": "XCMG较KX033-4低7.6 kN，重挖与破碎前置清料能力弱于标杆。", "en": "XCMG is 7.6 kN below the KX033-4, reducing paper capability for heavy excavation and pre-breaker material handling."},
+        "status": "gap",
+        "source_slide": 61
+      },
+      {
+        "id": "lift-3m",
+        "name": {"zh": "地面3 m起吊力", "en": "Ground-level lift at 3 m"},
+        "unit": "kg",
+        "direction": "higher",
+        "values": ["1145", "/", "973", "/", "727"],
+        "finding": {"zh": "在源页可比数据中XCMG最高，但应核对推土铲位置、回转方向和测试口径。", "en": "XCMG is highest among the comparable source values, but blade position, lifting direction and test basis require verification."},
+        "status": "advantage_pending_validation",
+        "source_slide": 61
+      },
+      {
+        "id": "travel-speed",
+        "name": {"zh": "行驶速度", "en": "Travel speed"},
+        "unit": "km/h",
+        "direction": "higher",
+        "values": ["2.2/3.6", "3.0/4.6", "3.0/4.6", "2.7/4.3", "2.4/4.4"],
+        "finding": {"zh": "XCMG高速档较久保田低1.0 km/h，影响场内转场和租赁通用性。", "en": "XCMG high range is 1.0 km/h below Kubota, affecting jobsite relocation and rental versatility."},
+        "status": "gap",
+        "source_slide": 61
+      },
+      {
+        "id": "aux1-flow",
+        "name": {"zh": "AUX1最大流量", "en": "Maximum AUX1 flow"},
+        "unit": "L/min",
+        "direction": "higher",
+        "values": ["40", "60", "60", "49.5", "70"],
+        "finding": {"zh": "XCMG较久保田低20 L/min，开带机、割草机等高流量属具适配受限。", "en": "XCMG is 20 L/min below Kubota, limiting compatibility with higher-flow brush cutters and mowers."},
+        "status": "gap",
+        "source_slide": 61
+      }
+    ],
+    "configuration_findings": [
+      {"id": "aux2", "label": {"zh": "AUX2管路", "en": "AUX2 plumbing"}, "xcmg": {"zh": "标配", "en": "Standard"}, "comparison": {"zh": "优于源页久保田与三一配置", "en": "Stronger provision than the source Kubota and SANY configurations"}, "status": "advantage", "source_slide": 60},
+      {"id": "long-arm", "label": {"zh": "长斗杆", "en": "Long arm"}, "xcmg": {"zh": "选配1600 mm", "en": "Optional 1,600 mm"}, "comparison": {"zh": "扩大作业范围，但KX033-4可选伸缩工装", "en": "Extends working range, while KX033-4 offers telescopic equipment"}, "status": "mixed", "source_slide": 60},
+      {"id": "case-drain", "label": {"zh": "卸油管路", "en": "Case-drain line"}, "xcmg": {"zh": "资料未配置", "en": "Not listed in source"}, "comparison": {"zh": "久保田配置，影响破碎锤背压与油泄管理", "en": "Listed on Kubota; relevant to breaker back pressure and case-drain management"}, "status": "gap", "source_slide": 60},
+      {"id": "tail-portfolio", "label": {"zh": "尾部型谱", "en": "Tail architecture"}, "xcmg": {"zh": "仅短尾", "en": "Short-tail only"}, "comparison": {"zh": "久保田覆盖短尾、常规尾与低配常规尾", "en": "Kubota spans short-tail, conventional-tail and lower-spec conventional-tail"}, "status": "gap", "source_slide": 48}
+    ]
+  }
+}

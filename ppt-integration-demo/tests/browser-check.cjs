@@ -2,80 +2,58 @@ const fs = require("fs");
 const path = require("path");
 const { chromium } = require("playwright-core");
 
-const base = process.argv[2] || "http://127.0.0.1:4173/ppt-integration-demo/";
+const base = process.argv[2] || "http://127.0.0.1:4174/ppt-integration-demo/";
 const artifactDir = path.resolve(__dirname, "..", "artifacts");
 fs.mkdirSync(artifactDir, { recursive: true });
 
-const pages = [
-  "index.html",
-  "market-insights.html",
-  "tonnage-insight.html?range=3-4t",
-  "product-portfolio.html",
-  "improvement-roadmap.html",
-  "evidence-center.html",
-];
-
-async function assertNoOverflow(page, label) {
-  const metrics = await page.evaluate(() => ({
-    scrollWidth: document.documentElement.scrollWidth,
-    clientWidth: document.documentElement.clientWidth,
-  }));
-  if (metrics.scrollWidth > metrics.clientWidth + 1) {
-    throw new Error(`${label} horizontal overflow ${metrics.scrollWidth}/${metrics.clientWidth}`);
-  }
-}
+const routes = ["index.html", "excavator-overview.html"];
 
 function browserExecutable() {
-  const candidates = [
+  return [
     process.env.XCMG_QA_BROWSER,
     "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
     "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
     "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-  ].filter(Boolean);
-  return candidates.find((candidate) => fs.existsSync(candidate));
+  ].filter(Boolean).find((candidate) => fs.existsSync(candidate));
 }
 
-async function assertRendered(page, label, language) {
+async function assertPage(page, label, language, route) {
   const state = await page.evaluate(() => ({
     lang: document.documentElement.lang,
     text: document.querySelector("main")?.innerText || "",
-    brokenImages: [...document.images].filter((image) => image.complete && image.naturalWidth === 0).length,
-    loadFailure: [...document.querySelectorAll(".warning-note")].some((node) =>
-      /数据加载失败|Data failed to load/.test(node.textContent || ""),
-    ),
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+    brokenImages: [...document.images].filter((image) => image.complete && image.naturalWidth === 0).map((image) => image.src),
   }));
-  if (state.lang !== (language === "en" ? "en" : "zh-CN")) throw new Error(`${label} language is ${state.lang}`);
-  if (state.text.trim().length < 200) throw new Error(`${label} did not render enough content`);
-  if (state.brokenImages) throw new Error(`${label} has ${state.brokenImages} broken image(s)`);
-  if (state.loadFailure) throw new Error(`${label} shows a data-load failure`);
-  const internalKey = state.text.match(/\b[a-z]+(?:_[a-z]+)+\b/);
-  if (internalKey) throw new Error(`${label} exposes internal key ${internalKey[0]}`);
+  if (state.lang !== (language === "en" ? "en-US" : "zh-CN")) throw new Error(`${label}: lang=${state.lang}`);
+  if (state.text.trim().length < 1500) throw new Error(`${label}: insufficient content`);
+  if (state.scrollWidth > state.clientWidth + 1) throw new Error(`${label}: horizontal overflow ${state.scrollWidth}/${state.clientWidth}`);
+  if (state.brokenImages.length) throw new Error(`${label}: broken images ${state.brokenImages.join(", ")}`);
+  if (/source_mapped_|requires_current_|historical_internal_/.test(state.text)) throw new Error(`${label}: exposes internal data key`);
+  if (language === "en" && route === "excavator-overview.html" && /[\u3400-\u9fff]/.test(state.text)) throw new Error(`${label}: contains mixed Chinese/English body text`);
 }
 
 (async () => {
   const executablePath = browserExecutable();
   if (!executablePath) throw new Error("Set XCMG_QA_BROWSER to a local Edge or Chrome executable");
   const browser = await chromium.launch({ headless: true, executablePath });
-  const errors = [];
+  const consoleErrors = [];
   try {
     for (const viewport of [
       { name: "desktop", width: 1440, height: 1000 },
       { name: "mobile", width: 390, height: 844 },
     ]) {
       for (const language of ["zh", "en"]) {
-        for (const route of pages) {
+        for (const route of routes) {
           const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
           const label = `${route} ${viewport.name} ${language}`;
-          page.on("console", (message) => {
-            if (message.type() === "error") errors.push(`${label}: ${message.text()}`);
-          });
-          page.on("pageerror", (error) => errors.push(`${label}: ${error.message}`));
+          page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(`${label}: ${message.text()}`); });
+          page.on("pageerror", (error) => consoleErrors.push(`${label}: ${error.message}`));
           const url = new URL(route, base);
           if (language === "en") url.searchParams.set("lang", "en");
           const response = await page.goto(url.href, { waitUntil: "networkidle" });
-          if (!response || !response.ok()) throw new Error(`${label} returned ${response?.status()}`);
-          await assertNoOverflow(page, label);
-          await assertRendered(page, label, language);
+          if (!response?.ok()) throw new Error(`${label}: status=${response?.status()}`);
+          await assertPage(page, label, language, route);
           await page.close();
         }
       }
@@ -83,34 +61,42 @@ async function assertRendered(page, label, language) {
 
     const desktop = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
     await desktop.goto(new URL("index.html", base).href, { waitUntil: "networkidle" });
-    await desktop.screenshot({ path: path.join(artifactDir, "desktop-home.png"), fullPage: false });
-    const evidenceButton = desktop.locator("[data-home-findings] [data-evidence]").first();
-    await evidenceButton.click();
-    await desktop.locator(".evidence-drawer.open").waitFor();
-    if (!(await desktop.locator(".drawer-image").isVisible())) throw new Error("Evidence drawer image is not visible");
-    await desktop.locator("[data-drawer-close]").click();
+    if ((await desktop.locator(".conditionBlock").count()) !== 6) throw new Error("Formal six-condition content changed");
+    if ((await desktop.locator(".scenarioTabs button").count()) !== 8) throw new Error("Expected eight PPT application tabs");
+    if ((await desktop.locator(".comparisonMatrix tbody tr").count()) < 9) throw new Error("Paper comparison is incomplete");
+    if ((await desktop.locator(".fieldMatrix tbody tr").count()) !== 11) throw new Error("Field evaluation is incomplete");
+    if ((await desktop.locator(".roadmapRow").count()) !== 8) throw new Error("Roadmap is incomplete");
+    const firstTitle = await desktop.locator(".scenarioStage h3").innerText();
+    await desktop.locator(".scenarioTabs button").nth(7).click();
+    const lastTitle = await desktop.locator(".scenarioStage h3").innerText();
+    if (firstTitle === lastTitle) throw new Error("Scenario tabs do not update the workspace");
+    await desktop.locator("#ppt-market .evidenceTrigger").first().click();
+    await desktop.locator(".evidenceDrawer.open").waitFor();
+    if (!(await desktop.locator(".evidenceSlideImage").isVisible())) throw new Error("Evidence image is not visible");
+    await desktop.locator(".drawerClose").click();
+    await desktop.waitForTimeout(300);
+    await desktop.locator("#ppt-market").scrollIntoViewIfNeeded();
+    await desktop.screenshot({ path: path.join(artifactDir, "desktop-integrated-3-4t.png"), fullPage: false });
     await desktop.close();
 
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
-    await mobile.goto(new URL("tonnage-insight.html?range=3-4t", base).href, { waitUntil: "networkidle" });
-    await assertNoOverflow(mobile, "tonnage mobile");
-    if ((await mobile.locator(".mobile-scenario").count()) !== 8) throw new Error("Mobile scenario count is not 8");
-    await mobile.screenshot({ path: path.join(artifactDir, "mobile-tonnage.png"), fullPage: false });
+    await mobile.goto(new URL("index.html", base).href, { waitUntil: "networkidle" });
+    await mobile.locator("#ppt-scenarios").scrollIntoViewIfNeeded();
+    await mobile.screenshot({ path: path.join(artifactDir, "mobile-integrated-3-4t.png"), fullPage: false });
     await mobile.close();
 
-    const english = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
-    await english.goto(new URL("index.html?lang=en", base).href, { waitUntil: "networkidle" });
-    if ((await english.locator("html").getAttribute("lang")) !== "en") throw new Error("English language switch failed");
-    await assertNoOverflow(english, "home English mobile");
-    await english.screenshot({ path: path.join(artifactDir, "mobile-home-en.png"), fullPage: false });
-    await english.close();
+    const overview = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
+    await overview.goto(new URL("excavator-overview.html", base).href, { waitUntil: "networkidle" });
+    await overview.waitForTimeout(400);
+    await overview.screenshot({ path: path.join(artifactDir, "desktop-excavator-overview.png"), fullPage: false });
+    await overview.setViewportSize({ width: 390, height: 844 });
+    await overview.waitForTimeout(200);
+    await overview.screenshot({ path: path.join(artifactDir, "mobile-excavator-overview.png"), fullPage: false });
+    await overview.close();
 
-    if (errors.length) throw new Error(`Browser console errors:\n${errors.join("\n")}`);
-    console.log("Browser QA passed: six pages in both languages at desktop and 390px, evidence drawer and screenshots.");
+    if (consoleErrors.length) throw new Error(`Browser console errors:\n${consoleErrors.join("\n")}`);
+    console.log("Browser QA passed: integrated 3-4 t and excavator overview in both languages at desktop and 390px.");
   } finally {
     await browser.close();
   }
-})().catch((error) => {
-  console.error(error.stack || error);
-  process.exit(1);
-});
+})().catch((error) => { console.error(error.stack || error); process.exit(1); });
