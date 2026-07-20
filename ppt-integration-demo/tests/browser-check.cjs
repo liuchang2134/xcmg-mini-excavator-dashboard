@@ -96,6 +96,23 @@ async function assertPage(page, label, language, route) {
     await overview.screenshot({ path: path.join(artifactDir, "mobile-excavator-overview.png"), fullPage: false });
     await overview.close();
 
+    const zoomedOverview = await browser.newPage({ viewport: { width: 1000, height: 800 }, deviceScaleFactor: 1 });
+    await zoomedOverview.goto(new URL("excavator-overview.html", base).href, { waitUntil: "networkidle" });
+    const zoomedLayout = await zoomedOverview.evaluate(() => {
+      const sidebar = document.querySelector("aside.nav");
+      const menu = document.querySelector("#page-nav");
+      return {
+        layout: getComputedStyle(document.querySelector(".layout")).display,
+        sidebarPosition: getComputedStyle(sidebar).position,
+        sidebarWidth: sidebar.getBoundingClientRect().width,
+        menuDisplay: getComputedStyle(menu).display,
+        overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+      };
+    });
+    if (zoomedLayout.layout !== "grid" || zoomedLayout.sidebarPosition !== "sticky" || zoomedLayout.sidebarWidth < 200 || zoomedLayout.menuDisplay === "none") throw new Error(`Zoomed overview lost its sidebar: ${JSON.stringify(zoomedLayout)}`);
+    if (zoomedLayout.overflow) throw new Error("Zoomed overview has horizontal overflow");
+    await zoomedOverview.close();
+
     if (consoleErrors.length) throw new Error(`Browser console errors:\n${consoleErrors.join("\n")}`);
     console.log("Browser QA passed: integrated 3-4 t and excavator overview in both languages at desktop and 390px.");
   } finally {

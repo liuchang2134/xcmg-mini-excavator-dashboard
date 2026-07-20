@@ -187,4 +187,17 @@ body.evidenceOpen{overflow:hidden}
   .evidenceMeta{grid-template-columns:1fr}.evidenceButtons{grid-template-columns:1fr 1fr}
   .overviewDecisionRow{grid-template-columns:1fr auto}.overviewDecisionRow p{grid-column:1/-1}
 }
+@media(min-width:56.25rem) and (max-width:75rem){
+  .pptOverviewPage .layout{display:grid;grid-template-columns:220px minmax(0,1fr)}
+  .pptOverviewPage aside.nav{position:sticky;top:0;display:block;height:100vh;overflow:auto;padding:18px 14px;border-right:5px solid var(--yellow);border-bottom:0}
+  .pptOverviewPage .nav img{width:104px;padding:5px}
+  .pptOverviewPage .navTitle{margin:10px 0 6px;font-size:16px}
+  .pptOverviewPage .nav small{font-size:10px}
+  .pptOverviewPage .languageToggle{margin:10px 0}
+  .pptOverviewPage .navToggle,.pptOverviewPage .mobileTop{display:none}
+  .pptOverviewPage .navMenu{display:block;max-height:none;overflow:visible;padding-top:0}
+  .pptOverviewPage .navMenu .home{margin:12px 0}
+  .pptOverviewPage main{padding:16px}
+  .pptOverviewPage section,.pptOverviewPage .hero{scroll-margin-top:0}
+}
 @media(prefers-reduced-motion:reduce){.evidenceOverlay,.evidenceDrawer{transition:none}}
