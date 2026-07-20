@@ -11,12 +11,12 @@
   const ui = {
     zh: {
       evidence: '查看依据', slide: '第', slideSuffix: '页', drawer: '结论依据', close: '关闭',
-      sourceType: '来源类型', date: '数据时间', temporal: '时间属性', validation: '验证状态', raw: 'PPT原始文字',
+      sourceType: '来源类型', date: '数据时间', temporal: '时间属性', validation: '验证状态', raw: '原始记录',
       verify: '需按当前市场、政策或产品版本复核'
     },
     en: {
       evidence: 'View evidence', slide: 'Slide ', slideSuffix: '', drawer: 'Evidence', close: 'Close',
-      sourceType: 'Source type', date: 'Data date', temporal: 'Temporal status', validation: 'Validation status', raw: 'Original PPT wording',
+      sourceType: 'Source type', date: 'Data date', temporal: 'Temporal status', validation: 'Validation status', raw: 'Original record',
       verify: 'Current market, policy or product-version validation required'
     }
   }[language];
@@ -36,6 +36,8 @@
     ['集中呈现不能归入单一吨级的行业周期、竞争格局、战略标杆和核心吨级结构；具体参数、配置和工况仍在对应吨级看板中分析。', 'Consolidates industry-cycle, competitive-landscape, strategic-benchmark and core-tonnage content that cannot be assigned to one class. Specifications, equipment and applications remain in the corresponding tonnage benchmark.'],
     ['XCMG ARC内部资料：', 'XCMG ARC INTERNAL:'],
     ['市场数字保留PPT原有时间属性，历史判断和预测不视为当前事实。', 'Market figures retain the original PPT time basis; historical assessments and forecasts are not presented as current facts.'],
+    ['数据口径：', 'Data basis:'],
+    ['市场数据按形成时间展示，历史判断和预测不视为当前事实。', 'Market data is shown on its original time basis; historical assessments and forecasts are not presented as current facts.'],
     ['整体分析概览', 'Overall Analysis Overview'],
     ['2025市场规模历史预测', 'Historical 2025 market forecast'],
     ['台', 'units'],
@@ -45,11 +47,24 @@
     ['XCMG历史排名', 'Historical XCMG rank'],
     ['0–10吨 / 10吨以上', '0–10 t / above 10 t'],
     ['需求调整、品牌集中度和吨级结构共同决定产品对标优先级。PPT来源：第9–12页。', 'Demand adjustment, brand concentration and tonnage mix jointly determine benchmarking priority. PPT source: slides 9–12.'],
+    ['需求调整、品牌集中度和吨级结构共同决定产品对标优先级。', 'Demand adjustment, brand concentration and tonnage mix jointly determine benchmarking priority.'],
+    ['品牌集中度', 'Brand concentration'],
+    ['前十品牌合计', 'Combined top-ten share'],
+    ['10吨以上', 'Above 10 t'],
+    ['成熟品牌在产品、渠道、融资、租赁和残值体系上形成综合竞争门槛。', 'Established brands create a combined competitive barrier through products, distribution, finance, rental support and residual value.'],
+    ['XCMG历史市场位置', 'Historical XCMG market position'],
+    ['第19', 'No. 19'],
+    ['第18', 'No. 18'],
+    ['历史市场快照', 'Historical market snapshot'],
+    ['品牌位置需结合最新销量、经销覆盖和重点客户渗透情况持续更新。', 'Update brand position using the latest sales, dealer coverage and penetration of priority accounts.'],
     ['竞争集中度与市场格局', 'Competitive concentration and market structure'],
     ['品牌份额与XCMG位置', 'Brand share and XCMG position'],
     ['只保留会影响产品规划、区域投入和市场准入的因素。PPT来源：第3–8页。', 'Retain only factors that affect product planning, regional investment and market access. PPT source: slides 3–8.'],
+    ['只保留会影响产品规划、区域投入和市场准入的因素。', 'Retain only factors that affect product planning, regional investment and market access.'],
     ['微小挖与中大挖采用不同标杆，不把一个品牌的优势机械复制到所有吨级。PPT来源：第13–14页。', 'Use different benchmarks for mini/compact and mid/large excavators rather than copying one brand across every tonnage class. PPT source: slides 13–14.'],
+    ['微小挖与中大挖采用不同标杆，不把一个品牌的优势机械复制到所有吨级。', 'Use different benchmarks for mini/compact and mid/large excavators rather than copying one brand across every tonnage class.'],
     ['用于确定对标资产建设顺序，销量与降幅需按最新AEM/EDA数据复核。PPT来源：第15页。', 'Use this structure to prioritize benchmark assets. Volumes and declines require the latest AEM/EDA validation. PPT source: slide 15.'],
+    ['用于确定对标资产建设顺序，销量与降幅需按最新AEM/EDA数据复核。', 'Use this structure to prioritize benchmark assets. Volumes and declines require the latest AEM/EDA validation.'],
     ['微挖', 'Mini excavators'],
     ['0–4吨', '0–4 t'],
     ['核心：3–4、1–2、2–3吨', 'Core: 3–4, 1–2 and 2–3 t'],
@@ -63,6 +78,8 @@
     ['33吨以上', 'Above 33 t'],
     ['核心：33–40、40–50吨', 'Core: 33–40 and 40–50 t'],
     ['点击页码查看PPT第3–15页原页、原始文字、时间属性和验证状态。', 'Select a slide to inspect the original pages 3–15, source wording, temporal status and validation state.'],
+    ['数据依据', 'Data Evidence'],
+    ['点击记录查看原始图表、数据时间、历史状态和当前验证要求。', 'Select a record to inspect the source chart, data date, historical status and current validation requirement.'],
     ['回到页面顶部', 'Return to page top'],
     ['回到顶部', 'Back to top']
   ]);
@@ -71,6 +88,25 @@
     if (value == null) return '';
     if (typeof value === 'object' && ('zh' in value || 'en' in value)) return value[language] || value.zh || value.en || '';
     return String(value);
+  }
+
+  function narrative(value) {
+    let output = text(value);
+    const replacements = language === 'en' ? [
+      [/The source/gi, 'The historical analysis'],
+      [/the source/gi, 'the historical analysis'],
+      [/The presentation/gi, 'The historical analysis'],
+      [/the presentation/gi, 'the historical analysis']
+    ] : [
+      [/资料认为/g, '行业分析认为'],
+      [/资料判断/g, '行业分析判断'],
+      [/资料显示/g, '历史数据表明'],
+      [/资料把/g, '历史分析把'],
+      [/资料选择/g, '标杆分析选择'],
+      [/资料按/g, '产品组合分析按']
+    ];
+    replacements.forEach(([pattern, replacement]) => { output = output.replace(pattern, replacement); });
+    return output;
   }
 
   function esc(value) {
@@ -107,12 +143,10 @@
       if (!englishStatic.has(trimmed)) return;
       node.nodeValue = node.nodeValue.replace(trimmed, englishStatic.get(trimmed));
     });
-    document.querySelector('.overviewVisual img[src*="slide-10"]')?.setAttribute('alt', 'PPT slide 10 competitive-concentration chart');
-    document.querySelector('.overviewVisual img[src*="slide-12"]')?.setAttribute('alt', 'PPT slide 12 brand-share chart');
   }
 
   function row(record) {
-    return `<div class="overviewDecisionRow"><h3>${esc(text(record.title))}</h3><p>${esc(text(record.conclusion))}</p><button type="button" class="evidenceTrigger" data-overview-slide="${record.source_slide}">${esc(ui.evidence)}</button></div>`;
+    return `<div class="overviewDecisionRow"><h3>${esc(text(record.title))}</h3><p>${esc(narrative(record.conclusion))}</p><button type="button" class="evidenceTrigger" data-overview-slide="${record.source_slide}">${esc(ui.evidence)}</button></div>`;
   }
 
   function render() {
@@ -123,10 +157,10 @@
     document.querySelector('#macro-rows').innerHTML = macroTopics.map((topic) => row(byTopic[topic])).join('');
     document.querySelector('#benchmark-bands').innerHTML = ['benchmark_kubota', 'benchmark_caterpillar'].map((topic) => {
       const record = byTopic[topic];
-      return `<div class="panel benchmarkBand"><h3>${esc(text(record.title))}</h3><p>${esc(text(record.conclusion))}</p><button type="button" class="evidenceTrigger" data-overview-slide="${record.source_slide}">${esc(ui.evidence)}</button></div>`;
+      return `<div class="panel benchmarkBand"><h3>${esc(text(record.title))}</h3><p>${esc(narrative(record.conclusion))}</p><button type="button" class="evidenceTrigger" data-overview-slide="${record.source_slide}">${esc(ui.evidence)}</button></div>`;
     }).join('');
     document.querySelector('#tonnage-row').innerHTML = row(byTopic.core_tonnages);
-    document.querySelector('#overview-evidence-buttons').innerHTML = records.map((record) => `<button type="button" data-overview-slide="${record.source_slide}"><b>${esc(page(record.source_slide))}</b>${esc(text(record.title))}</button>`).join('');
+    document.querySelector('#overview-evidence-buttons').innerHTML = records.map((record) => `<button type="button" data-overview-slide="${record.source_slide}"><b>${esc(text(record.title))}</b><span>${esc(ui.evidence)}</span></button>`).join('');
   }
 
   function installDrawer() {
@@ -146,7 +180,7 @@
     const drawer = document.querySelector('.evidenceDrawer');
     const overlay = document.querySelector('.evidenceOverlay');
     const body = drawer.querySelector('.evidenceDrawerBody');
-    body.innerHTML = `<img class="evidenceSlideImage" src="ppt-integration-demo/${esc(record.thumbnail)}" alt="${esc(text(record.title))}"><dl class="evidenceMeta"><div><dt>${esc(ui.slide.replace(/\s+$/, ''))}</dt><dd>${esc(page(slideNumber))}</dd></div><div><dt>${esc(ui.sourceType)}</dt><dd>${language === 'en' ? 'XCMG ARC internal presentation' : 'XCMG ARC内部PPT'}</dd></div><div><dt>${esc(ui.date)}</dt><dd>${esc(record.as_of_date)}</dd></div><div><dt>${esc(ui.temporal)}</dt><dd>${esc(status(record.status))}</dd></div><div><dt>${esc(ui.validation)}</dt><dd>${esc(ui.verify)}</dd></div></dl><div class="evidenceConclusion"><b>${esc(text(record.title))}</b><br>${esc(text(record.conclusion))}</div><label class="evidenceRawLabel" for="overview-evidence-raw">${esc(ui.raw)}</label><textarea id="overview-evidence-raw" class="evidenceRaw" readonly></textarea>`;
+    body.innerHTML = `<img class="evidenceSlideImage" src="ppt-integration-demo/${esc(record.thumbnail)}" alt="${esc(text(record.title))}"><dl class="evidenceMeta"><div><dt>${esc(ui.slide.replace(/\s+$/, ''))}</dt><dd>${esc(page(slideNumber))}</dd></div><div><dt>${esc(ui.sourceType)}</dt><dd>${language === 'en' ? 'XCMG ARC internal research record' : 'XCMG ARC内部研究记录'}</dd></div><div><dt>${esc(ui.date)}</dt><dd>${esc(record.as_of_date)}</dd></div><div><dt>${esc(ui.temporal)}</dt><dd>${esc(status(record.status))}</dd></div><div><dt>${esc(ui.validation)}</dt><dd>${esc(ui.verify)}</dd></div></dl><div class="evidenceConclusion"><b>${esc(text(record.title))}</b><br>${esc(narrative(record.conclusion))}</div><label class="evidenceRawLabel" for="overview-evidence-raw">${esc(ui.raw)}</label><textarea id="overview-evidence-raw" class="evidenceRaw" readonly></textarea>`;
     body.querySelector('.evidenceRaw').value = record.zh?.raw_text || (record.zh?.paragraphs || []).join('\n');
     lastFocus = document.activeElement;
     drawer.classList.add('open');

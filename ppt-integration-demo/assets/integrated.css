@@ -3,8 +3,6 @@
 .internalRibbon{display:flex;align-items:center;gap:.65rem;margin:.75rem 0;padding:.65rem .8rem;border-left:4px solid var(--ppt-yellow);background:#f6f9fc;color:var(--ppt-ink);font-size:.78rem}
 .internalRibbon b{color:var(--ppt-blue);white-space:nowrap}
 .internalRibbon span{color:var(--ppt-muted)}
-.navMenu .navPptLink{border-left-color:rgba(245,180,0,.45)}
-.navMenu .navCategoryLink{border:1px solid rgba(255,255,255,.26);margin:.55rem 0;background:rgba(255,255,255,.06)}
 .pptSection{overflow:hidden}
 .pptSectionHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.9rem;padding-bottom:.75rem;border-bottom:1px solid #dce6ef}
 .pptSectionHeader h2{margin:0}
@@ -119,6 +117,7 @@
 .evidenceButtons button{min-height:2.5rem;padding:.4rem .5rem;border:1px solid #bed0e0;background:#fff;color:var(--ppt-ink);font-size:.68rem;text-align:left;cursor:pointer}
 .evidenceButtons button:hover,.evidenceButtons button:focus-visible{border-color:var(--ppt-yellow);outline:0}
 .evidenceButtons b{display:block;color:var(--ppt-blue)}
+.evidenceButtons span{display:block;margin-top:.2rem;color:var(--ppt-muted);font-size:.64rem}
 .evidenceOverlay{position:fixed;inset:0;z-index:80;background:rgba(0,24,46,.52);opacity:0;pointer-events:none;transition:opacity .16s ease}
 .evidenceDrawer{position:fixed;z-index:81;top:0;right:0;width:min(38rem,94vw);height:100vh;background:#fff;border-left:5px solid var(--ppt-yellow);box-shadow:-10px 0 28px rgba(0,35,70,.2);transform:translateX(102%);transition:transform .2s ease;display:grid;grid-template-rows:auto minmax(0,1fr)}
 .evidenceOverlay.open{opacity:1;pointer-events:auto}
@@ -141,6 +140,22 @@ body.evidenceOpen{overflow:hidden}
 .pptOverviewPage .heroMedia img{object-fit:cover}
 .pptOverviewPage .heroText .methodNote{margin:1rem 0 0}
 .overviewVisualSplit{margin-bottom:.75rem}
+.marketStructurePanel{display:flex;flex-direction:column;min-height:16rem}
+.concentrationRows{display:grid;gap:1rem;margin:auto 0}
+.concentrationRow{display:grid;grid-template-columns:8rem minmax(0,1fr) 3.5rem;align-items:center;gap:.75rem}
+.concentrationRow div b,.concentrationRow div span{display:block}
+.concentrationRow div b{color:var(--ppt-ink);font-size:.82rem}
+.concentrationRow div span{color:var(--ppt-muted);font-size:.67rem}
+.concentrationRow i{height:.85rem;overflow:hidden;background:#e2eaf2}
+.concentrationRow i em{display:block;height:100%;background:var(--ppt-blue)}
+.concentrationRow strong{color:var(--ppt-blue);font-size:1rem;text-align:right}
+.rankSnapshots{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:auto 0}
+.rankSnapshots>div{padding:1rem;border:1px solid var(--ppt-line);border-left:5px solid var(--ppt-blue);background:#f7fafc}
+.rankSnapshots>div:nth-child(2){border-left-color:var(--ppt-yellow)}
+.rankSnapshots span,.rankSnapshots b,.rankSnapshots small{display:block}
+.rankSnapshots span{color:var(--ppt-muted);font-size:.7rem}
+.rankSnapshots b{margin:.2rem 0;color:var(--ppt-blue);font-size:1.8rem}
+.rankSnapshots small{color:#536a7e;font-size:.68rem}
 .overviewDecisionGrid{display:grid;grid-template-columns:1fr;padding-top:0;padding-bottom:0}
 .overviewVisual{margin:0;padding:0;background:#f3f7fa;overflow:hidden}
 .overviewVisual img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#fff}
@@ -186,6 +201,7 @@ body.evidenceOpen{overflow:hidden}
   .roadmapRow{grid-template-columns:3rem minmax(0,1fr) auto}.roadmapAction,.roadmapValidation{grid-column:2/-1}
   .evidenceMeta{grid-template-columns:1fr}.evidenceButtons{grid-template-columns:1fr 1fr}
   .overviewDecisionRow{grid-template-columns:1fr auto}.overviewDecisionRow p{grid-column:1/-1}
+  .marketStructurePanel{min-height:0}.concentrationRow{grid-template-columns:6rem minmax(0,1fr) 3rem;gap:.45rem}.rankSnapshots{gap:.45rem}
 }
 @media(min-width:56.25rem) and (max-width:75rem){
   .pptOverviewPage .layout{display:grid;grid-template-columns:220px minmax(0,1fr)}

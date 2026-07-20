@@ -30,6 +30,7 @@ async function assertPage(page, label, language, route) {
   if (state.scrollWidth > state.clientWidth + 1) throw new Error(`${label}: horizontal overflow ${state.scrollWidth}/${state.clientWidth}`);
   if (state.brokenImages.length) throw new Error(`${label}: broken images ${state.brokenImages.join(", ")}`);
   if (/source_mapped_|requires_current_|historical_internal_/.test(state.text)) throw new Error(`${label}: exposes internal data key`);
+  if (/\bPPT\b/i.test(state.text)) throw new Error(`${label}: exposes source-presentation language in the main reading flow`);
   if (language === "en" && route === "excavator-overview.html" && /[\u3400-\u9fff]/.test(state.text)) throw new Error(`${label}: contains mixed Chinese/English body text`);
 }
 
@@ -61,6 +62,7 @@ async function assertPage(page, label, language, route) {
 
     const desktop = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
     await desktop.goto(new URL("index.html", base).href, { waitUntil: "networkidle" });
+    if ((await desktop.locator("#page-nav a").count()) !== 12 || (await desktop.locator(".navPptLink,.navCategoryLink").count()) !== 0) throw new Error("Integrated page must retain the formal sidebar navigation only");
     if ((await desktop.locator(".conditionBlock").count()) !== 6) throw new Error("Formal six-condition content changed");
     if ((await desktop.locator(".scenarioTabs button").count()) !== 8) throw new Error("Expected eight PPT application tabs");
     if ((await desktop.locator(".comparisonMatrix tbody tr").count()) < 9) throw new Error("Paper comparison is incomplete");
@@ -90,6 +92,7 @@ async function assertPage(page, label, language, route) {
     await overview.waitForTimeout(400);
     if ((await overview.locator("#page-nav a").count()) !== 1) throw new Error("Overview sidebar must contain only one return link");
     if ((await overview.locator(".hero").count()) !== 1 || (await overview.locator(".categoryHero").count()) !== 0) throw new Error("Overview must reuse the formal dashboard hero");
+    if ((await overview.locator('main img[src*="assets/slides/slide-"]').count()) !== 0) throw new Error("Overview main flow must use native web visuals rather than slide screenshots");
     await overview.screenshot({ path: path.join(artifactDir, "desktop-excavator-overview.png"), fullPage: false });
     await overview.setViewportSize({ width: 390, height: 844 });
     await overview.waitForTimeout(200);

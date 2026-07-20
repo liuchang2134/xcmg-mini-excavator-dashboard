@@ -9,23 +9,14 @@
 
   const copy = {
     zh: {
-      internal: 'XCMG ARC内部资料',
-      internalNote: '本原型把PPT第48–68页补充到3–4吨对标长页；历史判断、预测和计划均保留验证状态。',
-      category: '挖掘机整体分析',
-      marketNav: '市场 / 客户 / 运输',
-      scenarioNav: '真实工况补充',
-      paperNav: 'PPT纸面对照',
-      fieldNav: '实机评价',
-      actionNav: '改进重点与证据',
-      marketTitle: '市场、客户与运输补充',
-      marketSubtitle: '将销量、客户和转运边界放回产品对标语境',
-      source: 'PPT来源',
-      slides4849: '第48–49页',
-      scoringBoundary: '本模块补充市场适配证据，不改变现有参数、配置、总体评分和六类工况评分。',
+      internal: 'XCMG ARC内部分析',
+      marketTitle: '市场与客户适配',
+      marketSubtitle: '销量结构、客户决策与运输边界共同定义3–4吨产品的实际适用性。',
+      scoringBoundary: '该部分用于解释产品适配背景，不参与现有参数、配置、总体及工况评分。',
       volumeTitle: '3–4吨市场销量变化',
       historical: '历史值',
-      estimate: '资料估计',
-      forecast: '资料预测',
+      estimate: '历史估计',
+      forecast: '历史预测',
       units: '台',
       shareTitle: '领先品牌合计份额',
       shareNote: '久保田、约翰迪尔、山猫、卡特',
@@ -34,25 +25,24 @@
       transportTitle: '皮卡 + 14K拖车运输边界',
       baseMass: '基础机',
       equippedMass: '典型配置后',
-      historicalPlan: '历史方案，当前量产状态待核验',
-      scenarioTitle: '真实工况补充',
-      scenarioSubtitle: '在现有六类评分工况之外，补充PPT记录的运输与施工流程',
-      sourcePages: 'PPT第49–58页',
+      historicalPlan: '方案状态需结合当前量产配置复核。',
+      scenarioTitle: '扩展作业场景',
+      scenarioSubtitle: '补充运输、进场、挖掘、回填和精整等连续作业环节。',
       customer: '客户群',
       needs: '关键需求',
       steps: '典型作业步骤',
       finding: 'XCMG判断',
       evidence: '查看依据',
-      scenarioIndex: '工况索引与主要差距',
+      scenarioIndex: '作业场景与主要差距',
       workCondition: '工况',
-      keyFinding: '具体判断',
+      keyFinding: '关键判断',
       status: '状态',
-      page: '页码',
-      paperTitle: 'PPT纸面参数与配置对照',
-      paperSubtitle: '保留PPT原始五机对比，不重新计算现有评分',
-      source5961: 'PPT第59–61页',
-      paperBoundary: '下表是PPT中的历史纸面对照，与现有Excel评分并列展示；若数值版本不同，以正式源表核验为准。',
-      fullPaper: '展开五机参数矩阵',
+      page: '资料定位',
+      evidenceColumn: '依据',
+      paperTitle: '关键参数与配置复核',
+      paperSubtitle: '围绕市场适配和现场作业，对五款代表机型进行直接复核。',
+      paperBoundary: '本矩阵作为现有Excel评分的补充证据，不重复计分；如不同版本存在差异，以最新核验数据为准。',
+      fullPaper: '展开关键参数矩阵',
       metric: '指标',
       findingColumn: '对工况的具体影响',
       configurationTitle: '关键配置差异',
@@ -60,19 +50,17 @@
       comparison: '竞品差异与工况影响',
       fieldTitle: '实机评价',
       fieldSubtitle: '操控、舒适性、可靠性和维修性单独呈现',
-      source6266: 'PPT第62–66页',
-      fieldBoundary: '实机评价不生成新分数。无当前量化试验数据时，只使用“优势、差距、待验证、资料未覆盖”。',
+      fieldBoundary: '实机评价不生成新分数。无当前量化试验数据时，只使用“优势、差距、待验证、未覆盖”。',
       fullField: '展开实机评价矩阵',
       dimension: '评价维度',
-      conclusion: '资料结论',
+      conclusion: '评价结论',
       validation: '当前验证要求',
       advantage: '优势',
       gap: '差距',
       pending: '待验证',
-      missing: '资料未覆盖',
-      actionTitle: 'XCMG改进重点与证据',
-      actionSubtitle: '把差距落到具体系统动作，不把历史计划当成完成结果',
-      source6768: 'PPT第67–68页及相关工况页',
+      missing: '未覆盖',
+      actionTitle: 'XCMG产品改进建议',
+      actionSubtitle: '将市场、参数与实机差距转化为可验证的工程动作。',
       actionBoundary: '以下均为建议动作或验证任务，不代表已立项、已完成或承诺日期。',
       priority: '优先级',
       topic: '改进主题',
@@ -81,7 +69,7 @@
       verifyRequired: '需工程、试验与市场共同验证',
       portfolio: '型谱差距',
       historicalPositioning: '历史定位与目标',
-      evidenceIndex: 'PPT第48–68页证据索引',
+      evidenceIndex: '数据依据',
       slide: '第',
       slideSuffix: '页',
       drawerTitle: '结论依据',
@@ -90,32 +78,23 @@
       dataDate: '数据时间',
       temporalStatus: '时间属性',
       validationStatus: '验证状态',
-      rawText: 'PPT原始文字',
+      rawText: '原始记录',
       safety: '安全性',
       reliability: '可靠性与环境',
       control: '操控性能',
       comfort: '驾驶舒适性',
       service: '维修性、经济性与细节',
-      loadError: 'PPT补充数据未能载入，请通过本地HTTP预览地址打开。'
+      loadError: '扩展分析数据未能载入，请通过本地预览地址打开。'
     },
     en: {
-      internal: 'XCMG ARC INTERNAL',
-      internalNote: 'This prototype integrates PPT slides 48–68 into the 3–4 t benchmark page. Historical judgements, forecasts and plans retain explicit validation status.',
-      category: 'Excavator Overall Analysis',
-      marketNav: 'Market / Customer / Transport',
-      scenarioNav: 'Additional Field Applications',
-      paperNav: 'PPT Paper Comparison',
-      fieldNav: 'Field Evaluation',
-      actionNav: 'Improvement Priorities and Evidence',
-      marketTitle: 'Market, Customer and Transport Context',
-      marketSubtitle: 'Connect volume, customer logic and transport constraints to the product benchmark',
-      source: 'PPT source',
-      slides4849: 'Slides 48–49',
-      scoringBoundary: 'This section adds market-fit evidence only. It does not change the existing specification, equipment, overall or six-condition scores.',
+      internal: 'XCMG ARC INTERNAL ANALYSIS',
+      marketTitle: 'Market and Customer Fit',
+      marketSubtitle: 'Volume structure, customer decisions and transport constraints jointly define practical fit in the 3–4 t class.',
+      scoringBoundary: 'This section explains product-fit context and does not participate in existing specification, equipment, overall or application scores.',
       volumeTitle: '3–4 t market volume trend',
       historical: 'Historical',
-      estimate: 'Source estimate',
-      forecast: 'Source forecast',
+      estimate: 'Historical estimate',
+      forecast: 'Historical forecast',
       units: 'units',
       shareTitle: 'Combined leading-brand share',
       shareNote: 'Kubota, John Deere, Bobcat and Caterpillar',
@@ -124,10 +103,9 @@
       transportTitle: 'Pickup + 14K trailer transport envelope',
       baseMass: 'Base machine',
       equippedMass: 'With representative equipment',
-      historicalPlan: 'Historical proposal; current production status unverified',
-      scenarioTitle: 'Additional Real-World Applications',
-      scenarioSubtitle: 'Add transport and job workflows from the PPT alongside the existing six scored conditions',
-      sourcePages: 'PPT slides 49–58',
+      historicalPlan: 'Confirm the proposal against the current production configuration.',
+      scenarioTitle: 'Extended Job Applications',
+      scenarioSubtitle: 'Covers connected transport, site-entry, excavation, backfill and finish-work sequences.',
       customer: 'Customer group',
       needs: 'Critical requirements',
       steps: 'Representative work sequence',
@@ -135,14 +113,14 @@
       evidence: 'View evidence',
       scenarioIndex: 'Application index and principal gaps',
       workCondition: 'Application',
-      keyFinding: 'Documented finding',
+      keyFinding: 'Key finding',
       status: 'Status',
-      page: 'Slide',
-      paperTitle: 'PPT Specification and Equipment Comparison',
-      paperSubtitle: 'Retain the original five-machine comparison without recalculating existing scores',
-      source5961: 'PPT slides 59–61',
-      paperBoundary: 'This is the historical paper comparison from the PPT and is shown alongside the current Excel-based evaluation. Where revisions differ, the formal source workbook requires validation.',
-      fullPaper: 'Open five-machine comparison matrix',
+      page: 'Source reference',
+      evidenceColumn: 'Evidence',
+      paperTitle: 'Key Specification and Equipment Review',
+      paperSubtitle: 'Directly reviews five representative models against market fit and field applications.',
+      paperBoundary: 'This matrix supplements the existing Excel-based scoring and is not scored again. Where versions differ, use the latest validated dataset.',
+      fullPaper: 'Open key-specification matrix',
       metric: 'Metric',
       findingColumn: 'Specific application impact',
       configurationTitle: 'Key equipment differences',
@@ -150,7 +128,6 @@
       comparison: 'Competitive difference and application impact',
       fieldTitle: 'Field Evaluation',
       fieldSubtitle: 'Control, comfort, reliability and serviceability remain separate from paper scores',
-      source6266: 'PPT slides 62–66',
       fieldBoundary: 'No new field-test score is created. Without current quantified test data, only Advantage, Gap, Pending Validation or Not Covered is used.',
       fullField: 'Open field-evaluation matrix',
       dimension: 'Evaluation dimension',
@@ -162,7 +139,6 @@
       missing: 'Not covered',
       actionTitle: 'XCMG Improvement Priorities and Evidence',
       actionSubtitle: 'Translate gaps into system-level actions without treating historical plans as completed work',
-      source6768: 'PPT slides 67–68 and related application pages',
       actionBoundary: 'The items below are recommendations or validation tasks. They do not indicate approval, completion or committed timing.',
       priority: 'Priority',
       topic: 'Improvement topic',
@@ -171,7 +147,7 @@
       verifyRequired: 'Engineering, test and market validation required',
       portfolio: 'Portfolio gap',
       historicalPositioning: 'Historical positioning and target',
-      evidenceIndex: 'PPT slides 48–68 evidence index',
+      evidenceIndex: 'Data Evidence',
       slide: 'Slide ',
       slideSuffix: '',
       drawerTitle: 'Evidence',
@@ -180,13 +156,13 @@
       dataDate: 'Data date',
       temporalStatus: 'Temporal status',
       validationStatus: 'Validation status',
-      rawText: 'Original PPT wording',
+      rawText: 'Original record',
       safety: 'Safety',
       reliability: 'Reliability and environment',
       control: 'Controllability',
       comfort: 'Operator comfort',
       service: 'Serviceability, economy and detail quality',
-      loadError: 'The PPT supplement could not be loaded. Open this page through the local HTTP preview address.'
+      loadError: 'The extended analysis could not be loaded. Open this page through the local preview address.'
     }
   }[language];
 
@@ -253,6 +229,40 @@
     return String(value);
   }
 
+  function narrative(value) {
+    let output = text(value);
+    const replacements = language === 'en' ? [
+      [/The PPT/gi, 'The historical analysis'],
+      [/the PPT/gi, 'the historical analysis'],
+      [/The source/gi, 'The historical assessment'],
+      [/the source/gi, 'the historical assessment'],
+      [/historical source material/gi, 'historical proposal'],
+      [/\(PPT basis\)/gi, '']
+    ] : [
+      [/PPT历史方案/g, '历史方案'],
+      [/PPT记录的/g, '历史记录中的'],
+      [/PPT明确列出的/g, '当前记录明确列出的'],
+      [/PPT列出的/g, '对标记录中的'],
+      [/PPT未列出/g, '当前记录未列出'],
+      [/PPT未给出/g, '当前记录未给出'],
+      [/PPT提及/g, '历史方案提及'],
+      [/PPT建议/g, '历史方案建议'],
+      [/PPT显示/g, '对标记录显示'],
+      [/PPT评价/g, '历史评价认为'],
+      [/PPT将/g, '历史评价将'],
+      [/资料认为/g, '行业分析认为'],
+      [/资料判断/g, '行业分析判断'],
+      [/资料显示/g, '历史数据表明'],
+      [/资料称/g, '历史评价显示'],
+      [/资料将/g, '历史评价将'],
+      [/在资料中/g, '在历史评价中'],
+      [/历史资料/g, '历史方案'],
+      [/（PPT口径）/g, '']
+    ];
+    replacements.forEach(([pattern, replacement]) => { output = output.replace(pattern, replacement); });
+    return output;
+  }
+
   function escapeHtml(value) {
     return String(value == null ? '' : value)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -290,14 +300,20 @@
   }
 
   function sourceTypeLabel(value) {
-    if (language === 'en') return value || 'XCMG ARC internal presentation';
-    if (/EDA/i.test(value || '')) return 'PPT引用的EDA数据与内部分析';
+    if (language === 'en') {
+      if (/EDA/i.test(value || '')) return 'EDA market data and internal analysis';
+      if (/transport|regulatory/i.test(value || '')) return 'Internal transport analysis and regulatory summary';
+      if (/use-case|market observation|customer/i.test(value || '')) return 'Internal market and application research';
+      if (/specification|configuration/i.test(value || '')) return 'Historical specification and equipment comparison';
+      if (/internal evaluation/i.test(value || '')) return 'Historical internal machine evaluation';
+      return 'XCMG ARC internal research record';
+    }
+    if (/EDA/i.test(value || '')) return 'EDA市场数据与内部分析';
     if (/transport|regulatory/i.test(value || '')) return '内部运输测算与法规摘要';
     if (/use-case|market observation|customer/i.test(value || '')) return '内部市场与工况调研';
     if (/specification|configuration/i.test(value || '')) return '历史参数与配置对比';
     if (/internal evaluation/i.test(value || '')) return '历史内部实机评价';
-    if (/presentation/i.test(value || '')) return 'XCMG ARC内部PPT';
-    return 'XCMG ARC内部资料';
+    return 'XCMG ARC内部研究记录';
   }
 
   function fieldGroup(metric) {
@@ -308,11 +324,11 @@
     return copy.service;
   }
 
-  function makeSection(id, title, subtitle, source) {
+  function makeSection(id, title, subtitle) {
     const section = document.createElement('section');
     section.id = id;
     section.className = 'pptSection';
-    section.innerHTML = `<div class="pptSectionHeader"><div><h2>${escapeHtml(title)}</h2><p class="sourceCaveat">${escapeHtml(subtitle)}</p></div><div class="pptSourceMeta"><b>${escapeHtml(copy.source)}</b>${escapeHtml(source)}</div></div>`;
+    section.innerHTML = `<h2>${escapeHtml(title)}</h2><p class="methodNote">${escapeHtml(subtitle)}</p>`;
     return section;
   }
 
@@ -334,7 +350,7 @@
     const logic = view.market.purchase_logic.map((item) => `<li>${escapeHtml(text(item))}</li>`).join('');
     const transports = view.market.transport.map((item) => {
       const width = Math.min(100, item.equipped_kg / 5000 * 100);
-      return `<div class="transportRow${item.id === 'historical_pro' ? ' historical' : ''}"><strong>${escapeHtml(text(item.label))}</strong><div class="transportTrack"><span style="width:${width.toFixed(1)}%"></span></div><div class="transportNumbers"><b>${item.equipped_kg.toLocaleString()} kg</b>${copy.baseMass} ${item.base_kg.toLocaleString()} kg</div></div>`;
+      return `<div class="transportRow${item.id === 'historical_pro' ? ' historical' : ''}"><strong>${escapeHtml(narrative(item.label))}</strong><div class="transportTrack"><span style="width:${width.toFixed(1)}%"></span></div><div class="transportNumbers"><b>${item.equipped_kg.toLocaleString()} kg</b>${copy.baseMass} ${item.base_kg.toLocaleString()} kg</div></div>`;
     }).join('');
     section.insertAdjacentHTML('beforeend', `
       <p class="scopeBoundary">${escapeHtml(copy.scoringBoundary)}</p>
@@ -348,7 +364,7 @@
           <div class="pptModuleTitle"><span>${escapeHtml(copy.customerTitle)}</span>${evidenceButton(49, 'ev-customer-mix')}</div>
           <div class="customerMix" aria-label="${escapeHtml(copy.customerTitle)}">${customers}</div>
           <ul class="customerLegend">${customerLegend}</ul>
-          <p class="sourceCaveat">${escapeHtml(text(view.market.customer_mix_note))}</p>
+          <p class="sourceCaveat">${escapeHtml(narrative(view.market.customer_mix_note))}</p>
           <h3 class="pptModuleTitle"><span>${escapeHtml(copy.purchaseLogic)}</span></h3>
           <ul class="purchaseLogic">${logic}</ul>
         </div>
@@ -368,14 +384,14 @@
     const stepsList = (Array.isArray(steps) ? steps : record.steps[language] || record.steps.zh || []).map((item) => `<li>${escapeHtml(item)}</li>`).join('');
     const key = findingKey(record.finding_status);
     return `
-      <figure class="scenarioMedia"><img src="ppt-integration-demo/${escapeHtml(record.image)}" alt="${escapeHtml(text(record.title))}"><figcaption>${escapeHtml(text(record.title))} · ${escapeHtml(pageText(record.source_slide))}</figcaption></figure>
+      <figure class="scenarioMedia"><img src="ppt-integration-demo/${escapeHtml(record.image)}" alt="${escapeHtml(text(record.title))}"><figcaption>${escapeHtml(text(record.title))}</figcaption></figure>
       <div class="scenarioBody">
         <div class="scenarioHead"><h3>${escapeHtml(text(record.title))}</h3><span class="scenarioStatus status-${key}">${escapeHtml(findingLabel(record.finding_status))}</span></div>
         <dl class="scenarioFacts">
           <div class="scenarioFact"><dt>${escapeHtml(copy.customer)}</dt><dd>${escapeHtml(text(record.customer))}</dd></div>
           <div class="scenarioFact"><dt>${escapeHtml(copy.needs)}</dt><dd><ul>${needsList}</ul></dd></div>
           <div class="scenarioFact"><dt>${escapeHtml(copy.steps)}</dt><dd><ol>${stepsList}</ol></dd></div>
-          <div class="scenarioFact"><dt>${escapeHtml(copy.finding)}</dt><dd class="scenarioFinding">${escapeHtml(text(record.conclusion))}</dd></div>
+          <div class="scenarioFact"><dt>${escapeHtml(copy.finding)}</dt><dd class="scenarioFinding">${escapeHtml(narrative(record.conclusion))}</dd></div>
         </dl>
         ${evidenceButton(record.source_slide, record.evidence_id)}
       </div>`;
@@ -384,11 +400,11 @@
   function renderScenarios(records) {
     const section = makeSection('ppt-scenarios', copy.scenarioTitle, copy.scenarioSubtitle, copy.sourcePages);
     const tabs = records.map((record, index) => `<button type="button" role="tab" id="scenario-tab-${index}" aria-controls="scenario-stage" aria-selected="${index === 0}" data-scenario-index="${index}">${escapeHtml(text(record.title))}</button>`).join('');
-    const indexRows = records.map((record) => `<tr><td>${escapeHtml(text(record.title))}</td><td><span class="scenarioStatus status-${findingKey(record.finding_status)}">${escapeHtml(findingLabel(record.finding_status))}</span></td><td>${escapeHtml(text(record.conclusion))}</td><td>${evidenceButton(record.source_slide, record.evidence_id, pageText(record.source_slide))}</td></tr>`).join('');
+    const indexRows = records.map((record) => `<tr><td>${escapeHtml(text(record.title))}</td><td><span class="scenarioStatus status-${findingKey(record.finding_status)}">${escapeHtml(findingLabel(record.finding_status))}</span></td><td>${escapeHtml(narrative(record.conclusion))}</td><td>${evidenceButton(record.source_slide, record.evidence_id)}</td></tr>`).join('');
     section.insertAdjacentHTML('beforeend', `
       <div class="scenarioTabs" role="tablist" aria-label="${escapeHtml(copy.scenarioTitle)}">${tabs}</div>
       <div class="scenarioStage" id="scenario-stage" role="tabpanel" aria-live="polite">${renderScenarioBody(records[0])}</div>
-      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.scenarioIndex)}</summary><div class="scenarioIndex"><table><thead><tr><th>${escapeHtml(copy.workCondition)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.keyFinding)}</th><th>${escapeHtml(copy.page)}</th></tr></thead><tbody>${indexRows}</tbody></table></div></details>`);
+      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.scenarioIndex)}</summary><div class="scenarioIndex"><table><thead><tr><th>${escapeHtml(copy.workCondition)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.keyFinding)}</th><th>${escapeHtml(copy.evidenceColumn)}</th></tr></thead><tbody>${indexRows}</tbody></table></div></details>`);
     section.querySelectorAll('[data-scenario-index]').forEach((button) => {
       button.addEventListener('click', () => {
         section.querySelectorAll('[data-scenario-index]').forEach((item) => item.setAttribute('aria-selected', 'false'));
@@ -407,12 +423,12 @@
     const headerModels = view.paper_comparison.models.map((model, index) => `<th class="${index === 0 ? 'xcmgColumn' : ''}">${escapeHtml(model)}</th>`).join('');
     const rows = view.paper_comparison.metrics.map((metric) => {
       const values = metric.values.map((value, index) => `<td class="${index === 0 ? 'xcmgColumn' : ''}">${escapeHtml(value)}${value !== '/' ? ` <small>${escapeHtml(metric.unit)}</small>` : ''}</td>`).join('');
-      return `<tr class="metric-${escapeHtml(metric.status)}"><th>${escapeHtml(text(metric.name))}</th>${values}<td class="metricFinding">${escapeHtml(text(metric.finding))}</td><td>${evidenceButton(metric.source_slide, '', pageText(metric.source_slide))}</td></tr>`;
+      return `<tr class="metric-${escapeHtml(metric.status)}"><th>${escapeHtml(text(metric.name))}</th>${values}<td class="metricFinding">${escapeHtml(narrative(metric.finding))}</td><td>${evidenceButton(metric.source_slide)}</td></tr>`;
     }).join('');
-    const configRows = view.paper_comparison.configuration_findings.map((item) => `<div class="configRow"><b>${escapeHtml(text(item.label))}</b><strong>${escapeHtml(text(item.xcmg))}</strong><span>${escapeHtml(text(item.comparison))}</span>${evidenceButton(item.source_slide, '', pageText(item.source_slide))}</div>`).join('');
+    const configRows = view.paper_comparison.configuration_findings.map((item) => `<div class="configRow"><b>${escapeHtml(text(item.label))}</b><strong>${escapeHtml(narrative(item.xcmg))}</strong><span>${escapeHtml(narrative(item.comparison))}</span>${evidenceButton(item.source_slide)}</div>`).join('');
     section.insertAdjacentHTML('beforeend', `
       <p class="scopeBoundary">${escapeHtml(copy.paperBoundary)}</p>
-      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.fullPaper)}</summary><div class="comparisonMatrix"><table><thead><tr><th>${escapeHtml(copy.metric)}</th>${headerModels}<th>${escapeHtml(copy.findingColumn)}</th><th>${escapeHtml(copy.page)}</th></tr></thead><tbody>${rows}</tbody></table></div></details>
+      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.fullPaper)}</summary><div class="comparisonMatrix"><table><thead><tr><th>${escapeHtml(copy.metric)}</th>${headerModels}<th>${escapeHtml(copy.findingColumn)}</th><th>${escapeHtml(copy.evidenceColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div></details>
       <div class="pptModuleTitle"><span>${escapeHtml(copy.configurationTitle)}</span></div>
       <div class="configMatrix">${configRows}</div>`);
     return section;
@@ -426,59 +442,31 @@
       const key = findingKey(record.finding_status);
       const metricName = text(fieldMetricNames[record.metric]) || record.metric;
       const validation = validationLabel(record.validation_status);
-      return `<tr><td>${escapeHtml(fieldGroup(record.metric))}</td><td><b>${escapeHtml(metricName)}</b></td><td>${escapeHtml(text(record.conclusion))}</td><td><span class="scenarioStatus status-${key}">${escapeHtml(copy[key])}</span></td><td><span class="validationText">${escapeHtml(validation)}</span></td><td>${evidenceButton(record.source_slide, record.evidence_id, pageText(record.source_slide))}</td></tr>`;
+      return `<tr><td>${escapeHtml(fieldGroup(record.metric))}</td><td><b>${escapeHtml(metricName)}</b></td><td>${escapeHtml(narrative(record.conclusion))}</td><td><span class="scenarioStatus status-${key}">${escapeHtml(copy[key])}</span></td><td><span class="validationText">${escapeHtml(validation)}</span></td><td>${evidenceButton(record.source_slide, record.evidence_id)}</td></tr>`;
     }).join('');
     section.insertAdjacentHTML('beforeend', `
       <p class="scopeBoundary">${escapeHtml(copy.fieldBoundary)}</p>
       <div class="fieldSummary">${summary}</div>
-      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.fullField)}</summary><div class="fieldMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.conclusion)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.validation)}</th><th>${escapeHtml(copy.page)}</th></tr></thead><tbody>${rows}</tbody></table></div></details>`);
+      <details class="mobileDisclosure pptDisclosure" open data-mobile-open="false"><summary>${escapeHtml(copy.fullField)}</summary><div class="fieldMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.conclusion)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.validation)}</th><th>${escapeHtml(copy.evidenceColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div></details>`);
     return section;
   }
 
   function renderActions(roadmap, portfolio, slides) {
     const section = makeSection('ppt-actions', copy.actionTitle, copy.actionSubtitle, copy.source6768);
-    const rows = roadmap.map((record) => `<div class="roadmapRow" data-priority="${escapeHtml(record.priority)}"><span class="roadmapPriority">${escapeHtml(record.priority)}</span><span class="roadmapTopic">${escapeHtml(text(roadmapTopics[record.id]) || record.id)}</span><span class="roadmapAction">${escapeHtml(text(record.action))}</span><span class="roadmapValidation">${escapeHtml(copy.verifyRequired)}</span>${evidenceButton(record.source_slide, '', pageText(record.source_slide))}</div>`).join('');
+    const rows = roadmap.map((record) => `<div class="roadmapRow" data-priority="${escapeHtml(record.priority)}"><span class="roadmapPriority">${escapeHtml(record.priority)}</span><span class="roadmapTopic">${escapeHtml(text(roadmapTopics[record.id]) || record.id)}</span><span class="roadmapAction">${escapeHtml(narrative(record.action))}</span><span class="roadmapValidation">${escapeHtml(copy.verifyRequired)}</span>${evidenceButton(record.source_slide)}</div>`).join('');
     const portfolioGap = portfolio.find((record) => record.id === 'portfolio-current-gap');
     const positioning = portfolio.find((record) => record.id === 'portfolio-positioning');
     const target = portfolio.find((record) => record.id === 'portfolio-historical-target');
-    const evidenceButtons = slides.map((record) => `<button type="button" data-slide="${record.source_slide}"><b>${escapeHtml(pageText(record.source_slide))}</b>${escapeHtml(text(record[language]?.title || record.zh?.title || record.conclusion))}</button>`).join('');
+    const evidenceButtons = slides.map((record) => `<button type="button" data-slide="${record.source_slide}"><b>${escapeHtml(text(record[language]?.title || record.zh?.title || record.conclusion))}</b><span>${escapeHtml(copy.evidence)}</span></button>`).join('');
     section.insertAdjacentHTML('beforeend', `
       <p class="scopeBoundary">${escapeHtml(copy.actionBoundary)}</p>
       <div class="roadmapTable">${rows}</div>
       <div class="portfolioNote">
-        <div><b>${escapeHtml(copy.portfolio)}</b><p>${escapeHtml(text(portfolioGap?.conclusion))}</p>${evidenceButton(portfolioGap?.source_slide || 67, portfolioGap?.evidence_id)}</div>
-        <div><b>${escapeHtml(copy.historicalPositioning)}</b><p>${escapeHtml([text(positioning?.conclusion), text(target?.conclusion)].filter(Boolean).join(' '))}</p>${evidenceButton(68, 'ev-positioning-target')}</div>
+        <div><b>${escapeHtml(copy.portfolio)}</b><p>${escapeHtml(narrative(portfolioGap?.conclusion))}</p>${evidenceButton(portfolioGap?.source_slide || 67, portfolioGap?.evidence_id)}</div>
+        <div><b>${escapeHtml(copy.historicalPositioning)}</b><p>${escapeHtml([narrative(positioning?.conclusion), narrative(target?.conclusion)].filter(Boolean).join(' '))}</p>${evidenceButton(68, 'ev-positioning-target')}</div>
       </div>
       <details class="evidenceIndex"><summary>${escapeHtml(copy.evidenceIndex)}</summary><div class="evidenceButtons">${evidenceButtons}</div></details>`);
     return section;
-  }
-
-  function installNavigation() {
-    const menu = document.querySelector('.navMenu');
-    const raw = menu?.querySelector('a[href="#raw"]');
-    if (!menu || !raw) return;
-    const links = [
-      ['ppt-integration-demo/excavator-overview.html', copy.category, 'navCategoryLink'],
-      ['#ppt-market', copy.marketNav, 'navPptLink'],
-      ['#ppt-scenarios', copy.scenarioNav, 'navPptLink'],
-      ['#ppt-paper', copy.paperNav, 'navPptLink'],
-      ['#ppt-field', copy.fieldNav, 'navPptLink'],
-      ['#ppt-actions', copy.actionNav, 'navPptLink']
-    ];
-    links.forEach(([href, label, className]) => {
-      const link = document.createElement('a');
-      link.href = href;
-      link.className = className;
-      link.textContent = label;
-      raw.before(link);
-      link.addEventListener('click', () => {
-        if (window.matchMedia('(max-width:1200px)').matches) {
-          menu.classList.remove('open');
-          const toggle = document.querySelector('.navToggle');
-          toggle?.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
   }
 
   function installDrawer() {
@@ -506,7 +494,7 @@
     const slideRecord = state.data.slides.records.find((record) => Number(record.source_slide) === Number(slide));
     const evidence = state.data.evidence.records.find((record) => record.id === evidenceId) || state.data.evidence.records.find((record) => (Array.isArray(record.source_slide) ? record.source_slide : [record.source_slide]).includes(slide));
     if (!slideRecord) return;
-    const conclusion = text(evidence?.conclusion || slideRecord.conclusion);
+    const conclusion = narrative(evidence?.conclusion || slideRecord.conclusion);
     const title = text(slideRecord[language]?.title || slideRecord.zh?.title || slideRecord.conclusion);
     const raw = slideRecord.zh?.raw_text || (slideRecord.zh?.paragraphs || []).join('\n');
     const sourceType = evidence?.source_type || slideRecord.source_type;
@@ -578,11 +566,8 @@
     try {
       state.data = await loadData();
       const view = state.data.tonnage34tView;
-      const hero = document.querySelector('.hero');
-      const ribbon = document.createElement('div');
-      ribbon.className = 'internalRibbon';
-      ribbon.innerHTML = `<b>${escapeHtml(copy.internal)}</b><span>${escapeHtml(copy.internalNote)}</span>`;
-      hero?.after(ribbon);
+      const eyebrow = document.querySelector('.hero .eyebrow');
+      if (eyebrow) eyebrow.textContent = copy.internal;
 
       const market = renderMarket(view);
       document.querySelector('#summary')?.after(market);
@@ -595,7 +580,6 @@
       const actions = renderActions(state.data.roadmap.records, state.data.portfolio.records, state.data.slides.records);
       document.querySelector('#cond6')?.after(field, actions);
 
-      installNavigation();
       installDrawer();
       setupSupplementDisclosures();
       window.XCMGPPTIntegration = {language, data: state.data, openEvidence};
