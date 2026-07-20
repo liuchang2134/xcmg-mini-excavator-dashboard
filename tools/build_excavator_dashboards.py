@@ -12,6 +12,8 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data" / "source-excel"
 ASSET_DIR = ROOT / "assets" / "arc"
+INSIGHTS_PATH = ROOT / "data" / "ppt-insights.json"
+PPT_INSIGHTS = json.loads(INSIGHTS_PATH.read_text(encoding="utf-8"))
 
 
 SOURCE_FILES = [
@@ -863,6 +865,7 @@ def build_model(wb, meta):
     }
     return {
         "meta": meta,
+        "insight": PPT_INSIGHTS.get("tonnages", {}).get(meta["slug"]),
         "products": wb.products,
         "colors": {p: COLORS[i % len(COLORS)] for i, p in enumerate(wb.products)},
         "conditions": CONDITIONS,
@@ -1507,6 +1510,86 @@ def render_overall_section(model):
     )
 
 
+def render_market_context(model):
+    insight = model.get("insight")
+    if not insight:
+        return ""
+    market = insight["market"]
+    customers = insight["customers"]
+    work = insight["work"]
+    source = PPT_INSIGHTS["source"]
+    narratives = [
+        ("市场规模参考", "Market-Scale Reference", market),
+        ("客户构成", "Customer Profile", customers),
+        ("真实工况", "Real-World Application", work),
+    ]
+    narrative_html = []
+    for eyebrow_zh, eyebrow_en, item in narratives:
+        metric = f'<b class="contextMetric">{esc(item["metric"])}</b>' if item.get("metric") else ""
+        narrative_html.append(
+            '<article class="contextNarrative">'
+            f'<div><span data-i18n-en="{esc(eyebrow_en)}">{esc(eyebrow_zh)}</span>{metric}</div>'
+            f'<h3 data-i18n-en="{esc(item["title_en"])}">{esc(item["title_zh"])}</h3>'
+            f'<p data-i18n-en="{esc(item["body_en"])}">{esc(item["body_zh"])}</p>'
+            f'<small data-i18n-en="{esc(item["source_en"])}">{esc(item["source_zh"])}</small>'
+            '</article>'
+        )
+    return (
+        '<section id="market-context" class="marketContext">'
+        '<div class="insightHeader"><div><span data-i18n-en="Market / Customer / Application">市场 / 客户 / 工况</span>'
+        '<h2 data-i18n-en="Market Context and Real-World Application">市场背景与真实应用</h2></div>'
+        '<p data-i18n-en="Context from the internal insight deck is presented separately from specification scoring.">内部洞察材料中的市场与应用背景，和纸面参数评分分开呈现。</p></div>'
+        '<div class="marketContextGrid">'
+        '<figure class="marketContextMedia">'
+        f'<img src="{esc(insight["image"])}" alt="{esc(insight["image_alt_zh"])}" data-i18n-alt-en="{esc(insight["image_alt_en"])}">'
+        f'<figcaption><span data-i18n-en="{esc(insight["image_source_en"])}">{esc(insight["image_source_zh"])}</span>'
+        '<small data-i18n-en="Application image; not a scoring input">应用示意，不参与评分</small></figcaption>'
+        '</figure>'
+        f'<div class="contextNarratives">{"".join(narrative_html)}</div>'
+        '</div>'
+        '<p class="insightScope"><b data-i18n-en="Evidence boundary">证据边界</b>'
+        f'<span data-i18n-en="{esc(source["scope_en"])}">{esc(source["scope_zh"])}</span></p>'
+        '</section>'
+    )
+
+
+def render_field_evaluation(model):
+    insight = model.get("insight")
+    if not insight:
+        return ""
+    status_labels = {
+        "strength": ("优势", "Strength"),
+        "gap": ("差距", "Gap"),
+        "mixed": ("综合判断", "Mixed"),
+        "verify": ("待验证", "Validation Required"),
+    }
+    rows = []
+    for index, item in enumerate(insight["field_evaluation"], start=1):
+        status = item.get("status", "verify")
+        status_zh, status_en = status_labels.get(status, status_labels["verify"])
+        rows.append(
+            f'<article class="fieldEvalRow is-{esc(status)}">'
+            f'<span class="fieldEvalIndex">{index:02d}</span>'
+            '<div class="fieldEvalFinding">'
+            f'<div><h3 data-i18n-en="{esc(item["dimension_en"])}">{esc(item["dimension_zh"])}</h3>'
+            f'<span class="fieldEvalStatus" data-i18n-en="{esc(status_en)}">{esc(status_zh)}</span></div>'
+            f'<p data-i18n-en="{esc(item["finding_en"])}">{esc(item["finding_zh"])}</p>'
+            '</div>'
+            f'<small data-i18n-en="{esc(item["evidence_en"])}">{esc(item["evidence_zh"])}</small>'
+            '</article>'
+        )
+    return (
+        '<section id="field-evaluation" class="fieldEvaluation">'
+        '<div class="insightHeader"><div><span data-i18n-en="FIELD EVALUATION">实机评价</span>'
+        '<h2 data-i18n-en="Field Evaluation Evidence">实机评价证据</h2></div>'
+        '<p data-i18n-en="Observed machine behavior is reported independently and does not enter the current specification/configuration score.">记录真实操作、效率、舒适性和耐久表现；独立呈现，不计入现有参数/配置分。</p></div>'
+        f'<div class="fieldEvalList">{"".join(rows)}</div>'
+        '<p class="fieldEvalNote"><b data-i18n-en="Validation rule">验证规则</b>'
+        '<span data-i18n-en="A past target date is not treated as proof of completion. A result is closed only after current-machine testing, records, and responsible-owner confirmation are available.">计划日期已过不等于完成；只有当前车型的试验记录、结果数据和责任人确认齐全后，状态才可关闭。</span></p>'
+        '</section>'
+    )
+
+
 def render_html(model):
     meta = model["meta"]
     xcmg = meta["xcmg"]
@@ -1566,11 +1649,13 @@ def render_html(model):
     .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.methodNote,.coverageNote,.sourceNote{{font-size:12px;color:#526a7f;background:#f6f9fc;border-left:4px solid var(--yellow);padding:9px 11px;margin:0 0 12px}}.coverageNote{{margin:10px 0 0}}.sourceNote{{display:flex;gap:10px;align-items:flex-start}}.sourceNote b{{color:#08335d;white-space:nowrap}}
     .productGapSpotlight{{display:grid;grid-template-columns:310px minmax(0,1fr);min-height:285px;margin:14px 0 18px;border:1px solid var(--line);border-top:4px solid var(--blue);background:#fff;overflow:hidden}}.productGapMedia{{display:grid;grid-template-rows:auto 1fr auto;min-width:0;padding:16px;background:#f4f8fb;border-right:1px solid var(--line)}}.productGapMedia>span,.productGapContent>span{{color:var(--blue);font-size:10px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}}.productGapMedia img{{display:block;width:100%;height:190px;object-fit:contain;padding:10px}}.productGapMedia>div{{display:flex;justify-content:space-between;gap:8px;align-items:end;border-top:1px solid #d7e3ed;padding-top:10px}}.productGapMedia b{{color:#08335d;font-size:16px}}.productGapMedia small{{color:#65798c;font-size:10px}}.productGapContent{{min-width:0;padding:18px}}.productGapContent h3{{margin:5px 0 6px;color:#08335d;font-size:19px}}.productGapContent>p{{margin:0;color:#536b80;font-size:12px;line-height:1.6}}.productGapContent ol{{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 0;padding:0;list-style:none}}.productGapContent li{{display:grid;grid-template-columns:32px minmax(0,1fr);gap:9px;padding:10px;border:1px solid #d9e5ef;background:#f8fbfd}}.productGapContent li>span{{display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--blue);color:#fff;font-size:11px;font-weight:900}}.productGapContent li small,.productGapContent li b,.productGapContent li p{{display:block}}.productGapContent li small{{color:#6b7e8f;font-size:9px;font-weight:900}}.productGapContent li b{{margin-top:2px;color:#0b3155;font-size:13px}}.productGapContent li p{{margin:4px 0 0;color:#526a7f;font-size:11px;line-height:1.45;white-space:normal}}
     .conditionVisualNav{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}}.conditionVisualCard{{position:relative;min-height:172px;overflow:hidden;border:1px solid var(--line);background:#092d50;color:#fff}}.conditionVisualCard:after{{content:"";position:absolute;inset:0;background:rgba(2,24,45,.36);transition:background .18s}}.conditionVisualCard:hover:after,.conditionVisualCard:focus-visible:after{{background:rgba(2,24,45,.20)}}.conditionVisualCard:focus-visible{{outline:3px solid rgba(245,180,0,.50);outline-offset:2px}}.conditionVisualCard img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .2s}}.conditionVisualCard:hover img{{transform:scale(1.025)}}.conditionVisualCard>div{{position:absolute;z-index:1;inset:auto 0 0;padding:13px;background:rgba(2,28,52,.82);border-top:2px solid var(--yellow)}}.conditionVisualCard span,.conditionVisualCard strong,.conditionVisualCard small{{display:block}}.conditionVisualCard span{{color:var(--yellow);font-size:9px;font-weight:900;letter-spacing:.10em}}.conditionVisualCard strong{{margin-top:3px;color:#fff;font-size:14px}}.conditionVisualCard small{{margin-top:4px;color:#d4e2ee;font-size:10px;line-height:1.4}}.conditionVisualSource{{margin:0 0 14px;color:#64798c;font-size:10px;line-height:1.5}}
-    .simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:12px}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
+    .insightHeader{{display:flex;align-items:end;justify-content:space-between;gap:28px;border-bottom:1px solid #dce7f0;padding-bottom:12px;margin-bottom:16px}}.insightHeader>div>span{{display:block;color:var(--blue);font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}}.insightHeader h2{{margin:4px 0 0}}.insightHeader h2:after{{display:none}}.insightHeader>p{{max-width:620px;margin:0;color:#526a7f;font-size:12px;text-align:right}}.marketContextGrid{{display:grid;grid-template-columns:minmax(340px,.9fr) minmax(0,1.1fr);gap:24px;align-items:stretch}}.marketContextMedia{{position:relative;min-height:430px;margin:0;background:#e8eef4;overflow:hidden}}.marketContextMedia img{{width:100%;height:100%;min-height:430px;object-fit:cover}}.marketContextMedia:after{{content:"";position:absolute;inset:auto 0 0;height:38%;background:linear-gradient(transparent,rgba(2,28,52,.74));pointer-events:none}}.marketContextMedia figcaption{{position:absolute;z-index:1;left:0;right:0;bottom:0;display:flex;align-items:end;justify-content:space-between;gap:12px;padding:14px 16px;color:#fff;font-weight:800;font-size:11px}}.marketContextMedia figcaption small{{color:#d8e5ef;text-align:right}}.contextNarratives{{border-top:3px solid var(--blue)}}.contextNarrative{{display:grid;grid-template-columns:118px minmax(0,1fr) auto;grid-template-areas:"meta title source" "meta body body";gap:5px 14px;padding:17px 0;border-bottom:1px solid #dce7f0}}.contextNarrative>div{{grid-area:meta;border-left:3px solid var(--yellow);padding-left:10px}}.contextNarrative>div span,.contextNarrative>div b{{display:block}}.contextNarrative>div span{{color:#5c7184;font-size:10px;font-weight:900;letter-spacing:.08em}}.contextMetric{{margin-top:5px;color:var(--blue);font-size:25px;line-height:1.1}}.contextNarrative h3{{grid-area:title;margin:0;font-size:15px}}.contextNarrative p{{grid-area:body;margin:0;color:#425b71;font-size:12px;line-height:1.65}}.contextNarrative>small{{grid-area:source;color:#6a7e90;font-size:9px;white-space:nowrap}}.insightScope,.fieldEvalNote{{display:flex;gap:12px;margin:14px 0 0;padding:10px 12px;border-left:4px solid var(--yellow);background:#f6f9fc;color:#526a7f;font-size:11px}}.insightScope b,.fieldEvalNote b{{color:#0b3155;white-space:nowrap}}.fieldEvalList{{border-top:3px solid var(--blue)}}.fieldEvalRow{{display:grid;grid-template-columns:44px minmax(0,1fr) 145px;gap:14px;align-items:start;padding:15px 8px;border-bottom:1px solid #dce7f0;border-left:4px solid #9aabba}}.fieldEvalRow.is-strength{{border-left-color:var(--green)}}.fieldEvalRow.is-gap{{border-left-color:var(--red)}}.fieldEvalRow.is-mixed{{border-left-color:var(--yellow)}}.fieldEvalRow.is-verify{{border-left-color:var(--blue)}}.fieldEvalIndex{{color:#9aabba;font-size:12px;font-weight:900}}.fieldEvalFinding>div{{display:flex;align-items:center;gap:10px}}.fieldEvalFinding h3{{margin:0}}.fieldEvalFinding p{{margin:5px 0 0;color:#425b71;font-size:12px;line-height:1.65}}.fieldEvalStatus{{display:inline-flex;align-items:center;min-height:22px;padding:2px 7px;border:1px solid currentColor;border-radius:3px;color:var(--blue);font-size:9px;font-weight:900}}.is-strength .fieldEvalStatus{{color:var(--green)}}.is-gap .fieldEvalStatus{{color:var(--red)}}.is-mixed .fieldEvalStatus{{color:#8a6500}}.fieldEvalRow>small{{color:#6a7e90;font-size:10px;text-align:right}}.simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:12px}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
     @media(max-width:1200px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.languageToggle{{margin:0}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home{{grid-column:1/-1;margin:0}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.productGapSpotlight{{grid-template-columns:260px minmax(0,1fr)}}.conditionVisualNav{{grid-template-columns:repeat(2,minmax(0,1fr))}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
     @media(max-width:720px){{body{{font-size:14px}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:12px;line-height:1.25}}.nav small{{font-size:9px}}.languageToggle{{min-width:40px;min-height:32px;padding:0 6px;font-size:11px}}.navToggle,.mobileTop{{padding:6px 8px;font-size:11px}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:12px;padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}.heroMedia img{{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}}h1{{font-size:26px;margin:6px 0 8px}}h2{{font-size:20px;margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:15px}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:12px}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:24px;line-height:1.15;margin:3px 0}}.kpi span{{font-size:11px;line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:12px;margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:18px;overflow-wrap:anywhere;margin-bottom:0}}.conditionTitle span{{font-size:10px}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:12px}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:12px}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:11px;padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:anywhere}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:anywhere;font-size:11px;padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:900;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:11px;color:var(--blue);font-weight:800}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:12px}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:12px;padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:28px}}.tableScroll{{max-height:62vh}}}}
     @media(max-width:720px){{.actions{{display:grid;grid-template-columns:1fr;gap:6px;overflow:visible;margin-top:10px;padding-bottom:0}}.actions .btn{{width:100%;min-height:38px;padding:7px 9px;font-size:12px}}}}
     @media(max-width:720px){{.productGapSpotlight{{grid-template-columns:1fr;min-height:0}}.productGapMedia{{border-right:0;border-bottom:1px solid var(--line);padding:12px}}.productGapMedia img{{height:155px;padding:4px}}.productGapContent{{padding:12px}}.productGapContent h3{{font-size:17px}}.productGapContent ol{{grid-template-columns:1fr;gap:6px}}.conditionVisualNav{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:12%;margin:9px 0}}.conditionVisualCard{{scroll-snap-align:start;min-height:178px}}.conditionVisualSource{{font-size:9px}}}}
+    @media(max-width:1200px){{.marketContextGrid{{grid-template-columns:1fr}}.marketContextMedia,.marketContextMedia img{{min-height:340px}}.marketContextMedia{{max-height:440px}}}}
+    @media(max-width:720px){{.insightHeader{{display:block;margin-bottom:10px;padding-bottom:9px}}.insightHeader>p{{margin-top:7px;text-align:left}}.marketContextGrid{{gap:10px}}.marketContextMedia,.marketContextMedia img{{min-height:220px}}.marketContextMedia{{max-height:260px}}.marketContextMedia figcaption{{padding:10px 11px;font-size:9px}}.marketContextMedia figcaption small{{font-size:8px}}.contextNarrative{{grid-template-columns:88px minmax(0,1fr);grid-template-areas:"meta title" "meta body" "source source";gap:4px 10px;padding:12px 0}}.contextMetric{{font-size:20px}}.contextNarrative h3{{font-size:14px}}.contextNarrative p{{font-size:11px}}.contextNarrative>small{{margin-top:3px;white-space:normal}}.insightScope,.fieldEvalNote{{display:block;padding:8px 9px}}.insightScope b,.insightScope span,.fieldEvalNote b,.fieldEvalNote span{{display:block}}.fieldEvalRow{{grid-template-columns:30px minmax(0,1fr);gap:8px;padding:11px 5px}}.fieldEvalRow>small{{grid-column:2;text-align:left}}.fieldEvalFinding>div{{align-items:flex-start;justify-content:space-between;gap:7px}}.fieldEvalStatus{{flex:0 0 auto;font-size:8px}}.fieldEvalFinding p{{font-size:11px}}}}
     html[data-language="en"] .conditionIntro b:after,html[data-language="en"] .overallNotes p>b:first-child:after,html[data-language="en"] .summaryCard p>b:first-child:after{{content:" "}}html[data-language="en"] .navMenu a,html[data-language="en"] .conditionTitle h2,html[data-language="en"] .simOptions b,html[data-language="en"] .simOptions small{{overflow-wrap:anywhere}}html[data-language="en"] .sourceNote b{{white-space:normal}}html[data-language="en"] th{{white-space:normal;overflow-wrap:anywhere}}html[data-language="en"] .radar-label{{font-size:11px}}
     @media(max-width:720px){{html[data-language="en"] .navTitle{{font-size:11px;line-height:1.2}}html[data-language="en"] .nav small{{display:none}}html[data-language="en"] .summaryGrid,html[data-language="en"] .conditionIntro,html[data-language="en"] .gapGrid{{display:grid;grid-template-columns:1fr;grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;scroll-snap-type:none;padding:0}}html[data-language="en"] .summaryCard{{min-height:0}}html[data-language="en"] .summaryCard,html[data-language="en"] .conditionIntro p,html[data-language="en"] .gapGrid article{{scroll-snap-align:none}}html[data-language="en"] .mobileDisclosure>summary,html[data-language="en"] .radarPicker>summary{{white-space:normal;overflow-wrap:anywhere}}html[data-language="en"] .radarHead{{align-items:flex-start;flex-wrap:wrap}}html[data-language="en"] .radarCurrent{{white-space:normal}}html[data-language="en"] .simHead{{gap:8px;align-items:flex-start}}html[data-language="en"] .resetSim{{flex:0 0 auto;white-space:normal}}}}
   </style>
@@ -1587,10 +1672,13 @@ def render_html(model):
     <div class="navMenu" id="page-nav">
       <a class="home" href="arc.html">返回对标平台主页</a>
       <a href="#summary">对标概览</a>
+      <a href="#market-context">市场与客户</a>
       <a href="#overall">总体评分</a>
+      <a href="#field-evaluation">实机评价</a>
       <a href="#radar">工况竞争格局</a>
       <a href="#conditions">工况总览</a>
       {''.join(f'<a href="#cond{i}">{esc(c["name"])}</a>' for i,c in enumerate(model["conditions"],1))}
+      <a href="portfolio-roadmap.html">产品型谱与路线图</a>
       <a href="#raw">原始数据</a>
     </div>
   </aside>
@@ -1615,7 +1703,11 @@ def render_html(model):
       </div>
     </section>
 
+    {render_market_context(model)}
+
     {render_overall_section(model)}
+
+    {render_field_evaluation(model)}
 
     <section id="radar">
       <h2>工况竞争格局</h2>
@@ -2017,6 +2109,15 @@ def write_project_manifest(models):
     )
 
 
+def write_insight_data_asset():
+    payload = "window.XCMG_PPT_INSIGHTS = " + json.dumps(PPT_INSIGHTS, ensure_ascii=False, indent=2) + ";\n"
+    (ROOT / "assets" / "ppt-insights.js").write_text(
+        payload,
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
 def externalize_dashboard_assets(page_html):
     style_start = page_html.index("  <style>")
     style_end = page_html.index("  </style>", style_start) + len("  </style>")
@@ -2049,6 +2150,7 @@ def main():
         page_html = externalize_dashboard_assets(render_html(model))
         (ROOT / meta["output"]).write_text(page_html, encoding="utf-8", newline="\n")
     write_project_manifest(models)
+    write_insight_data_asset()
     update_arc_metrics(models)
 
 

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>产品型谱与改进路线图｜XCMG ARC</title>
+  <style>
+    :root{
+      --blue:#0056a6;
+      --blue-dark:#06243f;
+      --blue-ink:#082f55;
+      --yellow:#f5b400;
+      --paper:#fff;
+      --bg:#f1f5f8;
+      --line:#cbd8e4;
+      --muted:#5a7186;
+      --green:#137548;
+      --red:#b42323;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:76px}
+    body{margin:0;background:var(--bg);color:#17334d;font-family:"Segoe UI",Arial,"Microsoft YaHei",sans-serif;line-height:1.55;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
+    .shell{width:min(1480px,calc(100% - 42px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:30;background:#071b2f;color:#fff;border-bottom:3px solid var(--yellow)}
+    .nav{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:13px;font-weight:900}
+    .brand img{display:block;width:112px;background:#0756a2;padding:7px}
+    .brand span{display:grid;line-height:1.15}
+    .brand small{margin-top:4px;color:#a9bfd2;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+    .navLinks{display:flex;align-items:center;gap:4px}
+    .navLinks a,.languageToggle{min-height:42px;display:inline-flex;align-items:center;padding:0 13px;border:0;background:transparent;color:#eaf3fa;font-size:12px;font-weight:900}
+    .navLinks a:hover,.navLinks a:focus-visible{background:rgba(255,255,255,.09);outline:none}
+    .navLinks a[aria-current]{border-bottom:3px solid var(--yellow)}
+    .languageToggle{border:1px solid rgba(255,255,255,.38);cursor:pointer}
+    main{padding:22px 0 36px}
+    .hero{display:grid;grid-template-columns:minmax(0,1fr) 420px;background:#fff;border:1px solid var(--line);border-left:6px solid var(--blue)}
+    .heroCopy{padding:34px}
+    .eyebrow{margin:0;color:var(--blue);font-size:11px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+    h1{margin:8px 0 12px;color:var(--blue-ink);font-size:42px;line-height:1.08}
+    .heroCopy>p:last-of-type{max-width:840px;margin:0;color:#49647b;font-size:15px}
+    .heroSummary{display:grid;grid-template-columns:1fr 1fr;background:var(--blue-dark);color:#fff}
+    .heroMetric{display:flex;flex-direction:column;justify-content:center;min-height:126px;padding:20px;border-right:1px solid rgba(255,255,255,.16);border-bottom:1px solid rgba(255,255,255,.16)}
+    .heroMetric:nth-child(2n){border-right:0}
+    .heroMetric:nth-last-child(-n+2){border-bottom:0}
+    .heroMetric b{color:var(--yellow);font-size:29px;line-height:1}
+    .heroMetric span{margin-top:8px;color:#d8e5ee;font-size:11px;font-weight:800}
+    section{margin-top:18px;background:#fff;border:1px solid var(--line);padding:22px;scroll-margin-top:80px}
+    .sectionHead{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:16px;padding-bottom:13px;border-bottom:1px solid #dce6ee}
+    .sectionHead h2{margin:0;color:var(--blue-ink);font-size:23px}
+    .sectionHead h2:after{content:"";display:block;width:52px;height:3px;margin-top:8px;background:var(--yellow)}
+    .sectionHead p{max-width:720px;margin:0;color:var(--muted);font-size:12px;text-align:right}
+    .portfolioRows{border-top:3px solid var(--blue)}
+    .portfolioRow{display:grid;grid-template-columns:160px minmax(0,1fr) minmax(320px,.9fr) 130px;gap:18px;align-items:center;padding:20px 8px;border-bottom:1px solid #dce6ee}
+    .portfolioClass span,.portfolioClass b{display:block}
+    .portfolioClass span{color:#6b7e90;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    .portfolioClass b{margin-top:4px;color:var(--blue);font-size:19px}
+    .portfolioModels{display:flex;flex-wrap:wrap;gap:7px}
+    .portfolioModels span{padding:7px 9px;border:1px solid #bfd0df;background:#f8fbfd;color:#0a3a65;font-size:11px;font-weight:900}
+    .portfolioFocus b,.portfolioFocus span{display:block}
+    .portfolioFocus b{color:var(--blue-ink);font-size:12px}
+    .portfolioFocus span{margin-top:4px;color:#4f697f;font-size:11px}
+    .portfolioSource{color:#6c8092;font-size:10px;text-align:right}
+    .roadmapToolbar{display:grid;grid-template-columns:minmax(240px,1fr) 240px auto;gap:10px;align-items:end;margin-bottom:14px;padding:13px;background:#f5f8fb;border:1px solid #d5e1ea}
+    .roadmapToolbar label{display:grid;gap:5px;color:#2d4b65;font-size:10px;font-weight:900}
+    .roadmapToolbar input,.roadmapToolbar select{width:100%;min-height:42px;border:1px solid #aebfd0;background:#fff;padding:0 11px;color:#17334d}
+    .resultCount{padding:0 4px 10px;color:#476177;font-size:11px;font-weight:900;white-space:nowrap}
+    .roadmapHeader,.roadmapRow{display:grid;grid-template-columns:130px minmax(220px,1fr) minmax(250px,1.12fr) 175px minmax(260px,1fr);gap:0}
+    .roadmapHeader{background:var(--blue);color:#fff;font-size:10px;font-weight:900}
+    .roadmapHeader span{padding:10px 12px;border-right:1px solid rgba(255,255,255,.18)}
+    .roadmapRow{border:1px solid #d3dfe9;border-top:0;background:#fff}
+    .roadmapRow>div{min-width:0;padding:13px 12px;border-right:1px solid #e0e8ef}
+    .roadmapRow>div:last-child{border-right:0}
+    .modelCell b,.modelCell span,.statusCell b,.statusCell span{display:block}
+    .modelCell b{color:var(--blue);font-size:16px}
+    .modelCell span{margin-top:3px;color:#5f7589;font-size:10px}
+    .modelCell a{display:inline-block;margin-top:9px;color:var(--blue);font-size:10px;font-weight:900;border-bottom:1px solid currentColor}
+    .roadmapCell small{display:none;color:#718497;font-size:9px;font-weight:900;text-transform:uppercase}
+    .roadmapCell p{margin:0;color:#324f68;font-size:11px;line-height:1.62}
+    .statusCell b{font-size:11px;color:var(--blue-ink)}
+    .statusCell span{margin-top:6px;color:#687d8f;font-size:9px}
+    .statusBadge{display:inline-flex!important;width:max-content;max-width:100%;padding:4px 7px;border:1px solid currentColor;color:var(--blue)!important;font-size:9px!important;font-weight:900}
+    .status-overdue .statusBadge{color:var(--red)!important}
+    .status-partial .statusBadge{color:#886300!important}
+    .status-verify .statusBadge{color:var(--blue)!important}
+    .status-concept .statusBadge{color:#66798b!important}
+    .roadmapEmpty{display:none;padding:30px;text-align:center;color:var(--muted);border:1px solid var(--line)}
+    .roadmapEmpty.show{display:block}
+    .sourceBand{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;margin-top:14px;padding:13px 15px;border-left:4px solid var(--yellow);background:#f5f8fb;color:#526a7f;font-size:11px}
+    .sourceBand b{color:var(--blue-ink)}
+    footer{padding:20px 0 28px;color:#62768a;font-size:10px}
+    footer .shell{display:flex;justify-content:space-between;gap:20px}
+    @media(max-width:1180px){
+      .hero{grid-template-columns:1fr}.heroSummary{grid-template-columns:repeat(4,1fr)}.heroMetric{min-height:88px;border-bottom:0}.heroMetric:nth-child(2n){border-right:1px solid rgba(255,255,255,.16)}.heroMetric:last-child{border-right:0}
+      .portfolioRow{grid-template-columns:140px minmax(0,1fr)}.portfolioFocus,.portfolioSource{grid-column:2}.portfolioSource{text-align:left}
+      .roadmapHeader{display:none}.roadmapRow{grid-template-columns:130px 1fr 1fr}.roadmapRow>div{border-bottom:1px solid #e0e8ef}.roadmapRow>div:nth-child(3){border-right:0}.roadmapRow>div:nth-child(4),.roadmapRow>div:nth-child(5){grid-column:auto}.roadmapCell small{display:block;margin-bottom:5px}
+    }
+    @media(max-width:760px){
+      .shell{width:min(100% - 18px,1480px)}.nav{min-height:58px}.brand img{width:86px;padding:5px}.brand span>span,.brand small{display:none}.navLinks a:not(:first-child){display:none}.navLinks a,.languageToggle{min-height:38px;padding:0 9px;font-size:10px}
+      main{padding-top:10px}.heroCopy{padding:20px 16px}h1{font-size:30px}.heroCopy>p:last-of-type{font-size:13px}.heroSummary{grid-template-columns:1fr 1fr}.heroMetric{min-height:82px;border-bottom:1px solid rgba(255,255,255,.16)}.heroMetric:nth-child(2n){border-right:0}.heroMetric:nth-last-child(-n+2){border-bottom:0}.heroMetric b{font-size:24px}
+      section{padding:13px;margin-top:10px}.sectionHead{display:block;margin-bottom:11px}.sectionHead p{margin-top:7px;text-align:left}.portfolioRow{grid-template-columns:1fr;gap:9px;padding:14px 4px}.portfolioFocus,.portfolioSource{grid-column:1}.portfolioModels span{padding:6px 7px}
+      .roadmapToolbar{grid-template-columns:1fr;padding:10px}.resultCount{padding:0}.roadmapRow{grid-template-columns:1fr;margin-bottom:9px;border-top:4px solid var(--blue)}.roadmapRow>div,.roadmapRow>div:nth-child(3),.roadmapRow>div:nth-child(4),.roadmapRow>div:nth-child(5){grid-column:1;border-right:0;padding:10px 11px}.modelCell{display:grid;grid-template-columns:1fr auto;align-items:start}.modelCell a{grid-column:1/-1;width:max-content}.sourceBand{grid-template-columns:1fr;gap:5px}footer .shell{display:block}footer span{display:block;margin-top:4px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="arc.html" aria-label="返回 XCMG ARC 全产品线竞品对标平台" data-i18n-aria-en="Return to the XCMG ARC all-product benchmarking platform">
+        <img src="assets/xcmg-logo.svg" alt="XCMG">
+        <span><span>XCMG ARC</span><small>Product Benchmark Platform</small></span>
+      </a>
+      <nav class="navLinks" aria-label="页面导航">
+        <a href="arc.html" data-i18n-en="Platform Home">平台主页</a>
+        <a href="#portfolio" aria-current="page" data-i18n-en="Product Portfolio">产品型谱</a>
+        <a href="#roadmap" data-i18n-en="Improvement Roadmap">改进路线图</a>
+        <button class="languageToggle" type="button" aria-label="Switch to English">EN</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="shell">
+      <section class="hero" aria-label="产品型谱与改进路线图" data-i18n-aria-en="Product portfolio and improvement roadmap">
+        <div class="heroCopy">
+          <p class="eyebrow">XCMG ARC Portfolio Strategy</p>
+          <h1 data-i18n-en="Product Portfolio and Improvement Roadmap">产品型谱与改进路线图</h1>
+          <p data-i18n-en="Connect market position, product gaps, engineering actions, implementation status, and validation requirements. Historical dates from the source deck are retained as evidence, not treated as completion proof.">把市场位置、产品问题、工程动作、实施状态和验证要求放在同一条线上。源材料中的历史计划日期保留为证据，不作为已完成证明。</p>
+        </div>
+        <div class="heroSummary" aria-label="路线图状态摘要" data-i18n-aria-en="Roadmap status summary">
+          <div class="heroMetric"><b id="portfolio-count">2</b><span data-i18n-en="Portfolio Segments">型谱区段</span></div>
+          <div class="heroMetric"><b id="roadmap-count">10</b><span data-i18n-en="Models Tracked">跟踪机型</span></div>
+          <div class="heroMetric"><b id="verification-count">0</b><span data-i18n-en="Require Verification">待验证/复核</span></div>
+          <div class="heroMetric"><b>1</b><span data-i18n-en="Evidence Source">洞察材料来源</span></div>
+        </div>
+      </section>
+
+      <section id="portfolio">
+        <div class="sectionHead">
+          <h2 data-i18n-en="Product Portfolio Direction">产品型谱方向</h2>
+          <p data-i18n-en="Models below reproduce the source deck's proposed portfolio. They do not imply approval, launch, or current production status.">以下型号复现源材料中的型谱建议，不代表已批准、已发布或当前量产状态。</p>
+        </div>
+        <div class="portfolioRows" id="portfolio-rows"></div>
+      </section>
+
+      <section id="roadmap">
+        <div class="sectionHead">
+          <h2 data-i18n-en="Product Improvement Roadmap">产品改进路线图</h2>
+          <p data-i18n-en="Each row identifies the product issue, proposed action, current evidence status, and the test or record required to close the item.">每行对应产品问题、建议动作、当前证据状态，以及关闭该问题所需的试验或记录。</p>
+        </div>
+        <div class="roadmapToolbar">
+          <label for="roadmap-search"><span data-i18n-en="Model or issue search">机型 / 问题搜索</span><input id="roadmap-search" type="search" placeholder="例如：XE35U、运输、回转" data-i18n-placeholder-en="Example: XE35U, transport, swing"></label>
+          <label for="roadmap-status"><span data-i18n-en="Status filter">状态筛选</span><select id="roadmap-status"><option value="" data-i18n-en="All statuses">全部状态</option><option value="overdue" data-i18n-en="Target elapsed">计划节点已过</option><option value="partial" data-i18n-en="Partial / mixed status">部分完成 / 状态不一</option><option value="verify" data-i18n-en="Verification required">待车型确认</option><option value="concept" data-i18n-en="Concept review">待立项评审</option></select></label>
+          <div class="resultCount" id="roadmap-result" aria-live="polite"></div>
+        </div>
+        <div class="roadmapHeader" aria-hidden="true">
+          <span data-i18n-en="Model / Class">机型 / 吨级</span><span data-i18n-en="Product Issue">产品问题</span><span data-i18n-en="Proposed Action">建议动作</span><span data-i18n-en="Status / Source Plan">状态 / 原计划</span><span data-i18n-en="Validation Result / Closure Criteria">验证结果 / 关闭条件</span>
+        </div>
+        <div id="roadmap-rows"></div>
+        <div class="roadmapEmpty" id="roadmap-empty" data-i18n-en="No matching roadmap item. Adjust the filters.">没有匹配的路线图项目，请调整筛选条件。</div>
+        <div class="sourceBand"><b data-i18n-en="Evidence boundary">证据边界</b><span data-i18n-en="Source: North American Excavator Product-Line Insight 11.14, slides 233-239. Dates and completion statements reflect the deck at the time it was prepared. Current status must be confirmed by the responsible team and machine-level validation records.">来源：北美挖机产品线洞察 11.14，第 233-239 页。日期和完成表述反映材料编制时状态；当前状态必须由责任团队和实机验证记录确认。</span></div>
+      </section>
+    </div>
+  </main>
+
+  <footer><div class="shell"><span data-i18n-en="Developed independently by XCMG ARC">XCMG ARC 独立开发</span><span data-i18n-en="Product portfolio decisions require engineering, market, and validation review.">型谱结论须经工程、市场与验证联合评审</span></div></footer>
+
+  <script src="assets/ppt-insights.js"></script>
+  <script src="assets/i18n.js?v=20260720b"></script>
+  <script>
+    (() => {
+      const data = window.XCMG_PPT_INSIGHTS || {portfolio:{segments:[],roadmap:[]}};
+      const lang = document.documentElement.dataset.language === 'en' ? 'en' : 'zh';
+      const pick = (item, key) => item[`${key}_${lang}`] || item[`${key}_zh`] || '';
+      const dashboards = {
+        XE19U:'excavator-1-2t.html', XE27U:'excavator-2-3t.html', XE35U:'index.html',
+        XE45U:'excavator-4-5t.html', XE55U:'excavator-5-6t.html', XE75U:'excavator-7-8t.html',
+        XE80U:'excavator-8-10t.html', XE135U:'excavator-12-14t.html',
+        XE155UCR:'excavator-14-16t-short-tail.html', XE225U:'excavator-21-24t.html'
+      };
+      const withLanguage = (url) => lang === 'en' ? `${url}${url.includes('?') ? '&' : '?'}lang=en` : url;
+      const portfolioRows = document.getElementById('portfolio-rows');
+      portfolioRows.innerHTML = data.portfolio.segments.map((segment, index) => `
+        <article class="portfolioRow">
+          <div class="portfolioClass"><span>${lang === 'en' ? `Segment ${String(index + 1).padStart(2,'0')}` : `区段 ${String(index + 1).padStart(2,'0')}`}</span><b>${pick(segment,'range')}</b></div>
+          <div class="portfolioModels">${segment.models.split(' · ').map(model => `<span>${model}</span>`).join('')}</div>
+          <div class="portfolioFocus"><b>${lang === 'en' ? 'Definition Focus' : '产品定义重点'}</b><span>${pick(segment,'focus')}</span></div>
+          <div class="portfolioSource">${pick(segment,'source')}</div>
+        </article>`).join('');
+
+      const search = document.getElementById('roadmap-search');
+      const status = document.getElementById('roadmap-status');
+      const rows = document.getElementById('roadmap-rows');
+      const empty = document.getElementById('roadmap-empty');
+      const result = document.getElementById('roadmap-result');
+      const normalize = value => String(value || '').toLowerCase().replace(/[\s\-_/]+/g,'');
+      const render = () => {
+        const query = normalize(search.value);
+        const statusValue = status.value;
+        const visible = data.portfolio.roadmap.filter(item => {
+          const haystack = normalize([item.model,pick(item,'class'),pick(item,'issue'),pick(item,'action'),pick(item,'status')].join(' '));
+          return (!query || haystack.includes(query)) && (!statusValue || item.status === statusValue);
+        });
+        rows.innerHTML = visible.map(item => {
+          const dashboard = dashboards[item.model];
+          const link = dashboard ? `<a href="${withLanguage(dashboard)}">${lang === 'en' ? 'Open Benchmark' : '打开对标'}</a>` : '';
+          return `<article class="roadmapRow status-${item.status}">
+            <div class="modelCell"><div><b>${item.model}</b><span>${pick(item,'class')}</span></div>${link}</div>
+            <div class="roadmapCell"><small>${lang === 'en' ? 'Product Issue' : '产品问题'}</small><p>${pick(item,'issue')}</p></div>
+            <div class="roadmapCell"><small>${lang === 'en' ? 'Proposed Action' : '建议动作'}</small><p>${pick(item,'action')}</p></div>
+            <div class="statusCell"><span class="statusBadge">${pick(item,'status')}</span><b>${item.source_plan}</b><span>${pick(item,'source')}</span></div>
+            <div class="roadmapCell"><small>${lang === 'en' ? 'Validation / Closure' : '验证结果 / 关闭条件'}</small><p>${pick(item,'validation')}</p></div>
+          </article>`;
+        }).join('');
+        empty.classList.toggle('show', visible.length === 0);
+        result.textContent = lang === 'en' ? `Showing ${visible.length} of ${data.portfolio.roadmap.length} models` : `显示 ${visible.length} / ${data.portfolio.roadmap.length} 个机型`;
+      };
+      search.addEventListener('input', render);
+      status.addEventListener('change', render);
+      document.getElementById('portfolio-count').textContent = data.portfolio.segments.length;
+      document.getElementById('roadmap-count').textContent = data.portfolio.roadmap.length;
+      document.getElementById('verification-count').textContent = data.portfolio.roadmap.filter(item => item.status !== 'concept').length;
+      render();
+    })();
+  </script>
+</body>
+</html>
