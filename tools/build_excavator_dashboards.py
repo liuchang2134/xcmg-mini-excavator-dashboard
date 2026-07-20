@@ -182,6 +182,8 @@ CONDITIONS = [
     {
         "id": "narrow",
         "name": "狭窄空间 / 市政庭院",
+        "image": "assets/conditions/narrow-urban.jpg",
+        "image_alt": "徐工挖掘机在受限道路边施工的工况示意",
         "weight": 0.18,
         "feature": "看重窄机身、短尾回转、较小运输尺寸和贴边作业能力。",
         "benefit": "可伸缩底盘、动臂偏摆、推土铲偏摆和安全摄像头有助于庭院、市政和受限空间作业。",
@@ -200,6 +202,8 @@ CONDITIONS = [
     {
         "id": "trench",
         "name": "沟槽 / 基础深挖",
+        "image": "assets/conditions/trench-foundation.jpg",
+        "image_alt": "徐工挖掘机进行基础施工的工况示意",
         "weight": 0.20,
         "feature": "核心是下挖深度、挖掘半径、斗杆挖掘力和长斗杆覆盖能力。",
         "benefit": "长斗杆、AUX 管路和动臂斗杆防爆阀有助于深沟、管线和基础作业。",
@@ -219,6 +223,8 @@ CONDITIONS = [
     {
         "id": "loading",
         "name": "土方装车 / 短循环效率",
+        "image": "assets/conditions/loading-cycle.jpg",
+        "image_alt": "徐工挖掘机进行土方装车的工况示意",
         "weight": 0.18,
         "feature": "看卸载高度、挖掘力、液压流量、回转和行走响应。",
         "benefit": "经济模式、自动怠速、推土铲浮动和快换管路影响短循环油耗与辅助动作效率。",
@@ -241,6 +247,8 @@ CONDITIONS = [
     {
         "id": "attachment",
         "name": "破碎 / 多属具作业",
+        "image": "assets/conditions/breaker-attachments.jpg",
+        "image_alt": "徐工挖掘机在岩石施工现场作业的工况示意",
         "weight": 0.16,
         "feature": "重点是液压系统流量、压力和 AUX 管路覆盖。",
         "benefit": "AUX1/AUX2 管路、卸油管路、流量保持和快换管路影响破碎锤、拇指夹、螺旋钻等属具适配。",
@@ -261,6 +269,8 @@ CONDITIONS = [
     {
         "id": "slope",
         "name": "坡地 / 软土 / 吊装稳定",
+        "image": "assets/conditions/slope-soft-ground.jpg",
+        "image_alt": "徐工挖掘机在坡地和松软地面施工的工况示意",
         "weight": 0.14,
         "feature": "关注接地比压、履带宽度、牵引、爬坡和起吊能力。",
         "benefit": "副配重和推土铲浮动有助于改善稳定性与整平效率；起吊边界仍应以载荷表和作业规范为准。",
@@ -279,6 +289,8 @@ CONDITIONS = [
     {
         "id": "rental",
         "name": "租赁 / 快速转场 / 多客户通用",
+        "image": "assets/conditions/rental-fleet.jpg",
+        "image_alt": "多台徐工挖掘机协同施工的工况示意",
         "weight": 0.14,
         "feature": "看运输尺寸、油耗管理、易用性、安全提醒和远程管理。",
         "benefit": "自动怠速、自动停机、远程信息处理、防盗、摄像头和报警配置会影响油耗管理、资产管理和多客户使用便利性。",
@@ -1407,11 +1419,72 @@ def render_overall_gap_notes(model, xcmg, leader):
     )
 
 
+def render_product_gap_spotlight(model, xcmg, leader):
+    param_gaps = [
+        (*gap, "参数")
+        for row in model["rawParamRows"]
+        if (gap := raw_param_gap_text(row, model, xcmg))
+    ]
+    option_gaps = [
+        (*gap, "配置")
+        for row in model["rawOptionRows"]
+        if (gap := raw_option_gap_text(row, model, xcmg))
+    ]
+    gaps = sorted(param_gaps + option_gaps, reverse=True, key=lambda item: item[0])[:4]
+    if gaps:
+        items = "、".join(gap[2] for gap in gaps)
+        rows = "".join(
+            '<li>'
+            f'<span>{idx:02d}</span><div><small>{esc(gap[3])}</small><b>{esc(gap[2])}</b><p>{esc(gap[1])}</p></div>'
+            '</li>'
+            for idx, gap in enumerate(gaps, start=1)
+        )
+        title = f"与 {leader['product']} 的具体差距"
+        summary = f"当前可核验差距集中在 {items}。以下均为原始参数或标选配状态，不用综合分替代实际差异。"
+    else:
+        title = "当前资料未显示明确落后项"
+        summary = "继续复核缺失字段、配置口径和来源版本，避免把未披露信息误判为无配置。"
+        rows = '<li class="gapEmpty"><span>01</span><div><small>数据复核</small><b>来源与口径</b><p>补齐缺失字段并核验同版本、同配置条件后再形成产品目标。</p></div></li>'
+    return (
+        '<div class="productGapSpotlight">'
+        '<div class="productGapMedia">'
+        '<span>Product Gap Focus</span>'
+        f'<img src="{esc(model["meta"]["image"])}" alt="{esc(xcmg)} 产品图">'
+        f'<div><b>{esc(xcmg)}</b><small>当前对标产品</small></div>'
+        '</div>'
+        '<div class="productGapContent">'
+        '<span>参数与配置实差</span>'
+        f'<h3>{esc(title)}</h3><p>{esc(summary)}</p><ol>{rows}</ol>'
+        '</div>'
+        '</div>'
+    )
+
+
+def render_condition_visual_nav(model):
+    cards = []
+    for idx, condition in enumerate(model["conditions"], start=1):
+        focus = "、".join(item[1] for item in condition["items"][:3])
+        cards.append(
+            f'<a class="conditionVisualCard" href="#cond{idx}">'
+            f'<img src="{esc(condition["image"])}" alt="{esc(condition["image_alt"])}">'
+            '<div>'
+            f'<span>典型工况 {idx:02d}</span><strong>{esc(condition["name"])}</strong>'
+            f'<small>关键项：{esc(focus)}</small>'
+            '</div></a>'
+        )
+    return (
+        '<div class="conditionVisualNav">'
+        + "".join(cards)
+        + '</div><p class="conditionVisualSource">图片来源：徐工官方施工案例，仅用于工况示意；本页参数、配置和排名仍以对应吨级原始数据为准。</p>'
+    )
+
+
 def render_overall_section(model):
     xcmg = model["meta"]["xcmg"]
     rank, xscore, rows = xcmg_rank(model["overall"], xcmg)
     leader = rows[0] if rows else {"product": "-", "score": 0}
     gap_notes = render_overall_gap_notes(model, xcmg, leader)
+    gap_spotlight = render_product_gap_spotlight(model, xcmg, leader)
     ranked_products = [row["product"] for row in rows]
     ordered_products = ranked_products + [p for p in model["products"] if p not in ranked_products]
     overall_table = "".join(
@@ -1423,7 +1496,8 @@ def render_overall_section(model):
     return (
         '<section id="overall"><h2>总体评分（不分细分工况）</h2>'
         f'<p class="methodNote">评分口径：参数综合分 {int(OVERALL_WEIGHTS["parameter"]*100)}% + 标选配综合分 {int(OVERALL_WEIGHTS["option"]*100)}%；工况评分单独展示，不重复计入总体分。</p>'
-        '<div class="split">'
+        + gap_spotlight
+        + '<div class="split">'
         f'<div class="panel"><h3>总体评分排名</h3><div class="bars">{render_bar_ranking(model["overall"], xcmg, coverage=model["overallCoverage"])}</div><p class="coverageNote">覆盖率低于 {int(MIN_SCORE_COVERAGE*100)}% 的产品不进入排名，仍在右侧表格中保留并标记为“数据不足”。</p></div>'
         '<div class="panel"><h3>XCMG 总体差距分析</h3>'
         + gap_notes
@@ -1444,6 +1518,7 @@ def render_html(model):
     total_detail_rows = sum(len(v) for v in model["conditionDetails"].values())
     product_count = len(model["products"])
     summary_cards = render_summary_cards(model)
+    condition_visual_nav = render_condition_visual_nav(model)
     conditions_html = []
     for idx, c in enumerate(model["conditions"], start=1):
         conditions_html.append(
@@ -1488,10 +1563,14 @@ def render_html(model):
     .bars{{display:grid;gap:7px}}.bar{{display:grid;grid-template-columns:28px minmax(100px,145px) minmax(90px,1fr) 48px 64px;gap:8px;align-items:center;min-width:0}}.bar span{{background:#e6f0fa;color:var(--blue);font-weight:900;text-align:center;border-radius:3px;padding:3px 0}}.bar b{{font-size:13px;min-width:0;overflow-wrap:anywhere}}.bar i{{height:17px;background:#e3ecf5;border-radius:3px;overflow:hidden}}.bar i em{{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#2878bd)}}.bar strong{{color:#08335d}}.barCoverage{{font-size:11px;color:#65798c;white-space:nowrap}}.bar.xcmg span{{background:var(--yellow);color:#08213d}}.bar.xcmg i em{{background:linear-gradient(90deg,var(--yellow),#ffd86d)}}.bar.xcmg b,.bar.xcmg strong{{color:var(--blue);font-weight:900}}
     .radarBox{{min-width:0}}.radarHead{{display:flex;justify-content:space-between;gap:10px;align-items:center;padding-right:6px}}.radarCurrent{{font-size:12px;color:var(--blue);font-weight:900;white-space:nowrap}}.radarSvg{{display:block;margin:6px auto;max-width:100%;height:360px}}.radarSvg.small{{height:300px}}.radar-grid{{fill:none;stroke:#d9e6f2;stroke-width:1}}.radar-axis{{stroke:#d9e6f2;stroke-width:1}}.radar-label{{font-size:12px;font-weight:800;fill:#0b3155;text-anchor:middle;dominant-baseline:middle}}.radar-series{{fill:var(--series-color);fill-opacity:.08;stroke:var(--series-color);stroke-width:2.3;transition:.18s;cursor:pointer}}.radarBox.compare .radar-series,.factorRadar.compare .radar-series{{opacity:.08;fill-opacity:.03}}.radarBox.compare .radar-series.selected,.factorRadar.compare .radar-series.selected{{opacity:1;fill-opacity:.18;stroke-width:3.6}}.radarLegend{{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}}.radarLegend button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:5px 7px;font-size:12px;cursor:pointer;font-weight:700}}.radarLegend i{{display:inline-block;width:10px;height:10px;margin-right:5px;border-radius:2px}}.radarLegend button:hover,.radarLegend button.selected{{border-color:var(--yellow);box-shadow:0 0 0 2px rgba(245,180,0,.18)}}.radarLegend button.selected{{background:#fff7d6;color:#08213d}}.radarLegend.compact button{{font-size:11px;padding:4px 6px}}.mobileDisclosure,.radarPicker{{border:0;padding:0;margin:0;min-width:0}}.mobileDisclosure>summary,.radarPicker>summary{{display:none}}
     .factorRadar{{min-width:0}}.factorRadarHead{{margin-bottom:4px}}.factorRadarGrid{{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:12px;align-items:center}}.keyTable{{width:100%;border-collapse:collapse;font-size:12px}}.keyTable th{{background:var(--blue);color:#fff}}.keyTable th,.keyTable td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left}}.tableScroll{{overflow:auto;border:1px solid var(--line);border-radius:4px;max-height:520px;background:white}}.tableScroll.compact{{max-height:360px}}table{{border-collapse:collapse;width:100%;font-size:12px}}th,td{{border-bottom:1px solid #e3edf5;padding:8px;text-align:left;vertical-align:top;white-space:nowrap}}th{{position:sticky;top:0;background:var(--blue);color:#fff;z-index:2}}td:first-child,th:first-child{{position:sticky;left:0;z-index:3}}td:first-child,tbody th:first-child{{background:#fff;font-weight:800;color:#0b3155;box-shadow:2px 0 0 rgba(0,76,151,.08)}}tr:nth-child(even) td,tr:nth-child(even) th:first-child{{background:#f8fbfe}}tr.xcmg-row td{{box-shadow:inset 3px 0 0 var(--yellow)}}.scoreCell{{min-width:124px;white-space:normal}}.scoreCell b{{display:block}}.scoreCell span{{display:block;font-weight:900}}.scoreCell small{{display:block;color:#51677a}}.good{{background:#e6f4ea!important;color:#0c6a36!important;font-weight:800}}.mid{{background:#fff4cc!important;color:#785700!important;font-weight:800}}.bad{{background:#fde9e9!important;color:#ad1d1d!important;font-weight:800}}.missing{{background:#eef2f6!important;color:#607080!important}}.srOnly{{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}}
-    .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.methodNote,.coverageNote,.sourceNote{{font-size:12px;color:#526a7f;background:#f6f9fc;border-left:4px solid var(--yellow);padding:9px 11px;margin:0 0 12px}}.coverageNote{{margin:10px 0 0}}.sourceNote{{display:flex;gap:10px;align-items:flex-start}}.sourceNote b{{color:#08335d;white-space:nowrap}}.simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:12px}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
-    @media(max-width:1200px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.languageToggle{{margin:0}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home{{grid-column:1/-1;margin:0}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
+    .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.methodNote,.coverageNote,.sourceNote{{font-size:12px;color:#526a7f;background:#f6f9fc;border-left:4px solid var(--yellow);padding:9px 11px;margin:0 0 12px}}.coverageNote{{margin:10px 0 0}}.sourceNote{{display:flex;gap:10px;align-items:flex-start}}.sourceNote b{{color:#08335d;white-space:nowrap}}
+    .productGapSpotlight{{display:grid;grid-template-columns:310px minmax(0,1fr);min-height:285px;margin:14px 0 18px;border:1px solid var(--line);border-top:4px solid var(--blue);background:#fff;overflow:hidden}}.productGapMedia{{display:grid;grid-template-rows:auto 1fr auto;min-width:0;padding:16px;background:#f4f8fb;border-right:1px solid var(--line)}}.productGapMedia>span,.productGapContent>span{{color:var(--blue);font-size:10px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}}.productGapMedia img{{display:block;width:100%;height:190px;object-fit:contain;padding:10px}}.productGapMedia>div{{display:flex;justify-content:space-between;gap:8px;align-items:end;border-top:1px solid #d7e3ed;padding-top:10px}}.productGapMedia b{{color:#08335d;font-size:16px}}.productGapMedia small{{color:#65798c;font-size:10px}}.productGapContent{{min-width:0;padding:18px}}.productGapContent h3{{margin:5px 0 6px;color:#08335d;font-size:19px}}.productGapContent>p{{margin:0;color:#536b80;font-size:12px;line-height:1.6}}.productGapContent ol{{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 0;padding:0;list-style:none}}.productGapContent li{{display:grid;grid-template-columns:32px minmax(0,1fr);gap:9px;padding:10px;border:1px solid #d9e5ef;background:#f8fbfd}}.productGapContent li>span{{display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--blue);color:#fff;font-size:11px;font-weight:900}}.productGapContent li small,.productGapContent li b,.productGapContent li p{{display:block}}.productGapContent li small{{color:#6b7e8f;font-size:9px;font-weight:900}}.productGapContent li b{{margin-top:2px;color:#0b3155;font-size:13px}}.productGapContent li p{{margin:4px 0 0;color:#526a7f;font-size:11px;line-height:1.45;white-space:normal}}
+    .conditionVisualNav{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}}.conditionVisualCard{{position:relative;min-height:172px;overflow:hidden;border:1px solid var(--line);background:#092d50;color:#fff}}.conditionVisualCard:after{{content:"";position:absolute;inset:0;background:rgba(2,24,45,.36);transition:background .18s}}.conditionVisualCard:hover:after,.conditionVisualCard:focus-visible:after{{background:rgba(2,24,45,.20)}}.conditionVisualCard:focus-visible{{outline:3px solid rgba(245,180,0,.50);outline-offset:2px}}.conditionVisualCard img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .2s}}.conditionVisualCard:hover img{{transform:scale(1.025)}}.conditionVisualCard>div{{position:absolute;z-index:1;inset:auto 0 0;padding:13px;background:rgba(2,28,52,.82);border-top:2px solid var(--yellow)}}.conditionVisualCard span,.conditionVisualCard strong,.conditionVisualCard small{{display:block}}.conditionVisualCard span{{color:var(--yellow);font-size:9px;font-weight:900;letter-spacing:.10em}}.conditionVisualCard strong{{margin-top:3px;color:#fff;font-size:14px}}.conditionVisualCard small{{margin-top:4px;color:#d4e2ee;font-size:10px;line-height:1.4}}.conditionVisualSource{{margin:0 0 14px;color:#64798c;font-size:10px;line-height:1.5}}
+    .simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:12px}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
+    @media(max-width:1200px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.languageToggle{{margin:0}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home{{grid-column:1/-1;margin:0}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.productGapSpotlight{{grid-template-columns:260px minmax(0,1fr)}}.conditionVisualNav{{grid-template-columns:repeat(2,minmax(0,1fr))}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
     @media(max-width:720px){{body{{font-size:14px}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:12px;line-height:1.25}}.nav small{{font-size:9px}}.languageToggle{{min-width:40px;min-height:32px;padding:0 6px;font-size:11px}}.navToggle,.mobileTop{{padding:6px 8px;font-size:11px}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:12px;padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}.heroMedia img{{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}}h1{{font-size:26px;margin:6px 0 8px}}h2{{font-size:20px;margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:15px}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:12px}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:24px;line-height:1.15;margin:3px 0}}.kpi span{{font-size:11px;line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:12px;margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:18px;overflow-wrap:anywhere;margin-bottom:0}}.conditionTitle span{{font-size:10px}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:12px}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:12px}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:11px;padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:anywhere}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:anywhere;font-size:11px;padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:900;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:11px;color:var(--blue);font-weight:800}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:12px}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:12px;padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:28px}}.tableScroll{{max-height:62vh}}}}
     @media(max-width:720px){{.actions{{display:grid;grid-template-columns:1fr;gap:6px;overflow:visible;margin-top:10px;padding-bottom:0}}.actions .btn{{width:100%;min-height:38px;padding:7px 9px;font-size:12px}}}}
+    @media(max-width:720px){{.productGapSpotlight{{grid-template-columns:1fr;min-height:0}}.productGapMedia{{border-right:0;border-bottom:1px solid var(--line);padding:12px}}.productGapMedia img{{height:155px;padding:4px}}.productGapContent{{padding:12px}}.productGapContent h3{{font-size:17px}}.productGapContent ol{{grid-template-columns:1fr;gap:6px}}.conditionVisualNav{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:12%;margin:9px 0}}.conditionVisualCard{{scroll-snap-align:start;min-height:178px}}.conditionVisualSource{{font-size:9px}}}}
     html[data-language="en"] .conditionIntro b:after,html[data-language="en"] .overallNotes p>b:first-child:after,html[data-language="en"] .summaryCard p>b:first-child:after{{content:" "}}html[data-language="en"] .navMenu a,html[data-language="en"] .conditionTitle h2,html[data-language="en"] .simOptions b,html[data-language="en"] .simOptions small{{overflow-wrap:anywhere}}html[data-language="en"] .sourceNote b{{white-space:normal}}html[data-language="en"] th{{white-space:normal;overflow-wrap:anywhere}}html[data-language="en"] .radar-label{{font-size:11px}}
     @media(max-width:720px){{html[data-language="en"] .navTitle{{font-size:11px;line-height:1.2}}html[data-language="en"] .nav small{{display:none}}html[data-language="en"] .summaryGrid,html[data-language="en"] .conditionIntro,html[data-language="en"] .gapGrid{{display:grid;grid-template-columns:1fr;grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;scroll-snap-type:none;padding:0}}html[data-language="en"] .summaryCard{{min-height:0}}html[data-language="en"] .summaryCard,html[data-language="en"] .conditionIntro p,html[data-language="en"] .gapGrid article{{scroll-snap-align:none}}html[data-language="en"] .mobileDisclosure>summary,html[data-language="en"] .radarPicker>summary{{white-space:normal;overflow-wrap:anywhere}}html[data-language="en"] .radarHead{{align-items:flex-start;flex-wrap:wrap}}html[data-language="en"] .radarCurrent{{white-space:normal}}html[data-language="en"] .simHead{{gap:8px;align-items:flex-start}}html[data-language="en"] .resetSim{{flex:0 0 auto;white-space:normal}}}}
   </style>
@@ -1549,6 +1628,7 @@ def render_html(model):
     <section id="conditions">
       <h2>工况总览</h2>
       <p class="methodNote">排名口径：工况字段覆盖率低于 {int(MIN_SCORE_COVERAGE*100)}% 的产品不进入正式排名；缺失项仍保留在指标明细中。</p>
+      {condition_visual_nav}
       <div class="summaryGrid">{summary_cards}</div>
     </section>
 

@@ -524,6 +524,95 @@
       font-size:13px;
       line-height:1.7;
     }
+    .marketHead{
+      display:grid;
+      grid-template-columns:minmax(0,.72fr) minmax(360px,1fr);
+      gap:28px;
+      align-items:end;
+    }
+    .marketHead>p{margin:0;justify-self:end}
+    .sectionKicker{
+      margin:0 0 7px!important;
+      color:var(--blue)!important;
+      font-size:11px!important;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .marketGrid{
+      display:grid;
+      grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+      gap:16px;
+      align-items:stretch;
+    }
+    .marketPanel{
+      min-width:0;
+      background:#fff;
+      border:1px solid var(--line);
+      border-top:4px solid var(--blue);
+      box-shadow:0 10px 26px rgba(0,55,101,.055);
+      padding:18px;
+    }
+    .panelHeader{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      padding-bottom:13px;
+      border-bottom:1px solid #dce7f0;
+    }
+    .panelHeader span{
+      display:block;
+      color:#61768a;
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+    .panelHeader h3{
+      margin:4px 0 0;
+      color:var(--blue-ink);
+      font-size:19px;
+    }
+    .panelHeader>strong{
+      color:var(--blue);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .shareGroups{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:15px}
+    .shareGroup{min-width:0}
+    .shareGroupHead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}
+    .shareGroupHead b{color:var(--blue-ink);font-size:14px}
+    .shareGroupHead span{color:#62778b;font-size:10px;font-weight:800;text-align:right}
+    .shareBars{display:grid;gap:8px}
+    .shareBar{display:grid;grid-template-columns:62px minmax(50px,1fr) 34px;gap:7px;align-items:center;font-size:11px}
+    .shareBar>span{color:#27445f;font-weight:800;overflow:hidden;text-overflow:ellipsis}
+    .shareBar>i{height:9px;background:#e5edf4;overflow:hidden}
+    .shareBar>i>em{display:block;width:calc(var(--share) * 2.5);height:100%;background:var(--blue)}
+    .shareBar>b{color:var(--blue-ink);text-align:right}
+    .marketSource{margin:14px 0 0;color:#687b8e;font-size:10px;line-height:1.5}
+    .portfolioRail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:15px}
+    .portfolioItem{
+      min-width:0;
+      display:grid;
+      grid-template-rows:112px auto auto auto;
+      padding:8px;
+      border:1px solid #d7e3ed;
+      background:#f8fbfd;
+      color:var(--blue-ink);
+      transition:border-color .16s ease,transform .16s ease,box-shadow .16s ease;
+    }
+    .portfolioItem:hover,.portfolioItem:focus-visible{border-color:var(--yellow);transform:translateY(-2px);box-shadow:0 9px 18px rgba(0,55,101,.10);outline:none}
+    .portfolioImage{min-width:0;overflow:hidden;background:#fff;margin:-8px -8px 8px;border-bottom:1px solid #d7e3ed}
+    .portfolioImage img{width:100%;height:100%;object-fit:contain;padding:8px}
+    .portfolioItem>span{color:#64798c;font-size:10px;font-weight:900}
+    .portfolioItem>strong{margin-top:2px;color:var(--blue);font-size:15px}
+    .portfolioItem>small{margin-top:2px;color:#526c83;font-size:10px;font-weight:800}
+    .portfolioSummary{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+    .portfolioSummary p{margin:0;padding:10px;border-left:3px solid var(--yellow);background:#f4f8fb}
+    .portfolioSummary b,.portfolioSummary span{display:block}
+    .portfolioSummary b{color:var(--blue-ink);font-size:12px}
+    .portfolioSummary span{margin-top:4px;color:#526c83;font-size:11px;line-height:1.5}
     .productMatrix{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
@@ -1008,6 +1097,9 @@
       .quickAccessGrid{grid-template-columns:1fr 1fr}
       #quick-open{width:100%}
       .platformStrip{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .marketHead,.marketGrid{grid-template-columns:1fr}
+      .marketHead{gap:8px;align-items:start}
+      .marketHead>p{justify-self:start;margin-top:0}
       .modelHeader{align-items:flex-start;flex-direction:column}
       .modelFlow{grid-template-columns:1fr}
       .logicNode{min-height:auto;gap:12px}
@@ -1067,6 +1159,11 @@
       .modelBlock p{font-size:11px;line-height:1.45}
       .sectionHead{margin-bottom:16px}
       .sectionHead h2{font-size:24px}
+      .marketPanel{padding:13px}
+      .shareGroups{grid-template-columns:1fr;gap:14px}
+      .portfolioRail{grid-template-columns:1fr 1fr;gap:7px}
+      .portfolioItem{grid-template-rows:104px auto auto auto}
+      .portfolioSummary{grid-template-columns:1fr}
       .lineCard.featured .lineImage,.lineImage{height:178px}
       .lineBody,.lineCard.featured .lineBody{padding:14px}
       .projectImage{height:150px}
@@ -1091,6 +1188,7 @@
       <div class="navControls">
         <nav class="navLinks" id="arc-nav" aria-label="页面导航">
           <a href="#top" data-nav-target="top" aria-current="location">平台总览</a>
+          <a href="#market" data-nav-target="market">市场画像</a>
           <a href="#products" data-nav-target="products">产品线入口</a>
           <a href="#live" data-nav-target="live">挖掘机对标</a>
           <a href="data-downloads.html">原始数据中心</a>
@@ -1145,6 +1243,75 @@
             <div class="platformMetric"><b><!-- ARC_PRODUCTS -->89<!-- /ARC_PRODUCTS --></b><span>对标产品型号</span></div>
           </div>
         </article>
+      </section>
+
+      <section class="section marketSnapshot" id="market">
+        <div class="sectionHead marketHead">
+          <div>
+            <p class="sectionKicker">North America Market Snapshot</p>
+            <h2>北美挖掘机市场画像</h2>
+          </div>
+          <p>用市场份额确定重点竞品，用产品谱系连接到已建吨级资产。市场数据来自内部洞察材料，产品对标结论仍以各吨级原始数据为准。</p>
+        </div>
+
+        <div class="marketGrid">
+          <article class="marketPanel sharePanel" aria-label="2025 北美挖掘机品牌份额">
+            <header class="panelHeader">
+              <div><span>2025 Brand Share</span><h3>重点竞品集中度</h3></div>
+              <strong>北美市场</strong>
+            </header>
+            <div class="shareGroups">
+              <section class="shareGroup" aria-label="0-10 吨市场份额">
+                <div class="shareGroupHead"><b>0-10 吨</b><span>前四品牌合计 74%</span></div>
+                <div class="shareBars">
+                  <div class="shareBar"><span>Kubota</span><i><em style="--share:24%"></em></i><b>24%</b></div>
+                  <div class="shareBar"><span>CAT</span><i><em style="--share:19%"></em></i><b>19%</b></div>
+                  <div class="shareBar"><span>Bobcat</span><i><em style="--share:16%"></em></i><b>16%</b></div>
+                  <div class="shareBar"><span>Deere</span><i><em style="--share:15%"></em></i><b>15%</b></div>
+                </div>
+              </section>
+              <section class="shareGroup" aria-label="10 吨以上市场份额">
+                <div class="shareGroupHead"><b>10 吨以上</b><span>前三品牌合计 69%</span></div>
+                <div class="shareBars">
+                  <div class="shareBar"><span>CAT</span><i><em style="--share:35%"></em></i><b>35%</b></div>
+                  <div class="shareBar"><span>Komatsu</span><i><em style="--share:18%"></em></i><b>18%</b></div>
+                  <div class="shareBar"><span>Deere</span><i><em style="--share:16%"></em></i><b>16%</b></div>
+                  <div class="shareBar"><span>Hitachi</span><i><em style="--share:6%"></em></i><b>6%</b></div>
+                </div>
+              </section>
+            </div>
+            <p class="marketSource">数据来源：北美挖机产品线洞察 11.14；份额口径与年份按原材料呈现。</p>
+          </article>
+
+          <article class="marketPanel portfolioPanel" aria-label="XCMG 挖掘机已建产品谱系">
+            <header class="panelHeader">
+              <div><span>Benchmark Portfolio</span><h3>已建产品谱系</h3></div>
+              <strong>10 个吨级资产</strong>
+            </header>
+            <div class="portfolioRail">
+              <a class="portfolioItem" href="excavator-1-2t.html">
+                <div class="portfolioImage"><img src="assets/arc/xe19u-official-cropped.png" alt="XCMG XE19U"></div>
+                <span>微挖</span><strong>XE19U</strong><small>1-2 吨级</small>
+              </a>
+              <a class="portfolioItem" href="excavator-5-6t.html">
+                <div class="portfolioImage"><img src="assets/arc/xe55u-official-cropped.jpg" alt="XCMG XE55U"></div>
+                <span>小挖</span><strong>XE55U</strong><small>5-6 吨级</small>
+              </a>
+              <a class="portfolioItem" href="excavator-12-14t.html">
+                <div class="portfolioImage"><img src="assets/arc/xe135u-official-cropped.webp" alt="XCMG XE135U"></div>
+                <span>中挖</span><strong>XE135U</strong><small>12-14 吨级</small>
+              </a>
+              <a class="portfolioItem" href="excavator-21-24t.html">
+                <div class="portfolioImage"><img src="assets/arc/xe225u-official-cropped.png" alt="XCMG XE225U"></div>
+                <span>中挖</span><strong>XE225U</strong><small>21-24 吨级</small>
+              </a>
+            </div>
+            <div class="portfolioSummary">
+              <p><b>核心覆盖</b><span>1-6 吨紧凑型与通用型资产连续覆盖。</span></p>
+              <p><b>扩展覆盖</b><span>7-24 吨级补齐市政、土方和基础施工场景。</span></p>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section class="section" id="products">
