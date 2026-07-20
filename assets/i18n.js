@@ -125,11 +125,6 @@
     '下载数据': 'Download Data',
     '没有匹配的数据集，请调整关键词。': 'No matching dataset. Adjust the search terms.',
     '对标概览': 'Benchmark Overview',
-    '市场与客户': 'Market and Customers',
-    '实机评价': 'Field Evaluation',
-    '产品型谱与路线图': 'Product Portfolio and Roadmap',
-    '型谱路线图': 'Portfolio Roadmap',
-    '产品型谱与改进路线图｜XCMG ARC': 'Product Portfolio and Improvement Roadmap | XCMG ARC',
     '总体评分': 'Overall Evaluation',
     '总体评分（不分细分工况）': 'Overall Evaluation (All Work Conditions)',
     '工况竞争格局': 'Competitive Position by Work Condition',
@@ -848,17 +843,6 @@
     const elements = root.nodeType === Node.ELEMENT_NODE ? [root, ...root.querySelectorAll('*')] : [];
     for (const element of elements) {
       if (shouldSkip(element)) continue;
-      const explicitText = element.getAttribute('data-i18n-en');
-      if (explicitText) element.textContent = explicitText;
-      for (const [attribute, translationAttribute] of [
-        ['aria-label', 'data-i18n-aria-en'],
-        ['placeholder', 'data-i18n-placeholder-en'],
-        ['title', 'data-i18n-title-en'],
-        ['alt', 'data-i18n-alt-en']
-      ]) {
-        const explicitValue = element.getAttribute(translationAttribute);
-        if (explicitValue) element.setAttribute(attribute, explicitValue);
-      }
       for (const attribute of ['aria-label', 'placeholder', 'title', 'alt']) {
         const value = element.getAttribute(attribute);
         if (value && HAN.test(value)) {

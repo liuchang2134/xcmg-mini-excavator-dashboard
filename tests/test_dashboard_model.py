@@ -260,47 +260,6 @@ class DashboardModelTests(unittest.TestCase):
         self.assertNotIn('<div class="heroActions">', arc_html)
         self.assertNotIn('class="heroModel"', arc_html)
 
-    def test_ppt_decision_and_field_evidence_are_published_without_changing_scores(self):
-        insight_path = ROOT / "data" / "ppt-insights.json"
-        self.assertTrue(insight_path.exists())
-        insights = json.loads(insight_path.read_text(encoding="utf-8"))
-        self.assertEqual(len(insights["homepage"]["decisions"]), 3)
-        self.assertEqual(set(insights["tonnages"]), {meta["slug"] for meta in SOURCE_FILES})
-        for meta in SOURCE_FILES:
-            insight = insights["tonnages"][meta["slug"]]
-            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
-            with self.subTest(page=meta["output"]):
-                self.assertTrue((ROOT / insight["image"]).exists())
-                self.assertGreaterEqual(len(insight["field_evaluation"]), 4)
-                self.assertIn('id="market-context"', html)
-                self.assertIn('id="field-evaluation"', html)
-                self.assertIn("不计入现有参数/配置分", html)
-                self.assertIn('data-i18n-en=', html)
-
-    def test_arc_homepage_has_three_decision_summaries(self):
-        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
-        self.assertEqual(arc_html.count('class="decisionItem"'), 3)
-        for label in ("行业趋势", "重点吨级", "战略标杆"):
-            self.assertIn(label, arc_html)
-        self.assertIn('href="portfolio-roadmap.html"', arc_html)
-
-    def test_product_portfolio_and_roadmap_are_separate_and_traceable(self):
-        roadmap_path = ROOT / "portfolio-roadmap.html"
-        self.assertTrue(roadmap_path.exists())
-        roadmap_html = roadmap_path.read_text(encoding="utf-8")
-        insights = json.loads((ROOT / "data" / "ppt-insights.json").read_text(encoding="utf-8"))
-        self.assertGreaterEqual(len(insights["portfolio"]["segments"]), 2)
-        self.assertEqual(len(insights["portfolio"]["roadmap"]), len(SOURCE_FILES))
-        for field in ("issue_zh", "action_zh", "status_zh", "validation_zh", "source_plan"):
-            self.assertTrue(all(item.get(field) for item in insights["portfolio"]["roadmap"]))
-        self.assertIn('id="portfolio"', roadmap_html)
-        self.assertIn('id="roadmap"', roadmap_html)
-        self.assertIn("历史计划日期", roadmap_html)
-        self.assertIn('src="assets/ppt-insights.js"', roadmap_html)
-        insight_asset = ROOT / "assets" / "ppt-insights.js"
-        self.assertTrue(insight_asset.exists())
-        self.assertIn("原计划节点已过", insight_asset.read_text(encoding="utf-8"))
-
     def test_arc_homepage_uses_the_approved_five_section_structure(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertIn('<header class="topbar">', arc_html)
@@ -367,7 +326,7 @@ class DashboardModelTests(unittest.TestCase):
         self.assertIn("MutationObserver", i18n_js)
         self.assertIn("localStorage", i18n_js)
 
-        pages = [ROOT / "arc.html", ROOT / "data-downloads.html", ROOT / "portfolio-roadmap.html"] + [
+        pages = [ROOT / "arc.html", ROOT / "data-downloads.html"] + [
             ROOT / meta["output"] for meta in SOURCE_FILES
         ]
         for page in pages:
@@ -454,7 +413,7 @@ class DashboardModelTests(unittest.TestCase):
             self.assertIn("MPa", units)
 
     def test_local_page_references_exist(self):
-        pages = [ROOT / "arc.html", ROOT / "data-downloads.html", ROOT / "portfolio-roadmap.html"] + [
+        pages = [ROOT / "arc.html", ROOT / "data-downloads.html"] + [
             ROOT / meta["output"] for meta in SOURCE_FILES
         ]
         for page in pages:

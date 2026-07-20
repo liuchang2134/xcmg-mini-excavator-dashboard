@@ -613,34 +613,6 @@
     .portfolioSummary b,.portfolioSummary span{display:block}
     .portfolioSummary b{color:var(--blue-ink);font-size:12px}
     .portfolioSummary span{margin-top:4px;color:#526c83;font-size:11px;line-height:1.5}
-    .decisionBand{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      margin-top:16px;
-      border:1px solid var(--line);
-      border-top:4px solid var(--blue);
-      background:#fff;
-      box-shadow:0 10px 26px rgba(0,55,101,.055);
-    }
-    .decisionItem{
-      min-width:0;
-      display:grid;
-      grid-template-columns:92px minmax(0,1fr);
-      grid-template-areas:"meta title" "meta body" "meta source";
-      gap:4px 16px;
-      padding:18px;
-      border-right:1px solid #dce7f0;
-      transition:background .16s ease;
-    }
-    .decisionItem:last-child{border-right:0}
-    .decisionItem:hover,.decisionItem:focus-visible{background:#f7fafc;outline:3px solid rgba(245,180,0,.28);outline-offset:-3px}
-    .decisionMeta{grid-area:meta;border-left:3px solid var(--yellow);padding-left:10px}
-    .decisionMeta span,.decisionMeta b{display:block}
-    .decisionMeta span{color:#61768a;font-size:9px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
-    .decisionMeta b{margin-top:7px;color:var(--blue);font-size:21px;line-height:1.12;overflow-wrap:anywhere}
-    .decisionItem h3{grid-area:title;margin:0;color:var(--blue-ink);font-size:15px}
-    .decisionItem p{grid-area:body;margin:2px 0 0;color:#465f75;font-size:11px;line-height:1.6}
-    .decisionItem small{grid-area:source;margin-top:4px;color:#728597;font-size:9px}
     .productMatrix{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
@@ -1063,19 +1035,6 @@
       .navControls{gap:5px}
       .languageToggle{min-width:44px;padding:0 8px}
     }
-    @media(min-width:861px) and (max-width:1600px){
-      html[data-language="en"] .nav{gap:12px}
-      html[data-language="en"] .brand{min-width:220px;gap:9px}
-      html[data-language="en"] .logo{width:92px;padding:7px 9px}
-      html[data-language="en"] .brandText b{font-size:14px}
-      html[data-language="en"] .brandText span{font-size:9px;line-height:1.25;letter-spacing:.06em}
-      html[data-language="en"] .navControls{gap:4px}
-      html[data-language="en"] .navLinks{gap:1px}
-      html[data-language="en"] .navLinks a{padding:0 7px;font-size:11px}
-      html[data-language="en"] .languageToggle{min-width:44px;padding:0 8px}
-      html[data-language="en"] .decisionItem{grid-template-columns:116px minmax(0,1fr);gap-column:12px}
-      html[data-language="en"] .decisionMeta b{font-size:17px}
-    }
     @media(max-width:1240px){
       .heroMain{min-height:auto}
       .quickAccess{max-width:none}
@@ -1141,12 +1100,6 @@
       .marketHead,.marketGrid{grid-template-columns:1fr}
       .marketHead{gap:8px;align-items:start}
       .marketHead>p{justify-self:start;margin-top:0}
-      .decisionBand{grid-template-columns:1fr}
-      .decisionItem{border-right:0;border-bottom:1px solid #dce7f0}
-      .decisionItem:last-child{border-bottom:0}
-      html[data-language="en"] .decisionItem{grid-template-columns:104px minmax(0,1fr);gap:4px 10px}
-      html[data-language="en"] .decisionMeta span{font-size:8px;letter-spacing:.05em;overflow-wrap:anywhere}
-      html[data-language="en"] .decisionMeta b{font-size:15px}
       .modelHeader{align-items:flex-start;flex-direction:column}
       .modelFlow{grid-template-columns:1fr}
       .logicNode{min-height:auto;gap:12px}
@@ -1211,9 +1164,6 @@
       .portfolioRail{grid-template-columns:1fr 1fr;gap:7px}
       .portfolioItem{grid-template-rows:104px auto auto auto}
       .portfolioSummary{grid-template-columns:1fr}
-      .decisionItem{grid-template-columns:78px minmax(0,1fr);gap:4px 10px;padding:13px}
-      .decisionMeta b{font-size:18px}
-      .decisionItem h3{font-size:14px}
       .lineCard.featured .lineImage,.lineImage{height:178px}
       .lineBody,.lineCard.featured .lineBody{padding:14px}
       .projectImage{height:150px}
@@ -1241,7 +1191,6 @@
           <a href="#market" data-nav-target="market">市场画像</a>
           <a href="#products" data-nav-target="products">产品线入口</a>
           <a href="#live" data-nav-target="live">挖掘机对标</a>
-          <a href="portfolio-roadmap.html">型谱路线图</a>
           <a href="data-downloads.html">原始数据中心</a>
           <a href="#method" data-nav-target="method">平台应用价值</a>
           <a href="https://xcmg-usa.com/" target="_blank" rel="noreferrer">XCMG USA</a>
@@ -1362,27 +1311,6 @@
               <p><b>扩展覆盖</b><span>7-24 吨级补齐市政、土方和基础施工场景。</span></p>
             </div>
           </article>
-        </div>
-
-        <div class="decisionBand" aria-label="市场决策摘要" data-i18n-aria-en="Market decision summary">
-          <a class="decisionItem" href="#market">
-            <div class="decisionMeta"><span data-i18n-en="Industry Trend">行业趋势</span><b data-i18n-en="Adjustment Cycle">调整期</b></div>
-            <h3 data-i18n-en="Demand pressure shifts competition toward replacement sales">需求承压，竞争重心转向存量替代</h3>
-            <p data-i18n-en="Housing, interest rates, and dealer inventory pressure near-term demand. The deck's approximately 90,000-unit 2025 forecast is retained only as a historical baseline and requires a current EDA refresh.">住房、利率和渠道库存变化压制短期需求。材料中的 2025 年约 9 万台预测仅作为历史基线，当前判断需结合最新 EDA 更新。</p>
-            <small data-i18n-en="Evidence: deck slides 9-11">依据：PPT 第 9-11 页</small>
-          </a>
-          <a class="decisionItem" href="#live">
-            <div class="decisionMeta"><span data-i18n-en="Priority Classes">重点吨级</span><b>3-6 t</b></div>
-            <h3 data-i18n-en="Prioritize the core compact range">优先补齐紧凑型主战区产品力</h3>
-            <p data-i18n-en="The source portfolio structure assigns 22.12% to 3-4 t, 14.22% to 5-6 t, and 11.46% to 4-5 t, with overlapping contractor, rental, municipal, and landscaping demand.">源材料产品线结构中，3-4 吨占 22.12%、5-6 吨占 14.22%、4-5 吨占 11.46%，客户覆盖承包商、租赁、市政与园林。</p>
-            <small data-i18n-en="Evidence: deck slide 233; source-deck structure">依据：PPT 第 233 页；源材料结构口径</small>
-          </a>
-          <a class="decisionItem" href="portfolio-roadmap.html">
-            <div class="decisionMeta"><span data-i18n-en="Strategic Benchmarks">战略标杆</span><b>Kubota<br>CAT</b></div>
-            <h3 data-i18n-en="Select strategic references by tonnage class">按吨级分开选择战略标杆</h3>
-            <p data-i18n-en="Reference Kubota below 10 t for compact portfolio, transport fit, and rental readiness; reference CAT above 10 t for hydraulics, assist technology, and configuration completeness.">10 吨以下重点参考 Kubota 的紧凑谱系、运输与租赁适配；10 吨以上重点参考 CAT 的液压、智能辅助与配置完整度。</p>
-            <small data-i18n-en="Open the product portfolio and improvement roadmap">进入产品型谱与改进路线图</small>
-          </a>
         </div>
       </section>
 
