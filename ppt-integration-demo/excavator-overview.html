@@ -8,7 +8,7 @@
   <title>挖掘机整体分析｜XCMG ARC内部资料</title>
   <link rel="icon" href="assets/xcmg-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/dashboard.css?v=20260717a">
-  <link rel="stylesheet" href="ppt-integration-demo/assets/integrated.css?v=20260720b">
+  <link rel="stylesheet" href="ppt-integration-demo/assets/integrated.css?v=20260720c">
 </head>
 <body class="pptOverviewPage">
 <a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
@@ -20,68 +20,74 @@
     <button class="navToggle" type="button" aria-expanded="false" aria-controls="page-nav">页面导航</button>
     <a class="mobileTop" href="#top">顶部</a>
     <div class="navMenu" id="page-nav">
-      <a class="home" href="ppt-integration-demo/index.html">返回3–4吨集成原型</a>
-      <a href="#industry">行业周期与竞争格局</a>
-      <a href="#macro">宏观约束与机会</a>
-      <a href="#benchmarks">战略标杆</a>
-      <a href="#tonnage">核心吨级结构</a>
-      <a href="#overview-evidence">原始依据</a>
+      <a class="home" href="ppt-integration-demo/index.html">返回3–4吨对标</a>
     </div>
   </aside>
+
   <main>
-    <div class="internalRibbon"><b>XCMG ARC内部资料</b><span>用于承接不能归入单一吨级的挖掘机产品线内容；所有市场数字均保留PPT时间属性。</span></div>
-    <header class="categoryHero">
-      <div>
-        <span class="eyebrow">EXCAVATOR CATEGORY ANALYSIS</span>
+    <div class="hero">
+      <div class="heroText">
+        <span class="eyebrow">XCMG ARC INTERNAL</span>
         <h1>北美挖掘机整体分析</h1>
-        <p>把宏观环境、行业周期、竞争集中度、主销吨级和战略标杆放在产品线层级阅读；各吨级的参数、配置和具体工况仍回到对应对标页面。</p>
+        <p class="heroDescription">集中呈现不能归入单一吨级的行业周期、竞争格局、战略标杆和核心吨级结构；具体参数、配置和工况仍在对应吨级看板中分析。</p>
+        <p class="methodNote"><b>XCMG ARC内部资料：</b>市场数字保留PPT原有时间属性，历史判断和预测不视为当前事实。</p>
       </div>
-      <div class="categoryKpis" aria-label="挖掘机产品线关键历史指标">
-        <div><b>≈90,000</b><span>2025市场规模历史预测 / 台</span></div>
-        <div><b>91%</b><span>0–10吨前十品牌合计</span></div>
-        <div><b>94%</b><span>10吨以上前十品牌合计</span></div>
-        <div><b>19 / 18</b><span>XCMG历史排名：0–10吨 / 10吨以上</span></div>
-      </div>
-    </header>
+      <div class="heroMedia"><img src="assets/arc/category-excavators.jpg" alt="XCMG挖掘机产品线"></div>
+    </div>
 
-    <section id="industry" class="pptSection">
-      <div class="pptSectionHeader"><div><h2>行业周期与竞争格局</h2><p class="sourceCaveat">需求调整、品牌集中度和吨级结构共同决定产品对标优先级。</p></div><div class="pptSourceMeta"><b>PPT来源</b>第9–12页</div></div>
-      <div class="overviewVisualGrid">
-        <figure class="overviewVisual"><img src="ppt-integration-demo/assets/slides/slide-10.png" alt="PPT第10页竞争集中度图"><figcaption>竞争集中度与市场格局 <button type="button" class="evidenceTrigger" data-overview-slide="10">查看依据</button></figcaption></figure>
-        <figure class="overviewVisual"><img src="ppt-integration-demo/assets/slides/slide-12.png" alt="PPT第12页品牌占有率图"><figcaption>品牌份额与XCMG位置 <button type="button" class="evidenceTrigger" data-overview-slide="12">查看依据</button></figcaption></figure>
+    <section id="overview-summary">
+      <h2>整体分析概览</h2>
+      <div class="kpis" aria-label="挖掘机产品线关键历史指标">
+        <div class="kpi"><span>2025市场规模历史预测</span><b>≈90,000</b><span>台</span></div>
+        <div class="kpi"><span>0–10吨前十品牌合计</span><b>91%</b><span>历史市场集中度</span></div>
+        <div class="kpi"><span>10吨以上前十品牌合计</span><b>94%</b><span>历史市场集中度</span></div>
+        <div class="kpi"><span>XCMG历史排名</span><b>19 / 18</b><span>0–10吨 / 10吨以上</span></div>
       </div>
-      <div class="overviewDecisionGrid" id="industry-rows"></div>
     </section>
 
-    <section id="macro" class="pptSection">
-      <div class="pptSectionHeader"><div><h2>宏观约束与机会</h2><p class="sourceCaveat">只保留会影响产品规划、区域投入和市场准入的因素。</p></div><div class="pptSourceMeta"><b>PPT来源</b>第3–8页</div></div>
-      <div class="overviewDecisionGrid" id="macro-rows"></div>
+    <section id="industry">
+      <h2>行业周期与竞争格局</h2>
+      <p class="methodNote">需求调整、品牌集中度和吨级结构共同决定产品对标优先级。PPT来源：第9–12页。</p>
+      <div class="split overviewVisualSplit">
+        <figure class="panel overviewVisual"><img src="ppt-integration-demo/assets/slides/slide-10.png" alt="PPT第10页竞争集中度图"><figcaption>竞争集中度与市场格局 <button type="button" class="evidenceTrigger" data-overview-slide="10">查看依据</button></figcaption></figure>
+        <figure class="panel overviewVisual"><img src="ppt-integration-demo/assets/slides/slide-12.png" alt="PPT第12页品牌占有率图"><figcaption>品牌份额与XCMG位置 <button type="button" class="evidenceTrigger" data-overview-slide="12">查看依据</button></figcaption></figure>
+      </div>
+      <div class="panel overviewDecisionGrid" id="industry-rows"></div>
     </section>
 
-    <section id="benchmarks" class="pptSection">
-      <div class="pptSectionHeader"><div><h2>战略标杆</h2><p class="sourceCaveat">微小挖与中大挖采用不同标杆，不把一个品牌的优势机械复制到所有吨级。</p></div><div class="pptSourceMeta"><b>PPT来源</b>第13–14页</div></div>
+    <section id="macro">
+      <h2>宏观约束与机会</h2>
+      <p class="methodNote">只保留会影响产品规划、区域投入和市场准入的因素。PPT来源：第3–8页。</p>
+      <div class="panel overviewDecisionGrid" id="macro-rows"></div>
+    </section>
+
+    <section id="benchmarks">
+      <h2>战略标杆</h2>
+      <p class="methodNote">微小挖与中大挖采用不同标杆，不把一个品牌的优势机械复制到所有吨级。PPT来源：第13–14页。</p>
       <div class="benchmarkBands" id="benchmark-bands"></div>
     </section>
 
-    <section id="tonnage" class="pptSection">
-      <div class="pptSectionHeader"><div><h2>核心吨级结构</h2><p class="sourceCaveat">用于决定对标资产建设顺序，销量与降幅需按最新AEM/EDA数据复核。</p></div><div class="pptSourceMeta"><b>PPT来源</b>第15页</div></div>
-      <div class="tonnageBands">
-        <div class="tonnageBand"><b>微挖 0–4吨</b><span>核心：3–4、1–2、2–3吨</span></div>
-        <div class="tonnageBand"><b>小挖 4–10吨</b><span>核心：5–6、4–5吨</span></div>
-        <div class="tonnageBand"><b>中挖 10–33吨</b><span>核心：21–24、14–16、24–28吨</span></div>
-        <div class="tonnageBand"><b>大挖 33吨以上</b><span>核心：33–40、40–50吨</span></div>
+    <section id="tonnage">
+      <h2>核心吨级结构</h2>
+      <p class="methodNote">用于确定对标资产建设顺序，销量与降幅需按最新AEM/EDA数据复核。PPT来源：第15页。</p>
+      <div class="kpis tonnageKpis">
+        <div class="kpi"><span>微挖</span><b>0–4吨</b><span>核心：3–4、1–2、2–3吨</span></div>
+        <div class="kpi"><span>小挖</span><b>4–10吨</b><span>核心：5–6、4–5吨</span></div>
+        <div class="kpi"><span>中挖</span><b>10–33吨</b><span>核心：21–24、14–16、24–28吨</span></div>
+        <div class="kpi"><span>大挖</span><b>33吨以上</b><span>核心：33–40、40–50吨</span></div>
       </div>
-      <div class="overviewDecisionGrid" id="tonnage-row"></div>
+      <div class="panel overviewDecisionGrid" id="tonnage-row"></div>
     </section>
 
-    <section id="overview-evidence" class="pptSection">
-      <div class="pptSectionHeader"><div><h2>原始依据</h2><p class="sourceCaveat">点击页码查看PPT原页、原始文字、时间属性和验证状态。</p></div><div class="pptSourceMeta"><b>范围</b>第3–15页</div></div>
+    <section id="overview-evidence">
+      <h2>原始依据</h2>
+      <p class="methodNote">点击页码查看PPT第3–15页原页、原始文字、时间属性和验证状态。</p>
       <div class="evidenceButtons" id="overview-evidence-buttons"></div>
     </section>
   </main>
 </div>
 <script src="assets/dashboard.js"></script>
-<script src="ppt-integration-demo/assets/overview.js?v=20260720b"></script>
+<script src="ppt-integration-demo/assets/overview.js?v=20260720c"></script>
 <script src="assets/i18n.js?v=20260717a"></script>
 </body>
 </html>

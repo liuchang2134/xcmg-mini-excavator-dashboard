@@ -88,6 +88,8 @@ async function assertPage(page, label, language, route) {
     const overview = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
     await overview.goto(new URL("excavator-overview.html", base).href, { waitUntil: "networkidle" });
     await overview.waitForTimeout(400);
+    if ((await overview.locator("#page-nav a").count()) !== 1) throw new Error("Overview sidebar must contain only one return link");
+    if ((await overview.locator(".hero").count()) !== 1 || (await overview.locator(".categoryHero").count()) !== 0) throw new Error("Overview must reuse the formal dashboard hero");
     await overview.screenshot({ path: path.join(artifactDir, "desktop-excavator-overview.png"), fullPage: false });
     await overview.setViewportSize({ width: 390, height: 844 });
     await overview.waitForTimeout(200);

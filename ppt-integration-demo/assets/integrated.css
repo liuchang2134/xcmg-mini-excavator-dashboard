@@ -1,4 +1,4 @@
-.pptIntegratedDemo{--ppt-blue:#005aa7;--ppt-blue-soft:#eaf3fb;--ppt-yellow:#f5b400;--ppt-ink:#0a2d4f;--ppt-muted:#617487;--ppt-line:#c8d7e6;--ppt-green:#0f7b45;--ppt-red:#b42318;--ppt-amber:#9b6500;--ppt-gray:#6b7785}
+.pptIntegratedDemo,.pptOverviewPage{--ppt-blue:#005aa7;--ppt-blue-soft:#eaf3fb;--ppt-yellow:#f5b400;--ppt-ink:#0a2d4f;--ppt-muted:#617487;--ppt-line:#c8d7e6;--ppt-green:#0f7b45;--ppt-red:#b42318;--ppt-amber:#9b6500;--ppt-gray:#6b7785}
 .pptIntegratedDemo main{min-width:0}
 .internalRibbon{display:flex;align-items:center;gap:.65rem;margin:.75rem 0;padding:.65rem .8rem;border-left:4px solid var(--ppt-yellow);background:#f6f9fc;color:var(--ppt-ink);font-size:.78rem}
 .internalRibbon b{color:var(--ppt-blue);white-space:nowrap}
@@ -138,30 +138,24 @@
 .evidenceRawLabel{display:block;margin:.85rem 0 .35rem;color:var(--ppt-blue);font-size:.75rem;font-weight:900}
 .evidenceRaw{display:block;width:100%;min-height:13rem;resize:vertical;padding:.7rem;border:1px solid var(--ppt-line);background:#f7f9fb;color:#263f55;font:12px/1.55 Consolas,"Microsoft YaHei",sans-serif}
 body.evidenceOpen{overflow:hidden}
-.categoryHero{display:grid;grid-template-columns:1fr;gap:1rem;padding:1rem 0;border-bottom:3px solid var(--ppt-blue)}
-.categoryHero h1{margin:.2rem 0 .45rem}
-.categoryHero p{max-width:68rem;margin:0;color:#4a6278;line-height:1.6}
-.categoryKpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
-.categoryKpis div{padding:.65rem;border-left:4px solid var(--ppt-yellow);background:#f3f7fa}
-.categoryKpis b{display:block;color:var(--ppt-blue);font-size:1.25rem}
-.categoryKpis span{font-size:.68rem;color:var(--ppt-muted)}
-.overviewDecisionGrid{display:grid;grid-template-columns:1fr;border-top:1px solid var(--ppt-line)}
-.overviewVisualGrid{display:grid;grid-template-columns:1fr;gap:.75rem;margin-bottom:1rem}
-.overviewVisual{margin:0;border:1px solid var(--ppt-line);background:#f3f7fa;overflow:hidden}
+.pptOverviewPage .heroMedia img{object-fit:cover}
+.pptOverviewPage .heroText .methodNote{margin:1rem 0 0}
+.overviewVisualSplit{margin-bottom:.75rem}
+.overviewDecisionGrid{display:grid;grid-template-columns:1fr;padding-top:0;padding-bottom:0}
+.overviewVisual{margin:0;padding:0;background:#f3f7fa;overflow:hidden}
 .overviewVisual img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#fff}
 .overviewVisual figcaption{display:flex;align-items:center;justify-content:space-between;gap:.65rem;padding:.55rem .65rem;color:var(--ppt-ink);font-size:.74rem;font-weight:900}
 .overviewDecisionRow{display:grid;grid-template-columns:8rem minmax(0,1fr) auto;gap:.75rem;align-items:start;padding:.75rem 0;border-bottom:1px solid var(--ppt-line)}
+.overviewDecisionRow:last-child{border-bottom:0}
 .overviewDecisionRow h3{margin:0;color:var(--ppt-blue);font-size:.86rem}
 .overviewDecisionRow p{margin:0;color:#3b536b;font-size:.76rem;line-height:1.55}
 .benchmarkBands{display:grid;grid-template-columns:1fr;gap:.8rem}
-.benchmarkBand{padding:.85rem;border-left:5px solid var(--ppt-blue);background:#f4f8fb}
+.benchmarkBand{padding:14px;border-left:5px solid var(--ppt-blue)}
 .benchmarkBand:nth-child(2){border-left-color:var(--ppt-yellow)}
 .benchmarkBand h3{margin:0 0 .35rem;font-size:1rem}
 .benchmarkBand p{margin:0;color:#354f66;font-size:.78rem;line-height:1.6}
-.tonnageBands{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--ppt-line)}
-.tonnageBand{padding:.7rem;border-right:1px solid var(--ppt-line);border-bottom:1px solid var(--ppt-line)}
-.tonnageBand b{display:block;color:var(--ppt-blue);font-size:.84rem}
-.tonnageBand span{font-size:.7rem;color:var(--ppt-muted)}
+.tonnageKpis{margin-bottom:.75rem}
+.tonnageKpis .kpi b{font-size:1.45rem}
 @media(min-width:48rem){
   .marketDecisionGrid{grid-template-columns:minmax(0,1.1fr) minmax(18rem,.9fr)}
   .marketDecisionGrid>.pptModule+ .pptModule{border-top:0;border-left:1px solid var(--ppt-line);padding-top:.25rem;padding-left:1rem}
@@ -175,11 +169,7 @@ body.evidenceOpen{overflow:hidden}
   .configMatrix{grid-template-columns:1fr}
   .portfolioNote{grid-template-columns:repeat(2,minmax(0,1fr))}
   .evidenceButtons{grid-template-columns:repeat(5,minmax(0,1fr))}
-  .categoryHero{grid-template-columns:minmax(0,1.6fr) minmax(17rem,.7fr);align-items:end}
-  .categoryKpis{grid-template-columns:repeat(2,minmax(0,1fr))}
   .benchmarkBands{grid-template-columns:1fr 1fr}
-  .overviewVisualGrid{grid-template-columns:1fr 1fr}
-  .tonnageBands{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 @media(min-width:68.75rem){
   .scenarioMedia,.scenarioMedia img{min-height:27rem}
