@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>XCMG ARC UI 方向实验室</title>
+  <style>
+    :root {
+      --bg: #0b1118;
+      --shell: #101821;
+      --panel: #151f2a;
+      --panel-strong: #1b2734;
+      --line: #304050;
+      --line-soft: #263441;
+      --ink: #f4f7fa;
+      --muted: #aebbc7;
+      --faint: #8393a2;
+      --blue: #0865b7;
+      --yellow: #f4b400;
+      --success: #49b98a;
+      --header-h: 68px;
+      --rail-w: 306px;
+      --font-body: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+      --font-display: "Bahnschrift SemiCondensed", "Arial Narrow", "Microsoft YaHei UI", sans-serif;
+      font-family: var(--font-body);
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+    html { background: var(--bg); }
+    body { margin: 0; overflow: hidden; background: var(--bg); color: var(--ink); font-size: 14px; }
+    button, select, a { font: inherit; }
+    button, select { color: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    h1, h2, p { margin: 0; }
+    h1, h2, .directionName, .brandCopy strong { font-family: var(--font-display); }
+    :focus-visible { outline: 3px solid rgba(244,180,0,.72); outline-offset: 2px; }
+
+    .app { height: 100dvh; display: grid; grid-template-rows: var(--header-h) minmax(0,1fr); }
+    .topbar {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 18px;
+      background: #080d13;
+      border-bottom: 1px solid var(--line-soft);
+      position: relative;
+      z-index: 20;
+    }
+    .brand { width: calc(var(--rail-w) - 18px); flex: 0 0 auto; display: flex; align-items: center; gap: 12px; }
+    .brand img { width: 90px; height: 32px; object-fit: contain; padding: 5px 8px; background: #07579e; }
+    .brandCopy strong { display: block; font-size: 14px; line-height: 1.15; }
+    .brandCopy span { display: block; margin-top: 4px; color: var(--faint); font-size: 12px; }
+
+    .activeContext { min-width: 0; display: flex; align-items: center; gap: 12px; }
+    .activeMark { width: 3px; height: 34px; flex: 0 0 auto; background: var(--yellow); }
+    .activeContext h1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 17px; letter-spacing: 0; }
+    .activeContext p { margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 12px; }
+
+    .topActions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .segmented { height: 38px; display: flex; align-items: center; padding: 3px; background: var(--shell); border: 1px solid var(--line); }
+    .segmented button { min-width: 56px; height: 30px; border: 0; background: transparent; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .segmented button:hover { color: var(--ink); background: var(--panel); }
+    .segmented button.active { color: #111820; background: var(--yellow); }
+    .headerLink { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0 14px; border: 1px solid var(--line); color: var(--ink); font-size: 12px; font-weight: 750; }
+    .headerLink:hover { background: var(--panel-strong); border-color: #526579; }
+    .headerLink.primary { background: var(--blue); border-color: var(--blue); color: white; }
+    .headerLink.primary:hover { background: #0b73cc; }
+
+    .mobileStyleStrip { display: none; min-width: 0; overflow-x: auto; gap: 7px; padding: 8px 10px; background: var(--shell); border-bottom: 1px solid var(--line-soft); scrollbar-width: none; }
+    .mobileStyleStrip::-webkit-scrollbar { display: none; }
+    .mobileStyleStrip button { min-height: 38px; flex: 0 0 auto; padding: 0 12px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .mobileStyleStrip button.active { background: var(--yellow); border-color: var(--yellow); color: #111820; }
+
+    .workspace { min-height: 0; display: grid; grid-template-columns: var(--rail-w) minmax(0,1fr); }
+    .rail { min-height: 0; overflow-y: auto; padding: 18px 14px 20px; background: var(--shell); border-right: 1px solid var(--line-soft); }
+    .railSection + .railSection { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line-soft); }
+    .railHeading { margin: 0 8px 10px; color: var(--muted); font-size: 12px; font-weight: 750; }
+    .directionList { display: grid; gap: 5px; }
+    .directionButton {
+      width: 100%;
+      min-height: 64px;
+      display: grid;
+      grid-template-columns: 8px minmax(0,1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 10px 11px;
+      border: 1px solid transparent;
+      background: transparent;
+      text-align: left;
+    }
+    .directionButton:hover { background: var(--panel); }
+    .directionButton.active { background: var(--panel-strong); border-color: #465b70; }
+    .directionBar { width: 4px; height: 36px; justify-self: center; background: var(--direction-color, var(--blue)); }
+    .directionButton.active .directionBar { width: 8px; background: var(--yellow); }
+    .directionName { display: block; color: var(--ink); font-weight: 780; font-size: 14px; }
+    .directionMeta { display: block; margin-top: 4px; color: var(--faint); font-size: 12px; line-height: 1.35; }
+
+    .designNote { margin: 22px 7px 0; padding-top: 18px; border-top: 1px solid var(--line-soft); }
+    .designNote h2 { font-size: 14px; }
+    .designNote dl { margin: 12px 0 0; display: grid; gap: 11px; }
+    .designNote div { display: grid; gap: 3px; }
+    .designNote dt { color: var(--faint); font-size: 12px; }
+    .designNote dd { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+    .previewWorkspace { min-width: 0; min-height: 0; display: grid; grid-template-rows: 50px minmax(0,1fr); background: #1a2530; }
+    .previewToolbar { min-width: 0; display: flex; align-items: center; gap: 12px; padding: 9px 14px; background: #121b24; border-bottom: 1px solid var(--line-soft); }
+    .toolbarLabel { color: var(--faint); font-size: 12px; }
+    .deviceControls { display: flex; align-items: center; gap: 6px; }
+    .deviceButton { min-width: 54px; height: 32px; padding: 0 10px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 12px; }
+    .deviceButton:hover { color: var(--ink); background: var(--panel); }
+    .deviceButton.active { border-color: #678098; color: var(--ink); background: var(--panel-strong); }
+    .compareChoice { min-width: 0; display: none; align-items: center; gap: 8px; }
+    .compareChoice.show { display: flex; }
+    .compareChoice select { height: 32px; max-width: 230px; border: 1px solid var(--line); background: var(--panel); padding: 0 28px 0 10px; font-size: 12px; }
+    .shortcutHint { margin-left: auto; color: var(--faint); font-size: 12px; }
+
+    .previewStage { min-width: 0; min-height: 0; overflow: auto; display: grid; place-items: center; padding: 14px; }
+    .frameGrid { width: 100%; height: 100%; min-width: 0; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr); gap: 12px; align-items: center; justify-items: center; }
+    .frameGrid.compare { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .previewPane { width: 100%; height: 100%; min-width: 0; min-height: 0; display: grid; grid-template-rows: 32px minmax(0,1fr); border: 1px solid #445568; background: #fff; box-shadow: 0 6px 14px rgba(0,0,0,.22); }
+    .previewPane[hidden] { display: none !important; }
+    .paneHeader { min-width: 0; display: flex; align-items: center; gap: 8px; padding: 0 10px; background: #e7ebef; border-bottom: 1px solid #c3ccd4; color: #31404d; }
+    .paneHeader::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--success); }
+    .paneHeader strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+    .paneHeader span { margin-left: auto; color: #607181; font-size: 12px; }
+    .previewPane iframe { width: 100%; height: 100%; border: 0; background: white; display: block; }
+    .previewPane.tablet { width: min(820px,100%); max-height: 1040px; }
+    .previewPane.mobile { width: min(390px,100%); max-height: 844px; }
+    .frameGrid.compare .previewPane.tablet,
+    .frameGrid.compare .previewPane.mobile { width: 100%; }
+    .loadingMask { position: absolute; display: none; align-items: center; gap: 10px; padding: 10px 13px; background: #0f1821; border: 1px solid var(--line); color: var(--muted); font-size: 12px; z-index: 5; }
+    .loadingMask.show { display: flex; }
+    .loadingMask::before { content: ""; width: 13px; height: 13px; border: 2px solid #435568; border-top-color: var(--yellow); border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 1120px) {
+      :root { --rail-w: 268px; }
+      .brand { width: 250px; }
+      .brandCopy span, .shortcutHint { display: none; }
+      .topActions .segmented { display: none; }
+    }
+    @media (max-width: 820px) {
+      .app { grid-template-rows: 60px 55px minmax(0,1fr); }
+      .topbar { padding: 0 10px; gap: 10px; }
+      .brand { width: auto; }
+      .brand img { width: 76px; }
+      .brandCopy { display: none; }
+      .activeContext { flex: 1; }
+      .activeContext p { display: none; }
+      .activeContext h1 { font-size: 14px; }
+      .headerLink:not(.primary) { display: none; }
+      .headerLink.primary { min-height: 36px; padding: 0 10px; }
+      .mobileStyleStrip { display: flex; grid-row: 2; }
+      .workspace { grid-row: 3; grid-template-columns: 1fr; }
+      .rail { display: none; }
+      .previewWorkspace { grid-template-rows: 46px minmax(0,1fr); }
+      .previewToolbar { padding: 7px 8px; gap: 7px; overflow-x: auto; }
+      .toolbarLabel { display: none; }
+      .deviceButton { min-width: 50px; }
+      .compareChoice { margin-left: auto; }
+      .compareChoice label { display: none; }
+      .compareChoice select { max-width: 150px; }
+      .previewStage { padding: 8px; }
+      .frameGrid.compare { grid-template-columns: minmax(0,1fr); }
+      .frameGrid.compare .previewPane.secondary { display: none; }
+    }
+    @media (max-width: 520px) {
+      .activeMark { height: 28px; }
+      .headerLink.primary { font-size: 12px; }
+      .deviceButton[data-device="tablet"] { display: none; }
+      .previewPane { border-color: #53677a; box-shadow: none; }
+    }
+    @media (pointer: coarse) {
+      .directionButton, .mobileStyleStrip button, .deviceButton, .segmented button { min-height: 44px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="返回 UI 方向实验室首页">
+        <img src="../assets/arc/xcmg-logo.webp" alt="XCMG">
+        <span class="brandCopy"><strong>ARC UI 方向实验室</strong><span>候选界面比较与验收</span></span>
+      </a>
+      <div class="activeContext">
+        <span class="activeMark"></span>
+        <div><h1 id="current-name">Palantir 工业决策</h1><p id="current-desc">面向工程分析的高密度对象工作台</p></div>
+      </div>
+      <div class="topActions">
+        <div class="segmented" aria-label="预览模式">
+          <button class="active" type="button" data-mode="single">单页</button>
+          <button type="button" data-mode="compare">并排</button>
+        </div>
+        <a class="headerLink" id="open-demo" target="_blank" rel="noreferrer">全屏打开</a>
+        <a class="headerLink primary" href="../arc.html">正式平台</a>
+      </div>
+    </header>
+
+    <div class="mobileStyleStrip" id="mobile-styles" aria-label="设计方向"></div>
+
+    <div class="workspace">
+      <aside class="rail" aria-label="设计方向列表">
+        <section class="railSection"><h2 class="railHeading">主方案</h2><div class="directionList" id="primary-list"></div></section>
+        <section class="railSection"><h2 class="railHeading">结构实验</h2><div class="directionList" id="study-list"></div></section>
+        <section class="designNote" aria-live="polite">
+          <h2>方向判断</h2>
+          <dl>
+            <div><dt>适用</dt><dd id="design-fit"></dd></div>
+            <div><dt>优势</dt><dd id="design-strength"></dd></div>
+            <div><dt>注意</dt><dd id="design-risk"></dd></div>
+          </dl>
+        </section>
+      </aside>
+
+      <main class="previewWorkspace">
+        <div class="previewToolbar">
+          <span class="toolbarLabel">预览尺寸</span>
+          <div class="deviceControls" aria-label="预览尺寸">
+            <button class="deviceButton active" type="button" data-device="desktop">桌面</button>
+            <button class="deviceButton" type="button" data-device="tablet">平板</button>
+            <button class="deviceButton" type="button" data-device="mobile">手机</button>
+          </div>
+          <div class="compareChoice" id="compare-choice">
+            <label for="compare-style">第二方案</label>
+            <select id="compare-style" aria-label="选择第二个设计方向"></select>
+          </div>
+          <span class="shortcutHint">方向切换：↑ / ↓</span>
+        </div>
+
+        <div class="previewStage">
+          <div class="loadingMask" id="loading">正在载入预览</div>
+          <div class="frameGrid" id="frame-grid">
+            <section class="previewPane" id="primary-pane" aria-label="主方案预览">
+              <div class="paneHeader"><strong id="primary-pane-name"></strong><span>主方案</span></div>
+              <iframe id="preview-primary" title="主设计方向预览"></iframe>
+            </section>
+            <section class="previewPane secondary" id="secondary-pane" aria-label="对比方案预览" hidden>
+              <div class="paneHeader"><strong id="secondary-pane-name"></strong><span>对比方案</span></div>
+              <iframe id="preview-secondary" title="对比设计方向预览"></iframe>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const styles = [
+      { id:'palantir', group:'primary', name:'Palantir 工业决策', short:'工业决策', meta:'高密度对象工作台', desc:'面向工程分析的高密度对象工作台', file:'palantir-style-demo.html', color:'#16a3c7', fit:'工程师、产品经理和跨部门评审', strength:'数据密度高，检索、筛选和对象详情在同一工作区完成。', risk:'初次使用的信息学习成本高，需要稳定的组件规范。' },
+      { id:'starlink', group:'primary', name:'Starlink 未来数据', short:'未来数据', meta:'沉浸式汇报界面', desc:'用大场景与克制动效组织平台价值', file:'starlink-style-demo.html', color:'#8ea8c1', fit:'领导汇报、发布展示和平台介绍', strength:'视觉冲击强，产品图和关键叙事更容易形成记忆点。', risk:'大表格和高频操作的效率低于工作台型方案。' },
+      { id:'apple', group:'primary', name:'Apple 产品叙事', short:'产品叙事', meta:'低干扰产品体验', desc:'强调设备、选择路径和渐进式信息披露', file:'apple-style-demo.html', color:'#f4f4f5', fit:'跨部门浏览、销售演示和产品介绍', strength:'学习成本低，产品视觉清晰，移动端适配自然。', risk:'复杂工程数据需要进入二级分析页展开。' },
+      { id:'siemens', group:'study', name:'Siemens 工业资产', short:'工业资产', meta:'资产目录与状态管理', desc:'以产品线和分析资产为核心的企业平台结构', file:'siemens-style-demo.html', color:'#00a6a6', fit:'数据管理员和平台运营', strength:'资产状态、产品线和数据入口表达明确。', risk:'平台感强，产品情绪和汇报表现相对克制。' },
+      { id:'porsche', group:'study', name:'Porsche 型号选择', short:'型号选择', meta:'产品配置与并排比较', desc:'围绕型号选择和临时对比建立浏览节奏', file:'porsche-style-demo.html', color:'#d3262e', fit:'产品选型和型号横向比较', strength:'设备主体突出，选择和比较路径直接。', risk:'不适合承载过多治理信息和复杂数据表。' },
+      { id:'linear', group:'study', name:'Linear 精密工作区', short:'精密工作区', meta:'快速检索与键盘操作', desc:'紧凑列表、命令搜索和型号详情', file:'linear-style-demo.html', color:'#5b8def', fit:'工程师日常高频使用', strength:'操作速度快，列表和搜索体验接近成熟生产工具。', risk:'视觉情绪弱，不适合作为领导汇报首屏。' },
+      { id:'rivian', group:'study', name:'Rivian 工况叙事', short:'工况叙事', meta:'按真实场景探索', desc:'以工况故事组织产品能力和分析入口', file:'rivian-style-demo.html', color:'#6f8069', fit:'客户场景沟通和产品定义讨论', strength:'能解释参数与配置为什么影响具体施工任务。', risk:'内容维护量较大，需要持续补充真实工况素材。' },
+      { id:'catalog', group:'study', name:'重型设备目录', short:'设备目录', meta:'分类筛选与快速进入', desc:'传统工业设备目录的高效检索路径', file:'cat-style-demo.html', color:'#e3a300', fit:'产品目录、经销商和快速查找', strength:'结构熟悉、查找直接，对用户培训要求低。', risk:'差异化有限，难以体现 ARC 的分析能力。' }
+    ];
+
+    const params = new URLSearchParams(location.search);
+    const state = {
+      active: styles.some(item => item.id === params.get('style')) ? params.get('style') : 'palantir',
+      compare: styles.some(item => item.id === params.get('compare')) ? params.get('compare') : 'starlink',
+      device: ['desktop','tablet','mobile'].includes(params.get('device')) ? params.get('device') : 'desktop',
+      mode: params.get('mode') === 'compare' ? 'compare' : 'single'
+    };
+
+    const primaryList = document.querySelector('#primary-list');
+    const studyList = document.querySelector('#study-list');
+    const mobileStyles = document.querySelector('#mobile-styles');
+    const frameGrid = document.querySelector('#frame-grid');
+    const primaryPane = document.querySelector('#primary-pane');
+    const secondaryPane = document.querySelector('#secondary-pane');
+    const primaryFrame = document.querySelector('#preview-primary');
+    const secondaryFrame = document.querySelector('#preview-secondary');
+    const compareChoice = document.querySelector('#compare-choice');
+    const compareSelect = document.querySelector('#compare-style');
+    const loading = document.querySelector('#loading');
+
+    function directionButton(item) {
+      return `<button class="directionButton ${item.id === state.active ? 'active' : ''}" type="button" data-style="${item.id}" style="--direction-color:${item.color}"><span class="directionBar"></span><span><span class="directionName">${item.name}</span><span class="directionMeta">${item.meta}</span></span></button>`;
+    }
+
+    function renderDirectionControls() {
+      primaryList.innerHTML = styles.filter(item => item.group === 'primary').map(directionButton).join('');
+      studyList.innerHTML = styles.filter(item => item.group === 'study').map(directionButton).join('');
+      mobileStyles.innerHTML = styles.map(item => `<button class="${item.id === state.active ? 'active' : ''}" type="button" data-style="${item.id}">${item.short}</button>`).join('');
+      document.querySelectorAll('[data-style]').forEach(button => button.addEventListener('click', () => selectStyle(button.dataset.style)));
+    }
+
+    function renderCompareOptions() {
+      compareSelect.innerHTML = styles.filter(item => item.id !== state.active).map(item => `<option value="${item.id}" ${item.id === state.compare ? 'selected' : ''}>${item.name}</option>`).join('');
+      if (state.compare === state.active || !styles.some(item => item.id === state.compare)) {
+        state.compare = styles.find(item => item.id !== state.active).id;
+        compareSelect.value = state.compare;
+      }
+    }
+
+    function selectedStyle(id) { return styles.find(item => item.id === id); }
+
+    function updateMetadata() {
+      const item = selectedStyle(state.active);
+      document.querySelector('#current-name').textContent = item.name;
+      document.querySelector('#current-desc').textContent = item.desc;
+      document.querySelector('#design-fit').textContent = item.fit;
+      document.querySelector('#design-strength').textContent = item.strength;
+      document.querySelector('#design-risk').textContent = item.risk;
+      document.querySelector('#open-demo').href = item.file;
+      document.querySelector('#primary-pane-name').textContent = item.name;
+    }
+
+    function loadFrames() {
+      const mainItem = selectedStyle(state.active);
+      const compareItem = selectedStyle(state.compare);
+      let sourceChanged = false;
+      if (!primaryFrame.src.endsWith(mainItem.file)) {
+        sourceChanged = true;
+        primaryFrame.src = mainItem.file;
+      }
+      document.querySelector('#primary-pane-name').textContent = mainItem.name;
+      if (state.mode === 'compare') {
+        secondaryPane.hidden = false;
+        if (!secondaryFrame.src.endsWith(compareItem.file)) {
+          sourceChanged = true;
+          secondaryFrame.src = compareItem.file;
+        }
+        document.querySelector('#secondary-pane-name').textContent = compareItem.name;
+      } else {
+        secondaryPane.hidden = true;
+      }
+      loading.classList.toggle('show', sourceChanged);
+    }
+
+    function updateUrl() {
+      const next = new URLSearchParams();
+      next.set('style', state.active);
+      next.set('compare', state.compare);
+      next.set('device', state.device);
+      next.set('mode', state.mode);
+      history.replaceState(null, '', `${location.pathname}?${next}`);
+    }
+
+    function selectStyle(id) {
+      state.active = id;
+      if (state.compare === id) state.compare = styles.find(item => item.id !== id).id;
+      renderDirectionControls();
+      renderCompareOptions();
+      updateMetadata();
+      loadFrames();
+      updateUrl();
+    }
+
+    function setDevice(device) {
+      state.device = device;
+      [primaryPane, secondaryPane].forEach(pane => {
+        pane.classList.remove('desktop','tablet','mobile');
+        pane.classList.add(device);
+      });
+      document.querySelectorAll('[data-device]').forEach(button => button.classList.toggle('active', button.dataset.device === device));
+      updateUrl();
+    }
+
+    function setMode(mode) {
+      state.mode = mode;
+      frameGrid.classList.toggle('compare', mode === 'compare');
+      compareChoice.classList.toggle('show', mode === 'compare');
+      document.querySelectorAll('[data-mode]').forEach(button => button.classList.toggle('active', button.dataset.mode === mode));
+      loadFrames();
+      updateUrl();
+    }
+
+    document.querySelectorAll('[data-device]').forEach(button => button.addEventListener('click', () => setDevice(button.dataset.device)));
+    document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => setMode(button.dataset.mode)));
+    compareSelect.addEventListener('change', () => { state.compare = compareSelect.value; loadFrames(); updateUrl(); });
+    [primaryFrame, secondaryFrame].forEach(frame => frame.addEventListener('load', () => loading.classList.remove('show')));
+    document.addEventListener('keydown', event => {
+      if (['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+      if (!['ArrowUp','ArrowDown'].includes(event.key)) return;
+      event.preventDefault();
+      const index = styles.findIndex(item => item.id === state.active);
+      const nextIndex = event.key === 'ArrowDown' ? Math.min(styles.length - 1, index + 1) : Math.max(0, index - 1);
+      selectStyle(styles[nextIndex].id);
+    });
+
+    renderDirectionControls();
+    renderCompareOptions();
+    updateMetadata();
+    setDevice(state.device);
+    setMode(state.mode);
+  </script>
+</body>
+</html>

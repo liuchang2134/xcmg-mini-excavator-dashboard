@@ -1,0 +1,6 @@
+/data/source-presentations/*.pptx
+/artifacts/
+/.agents/
+/.codex/
+**/__pycache__/
+*.py[cod]

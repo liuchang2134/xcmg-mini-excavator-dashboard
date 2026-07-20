@@ -1,0 +1,156 @@
+/* Shared quality floor for the isolated UI direction studies. */
+html { scroll-padding-top: 76px; }
+body.demo-surface {
+  font-family: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body.demo-surface h1,
+body.demo-surface h2,
+body.demo-surface h3 {
+  font-family: "Aptos Display", "Segoe UI Variable Display", "Microsoft YaHei UI", sans-serif;
+  text-wrap: balance;
+  letter-spacing: -.025em;
+}
+body.demo-surface p { text-wrap: pretty; }
+body.demo-surface a,
+body.demo-surface button,
+body.demo-surface input,
+body.demo-surface select { letter-spacing: 0; }
+body.demo-surface img { object-position: center; }
+body.demo-surface :focus-visible { outline-width: 3px; outline-offset: 3px; }
+
+/* Palantir-inspired engineering workspace */
+.theme-palantir {
+  --faint: #5f7282;
+  --muted: #4f6474;
+  --shadow: 0 4px 10px rgba(18, 42, 62, .10);
+}
+.theme-palantir .demoBadge { display: none; }
+.theme-palantir .workspaceBar { min-height: 48px; height: auto; padding: 8px 12px; }
+.theme-palantir .inspectorHeader { min-height: 50px; padding-top: 9px; padding-bottom: 9px; }
+.theme-palantir .inspectorHeader span { color: #516879; font-size: 11px; }
+.theme-palantir .sideNav button[aria-current="page"] {
+  border-left: 0;
+  box-shadow: inset 3px 0 #14a3c7;
+}
+.theme-palantir .eyebrow { text-transform: none; letter-spacing: 0; font-size: 12px; }
+.theme-palantir .panel,
+.theme-palantir .metricStrip,
+.theme-palantir .objectIdentity { box-shadow: none; }
+.theme-palantir .topStatus { color: #eef5f8; }
+.theme-palantir .commandButton { color: #d7e2e9; }
+.theme-palantir .commandButton kbd { color: #f1f6f8; }
+
+/* Starlink-inspired presentation surface */
+.theme-starlink { --paper: #f5f6f7; --muted-light: #454c52; }
+.theme-starlink .siteHeader { min-height: 68px; height: 68px; }
+.theme-starlink .hero { min-height: 720px; }
+.theme-starlink .hero h1 { max-width: 760px; font-size: clamp(48px, 6vw, 78px); letter-spacing: -.035em; }
+.theme-starlink .heroContent { width: min(1180px, calc(100% - 56px)); }
+.theme-starlink .selectorSection,
+.theme-starlink .assetSection,
+.theme-starlink .linesSection,
+.theme-starlink .valueSection { padding-left: 20px; padding-right: 20px; }
+.theme-starlink .selectorPanel { border-color: #9ca6ad; }
+.theme-starlink .assetShowcase { margin-top: 34px; }
+.theme-starlink .assetFacts { padding-top: 6px; }
+.theme-starlink .assetFact { padding-top: 15px; padding-bottom: 15px; }
+.theme-starlink .lineGrid { padding: 8px; }
+.theme-starlink .valueItem { padding-top: 28px; padding-bottom: 28px; }
+.theme-starlink .sourceNote { border-left: 0; border-top: 3px solid var(--yellow); padding-top: 16px; }
+
+/* Apple-inspired product narrative */
+.theme-apple { --blue: #0069d0; --muted: #5b5b61; }
+.theme-apple .hero { min-height: 730px; padding-bottom: 28px; }
+.theme-apple .hero h1 { font-size: clamp(44px, 5vw, 62px); letter-spacing: -.035em; }
+.theme-apple .quickSection { padding-top: 76px; padding-bottom: 84px; }
+.theme-apple .quickPanel { box-shadow: 0 4px 8px rgba(0,0,0,.06); }
+.theme-apple .numberRow { padding-top: 16px; padding-bottom: 16px; }
+.theme-apple .numberItem { padding-top: 16px; padding-bottom: 16px; }
+.theme-apple .modelSection,
+.theme-apple .linesSection,
+.theme-apple .valueSection { padding-left: 20px; padding-right: 20px; }
+.theme-apple .modelFacts,
+.theme-apple .valueList { padding-top: 8px; }
+.theme-apple .modelFact,
+.theme-apple .valueLine { padding-top: 15px; padding-bottom: 15px; }
+.theme-apple .modelKicker { letter-spacing: .04em; }
+
+/* Siemens-inspired asset registry */
+.theme-siemens { --muted: #4c6173; }
+.theme-siemens .lineButton { border-left: 0; box-shadow: inset 0 0 0 transparent; }
+.theme-siemens .lineButton.active { box-shadow: inset 3px 0 var(--cyan); }
+.theme-siemens .main { width: 100%; max-width: 1280px; padding-left: 34px; padding-right: 34px; }
+.theme-siemens .hero h1 { font-size: clamp(38px, 4.6vw, 62px); letter-spacing: -.03em; }
+.theme-siemens .module { border-top-width: 3px; }
+.theme-siemens .assetRow { min-height: 72px; }
+
+/* Porsche-inspired model selector */
+.theme-porsche { --blue: #0a66b2; --yellow: #f4b400; }
+.theme-porsche .hero { min-height: 710px; padding: 12px 20px 28px; }
+.theme-porsche .heroCopy { top: 76px; }
+.theme-porsche .hero h1 { max-width: 650px; font-size: clamp(52px, 6.4vw, 88px); letter-spacing: -.035em; }
+.theme-porsche .heroVisual { height: 640px; }
+.theme-porsche .heroVisual img { height: 580px; }
+.theme-porsche .heroIndex span { color: #3f464d; }
+.theme-porsche .section { padding-left: 18px; padding-right: 18px; }
+.theme-porsche .sectionHead { align-items: start; }
+.theme-porsche .stageNumber { color: rgba(255,255,255,.08); }
+.theme-porsche .stageInfo { padding: 48px 36px; }
+.theme-porsche .stageLabel { color: #f5c82a; font-size: 13px; font-weight: 800; }
+.theme-porsche .trayIn { padding-left: 16px; padding-right: 16px; }
+
+/* Linear-inspired engineering workspace */
+.theme-linear { --muted: #8794a2; }
+.theme-linear .registryHead { padding-top: 28px; }
+.theme-linear .registryHead h1 { margin-top: 0; }
+.theme-linear .tableHead { color: #9ba6b2; font-size: 11px; }
+.theme-linear .modelName small { color: #8794a2; }
+.theme-linear .detailLabel { color: #6f99d7; font-size: 12px; font-weight: 750; }
+.theme-linear .detailVisual img { min-height: 240px; }
+
+/* Rivian-inspired work-condition story */
+.theme-rivian .hero { min-height: 680px; height: min(820px, 100dvh); }
+.theme-rivian .heroCopy { left: max(28px, calc((100vw - 1240px)/2)); bottom: 76px; }
+.theme-rivian .hero h1 { font-size: clamp(52px, 7vw, 88px); line-height: .94; letter-spacing: -.035em; }
+.theme-rivian .capability,
+.theme-rivian .evidence { padding-left: 20px; padding-right: 20px; }
+.theme-rivian .sceneLabel { color: #1e6e58; font-size: 13px; font-weight: 800; }
+.theme-rivian .evidenceItem > span { letter-spacing: 0; text-transform: none; }
+
+/* Heavy-equipment catalog */
+.theme-catalog .utility { padding-top: 6px; padding-bottom: 6px; }
+.theme-catalog .hero { height: 500px; }
+.theme-catalog .heroCopy { border-left: 0; padding-left: 0; border-bottom: 5px solid var(--yellow); padding-bottom: 26px; }
+.theme-catalog .hero h1 { font-size: clamp(48px, 5.4vw, 76px); letter-spacing: -.035em; }
+.theme-catalog .support { padding-left: 20px; padding-right: 20px; }
+.theme-catalog .product { box-shadow: none; }
+
+@media (max-width: 760px) {
+  body.demo-surface { font-size: 15px; }
+  body.demo-surface h1 { overflow-wrap: anywhere; }
+  .theme-palantir .workspaceBar { min-height: 48px; }
+  .theme-starlink .hero,
+  .theme-apple .hero,
+  .theme-porsche .hero,
+  .theme-rivian .hero { min-height: 640px; }
+  .theme-starlink .heroContent { width: calc(100% - 32px); }
+  .theme-porsche .section,
+  .theme-rivian .capability,
+  .theme-rivian .evidence,
+  .theme-catalog .support { padding-left: 14px; padding-right: 14px; }
+}
+
+@media (pointer: coarse) {
+  body.demo-surface button,
+  body.demo-surface select,
+  body.demo-surface input,
+  body.demo-surface a[class] { min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.demo-surface *,
+  body.demo-surface *::before,
+  body.demo-surface *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

@@ -1,0 +1,1339 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XCMG ARC 对标情报工作台 - Palantir 风格 Demo</title>
+  <style>
+    :root {
+      --ink: #172b3b;
+      --muted: #5c6f7f;
+      --faint: #8796a3;
+      --nav: #0b1f33;
+      --nav-2: #102a43;
+      --blue: #0a5ca8;
+      --blue-2: #0e74c7;
+      --cyan: #14a3c7;
+      --yellow: #f5b400;
+      --green: #16845b;
+      --red: #bf3f42;
+      --canvas: #edf2f6;
+      --surface: #ffffff;
+      --surface-2: #f7f9fb;
+      --line: #cbd6df;
+      --line-dark: #aebcc7;
+      --shadow: 0 10px 28px rgba(18, 42, 62, .10);
+      --topbar: 58px;
+      --sidebar: 242px;
+      --inspector: 354px;
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font-size: 14px;
+      letter-spacing: 0;
+      overflow: hidden;
+    }
+
+    button, input, select, a { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    [hidden] { display: none !important; }
+
+    :focus-visible {
+      outline: 3px solid rgba(20, 163, 199, .35);
+      outline-offset: 2px;
+    }
+
+    .topbar {
+      height: var(--topbar);
+      background: var(--nav);
+      color: #f6f9fb;
+      display: grid;
+      grid-template-columns: var(--sidebar) minmax(0, 1fr) var(--inspector);
+      align-items: center;
+      border-bottom: 1px solid #25405a;
+      position: relative;
+      z-index: 40;
+    }
+
+    .brand {
+      height: 100%;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      border-right: 1px solid #25405a;
+    }
+
+    .brand img {
+      width: 86px;
+      height: 29px;
+      object-fit: contain;
+      background: #07579e;
+      padding: 5px 7px;
+    }
+
+    .brand strong { display: block; font-size: 13px; }
+    .brand small {
+      display: block;
+      margin-top: 2px;
+      color: #9fb1c0;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .topActions {
+      min-width: 0;
+      height: 100%;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mobileMenuButton {
+      display: none;
+      border: 1px solid #36506a;
+      background: #132d45;
+      color: white;
+      width: 38px;
+      height: 36px;
+      cursor: pointer;
+    }
+
+    .workspaceTitle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      font-weight: 800;
+    }
+
+    .workspaceTitle .slash { color: #4a6379; }
+    .workspaceTitle .context { color: #b9c7d2; font-weight: 600; }
+
+    .commandButton {
+      min-width: 0;
+      flex: 1;
+      max-width: 520px;
+      height: 34px;
+      margin-left: auto;
+      border: 1px solid #355069;
+      background: #122a40;
+      color: #b9c7d2;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .commandButton:hover { border-color: #59728a; background: #17344e; }
+    .commandButton span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .commandButton kbd {
+      margin-left: auto;
+      border: 1px solid #496178;
+      color: #d9e2e8;
+      background: #0b2033;
+      padding: 2px 6px;
+      font-size: 11px;
+    }
+
+    .topStatus {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 0 16px;
+      border-left: 1px solid #25405a;
+    }
+
+    .syncStatus {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #f1f6f9;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .syncStatus::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: #42c788;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(66, 199, 136, .13);
+    }
+
+    .demoBadge {
+      padding: 5px 8px;
+      border: 1px solid #826b27;
+      background: #362f16;
+      color: #ffd86a;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .appShell {
+      height: calc(100vh - var(--topbar));
+      display: grid;
+      grid-template-columns: var(--sidebar) minmax(0, 1fr) var(--inspector);
+      min-width: 0;
+    }
+
+    .sidebar {
+      background: var(--nav-2);
+      color: #d8e2e9;
+      border-right: 1px solid #253f56;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: auto;
+    }
+
+    .sideSection { padding: 14px 10px 8px; }
+    .sideLabel {
+      padding: 0 8px 7px;
+      color: #7f98ac;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .sideNav { display: grid; gap: 2px; }
+    .sideNav button,
+    .treeItem {
+      width: 100%;
+      min-height: 35px;
+      border: 0;
+      background: transparent;
+      color: #cbd8e1;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 9px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .sideNav button:hover,
+    .treeItem:hover { background: rgba(255,255,255,.055); color: white; }
+
+    .sideNav button[aria-current="page"] {
+      background: #173b5a;
+      color: white;
+      box-shadow: inset 3px 0 var(--cyan);
+    }
+
+    .navGlyph {
+      width: 15px;
+      height: 15px;
+      border: 1px solid #668096;
+      display: grid;
+      place-items: center;
+      color: #a9bdcb;
+      font-size: 11px;
+      flex: 0 0 auto;
+    }
+
+    .navCount {
+      margin-left: auto;
+      min-width: 22px;
+      padding: 2px 5px;
+      background: rgba(255,255,255,.08);
+      color: #a9bdcb;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .tree {
+      border-top: 1px solid #28445b;
+      padding-top: 7px;
+    }
+
+    .treeGroup { margin-bottom: 2px; }
+    .treeItem { min-height: 31px; padding-left: 12px; }
+    .treeItem .chevron { width: 10px; color: #7690a5; }
+    .treeItem.is-active {
+      background: #eaf4fb;
+      color: #123550;
+      box-shadow: inset 3px 0 var(--yellow);
+    }
+
+    .treeChildren { padding: 2px 0 5px 28px; display: grid; }
+    .treeChildren button {
+      border: 0;
+      border-left: 1px solid #3a566e;
+      background: transparent;
+      color: #9fb1bf;
+      min-height: 27px;
+      padding: 4px 8px 4px 12px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .treeChildren button:hover { color: white; border-left-color: var(--cyan); }
+    .treeChildren button.is-active {
+      color: #fff;
+      border-left: 3px solid var(--yellow);
+      padding-left: 10px;
+      background: rgba(255,255,255,.055);
+      font-weight: 800;
+    }
+
+    .sidebarFooter {
+      margin-top: auto;
+      padding: 14px 16px;
+      border-top: 1px solid #28445b;
+      color: #9fb1bf;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .sidebarFooter strong { display: block; color: #ffffff; font-size: 11px; }
+
+    .workspace {
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--canvas);
+    }
+
+    .workspaceBar {
+      height: 50px;
+      flex: 0 0 auto;
+      border-bottom: 1px solid var(--line);
+      background: #f8fafb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 16px;
+    }
+
+    .breadcrumbs {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .breadcrumbs strong { color: var(--ink); overflow: hidden; text-overflow: ellipsis; }
+    .workspaceActions { display: flex; gap: 7px; }
+
+    .iconButton,
+    .secondaryButton,
+    .primaryButton {
+      min-height: 32px;
+      border: 1px solid var(--line-dark);
+      background: white;
+      color: #274258;
+      padding: 0 11px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .iconButton:hover,
+    .secondaryButton:hover { border-color: #6f8495; background: #f5f8fa; }
+    .primaryButton { background: var(--blue); border-color: var(--blue); color: white; }
+    .primaryButton:hover { background: #084d8e; border-color: #084d8e; }
+
+    .workspaceScroller {
+      min-height: 0;
+      overflow: auto;
+      padding: 16px;
+      scroll-behavior: smooth;
+    }
+
+    .objectHeader {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 13px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 23px; line-height: 1.2; }
+    h2 { font-size: 15px; line-height: 1.3; }
+    h3 { font-size: 13px; line-height: 1.35; }
+
+    .objectHeader p {
+      margin-top: 6px;
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 760px;
+      font-size: 12px;
+    }
+
+    .statusCluster { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+    .statusPill {
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: #456075;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .statusPill.live { border-color: #9dd5bd; color: #0f704c; background: #effaf5; }
+
+    .metricStrip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      background: var(--surface);
+      margin-bottom: 12px;
+    }
+
+    .metric {
+      min-height: 72px;
+      padding: 11px 13px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      align-content: center;
+      gap: 3px;
+    }
+
+    .metric:last-child { border-right: 0; }
+    .metric span { color: var(--muted); font-size: 11px; font-weight: 800; }
+    .metric strong { color: #123c5d; font-size: 21px; }
+    .metric small { color: var(--faint); font-size: 11px; }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 0 rgba(18, 42, 62, .02);
+    }
+
+    .panelHeader {
+      min-height: 47px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panelHeader p { color: var(--muted); margin-top: 3px; font-size: 12px; }
+    .objectControls { display: flex; align-items: center; gap: 7px; }
+
+    .searchField {
+      min-width: 200px;
+      position: relative;
+    }
+
+    .searchField input,
+    .objectControls select {
+      width: 100%;
+      height: 31px;
+      border: 1px solid var(--line-dark);
+      background: var(--surface-2);
+      color: var(--ink);
+      padding: 0 9px;
+      font-size: 11px;
+    }
+
+    .objectControls select { width: 124px; }
+
+    .objectTable { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .objectTable th {
+      height: 31px;
+      background: #f1f5f7;
+      border-bottom: 1px solid var(--line);
+      color: #566b7c;
+      text-align: left;
+      padding: 0 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .objectTable td {
+      height: 45px;
+      border-bottom: 1px solid #e0e7ec;
+      padding: 6px 10px;
+      color: #314c60;
+      font-size: 12px;
+      vertical-align: middle;
+    }
+
+    .objectTable tbody tr { cursor: pointer; position: relative; transition: background .16s ease; }
+    .objectTable tbody tr:hover { background: #f3f8fb; }
+    .objectTable tbody tr.is-selected { background: #e7f1f8; box-shadow: inset 3px 0 var(--blue); }
+    .objectTable tbody tr.is-compared td:first-child { box-shadow: inset 3px 0 var(--yellow); }
+    .objectTable tbody tr:last-child td { border-bottom: 0; }
+
+    .modelCell { display: flex; align-items: center; gap: 9px; min-width: 0; }
+    .modelThumb {
+      width: 46px;
+      height: 31px;
+      flex: 0 0 auto;
+      border: 1px solid #d8e0e6;
+      background: white;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .modelThumb img { width: 100%; height: 100%; object-fit: contain; }
+    .modelName { min-width: 0; }
+    .modelName strong { color: #17384f; display: block; font-size: 11px; }
+    .modelName span { color: var(--faint); display: block; font-size: 11px; margin-top: 2px; }
+
+    .inlineTag {
+      display: inline-block;
+      padding: 3px 5px;
+      margin: 1px 3px 1px 0;
+      background: #edf3f7;
+      border: 1px solid #d8e2e8;
+      color: #425d70;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .dataState { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; color: #1b6f52; }
+    .dataState::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #21a36f; }
+
+    .rowAction {
+      border: 1px solid #bdc9d2;
+      background: white;
+      padding: 5px 7px;
+      color: #2a4a61;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .rowAction:hover { border-color: var(--blue); color: var(--blue); }
+    .rowAction.is-active { background: #fff6da; border-color: var(--yellow); color: #614d06; }
+
+    .emptyState { padding: 24px; color: var(--muted); text-align: center; font-size: 12px; }
+
+    .analysisGrid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .analysisPanel { min-height: 270px; }
+    .conditionMatrix { padding: 11px 12px 13px; display: grid; gap: 8px; }
+    .conditionRow {
+      display: grid;
+      grid-template-columns: 116px minmax(0, 1fr) 42px;
+      align-items: center;
+      gap: 9px;
+      min-height: 25px;
+    }
+
+    .conditionRow span { color: #314c60; font-size: 11px; font-weight: 800; }
+    .conditionTrack { height: 8px; background: #e5ebf0; overflow: hidden; }
+    .conditionFill { height: 100%; background: var(--blue-2); transition: width .28s ease; }
+    .conditionRow.low .conditionFill { background: #d2a018; }
+    .conditionRow strong { font-size: 11px; text-align: right; }
+
+    .gapList { padding: 4px 12px 12px; }
+    .gapItem {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #e0e7ec;
+    }
+
+    .gapItem:last-child { border-bottom: 0; }
+    .gapType { color: var(--blue); font-size: 11px; font-weight: 900; text-transform: uppercase; }
+    .gapItem strong { display: block; font-size: 11px; }
+    .gapItem p { color: var(--muted); font-size: 12px; line-height: 1.5; margin-top: 3px; }
+
+    .inspector {
+      min-width: 0;
+      min-height: 0;
+      background: #f8fafb;
+      border-left: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .inspectorHeader {
+      min-height: 50px;
+      flex: 0 0 auto;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+    }
+
+    .inspectorHeader strong { font-size: 12px; }
+    .inspectorHeader span { color: var(--muted); font-size: 11px; }
+    .inspectorClose { display: none; }
+    .inspectorScroller { overflow: auto; min-height: 0; padding: 13px; }
+
+    .objectIdentity {
+      border: 1px solid var(--line);
+      background: white;
+      margin-bottom: 11px;
+    }
+
+    .objectImage {
+      height: 164px;
+      background: linear-gradient(#f8fafb, #eef3f6);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .objectImage::before {
+      content: "SELECTED OBJECT";
+      position: absolute;
+      left: 9px;
+      top: 8px;
+      color: #6a7e8e;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .objectImage img { width: 88%; height: 88%; object-fit: contain; }
+    .identityBody { padding: 12px; }
+    .identityBody .type { color: var(--blue); font-size: 11px; font-weight: 900; text-transform: uppercase; }
+    .identityBody h2 { margin-top: 4px; font-size: 18px; }
+    .identityBody p { color: var(--muted); margin-top: 5px; font-size: 12px; line-height: 1.5; }
+
+    .objectFacts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--line);
+    }
+
+    .fact { padding: 9px 11px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .fact:nth-child(2n) { border-right: 0; }
+    .fact:nth-last-child(-n+2) { border-bottom: 0; }
+    .fact span { display: block; color: var(--faint); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .fact strong { display: block; color: #24445a; margin-top: 3px; font-size: 11px; }
+
+    .inspectorActions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 12px; }
+    .inspectorActions a, .inspectorActions button { width: 100%; }
+
+    .inspectorSection {
+      border-top: 1px solid var(--line);
+      padding: 12px 1px;
+    }
+
+    .inspectorSectionTitle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .inspectorSectionTitle strong { font-size: 11px; }
+    .inspectorSectionTitle span { color: var(--faint); font-size: 11px; }
+    .sceneTags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .sceneTags span { padding: 5px 7px; border: 1px solid var(--line); background: white; color: #36536a; font-size: 11px; font-weight: 800; }
+
+    .inspectorCondition { display: grid; gap: 7px; }
+    .miniCondition { display: grid; grid-template-columns: 83px minmax(0, 1fr) 32px; align-items: center; gap: 7px; }
+    .miniCondition span { font-size: 11px; color: #3a566b; }
+    .miniTrack { height: 5px; background: #dfe6eb; }
+    .miniFill { height: 100%; background: var(--blue); transition: width .28s ease; }
+    .miniCondition strong { font-size: 11px; text-align: right; }
+
+    .evidenceList { display: grid; gap: 6px; }
+    .evidenceItem { border: 1px solid var(--line); background: white; padding: 8px 9px; }
+    .evidenceItem strong { display: block; font-size: 11px; }
+    .evidenceItem span { color: var(--faint); display: block; font-size: 11px; margin-top: 3px; }
+
+    .noDetail { color: var(--muted); font-size: 12px; line-height: 1.6; padding: 4px 0; }
+
+    .compareTray {
+      position: fixed;
+      left: calc(var(--sidebar) + 18px);
+      right: calc(var(--inspector) + 18px);
+      bottom: 14px;
+      z-index: 25;
+      min-height: 54px;
+      background: #102a43;
+      color: white;
+      border: 1px solid #36536a;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      transform: translateY(90px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .compareTray.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .compareTray strong { font-size: 11px; white-space: nowrap; }
+    .compareChips { flex: 1; display: flex; flex-wrap: wrap; gap: 5px; }
+    .compareChip { padding: 5px 7px; border: 1px solid #4e6980; background: #173b5a; color: #e8eff3; font-size: 11px; }
+    .compareTray .primaryButton { background: var(--yellow); border-color: var(--yellow); color: #1a2c3a; }
+
+    .paletteBackdrop,
+    .drawerBackdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 17, 29, .58);
+      z-index: 80;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
+    }
+
+    .paletteBackdrop.show,
+    .drawerBackdrop.show { opacity: 1; pointer-events: auto; }
+
+    .commandPalette {
+      position: fixed;
+      z-index: 90;
+      left: 50%;
+      top: 12vh;
+      width: min(620px, calc(100vw - 28px));
+      transform: translate(-50%, -18px);
+      background: white;
+      border: 1px solid #8294a2;
+      box-shadow: 0 24px 70px rgba(3, 17, 29, .28);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+
+    .commandPalette.show { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+    .paletteInputWrap { padding: 12px; border-bottom: 1px solid var(--line); }
+    .paletteInputWrap input { width: 100%; height: 42px; border: 1px solid var(--line-dark); padding: 0 12px; font-size: 14px; }
+    .paletteLabel { padding: 9px 12px 5px; color: var(--faint); font-size: 11px; font-weight: 900; text-transform: uppercase; }
+    .paletteResults { max-height: 330px; overflow: auto; padding: 3px 7px 9px; }
+    .paletteResult { width: 100%; border: 0; background: white; min-height: 46px; padding: 7px 9px; display: flex; align-items: center; gap: 10px; text-align: left; cursor: pointer; }
+    .paletteResult:hover, .paletteResult.is-active { background: #edf4f8; }
+    .paletteResult strong { display: block; font-size: 11px; }
+    .paletteResult span { color: var(--muted); display: block; font-size: 11px; margin-top: 2px; }
+    .paletteResult b { margin-left: auto; color: var(--blue); font-size: 11px; }
+
+    .toast {
+      position: fixed;
+      right: calc(var(--inspector) + 18px);
+      top: calc(var(--topbar) + 14px);
+      z-index: 100;
+      max-width: 310px;
+      background: #16364f;
+      color: white;
+      border-top: 3px solid var(--yellow);
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+      font-size: 11px;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1180px) {
+      :root { --sidebar: 216px; --inspector: 324px; }
+      .objectTable th:nth-child(4), .objectTable td:nth-child(4) { display: none; }
+      .analysisGrid { grid-template-columns: 1fr; }
+      .commandButton { max-width: 360px; }
+    }
+
+    @media (max-width: 930px) {
+      :root { --sidebar: 242px; --inspector: 354px; }
+      body { overflow: hidden; }
+      .topbar { grid-template-columns: minmax(0, 1fr) auto; }
+      .brand { display: none; }
+      .topActions { padding-left: 10px; }
+      .topStatus { border-left: 0; padding-left: 10px; }
+      .syncStatus { display: none; }
+      .mobileMenuButton { display: block; }
+      .workspaceTitle .context, .workspaceTitle .slash { display: none; }
+      .commandButton { max-width: none; }
+      .appShell { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        z-index: 85;
+        left: 0;
+        top: var(--topbar);
+        bottom: 0;
+        width: var(--sidebar);
+        transform: translateX(-102%);
+        transition: transform .2s ease;
+        box-shadow: 20px 0 50px rgba(6, 19, 31, .24);
+      }
+      .sidebar.show { transform: translateX(0); }
+      .inspector {
+        position: fixed;
+        z-index: 85;
+        right: 0;
+        top: var(--topbar);
+        bottom: 0;
+        width: min(var(--inspector), 94vw);
+        transform: translateX(102%);
+        transition: transform .2s ease;
+        box-shadow: -18px 0 50px rgba(6, 19, 31, .22);
+      }
+      .inspector.show { transform: translateX(0); }
+      .inspectorClose { display: block; width: 30px; height: 30px; border: 1px solid var(--line); background: white; cursor: pointer; }
+      .compareTray { left: 14px; right: 14px; }
+      .toast { right: 14px; }
+    }
+
+    @media (max-width: 680px) {
+      :root { --topbar: 54px; }
+      .topbar { height: var(--topbar); }
+      .topActions { gap: 7px; }
+      .workspaceTitle { font-size: 12px; }
+      .commandButton { width: 38px; flex: 0 0 38px; padding: 0; justify-content: center; }
+      .commandButton span, .commandButton kbd { display: none; }
+      .topStatus { padding: 0 9px; }
+      .demoBadge { display: none; }
+      .workspaceBar { padding: 0 10px; height: 46px; }
+      .workspaceActions .secondaryButton { display: none; }
+      .workspaceScroller { padding: 10px; }
+      .objectHeader { display: block; }
+      .statusCluster { justify-content: flex-start; margin-top: 10px; }
+      h1 { font-size: 20px; }
+      .metricStrip { grid-template-columns: 1fr 1fr; }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .panelHeader { align-items: flex-start; flex-direction: column; }
+      .objectControls { width: 100%; }
+      .searchField { min-width: 0; flex: 1; }
+      .objectControls select { width: 102px; }
+      .objectTable th:nth-child(2), .objectTable td:nth-child(2),
+      .objectTable th:nth-child(4), .objectTable td:nth-child(4),
+      .objectTable th:nth-child(5), .objectTable td:nth-child(5) { display: none; }
+      .objectTable th:nth-child(1) { width: 48% !important; }
+      .objectTable th:nth-child(3) { width: 24% !important; }
+      .objectTable th:nth-child(6) { width: 28% !important; }
+      .modelThumb { width: 38px; }
+      .analysisGrid { grid-template-columns: 1fr; }
+      .conditionRow { grid-template-columns: 90px minmax(0, 1fr) 36px; }
+      .compareTray { align-items: flex-start; flex-wrap: wrap; }
+      .compareChips { width: 100%; order: 3; }
+      .compareTray .primaryButton { margin-left: auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="shared/demo-polish.css">
+</head>
+<body class="demo-surface theme-palantir">
+  <header class="topbar">
+    <a class="brand" href="../arc.html" aria-label="返回 XCMG ARC 正式平台">
+      <img src="../assets/arc/xcmg-logo.webp" alt="XCMG">
+      <span><strong>XCMG ARC</strong><small>Benchmark Intelligence</small></span>
+    </a>
+    <div class="topActions">
+      <button class="mobileMenuButton" id="mobile-menu" type="button" aria-label="打开对象导航">☰</button>
+      <div class="workspaceTitle"><span>产品对标情报工作台</span><span class="slash">/</span><span class="context">挖掘机对象集</span></div>
+      <button class="commandButton" id="open-command" type="button" aria-label="打开全局搜索">
+        <b>⌕</b><span>搜索型号、吨级、工况或数据资产</span><kbd>Ctrl K</kbd>
+      </button>
+    </div>
+    <div class="topStatus">
+      <div class="syncStatus">数据资产已连接</div>
+    </div>
+  </header>
+
+  <div class="appShell">
+    <aside class="sidebar" id="sidebar" aria-label="对象体系导航">
+      <div class="sideSection">
+        <div class="sideLabel">Workspace</div>
+        <nav class="sideNav">
+          <button type="button" aria-current="page"><span class="navGlyph">O</span>对象浏览器<span class="navCount">10</span></button>
+          <button type="button" data-demo-action="conditions"><span class="navGlyph">W</span>工况分析<span class="navCount">6</span></button>
+          <button type="button" data-demo-action="competitors"><span class="navGlyph">C</span>竞品对象<span class="navCount">89</span></button>
+          <button type="button" data-demo-action="evidence"><span class="navGlyph">E</span>数据与证据<span class="navCount">10</span></button>
+        </nav>
+      </div>
+
+      <div class="sideSection tree">
+        <div class="sideLabel">Product Ontology</div>
+        <div class="treeGroup">
+          <button class="treeItem is-active" type="button" data-line="excavators"><span class="chevron">▾</span><span>挖掘机</span><span class="navCount">10</span></button>
+          <div class="treeChildren" id="tonnage-tree"></div>
+        </div>
+        <div class="treeGroup"><button class="treeItem" type="button" data-line="wheel-loaders"><span class="chevron">›</span><span>装载机</span><span class="navCount">待接入</span></button></div>
+        <div class="treeGroup"><button class="treeItem" type="button" data-line="rollers"><span class="chevron">›</span><span>压路机</span><span class="navCount">待接入</span></button></div>
+        <div class="treeGroup"><button class="treeItem" type="button" data-line="motor-graders"><span class="chevron">›</span><span>平地机</span><span class="navCount">待接入</span></button></div>
+        <div class="treeGroup"><button class="treeItem" type="button" data-line="cranes"><span class="chevron">›</span><span>起重机械</span><span class="navCount">待接入</span></button></div>
+        <div class="treeGroup"><button class="treeItem" type="button" data-line="haul-trucks"><span class="chevron">›</span><span>矿卡</span><span class="navCount">待接入</span></button></div>
+        <div class="treeGroup"><button class="treeItem" type="button" data-line="mewp"><span class="chevron">›</span><span>高空作业平台</span><span class="navCount">待接入</span></button></div>
+      </div>
+
+      <div class="sidebarFooter">
+        <strong>XCMG ARC</strong>
+        全产品线竞品对标情报工作台
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <div class="workspaceBar">
+        <div class="breadcrumbs"><span>产品本体</span><span>›</span><span>挖掘机</span><span>›</span><strong id="breadcrumb-segment">全部吨级</strong></div>
+        <div class="workspaceActions">
+          <a class="secondaryButton" href="../arc.html">返回正式平台</a>
+          <button class="iconButton" id="reset-view" type="button">重置视图</button>
+        </div>
+      </div>
+
+      <div class="workspaceScroller" id="workspace-scroller">
+        <section class="objectHeader">
+          <div>
+            <h1>挖掘机竞争情报对象集</h1>
+            <p>以 XCMG 型号为对象，把吨级、竞品范围、典型工况、数据资产和正式分析页组织在同一工作空间中。选择任一对象后，右侧检查器显示其完整上下文。</p>
+          </div>
+          <div class="statusCluster">
+            <span class="statusPill live">10 个对象可分析</span>
+            <span class="statusPill">89 个竞品型号</span>
+            <span class="statusPill">6 类典型工况</span>
+          </div>
+        </section>
+
+        <section class="metricStrip" aria-label="对象集状态">
+          <div class="metric"><span>已建吨级对象</span><strong>10</strong><small>覆盖 1-24 吨区间</small></div>
+          <div class="metric"><span>竞品型号资产</span><strong>89</strong><small>按吨级独立对比</small></div>
+          <div class="metric"><span>统一工况模型</span><strong>6</strong><small>参数与配置共同解释</small></div>
+          <div class="metric"><span>原始数据包</span><strong>10</strong><small>Excel 与官网证据</small></div>
+        </section>
+
+        <section class="panel" aria-labelledby="registry-title">
+          <div class="panelHeader">
+            <div><h2 id="registry-title">型号对象</h2><p id="registry-summary">显示全部 10 个 XCMG 挖掘机对标对象</p></div>
+            <div class="objectControls">
+              <label class="searchField"><span hidden>搜索型号</span><input id="model-search" type="search" placeholder="搜索型号或场景"></label>
+              <select id="tonnage-filter" aria-label="吨级筛选"><option value="all">全部吨级</option></select>
+            </div>
+          </div>
+          <div id="object-table-wrap">
+            <table class="objectTable">
+              <thead>
+                <tr>
+                  <th style="width:28%">XCMG 型号对象</th>
+                  <th style="width:12%">吨级</th>
+                  <th style="width:12%">竞品范围</th>
+                  <th style="width:27%">差异化场景</th>
+                  <th style="width:11%">数据资产</th>
+                  <th style="width:10%">操作</th>
+                </tr>
+              </thead>
+              <tbody id="object-table-body"></tbody>
+            </table>
+            <div class="emptyState" id="empty-state" hidden>没有匹配对象，请清除搜索条件。</div>
+          </div>
+        </section>
+
+        <section class="analysisGrid">
+          <article class="panel analysisPanel">
+            <div class="panelHeader"><div><h2>选中对象的工况表现</h2><p>选择型号后，工况矩阵与右侧对象检查器同步更新</p></div><span class="statusPill" id="condition-source">XE35U 已加载</span></div>
+            <div class="conditionMatrix" id="condition-matrix"></div>
+          </article>
+          <article class="panel analysisPanel">
+            <div class="panelHeader"><div><h2>差距证据</h2><p>结论直接指向参数、配置或原始数据</p></div><button class="rowAction" id="focus-inspector" type="button">查看对象详情</button></div>
+            <div class="gapList" id="gap-list"></div>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <aside class="inspector" id="inspector" aria-label="选中对象检查器">
+      <div class="inspectorHeader">
+        <div><strong>对象检查器</strong><br><span>当前选中型号的完整上下文</span></div>
+        <button class="inspectorClose" id="close-inspector" type="button" aria-label="关闭对象检查器">×</button>
+      </div>
+      <div class="inspectorScroller">
+        <section class="objectIdentity">
+          <div class="objectImage"><img id="inspector-image" src="../assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U"></div>
+          <div class="identityBody">
+            <div class="type">Excavator Benchmark Object</div>
+            <h2 id="inspector-model">XCMG XE35U</h2>
+            <p id="inspector-description">3-4 吨级小型挖掘机对标对象</p>
+          </div>
+          <div class="objectFacts">
+            <div class="fact"><span>Tonnage</span><strong id="fact-tonnage">3-4 吨级</strong></div>
+            <div class="fact"><span>Comparators</span><strong id="fact-competitors">10 个型号</strong></div>
+            <div class="fact"><span>Conditions</span><strong>6 类工况</strong></div>
+            <div class="fact"><span>Evidence</span><strong>已接入</strong></div>
+          </div>
+        </section>
+
+        <div class="inspectorActions">
+          <button class="secondaryButton" id="inspector-compare" type="button">加入对比</button>
+          <a class="primaryButton" id="open-dashboard" href="../index.html">进入正式分析</a>
+        </div>
+
+        <section class="inspectorSection">
+          <div class="inspectorSectionTitle"><strong>典型应用场景</strong><span>SCENE TAGS</span></div>
+          <div class="sceneTags" id="scene-tags"></div>
+        </section>
+
+        <section class="inspectorSection">
+          <div class="inspectorSectionTitle"><strong>工况表现</strong><span id="inspector-condition-state">QUANTIFIED</span></div>
+          <div class="inspectorCondition" id="inspector-conditions"></div>
+        </section>
+
+        <section class="inspectorSection">
+          <div class="inspectorSectionTitle"><strong>数据与证据</strong><span>TRACEABLE</span></div>
+          <div class="evidenceList">
+            <div class="evidenceItem"><strong>原始对标数据表</strong><span>当前吨级 Excel 数据资产</span></div>
+            <div class="evidenceItem"><strong>产品公开资料</strong><span>官网、规格表和配置状态</span></div>
+            <div class="evidenceItem"><strong>评分与异常规则</strong><span>参数方向、配置映射及数据校验</span></div>
+          </div>
+        </section>
+      </div>
+    </aside>
+  </div>
+
+  <div class="compareTray" id="compare-tray" aria-live="polite">
+    <strong>对比对象</strong>
+    <div class="compareChips" id="compare-chips"></div>
+    <button class="secondaryButton" id="clear-compare" type="button">清除</button>
+    <button class="primaryButton" id="run-compare" type="button">生成对比视图</button>
+  </div>
+
+  <div class="drawerBackdrop" id="drawer-backdrop"></div>
+  <div class="paletteBackdrop" id="palette-backdrop"></div>
+  <section class="commandPalette" id="command-palette" role="dialog" aria-modal="true" aria-label="全局搜索">
+    <div class="paletteInputWrap"><input id="palette-input" type="search" placeholder="输入 XE35U、3-4 吨级、破碎或沟槽…"></div>
+    <div class="paletteLabel">可用对象</div>
+    <div class="paletteResults" id="palette-results"></div>
+  </section>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const models = [
+      { id: 'xe19u', model: 'XCMG XE19U', tonnage: '1-2', label: '1-2 吨级', competitors: 11, image: '../assets/arc/xe19u-official-cropped.png', url: '../excavator-1-2t.html', scenes: ['入户 / 庭院', '市政施工', '租赁'], description: '1-2 吨级微型挖掘机对标对象' },
+      { id: 'xe27u', model: 'XCMG XE27U', tonnage: '2-3', label: '2-3 吨级', competitors: 9, image: '../assets/arc/xe27u-official-cropped.jpg', url: '../excavator-2-3t.html', scenes: ['窄场地', '沟槽', '属具适配'], description: '2-3 吨级小型挖掘机对标对象' },
+      { id: 'xe35u', model: 'XCMG XE35U', tonnage: '3.5', label: '3-4 吨级', competitors: 10, image: '../assets/arc/xe35u-official-cropped.jpg', url: '../index.html', scenes: ['狭窄空间', '短循环', '破碎'], description: '3-4 吨级小型挖掘机对标对象', conditions: [
+        ['狭窄空间 / 市政庭院', 38.5], ['沟槽 / 基础深挖', 55.8], ['土方装车 / 短循环', 56.5], ['破碎 / 多属具作业', 51.4], ['坡地 / 软土 / 吊装', 52.9], ['租赁 / 快速转场', 29.2]
+      ], gaps: [
+        ['硬参数', '运输尺寸仍是转场约束', '整机运输长度 4960 mm；在拖车、库门和狭窄场地周转时弱于更紧凑的竞品。'],
+        ['工作装置', '动臂偏摆能力需要核定', '驾驶室与驾驶棚版本应分别对比，不合并左右范围；重点确认墙边挖掘和市政工况覆盖。'],
+        ['配置', '安全与施工辅助存在补强空间', '后视摄像头、坡度系统等配置应按标配、选配和缺配分别呈现，不能用一个总分代替。']
+      ] },
+      { id: 'xe45u', model: 'XCMG XE45U', tonnage: '4-5', label: '4-5 吨级', competitors: 7, image: '../assets/arc/xe45u-official-cropped.png', url: '../excavator-4-5t.html', scenes: ['运输边界', '沟槽', '租赁'], description: '4-5 吨级挖掘机对标对象' },
+      { id: 'xe55u', model: 'XCMG XE55U', tonnage: '5-6', label: '5-6 吨级', competitors: 10, image: '../assets/arc/xe55u-official-cropped.jpg', url: '../excavator-5-6t.html', scenes: ['土方装车', '液压属具', '驾驶安全'], description: '5-6 吨级挖掘机对标对象' },
+      { id: 'xe75u', model: 'XCMG XE75U', tonnage: '7-8', label: '7-8 吨级', competitors: 6, image: '../assets/arc/xe75u-official-cropped.jpg', url: '../excavator-7-8t.html', scenes: ['沟槽深挖', '坡地', '吊装'], description: '7-8 吨级挖掘机对标对象' },
+      { id: 'xe80u', model: 'XCMG XE80U', tonnage: '8-10', label: '8-10 吨级', competitors: 9, image: '../assets/arc/xe80u-official-cropped.jpg', url: '../excavator-8-10t.html', scenes: ['土方装车', '破碎', '吊装稳定'], description: '8-10 吨级挖掘机对标对象' },
+      { id: 'xe135u', model: 'XCMG XE135U', tonnage: '12-14', label: '12-14 吨级', competitors: 9, image: '../assets/arc/xe135u-official-cropped.webp', url: '../excavator-12-14t.html', scenes: ['基础深挖', '重载挖掘', '吊装'], description: '12-14 吨级挖掘机对标对象' },
+      { id: 'xe155ucr', model: 'XCMG XE155UCR', tonnage: '14-16-short-tail', label: '14-16 吨级短尾', competitors: 9, image: '../assets/arc/xe155ucr-official-cropped.jpg', url: '../excavator-14-16t-short-tail.html', scenes: ['短尾回转', '受限空间', '装车'], description: '14-16 吨级短尾挖掘机对标对象' },
+      { id: 'xe225u', model: 'XCMG XE225U', tonnage: '21-24', label: '21-24 吨级', competitors: 9, image: '../assets/arc/xe225u-official-cropped.png', url: '../excavator-21-24t.html', scenes: ['重载土方', '深挖', '破碎'], description: '21-24 吨级挖掘机对标对象' }
+    ];
+
+    const fallbackGaps = [
+      ['对象关系', '已连接对应分析资产', '选择型号后可以进入对应吨级看板，查看该对象的参数、配置、工况和竞品明细。'],
+      ['数据证据', '量化结论由原始数据支持', '工况数据、参数方向和配置状态均回到对应吨级的数据资产进行核验。'],
+      ['工作流', '对象状态在列表、图表和检查器间保持一致', '这正是本方案区别于普通门户卡片的核心交互。']
+    ];
+
+    const state = {
+      selectedId: 'xe35u',
+      tonnage: 'all',
+      query: '',
+      compare: new Set()
+    };
+
+    const tableBody = document.querySelector('#object-table-body');
+    const emptyState = document.querySelector('#empty-state');
+    const registrySummary = document.querySelector('#registry-summary');
+    const modelSearch = document.querySelector('#model-search');
+    const tonnageFilter = document.querySelector('#tonnage-filter');
+    const tonnageTree = document.querySelector('#tonnage-tree');
+    const inspector = document.querySelector('#inspector');
+    const drawerBackdrop = document.querySelector('#drawer-backdrop');
+    const compareTray = document.querySelector('#compare-tray');
+    const compareChips = document.querySelector('#compare-chips');
+    const toast = document.querySelector('#toast');
+    let toastTimer;
+
+    const normalize = (value) => String(value || '').toLowerCase().replace(/\s+/g, '');
+    const currentModel = () => models.find((item) => item.id === state.selectedId) || models[0];
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    function populateFilters() {
+      models.forEach((item) => {
+        const option = document.createElement('option');
+        option.value = item.tonnage;
+        option.textContent = item.label;
+        tonnageFilter.append(option);
+
+        const treeButton = document.createElement('button');
+        treeButton.type = 'button';
+        treeButton.dataset.tonnage = item.tonnage;
+        treeButton.textContent = `${item.label} · ${item.model.replace('XCMG ', '')}`;
+        treeButton.addEventListener('click', () => setTonnage(item.tonnage));
+        tonnageTree.append(treeButton);
+      });
+    }
+
+    function setTonnage(value) {
+      state.tonnage = value;
+      tonnageFilter.value = value;
+      document.querySelector('#breadcrumb-segment').textContent = value === 'all' ? '全部吨级' : models.find((item) => item.tonnage === value)?.label || value;
+      document.querySelectorAll('#tonnage-tree button').forEach((button) => button.classList.toggle('is-active', button.dataset.tonnage === value));
+      renderTable();
+      closeSidebar();
+    }
+
+    function filteredModels() {
+      const query = normalize(state.query);
+      return models.filter((item) => {
+        const matchesTonnage = state.tonnage === 'all' || item.tonnage === state.tonnage;
+        const haystack = normalize([item.model, item.label, item.tonnage, ...item.scenes].join(' '));
+        return matchesTonnage && (!query || haystack.includes(query));
+      });
+    }
+
+    function renderTable() {
+      const items = filteredModels();
+      tableBody.innerHTML = '';
+      items.forEach((item) => {
+        const row = document.createElement('tr');
+        row.dataset.id = item.id;
+        row.tabIndex = 0;
+        row.classList.toggle('is-selected', item.id === state.selectedId);
+        row.classList.toggle('is-compared', state.compare.has(item.id));
+        row.setAttribute('aria-label', `选择 ${item.model} 对象`);
+        row.innerHTML = `
+          <td><div class="modelCell"><span class="modelThumb"><img src="${item.image}" alt="${item.model}"></span><span class="modelName"><strong>${item.model}</strong><span>${item.description}</span></span></div></td>
+          <td>${item.label}</td>
+          <td><strong>${item.competitors}</strong> 个型号</td>
+          <td>${item.scenes.map((scene) => `<span class="inlineTag">${scene}</span>`).join('')}</td>
+          <td><span class="dataState">已接入</span></td>
+          <td><button class="rowAction ${state.compare.has(item.id) ? 'is-active' : ''}" type="button" data-compare="${item.id}">${state.compare.has(item.id) ? '已加入' : '加入对比'}</button></td>`;
+        row.addEventListener('click', (event) => {
+          if (event.target.closest('[data-compare]')) return;
+          selectModel(item.id, true);
+        });
+        row.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            selectModel(item.id, true);
+          }
+        });
+        row.querySelector('[data-compare]').addEventListener('click', () => toggleCompare(item.id));
+        tableBody.append(row);
+      });
+      emptyState.hidden = items.length > 0;
+      registrySummary.textContent = `显示 ${items.length} 个 XCMG 挖掘机对标对象${state.query ? ` · 搜索“${state.query}”` : ''}`;
+    }
+
+    function selectModel(id, openOnNarrow = false) {
+      state.selectedId = id;
+      renderTable();
+      renderInspector();
+      renderAnalysis();
+      if (openOnNarrow && window.matchMedia('(max-width: 930px)').matches) openInspector();
+    }
+
+    function renderInspector() {
+      const item = currentModel();
+      document.querySelector('#inspector-image').src = item.image;
+      document.querySelector('#inspector-image').alt = item.model;
+      document.querySelector('#inspector-model').textContent = item.model;
+      document.querySelector('#inspector-description').textContent = item.description;
+      document.querySelector('#fact-tonnage').textContent = item.label;
+      document.querySelector('#fact-competitors').textContent = `${item.competitors} 个型号`;
+      document.querySelector('#open-dashboard').href = item.url;
+      document.querySelector('#scene-tags').innerHTML = item.scenes.map((scene) => `<span>${scene}</span>`).join('');
+      const inspectorCompare = document.querySelector('#inspector-compare');
+      inspectorCompare.textContent = state.compare.has(item.id) ? '移出对比' : '加入对比';
+      inspectorCompare.classList.toggle('is-active', state.compare.has(item.id));
+
+      const conditionWrap = document.querySelector('#inspector-conditions');
+      const conditionState = document.querySelector('#inspector-condition-state');
+      if (item.conditions) {
+        conditionState.textContent = 'QUANTIFIED';
+        conditionWrap.innerHTML = item.conditions.map(([name, value]) => `
+          <div class="miniCondition"><span>${name.split(' / ')[0]}</span><div class="miniTrack"><div class="miniFill" style="width:${value}%"></div></div><strong>${value.toFixed(1)}</strong></div>`).join('');
+      } else {
+        conditionState.textContent = 'FORMAL PAGE';
+        conditionWrap.innerHTML = '<p class="noDetail">当前对象尚未载入量化工况值。进入正式分析可查看完整数据与计算依据。</p>';
+      }
+    }
+
+    function renderAnalysis() {
+      const item = currentModel();
+      const matrix = document.querySelector('#condition-matrix');
+      const source = document.querySelector('#condition-source');
+      if (item.conditions) {
+        source.textContent = `${item.model.replace('XCMG ', '')} 已加载`;
+        matrix.innerHTML = item.conditions.map(([name, value]) => `
+          <div class="conditionRow ${value < 40 ? 'low' : ''}"><span>${name}</span><div class="conditionTrack"><div class="conditionFill" style="width:${value}%"></div></div><strong>${value.toFixed(1)}</strong></div>`).join('');
+      } else {
+        source.textContent = `${item.model.replace('XCMG ', '')} 正式页`;
+        matrix.innerHTML = `<div class="emptyState"><strong>${item.model}</strong><br>当前工作区尚未载入该吨级的量化值。点击右侧“进入正式分析”查看完整工况结果。</div>`;
+      }
+
+      const gaps = item.gaps || fallbackGaps;
+      document.querySelector('#gap-list').innerHTML = gaps.map(([type, title, description]) => `
+        <div class="gapItem"><span class="gapType">${type}</span><div><strong>${title}</strong><p>${description}</p></div></div>`).join('');
+    }
+
+    function toggleCompare(id) {
+      if (state.compare.has(id)) state.compare.delete(id);
+      else if (state.compare.size < 4) state.compare.add(id);
+      else showToast('最多同时选择 4 个型号对象。');
+      renderTable();
+      renderInspector();
+      renderCompareTray();
+    }
+
+    function renderCompareTray() {
+      const selected = models.filter((item) => state.compare.has(item.id));
+      compareTray.classList.toggle('show', selected.length > 0);
+      compareChips.innerHTML = selected.map((item) => `<button class="compareChip" type="button" data-remove="${item.id}">${item.model} ×</button>`).join('');
+      compareChips.querySelectorAll('[data-remove]').forEach((button) => button.addEventListener('click', () => toggleCompare(button.dataset.remove)));
+    }
+
+    function openInspector() {
+      inspector.classList.add('show');
+      drawerBackdrop.classList.add('show');
+    }
+
+    function closeInspector() {
+      inspector.classList.remove('show');
+      drawerBackdrop.classList.remove('show');
+    }
+
+    function openSidebar() {
+      document.querySelector('#sidebar').classList.add('show');
+      drawerBackdrop.classList.add('show');
+    }
+
+    function closeSidebar() {
+      document.querySelector('#sidebar').classList.remove('show');
+      if (!inspector.classList.contains('show')) drawerBackdrop.classList.remove('show');
+    }
+
+    const commandPalette = document.querySelector('#command-palette');
+    const paletteBackdrop = document.querySelector('#palette-backdrop');
+    const paletteInput = document.querySelector('#palette-input');
+    const paletteResults = document.querySelector('#palette-results');
+
+    function renderPalette() {
+      const query = normalize(paletteInput.value);
+      const items = models.filter((item) => !query || normalize([item.model, item.label, ...item.scenes].join(' ')).includes(query));
+      paletteResults.innerHTML = items.map((item, index) => `
+        <button class="paletteResult ${index === 0 ? 'is-active' : ''}" type="button" data-id="${item.id}">
+          <span class="modelThumb"><img src="${item.image}" alt="${item.model}"></span>
+          <span><strong>${item.model}</strong><span>${item.label} · ${item.scenes.join(' · ')}</span></span><b>打开对象</b>
+        </button>`).join('') || '<div class="emptyState">没有匹配对象</div>';
+      paletteResults.querySelectorAll('[data-id]').forEach((button) => button.addEventListener('click', () => {
+        setTonnage('all');
+        modelSearch.value = '';
+        state.query = '';
+        selectModel(button.dataset.id, true);
+        closeCommand();
+      }));
+    }
+
+    function openCommand() {
+      commandPalette.classList.add('show');
+      paletteBackdrop.classList.add('show');
+      paletteInput.value = '';
+      renderPalette();
+      setTimeout(() => paletteInput.focus(), 40);
+    }
+
+    function closeCommand() {
+      commandPalette.classList.remove('show');
+      paletteBackdrop.classList.remove('show');
+    }
+
+    tonnageFilter.addEventListener('change', () => setTonnage(tonnageFilter.value));
+    modelSearch.addEventListener('input', () => { state.query = modelSearch.value.trim(); renderTable(); });
+    document.querySelector('#inspector-compare').addEventListener('click', () => toggleCompare(currentModel().id));
+    document.querySelector('#clear-compare').addEventListener('click', () => { state.compare.clear(); renderTable(); renderInspector(); renderCompareTray(); });
+    document.querySelector('#run-compare').addEventListener('click', () => showToast(`已选择 ${state.compare.size} 个对象。正式版本将在此生成参数、配置和工况并列视图。`));
+    document.querySelector('#focus-inspector').addEventListener('click', openInspector);
+    document.querySelector('#close-inspector').addEventListener('click', closeInspector);
+    document.querySelector('#mobile-menu').addEventListener('click', openSidebar);
+    drawerBackdrop.addEventListener('click', () => { closeSidebar(); closeInspector(); });
+    document.querySelector('#open-command').addEventListener('click', openCommand);
+    paletteBackdrop.addEventListener('click', closeCommand);
+    paletteInput.addEventListener('input', renderPalette);
+    document.querySelector('#reset-view').addEventListener('click', () => {
+      state.tonnage = 'all'; state.query = ''; state.compare.clear(); state.selectedId = 'xe35u';
+      tonnageFilter.value = 'all'; modelSearch.value = '';
+      document.querySelector('#breadcrumb-segment').textContent = '全部吨级';
+      document.querySelectorAll('#tonnage-tree button').forEach((button) => button.classList.remove('is-active'));
+      renderTable(); renderInspector(); renderAnalysis(); renderCompareTray();
+      document.querySelector('#workspace-scroller').scrollTo({top: 0, behavior: 'smooth'});
+      showToast('工作空间已恢复默认对象集。');
+    });
+
+    document.querySelectorAll('[data-line]').forEach((button) => button.addEventListener('click', () => {
+      if (button.dataset.line === 'excavators') setTonnage('all');
+      else showToast('该产品线当前处于待接入状态。');
+    }));
+
+    document.querySelectorAll('[data-demo-action]').forEach((button) => button.addEventListener('click', () => {
+      const labels = { conditions: '工况分析', competitors: '竞品对象', evidence: '数据与证据' };
+      showToast(`${labels[button.dataset.demoAction]}将在完整工作台中作为独立对象集打开。`);
+    }));
+
+    document.addEventListener('keydown', (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); openCommand(); }
+      if (event.key === 'Escape') { closeCommand(); closeSidebar(); closeInspector(); }
+      if (event.key === '/' && document.activeElement?.tagName !== 'INPUT') { event.preventDefault(); openCommand(); }
+    });
+
+    populateFilters();
+    renderTable();
+    renderInspector();
+    renderAnalysis();
+    renderCompareTray();
+  </script>
+</body>
+</html>

@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XCMG ARC 全产品线竞品对标 - Starlink 风格 Demo</title>
+  <style>
+    :root {
+      --black: #050607;
+      --black-soft: #101214;
+      --white: #ffffff;
+      --paper: #f4f4f2;
+      --line-dark: rgba(255,255,255,.28);
+      --line-light: #c9ccce;
+      --muted-dark: #b9bdc1;
+      --muted-light: #53575a;
+      --blue: #075ba7;
+      --yellow: #f5b400;
+      --header-h: 74px;
+      font-family: Arial, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--black); }
+    body {
+      margin: 0;
+      background: var(--black);
+      color: var(--white);
+      font-size: 15px;
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, select, input, a { font: inherit; }
+    button, select { color: inherit; }
+    button { cursor: pointer; }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3, p { margin: 0; }
+    [hidden] { display: none !important; }
+
+    :focus-visible {
+      outline: 3px solid rgba(245, 180, 0, .75);
+      outline-offset: 3px;
+    }
+
+    .siteHeader {
+      height: var(--header-h);
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      padding: 0 34px;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background .22s ease, border-color .22s ease;
+    }
+
+    .siteHeader.is-scrolled,
+    .siteHeader.menu-open {
+      background: rgba(5, 6, 7, .96);
+      border-color: rgba(255,255,255,.15);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 250px;
+    }
+
+    .brand img {
+      width: 104px;
+      height: 36px;
+      object-fit: contain;
+      background: #07579e;
+      padding: 6px 8px;
+    }
+
+    .brandText strong { display: block; font-size: 14px; }
+    .brandText span { display: block; margin-top: 3px; color: #c4c9cd; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+
+    .desktopNav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .desktopNav a {
+      position: relative;
+      padding: 27px 0 24px;
+      color: #e6e8e9;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .desktopNav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 18px;
+      height: 2px;
+      background: white;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .18s ease;
+    }
+
+    .desktopNav a:hover::after,
+    .desktopNav a.is-active::after { transform: scaleX(1); }
+
+    .headerAction {
+      margin-left: 30px;
+      min-width: 108px;
+      min-height: 38px;
+      border: 1px solid rgba(255,255,255,.75);
+      display: grid;
+      place-items: center;
+      padding: 0 14px;
+      font-size: 11px;
+      font-weight: 900;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    .headerAction:hover { background: white; color: black; }
+
+    .menuButton {
+      margin-left: 12px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,.42);
+      background: rgba(0,0,0,.25);
+      display: none;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .mobileMenu {
+      position: fixed;
+      inset: var(--header-h) 0 0;
+      z-index: 55;
+      background: rgba(5,6,7,.98);
+      border-top: 1px solid rgba(255,255,255,.12);
+      overflow-y: auto;
+      transform: translateY(-115%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .2s ease, opacity .2s ease;
+      padding: 14px 22px 24px;
+    }
+
+    .mobileMenu.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .mobileMenu a { display: block; padding: 14px 2px; border-bottom: 1px solid rgba(255,255,255,.14); font-weight: 800; }
+
+    .hero {
+      min-height: 88svh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-image: url("../assets/arc/category-excavators.jpg");
+      background-size: cover;
+      background-position: center center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.48);
+    }
+
+    .heroContent {
+      width: min(1240px, calc(100% - 80px));
+      margin: 0 auto;
+      padding-top: var(--header-h);
+      position: relative;
+      z-index: 2;
+    }
+
+    .heroEyebrow {
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      max-width: 790px;
+      font-size: 64px;
+      line-height: 1.03;
+      font-weight: 800;
+      text-shadow: 0 3px 22px rgba(0,0,0,.38);
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin-top: 22px;
+      color: #f0f1f2;
+      font-size: 19px;
+      line-height: 1.65;
+      text-shadow: 0 2px 14px rgba(0,0,0,.5);
+    }
+
+    .heroActions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+    .button {
+      min-width: 150px;
+      min-height: 46px;
+      border: 1px solid rgba(255,255,255,.8);
+      background: transparent;
+      color: white;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-size: 12px;
+      font-weight: 900;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+
+    .button.primary { background: white; color: black; }
+    .button:hover { background: white; color: black; }
+    .button.primary:hover { background: #dfe2e4; border-color: #dfe2e4; }
+    .button.dark { border-color: black; color: black; }
+    .button.dark.primary { background: black; color: white; }
+    .button.dark:hover { background: black; color: white; }
+    .button[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+
+    .heroFoot {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      display: grid;
+      place-items: center;
+      gap: 7px;
+      color: white;
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .heroFoot::after {
+      content: "";
+      width: 1px;
+      height: 38px;
+      background: rgba(255,255,255,.75);
+      animation: pulseLine 1.7s ease-in-out infinite;
+    }
+
+    @keyframes pulseLine {
+      0%,100% { transform: scaleY(.45); transform-origin: top; opacity: .45; }
+      50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    }
+
+    .sectionInner { width: min(1240px, calc(100% - 80px)); margin: 0 auto; }
+    .sectionKicker { font-size: 11px; font-weight: 900; text-transform: uppercase; color: inherit; }
+    .sectionTitle { margin-top: 12px; font-size: 42px; line-height: 1.12; }
+    .sectionLead { max-width: 760px; margin-top: 16px; color: var(--muted-dark); font-size: 16px; line-height: 1.7; }
+
+    .selectorSection {
+      background: var(--black);
+      padding: 84px 0 88px;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+    }
+
+    .selectorLayout {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(560px, 1.2fr);
+      align-items: end;
+      gap: 72px;
+    }
+
+    .selectorPanel {
+      border-top: 1px solid rgba(255,255,255,.72);
+      border-bottom: 1px solid rgba(255,255,255,.26);
+      padding: 22px 0;
+    }
+
+    .selectorGrid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1.15fr auto;
+      gap: 9px;
+      align-items: end;
+    }
+
+    .field { display: grid; gap: 8px; }
+    .field label { color: #c7cbce; font-size: 10px; font-weight: 900; text-transform: uppercase; }
+    .field select {
+      width: 100%;
+      height: 46px;
+      border: 1px solid rgba(255,255,255,.48);
+      border-radius: 0;
+      background: #0f1113;
+      color: white;
+      padding: 0 12px;
+    }
+
+    .field select:disabled { opacity: .45; }
+    .selectorGrid .button { height: 46px; min-width: 124px; }
+    .selectionStatus { margin-top: 13px; min-height: 20px; color: #c5c9cc; font-size: 11px; line-height: 1.5; }
+    .selectionStatus strong { color: white; }
+
+    .metricBand {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 50px;
+      border-top: 1px solid rgba(255,255,255,.25);
+      border-bottom: 1px solid rgba(255,255,255,.25);
+    }
+
+    .metric {
+      min-height: 116px;
+      padding: 23px 20px;
+      border-right: 1px solid rgba(255,255,255,.22);
+      display: grid;
+      align-content: center;
+      gap: 5px;
+    }
+
+    .metric:last-child { border-right: 0; }
+    .metric strong { font-size: 34px; }
+    .metric span { color: #aeb4b8; font-size: 11px; font-weight: 800; }
+
+    .assetSection {
+      background: var(--paper);
+      color: #090b0d;
+      padding: 94px 0 100px;
+    }
+
+    .assetSection .sectionLead { color: var(--muted-light); }
+    .assetShowcase {
+      margin-top: 46px;
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(360px, .65fr);
+      border-top: 1px solid #202326;
+      border-bottom: 1px solid #202326;
+    }
+
+    .assetVisual {
+      min-width: 0;
+      min-height: 520px;
+      display: grid;
+      place-items: center;
+      padding: 36px;
+      border-right: 1px solid #b9bdc0;
+      overflow: hidden;
+    }
+
+    .assetVisual img {
+      width: 94%;
+      height: 480px;
+      object-fit: contain;
+      transition: opacity .18s ease, transform .28s ease;
+    }
+
+    .assetVisual.is-changing img { opacity: .15; transform: translateX(-14px); }
+
+    .assetDetails {
+      padding: 42px 0 36px 44px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .assetDetails .sectionKicker { color: var(--blue); }
+    .assetDetails h3 { margin-top: 11px; font-size: 38px; }
+    .assetDetails p { margin-top: 13px; color: var(--muted-light); line-height: 1.7; }
+    .assetFacts { margin-top: 28px; border-top: 1px solid #afb4b7; }
+    .assetFact { min-height: 56px; border-bottom: 1px solid #c4c8ca; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .assetFact span { color: #666b6f; font-size: 11px; font-weight: 800; }
+    .assetFact strong { font-size: 13px; text-align: right; }
+    .sceneTags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+    .sceneTags span { border: 1px solid #aeb3b6; padding: 6px 8px; color: #313538; font-size: 10px; font-weight: 800; }
+    .assetActions { margin-top: auto; padding-top: 28px; display: flex; flex-wrap: wrap; gap: 9px; }
+
+    .modelRail {
+      margin-top: 24px;
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+    }
+
+    .modelChoice {
+      flex: 0 0 auto;
+      min-height: 38px;
+      border: 1px solid #aeb3b6;
+      background: transparent;
+      color: #24282b;
+      padding: 0 12px;
+      font-size: 10px;
+      font-weight: 900;
+      transition: background .16s ease, color .16s ease, border-color .16s ease;
+    }
+
+    .modelChoice:hover,
+    .modelChoice.is-active { background: black; color: white; border-color: black; }
+
+    .linesSection { background: var(--black); padding: 96px 0 106px; }
+    .lineGrid {
+      margin-top: 46px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: 310px;
+      gap: 1px;
+      padding: 8px;
+      background: rgba(255,255,255,.22);
+      border: 1px solid rgba(255,255,255,.22);
+    }
+
+    .linePanel {
+      position: relative;
+      overflow: hidden;
+      border: 0;
+      background: #141719;
+      color: white;
+      min-width: 0;
+      text-align: left;
+      padding: 0;
+    }
+
+    .linePanel:first-child { grid-row: span 2; }
+    .linePanel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease, opacity .25s ease;
+    }
+
+    .linePanel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.34);
+      transition: background .2s ease;
+    }
+
+    .linePanel:hover img { transform: scale(1.035); }
+    .linePanel:hover::after { background: rgba(0,0,0,.2); }
+    .linePanelContent { position: absolute; z-index: 2; inset: auto 22px 20px; }
+    .linePanelContent h3 { font-size: 24px; }
+    .linePanelContent p { margin-top: 5px; color: #e0e3e5; font-size: 11px; }
+    .lineState { display: inline-block; margin-top: 11px; border: 1px solid rgba(255,255,255,.7); padding: 5px 7px; font-size: 9px; font-weight: 900; }
+    .linePanel.is-live .lineState { background: white; color: black; }
+
+    .valueSection {
+      background: white;
+      color: #0b0c0d;
+      padding: 96px 0 100px;
+    }
+
+    .valueGrid {
+      margin-top: 45px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid #151719;
+      border-bottom: 1px solid #151719;
+    }
+
+    .valueItem { min-height: 210px; padding: 28px 24px; border-right: 1px solid #b9bdc0; }
+    .valueItem:last-child { border-right: 0; }
+    .valueItem b { display: block; color: var(--blue); font-size: 12px; }
+    .valueItem h3 { margin-top: 36px; font-size: 20px; }
+    .valueItem p { margin-top: 10px; color: #565b5f; font-size: 12px; line-height: 1.65; }
+
+    .siteFooter {
+      min-height: 220px;
+      background: var(--black);
+      padding: 54px 0;
+      border-top: 1px solid rgba(255,255,255,.2);
+    }
+
+    .footerLayout { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
+    .footerBrand strong { display: block; font-size: 22px; }
+    .footerBrand p { margin-top: 9px; color: #aeb4b8; font-size: 11px; line-height: 1.6; }
+    .footerLinks { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 24px; }
+    .footerLinks a { color: #d9dcde; font-size: 11px; font-weight: 800; }
+    .footerLinks a:hover { color: white; text-decoration: underline; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    .toast {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      bottom: 26px;
+      transform: translate(-50%, 16px);
+      min-width: 280px;
+      max-width: calc(100vw - 30px);
+      background: white;
+      color: black;
+      border-top: 3px solid var(--yellow);
+      padding: 12px 15px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 1080px) {
+      .desktopNav { gap: 18px; }
+      .desktopNav a:nth-child(3) { display: none; }
+      .selectorLayout { grid-template-columns: 1fr; gap: 36px; }
+      .assetShowcase { grid-template-columns: 1.15fr .85fr; }
+      .lineGrid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .valueGrid { grid-template-columns: 1fr 1fr; }
+      .valueItem:nth-child(2) { border-right: 0; }
+      .valueItem:nth-child(-n+2) { border-bottom: 1px solid #b9bdc0; }
+    }
+
+    @media (max-width: 820px) {
+      :root { --header-h: 62px; }
+      .siteHeader { padding: 0 18px; }
+      .brand { min-width: 0; }
+      .brand img { width: 90px; height: 32px; }
+      .brandText span { display: none; }
+      .desktopNav, .headerAction { display: none; }
+      .menuButton { display: grid; margin-left: auto; }
+      .hero { min-height: 86svh; background-position: 42% center; }
+      .heroContent, .sectionInner { width: min(100% - 36px, 1240px); }
+      .hero h1 { max-width: 620px; font-size: 48px; }
+      .hero p { font-size: 16px; }
+      .selectorSection, .assetSection, .linesSection, .valueSection { padding: 72px 0 78px; }
+      .sectionTitle { font-size: 34px; }
+      .selectorGrid { grid-template-columns: 1fr 1fr; }
+      .selectorGrid .button { width: 100%; }
+      .metricBand { grid-template-columns: 1fr 1fr; }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.22); }
+      .assetShowcase { grid-template-columns: 1fr; }
+      .assetVisual { min-height: 420px; border-right: 0; border-bottom: 1px solid #b9bdc0; }
+      .assetVisual img { height: 380px; }
+      .assetDetails { padding: 36px 0 20px; }
+      .lineGrid { grid-auto-rows: 280px; }
+      .linePanel:first-child { grid-row: auto; }
+      .footerLayout { align-items: flex-start; flex-direction: column; }
+      .footerLinks { justify-content: flex-start; }
+    }
+
+    @media (max-width: 560px) {
+      .brandText strong { font-size: 12px; }
+      .hero { min-height: 82svh; background-position: 46% center; }
+      .heroContent { padding-top: 50px; }
+      .heroEyebrow { font-size: 10px; }
+      .hero h1 { font-size: 38px; line-height: 1.08; }
+      .hero p { margin-top: 16px; font-size: 14px; line-height: 1.6; }
+      .heroActions { margin-top: 24px; }
+      .button { min-width: 136px; min-height: 43px; padding: 0 15px; }
+      .heroFoot { bottom: 14px; }
+      .sectionTitle { font-size: 30px; }
+      .sectionLead { font-size: 14px; }
+      .selectorGrid { grid-template-columns: 1fr; }
+      .metric { min-height: 92px; padding: 17px 15px; }
+      .metric strong { font-size: 28px; }
+      .assetShowcase { min-height: 0; }
+      .assetVisual { min-height: 320px; padding: 15px; }
+      .assetVisual img { height: 300px; }
+      .assetDetails h3 { font-size: 31px; }
+      .lineGrid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
+      .valueGrid { grid-template-columns: 1fr; }
+      .valueItem { min-height: 160px; border-right: 0; border-bottom: 1px solid #b9bdc0; }
+      .valueItem:last-child { border-bottom: 0; }
+      .valueItem h3 { margin-top: 22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+  <link rel="stylesheet" href="shared/demo-polish.css">
+</head>
+<body class="demo-surface theme-starlink">
+  <header class="siteHeader" id="site-header">
+    <a class="brand" href="#top" aria-label="回到页面顶部">
+      <img src="../assets/arc/xcmg-logo.webp" alt="XCMG">
+      <span class="brandText"><strong>XCMG ARC</strong><span>Product Benchmarking</span></span>
+    </a>
+    <nav class="desktopNav" aria-label="主导航">
+      <a href="#top" data-section="top" class="is-active">平台</a>
+      <a href="#select" data-section="select">快速选择</a>
+      <a href="#assets" data-section="assets">挖掘机资产</a>
+      <a href="#product-lines" data-section="product-lines">产品线</a>
+      <a href="#value" data-section="value">应用价值</a>
+    </nav>
+    <a class="headerAction" href="../arc.html">正式平台</a>
+    <button class="menuButton" id="menu-button" type="button" aria-label="打开导航菜单">☰</button>
+  </header>
+
+  <nav class="mobileMenu" id="mobile-menu" aria-label="手机导航">
+    <a href="#top">平台</a>
+    <a href="#select">快速选择</a>
+    <a href="#assets">挖掘机资产</a>
+    <a href="#product-lines">产品线</a>
+    <a href="#value">应用价值</a>
+    <a href="../arc.html">返回正式平台</a>
+  </nav>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="heroContent">
+        <h1>全产品线<br>竞品对标平台</h1>
+        <p>把分散的产品参数、配置状态、典型工况和竞品差距组织成可追溯、可交互的工程决策视图。</p>
+        <div class="heroActions">
+          <a class="button primary" href="#select">开始选择</a>
+          <a class="button" href="#assets">查看分析资产</a>
+        </div>
+      </div>
+      <a class="heroFoot" href="#select">Explore</a>
+    </section>
+
+    <section class="selectorSection" id="select">
+      <div class="sectionInner">
+        <div class="selectorLayout reveal is-visible">
+          <div>
+            <h2 class="sectionTitle">从产品线直接进入型号分析</h2>
+            <p class="sectionLead">三级选择保持工程对象关系，不在首屏堆叠卡片。当前已上线挖掘机资产，其他产品线保留统一入口。</p>
+          </div>
+          <div class="selectorPanel">
+            <div class="selectorGrid">
+              <div class="field"><label for="line-select">产品线</label><select id="line-select"></select></div>
+              <div class="field"><label for="tonnage-select">吨级 / 类别</label><select id="tonnage-select"></select></div>
+              <div class="field"><label for="model-select">XCMG 型号</label><select id="model-select"></select></div>
+              <a class="button primary" id="enter-analysis" href="../index.html">进入分析</a>
+            </div>
+            <div class="selectionStatus" id="selection-status"></div>
+          </div>
+        </div>
+
+        <div class="metricBand reveal" aria-label="平台资产状态">
+          <div class="metric"><strong>7</strong><span>产品线入口</span></div>
+          <div class="metric"><strong>10</strong><span>挖掘机吨级资产</span></div>
+          <div class="metric"><strong>89</strong><span>竞品型号</span></div>
+          <div class="metric"><strong>10</strong><span>原始数据包</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="assetSection" id="assets">
+      <div class="sectionInner">
+        <div class="reveal">
+          <h2 class="sectionTitle">十个吨级，一个统一分析入口</h2>
+          <p class="sectionLead">选择型号后，产品图、竞品范围、典型场景和正式分析链接同步更新；量化结论以对应吨级的原始数据为准。</p>
+        </div>
+
+        <div class="assetShowcase reveal">
+          <div class="assetVisual" id="asset-visual"><img id="asset-image" src="../assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U"></div>
+          <div class="assetDetails">
+            <div class="sectionKicker">当前分析资产</div>
+            <h3 id="asset-model">XCMG XE35U</h3>
+            <p id="asset-description">3-4 吨级小型挖掘机对标对象</p>
+            <div class="assetFacts">
+              <div class="assetFact"><span>吨级</span><strong id="asset-tonnage">3-4 吨级</strong></div>
+              <div class="assetFact"><span>竞品范围</span><strong id="asset-competitors">10 个型号</strong></div>
+              <div class="assetFact"><span>统一工况</span><strong>6 类</strong></div>
+              <div class="assetFact"><span>数据状态</span><strong>已接入</strong></div>
+            </div>
+            <div class="sceneTags" id="asset-scenes"></div>
+            <div class="assetActions">
+              <a class="button dark primary" id="asset-open" href="../index.html">打开正式分析</a>
+              <a class="button dark" href="../data-downloads.html">数据来源</a>
+            </div>
+          </div>
+        </div>
+        <div class="modelRail reveal" id="model-rail" aria-label="型号快速选择"></div>
+      </div>
+    </section>
+
+    <section class="linesSection" id="product-lines">
+      <div class="sectionInner">
+        <div class="reveal">
+          <h2 class="sectionTitle">全产品线入口</h2>
+          <p class="sectionLead">图片使用现有 XCMG USA 产品素材。挖掘机可进入分析，其余产品线明确显示待接入，不制造尚不存在的分析结果。</p>
+        </div>
+
+        <div class="lineGrid reveal">
+          <button class="linePanel is-live" type="button" data-line-panel="excavators"><img src="../assets/arc/category-excavators.jpg" alt="XCMG excavators"><span class="linePanelContent"><h3>Excavators / 挖掘机</h3><p>10 个吨级对标资产</p><span class="lineState">已上线</span></span></button>
+          <button class="linePanel" type="button" data-line-panel="wheel-loaders"><img src="../assets/arc/category-wheel-loaders.jpg" alt="XCMG wheel loaders"><span class="linePanelContent"><h3>Wheel Loaders / 装载机</h3><p>装载效率、油耗与驾驶舒适性</p><span class="lineState">待接入</span></span></button>
+          <button class="linePanel" type="button" data-line-panel="rollers"><img src="../assets/arc/category-rollers.jpg" alt="XCMG rollers"><span class="linePanelContent"><h3>Rollers / 压路机</h3><p>压实、振动与转场效率</p><span class="lineState">待接入</span></span></button>
+          <button class="linePanel" type="button" data-line-panel="motor-graders"><img src="../assets/arc/category-motor-graders.jpg" alt="XCMG motor graders"><span class="linePanelContent"><h3>Motor Graders / 平地机</h3><p>平地精度、牵引与控制</p><span class="lineState">待接入</span></span></button>
+          <button class="linePanel" type="button" data-line-panel="cranes"><img src="../assets/arc/category-cranes.jpg" alt="XCMG cranes"><span class="linePanelContent"><h3>Cranes / 起重机械</h3><p>载荷曲线、支腿与安全系统</p><span class="lineState">待接入</span></span></button>
+          <button class="linePanel" type="button" data-line-panel="haul-trucks"><img src="../assets/arc/category-haul-trucks.jpg" alt="XCMG haul trucks"><span class="linePanelContent"><h3>Haul Trucks / 矿卡</h3><p>载重、动力与矿区循环效率</p><span class="lineState">待接入</span></span></button>
+          <button class="linePanel" type="button" data-line-panel="mewp"><img src="../assets/arc/category-mewp.jpg" alt="XCMG MEWP"><span class="linePanelContent"><h3>MEWP / 高空作业平台</h3><p>作业高度、越野与租赁适配</p><span class="lineState">待接入</span></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="valueSection" id="value">
+      <div class="sectionInner">
+        <div class="reveal">
+          <h2 class="sectionTitle">把竞品资料转化为工程行动</h2>
+        </div>
+        <div class="valueGrid reveal">
+          <div class="valueItem"><b>ENGINEERING</b><h3>产品定义</h3><p>从竞品参数和典型工况中定位尺寸、动力、液压和工作范围差距。</p></div>
+          <div class="valueItem"><b>CONFIGURATION</b><h3>配置决策</h3><p>区分标配、选配和缺配，说明配置对效率、安全与租赁适配的影响。</p></div>
+          <div class="valueItem"><b>SALES</b><h3>销售支持</h3><p>把复杂规格转为客户场景下可核验的优势、限制和推荐配置。</p></div>
+          <div class="valueItem"><b>EVIDENCE</b><h3>数据追溯</h3><p>结论回到原始 Excel、产品资料、计算方向和异常校验规则。</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="siteFooter">
+    <div class="sectionInner footerLayout">
+      <div class="footerBrand"><strong>XCMG ARC</strong><p>全产品线竞品对标平台<br>Engineering Intelligence</p></div>
+      <div class="footerLinks"><a href="../arc.html">正式平台</a><a href="../data-downloads.html">原始数据中心</a><a href="https://xcmg-usa.com/">XCMG USA</a><a href="#top">返回顶部</a></div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const productLines = [
+      { id: 'excavators', name: 'Excavators / 挖掘机', live: true },
+      { id: 'wheel-loaders', name: 'Wheel Loaders / 装载机' },
+      { id: 'rollers', name: 'Rollers / 压路机' },
+      { id: 'motor-graders', name: 'Motor Graders / 平地机' },
+      { id: 'cranes', name: 'Cranes / 起重机械' },
+      { id: 'haul-trucks', name: 'Haul Trucks / 矿卡' },
+      { id: 'mewp', name: 'MEWP / 高空作业平台' }
+    ];
+
+    const models = [
+      { id: 'xe19u', model: 'XCMG XE19U', tonnage: '1-2', label: '1-2 吨级', competitors: 11, image: '../assets/arc/xe19u-official-cropped.png', url: '../excavator-1-2t.html', scenes: ['入户 / 庭院', '市政施工', '租赁'], description: '1-2 吨级微型挖掘机对标对象' },
+      { id: 'xe27u', model: 'XCMG XE27U', tonnage: '2-3', label: '2-3 吨级', competitors: 9, image: '../assets/arc/xe27u-official-cropped.jpg', url: '../excavator-2-3t.html', scenes: ['窄场地', '沟槽', '属具适配'], description: '2-3 吨级小型挖掘机对标对象' },
+      { id: 'xe35u', model: 'XCMG XE35U', tonnage: '3.5', label: '3-4 吨级', competitors: 10, image: '../assets/arc/xe35u-official-cropped.jpg', url: '../index.html', scenes: ['狭窄空间', '短循环', '破碎'], description: '3-4 吨级小型挖掘机对标对象' },
+      { id: 'xe45u', model: 'XCMG XE45U', tonnage: '4-5', label: '4-5 吨级', competitors: 7, image: '../assets/arc/xe45u-official-cropped.png', url: '../excavator-4-5t.html', scenes: ['运输边界', '沟槽', '租赁'], description: '4-5 吨级挖掘机对标对象' },
+      { id: 'xe55u', model: 'XCMG XE55U', tonnage: '5-6', label: '5-6 吨级', competitors: 10, image: '../assets/arc/xe55u-official-cropped.jpg', url: '../excavator-5-6t.html', scenes: ['土方装车', '液压属具', '驾驶安全'], description: '5-6 吨级挖掘机对标对象' },
+      { id: 'xe75u', model: 'XCMG XE75U', tonnage: '7-8', label: '7-8 吨级', competitors: 6, image: '../assets/arc/xe75u-official-cropped.jpg', url: '../excavator-7-8t.html', scenes: ['沟槽深挖', '坡地', '吊装'], description: '7-8 吨级挖掘机对标对象' },
+      { id: 'xe80u', model: 'XCMG XE80U', tonnage: '8-10', label: '8-10 吨级', competitors: 9, image: '../assets/arc/xe80u-official-cropped.jpg', url: '../excavator-8-10t.html', scenes: ['土方装车', '破碎', '吊装稳定'], description: '8-10 吨级挖掘机对标对象' },
+      { id: 'xe135u', model: 'XCMG XE135U', tonnage: '12-14', label: '12-14 吨级', competitors: 9, image: '../assets/arc/xe135u-official-cropped.webp', url: '../excavator-12-14t.html', scenes: ['基础深挖', '重载挖掘', '吊装'], description: '12-14 吨级挖掘机对标对象' },
+      { id: 'xe155ucr', model: 'XCMG XE155UCR', tonnage: '14-16-short-tail', label: '14-16 吨级短尾', competitors: 9, image: '../assets/arc/xe155ucr-official-cropped.jpg', url: '../excavator-14-16t-short-tail.html', scenes: ['短尾回转', '受限空间', '装车'], description: '14-16 吨级短尾挖掘机对标对象' },
+      { id: 'xe225u', model: 'XCMG XE225U', tonnage: '21-24', label: '21-24 吨级', competitors: 9, image: '../assets/arc/xe225u-official-cropped.png', url: '../excavator-21-24t.html', scenes: ['重载土方', '深挖', '破碎'], description: '21-24 吨级挖掘机对标对象' }
+    ];
+
+    const state = { line: 'excavators', tonnage: '3.5', model: 'xe35u' };
+    const lineSelect = document.querySelector('#line-select');
+    const tonnageSelect = document.querySelector('#tonnage-select');
+    const modelSelect = document.querySelector('#model-select');
+    const enterAnalysis = document.querySelector('#enter-analysis');
+    const selectionStatus = document.querySelector('#selection-status');
+    const assetVisual = document.querySelector('#asset-visual');
+    const toast = document.querySelector('#toast');
+    let toastTimer;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    function fillSelect(select, items, selected) {
+      select.innerHTML = '';
+      items.forEach((item) => {
+        const option = document.createElement('option');
+        option.value = item.value;
+        option.textContent = item.label;
+        option.selected = item.value === selected;
+        select.append(option);
+      });
+    }
+
+    function populateLineSelect() {
+      fillSelect(lineSelect, productLines.map((item) => ({ value: item.id, label: item.name })), state.line);
+    }
+
+    function populateModelSelectors() {
+      const line = productLines.find((item) => item.id === state.line);
+      if (!line?.live) {
+        fillSelect(tonnageSelect, [{ value: 'pending', label: '产品线待接入' }], 'pending');
+        fillSelect(modelSelect, [{ value: 'pending', label: '暂无型号资产' }], 'pending');
+        tonnageSelect.disabled = true;
+        modelSelect.disabled = true;
+        enterAnalysis.textContent = '查看产品线';
+        enterAnalysis.href = '#product-lines';
+        enterAnalysis.setAttribute('aria-disabled', 'false');
+        selectionStatus.innerHTML = `<strong>${line.name}</strong> 当前保留产品线入口，尚未生成分析资产。`;
+        return;
+      }
+
+      tonnageSelect.disabled = false;
+      modelSelect.disabled = false;
+      fillSelect(tonnageSelect, models.map((item) => ({ value: item.tonnage, label: item.label })), state.tonnage);
+      const selectedByTonnage = models.find((item) => item.tonnage === tonnageSelect.value) || models[0];
+      state.tonnage = selectedByTonnage.tonnage;
+      state.model = selectedByTonnage.id;
+      fillSelect(modelSelect, [{ value: selectedByTonnage.id, label: selectedByTonnage.model }], state.model);
+      enterAnalysis.textContent = '进入分析';
+      enterAnalysis.href = selectedByTonnage.url;
+      selectionStatus.innerHTML = `<strong>${selectedByTonnage.model}</strong> · ${selectedByTonnage.label} · ${selectedByTonnage.competitors} 个对标产品`;
+    }
+
+    function selectedModel() { return models.find((item) => item.id === state.model) || models[0]; }
+
+    function renderAsset(item, animate = true) {
+      state.line = 'excavators';
+      state.tonnage = item.tonnage;
+      state.model = item.id;
+      if (animate) assetVisual.classList.add('is-changing');
+      setTimeout(() => {
+        document.querySelector('#asset-image').src = item.image;
+        document.querySelector('#asset-image').alt = item.model;
+        document.querySelector('#asset-model').textContent = item.model;
+        document.querySelector('#asset-description').textContent = item.description;
+        document.querySelector('#asset-tonnage').textContent = item.label;
+        document.querySelector('#asset-competitors').textContent = `${item.competitors} 个型号`;
+        document.querySelector('#asset-scenes').innerHTML = item.scenes.map((scene) => `<span>${scene}</span>`).join('');
+        document.querySelector('#asset-open').href = item.url;
+        document.querySelectorAll('.modelChoice').forEach((button) => button.classList.toggle('is-active', button.dataset.model === item.id));
+        assetVisual.classList.remove('is-changing');
+      }, animate ? 150 : 0);
+
+      lineSelect.value = 'excavators';
+      populateModelSelectors();
+      tonnageSelect.value = item.tonnage;
+      state.tonnage = item.tonnage;
+      state.model = item.id;
+      fillSelect(modelSelect, [{ value: item.id, label: item.model }], item.id);
+      enterAnalysis.href = item.url;
+      selectionStatus.innerHTML = `<strong>${item.model}</strong> · ${item.label} · ${item.competitors} 个对标产品`;
+    }
+
+    function buildModelRail() {
+      const rail = document.querySelector('#model-rail');
+      rail.innerHTML = models.map((item) => `<button class="modelChoice ${item.id === state.model ? 'is-active' : ''}" type="button" data-model="${item.id}">${item.model.replace('XCMG ', '')} · ${item.label.replace(' 吨级', '')}</button>`).join('');
+      rail.querySelectorAll('[data-model]').forEach((button) => button.addEventListener('click', () => {
+        renderAsset(models.find((item) => item.id === button.dataset.model));
+      }));
+    }
+
+    lineSelect.addEventListener('change', () => {
+      state.line = lineSelect.value;
+      populateModelSelectors();
+    });
+
+    tonnageSelect.addEventListener('change', () => {
+      const item = models.find((model) => model.tonnage === tonnageSelect.value);
+      if (item) renderAsset(item);
+    });
+
+    modelSelect.addEventListener('change', () => {
+      const item = models.find((model) => model.id === modelSelect.value);
+      if (item) renderAsset(item);
+    });
+
+    enterAnalysis.addEventListener('click', (event) => {
+      if (state.line !== 'excavators') {
+        event.preventDefault();
+        document.querySelector('#product-lines').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    document.querySelectorAll('[data-line-panel]').forEach((panel) => panel.addEventListener('click', () => {
+      const lineId = panel.dataset.linePanel;
+      if (lineId === 'excavators') {
+        document.querySelector('#assets').scrollIntoView({ behavior: 'smooth' });
+      } else {
+        state.line = lineId;
+        lineSelect.value = lineId;
+        populateModelSelectors();
+        showToast(`${productLines.find((item) => item.id === lineId)?.name} 当前为待接入产品线。`);
+        document.querySelector('#select').scrollIntoView({ behavior: 'smooth' });
+      }
+    }));
+
+    const header = document.querySelector('#site-header');
+    const menuButton = document.querySelector('#menu-button');
+    const mobileMenu = document.querySelector('#mobile-menu');
+
+    function setMenu(open) {
+      mobileMenu.classList.toggle('show', open);
+      header.classList.toggle('menu-open', open);
+      menuButton.textContent = open ? '×' : '☰';
+      menuButton.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
+    }
+
+    menuButton.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('show')));
+    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+    const sections = [...document.querySelectorAll('main > section[id]')];
+    const navLinks = [...document.querySelectorAll('[data-section]')];
+    function updateScrollState() {
+      header.classList.toggle('is-scrolled', window.scrollY > 32);
+      const marker = window.scrollY + 140;
+      let active = 'top';
+      sections.forEach((section) => { if (section.offsetTop <= marker) active = section.id; });
+      navLinks.forEach((link) => link.classList.toggle('is-active', link.dataset.section === active));
+    }
+
+    let scrollFrame = 0;
+    window.addEventListener('scroll', () => {
+      if (scrollFrame) return;
+      scrollFrame = requestAnimationFrame(() => { updateScrollState(); scrollFrame = 0; });
+    }, { passive: true });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+    }, { threshold: .04 });
+    document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+    populateLineSelect();
+    populateModelSelectors();
+    buildModelRail();
+    renderAsset(selectedModel(), false);
+    updateScrollState();
+  </script>
+</body>
+</html>

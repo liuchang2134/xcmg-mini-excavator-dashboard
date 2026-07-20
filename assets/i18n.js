@@ -353,6 +353,59 @@
     '地面侧方4.5m远处起吊能力': 'Side Lift Capacity at 4.5 m, Ground Level',
     '地面正前方6m远处起吊能力': 'Front Lift Capacity at 6 m, Ground Level',
     '地面侧方6m远处起吊能力': 'Side Lift Capacity at 6 m, Ground Level',
+    '全产品线竞品对标平台｜挖掘机 10 个吨级区间': 'All-Product Competitive Benchmarking Platform | 10 Excavator Tonnage Classes',
+    '是否有Cab版本': 'Cab Availability',
+    '密码防盗': 'PIN-Code Anti-Theft',
+    'Optional8英寸触屏': 'Optional 8-in Touchscreen Display',
+    'Optional8英寸Touchscreen Display': 'Optional 8-in Touchscreen Display',
+    'Optional7英寸Touchscreen Display': 'Optional 7-in Touchscreen Display',
+    'Cab版Optional 2D/3D': 'Cab Version: Optional 2D/3D Grade Control',
+    'Cab版Standard 2D/3D': 'Cab Version: Standard 2D/3D Grade Control',
+    'Optional缸体加热': 'Optional Engine Block Heater',
+    'Optional缸体加热器': 'Optional Engine Block Heater',
+    '270°摄像头': '270° Camera System',
+    '270°视摄像头': '270° Surround-View Camera System',
+    '360°/270°视摄像头': '360° / 270° Surround-View Camera System',
+    'Optional2D/3D+ 激光捕捉': 'Optional 2D/3D Grade Control with Laser Catcher',
+    'Standard2D Optional3D及激光捕捉': 'Standard 2D; Optional 3D Grade Control and Laser Catcher',
+    'Standard2D及激光捕捉': 'Standard 2D Grade Control and Laser Catcher',
+    'Standard 动臂/铲斗/Swing System/平地/Lift Assist': 'Standard Boom Assist / Bucket Assist / Swing Assist / Grade Assist / Lift Assist',
+    'Standard 动臂/Bucket/Swing System/平地/Lift Assist': 'Standard Boom Assist / Bucket Assist / Swing Assist / Grade Assist / Lift Assist',
+    'Standard: 平地 动臂 铲斗 Swing 起吊': 'Standard: Grade Assist / Boom Assist / Bucket Assist / Swing Assist / Lift Assist',
+    'Standard: 平地 动臂 Bucket Swing 起吊': 'Standard: Grade Assist / Boom Assist / Bucket Assist / Swing Assist / Lift Assist',
+    'Standard: 平地 动臂 铲斗 Swing System 起吊': 'Standard: Grade Assist / Boom Assist / Bucket Assist / Swing Assist / Lift Assist',
+    'Standard: 平地 动臂 Bucket Swing System 起吊': 'Standard: Grade Assist / Boom Assist / Bucket Assist / Swing Assist / Lift Assist',
+    'Standard: 平地 铲斗 Swing System 起吊': 'Standard: Grade Assist / Bucket Assist / Swing Assist / Lift Assist',
+    'Standard: 平地 Bucket Swing System 起吊': 'Standard: Grade Assist / Bucket Assist / Swing Assist / Lift Assist',
+    'Standard: Swing System Truck Loading 平地 修破 Bucket Assist': 'Standard: Swing Assist / Truck Loading Assist / Grade Assist / Trenching and Breaker Assist / Bucket Assist',
+    'Standard前窗天窗 Optional后窗': 'Standard Front Windshield and Skylight; Optional Rear Window',
+    'Swing Systemvs动臂, 优先级可调': 'Adjustable Swing / Boom Priority',
+    '动臂上升及Swing, 优先级可调': 'Adjustable Boom-Raise / Swing Priority',
+    'Swing System报警': 'Swing Alarm',
+    '动臂浮动': 'Boom Float',
+    '动作优先': 'Work-Function Priority',
+    '斗杆快收阀': 'Arm Regeneration Valve',
+    'Breaker Work锤回油过滤': 'Breaker Return-Line Filter',
+    'Breaker Work锤自动停止': 'Automatic Breaker Stop',
+    '电风扇': 'Electric Cooling Fan',
+    '三种': 'Three Modes',
+    '强力/智能/经济': 'Power / Intelligent / Economy',
+    '强力/经济/起吊/Breaker Work': 'Power / Economy / Lifting / Breaker',
+    '偏置动臂 Offset Boom': 'Offset Boom',
+    '偏置动臂 offset boom': 'Offset Boom',
+    '辅助动作': 'Auxiliary Function',
+    '过载报警': 'Overload Warning',
+    '远程操控': 'Remote Control',
+    '遮阳': 'Sunshade',
+    '遮雨棚': 'Rain Guard',
+    '超长工装': 'Super Long-Reach Front',
+    '4300kg 5490kg 超长臂用': '4,300 kg / 5,490 kg for Super Long-Reach Front',
+    '4600kg 5400kg 超长臂用': '4,600 kg / 5,400 kg for Super Long-Reach Front',
+    '配重': 'Counterweight',
+    '铲斗': 'Bucket',
+    '铲斗 m³': 'Bucket Capacity (m³)',
+    'GP: 0.2-0.76 HD: 0.31-0.53 清理斗: 0.57/0.74': 'GP: 0.2-0.76; HD: 0.31-0.53; Ditch-Cleaning: 0.57/0.74',
+    'GP: 0.55-1.59 HD: 0.46-1.38 SD: 0.46-1.19 清理斗: 1.01-1.76': 'GP: 0.55-1.59; HD: 0.46-1.38; SD: 0.46-1.19; Ditch-Cleaning: 1.01-1.76',
     '吨级': 'Tonnage Class',
     '标配': 'Standard',
     '选配': 'Optional',
@@ -637,6 +690,7 @@
 
   const sentenceRules = [
     [/^XCMG\s+(.+?)\s+(\d+(?:-\d+)?)\s*吨级(短尾)?挖掘机竞品对标看板$/, (model, range, shortTail) => `XCMG ${model} ${range} t${shortTail ? ' Short-Tail' : ''} Excavator Competitive Benchmark Dashboard`],
+    [/^(\d+(?:-\d+)?)\s*吨级(短尾)?挖掘机对标$/, (range, shortTail) => `${range} t${shortTail ? ' Short-Tail' : ''} Excavator Benchmark`],
     [/^工况表现：(.+?)\s+([\d.]+)\s*分；XCMG\s+([\d.]+)\s*分，第\s*([\d-]+)，距领先产品\s*([\d.]+)\s*分。$/, (leader, leaderScore, xcmgScore, rank, gap) => `Work-condition performance: ${translateCore(leader)} ${leaderScore} pts; XCMG ${xcmgScore} pts, ranked No. ${rank}, ${gap} pts behind the leader.`],
     [/^主要差距项：(.+?)。$/, (items) => `Primary gap items: ${translateCore(items)}.`],
     [/^配置项累计贡献：(.+)$/, (detail) => `Cumulative equipment contribution: ${translateCore(detail)}`],
@@ -681,7 +735,7 @@
   }
 
   function translateCore(value) {
-    let text = String(value || '').trim();
+    let text = String(value || '').trim().replace(/\s+/g, ' ');
     if (!HAN.test(text)) return text;
     if (Object.prototype.hasOwnProperty.call(exactTranslations, text)) {
       return exactTranslations[text];
@@ -728,6 +782,16 @@
     return leading + translateCore(text.trim()) + trailing;
   }
 
+  function translateFully(value) {
+    let current = String(value || '');
+    for (let pass = 0; pass < 4 && HAN.test(current); pass += 1) {
+      const next = translateValue(current);
+      if (next === current) break;
+      current = next;
+    }
+    return current;
+  }
+
   function shouldSkip(node) {
     const parent = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
     return !parent || Boolean(parent.closest('script, style, noscript, textarea, .languageToggle'));
@@ -741,7 +805,7 @@
       for (const attribute of ['aria-label', 'placeholder', 'title', 'alt']) {
         const value = element.getAttribute(attribute);
         if (value && HAN.test(value)) {
-          element.setAttribute(attribute, translateValue(value));
+          element.setAttribute(attribute, translateFully(value));
         }
       }
     }
@@ -755,7 +819,8 @@
     collectTextNodes(root);
     for (const node of nodes) {
       if (!shouldSkip(node) && HAN.test(node.nodeValue || '')) {
-        node.nodeValue = translateValue(node.nodeValue);
+        const translated = translateFully(node.nodeValue);
+        if (translated !== node.nodeValue) node.nodeValue = translated;
       }
     }
   }
@@ -803,31 +868,74 @@
     document.head.appendChild(style);
   }
 
+  function normalizeEnglishRadarLabels(root = document) {
+    if (language !== 'en') return;
+    const shortLabels = new Map([
+      ['Boom Swing (Left / Right)', 'Boom Swing L/R'],
+      ['Front Lift Capacity at 3 m, Ground Level (Blade Down)', 'Front Lift 3 m, Blade Down'],
+      ['Front Lift Capacity at 3 m, Ground Level (Blade Up)', 'Front Lift 3 m, Blade Up'],
+      ['Side Lift Capacity at 3 m, Ground Level', 'Side Lift 3 m']
+    ]);
+    root.querySelectorAll?.('.radar-label').forEach((label) => {
+      const fullLabel = label.querySelector('title')?.textContent.trim();
+      const shortLabel = shortLabels.get(fullLabel);
+      if (!shortLabel) return;
+      const visibleLabel = [...label.childNodes]
+        .filter((node) => node.nodeType === Node.TEXT_NODE)
+        .map((node) => node.nodeValue)
+        .join('')
+        .trim();
+      if (visibleLabel === shortLabel) return;
+      [...label.childNodes].forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) node.remove();
+      });
+      label.appendChild(document.createTextNode(shortLabel));
+    });
+  }
+
+  function finalizeEnglishRendering() {
+    if (language !== 'en') return;
+    translateElement(document.body);
+    normalizeEnglishRadarLabels(document);
+    decorateInternalLinks();
+  }
+
   document.documentElement.lang = language === 'en' ? 'en-US' : 'zh-CN';
   document.documentElement.dataset.language = language;
   updateToggle();
   if (language === 'en') {
-    document.title = translateValue(document.title);
+    document.title = translateFully(document.title);
     translateElement(document.body);
+    normalizeEnglishRadarLabels(document);
     decorateInternalLinks();
     installEnglishDisclosureLabels();
+    window.addEventListener('load', finalizeEnglishRendering, {once: true});
+    requestAnimationFrame(() => requestAnimationFrame(finalizeEnglishRendering));
     if (typeof MutationObserver === 'function') {
       let translating = false;
       const observer = new MutationObserver((mutations) => {
         if (translating) return;
         translating = true;
         for (const mutation of mutations) {
+          if (mutation.type === 'characterData' && HAN.test(mutation.target.nodeValue || '')) {
+            const translated = translateFully(mutation.target.nodeValue);
+            if (translated !== mutation.target.nodeValue) mutation.target.nodeValue = translated;
+          }
           mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1) translateElement(node);
+            if (node.nodeType === 1) {
+              translateElement(node);
+              normalizeEnglishRadarLabels(node);
+            }
             else if (node.nodeType === 3 && HAN.test(node.nodeValue || '')) {
-              node.nodeValue = translateValue(node.nodeValue);
+              const translated = translateFully(node.nodeValue);
+              if (translated !== node.nodeValue) node.nodeValue = translated;
             }
           });
         }
         decorateInternalLinks();
         translating = false;
       });
-      observer.observe(document.body, {childList: true, subtree: true});
+      observer.observe(document.body, {childList: true, characterData: true, subtree: true});
     }
   }
 

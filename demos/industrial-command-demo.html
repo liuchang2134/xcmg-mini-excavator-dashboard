@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>XCMG ARC 工业工作台 Demo</title>
+  <link rel="stylesheet" href="shared/industrial-command-demo.css">
+</head>
+<body>
+  <header class="appHeader">
+    <div class="headerInner">
+      <a class="brand" href="#top" aria-label="XCMG ARC">
+        <img src="../assets/arc/xcmg-logo.webp" alt="XCMG">
+        <span><b>XCMG ARC</b><small data-i18n="brandSubtitle">全产品线竞品对标平台</small></span>
+      </a>
+      <nav class="primaryNav" id="primary-nav" aria-label="页面导航" data-i18n-aria="pageNavigation">
+        <a href="#top" data-i18n="navOverview">平台总览</a>
+        <a href="#assets" data-i18n="navAssets">产品资产</a>
+        <a href="#value" data-i18n="navValue">应用价值</a>
+        <a href="../data-downloads.html" data-language-link data-i18n="navSource">数据中心</a>
+        <a href="../arc.html" data-language-link data-i18n="navFormal">正式平台</a>
+      </nav>
+      <div class="headerActions">
+        <button class="languageButton" id="language-toggle" type="button" aria-label="Switch to English">EN</button>
+        <button class="menuButton" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-i18n="menu">菜单</button>
+      </div>
+    </div>
+  </header>
+  <button class="navScrim" id="nav-scrim" type="button" aria-label="关闭导航" data-i18n-aria="closeNavigation"></button>
+
+  <main id="top">
+    <section class="commandIntro pageShell" aria-labelledby="platform-title">
+      <div class="introCopy">
+        <p class="ownerLabel">XCMG ARC</p>
+        <h1 id="platform-title" data-i18n="title">全产品线竞品对标平台</h1>
+        <p data-i18n="subtitle">统一查看竞品参数、配置差异、典型工况与原始数据来源。</p>
+      </div>
+      <form class="launcher" id="launcher" aria-label="快速进入产品分析" data-i18n-aria="quickAnalysis">
+        <label>
+          <span data-i18n="productLine">产品线</span>
+          <select id="line-select" name="line"></select>
+        </label>
+        <label>
+          <span data-i18n="tonnage">吨级 / 类别</span>
+          <select id="tonnage-select" name="tonnage"></select>
+        </label>
+        <label>
+          <span data-i18n="xcmgModel">XCMG 型号</span>
+          <select id="model-select" name="model"></select>
+        </label>
+        <button class="primaryAction" id="open-analysis" type="submit" data-i18n="openAnalysis">进入分析</button>
+      </form>
+    </section>
+
+    <section class="metricRail pageShell" aria-label="平台数据概览" data-i18n-aria="platformMetrics">
+      <div><b>7</b><span data-i18n="metricLines">产品线规划</span></div>
+      <div><b>10</b><span data-i18n="metricClasses">吨级资产</span></div>
+      <div><b>89</b><span data-i18n="metricModels">对标产品型号</span></div>
+      <div class="metricContext"><strong id="metric-context-value">10</strong><span id="metric-context-label">当前可用资产</span></div>
+    </section>
+
+    <section class="workspace pageShell" id="assets" aria-label="产品对标资产工作台" data-i18n-aria="assetWorkspace">
+      <aside class="lineRail">
+        <div class="railHeading">
+          <span data-i18n="productLines">产品线</span>
+          <small data-i18n="selectLine">选择分析范围</small>
+        </div>
+        <div class="lineList" id="line-list"></div>
+      </aside>
+
+      <section class="assetWorkbench" aria-labelledby="asset-heading">
+        <header class="workbenchHeader">
+          <div>
+            <p id="asset-kicker">Excavators</p>
+            <h2 id="asset-heading">挖掘机吨级资产</h2>
+          </div>
+          <div class="assetCount" id="asset-count" aria-live="polite">10 个资产</div>
+        </header>
+        <div class="filterBar">
+          <label class="searchField">
+            <span data-i18n="modelSearch">型号搜索</span>
+            <input id="asset-search" type="search" autocomplete="off" placeholder="输入 XE75U、7-8 或应用场景" data-i18n-placeholder="searchPlaceholder">
+          </label>
+          <button class="clearButton" id="clear-filter" type="button" data-i18n="clear">清除</button>
+        </div>
+        <div class="tonnageTabs" id="tonnage-tabs" aria-label="吨级筛选" data-i18n-aria="tonnageFilter"></div>
+        <div class="assetList" id="asset-list"></div>
+      </section>
+
+      <aside class="modelInspector" id="model-inspector" aria-live="polite">
+        <div class="inspectorStatus"><span class="statusDot"></span><span data-i18n="benchmarkAsset">对标资产</span></div>
+        <div class="inspectorMedia"><img id="inspector-image" src="../assets/arc/xe19u-official-cropped.png" alt="XCMG XE19U"></div>
+        <div class="inspectorBody">
+          <p id="inspector-class">1-2 吨级</p>
+          <h2 id="inspector-model">XCMG XE19U</h2>
+          <p id="inspector-focus">紧凑机身与狭窄空间适应性</p>
+          <dl>
+            <div><dt data-i18n="benchmarkProducts">对标产品</dt><dd id="inspector-competitors">11</dd></div>
+            <div><dt data-i18n="keyApplications">重点工况</dt><dd id="inspector-scenes">入户庭院 · 市政施工 · 租赁周转</dd></div>
+          </dl>
+          <a class="inspectorAction" id="inspector-open" href="../excavator-1-2t.html" data-i18n="openDashboard">打开完整看板</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="valueBand pageShell" id="value" aria-labelledby="value-heading">
+      <div class="valueIntro">
+        <p>XCMG ARC</p>
+        <h2 id="value-heading" data-i18n="valueTitle">平台应用价值</h2>
+      </div>
+      <div class="valueItems">
+        <article><b data-i18n="valuePlanning">产品规划</b><p data-i18n="valuePlanningText">按吨级与工况明确参数和配置目标。</p></article>
+        <article><b data-i18n="valueEngineering">工程评审</b><p data-i18n="valueEngineeringText">将竞品差距落实到可复核的工程指标。</p></article>
+        <article><b data-i18n="valueSales">市场与销售</b><p data-i18n="valueSalesText">把参数差异转化为客户场景与产品论据。</p></article>
+        <article><b data-i18n="valueData">数据治理</b><p data-i18n="valueDataText">集中管理源表、评价口径和版本状态。</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pageFooter">
+    <div class="pageShell"><span data-i18n="footerOwner">XCMG ARC 独立开发</span><a href="index.html" target="_top" data-i18n="backLab">返回 UI 风格实验室</a></div>
+  </footer>
+
+  <script src="shared/demo-data.js"></script>
+  <script src="shared/industrial-command-demo.js"></script>
+</body>
+</html>
