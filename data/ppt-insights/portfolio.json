@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "scope": "3-4t prototype",
+    "classification": "XCMG ARC INTERNAL",
+    "rule": {"zh": "产品型谱、价格和销量目标均按历史资料呈现，不更新为当前事实。", "en": "Portfolio, price and volume targets are presented as historical source content, not current facts."}
+  },
+  "records": [
+    {
+      "id": "portfolio-current-gap",
+      "tonnage": "3-4t",
+      "model": "XCMG XE35U",
+      "competitor": "Kubota U35-4, KX033-4, KX030-4",
+      "scenario": "portfolio",
+      "metric": "tail_architecture_coverage",
+      "metric_title": {"zh": "短尾与常规尾型谱覆盖", "en": "Short-tail and conventional-tail portfolio coverage"},
+      "conclusion": {"zh": "PPT显示XCMG在该吨级仅有一款短尾产品，而久保田用短尾、常规尾和低配常规尾覆盖不同场景。", "en": "The PPT shows one XCMG short-tail model in the class, while Kubota spans short-tail, conventional-tail and lower-spec conventional-tail variants."},
+      "source_slide": [48, 59, 60, 67],
+      "source_type": "historical portfolio comparison",
+      "as_of_date": "PPT 11.14 version; year not stated on slide",
+      "status": "historical_portfolio_gap",
+      "validation_status": "current_product_lineup_requires_confirmation",
+      "evidence_id": ["ev-brand-landscape", "ev-paper-dimensions", "ev-paper-config", "ev-gap-summary"],
+      "current": {"zh": "短尾 XE35U", "en": "Short-tail XE35U"},
+      "gap": {"zh": "缺少开阔场地重载作业所需的常规尾产品", "en": "No conventional-tail model for heavy work in open sites"}
+    },
+    {
+      "id": "portfolio-pro-status",
+      "tonnage": "3-4t",
+      "model": "XCMG XE35U PRO",
+      "competitor": "Kubota",
+      "scenario": "portfolio",
+      "metric": "historical_plan_status",
+      "metric_title": {"zh": "XE35U PRO历史计划状态", "en": "Historical XE35U PRO plan status"},
+      "conclusion": {"zh": "第50–58页称XE35U PRO计划于2025年7月导入，第67页又称已实施减重设计；两种历史表述不能自动等同于当前量产状态。", "en": "Slides 50-58 describe a July 2025 introduction plan, while slide 67 says weight-reduction designs had been implemented. These historical statements do not establish the current production status."},
+      "source_slide": [50, 51, 52, 53, 54, 55, 56, 57, 58, 67],
+      "source_type": "historical plan and internal summary",
+      "as_of_date": "historical 2025 plan",
+      "status": "historical_plan_with_conflicting_status_wording",
+      "validation_status": "current_program_status_unverified",
+      "evidence_id": ["ev-municipal-roadwork", "ev-gap-summary"],
+      "decision": {"zh": "在产品、制造和销售确认前标记为待验证。", "en": "Keep as pending validation until confirmed by product, manufacturing and sales owners."}
+    },
+    {
+      "id": "portfolio-positioning",
+      "tonnage": "3-4t",
+      "model": "XCMG XE35U",
+      "competitor": "Kubota benchmark",
+      "scenario": "portfolio",
+      "metric": "market_positioning",
+      "metric_title": {"zh": "历史产品定位", "en": "Historical product positioning"},
+      "conclusion": {"zh": "PPT将XE35U定位为“中质低价”，同时承认品牌、渠道和工况适配弱于标杆。", "en": "The PPT positions the XE35U as a mid-quality, value-priced offering while acknowledging disadvantages in brand strength, channel capability and application fit."},
+      "source_slide": 68,
+      "source_type": "historical positioning statement",
+      "as_of_date": "PPT 11.14 version; year not stated on slide",
+      "status": "historical_positioning",
+      "validation_status": "current_positioning_and_price_unverified",
+      "evidence_id": "ev-positioning-target"
+    },
+    {
+      "id": "portfolio-historical-target",
+      "tonnage": "3-4t",
+      "model": "XCMG XE35U",
+      "competitor": "segment competitors",
+      "scenario": "portfolio",
+      "metric": "sales_target",
+      "metric_title": {"zh": "历史销量目标", "en": "Historical sales target"},
+      "conclusion": {"zh": "194台是PPT记录的2025年销售目标，不是实际销量或当前目标。", "en": "The 194-unit figure is a 2025 sales target recorded in the PPT, not an actual result or current target."},
+      "source_slide": 68,
+      "source_type": "historical sales target",
+      "as_of_date": "2025 target",
+      "status": "historical_target",
+      "validation_status": "actual_result_not_in_source_scope",
+      "evidence_id": "ev-positioning-target",
+      "target_units": 194
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "scope": "3-4t North American mini excavator prototype",
+    "classification": "XCMG ARC INTERNAL",
+    "unit": "units",
+    "warning": {"zh": "2026为PPT预测值；法规口径未经本轮法律复核。", "en": "2026 values are PPT forecasts. Regulatory statements have not been legally revalidated in this phase."}
+  },
+  "records": [
+    {
+      "id": "market-sales-trend",
+      "tonnage": "3-4t",
+      "model": "XCMG XE35U",
+      "competitor": "Kubota, Bobcat, John Deere, Caterpillar",
+      "scenario": "market",
+      "metric": "annual_volume",
+      "metric_title": {"zh": "市场规模与销量变化", "en": "Market volume and sales trend"},
+      "conclusion": {"zh": "总量由2023年的6,663台降至2024年的6,107台，PPT估计2025年回升至6,495台、2026年预测6,625台。", "en": "Total volume falls from 6,663 units in 2023 to 6,107 in 2024, then rises to a PPT estimate of 6,495 in 2025 and forecast of 6,625 in 2026."},
+      "source_slide": 48,
+      "source_type": "EDA financing-purchase/new-machine data cited by PPT",
+      "as_of_date": "2023-2026 forecast",
+      "status": "historical_fact_and_forecast",
+      "validation_status": "source_mapped_external_dataset_not_revalidated",
+      "evidence_id": "ev-market-volume",
+      "series": [
+        {"year": 2023, "forecast": false, "Kubota": 2274, "Bobcat": 1886, "John Deere": 1539, "Caterpillar": 935, "XCMG": 29},
+        {"year": 2024, "forecast": false, "Kubota": 2138, "Bobcat": 1775, "John Deere": 1438, "Caterpillar": 723, "XCMG": 33},
+        {"year": 2025, "forecast": false, "Kubota": 1819, "Bobcat": 1765, "John Deere": 1886, "Caterpillar": 975, "XCMG": 50},
+        {"year": 2026, "forecast": true, "Kubota": 1800, "Bobcat": 1750, "John Deere": 2000, "Caterpillar": 1000, "XCMG": 75}
+      ]
+    },
+    {
+      "id": "market-brand-architecture",
+      "tonnage": "3-4t",
+      "model": "XCMG XE35U",
+      "competitor": "Kubota, Bobcat, John Deere, Caterpillar, SANY",
+      "scenario": "market",
+      "metric": "brand_and_model_architecture",
+      "metric_title": {"zh": "品牌格局与主销机型", "en": "Brand landscape and leading models"},
+      "conclusion": {"zh": "领先品牌不是只用一款机型覆盖该吨级，而是用短尾、常规尾及高低配组合满足差异化工况。", "en": "Leading brands do not cover the class with one model; they use short-tail, conventional-tail and high/low-spec variants for distinct applications."},
+      "source_slide": 48,
+      "source_type": "internal market synthesis",
+      "as_of_date": "2025 snapshot",
+      "status": "historical_fact",
+      "validation_status": "source_mapped_current_lineup_unverified",
+      "evidence_id": "ev-brand-landscape",
+      "model_heat": [
+        {"brand": "John Deere", "model": "35P", "units": 1616},
+        {"brand": "Bobcat", "model": "E35", "units": 1317},
+        {"brand": "Kubota", "model": "U35", "units": 812},
+        {"brand": "Caterpillar", "model": "303.5 CR", "units": 737},
+        {"brand": "Kubota", "model": "KX033", "units": 722},
+        {"brand": "Kubota", "model": "KX030", "units": 285},
+        {"brand": "SANY", "model": "SY35U", "units": 310}
+      ]
+    },
+    {
+      "id": "market-customer-logic",
+      "tonnage": "3-4t",
+      "model": "XCMG XE35U",
+      "competitor": "Kubota",
+      "scenario": "customer",
+      "metric": "customer_mix_and_purchase_logic",
+      "metric_title": {"zh": "客户类型与购买逻辑", "en": "Customer segments and purchase logic"},
+      "conclusion": {"zh": "购买决策围绕可运输性、操作易用性、附件覆盖、稳定性、施工效率、驾驶舒适性和租赁通用性展开。", "en": "Purchase logic centers on transportability, ease of operation, attachment coverage, stability, productivity, cab comfort and rental versatility."},
+      "source_slide": [49, 50, 57],
+      "source_type": "internal customer and use-case assessment",
+      "as_of_date": "PPT 11.14 version; year not stated on slide",
+      "status": "historical_assessment",
+      "validation_status": "source_mapped_current_customer_mix_unverified",
+      "evidence_id": "ev-customer-mix",
+      "segments": [
+        {"name": {"zh": "中小型承包商", "en": "Small and midsize contractors"}, "share": 40},
+        {"name": {"zh": "租赁商", "en": "Rental companies"}, "share": 30},
+        {"name": {"zh": "市政与公共事业单位", "en": "Municipalities and utilities"}, "share": 15},
+        {"name": {"zh": "农业客户", "en": "Agricultural users"}, "share": 5}
+      ],
+      "unallocated_note": {"zh": "PPT仅列出上述90%，其余10%未分类。", "en": "The PPT classifies 90% in the listed segments; the remaining 10% is not specified."}
+    },
+    {
+      "id": "market-transport-envelope",
+      "tonnage": "3-4t",
+      "model": "XCMG XE35U / XE35U PRO",
+      "competitor": "Kubota U35-4, KX033-4",
+      "scenario": "transport",
+      "metric": "transport_mass_package",
+      "metric_title": {"zh": "运输方式与重量边界", "en": "Transport method and mass envelope"},
+      "conclusion": {"zh": "现款XE35U按PPT给出的附件组合达到4,579 kg；PPT中的PRO方案为3,800 kg基础机、典型配置后4,179 kg，可额外携带两只铲斗。", "en": "Using the PPT attachment package, the current XE35U reaches 4,579 kg. The historical PRO proposal is listed at 3,800 kg base and 4,179 kg with typical equipment, leaving capacity for two additional buckets."},
+      "source_slide": 49,
+      "source_type": "internal transport calculation",
+      "as_of_date": "PPT 11.14 version; year not stated on slide",
+      "status": "historical_assessment_and_plan",
+      "validation_status": "math_mapped_production_status_and_regulation_unverified",
+      "evidence_id": "ev-transport-regulation",
+      "mass_breakdown_kg": {
+        "XE35U": {"base": 4200, "counterweight": 200, "quick_coupler_and_thumb": 80, "standard_bucket": 99, "total": 4579},
+        "XE35U_PRO_historical_proposal": {"base": 3800, "equipped_total": 4179, "trenching_bucket_12in": 60, "cleaning_bucket_48in": 158, "total_with_two_extra_buckets": 4397}
+      },
+      "regulatory_note": {"zh": "PPT记载普通驾照组合重量和拖挂重量边界；网页仅作为历史证据展示，正式使用前须由法规/合规部门复核。", "en": "The PPT records licence thresholds for combined and trailer weight. The prototype shows this only as historical evidence; regulatory/compliance review is required before use."}
+    }
+  ]
+}
