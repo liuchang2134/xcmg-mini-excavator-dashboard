@@ -414,6 +414,19 @@ class DashboardModelTests(unittest.TestCase):
         self.assertIn("height:calc(100dvh - 60px)", arc_html)
         self.assertIn("height:calc(100dvh - 56px)", arc_html)
 
+    def test_ppt_demo_fragment_links_stay_inside_demo_pages(self):
+        navigation = (ROOT / "ppt-integration-demo" / "assets" / "demo-navigation.js").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("a[href^=\"#\"]", navigation)
+        self.assertIn("event.preventDefault();", navigation)
+        self.assertIn("new URL(window.location.href)", navigation)
+        self.assertIn("window.history.replaceState", navigation)
+        for filename in ("index.html", "excavator-overview.html"):
+            html = (ROOT / "ppt-integration-demo" / filename).read_text(encoding="utf-8")
+            with self.subTest(page=filename):
+                self.assertIn("ppt-integration-demo/assets/demo-navigation.js", html)
+
     def test_condition_summary_is_concise_and_quantified(self):
         for meta in SOURCE_FILES:
             html = (ROOT / meta["output"]).read_text(encoding="utf-8")
