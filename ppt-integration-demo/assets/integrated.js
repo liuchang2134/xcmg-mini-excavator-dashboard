@@ -17,7 +17,7 @@
       marketTitle: '市场、客户与运输适配',
       marketSubtitle: '先看该吨级为什么被购买，再判断产品参数和配置是否覆盖真实使用边界。',
       scoringBoundary: '本节解释市场适配背景，不改变现有参数分、配置分、总体分和工况分。',
-      volumeTitle: '3-4吨市场规模变化', historical: '历史销量', estimate: '历史估计', forecast: '历史预测', units: '台',
+      volumeTitle: '3-4吨市场规模变化', historical: '历史实绩', estimate: '源文件滚动估计', forecast: '源文件预测', units: '台', basePeriod: '基期', yearOverYear: '同比',
       shareTitle: '四个领先品牌合计份额', shareNote: '久保田、约翰迪尔、山猫、卡特',
       customerTitle: '主要客户结构', purchaseLogic: '购买判断重点', transportTitle: '典型运输组合重量',
       portfolioTitle: '同吨级产品型谱覆盖', portfolioBrand: '品牌', portfolioCount: '主力机型数', portfolioArchitecture: '型谱结构', portfolioImplication: '竞争含义',
@@ -53,7 +53,7 @@
       navMarket: '市场与客户', navScenarios: '真实作业场景', navPaper: '参数与配置', navField: '实机评价', navActions: '改进路线',
       phaseNow: '优先验证', phaseNext: '系统改进', phasePlatform: '平台规划', validationOutput: '应形成的验证输出',
       sourcePpt: '研究资料', historicalBasis: '历史口径', currentUnverified: '当前状态待核验',
-      year: '年份', total: '合计', dataStatus: '数据属性', sourceEstimate: '源文件估计', sourceForecast: '源文件预测',
+      year: '年份', total: '合计', dataStatus: '数据属性', sourceEstimate: '源文件滚动估计', sourceForecast: '源文件预测',
       brandSalesTable: '品牌销量明细', modelDemandTitle: '主销机型排名', priceShareTitle: '价格与份额分布',
       priceAxis: '历史单价（万美元）', shareAxis: '历史份额（%）', sourceVolume: '源文件销量口径',
       transportBreakdownTitle: '整机与附件重量构成', packageName: '运输组合', component: '构成项', weight: '重量', packageTotal: '组合总重', optionalAttachments: '可追加属具',
@@ -69,7 +69,7 @@
       marketTitle: 'Market, Customer and Transport Fit',
       marketSubtitle: 'Start with why the class is purchased, then test whether the product covers real operating constraints.',
       scoringBoundary: 'This section explains market fit and does not change the existing specification, equipment, overall or application scores.',
-      volumeTitle: '3-4 t market volume trend', historical: 'Historical volume', estimate: 'Historical estimate', forecast: 'Historical forecast', units: 'units',
+      volumeTitle: '3-4 t market volume trend', historical: 'Historical actual', estimate: 'Source rolling estimate', forecast: 'Source forecast', units: 'units', basePeriod: 'Base period', yearOverYear: 'YoY',
       shareTitle: 'Combined share of four leading brands', shareNote: 'Kubota, John Deere, Bobcat and Caterpillar',
       customerTitle: 'Primary customer mix', purchaseLogic: 'Purchase priorities', transportTitle: 'Representative transport mass',
       portfolioTitle: 'Portfolio coverage within the class', portfolioBrand: 'Brand', portfolioCount: 'Core models', portfolioArchitecture: 'Portfolio structure', portfolioImplication: 'Competitive implication',
@@ -105,7 +105,7 @@
       navMarket: 'Market and customers', navScenarios: 'Real job applications', navPaper: 'Specifications and equipment', navField: 'Field evaluation', navActions: 'Improvement path',
       phaseNow: 'Validate first', phaseNext: 'System improvements', phasePlatform: 'Platform planning', validationOutput: 'Required validation output',
       sourcePpt: 'Source file', historicalBasis: 'Historical basis', currentUnverified: 'Current status unverified',
-      year: 'Year', total: 'Total', dataStatus: 'Data status', sourceEstimate: 'Source estimate', sourceForecast: 'Source forecast',
+      year: 'Year', total: 'Total', dataStatus: 'Data status', sourceEstimate: 'Source rolling estimate', sourceForecast: 'Source forecast',
       brandSalesTable: 'Brand-volume detail', modelDemandTitle: 'Leading-model ranking', priceShareTitle: 'Price and share distribution',
       priceAxis: 'Historical price (USD 10k)', shareAxis: 'Historical share (%)', sourceVolume: 'Source volume basis',
       transportBreakdownTitle: 'Machine and attachment mass build-up', packageName: 'Transport package', component: 'Component', weight: 'Mass', packageTotal: 'Package total', optionalAttachments: 'Additional attachments',
@@ -446,6 +446,25 @@
 
   function renderBrandSales(data) {
     if (!data) return '';
+    const maxTotal = Math.max(...data.years.map((year) => year.total));
+    const volumeColumns = data.years.map((year, yearIndex) => {
+      const previous = data.years[yearIndex - 1]?.total;
+      const delta = previous ? (year.total - previous) / previous * 100 : null;
+      const deltaLabel = delta === null ? copy.basePeriod : `${copy.yearOverYear} ${delta > 0 ? '+' : ''}${formatNumber(delta, 1)}%`;
+      const statusClass = year.status === 'source_estimate' ? 'estimate' : year.status === 'source_forecast' ? 'forecast' : 'historical';
+      return `<div class="volumeColumn ${statusClass}">
+        <div class="volumeBarArea"><i style="height:${(year.total / maxTotal * 100).toFixed(1)}%"></i></div>
+        <b>${formatNumber(year.total)} ${escapeHtml(copy.units)}</b>
+        <strong>${escapeHtml(year.year)}</strong>
+        <span>${escapeHtml(dataStatusLabel(year.status))}</span>
+        <small class="${delta !== null && delta < 0 ? 'negative' : ''}">${escapeHtml(deltaLabel)}</small>
+      </div>`;
+    }).join('');
+    const volumeLegend = [
+      {className: 'historical', label: copy.historical},
+      {className: 'estimate', label: copy.estimate},
+      {className: 'forecast', label: copy.forecast}
+    ].map((item) => `<span class="${item.className}"><i></i>${escapeHtml(item.label)}</span>`).join('');
     const rows = data.years.map((year, yearIndex) => {
       const segments = data.series.map((series) => {
         const value = series.values[yearIndex];
@@ -459,6 +478,8 @@
     const tableRows = data.years.map((year, yearIndex) => `<tr><th scope="row">${escapeHtml(year.year)}</th>${data.series.map((series) => `<td>${formatNumber(series.values[yearIndex])}</td>`).join('')}<td><b>${formatNumber(year.total)}</b></td><td>${escapeHtml(dataStatusLabel(year.status))}</td></tr>`).join('');
     return `<article class="evidenceVisual brandSalesVisual">
       <header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header>
+      <div class="volumeStatusLegend" aria-label="${escapeHtml(copy.dataStatus)}">${volumeLegend}</div>
+      <div class="volumeSeries" role="img" aria-label="${escapeHtml(copy.volumeTitle)}">${volumeColumns}</div>
       <div class="brandStackChart" role="img" aria-label="${escapeHtml(text(data.title))}">${rows}</div>
       <div class="chartLegend">${legend}</div>
       <div class="evidenceTableScroll compactEvidenceTable"><table><caption class="srOnly">${escapeHtml(copy.brandSalesTable)}</caption><thead><tr><th>${escapeHtml(copy.year)}</th>${tableHeader}<th>${escapeHtml(copy.total)}</th><th>${escapeHtml(copy.dataStatus)}</th></tr></thead><tbody>${tableRows}</tbody></table></div>

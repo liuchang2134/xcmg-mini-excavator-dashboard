@@ -18,12 +18,18 @@
 .directDataTitle{margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--ppt-line)}
 .marketDecisionGrid{display:grid;grid-template-columns:1fr;gap:1rem}
 .marketDecisionGrid>.pptModule+ .pptModule{border-top:1px solid var(--ppt-line);padding-top:1rem}
-.volumeSeries{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:end;gap:.55rem;height:12.75rem;padding:.75rem .35rem 0;border-bottom:1px solid #8aa0b5;background:linear-gradient(to top,rgba(0,90,167,.04) 1px,transparent 1px);background-size:100% 25%}
-.volumeColumn{display:grid;grid-template-rows:minmax(0,1fr) auto auto;align-items:end;gap:.28rem;height:100%;text-align:center}
-.volumeColumn i{display:block;width:min(3.25rem,72%);min-height:.4rem;margin:0 auto;background:var(--ppt-blue);border-top:3px solid #00437d}
-.volumeColumn.forecast i{background:#c9d5e0;border-top-color:#7c8fa1}
-.volumeColumn b{font-size:.84rem;color:var(--ppt-ink)}
-.volumeColumn span{font-size:.68rem;color:var(--ppt-muted)}
+.volumeStatusLegend{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin:.1rem 0 .6rem;color:#3d556d;font-size:.68rem;font-weight:700}
+.volumeStatusLegend span{display:inline-flex;align-items:center;gap:.38rem}.volumeStatusLegend i{display:block;width:1rem;height:.72rem;border:1px solid transparent}
+.volumeStatusLegend .historical i{background:var(--ppt-blue);border-color:#00437d}.volumeStatusLegend .estimate i{background:var(--ppt-yellow);border-color:#c68e00}.volumeStatusLegend .forecast i{border-color:#c68e00;background:repeating-linear-gradient(135deg,#fff 0 4px,#fff 4px 7px,#f5b400 7px 10px)}
+.volumeSeries{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem;min-height:13.5rem;padding:.8rem .5rem .65rem;border:1px solid #d9e4ed;background:linear-gradient(to top,rgba(0,90,167,.045) 1px,transparent 1px);background-size:100% 25%}
+.volumeColumn{display:grid;grid-template-rows:7.25rem auto auto auto auto;align-items:end;gap:.2rem;min-width:0;text-align:center}
+.volumeBarArea{display:flex;align-items:flex-end;justify-content:center;height:7.25rem;border-bottom:1px solid #9eb0c0}
+.volumeBarArea i{display:block;width:min(3.3rem,70%);min-height:.45rem;background:var(--ppt-blue);border:1px solid #00437d;border-bottom:0}
+.volumeColumn.estimate .volumeBarArea i{background:var(--ppt-yellow);border-color:#c68e00}
+.volumeColumn.forecast .volumeBarArea i{border-color:#c68e00;background:repeating-linear-gradient(135deg,#fff 0 7px,#fff 7px 12px,#f5b400 12px 17px)}
+.volumeColumn b{color:var(--ppt-ink);font-size:.82rem;font-variant-numeric:tabular-nums}.volumeColumn strong{color:var(--ppt-ink);font-size:.73rem}
+.volumeColumn span{min-height:1.6rem;color:#536b80;font-size:.62rem;line-height:1.25}.volumeColumn small{color:#167247;font-size:.62rem;font-weight:800}.volumeColumn small.negative{color:#c9342f}
+.brandStackChart{margin-top:.8rem;padding-top:.75rem;border-top:1px solid var(--ppt-line)}
 .shareStrip{margin-top:.85rem}
 .shareStripHead{display:flex;justify-content:space-between;gap:.75rem;margin-bottom:.35rem;font-size:.76rem;color:var(--ppt-ink)}
 .shareStripHead b{color:var(--ppt-blue)}

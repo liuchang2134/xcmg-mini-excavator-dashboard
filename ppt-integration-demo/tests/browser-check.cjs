@@ -75,6 +75,7 @@ async function assertPage(page, label, language, route) {
     if ((await desktop.locator('main img[src*="assets/slides/slide-"]').count()) !== 0) throw new Error("Full-slide images must not appear in the web narrative");
     if ((await desktop.locator("#ppt-market .marketNarrative article").count()) !== 3) throw new Error("Market interpretation is incomplete");
     if ((await desktop.locator("#ppt-market .brandStackRow").count()) !== 4 || (await desktop.locator("#ppt-market .brandSalesVisual tbody tr").count()) !== 4) throw new Error("Brand-volume chart or table is incomplete");
+    if ((await desktop.locator("#ppt-market .volumeColumn.historical").count()) !== 2 || (await desktop.locator("#ppt-market .volumeColumn.estimate").count()) !== 1 || (await desktop.locator("#ppt-market .volumeColumn.forecast").count()) !== 1) throw new Error("Market-volume data statuses are not explicit");
     if ((await desktop.locator("#ppt-market .modelDemandRow").count()) !== 10) throw new Error("Leading-model ranking is incomplete");
     if ((await desktop.locator("#ppt-market .scatterPoint").count()) !== 6) throw new Error("Historical price-share chart is incomplete");
     if ((await desktop.locator("#ppt-market .massPackageRow").count()) !== 2) throw new Error("Transport mass build-up is incomplete");
