@@ -8,3 +8,8 @@
 8-10 吨级,XCMG XE80U,source-excel/XCMG_8-10t_mini_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,已替换为 8-10 吨级修订数据；缺失项按待核验处理
 12-14 吨级,XCMG XE135U,source-excel/XCMG_12-14t_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,缺失项按待核验处理
 14-16 吨级短尾,XCMG XE155UCR,source-excel/XCMG_14-16t_short_tail_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,短尾机型组；缺失项按待核验处理
+21-24 吨级,XCMG XE225U,source-excel/XCMG_21-24t_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,缺失项按待核验处理
+24-28 吨级,XCMG XE250U,source-excel/XCMG_24-28t_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,破碎工况有效字段覆盖不足；缺失项按待核验处理
+24-28 吨级短尾,XCMG XE235UCR,source-excel/XCMG_24-28t_short_tail_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,短尾机型组；破碎工况有效字段覆盖不足；缺失项按待核验处理
+28-33 吨级,XCMG XE300U,source-excel/XCMG_28-33t_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,缺失项按待核验处理
+33-40 吨级,XCMG XE360U,source-excel/XCMG_33-40t_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,使用修订版 33-40 1.xlsx；缺失项按待核验处理

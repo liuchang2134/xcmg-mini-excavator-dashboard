@@ -1,8 +1,8 @@
 {
   "productLineCount": 7,
-  "excavatorTonnageCount": 10,
-  "benchmarkProductCount": 89,
-  "sourceWorkbookCount": 10,
+  "excavatorTonnageCount": 14,
+  "benchmarkProductCount": 124,
+  "sourceWorkbookCount": 14,
   "minimumScoreCoverage": 0.6,
   "overallWeights": {
     "parameter": 0.65,
@@ -78,6 +78,34 @@
       "xcmg": "XCMG XE225U",
       "productCount": 9,
       "source": "data/source-excel/XCMG_21-24t_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "24-28 吨级",
+      "output": "excavator-24-28t.html",
+      "xcmg": "XCMG XE250U",
+      "productCount": 9,
+      "source": "data/source-excel/XCMG_24-28t_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "24-28 吨级短尾",
+      "output": "excavator-24-28t-short-tail.html",
+      "xcmg": "XCMG XE235UCR",
+      "productCount": 8,
+      "source": "data/source-excel/XCMG_24-28t_short_tail_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "28-33 吨级",
+      "output": "excavator-28-33t.html",
+      "xcmg": "XCMG XE300U",
+      "productCount": 9,
+      "source": "data/source-excel/XCMG_28-33t_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "33-40 吨级",
+      "output": "excavator-33-40t.html",
+      "xcmg": "XCMG XE360U",
+      "productCount": 9,
+      "source": "data/source-excel/XCMG_33-40t_excavator_competitor_source.xlsx"
     }
   ]
 }

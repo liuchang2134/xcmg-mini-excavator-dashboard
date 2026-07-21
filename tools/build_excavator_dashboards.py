@@ -125,6 +125,50 @@ SOURCE_FILES = [
         "image": "assets/arc/xe225u-official-cropped.png",
         "image_source": "XCMG USA XE225U",
     },
+    {
+        "slug": "excavator-24-28t",
+        "output": "excavator-24-28t.html",
+        "label": "24-28 吨级",
+        "title": "XCMG XE250U 24-28 吨级挖掘机竞品对标看板",
+        "xcmg": "XCMG XE250U",
+        "source": DATA_DIR / "XCMG_24-28t_excavator_competitor_source.xlsx",
+        "download": "XCMG_24-28t_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe250u-official-cropped.webp",
+        "image_source": "XCMG USA XE250U",
+    },
+    {
+        "slug": "excavator-24-28t-short-tail",
+        "output": "excavator-24-28t-short-tail.html",
+        "label": "24-28 吨级短尾",
+        "title": "XCMG XE235UCR 24-28 吨级短尾挖掘机竞品对标看板",
+        "xcmg": "XCMG XE235UCR",
+        "source": DATA_DIR / "XCMG_24-28t_short_tail_excavator_competitor_source.xlsx",
+        "download": "XCMG_24-28t_short_tail_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe235ucr-official-cropped.webp",
+        "image_source": "XCMG USA XE235UCR",
+    },
+    {
+        "slug": "excavator-28-33t",
+        "output": "excavator-28-33t.html",
+        "label": "28-33 吨级",
+        "title": "XCMG XE300U 28-33 吨级挖掘机竞品对标看板",
+        "xcmg": "XCMG XE300U",
+        "source": DATA_DIR / "XCMG_28-33t_excavator_competitor_source.xlsx",
+        "download": "XCMG_28-33t_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe300u-official-cropped.webp",
+        "image_source": "XCMG USA XE300U",
+    },
+    {
+        "slug": "excavator-33-40t",
+        "output": "excavator-33-40t.html",
+        "label": "33-40 吨级",
+        "title": "XCMG XE360U 33-40 吨级挖掘机竞品对标看板",
+        "xcmg": "XCMG XE360U",
+        "source": DATA_DIR / "XCMG_33-40t_excavator_competitor_source.xlsx",
+        "download": "XCMG_33-40t_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe360u-official-cropped.webp",
+        "image_source": "XCMG USA XE360U",
+    },
 ]
 
 
@@ -663,7 +707,8 @@ def score_class(score):
 def load_workbook(path):
     param = pd.read_excel(path, sheet_name=0, header=None)
     option = pd.read_excel(path, sheet_name=1, header=None)
-    products = [clean(x) for x in param.iloc[0, 3:].tolist() if clean(x)]
+    clean_product = lambda value: re.sub(r"\s+", " ", clean(value)).strip()
+    products = [clean_product(x) for x in param.iloc[0, 3:].tolist() if clean_product(x)]
 
     param_rows, param_map = [], {}
     category = ""
@@ -681,7 +726,7 @@ def load_workbook(path):
 
     option_rows, option_map = [], {}
     category = ""
-    opt_products = [clean(x) for x in option.iloc[0, 2:].tolist() if clean(x)]
+    opt_products = [clean_product(x) for x in option.iloc[0, 2:].tolist() if clean_product(x)]
     if opt_products != products:
         products = opt_products
     for _, row in option.iloc[1:].iterrows():
@@ -901,10 +946,11 @@ def xcmg_rank(scores, xcmg):
 
 
 def table_rows(rows, products, limit=None):
+    normalize_cell = lambda value: re.sub(r"\s+", " ", clean(value)).strip()
     out = []
     for row in rows[: limit or len(rows)]:
-        cells = "".join(f"<td>{esc(row['values'].get(p, '')) or '-'}</td>" for p in products)
-        out.append(f"<tr><th scope=\"row\">{esc(row['category'])}</th><td>{esc(row['item'])}</td><td>{esc(row.get('unit',''))}</td>{cells}</tr>")
+        cells = "".join(f"<td>{esc(normalize_cell(row['values'].get(p, ''))) or '-'}</td>" for p in products)
+        out.append(f"<tr><th scope=\"row\">{esc(normalize_cell(row['category']))}</th><td>{esc(normalize_cell(row['item']))}</td><td>{esc(normalize_cell(row.get('unit','')))}</td>{cells}</tr>")
     return "\n".join(out)
 
 
@@ -1770,7 +1816,7 @@ setupSimulators();
 setupRawTabs();
 setupPageNavigation();
 </script>
-<script src="assets/i18n.js?v=20260717a"></script>
+<script src="assets/i18n.js?v=20260721c"></script>
 </body>
 </html>
 """
@@ -1817,6 +1863,37 @@ def download_assets():
             xe225_source.write_bytes(response.read())
         crop_product_image(xe225_source, xe225_cropped, max_dimension=1600)
         xe225_source.unlink(missing_ok=True)
+    new_product_assets = [
+        (
+            "https://xcmg-usa.com/wp-content/uploads/2022/05/XE250U%E6%8A%A0%E5%9B%BE.png",
+            ASSET_DIR / "xe250u-official-cropped.webp",
+            ".png",
+        ),
+        (
+            "https://xcmg-usa.com/wp-content/uploads/2025/04/235UCR_web-image.png",
+            ASSET_DIR / "xe235ucr-official-cropped.webp",
+            ".png",
+        ),
+        (
+            "https://xcmg-usa.com/wp-content/uploads/2022/05/XE300U-1.jpg",
+            ASSET_DIR / "xe300u-official-cropped.webp",
+            ".jpg",
+        ),
+        (
+            "https://xcmg-usa.com/wp-content/uploads/2022/05/XE360U.jpg",
+            ASSET_DIR / "xe360u-official-cropped.webp",
+            ".jpg",
+        ),
+    ]
+    for url, cropped_dest, source_suffix in new_product_assets:
+        if cropped_dest.exists() and cropped_dest.stat().st_size > 10000:
+            continue
+        source_path = ASSET_DIR / f".{cropped_dest.stem}-source{source_suffix}"
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=60) as response:
+            source_path.write_bytes(response.read())
+        crop_product_image(source_path, cropped_dest, max_dimension=1600)
+        source_path.unlink(missing_ok=True)
     crop_product_image(ASSET_DIR / "xe19u-official.png", ASSET_DIR / "xe19u-official-cropped.png")
     crop_product_image(ASSET_DIR / "xe27u-official.jpg", ASSET_DIR / "xe27u-official-cropped.jpg")
     crop_product_image(ASSET_DIR / "xe45u-official.png", ASSET_DIR / "xe45u-official-cropped.png")

@@ -19,6 +19,11 @@
 | `source-excel/XCMG_8-10t_mini_excavator_competitor_source.xlsx` | 8-10 吨级挖掘机 | 修订版 `8-10 1.xlsx` |
 | `source-excel/XCMG_12-14t_excavator_competitor_source.xlsx` | 12-14 吨级挖掘机 | `12-14.xlsx` |
 | `source-excel/XCMG_14-16t_short_tail_excavator_competitor_source.xlsx` | 14-16 吨级短尾挖掘机 | `14-16短尾.xlsx` |
+| `source-excel/XCMG_21-24t_excavator_competitor_source.xlsx` | 21-24 吨级挖掘机 | `21-24.xlsx` |
+| `source-excel/XCMG_24-28t_excavator_competitor_source.xlsx` | 24-28 吨级挖掘机 | `24-28.xlsx` |
+| `source-excel/XCMG_24-28t_short_tail_excavator_competitor_source.xlsx` | 24-28 吨级短尾挖掘机 | `24-28短尾.xlsx` |
+| `source-excel/XCMG_28-33t_excavator_competitor_source.xlsx` | 28-33 吨级挖掘机 | `28-33.xlsx` |
+| `source-excel/XCMG_33-40t_excavator_competitor_source.xlsx` | 33-40 吨级挖掘机 | 修订版 `33-40 1.xlsx` |
 
 `source-register.csv` 用于登记每个数据集的市场版本、外部来源和核验状态。当前未填写的厂家资料不得自动推断；页面中的空白配置按“待核验”处理，不自动等同于“无配置”。
 

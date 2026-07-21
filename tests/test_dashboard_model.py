@@ -103,12 +103,16 @@ class DashboardModelTests(unittest.TestCase):
                         self.assertIsNone(scores[product])
 
     def test_all_tonnage_pages_remain_published(self):
-        self.assertEqual(len(SOURCE_FILES), 10)
+        self.assertEqual(len(SOURCE_FILES), 14)
         expected_outputs = {
             "excavator-8-10t.html",
             "excavator-12-14t.html",
             "excavator-14-16t-short-tail.html",
             "excavator-21-24t.html",
+            "excavator-24-28t.html",
+            "excavator-24-28t-short-tail.html",
+            "excavator-28-33t.html",
+            "excavator-33-40t.html",
         }
         self.assertTrue(expected_outputs.issubset({meta["output"] for meta in SOURCE_FILES}))
         for meta in SOURCE_FILES:
@@ -116,7 +120,7 @@ class DashboardModelTests(unittest.TestCase):
             self.assertTrue(meta["source"].exists(), meta["source"])
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertEqual(arc_html.count('class="projectRow"'), len(SOURCE_FILES))
-        self.assertIn("十个吨级统一覆盖狭窄空间、沟槽、土方装车、破碎、坡地和租赁六类典型工况", arc_html)
+        self.assertIn("十四个吨级统一覆盖狭窄空间、沟槽、土方装车、破碎、坡地和租赁六类典型工况", arc_html)
 
     def test_new_tonnage_sources_and_models_are_bound_correctly(self):
         by_output = {model["meta"]["output"]: model for model in self.models}
@@ -129,9 +133,30 @@ class DashboardModelTests(unittest.TestCase):
             by_output["excavator-21-24t.html"]["meta"]["xcmg"],
             "XCMG XE225U",
         )
+        expected_new_models = {
+            "excavator-24-28t.html": "XCMG XE250U",
+            "excavator-24-28t-short-tail.html": "XCMG XE235UCR",
+            "excavator-28-33t.html": "XCMG XE300U",
+            "excavator-33-40t.html": "XCMG XE360U",
+        }
+        for output, xcmg_model in expected_new_models.items():
+            with self.subTest(output=output):
+                self.assertEqual(by_output[output]["meta"]["xcmg"], xcmg_model)
         replacement = by_output["excavator-8-10t.html"]
         weight_row = next(row for row in replacement["rawParamRows"] if row["item"] == "操作重量")
         self.assertEqual(weight_row["values"]["XCMG XE80U"], "9250/9500")
+        revised_33_40 = by_output["excavator-33-40t.html"]
+        delayed_lights = next(
+            row for row in revised_33_40["rawOptionRows"] if row["item"] == "工作灯延迟关闭"
+        )
+        long_stick = next(
+            row for row in revised_33_40["rawOptionRows"] if row["item"] == "长斗杆 m"
+        )
+        self.assertEqual(delayed_lights["values"]["XCMG XE360U"], "/")
+        self.assertEqual(long_stick["values"]["XCMG XE360U"], "选配4")
+
+        short_tail = by_output["excavator-24-28t-short-tail.html"]
+        self.assertNotIn("\n", "".join(short_tail["products"]))
 
     def test_xe35u_is_presented_as_3_to_4_tonnes_without_breaking_legacy_urls(self):
         meta = next(item for item in SOURCE_FILES if item["xcmg"] == "XCMG XE35U")
@@ -427,6 +452,12 @@ class DashboardModelTests(unittest.TestCase):
                 target = (page.parent / target_text).resolve()
                 with self.subTest(page=page.name, reference=ref):
                     self.assertTrue(target.exists(), f"Missing local reference: {ref}")
+
+    def test_generated_pages_strip_source_cell_edge_whitespace(self):
+        for meta in SOURCE_FILES:
+            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
+            with self.subTest(page=meta["output"]):
+                self.assertFalse(any(line.endswith((" ", "\t")) for line in html.splitlines()))
 
     def test_manifest_matches_generated_models(self):
         manifest = json.loads((ROOT / "data" / "project-manifest.json").read_text(encoding="utf-8"))

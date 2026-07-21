@@ -219,7 +219,7 @@
           <h1>原始数据中心</h1>
           <p>按吨级集中管理竞品参数与标选配源表。可先进入对应对标页面查看分析，也可下载数据文件进行工程复核和版本更新。</p>
         </div>
-        <div class="datasetCount"><b>10</b><span>吨级数据集</span></div>
+        <div class="datasetCount"><b>14</b><span>吨级数据集</span></div>
       </header>
 
       <section aria-label="原始数据目录">
@@ -228,7 +228,7 @@
             <label for="dataset-search">查找吨级或 XCMG 型号</label>
             <input id="dataset-search" type="search" placeholder="例如：3-4、XE225U、短尾" autocomplete="off">
           </div>
-          <div class="resultCount" id="dataset-count" aria-live="polite">显示 10 个数据集</div>
+          <div class="resultCount" id="dataset-count" aria-live="polite">显示 14 个数据集</div>
         </div>
         <div class="dataTable">
           <div class="dataHeader" aria-hidden="true"><span>吨级</span><span>XCMG 型号</span><span>数据内容</span><span>对标页面</span><span>数据文件</span></div>
@@ -261,6 +261,18 @@
           </article>
           <article class="dataRow" data-source-file="XCMG_21-24t_excavator_competitor_source.xlsx" data-search="21-24 吨级 XE225U">
             <div class="dataCell tonnage">21-24 吨级</div><div class="dataCell model">XE225U</div><div class="dataCell description">竞品参数、标配/选配状态与数据来源</div><a class="dataCell action" href="excavator-21-24t.html">查看对标</a><a class="dataCell action primary" href="data/source-excel/XCMG_21-24t_excavator_competitor_source.xlsx" download>下载数据</a>
+          </article>
+          <article class="dataRow" data-source-file="XCMG_24-28t_excavator_competitor_source.xlsx" data-search="24-28 吨级 XE250U">
+            <div class="dataCell tonnage">24-28 吨级</div><div class="dataCell model">XE250U</div><div class="dataCell description">竞品参数、标配/选配状态与数据来源</div><a class="dataCell action" href="excavator-24-28t.html">查看对标</a><a class="dataCell action primary" href="data/source-excel/XCMG_24-28t_excavator_competitor_source.xlsx" download>下载数据</a>
+          </article>
+          <article class="dataRow" data-source-file="XCMG_24-28t_short_tail_excavator_competitor_source.xlsx" data-search="24-28 吨级 短尾 XE235UCR">
+            <div class="dataCell tonnage">24-28 吨级短尾</div><div class="dataCell model">XE235UCR</div><div class="dataCell description">竞品参数、标配/选配状态与数据来源</div><a class="dataCell action" href="excavator-24-28t-short-tail.html">查看对标</a><a class="dataCell action primary" href="data/source-excel/XCMG_24-28t_short_tail_excavator_competitor_source.xlsx" download>下载数据</a>
+          </article>
+          <article class="dataRow" data-source-file="XCMG_28-33t_excavator_competitor_source.xlsx" data-search="28-33 吨级 XE300U">
+            <div class="dataCell tonnage">28-33 吨级</div><div class="dataCell model">XE300U</div><div class="dataCell description">竞品参数、标配/选配状态与数据来源</div><a class="dataCell action" href="excavator-28-33t.html">查看对标</a><a class="dataCell action primary" href="data/source-excel/XCMG_28-33t_excavator_competitor_source.xlsx" download>下载数据</a>
+          </article>
+          <article class="dataRow" data-source-file="XCMG_33-40t_excavator_competitor_source.xlsx" data-search="33-40 吨级 XE360U">
+            <div class="dataCell tonnage">33-40 吨级</div><div class="dataCell model">XE360U</div><div class="dataCell description">竞品参数、标配/选配状态与数据来源</div><a class="dataCell action" href="excavator-33-40t.html">查看对标</a><a class="dataCell action primary" href="data/source-excel/XCMG_33-40t_excavator_competitor_source.xlsx" download>下载数据</a>
           </article>
           <div class="emptyState" id="empty-state">没有匹配的数据集，请调整关键词。</div>
         </div>
@@ -296,6 +308,6 @@
 
     searchInput.addEventListener('input', filterDatasets);
   </script>
-  <script src="assets/i18n.js?v=20260717a"></script>
+  <script src="assets/i18n.js?v=20260721c"></script>
 </body>
 </html>
