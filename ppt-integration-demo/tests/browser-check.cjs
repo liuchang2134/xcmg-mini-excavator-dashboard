@@ -33,7 +33,7 @@ async function assertPage(page, label, language, route) {
   if (/\bPPT\b/i.test(state.text)) throw new Error(`${label}: exposes source-presentation language in the main reading flow`);
   if (/查看依据|View evidence/.test(state.text)) throw new Error(`${label}: still exposes a secondary evidence action`);
   if (/模块资料|原始记录|Module research material|Original record/.test(state.text)) throw new Error(`${label}: exposes production or source-record wording`);
-  if (language === "en" && route === "excavator-overview.html" && /[\u3400-\u9fff]/.test(state.text)) throw new Error(`${label}: contains mixed Chinese/English body text`);
+  if (language === "en" && /[\u3400-\u9fff]/.test(state.text)) throw new Error(`${label}: contains mixed Chinese/English body text`);
 }
 
 (async () => {
@@ -64,7 +64,7 @@ async function assertPage(page, label, language, route) {
 
     const desktop = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
     await desktop.goto(new URL("index.html", base).href, { waitUntil: "networkidle" });
-    if ((await desktop.locator("#page-nav a").count()) !== 12 || (await desktop.locator(".navPptLink,.navCategoryLink").count()) !== 0) throw new Error("Integrated page must retain the formal sidebar navigation only");
+    if ((await desktop.locator("#page-nav a").count()) !== 17 || (await desktop.locator("[data-ppt-nav]").count()) !== 5 || (await desktop.locator(".navPptLink,.navCategoryLink").count()) !== 0) throw new Error("Integrated page must expose the five integrated analysis sections as first-level navigation");
     if ((await desktop.locator(".conditionBlock").count()) !== 6) throw new Error("Formal six-condition content changed");
     if ((await desktop.locator(".scenarioTabs button").count()) !== 8) throw new Error("Expected eight application tabs");
     if ((await desktop.locator(".comparisonMatrix tbody tr").count()) < 9) throw new Error("Paper comparison is incomplete");
@@ -81,6 +81,10 @@ async function assertPage(page, label, language, route) {
     const firstTitle = await desktop.locator(".scenarioStage h3").innerText();
     if ((await desktop.locator(".scenarioStage .scenarioGallery img").count()) < 2) throw new Error("The active application lacks field photography");
     if ((await desktop.locator(".scenarioStage .scenarioEngineering article").count()) !== 3) throw new Error("The active application lacks parameter, equipment and action analysis");
+    if ((await desktop.locator(".scenarioStage .scenarioAssessment tbody tr").count()) !== 4) throw new Error("The active application lacks direct requirement-to-action analysis");
+    if ((await desktop.locator("#ppt-paper .sourceDataGroup").count()) !== 3 || (await desktop.locator("#ppt-paper .sourceDataGroup tbody tr").count()) !== 38) throw new Error("Complete specification and equipment tables are missing");
+    if ((await desktop.locator("#ppt-field .sourceDataGroup").count()) !== 5 || (await desktop.locator("#ppt-field .sourceDataGroup tbody tr").count()) !== 68) throw new Error("Complete historical field-evaluation tables are missing");
+    if ((await desktop.locator(".competitionGapMatrix tbody tr").count()) !== 9 || (await desktop.locator(".positioningScroll tbody tr").count()) !== 6) throw new Error("Concrete competitive-gap or positioning analysis is incomplete");
     await desktop.locator(".scenarioTabs button").nth(7).click();
     const lastTitle = await desktop.locator(".scenarioStage h3").innerText();
     if (firstTitle === lastTitle) throw new Error("Scenario tabs do not update the workspace");

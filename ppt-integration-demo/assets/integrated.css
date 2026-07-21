@@ -64,6 +64,17 @@
 .transportPhotoPair figure{position:relative;min-width:0;margin:0;background:#dfe8f0;overflow:hidden}
 .transportPhotoPair img{display:block;width:100%;height:11rem;object-fit:cover}
 .transportPhotoPair figcaption{position:absolute;left:0;right:0;bottom:0;padding:.45rem .55rem;background:rgba(0,38,72,.84);color:#fff;font-size:.64rem;line-height:1.35}
+.marketDetailGrid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--ppt-line)}
+.marketDetailBlock{min-width:0}
+.marketTableCaveat{margin:-.25rem 0 .55rem;color:var(--ppt-muted);font-size:.68rem;line-height:1.5}
+.marketTableScroll,.positioningScroll{max-width:100%;overflow-x:auto;border:1px solid var(--ppt-line)}
+.marketPortfolioMatrix,.transportRuleTable,.positioningScroll table{width:100%;border-collapse:collapse;font-size:.72rem}
+.marketPortfolioMatrix{min-width:45rem}.transportRuleTable{min-width:39rem}
+.marketPortfolioMatrix th,.marketPortfolioMatrix td,.transportRuleTable th,.transportRuleTable td,.positioningScroll th,.positioningScroll td{padding:.5rem .55rem;border:1px solid #d8e3ed;text-align:left;vertical-align:top;line-height:1.45}
+.marketPortfolioMatrix thead th,.transportRuleTable thead th,.positioningScroll thead th{background:var(--ppt-blue);color:#fff}
+.marketPortfolioMatrix tbody tr:nth-child(even),.transportRuleTable tbody tr:nth-child(even),.positioningScroll tbody tr:nth-child(even){background:#f5f8fb}
+.marketPortfolioMatrix .xcmgPortfolioRow{background:#fff5cf}
+.marketPortfolioMatrix .xcmgPortfolioRow th{box-shadow:inset 4px 0 0 var(--ppt-yellow);color:var(--ppt-blue)}
 .scenarioTabs{display:flex;gap:.35rem;overflow-x:auto;padding:.1rem 0 .65rem;scrollbar-width:thin}
 .scenarioTabs button{flex:0 0 auto;min-height:2.75rem;padding:.5rem .7rem;border:1px solid #b9ccde;border-radius:3px;background:#fff;color:var(--ppt-ink);font-size:.75rem;font-weight:800;cursor:pointer}
 .scenarioTabs button:hover,.scenarioTabs button:focus-visible{border-color:var(--ppt-yellow);outline:0}
@@ -82,6 +93,8 @@
 .status-gap{background:#fbe8e7;color:var(--ppt-red)}
 .status-pending{background:#fff3d1;color:var(--ppt-amber)}
 .status-missing{background:#edf1f4;color:var(--ppt-gray)}
+.status-covered{background:#e4f2e9;color:var(--ppt-green)}
+.status-mixed{background:#fff3d1;color:var(--ppt-amber)}
 .scenarioFacts{display:grid;grid-template-columns:1fr;margin:.55rem 0 0}
 .scenarioFact{padding:.55rem 0;border-bottom:1px solid #e2eaf1}
 .scenarioFact dt{margin-bottom:.3rem;color:var(--ppt-blue);font-size:.7rem;font-weight:900;text-transform:uppercase}
@@ -94,6 +107,12 @@
 .scenarioEngineering article:last-child{border-bottom:0}
 .scenarioEngineering span{display:block;margin-bottom:.25rem;color:var(--ppt-blue);font-size:.66rem;font-weight:900}
 .scenarioEngineering p{margin:0;color:#2e4b64;font-size:.73rem;line-height:1.5}
+.scenarioAssessment{grid-column:1/-1;max-width:100%;overflow-x:auto;border-top:1px solid var(--ppt-line);background:#fff}
+.scenarioAssessment table{width:100%;min-width:58rem;border-collapse:collapse;font-size:.72rem}
+.scenarioAssessment th,.scenarioAssessment td{padding:.55rem .6rem;border:1px solid #d8e3ed;text-align:left;vertical-align:top;line-height:1.5}
+.scenarioAssessment thead th{background:var(--ppt-blue);color:#fff}
+.scenarioAssessment tbody th{width:17%;color:var(--ppt-ink);background:#f7fafc}
+.scenarioAssessment tbody td:nth-child(2){width:33%}.scenarioAssessment tbody td:nth-child(3){width:10%}.scenarioAssessment tbody td:nth-child(4){width:30%}
 .scenarioIndex{margin-top:.85rem}
 .scenarioIndex table{width:100%;border-collapse:collapse;font-size:.72rem}
 .scenarioIndex th{background:var(--ppt-blue);color:#fff;text-align:left}
@@ -113,6 +132,22 @@
 .configRow b{color:var(--ppt-ink)}
 .configRow strong{color:var(--ppt-blue)}
 .configTitle{margin-top:1rem}
+.sourceDataGroups{display:grid;gap:1.1rem;margin-top:1.15rem;padding-top:.25rem;border-top:3px solid var(--ppt-blue)}
+.sourceDataGroup{min-width:0;padding-top:.8rem}
+.sourceDataHeading{display:grid;grid-template-columns:minmax(14rem,.7fr) minmax(0,1.3fr);gap:1rem;align-items:end;margin-bottom:.55rem}
+.sourceDataHeading span{display:block;margin-bottom:.18rem;color:var(--ppt-blue);font-size:.63rem;font-weight:900;text-transform:uppercase}
+.sourceDataHeading h3{margin:0;color:var(--ppt-ink);font-size:.95rem}
+.sourceDataHeading p{margin:0;color:#4a6278;font-size:.7rem;line-height:1.5}
+.sourceDataScroll{max-width:100%;overflow:auto;border:1px solid var(--ppt-line)}
+.sourceDataScroll table{width:100%;min-width:58rem;border-collapse:collapse;font-size:.69rem}
+.fieldSourceGroups .sourceDataScroll table{min-width:52rem}
+.sourceDataScroll th,.sourceDataScroll td{padding:.42rem .48rem;border:1px solid #d9e3ec;text-align:left;vertical-align:middle;white-space:pre-line;line-height:1.35}
+.sourceDataScroll thead th{position:sticky;top:0;z-index:2;background:var(--ppt-blue);color:#fff}
+.sourceDataScroll tbody tr:nth-child(even){background:#f5f8fb}
+.sourceDataScroll tbody th{background:#f4f8fb;font-weight:800;color:var(--ppt-ink)}
+.sourceDataScroll .xcmgSourceColumn{background:#fff5cf;color:var(--ppt-ink);font-weight:900}
+.sourceDataScroll thead .xcmgSourceColumn{background:var(--ppt-yellow);color:#092c4d}
+.historicalRatingNote{margin:.75rem 0 0;padding:.55rem .7rem;border-left:3px solid var(--ppt-yellow);background:#f7fafc;color:#4e657a;font-size:.68rem;line-height:1.5}
 .paperInsightGrid{display:grid;grid-template-columns:1fr;gap:.6rem;margin-bottom:1rem}
 .paperInsightGrid article,.fieldThemeGrid article{padding:.75rem .8rem;border:1px solid var(--ppt-line);border-left:4px solid var(--ppt-blue);background:#fff}
 .paperInsightGrid article.tone-gap,.fieldThemeGrid article.tone-gap{border-left-color:var(--ppt-red)}
@@ -151,6 +186,19 @@
 .actionPhaseGrid span{color:var(--ppt-blue);font-size:.65rem;font-weight:900;text-transform:uppercase}
 .actionPhaseGrid h3{margin:.25rem 0 .4rem;color:var(--ppt-ink);font-size:.9rem}
 .actionPhaseGrid ul{margin:0;padding-left:1.05rem;color:#385269;font-size:.72rem;line-height:1.55}
+.competitionGapMatrix{max-width:100%;overflow-x:auto;border:1px solid var(--ppt-line);margin-bottom:1rem}
+.competitionGapMatrix table{width:100%;min-width:62rem;border-collapse:collapse;font-size:.72rem}
+.competitionGapMatrix th,.competitionGapMatrix td{padding:.52rem .58rem;border:1px solid #d7e2ec;text-align:left;vertical-align:top;line-height:1.48}
+.competitionGapMatrix thead th{background:var(--ppt-blue);color:#fff}
+.competitionGapMatrix tbody th{width:11rem;color:var(--ppt-ink);background:#f4f8fb}
+.competitionGapMatrix tbody td:nth-child(2){border-left:4px solid var(--ppt-green)}
+.competitionGapMatrix tbody td:nth-child(3){border-left:4px solid var(--ppt-red)}
+.competitionGapMatrix tbody td:nth-child(4){border-left:4px solid var(--ppt-yellow)}
+.positioningBlock{margin:1rem 0;padding-top:1rem;border-top:1px solid var(--ppt-line)}
+.positioningBlock>p{margin:-.25rem 0 .55rem;color:var(--ppt-muted);font-size:.68rem;line-height:1.5}
+.positioningScroll table{min-width:40rem}
+.positioningScroll .xcmgPositionRow{background:#fff5cf}
+.positioningScroll .xcmgPositionRow th{box-shadow:inset 4px 0 0 var(--ppt-yellow);color:var(--ppt-blue)}
 .pptOverviewPage .heroMedia img{object-fit:cover}
 .pptOverviewPage section>.methodNote{margin:.1rem 0 .8rem;padding:0;border:0;background:transparent;color:#5d7185;font-size:.76rem;line-height:1.5}
 .pptOverviewPage .heroText .methodNote{margin:1rem 0 0;padding:.65rem 0 0;border:0;border-top:1px solid #dce6ef;background:transparent;color:#4f667b}
@@ -262,6 +310,11 @@
   .decisionRowBody>div{grid-template-columns:1fr}.transportPhotoPair img{height:9rem}
   .marketStructurePanel{min-height:0}.concentrationRow{grid-template-columns:6rem minmax(0,1fr) 3rem;gap:.45rem}.rankSnapshots{gap:.45rem}
   .benchmarkBand ul{grid-template-columns:1fr}.cycleBars{height:10.5rem;gap:.3rem}.cycleBar b{font-size:.62rem}.tonnagePriorityHeader{display:block}.tonnagePriorityHeader span{display:block;margin-top:.25rem}
+  .sourceDataHeading{grid-template-columns:1fr;gap:.3rem;align-items:start}
+  .sourceDataScroll table{font-size:.66rem}.sourceDataScroll th,.sourceDataScroll td{padding:.38rem .42rem}
+  .marketDetailGrid{gap:.8rem}.marketDetailBlock{min-width:0}
+  .scenarioAssessment{margin-top:0;padding:.55rem;background:#f4f8fb;overflow:visible}.scenarioAssessment table{display:block;min-width:0;font-size:.7rem}.scenarioAssessment thead{display:none}.scenarioAssessment tbody{display:grid;gap:.55rem}.scenarioAssessment tr{display:grid;padding:.55rem .6rem;border-left:4px solid var(--ppt-blue);background:#fff}.scenarioAssessment th,.scenarioAssessment td,.scenarioAssessment tbody th,.scenarioAssessment tbody td:nth-child(n){display:block;width:auto;padding:.35rem 0;border:0;background:transparent}.scenarioAssessment th:before,.scenarioAssessment td:before{content:attr(data-label);display:block;margin-bottom:.16rem;color:var(--ppt-blue);font-size:.61rem;font-weight:900;text-transform:uppercase}.scenarioAssessment td+td{border-top:1px solid #e0e8ef}
+  .competitionGapMatrix table{font-size:.68rem}
 }
 @media(min-width:56.25rem) and (max-width:75rem){
   .pptOverviewPage .layout{display:grid;grid-template-columns:220px minmax(0,1fr)}

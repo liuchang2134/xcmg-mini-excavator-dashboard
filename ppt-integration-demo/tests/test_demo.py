@@ -98,6 +98,27 @@ class PptIntegrationDemoTests(unittest.TestCase):
         self.assertGreaterEqual(len(view["paper_comparison"]["metrics"]), 9)
         self.assertGreaterEqual(len(view["paper_comparison"]["configuration_findings"]), 4)
 
+    def test_full_3_4t_analysis_is_rendered_as_native_content(self):
+        html = (DEMO / "index.html").read_text(encoding="utf-8")
+        script = (DEMO / "assets" / "integrated.js").read_text(encoding="utf-8")
+        expanded = (DEMO / "assets" / "expanded-content.js").read_text(encoding="utf-8")
+        visuals = load_json("visual-assets.json")
+        self.assertEqual(5, html.count("data-ppt-nav="))
+        self.assertIn("expanded-content.js", html)
+        self.assertIn("visual-assets", script)
+        self.assertIn("expanded.paperGroups", script)
+        self.assertIn("expanded.fieldGroups", script)
+        self.assertIn("scenarioAssessments", expanded)
+        self.assertIn("competitionDimensions", expanded)
+        tables = {
+            table["id"]
+            for slide in visuals["slides"]
+            if 59 <= int(slide["slide"]) <= 66
+            for table in slide["tables"]
+        }
+        self.assertTrue({f"s{slide:03d}-table-02" for slide in range(59, 67)} <= tables)
+        self.assertNotIn("slide-thumb", script)
+
     def test_evidence_references_resolve_and_cover_every_slide(self):
         evidence = load_json("evidence.json")["records"]
         valid_ids = {item["id"] for item in evidence}
