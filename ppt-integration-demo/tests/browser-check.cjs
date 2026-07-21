@@ -63,7 +63,12 @@ async function assertPage(page, label, language, route) {
     }
 
     const desktop = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
-    await desktop.goto(new URL("index.html", base).href, { waitUntil: "networkidle" });
+    const canonicalProbe = new URL("index.html", base);
+    canonicalProbe.searchParams.set("rev", "legacy-preview-link");
+    canonicalProbe.hash = "ppt-scenarios";
+    await desktop.goto(canonicalProbe.href, { waitUntil: "networkidle" });
+    const canonicalState = new URL(desktop.url());
+    if (canonicalState.searchParams.has("rev") || canonicalState.hash) throw new Error(`Demo URL was not canonicalized: ${desktop.url()}`);
     if ((await desktop.locator("#page-nav a").count()) !== 17 || (await desktop.locator("[data-ppt-nav]").count()) !== 5 || (await desktop.locator(".navPptLink,.navCategoryLink").count()) !== 0) throw new Error("Integrated page must expose the five integrated analysis sections as first-level navigation");
     if ((await desktop.locator(".conditionBlock").count()) !== 6) throw new Error("Formal six-condition content changed");
     if ((await desktop.locator(".scenarioBand").count()) !== 8) throw new Error("Expected eight directly displayed job applications");

@@ -19,6 +19,10 @@ http://127.0.0.1:4174/ppt-integration-demo/index.html
 http://127.0.0.1:4174/ppt-integration-demo/excavator-overview.html
 ```
 
+The first URL is the stable 3-4 t demo entry. Do not add commit IDs, section hashes or
+cache-busting parameters to the shared address; the page normalizes legacy preview URLs
+automatically and keeps the address unchanged during in-page navigation.
+
 ## Validation
 
 ```powershell
