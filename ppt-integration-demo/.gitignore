@@ -1,1 +1,4 @@
 node_modules/
+artifacts/qa-*.png
+artifacts/*-contact-sheet.jpg
+assets/extracted/contact-sheet.jpg

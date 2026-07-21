@@ -1,8 +1,8 @@
-# XCMG ARC 3-4 t Integrated PPT Prototype
+# XCMG ARC 3-4 t Market and Product Prototype
 
-This is an isolated, local-only prototype. It keeps the formal 3-4 t benchmark as the page foundation and adds PPT slides 48-68 as market, customer, transport, application, field-evaluation, improvement and evidence modules.
+This is an isolated, local-only prototype. It keeps the formal 3-4 t benchmark as the page foundation and converts the source presentation into web-native market, customer, transport, application, field-evaluation and improvement analysis.
 
-Only one additional page is retained for cross-tonnage excavator analysis using PPT slides 3-15.
+The interface does not render full presentation pages. Individual field photographs are extracted from the source, while charts, tables and narrative are rebuilt for the dashboard. One additional page provides cross-tonnage excavator analysis.
 
 ## Local preview
 

@@ -32,6 +32,7 @@ async function assertPage(page, label, language, route) {
   if (/source_mapped_|requires_current_|historical_internal_/.test(state.text)) throw new Error(`${label}: exposes internal data key`);
   if (/\bPPT\b/i.test(state.text)) throw new Error(`${label}: exposes source-presentation language in the main reading flow`);
   if (/查看依据|View evidence/.test(state.text)) throw new Error(`${label}: still exposes a secondary evidence action`);
+  if (/模块资料|原始记录|Module research material|Original record/.test(state.text)) throw new Error(`${label}: exposes production or source-record wording`);
   if (language === "en" && route === "excavator-overview.html" && /[\u3400-\u9fff]/.test(state.text)) throw new Error(`${label}: contains mixed Chinese/English body text`);
 }
 
@@ -65,20 +66,25 @@ async function assertPage(page, label, language, route) {
     await desktop.goto(new URL("index.html", base).href, { waitUntil: "networkidle" });
     if ((await desktop.locator("#page-nav a").count()) !== 12 || (await desktop.locator(".navPptLink,.navCategoryLink").count()) !== 0) throw new Error("Integrated page must retain the formal sidebar navigation only");
     if ((await desktop.locator(".conditionBlock").count()) !== 6) throw new Error("Formal six-condition content changed");
-    if ((await desktop.locator(".scenarioTabs button").count()) !== 8) throw new Error("Expected eight PPT application tabs");
+    if ((await desktop.locator(".scenarioTabs button").count()) !== 8) throw new Error("Expected eight application tabs");
     if ((await desktop.locator(".comparisonMatrix tbody tr").count()) < 9) throw new Error("Paper comparison is incomplete");
     if ((await desktop.locator(".fieldMatrix tbody tr").count()) !== 11) throw new Error("Field evaluation is incomplete");
     if ((await desktop.locator(".roadmapRow").count()) !== 8) throw new Error("Roadmap is incomplete");
-    if ((await desktop.locator(".evidenceTrigger,.evidenceDrawer,.evidenceButtons").count()) !== 0) throw new Error("Evidence must be displayed inline without secondary controls");
-    if ((await desktop.locator("#ppt-market .inlineEvidenceCard").count()) !== 2) throw new Error("Market material is not displayed inline");
-    if ((await desktop.locator("#ppt-paper .inlineEvidenceCard").count()) !== 4) throw new Error("Paper-comparison material is incomplete");
-    if ((await desktop.locator("#ppt-field .inlineEvidenceCard").count()) !== 6) throw new Error("Field-evaluation material is incomplete");
-    if ((await desktop.locator("#ppt-actions .inlineEvidenceCard").count()) !== 2) throw new Error("Improvement material is incomplete");
+    if ((await desktop.locator(".evidenceTrigger,.evidenceDrawer,.evidenceButtons,.inlineEvidenceCard").count()) !== 0) throw new Error("Source-presentation controls or cards remain in the reading flow");
+    if ((await desktop.locator(".pptSection details").count()) !== 0) throw new Error("Integrated modules must display their analysis directly without secondary disclosure menus");
+    if ((await desktop.locator('main img[src*="assets/slides/slide-"]').count()) !== 0) throw new Error("Full-slide images must not appear in the web narrative");
+    if ((await desktop.locator("#ppt-market .marketNarrative article").count()) !== 3) throw new Error("Market interpretation is incomplete");
+    if ((await desktop.locator("#ppt-market .transportPhotoPair img").count()) !== 2) throw new Error("Transport field photography is incomplete");
+    if ((await desktop.locator("#ppt-paper .paperInsightGrid article").count()) !== 4) throw new Error("Specification conclusions are incomplete");
+    if ((await desktop.locator("#ppt-field .fieldThemeGrid article").count()) !== 5) throw new Error("Field-evaluation themes are incomplete");
+    if ((await desktop.locator("#ppt-actions .actionPhaseGrid article").count()) !== 3) throw new Error("Improvement phases are incomplete");
     const firstTitle = await desktop.locator(".scenarioStage h3").innerText();
+    if ((await desktop.locator(".scenarioStage .scenarioGallery img").count()) < 2) throw new Error("The active application lacks field photography");
+    if ((await desktop.locator(".scenarioStage .scenarioEngineering article").count()) !== 3) throw new Error("The active application lacks parameter, equipment and action analysis");
     await desktop.locator(".scenarioTabs button").nth(7).click();
     const lastTitle = await desktop.locator(".scenarioStage h3").innerText();
     if (firstTitle === lastTitle) throw new Error("Scenario tabs do not update the workspace");
-    if ((await desktop.locator(".scenarioEvidence .inlineEvidenceCard").count()) !== 1) throw new Error("Scenario material is not displayed in the active module");
+    if ((await desktop.locator(".scenarioStage .scenarioGallery img").count()) !== 3) throw new Error("Scenario photography did not update with the selected application");
     await desktop.locator("#ppt-market").scrollIntoViewIfNeeded();
     await desktop.screenshot({ path: path.join(artifactDir, "desktop-integrated-3-4t.png"), fullPage: false });
     await desktop.close();
@@ -94,9 +100,12 @@ async function assertPage(page, label, language, route) {
     await overview.waitForTimeout(400);
     if ((await overview.locator("#page-nav a").count()) !== 1) throw new Error("Overview sidebar must contain only one return link");
     if ((await overview.locator(".hero").count()) !== 1 || (await overview.locator(".categoryHero").count()) !== 0) throw new Error("Overview must reuse the formal dashboard hero");
-    if ((await overview.locator(".evidenceTrigger,.evidenceDrawer,.evidenceButtons").count()) !== 0) throw new Error("Overview still contains secondary evidence controls");
-    if ((await overview.locator(".inlineEvidenceCard").count()) !== 13) throw new Error("Overview research material is not fully embedded in its modules");
-    if ((await overview.locator('main img[src*="assets/slides/slide-"]').count()) !== 13) throw new Error("Overview source images are not displayed inline");
+    if ((await overview.locator(".evidenceTrigger,.evidenceDrawer,.evidenceButtons,.inlineEvidenceCard").count()) !== 0) throw new Error("Overview still contains source-presentation controls or cards");
+    if ((await overview.locator('main img[src*="assets/slides/slide-"]').count()) !== 0) throw new Error("Overview must not display full-slide images");
+    if ((await overview.locator(".cycleBar").count()) !== 5) throw new Error("Market-cycle chart is incomplete");
+    if ((await overview.locator(".overviewDecisionRow").count()) !== 8) throw new Error("Decision analysis is incomplete");
+    if ((await overview.locator(".benchmarkBand").count()) !== 2) throw new Error("Benchmark systems are incomplete");
+    if ((await overview.locator(".tonnagePriorityGrid article").count()) !== 4) throw new Error("Tonnage priorities are incomplete");
     await overview.screenshot({ path: path.join(artifactDir, "desktop-excavator-overview.png"), fullPage: false });
     await overview.setViewportSize({ width: 390, height: 844 });
     await overview.waitForTimeout(200);
