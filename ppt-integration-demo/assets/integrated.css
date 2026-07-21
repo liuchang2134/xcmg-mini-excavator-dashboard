@@ -115,6 +115,10 @@
 .scenarioFact ul,.scenarioFact ol{margin:.15rem 0 0;padding-left:1.1rem}
 .scenarioFact li{margin:.2rem 0}
 .scenarioFinding{padding:.65rem .75rem;border-left:4px solid var(--ppt-yellow);background:#f4f8fb;color:var(--ppt-ink);font-weight:700}
+.scenarioSourceContext{display:grid;grid-template-columns:1fr;margin-top:.85rem;border-top:1px solid #cbd9e5;border-bottom:1px solid #cbd9e5;background:#f7fafc}
+.scenarioSourceContext section{min-width:0;padding:.72rem .8rem;border-bottom:1px solid #d8e3ed}.scenarioSourceContext section:last-child{border-bottom:0}
+.scenarioSourceContext h4{margin:0 0 .42rem;color:var(--ppt-blue);font-size:.72rem}.scenarioSourceContext ul,.scenarioSourceContext ol{margin:0;padding-left:1.15rem;color:#304b63;font-size:.7rem;line-height:1.52}.scenarioSourceContext li{margin:.25rem 0}
+.scenarioSourceContext .historicalAssessment{background:#fff}.historicalAssessment>div{margin-bottom:.42rem}.historicalAssessment>div p{margin:0;color:#6a7d8e;font-size:.62rem;line-height:1.45}.historicalAssessment ol{padding-left:1.25rem}.historicalAssessment li::marker{color:var(--ppt-blue);font-weight:900}
 .scenarioEngineering{display:grid;grid-template-columns:1fr;margin-top:.85rem;border-top:3px solid var(--ppt-blue);background:#f4f8fb}
 .scenarioEngineering article{padding:.72rem .8rem;border-bottom:1px solid #dbe5ee}
 .scenarioEngineering article:last-child{border-bottom:0}
@@ -327,6 +331,7 @@
   [data-scenario-id="scenario-transport"] .scenarioPhotoGrid img{aspect-ratio:auto}
   .scenarioPhotoGrid.photoCount-3,.scenarioPhotoGrid.photoCount-6{grid-template-columns:repeat(3,minmax(0,1fr))}
   .scenarioFacts{grid-template-columns:1fr 1fr;column-gap:1rem}
+  .scenarioSourceContext{grid-template-columns:minmax(0,.72fr) minmax(0,.9fr) minmax(0,1.55fr)}.scenarioSourceContext section{border-right:1px solid #d8e3ed;border-bottom:0}.scenarioSourceContext section:last-child{border-right:0}
   .scenarioEngineering{grid-template-columns:repeat(3,minmax(0,1fr))}.scenarioEngineering article{border-right:1px solid #dbe5ee;border-bottom:0}.scenarioEngineering article:last-child{border-right:0}
   .configMatrix{grid-template-columns:1fr}
   .paperInsightGrid{grid-template-columns:repeat(2,minmax(0,1fr))}

@@ -99,7 +99,12 @@ class PptIntegrationDemoTests(unittest.TestCase):
         self.assertEqual(4, len(view["market"]["volume"]))
         tonnage_records = load_json("tonnage.json")["records"]
         self.assertEqual(9, len(tonnage_records))
-        self.assertEqual(8, len([item for item in tonnage_records if item["id"].startswith("scenario-")]))
+        scenarios = [item for item in tonnage_records if item["id"].startswith("scenario-")]
+        self.assertEqual(8, len(scenarios))
+        for scenario in scenarios:
+            for key in ("work_objects", "operating_characteristics", "historical_assessment"):
+                self.assertTrue(scenario[key]["zh"], f"{scenario['id']} missing zh {key}")
+                self.assertTrue(scenario[key]["en"], f"{scenario['id']} missing en {key}")
         self.assertGreaterEqual(len(view["paper_comparison"]["metrics"]), 9)
         self.assertGreaterEqual(len(view["paper_comparison"]["configuration_findings"]), 4)
 

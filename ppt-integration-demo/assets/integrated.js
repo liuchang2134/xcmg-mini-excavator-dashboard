@@ -32,7 +32,7 @@
       transportMarginNote: '负值表示设备组合已超过源文件所述常见有效载荷区间下限。', transportDecisionTitle: '运输判断', transportDecisionText: '现款常用组合已越过常见载荷区间下限，历史PRO方案能够恢复一定余量。实际运输仍须复核拖车铭牌、牵引车额定值、组合总质量和驾驶许可。',
       transportCaptionA: '轻型皮卡与14K拖车是该吨级常见转运组合', transportCaptionB: '竞品35G装车状态：整机与附件共同占用有效载荷',
       scenarioTitle: '真实作业场景', scenarioSubtitle: '把现场任务、客户要求和产品差距直接连接到现有量化工况。',
-      customer: '主要客户', needs: '作业要求', steps: '任务链', finding: '当前判断', scenarioIndex: '八类场景快速对照',
+      customer: '主要客户', needs: '作业要求', steps: '任务链', finding: '当前判断', scenarioIndex: '八类场景快速对照', workObjects: '作业对象', operatingCharacteristics: '作业特点', historicalAssessment: '历史适应性判断', historicalAssessmentNote: '以下保留资料形成时的产品判断；历史方案和计划不代表当前量产状态。',
       workCondition: '作业场景', keyFinding: '关键差距', status: '判断', parameterImpact: '关键参数差距', configurationImpact: '关键配置作用', engineeringAction: '产品动作',
       scenarioRequirement: '客户任务', currentFit: '当前产品适配', productAction: '产品动作', covered: '已覆盖', mixed: '部分覆盖', linkedConditions: '关联量化工况',
       paperTitle: '纸面竞争力复核', paperSubtitle: '把尺寸、作业能力、液压和属具配置放回具体应用中解释。',
@@ -86,7 +86,7 @@
       transportMarginNote: 'A negative value means the machine package exceeds the lower end of the common effective-payload range stated in the source.', transportDecisionTitle: 'Transport assessment', transportDecisionText: 'The current common package exceeds the lower end of the typical payload window, while the historical PRO proposal restores some margin. Verify the trailer data plate, tow-vehicle ratings, gross combination mass and licence requirement for the actual setup.',
       transportCaptionA: 'A light-duty pickup and 14K trailer are a common transport combination in this class', transportCaptionB: 'Competitor 35G loaded for transport: machine and equipment consume the same payload allowance',
       scenarioTitle: 'Real Job Applications', scenarioSubtitle: 'Connect field tasks and customer requirements directly to the existing quantified applications.',
-      customer: 'Primary users', needs: 'Operating requirements', steps: 'Task sequence', finding: 'Current assessment', scenarioIndex: 'Eight-application comparison',
+      customer: 'Primary users', needs: 'Operating requirements', steps: 'Task sequence', finding: 'Current assessment', scenarioIndex: 'Eight-application comparison', workObjects: 'Work objects', operatingCharacteristics: 'Operating characteristics', historicalAssessment: 'Historical application-fit assessment', historicalAssessmentNote: 'The statements below retain the source-period product assessment. Historical proposals and plans do not represent current production status.',
       workCondition: 'Application', keyFinding: 'Principal gap', status: 'Assessment', parameterImpact: 'Relevant specification gap', configurationImpact: 'Equipment effect', engineeringAction: 'Product action',
       scenarioRequirement: 'Customer task', currentFit: 'Current product fit', productAction: 'Product action', covered: 'Covered', mixed: 'Partly covered', linkedConditions: 'Linked quantified applications',
       paperTitle: 'Paper Competitiveness Review', paperSubtitle: 'Interpret dimensions, working capability, hydraulics and equipment in the applications they affect.',
@@ -653,6 +653,9 @@
   function renderScenarioBody(record, index) {
     const needs = record.needs?.[language] || record.needs?.zh || [];
     const steps = record.steps?.[language] || record.steps?.zh || [];
+    const workObjects = record.work_objects?.[language] || record.work_objects?.zh || [];
+    const operatingCharacteristics = record.operating_characteristics?.[language] || record.operating_characteristics?.zh || [];
+    const historicalAssessment = record.historical_assessment?.[language] || record.historical_assessment?.zh || [];
     const key = findingKey(record.finding_status);
     const engineering = scenarioEngineering[record.id];
     const links = (scenarioConditionLinks[record.id] || []).map((item) => `<a href="#${escapeHtml(item.id)}">${escapeHtml(language === 'en' ? item.en : item.zh)}</a>`).join('');
@@ -677,6 +680,11 @@
               <div class="scenarioFact"><dt>${escapeHtml(copy.finding)}</dt><dd class="scenarioFinding">${escapeHtml(narrative(record.conclusion))}</dd></div>
             </dl>
           </div>
+        </div>
+        <div class="scenarioSourceContext">
+          <section><h4>${escapeHtml(copy.workObjects)}</h4><ul>${workObjects.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>
+          <section><h4>${escapeHtml(copy.operatingCharacteristics)}</h4><ul>${operatingCharacteristics.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>
+          <section class="historicalAssessment"><div><h4>${escapeHtml(copy.historicalAssessment)}</h4><p>${escapeHtml(copy.historicalAssessmentNote)}</p></div><ol>${historicalAssessment.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ol></section>
         </div>
         <div class="scenarioEngineering">
           <article><span>${escapeHtml(copy.parameterImpact)}</span><p>${escapeHtml(text(engineering?.parameter))}</p></article>

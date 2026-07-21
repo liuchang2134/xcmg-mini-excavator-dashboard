@@ -104,6 +104,8 @@ async function assertPage(page, label, language, route) {
     }));
     if (imageAudit.unique !== 24 || !imageAudit.loaded || !imageAudit.sized || !imageAudit.uncropped) throw new Error(`Scenario image audit failed: ${JSON.stringify(imageAudit)}`);
     if ((await desktop.locator(".scenarioBand .scenarioEngineering article").count()) !== 24) throw new Error("Every application must include parameter, equipment and action analysis");
+    if ((await desktop.locator(".scenarioBand .scenarioSourceContext").count()) !== 8 || (await desktop.locator(".scenarioBand .scenarioSourceContext section").count()) !== 24) throw new Error("PPT-derived application context is incomplete");
+    if ((await desktop.locator(".scenarioBand .historicalAssessment li").count()) !== 42) throw new Error("Historical application-fit findings are incomplete");
     if ((await desktop.locator(".scenarioBand .scenarioAssessment tbody tr").count()) !== 32) throw new Error("Every application must include direct requirement-to-action analysis");
     if ((await desktop.locator(".scenarioConditionLinks a").count()) < 16) throw new Error("Applications are not linked to the existing quantified conditions");
     if ((await desktop.locator("#ppt-paper .sourceDataGroup").count()) !== 3 || (await desktop.locator("#ppt-paper .sourceDataGroup tbody tr").count()) !== 38) throw new Error("Complete specification and equipment tables are missing");
@@ -124,6 +126,8 @@ async function assertPage(page, label, language, route) {
     await desktop.locator(".scenarioBandHeader").first().scrollIntoViewIfNeeded();
     await desktop.waitForTimeout(500);
     await desktop.screenshot({ path: path.join(artifactDir, "desktop-integrated-scenarios.png"), fullPage: false });
+    await desktop.locator(".scenarioSourceContext").first().scrollIntoViewIfNeeded();
+    await desktop.screenshot({ path: path.join(artifactDir, "desktop-scenario-detail.png"), fullPage: false });
     await desktop.close();
 
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
@@ -132,6 +136,9 @@ async function assertPage(page, label, language, route) {
     await mobile.waitForFunction(() => [...document.querySelectorAll(".scenarioBand:first-of-type img")].every((image) => image.complete && image.naturalWidth > 0));
     await mobile.waitForTimeout(500);
     await mobile.screenshot({ path: path.join(artifactDir, "mobile-integrated-3-4t.png"), fullPage: false });
+    await mobile.locator(".scenarioSourceContext").first().scrollIntoViewIfNeeded();
+    await mobile.waitForTimeout(300);
+    await mobile.screenshot({ path: path.join(artifactDir, "mobile-scenario-detail.png"), fullPage: false });
     await mobile.locator(".transportStory").scrollIntoViewIfNeeded();
     await mobile.waitForFunction(() => [...document.querySelectorAll(".transportPhotoPair img")].every((image) => image.complete && image.naturalWidth > 0));
     await mobile.screenshot({ path: path.join(artifactDir, "mobile-source-transport.png"), fullPage: false });
