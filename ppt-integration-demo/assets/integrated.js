@@ -28,7 +28,9 @@
       xcmgEntry: 'XCMG切入点', xcmgEntryText: 'XE35U需要优先处理整备后运输重量、行走速度、AUX流量、回填配置和驾驶舒适性，同时保留AUX2、斗杆力和起吊能力等可验证优势。',
       transportStoryTitle: '运输边界直接影响成交和跨工地周转',
       transportStoryText: '现款基础机记录重量为4,200 kg；加副配重、快换、拇指钳和标准斗后约4,579 kg。该组合会明显压缩皮卡与14K拖车的有效载荷余量，选车、拖车额定值、组合总质量和驾驶许可必须按具体方案核验。',
-      transportCaptionA: '轻型皮卡与拖车是该吨级常见转运方式', transportCaptionB: '设备与常用属具通常需要同车运输',
+      transportPayloadWindow: '14K拖车常见有效载荷', transportCurrentPackage: 'XE35U常用配置后', transportHistoricalPackage: 'XE35U PRO历史方案', transportMargin: '相对载荷下限余量',
+      transportMarginNote: '负值表示设备组合已超过源文件所述常见有效载荷区间下限。', transportDecisionTitle: '运输判断', transportDecisionText: '现款常用组合已越过常见载荷区间下限，历史PRO方案能够恢复一定余量。实际运输仍须复核拖车铭牌、牵引车额定值、组合总质量和驾驶许可。',
+      transportCaptionA: '轻型皮卡与14K拖车是该吨级常见转运组合', transportCaptionB: '竞品35G装车状态：整机与附件共同占用有效载荷',
       scenarioTitle: '真实作业场景', scenarioSubtitle: '把现场任务、客户要求和产品差距直接连接到现有量化工况。',
       customer: '主要客户', needs: '作业要求', steps: '任务链', finding: '当前判断', scenarioIndex: '八类场景快速对照',
       workCondition: '作业场景', keyFinding: '关键差距', status: '判断', parameterImpact: '关键参数差距', configurationImpact: '关键配置作用', engineeringAction: '产品动作',
@@ -80,7 +82,9 @@
       xcmgEntry: 'XCMG opportunity', xcmgEntryText: 'XE35U priorities are equipped transport mass, travel speed, auxiliary flow, backfill equipment and cab comfort, while retaining validated strengths in AUX2 provision, arm force and lifting capability.',
       transportStoryTitle: 'Transport limits directly affect purchase and jobsite mobility',
       transportStoryText: 'Recorded base-machine mass is 4,200 kg; counterweight, coupler, thumb and standard bucket bring a representative combination to about 4,579 kg. This compresses useful payload margin on a pickup and 14K trailer, so tow rating, trailer rating, gross combination mass and licence requirements must be checked for each setup.',
-      transportCaptionA: 'Pickup-and-trailer transport is common in this class', transportCaptionB: 'The machine and frequently used attachments often travel together',
+      transportPayloadWindow: 'Typical effective payload of a 14K trailer', transportCurrentPackage: 'XE35U with common equipment', transportHistoricalPackage: 'Historical XE35U PRO proposal', transportMargin: 'Margin to lower payload bound',
+      transportMarginNote: 'A negative value means the machine package exceeds the lower end of the common effective-payload range stated in the source.', transportDecisionTitle: 'Transport assessment', transportDecisionText: 'The current common package exceeds the lower end of the typical payload window, while the historical PRO proposal restores some margin. Verify the trailer data plate, tow-vehicle ratings, gross combination mass and licence requirement for the actual setup.',
+      transportCaptionA: 'A light-duty pickup and 14K trailer are a common transport combination in this class', transportCaptionB: 'Competitor 35G loaded for transport: machine and equipment consume the same payload allowance',
       scenarioTitle: 'Real Job Applications', scenarioSubtitle: 'Connect field tasks and customer requirements directly to the existing quantified applications.',
       customer: 'Primary users', needs: 'Operating requirements', steps: 'Task sequence', finding: 'Current assessment', scenarioIndex: 'Eight-application comparison',
       workCondition: 'Application', keyFinding: 'Principal gap', status: 'Assessment', parameterImpact: 'Relevant specification gap', configurationImpact: 'Equipment effect', engineeringAction: 'Product action',
@@ -599,6 +603,19 @@
     const transportRuleRows = expanded.transportRules.map((item) => `<tr><th scope="row">${escapeHtml(item.level)}</th><td>${escapeHtml(text(item.threshold))}</td><td>${escapeHtml(text(item.implication))}</td></tr>`).join('');
     const positionData = sourceVisuals?.historical_positioning;
     const positionRows = (positionData?.rows || expanded.positioning).map((item) => `<tr class="${item.brand === 'XCMG' ? 'xcmgPositionRow' : ''}"><th scope="row">${escapeHtml(item.brand)}</th><td>${escapeHtml(item.models)}</td><td>${escapeHtml(item.price || `$${formatNumber(item.price_usd)}`)}</td><td>${escapeHtml(item.share)}</td></tr>`).join('');
+    const transportSource = sourceVisuals?.transport;
+    const currentPackage = transportSource?.packages?.find((item) => item.id === 'xe35u-current');
+    const historicalPackage = transportSource?.packages?.find((item) => item.id === 'xe35u-pro-historical');
+    const trailerContext = transportSource?.trailer_context;
+    const lowerPayload = trailerContext?.effective_payload_kg?.[0];
+    const signedMass = (value) => `${value > 0 ? '+' : ''}${formatNumber(value)} kg`;
+    const transportFacts = currentPackage && historicalPackage && trailerContext ? `
+      <dl class="transportBoundaryFacts">
+        <div><dt>${escapeHtml(copy.transportPayloadWindow)}</dt><dd>${formatNumber(trailerContext.effective_payload_kg[0])}-${formatNumber(trailerContext.effective_payload_kg[1])} kg</dd><small>${formatNumber(trailerContext.effective_payload_lb[0])}-${formatNumber(trailerContext.effective_payload_lb[1])} lb</small></div>
+        <div><dt>${escapeHtml(copy.transportCurrentPackage)}</dt><dd>${formatNumber(currentPackage.equipped_total_kg)} kg</dd><small class="negative">${escapeHtml(copy.transportMargin)} ${signedMass(lowerPayload - currentPackage.equipped_total_kg)}</small></div>
+        <div><dt>${escapeHtml(copy.transportHistoricalPackage)}</dt><dd>${formatNumber(historicalPackage.equipped_total_kg)} kg</dd><small class="positive">${escapeHtml(copy.transportMargin)} ${signedMass(lowerPayload - historicalPackage.equipped_total_kg)}</small></div>
+      </dl>
+      <p class="transportMarginNote">${escapeHtml(copy.transportMarginNote)}</p>` : '';
 
     section.insertAdjacentHTML('beforeend', `
       <p class="analysisScope">${escapeHtml(copy.scoringBoundary)}</p>
@@ -610,8 +627,11 @@
       ${renderTransportBreakdown(sourceVisuals?.transport)}
       ${renderInsightPoints(marketPoints, 'marketNarrative')}
       <article class="transportStory">
-        <div class="transportStoryCopy"><span>${escapeHtml(copy.marketRead)}</span><h3>${escapeHtml(copy.transportStoryTitle)}</h3><p>${escapeHtml(copy.transportStoryText)}</p></div>
-        <div class="transportPhotoPair"><figure><img src="ppt-integration-demo/assets/extracted/s049-photo-01.jpg" alt="${escapeHtml(copy.transportCaptionA)}"><figcaption>${escapeHtml(copy.transportCaptionA)}</figcaption></figure><figure><img src="ppt-integration-demo/assets/extracted/s049-photo-02.jpg" alt="${escapeHtml(copy.transportCaptionB)}"><figcaption>${escapeHtml(copy.transportCaptionB)}</figcaption></figure></div>
+        <header class="transportStoryHeader"><div><span>${escapeHtml(copy.marketRead)}</span><h3>${escapeHtml(copy.transportStoryTitle)}</h3></div>${sourceBadge(transportSource || 49)}</header>
+        <div class="transportStoryGrid">
+          <div class="transportStoryCopy"><p>${escapeHtml(copy.transportStoryText)}</p>${transportFacts}<div class="transportDecision"><b>${escapeHtml(copy.transportDecisionTitle)}</b><span>${escapeHtml(copy.transportDecisionText)}</span></div></div>
+          <div class="transportPhotoPair"><figure><img src="ppt-integration-demo/assets/extracted/s049-photo-01.jpg" alt="${escapeHtml(copy.transportCaptionA)}"><figcaption>${escapeHtml(copy.transportCaptionA)}</figcaption></figure><figure><img src="ppt-integration-demo/assets/extracted/s049-photo-02.jpg" alt="${escapeHtml(copy.transportCaptionB)}"><figcaption>${escapeHtml(copy.transportCaptionB)}</figcaption></figure></div>
+        </div>
       </article>
       <div class="marketDetailGrid">
         <article class="marketDetailBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.portfolioTitle)}</span></div><div class="marketTableScroll"><table class="marketPortfolioMatrix"><thead><tr><th>${escapeHtml(copy.portfolioBrand)}</th><th>${escapeHtml(copy.portfolioCount)}</th><th>${escapeHtml(copy.portfolioArchitecture)}</th><th>${escapeHtml(copy.portfolioImplication)}</th></tr></thead><tbody>${portfolioRows}</tbody></table></div></article>

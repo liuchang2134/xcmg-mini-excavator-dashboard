@@ -73,6 +73,16 @@
     "source_slide": 49,
     "source_type": "历史产品适应性分析",
     "as_of_date": "PPT 11.14 version; current product status unverified",
+    "trailer_context": {
+      "label": {"zh": "14K拖车常见有效载荷", "en": "Typical effective payload of a 14K trailer"},
+      "gvwr_lb": 14000,
+      "effective_payload_lb": [10000, 11500],
+      "effective_payload_kg": [4536, 5216],
+      "note": {
+        "zh": "源文件给出的北美常见口径；具体拖车铭牌、牵引车额定值、组合总质量及驾驶许可必须按实际车辆核验。",
+        "en": "This is the common North American basis stated in the source. Verify the actual trailer data plate, tow-vehicle ratings, gross combination mass and licence requirement."
+      }
+    },
     "packages": [
       {
         "id": "xe35u-current",

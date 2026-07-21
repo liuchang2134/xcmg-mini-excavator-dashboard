@@ -108,6 +108,8 @@ class PptIntegrationDemoTests(unittest.TestCase):
         self.assertEqual([48, 49, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 236], visuals["meta"]["source_slides"])
         self.assertEqual(5, len(visuals["market"]["annual_brand_sales"]["series"]))
         self.assertEqual(10, len(visuals["market"]["model_demand_2025"]["models"]))
+        self.assertEqual([4536, 5216], visuals["transport"]["trailer_context"]["effective_payload_kg"])
+        self.assertEqual([4579, 4179], [item["equipped_total_kg"] for item in visuals["transport"]["packages"]])
         self.assertEqual(8, len(visuals["performance"]["metrics"]))
         self.assertEqual(18, len(visuals["field_rating_heatmap"]["rows"]))
         self.assertEqual(9, len(visuals["competitiveness_profile"]["dimensions"]))

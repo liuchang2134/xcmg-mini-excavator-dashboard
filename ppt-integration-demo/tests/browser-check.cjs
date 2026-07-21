@@ -80,6 +80,9 @@ async function assertPage(page, label, language, route) {
     if ((await desktop.locator("#ppt-market .scatterPoint").count()) !== 6) throw new Error("Historical price-share chart is incomplete");
     if ((await desktop.locator("#ppt-market .massPackageRow").count()) !== 2) throw new Error("Transport mass build-up is incomplete");
     if ((await desktop.locator("#ppt-market .transportPhotoPair img").count()) !== 2) throw new Error("Transport field photography is incomplete");
+    if ((await desktop.locator("#ppt-market .transportBoundaryFacts>div").count()) !== 3) throw new Error("Transport payload boundary is incomplete");
+    const transportPhotoHeights = await desktop.locator("#ppt-market .transportPhotoPair img").evaluateAll((images) => images.map((image) => ({rendered: image.getBoundingClientRect().height, natural: image.naturalHeight})));
+    if (transportPhotoHeights.some((image) => image.rendered < 200 || image.natural < 400)) throw new Error("Transport photography is too small or failed to load");
     if ((await desktop.locator("#ppt-paper .performanceFacet").count()) !== 8) throw new Error("Core performance small multiples are incomplete");
     if ((await desktop.locator("#ppt-paper .paperInsightGrid article").count()) !== 4) throw new Error("Specification conclusions are incomplete");
     if ((await desktop.locator("#ppt-paper .dataConflictBlock tbody tr").count()) !== 4) throw new Error("Current-versus-historical data reconciliation is incomplete");
@@ -109,6 +112,8 @@ async function assertPage(page, label, language, route) {
     await desktop.screenshot({ path: path.join(artifactDir, "desktop-integrated-3-4t.png"), fullPage: false });
     await desktop.locator(".brandSalesVisual").scrollIntoViewIfNeeded();
     await desktop.screenshot({ path: path.join(artifactDir, "desktop-source-market.png"), fullPage: false });
+    await desktop.locator(".transportStory").scrollIntoViewIfNeeded();
+    await desktop.screenshot({ path: path.join(artifactDir, "desktop-source-transport.png"), fullPage: false });
     await desktop.locator(".performanceEvidence").scrollIntoViewIfNeeded();
     await desktop.screenshot({ path: path.join(artifactDir, "desktop-source-performance.png"), fullPage: false });
     await desktop.locator(".fieldHeatmapVisual").scrollIntoViewIfNeeded();
@@ -126,6 +131,9 @@ async function assertPage(page, label, language, route) {
     await mobile.waitForFunction(() => [...document.querySelectorAll(".scenarioBand:first-of-type img")].every((image) => image.complete && image.naturalWidth > 0));
     await mobile.waitForTimeout(500);
     await mobile.screenshot({ path: path.join(artifactDir, "mobile-integrated-3-4t.png"), fullPage: false });
+    await mobile.locator(".transportStory").scrollIntoViewIfNeeded();
+    await mobile.waitForFunction(() => [...document.querySelectorAll(".transportPhotoPair img")].every((image) => image.complete && image.naturalWidth > 0));
+    await mobile.screenshot({ path: path.join(artifactDir, "mobile-source-transport.png"), fullPage: false });
     await mobile.close();
 
     const overview = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });

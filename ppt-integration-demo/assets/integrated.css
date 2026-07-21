@@ -61,15 +61,18 @@
 .decisionNarrative span,.moduleLabel{display:block;margin-bottom:.25rem;color:var(--ppt-blue);font-size:.65rem;font-weight:900;text-transform:uppercase}
 .decisionNarrative h3{margin:0 0 .35rem;color:var(--ppt-ink);font-size:.86rem}
 .decisionNarrative p{margin:0;color:#385269;font-size:.74rem;line-height:1.55}
-.transportStory{display:grid;grid-template-columns:1fr;margin-top:1rem;border:1px solid var(--ppt-line);background:#f7fafc}
-.transportStoryCopy{padding:.9rem}
-.transportStoryCopy>span{display:block;margin-bottom:.3rem;color:var(--ppt-blue);font-size:.66rem;font-weight:900;text-transform:uppercase}
-.transportStoryCopy h3{margin:0 0 .45rem;color:var(--ppt-ink);font-size:1rem}
-.transportStoryCopy p{margin:0;color:#365169;font-size:.76rem;line-height:1.6}
-.transportPhotoPair{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ppt-line)}
-.transportPhotoPair figure{position:relative;min-width:0;margin:0;background:#dfe8f0;overflow:hidden}
-.transportPhotoPair img{display:block;width:100%;height:11rem;object-fit:cover}
-.transportPhotoPair figcaption{position:absolute;left:0;right:0;bottom:0;padding:.45rem .55rem;background:rgba(0,38,72,.84);color:#fff;font-size:.64rem;line-height:1.35}
+.transportStory{margin-top:1rem;border:1px solid var(--ppt-line);border-top:3px solid var(--ppt-blue);background:#fff}
+.transportStoryHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:.75rem .9rem;border-bottom:1px solid var(--ppt-line);background:#f7fafc}
+.transportStoryHeader span:first-child{display:block;margin-bottom:.22rem;color:var(--ppt-blue);font-size:.64rem;font-weight:900;text-transform:uppercase}.transportStoryHeader h3{margin:0;color:var(--ppt-ink);font-size:1rem}
+.transportStoryGrid{display:grid;grid-template-columns:1fr;min-width:0}
+.transportStoryCopy{padding:.85rem .9rem}.transportStoryCopy>p{margin:0;color:#365169;font-size:.74rem;line-height:1.58}
+.transportBoundaryFacts{display:grid;gap:0;margin:.75rem 0 0;border-top:1px solid #d9e4ed}.transportBoundaryFacts div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.12rem .7rem;padding:.52rem 0;border-bottom:1px solid #d9e4ed}
+.transportBoundaryFacts dt{color:#38536c;font-size:.66rem;font-weight:800}.transportBoundaryFacts dd{grid-column:2;grid-row:1/3;margin:0;color:var(--ppt-ink);font-size:.87rem;font-weight:900;font-variant-numeric:tabular-nums}.transportBoundaryFacts small{color:#667b8e;font-size:.61rem}.transportBoundaryFacts small.negative{color:#c9342f}.transportBoundaryFacts small.positive{color:#167247}
+.transportMarginNote{margin:.45rem 0 0!important;color:#6b7d8d!important;font-size:.62rem!important}.transportDecision{margin-top:.7rem;padding:.55rem .65rem;border-left:3px solid var(--ppt-yellow);background:#fff8dc}.transportDecision b{display:block;margin-bottom:.2rem;color:var(--ppt-ink);font-size:.68rem}.transportDecision span{display:block;color:#385269;font-size:.68rem;line-height:1.5}
+.transportPhotoPair{display:grid;grid-template-columns:1fr;gap:.7rem;padding:.85rem;background:#eef3f7}
+.transportPhotoPair figure{min-width:0;margin:0;border:1px solid #c9d8e5;background:#fff;overflow:hidden}
+.transportPhotoPair img{display:block;width:100%;height:auto;max-height:18rem;object-fit:contain;background:#f4f7f9}
+.transportPhotoPair figcaption{padding:.5rem .6rem;border-top:1px solid #d9e4ed;background:#fff;color:#385269;font-size:.64rem;line-height:1.4}
 .marketDetailGrid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--ppt-line)}
 .marketDetailBlock{min-width:0}
 .marketTableCaveat{margin:-.25rem 0 .55rem;color:var(--ppt-muted);font-size:.68rem;line-height:1.5}
@@ -317,7 +320,7 @@
   .purchaseLogic li:nth-child(odd){border-right:1px solid #e3eaf1}
   .transportRows{grid-template-columns:1fr 1fr;gap:1rem}
   .decisionNarrative{grid-template-columns:repeat(3,minmax(0,1fr))}.decisionNarrative article{border-right:1px solid #dce6ef;border-bottom:0}.decisionNarrative article:last-child{border-right:0}
-  .transportStory{grid-template-columns:minmax(16rem,.75fr) minmax(0,1.25fr)}
+  .transportStoryGrid{grid-template-columns:minmax(17rem,.72fr) minmax(0,1.28fr)}.transportPhotoPair{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:start}.transportPhotoPair img{height:16rem;max-height:none}
   .scenarioBandMain{grid-template-columns:minmax(0,1.08fr) minmax(19rem,.92fr);gap:1rem}
   .scenarioPhotoGrid.photoCount-2{grid-template-columns:repeat(2,minmax(0,1fr))}
   .scenarioPhotoGrid.photoCount-3,.scenarioPhotoGrid.photoCount-6{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -356,7 +359,7 @@
   .configRow{grid-template-columns:minmax(7rem,.8fr) minmax(0,1fr)}.configRow span:nth-child(3){grid-column:1/-1;padding-left:0}
   .roadmapRow{grid-template-columns:3rem minmax(0,1fr)}.roadmapAction,.roadmapValidation{grid-column:2/-1}
   .overviewDecisionRow{grid-template-columns:1fr}.overviewDecisionRow p{grid-column:1/-1}
-  .decisionRowBody>div{grid-template-columns:1fr}.transportPhotoPair img{height:9rem}
+  .decisionRowBody>div{grid-template-columns:1fr}.transportStoryHeader{display:block}.transportStoryHeader .sourceBadge{margin-top:.45rem}.transportPhotoPair img{height:auto;max-height:17rem}
   .marketStructurePanel{min-height:0}.concentrationRow{grid-template-columns:6rem minmax(0,1fr) 3rem;gap:.45rem}.rankSnapshots{gap:.45rem}
   .benchmarkBand ul{grid-template-columns:1fr}.cycleBars{height:10.5rem;gap:.3rem}.cycleBar b{font-size:.62rem}.tonnagePriorityHeader{display:block}.tonnagePriorityHeader span{display:block;margin-top:.25rem}
   .sourceDataHeading{grid-template-columns:1fr;gap:.3rem;align-items:start}
