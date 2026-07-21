@@ -110,6 +110,14 @@ class PptIntegrationDemoTests(unittest.TestCase):
         self.assertIn("expanded.fieldGroups", script)
         self.assertIn("scenarioAssessments", expanded)
         self.assertIn("competitionDimensions", expanded)
+        self.assertIn("scenarioSequence", script)
+        self.assertIn("scenarioImageCaptions", script)
+        self.assertNotIn("scenarioTabs", script)
+        scenario_assets = {
+            name
+            for name in __import__("re").findall(r"s0(?:49|50|52|53|54|55|56|57|58)-photo-\d{2}\.jpg", script)
+        }
+        self.assertEqual(24, len(scenario_assets))
         tables = {
             table["id"]
             for slide in visuals["slides"]

@@ -66,7 +66,7 @@ async function assertPage(page, label, language, route) {
     await desktop.goto(new URL("index.html", base).href, { waitUntil: "networkidle" });
     if ((await desktop.locator("#page-nav a").count()) !== 17 || (await desktop.locator("[data-ppt-nav]").count()) !== 5 || (await desktop.locator(".navPptLink,.navCategoryLink").count()) !== 0) throw new Error("Integrated page must expose the five integrated analysis sections as first-level navigation");
     if ((await desktop.locator(".conditionBlock").count()) !== 6) throw new Error("Formal six-condition content changed");
-    if ((await desktop.locator(".scenarioTabs button").count()) !== 8) throw new Error("Expected eight application tabs");
+    if ((await desktop.locator(".scenarioBand").count()) !== 8) throw new Error("Expected eight directly displayed job applications");
     if ((await desktop.locator(".comparisonMatrix tbody tr").count()) < 9) throw new Error("Paper comparison is incomplete");
     if ((await desktop.locator(".fieldMatrix tbody tr").count()) !== 11) throw new Error("Field evaluation is incomplete");
     if ((await desktop.locator(".roadmapRow").count()) !== 8) throw new Error("Roadmap is incomplete");
@@ -76,26 +76,37 @@ async function assertPage(page, label, language, route) {
     if ((await desktop.locator("#ppt-market .marketNarrative article").count()) !== 3) throw new Error("Market interpretation is incomplete");
     if ((await desktop.locator("#ppt-market .transportPhotoPair img").count()) !== 2) throw new Error("Transport field photography is incomplete");
     if ((await desktop.locator("#ppt-paper .paperInsightGrid article").count()) !== 4) throw new Error("Specification conclusions are incomplete");
+    if ((await desktop.locator("#ppt-paper .dataConflictBlock tbody tr").count()) !== 4) throw new Error("Current-versus-historical data reconciliation is incomplete");
     if ((await desktop.locator("#ppt-field .fieldThemeGrid article").count()) !== 5) throw new Error("Field-evaluation themes are incomplete");
     if ((await desktop.locator("#ppt-actions .actionPhaseGrid article").count()) !== 3) throw new Error("Improvement phases are incomplete");
-    const firstTitle = await desktop.locator(".scenarioStage h3").innerText();
-    if ((await desktop.locator(".scenarioStage .scenarioGallery img").count()) < 2) throw new Error("The active application lacks field photography");
-    if ((await desktop.locator(".scenarioStage .scenarioEngineering article").count()) !== 3) throw new Error("The active application lacks parameter, equipment and action analysis");
-    if ((await desktop.locator(".scenarioStage .scenarioAssessment tbody tr").count()) !== 4) throw new Error("The active application lacks direct requirement-to-action analysis");
+    const scenarioImages = desktop.locator(".scenarioBand .scenarioPhotoGrid img");
+    if ((await scenarioImages.count()) !== 24 || (await desktop.locator(".scenarioBand .scenarioPhotoGrid figcaption").count()) !== 24) throw new Error("All 24 unique field photos must be displayed with captions");
+    for (let index = 0; index < 24; index += 1) await scenarioImages.nth(index).scrollIntoViewIfNeeded();
+    await desktop.waitForFunction(() => [...document.querySelectorAll(".scenarioBand .scenarioPhotoGrid img")].every((image) => image.complete && image.naturalWidth > 0));
+    const imageAudit = await scenarioImages.evaluateAll((images) => ({
+      unique: new Set(images.map((image) => image.getAttribute("src"))).size,
+      loaded: images.every((image) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0),
+      sized: images.every((image) => { const rect = image.getBoundingClientRect(); return rect.width > 0 && rect.height > 0 && Math.abs(rect.width / rect.height - 16 / 9) < 0.08; }),
+    }));
+    if (imageAudit.unique !== 24 || !imageAudit.loaded || !imageAudit.sized) throw new Error(`Scenario image audit failed: ${JSON.stringify(imageAudit)}`);
+    if ((await desktop.locator(".scenarioBand .scenarioEngineering article").count()) !== 24) throw new Error("Every application must include parameter, equipment and action analysis");
+    if ((await desktop.locator(".scenarioBand .scenarioAssessment tbody tr").count()) !== 32) throw new Error("Every application must include direct requirement-to-action analysis");
+    if ((await desktop.locator(".scenarioConditionLinks a").count()) < 16) throw new Error("Applications are not linked to the existing quantified conditions");
     if ((await desktop.locator("#ppt-paper .sourceDataGroup").count()) !== 3 || (await desktop.locator("#ppt-paper .sourceDataGroup tbody tr").count()) !== 38) throw new Error("Complete specification and equipment tables are missing");
     if ((await desktop.locator("#ppt-field .sourceDataGroup").count()) !== 5 || (await desktop.locator("#ppt-field .sourceDataGroup tbody tr").count()) !== 68) throw new Error("Complete historical field-evaluation tables are missing");
     if ((await desktop.locator(".competitionGapMatrix tbody tr").count()) !== 9 || (await desktop.locator(".positioningScroll tbody tr").count()) !== 6) throw new Error("Concrete competitive-gap or positioning analysis is incomplete");
-    await desktop.locator(".scenarioTabs button").nth(7).click();
-    const lastTitle = await desktop.locator(".scenarioStage h3").innerText();
-    if (firstTitle === lastTitle) throw new Error("Scenario tabs do not update the workspace");
-    if ((await desktop.locator(".scenarioStage .scenarioGallery img").count()) !== 3) throw new Error("Scenario photography did not update with the selected application");
     await desktop.locator("#ppt-market").scrollIntoViewIfNeeded();
     await desktop.screenshot({ path: path.join(artifactDir, "desktop-integrated-3-4t.png"), fullPage: false });
+    await desktop.locator(".scenarioBandHeader").first().scrollIntoViewIfNeeded();
+    await desktop.waitForTimeout(500);
+    await desktop.screenshot({ path: path.join(artifactDir, "desktop-integrated-scenarios.png"), fullPage: false });
     await desktop.close();
 
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
     await mobile.goto(new URL("index.html", base).href, { waitUntil: "networkidle" });
-    await mobile.locator("#ppt-scenarios").scrollIntoViewIfNeeded();
+    await mobile.locator(".scenarioBandHeader").first().scrollIntoViewIfNeeded();
+    await mobile.waitForFunction(() => [...document.querySelectorAll(".scenarioBand:first-of-type img")].every((image) => image.complete && image.naturalWidth > 0));
+    await mobile.waitForTimeout(500);
     await mobile.screenshot({ path: path.join(artifactDir, "mobile-integrated-3-4t.png"), fullPage: false });
     await mobile.close();
 
