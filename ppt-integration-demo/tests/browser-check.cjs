@@ -99,9 +99,10 @@ async function assertPage(page, label, language, route) {
     const imageAudit = await scenarioImages.evaluateAll((images) => ({
       unique: new Set(images.map((image) => image.getAttribute("src"))).size,
       loaded: images.every((image) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0),
-      sized: images.every((image) => { const rect = image.getBoundingClientRect(); return rect.width > 0 && rect.height > 0 && Math.abs(rect.width / rect.height - 16 / 9) < 0.08; }),
+      sized: images.every((image) => { const rect = image.getBoundingClientRect(); return rect.width > 0 && rect.height > 0; }),
+      uncropped: images.every((image) => getComputedStyle(image).objectFit === "contain"),
     }));
-    if (imageAudit.unique !== 24 || !imageAudit.loaded || !imageAudit.sized) throw new Error(`Scenario image audit failed: ${JSON.stringify(imageAudit)}`);
+    if (imageAudit.unique !== 24 || !imageAudit.loaded || !imageAudit.sized || !imageAudit.uncropped) throw new Error(`Scenario image audit failed: ${JSON.stringify(imageAudit)}`);
     if ((await desktop.locator(".scenarioBand .scenarioEngineering article").count()) !== 24) throw new Error("Every application must include parameter, equipment and action analysis");
     if ((await desktop.locator(".scenarioBand .scenarioAssessment tbody tr").count()) !== 32) throw new Error("Every application must include direct requirement-to-action analysis");
     if ((await desktop.locator(".scenarioConditionLinks a").count()) < 16) throw new Error("Applications are not linked to the existing quantified conditions");

@@ -98,7 +98,7 @@
 .scenarioBandMain{display:grid;grid-template-columns:1fr;gap:.85rem;align-items:start}
 .scenarioPhotoGrid{display:grid;grid-template-columns:1fr;gap:.55rem;min-width:0}
 .scenarioPhotoGrid figure{min-width:0;margin:0;border:1px solid var(--ppt-line);background:#fff;overflow:hidden}
-.scenarioPhotoGrid img{display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:cover;object-position:center}
+.scenarioPhotoGrid img{display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:contain;object-position:center;background:#eef3f7}
 .scenarioPhotoGrid figcaption{min-height:2.35rem;padding:.42rem .5rem;background:#f4f8fb;color:#2f4b63;font-size:.66rem;font-weight:700;line-height:1.4}
 .scenarioBody{min-width:0;padding:0}
 .scenarioStatus{display:inline-flex;align-items:center;min-height:1.65rem;padding:.2rem .48rem;border-radius:2px;font-size:.68rem;font-weight:900;white-space:nowrap}
@@ -323,6 +323,8 @@
   .transportStoryGrid{grid-template-columns:minmax(17rem,.72fr) minmax(0,1.28fr)}.transportPhotoPair{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:start}.transportPhotoPair img{height:16rem;max-height:none}
   .scenarioBandMain{grid-template-columns:minmax(0,1.08fr) minmax(19rem,.92fr);gap:1rem}
   .scenarioPhotoGrid.photoCount-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  [data-scenario-id="scenario-transport"] .scenarioPhotoGrid.photoCount-2{grid-template-columns:minmax(0,1.46fr) minmax(0,1fr);align-items:start}
+  [data-scenario-id="scenario-transport"] .scenarioPhotoGrid img{aspect-ratio:auto}
   .scenarioPhotoGrid.photoCount-3,.scenarioPhotoGrid.photoCount-6{grid-template-columns:repeat(3,minmax(0,1fr))}
   .scenarioFacts{grid-template-columns:1fr 1fr;column-gap:1rem}
   .scenarioEngineering{grid-template-columns:repeat(3,minmax(0,1fr))}.scenarioEngineering article{border-right:1px solid #dbe5ee;border-bottom:0}.scenarioEngineering article:last-child{border-right:0}
