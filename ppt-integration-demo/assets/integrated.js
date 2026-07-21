@@ -298,6 +298,47 @@
     return output;
   }
 
+  function trimSentence(value) {
+    return String(value || '').trim().replace(/[。；，、.!?;,:\s]+$/u, '');
+  }
+
+  function statementFromItems(items, separator) {
+    const values = (items || []).map((item) => trimSentence(item)).filter(Boolean);
+    if (!values.length) return '';
+    const joiner = separator || (language === 'en' ? '; ' : '；');
+    return `${values.join(joiner)}${language === 'en' ? '.' : '。'}`;
+  }
+
+  function workflowFromItems(items) {
+    const values = (items || []).map((item) => trimSentence(item)).filter(Boolean);
+    if (!values.length) return '';
+    if (values.length === 1) return `${values[0]}${language === 'en' ? '.' : '。'}`;
+    const first = values[0];
+    const last = values[values.length - 1];
+    const middle = values.slice(1, -1);
+    if (language === 'en') {
+      const middleText = middle.length ? `; then ${middle.join('; ')}` : '';
+      return `First, ${first}${middleText}; finally, ${last}.`;
+    }
+    const middleText = middle.length ? `，随后依次完成${middle.join('、')}` : '';
+    return `作业通常先进行${first}${middleText}，最后${last}。`;
+  }
+
+  function workObjectNarrative(items) {
+    const values = (items || []).map((item) => trimSentence(item)).filter(Boolean);
+    if (!values.length) return '';
+    if (language === 'en') return `The primary work scope covers ${values.map((item) => item.charAt(0).toLowerCase() + item.slice(1)).join(', ')}.`;
+    return `主要作业对象包括${values.join('、')}。`;
+  }
+
+  function historicalNarrative(items) {
+    return (items || []).map((item) => {
+      const value = narrative(item).trim();
+      if (!value) return '';
+      return /[。.!?]$/u.test(value) ? value : `${value}${language === 'en' ? '.' : '。'}`;
+    }).filter(Boolean).join(language === 'en' ? ' ' : '');
+  }
+
   function escapeHtml(value) {
     return String(value == null ? '' : value)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -675,16 +716,16 @@
           <div class="scenarioBody">
             <dl class="scenarioFacts">
               <div class="scenarioFact"><dt>${escapeHtml(copy.customer)}</dt><dd>${escapeHtml(text(record.customer))}</dd></div>
-              <div class="scenarioFact"><dt>${escapeHtml(copy.needs)}</dt><dd><ul>${needs.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></dd></div>
-              <div class="scenarioFact"><dt>${escapeHtml(copy.steps)}</dt><dd><ol>${steps.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ol></dd></div>
+              <div class="scenarioFact"><dt>${escapeHtml(copy.needs)}</dt><dd><p class="scenarioNarrative">${escapeHtml(statementFromItems(needs))}</p></dd></div>
+              <div class="scenarioFact"><dt>${escapeHtml(copy.steps)}</dt><dd><p class="scenarioNarrative">${escapeHtml(workflowFromItems(steps))}</p></dd></div>
               <div class="scenarioFact"><dt>${escapeHtml(copy.finding)}</dt><dd class="scenarioFinding">${escapeHtml(narrative(record.conclusion))}</dd></div>
             </dl>
           </div>
         </div>
         <div class="scenarioSourceContext">
-          <section><h4>${escapeHtml(copy.workObjects)}</h4><ul>${workObjects.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>
-          <section><h4>${escapeHtml(copy.operatingCharacteristics)}</h4><ul>${operatingCharacteristics.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>
-          <section class="historicalAssessment"><div><h4>${escapeHtml(copy.historicalAssessment)}</h4><p>${escapeHtml(copy.historicalAssessmentNote)}</p></div><ol>${historicalAssessment.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ol></section>
+          <section class="workObjects"><h4>${escapeHtml(copy.workObjects)}</h4><p class="scenarioNarrative" data-item-count="${workObjects.length}">${escapeHtml(workObjectNarrative(workObjects))}</p></section>
+          <section class="operatingCharacteristics"><h4>${escapeHtml(copy.operatingCharacteristics)}</h4><p class="scenarioNarrative" data-item-count="${operatingCharacteristics.length}">${escapeHtml(statementFromItems(operatingCharacteristics))}</p></section>
+          <section class="historicalAssessment"><div><h4>${escapeHtml(copy.historicalAssessment)}</h4><p>${escapeHtml(copy.historicalAssessmentNote)}</p></div><p class="scenarioNarrative historicalNarrative" data-item-count="${historicalAssessment.length}">${escapeHtml(historicalNarrative(historicalAssessment))}</p></section>
         </div>
         <div class="scenarioEngineering">
           <article><span>${escapeHtml(copy.parameterImpact)}</span><p>${escapeHtml(text(engineering?.parameter))}</p></article>

@@ -105,7 +105,13 @@ async function assertPage(page, label, language, route) {
     if (imageAudit.unique !== 24 || !imageAudit.loaded || !imageAudit.sized || !imageAudit.uncropped) throw new Error(`Scenario image audit failed: ${JSON.stringify(imageAudit)}`);
     if ((await desktop.locator(".scenarioBand .scenarioEngineering article").count()) !== 24) throw new Error("Every application must include parameter, equipment and action analysis");
     if ((await desktop.locator(".scenarioBand .scenarioSourceContext").count()) !== 8 || (await desktop.locator(".scenarioBand .scenarioSourceContext section").count()) !== 24) throw new Error("PPT-derived application context is incomplete");
-    if ((await desktop.locator(".scenarioBand .historicalAssessment li").count()) !== 42) throw new Error("Historical application-fit findings are incomplete");
+    if ((await desktop.locator(".scenarioFacts ul,.scenarioFacts ol,.scenarioSourceContext ul,.scenarioSourceContext ol").count()) !== 0) throw new Error("Scenario prose has regressed into fragmented lists");
+    const proseAudit = await desktop.locator(".scenarioBand .scenarioNarrative").evaluateAll((nodes) => ({
+      count: nodes.length,
+      historicalItems: nodes.filter((node) => node.classList.contains("historicalNarrative")).reduce((sum, node) => sum + Number(node.dataset.itemCount || 0), 0),
+      shortBlocks: nodes.filter((node) => (node.textContent || '').trim().length < 28).length,
+    }));
+    if (proseAudit.count !== 40 || proseAudit.historicalItems !== 42 || proseAudit.shortBlocks !== 0) throw new Error(`Scenario prose audit failed: ${JSON.stringify(proseAudit)}`);
     if ((await desktop.locator(".scenarioBand .scenarioAssessment tbody tr").count()) !== 32) throw new Error("Every application must include direct requirement-to-action analysis");
     if ((await desktop.locator(".scenarioConditionLinks a").count()) < 16) throw new Error("Applications are not linked to the existing quantified conditions");
     if ((await desktop.locator("#ppt-paper .sourceDataGroup").count()) !== 3 || (await desktop.locator("#ppt-paper .sourceDataGroup tbody tr").count()) !== 38) throw new Error("Complete specification and equipment tables are missing");
