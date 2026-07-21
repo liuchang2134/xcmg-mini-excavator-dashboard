@@ -33,8 +33,8 @@
       transportCaptionA: '轻型皮卡与14K拖车是该吨级常见转运组合', transportCaptionB: '竞品35G装车状态：整机与附件共同占用有效载荷',
       scenarioTitle: '真实作业场景', scenarioSubtitle: '把现场任务、客户要求和产品差距直接连接到现有量化工况。',
       customer: '主要客户', needs: '作业要求', steps: '任务链', finding: '当前判断', scenarioIndex: '八类场景快速对照', workObjects: '作业对象', operatingCharacteristics: '作业特点', historicalAssessment: '历史适应性判断', historicalAssessmentNote: '以下保留资料形成时的产品判断；历史方案和计划不代表当前量产状态。',
-      workCondition: '作业场景', keyFinding: '关键差距', status: '判断', parameterImpact: '关键参数差距', configurationImpact: '关键配置作用', engineeringAction: '产品动作',
-      scenarioRequirement: '客户任务', currentFit: '当前产品适配', productAction: '产品动作', covered: '已覆盖', mixed: '部分覆盖', linkedConditions: '关联量化工况',
+      workCondition: '作业场景', keyFinding: '关键差距', status: '工程判断', parameterImpact: '关键参数差距', configurationImpact: '关键配置作用', engineeringAction: '产品动作',
+      scenarioRequirement: '客户任务', currentFit: '当前产品适配', productAction: '验证与产品动作', covered: '已具备基础', mixed: '部分满足，仍有缺口', linkedConditions: '关联量化工况',
       paperTitle: '纸面竞争力复核', paperSubtitle: '把尺寸、作业能力、液压和属具配置放回具体应用中解释。',
       paperBoundary: '该矩阵补充现有Excel评分，不重复计分；不同版本数据冲突时，以当前机型实测和最新配置清单为准。',
       fullPaper: '关键参数对比矩阵', metric: '指标', findingColumn: '对工况的影响', configurationTitle: '关键配置差异',
@@ -44,7 +44,7 @@
       fieldTitle: '实机评价', fieldSubtitle: '将操控、舒适性、可靠性和维修性与纸面参数分开呈现。',
       fieldBoundary: '没有统一工况下的当前量化试验时，只标记优势、差距或待验证，不生成新分数。',
       fullField: '实机评价矩阵', dimension: '维度', conclusion: '工程判断', validation: '验证要求',
-      advantage: '优势', gap: '差距', pending: '待验证', missing: '未覆盖', fieldRead: '实机评价重点',
+      advantage: '优势', gap: '已识别具体差距', pending: '证据不足，需验证', missing: '未覆盖', fieldRead: '实机评价重点',
       completeFieldData: '历史实机评价明细', historicalRatingNote: '表内1-5级为历史样机评价，仅用于定位差异，不并入现有评分；当前量产机状态仍需按统一工况复测。',
       actionTitle: 'XCMG产品改进路径', actionSubtitle: '把市场、参数和实机差距转化为系统级工程任务。',
       actionBoundary: '以下为建议动作和验证任务，不代表已经立项、完成或承诺时间。',
@@ -87,8 +87,8 @@
       transportCaptionA: 'A light-duty pickup and 14K trailer are a common transport combination in this class', transportCaptionB: 'Competitor 35G loaded for transport: machine and equipment consume the same payload allowance',
       scenarioTitle: 'Real Job Applications', scenarioSubtitle: 'Connect field tasks and customer requirements directly to the existing quantified applications.',
       customer: 'Primary users', needs: 'Operating requirements', steps: 'Task sequence', finding: 'Current assessment', scenarioIndex: 'Eight-application comparison', workObjects: 'Work objects', operatingCharacteristics: 'Operating characteristics', historicalAssessment: 'Historical application-fit assessment', historicalAssessmentNote: 'The statements below retain the source-period product assessment. Historical proposals and plans do not represent current production status.',
-      workCondition: 'Application', keyFinding: 'Principal gap', status: 'Assessment', parameterImpact: 'Relevant specification gap', configurationImpact: 'Equipment effect', engineeringAction: 'Product action',
-      scenarioRequirement: 'Customer task', currentFit: 'Current product fit', productAction: 'Product action', covered: 'Covered', mixed: 'Partly covered', linkedConditions: 'Linked quantified applications',
+      workCondition: 'Application', keyFinding: 'Principal gap', status: 'Engineering assessment', parameterImpact: 'Relevant specification gap', configurationImpact: 'Equipment effect', engineeringAction: 'Product action',
+      scenarioRequirement: 'Customer task', currentFit: 'Current product fit', productAction: 'Validation and product action', covered: 'Baseline capability present', mixed: 'Partly met; gap remains', linkedConditions: 'Linked quantified applications',
       paperTitle: 'Paper Competitiveness Review', paperSubtitle: 'Interpret dimensions, working capability, hydraulics and equipment in the applications they affect.',
       paperBoundary: 'This matrix supplements the existing Excel score and is not scored again. Where versions conflict, use current-machine testing and the latest equipment list.',
       fullPaper: 'Key specification comparison', metric: 'Metric', findingColumn: 'Application effect', configurationTitle: 'Key equipment differences',
@@ -98,7 +98,7 @@
       fieldTitle: 'Field Evaluation', fieldSubtitle: 'Keep control, comfort, reliability and serviceability separate from paper specifications.',
       fieldBoundary: 'Where no current quantified common-condition test exists, use Advantage, Gap or Pending Validation rather than creating a score.',
       fullField: 'Field-evaluation matrix', dimension: 'Dimension', conclusion: 'Engineering assessment', validation: 'Validation requirement',
-      advantage: 'Advantage', gap: 'Gap', pending: 'Pending validation', missing: 'Not covered', fieldRead: 'Field-evaluation priorities',
+      advantage: 'Advantage', gap: 'Specific gap identified', pending: 'Evidence incomplete; validate', missing: 'Not covered', fieldRead: 'Field-evaluation priorities',
       completeFieldData: 'Historical field-evaluation detail', historicalRatingNote: 'The 1-5 ratings below are historical prototype evaluations used only to locate differences. They do not enter the existing score and require common-condition retesting on the current production machine.',
       actionTitle: 'XCMG Product Improvement Path', actionSubtitle: 'Translate market, specification and field gaps into system-level engineering work.',
       actionBoundary: 'The items below are recommendations and validation tasks, not evidence of approval, completion or committed timing.',
@@ -702,7 +702,7 @@
     const links = (scenarioConditionLinks[record.id] || []).map((item) => `<a href="#${escapeHtml(item.id)}">${escapeHtml(language === 'en' ? item.en : item.zh)}</a>`).join('');
     const assessments = (expanded.scenarioAssessments[record.id] || []).map((item) => {
       const statusKey = assessmentKey(item.status);
-      return `<tr><th scope="row" data-label="${escapeHtml(copy.scenarioRequirement)}">${escapeHtml(text(item.need))}</th><td data-label="${escapeHtml(copy.currentFit)}">${escapeHtml(text(item.current))}</td><td data-label="${escapeHtml(copy.status)}"><span class="scenarioStatus status-${statusKey}">${escapeHtml(assessmentLabel(item.status))}</span></td><td data-label="${escapeHtml(copy.productAction)}">${escapeHtml(text(item.action))}</td></tr>`;
+      return `<tr><th scope="row" data-label="${escapeHtml(copy.scenarioRequirement)}">${escapeHtml(text(item.need))}</th><td data-label="${escapeHtml(copy.status)}"><div class="assessmentJudgment"><span class="scenarioStatus status-${statusKey}">${escapeHtml(assessmentLabel(item.status))}</span><p>${escapeHtml(text(item.current))}</p></div></td><td data-label="${escapeHtml(copy.productAction)}">${escapeHtml(text(item.action))}</td></tr>`;
     }).join('');
     return `
       <article class="scenarioBand" id="job-${escapeHtml(record.id)}" data-scenario-id="${escapeHtml(record.id)}">
@@ -732,7 +732,7 @@
           <article><span>${escapeHtml(copy.configurationImpact)}</span><p>${escapeHtml(text(engineering?.configuration))}</p></article>
           <article><span>${escapeHtml(copy.engineeringAction)}</span><p>${escapeHtml(text(engineering?.action))}</p></article>
         </div>
-        <div class="scenarioAssessment"><table><caption class="srOnly">${escapeHtml(text(record.title))}</caption><thead><tr><th>${escapeHtml(copy.scenarioRequirement)}</th><th>${escapeHtml(copy.currentFit)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.productAction)}</th></tr></thead><tbody>${assessments}</tbody></table></div>
+        <div class="scenarioAssessment"><table><caption class="srOnly">${escapeHtml(text(record.title))}</caption><thead><tr><th>${escapeHtml(copy.scenarioRequirement)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.productAction)}</th></tr></thead><tbody>${assessments}</tbody></table></div>
       </article>`;
   }
 

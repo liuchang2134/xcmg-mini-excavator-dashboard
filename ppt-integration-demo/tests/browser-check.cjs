@@ -113,6 +113,12 @@ async function assertPage(page, label, language, route) {
     }));
     if (proseAudit.count !== 40 || proseAudit.historicalItems !== 42 || proseAudit.shortBlocks !== 0) throw new Error(`Scenario prose audit failed: ${JSON.stringify(proseAudit)}`);
     if ((await desktop.locator(".scenarioBand .scenarioAssessment tbody tr").count()) !== 32) throw new Error("Every application must include direct requirement-to-action analysis");
+    const judgmentAudit = await desktop.locator(".scenarioAssessment .assessmentJudgment").evaluateAll((nodes) => ({
+      count: nodes.length,
+      vagueOnly: nodes.filter((node) => !node.querySelector("p") || (node.querySelector("p").textContent || "").trim().length < 16).length,
+      standaloneLabels: nodes.filter((node) => (node.textContent || "").trim() === (node.querySelector(".scenarioStatus")?.textContent || "").trim()).length,
+    }));
+    if (judgmentAudit.count !== 32 || judgmentAudit.vagueOnly !== 0 || judgmentAudit.standaloneLabels !== 0) throw new Error(`Scenario engineering judgments are not explicit: ${JSON.stringify(judgmentAudit)}`);
     if ((await desktop.locator(".scenarioConditionLinks a").count()) < 16) throw new Error("Applications are not linked to the existing quantified conditions");
     if ((await desktop.locator("#ppt-paper .sourceDataGroup").count()) !== 3 || (await desktop.locator("#ppt-paper .sourceDataGroup tbody tr").count()) !== 38) throw new Error("Complete specification and equipment tables are missing");
     if ((await desktop.locator("#ppt-field .sourceDataGroup").count()) !== 5 || (await desktop.locator("#ppt-field .sourceDataGroup tbody tr").count()) !== 68) throw new Error("Complete historical field-evaluation tables are missing");

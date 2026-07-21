@@ -123,12 +123,14 @@
 .scenarioEngineering article:last-child{border-bottom:0}
 .scenarioEngineering span{display:block;margin-bottom:.25rem;color:var(--ppt-blue);font-size:.66rem;font-weight:900}
 .scenarioEngineering p{margin:0;color:#2e4b64;font-size:.73rem;line-height:1.5}
-.scenarioAssessment{max-width:100%;margin-top:.85rem;overflow-x:auto;border:1px solid var(--ppt-line);background:#fff}
-.scenarioAssessment table{width:100%;min-width:58rem;border-collapse:collapse;font-size:.72rem}
-.scenarioAssessment th,.scenarioAssessment td{padding:.55rem .6rem;border:1px solid #d8e3ed;text-align:left;vertical-align:top;line-height:1.5}
+.scenarioAssessment{box-sizing:border-box;width:100%;max-width:100%;margin-top:.85rem;overflow-x:auto;border:1px solid var(--ppt-line);background:#fff}
+.scenarioAssessment table{width:100%;min-width:52rem;border-collapse:collapse;font-size:.72rem}
+.scenarioAssessment th,.scenarioAssessment td{padding:.55rem .6rem;border:1px solid #d8e3ed;text-align:left;vertical-align:top;line-height:1.5;white-space:normal}
 .scenarioAssessment thead th{background:var(--ppt-blue);color:#fff}
-.scenarioAssessment tbody th{width:17%;color:var(--ppt-ink);background:#f7fafc}
-.scenarioAssessment tbody td:nth-child(2){width:33%}.scenarioAssessment tbody td:nth-child(3){width:10%}.scenarioAssessment tbody td:nth-child(4){width:30%}
+.scenarioAssessment tbody th{width:19%;color:var(--ppt-ink);background:#f7fafc}
+.scenarioAssessment tbody td:nth-child(2){width:47%}.scenarioAssessment tbody td:nth-child(3){width:34%}
+.assessmentJudgment{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:start;min-width:0;gap:.5rem;white-space:normal}
+.assessmentJudgment p{min-width:0;margin:.05rem 0 0;color:#223f58;line-height:1.58;white-space:normal;overflow-wrap:anywhere}
 .comparisonMatrix{overflow-x:auto;max-width:100%;border:1px solid var(--ppt-line)}
 .comparisonMatrix table{width:100%;min-width:62rem;border-collapse:collapse;font-size:.72rem}
 .comparisonMatrix th{position:sticky;top:0;background:var(--ppt-blue);color:#fff;text-align:left;z-index:1}
@@ -370,7 +372,7 @@
   .sourceDataHeading{grid-template-columns:1fr;gap:.3rem;align-items:start}
   .sourceDataScroll table{font-size:.66rem}.sourceDataScroll th,.sourceDataScroll td{padding:.38rem .42rem}
   .marketDetailGrid{gap:.8rem}.marketDetailBlock{min-width:0}
-  .scenarioAssessment{margin-top:0;padding:.55rem;background:#f4f8fb;overflow:visible}.scenarioAssessment table{display:block;min-width:0;font-size:.7rem}.scenarioAssessment thead{display:none}.scenarioAssessment tbody{display:grid;gap:.55rem}.scenarioAssessment tr{display:grid;padding:.55rem .6rem;border-left:4px solid var(--ppt-blue);background:#fff}.scenarioAssessment th,.scenarioAssessment td,.scenarioAssessment tbody th,.scenarioAssessment tbody td:nth-child(n){display:block;width:auto;padding:.35rem 0;border:0;background:transparent}.scenarioAssessment th:before,.scenarioAssessment td:before{content:attr(data-label);display:block;margin-bottom:.16rem;color:var(--ppt-blue);font-size:.61rem;font-weight:900;text-transform:uppercase}.scenarioAssessment td+td{border-top:1px solid #e0e8ef}
+  .scenarioAssessment{margin-top:0;padding:.55rem;background:#f4f8fb;overflow:visible}.scenarioAssessment table{display:block;width:100%;min-width:0;font-size:.7rem}.scenarioAssessment thead{display:none}.scenarioAssessment tbody{display:grid;width:100%;gap:.55rem}.scenarioAssessment tr{box-sizing:border-box;display:grid;width:100%;min-width:0;padding:.55rem .6rem;border-left:4px solid var(--ppt-blue);background:#fff}.scenarioAssessment th,.scenarioAssessment td,.scenarioAssessment tbody th,.scenarioAssessment tbody td:nth-child(n){display:block;width:auto;min-width:0;padding:.35rem 0;border:0;background:transparent;overflow-wrap:anywhere}.scenarioAssessment th:before,.scenarioAssessment td:before{content:attr(data-label);display:block;margin-bottom:.16rem;color:var(--ppt-blue);font-size:.61rem;font-weight:900;text-transform:uppercase}.scenarioAssessment td+td{border-top:1px solid #e0e8ef}.assessmentJudgment{grid-template-columns:1fr;gap:.3rem}.assessmentJudgment .scenarioStatus{justify-self:start}.assessmentJudgment p{margin:0;line-height:1.65}
   .competitionGapMatrix table{font-size:.68rem}
   .evidenceVisual{padding:.65rem}.evidenceVisual>header{display:block}.evidenceVisual>header .sourceBadge{margin-top:.45rem}
   .sourceDataMeta{display:block}.sourceDataMeta .sourceBadge{margin-top:.35rem}
