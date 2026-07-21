@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "id": "ppt-source-visuals-3-4t",
+    "tonnage": "3-4t",
+    "model": "XCMG XE35U",
+    "classification": "XCMG ARC INTERNAL",
+    "source_file": "XCMG_北美挖机产品线洞察_11.14_源文件.pptx",
+    "source_slides": [48, 49, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 236],
+    "status_note": {
+      "zh": "全部数值来自源文件。预测、历史评价和历史计划不代表当前市场结果或量产状态。",
+      "en": "All values come from the source presentation. Forecasts, historical evaluations and historical plans do not represent current market results or production status."
+    }
+  },
+  "market": {
+    "annual_brand_sales": {
+      "title": {"zh": "3-4吨品牌销量结构", "en": "3-4 t brand volume mix"},
+      "subtitle": {"zh": "单位：台；2025为源文件估计，2026为源文件预测", "en": "Units; 2025 is a source estimate and 2026 is a source forecast"},
+      "source_slide": 48,
+      "source_type": "EDA融资购买新车数据",
+      "as_of_date": "2023-2026 source series",
+      "years": [
+        {"year": "2023", "status": "historical", "total": 6663},
+        {"year": "2024", "status": "historical", "total": 6107},
+        {"year": "2025", "status": "source_estimate", "total": 6495},
+        {"year": "2026", "status": "source_forecast", "total": 6625}
+      ],
+      "series": [
+        {"brand": "KUBOTA", "values": [2274, 2138, 1819, 1800], "color": "#174f82"},
+        {"brand": "BOBCAT", "values": [1886, 1775, 1765, 1750], "color": "#4c7fae"},
+        {"brand": "DEERE", "values": [1539, 1438, 1886, 2000], "color": "#829bb2"},
+        {"brand": "CAT", "values": [935, 723, 975, 1000], "color": "#0f7b45"},
+        {"brand": "XCMG", "values": [29, 33, 50, 75], "color": "#f5b400"}
+      ]
+    },
+    "model_demand_2025": {
+      "title": {"zh": "2025年主销机型热度", "en": "Leading model volume in 2025"},
+      "subtitle": {"zh": "源文件机型销量；仅反映该历史数据口径", "en": "Source model volume; valid only for this historical data basis"},
+      "source_slide": 48,
+      "source_type": "EDA融资购买新车数据",
+      "as_of_date": "2025 source estimate",
+      "models": [
+        {"model": "35P", "brand": "DEERE", "units": 1616},
+        {"model": "E35", "brand": "BOBCAT", "units": 1317},
+        {"model": "U35", "brand": "KUBOTA", "units": 812},
+        {"model": "303.5 CR", "brand": "CAT", "units": 737},
+        {"model": "KX033", "brand": "KUBOTA", "units": 722},
+        {"model": "SY35U", "brand": "SANY", "units": 310},
+        {"model": "KX030", "brand": "KUBOTA", "units": 285},
+        {"model": "TB235", "brand": "TAKEUCHI", "units": 261},
+        {"model": "VIO35", "brand": "YANMAR", "units": 255},
+        {"model": "303 CR", "brand": "CAT", "units": 235}
+      ]
+    },
+    "brand_position_2025": {
+      "title": {"zh": "历史价格—份额位置", "en": "Historical price-share position"},
+      "subtitle": {"zh": "横轴为源文件单价，纵轴为份额，气泡大小为源文件销量口径", "en": "Source price on the x-axis, share on the y-axis and source volume as bubble size"},
+      "source_slide": 48,
+      "source_type": "EDA融资购买新车数据",
+      "as_of_date": "2025 source estimate",
+      "points": [
+        {"brand": "DEERE", "price_usd": 73000, "share_pct": 21.7682, "volume": 13767.8},
+        {"brand": "KUBOTA", "price_usd": 60000, "share_pct": 20.9949, "volume": 10914},
+        {"brand": "BOBCAT", "price_usd": 60000, "share_pct": 20.3717, "volume": 10590},
+        {"brand": "CAT", "price_usd": 65000, "share_pct": 11.2535, "volume": 6337.5},
+        {"brand": "SANY", "price_usd": 57000, "share_pct": 3.578, "volume": 1767},
+        {"brand": "XCMG", "price_usd": 54000, "share_pct": 0.5771, "volume": 270}
+      ]
+    }
+  },
+  "transport": {
+    "title": {"zh": "运输重量构成", "en": "Transport mass build-up"},
+    "subtitle": {"zh": "基础机与常用附件逐项核算，避免只比较裸机重量", "en": "Base machine and common attachments are itemized rather than comparing bare-machine mass only"},
+    "source_slide": 49,
+    "source_type": "历史产品适应性分析",
+    "as_of_date": "PPT 11.14 version; current product status unverified",
+    "packages": [
+      {
+        "id": "xe35u-current",
+        "label": {"zh": "XE35U现款（源文件口径）", "en": "Current XE35U (source basis)"},
+        "status": "historical_assessment",
+        "components": [
+          {"id": "base", "label": {"zh": "基础机", "en": "Base machine"}, "kg": 4200},
+          {"id": "counterweight", "label": {"zh": "副配重", "en": "Counterweight"}, "kg": 200},
+          {"id": "coupler-thumb", "label": {"zh": "快换+拇指钳", "en": "Coupler + thumb"}, "kg": 80},
+          {"id": "standard-bucket", "label": {"zh": "标准斗", "en": "Standard bucket"}, "kg": 99}
+        ],
+        "equipped_total_kg": 4579
+      },
+      {
+        "id": "xe35u-pro-historical",
+        "label": {"zh": "XE35U PRO历史方案", "en": "Historical XE35U PRO proposal"},
+        "status": "historical_plan_unverified",
+        "components": [
+          {"id": "base", "label": {"zh": "基础机", "en": "Base machine"}, "kg": 3800},
+          {"id": "counterweight", "label": {"zh": "副配重", "en": "Counterweight"}, "kg": 200},
+          {"id": "coupler-thumb", "label": {"zh": "快换+拇指钳", "en": "Coupler + thumb"}, "kg": 80},
+          {"id": "standard-bucket", "label": {"zh": "标准斗", "en": "Standard bucket"}, "kg": 99}
+        ],
+        "equipped_total_kg": 4179
+      }
+    ],
+    "additional_attachments": [
+      {"label": {"zh": "12英寸挖沟斗", "en": "12-inch trench bucket"}, "kg": 60},
+      {"label": {"zh": "48英寸清理斗", "en": "48-inch cleanup bucket"}, "kg": 158}
+    ]
+  },
+  "performance": {
+    "title": {"zh": "核心性能实值对比", "en": "Core performance value comparison"},
+    "subtitle": {"zh": "不同单位分面展示；条形长度在每项指标内独立归一化", "en": "Measures are faceted by unit; bar lengths are normalized within each metric"},
+    "source_slide": 61,
+    "source_type": "历史规格对比",
+    "as_of_date": "PPT 11.14 version; current configurations unverified",
+    "models": ["XE35U", "U35-4", "KX033-4", "KX030-4", "SY35U"],
+    "metrics": [
+      {"id": "arm-force", "label": {"zh": "斗杆挖掘力", "en": "Arm digging force"}, "unit": "kN", "values": [20.3, 19.8, 17.2, 15.5, 18.3], "direction": "higher"},
+      {"id": "bucket-force", "label": {"zh": "铲斗挖掘力", "en": "Bucket digging force"}, "unit": "kN", "values": [28.6, 35.2, 36.2, 30.8, 28.4], "direction": "higher"},
+      {"id": "ground-lift", "label": {"zh": "地面3m起吊力", "en": "Ground-level lift at 3 m"}, "unit": "kg", "values": [1145, null, 973, null, 727], "direction": "higher", "basis": {"zh": "XE35U及SY35U为抬起推土铲口径", "en": "XE35U and SY35U values use the blade-raised basis"}},
+      {"id": "traction", "label": {"zh": "行驶牵引力", "en": "Travel traction force"}, "unit": "kN", "values": [31.6, 27, 27.1, 32.6, 36.8], "direction": "higher"},
+      {"id": "pump-flow", "label": {"zh": "主泵流量", "en": "Main-pump flow"}, "unit": "L/min", "values": [108, 100, 100, 81, 88], "direction": "higher"},
+      {"id": "travel-speed", "label": {"zh": "高速行驶速度", "en": "High travel speed"}, "unit": "km/h", "values": [3.6, 4.6, 4.6, 4.3, 4.4], "direction": "higher"},
+      {"id": "swing-speed", "label": {"zh": "回转速度", "en": "Swing speed"}, "unit": "r/min", "values": [9, 8.9, 8.9, 9.2, 9], "direction": "higher"},
+      {"id": "aux1-flow", "label": {"zh": "AUX1最大流量", "en": "Maximum AUX1 flow"}, "unit": "L/min", "values": [40, 60, 60, 49.5, 70], "direction": "higher"}
+    ]
+  },
+  "field_rating_heatmap": {
+    "title": {"zh": "历史实机评价热力矩阵", "en": "Historical field-evaluation heatmap"},
+    "subtitle": {"zh": "1–5级为历史样机评价，只用于定位差异，不并入现有评分", "en": "Historical 1–5 prototype ratings locate differences only and do not enter current scores"},
+    "source_slide": [63, 64, 65, 66],
+    "source_type": "历史内部实机评价",
+    "as_of_date": "PPT 11.14 version; current production-machine validation required",
+    "models": ["XE35U", "KX033-4", "U35-4"],
+    "rows": [
+      {"group": {"zh": "可靠性", "en": "Reliability"}, "metric": {"zh": "紧固件防锈性", "en": "Fastener corrosion protection"}, "ratings": [4, 5, 5], "source_slide": 63},
+      {"group": {"zh": "可靠性", "en": "Reliability"}, "metric": {"zh": "薄板件油漆耐久性", "en": "Sheet-metal coating durability"}, "ratings": [4, 5, 5], "source_slide": 63},
+      {"group": {"zh": "可靠性", "en": "Reliability"}, "metric": {"zh": "橡胶件耐久性", "en": "Rubber-component durability"}, "ratings": [4, 5, 5], "source_slide": 63},
+      {"group": {"zh": "操控性", "en": "Control"}, "metric": {"zh": "行走跑偏量", "en": "Travel deviation"}, "ratings": [4, 4, 4], "source_slide": 64},
+      {"group": {"zh": "操控性", "en": "Control"}, "metric": {"zh": "作业精准性", "en": "Work precision"}, "ratings": [3, 4, 4], "source_slide": 64},
+      {"group": {"zh": "操控性", "en": "Control"}, "metric": {"zh": "作业微动性", "en": "Fine-control capability"}, "ratings": [3, 4, 4], "source_slide": 64},
+      {"group": {"zh": "操控性", "en": "Control"}, "metric": {"zh": "作业平顺性", "en": "Operating smoothness"}, "ratings": [3, 4, 4], "source_slide": 64},
+      {"group": {"zh": "操控性", "en": "Control"}, "metric": {"zh": "平地操作协调性", "en": "Grading coordination"}, "ratings": [4, 3, 3], "source_slide": 64},
+      {"group": {"zh": "舒适性", "en": "Comfort"}, "metric": {"zh": "空调性能", "en": "HVAC performance"}, "ratings": [3, 4, 4], "source_slide": 65},
+      {"group": {"zh": "舒适性", "en": "Comfort"}, "metric": {"zh": "座椅舒适性", "en": "Seat comfort"}, "ratings": [3, 4, 4], "source_slide": 65},
+      {"group": {"zh": "舒适性", "en": "Comfort"}, "metric": {"zh": "交互界面友好性", "en": "HMI usability"}, "ratings": [3, 4, 4], "source_slide": 65},
+      {"group": {"zh": "舒适性", "en": "Comfort"}, "metric": {"zh": "操作件易识别性", "en": "Control identification"}, "ratings": [3, 4, 4], "source_slide": 65},
+      {"group": {"zh": "维修性", "en": "Serviceability"}, "metric": {"zh": "维修可达性", "en": "Service accessibility"}, "ratings": [4, 5, 5], "source_slide": 66},
+      {"group": {"zh": "经济性", "en": "Economy"}, "metric": {"zh": "使用经济性", "en": "Operating economy"}, "ratings": [4, 3, 3], "source_slide": 66},
+      {"group": {"zh": "细节品质", "en": "Detail quality"}, "metric": {"zh": "整机外观涂装", "en": "Machine coating quality"}, "ratings": [3, 5, 5], "source_slide": 66},
+      {"group": {"zh": "细节品质", "en": "Detail quality"}, "metric": {"zh": "液压管路布置", "en": "Hydraulic-line routing"}, "ratings": [4, 5, 5], "source_slide": 66},
+      {"group": {"zh": "资料", "en": "Documentation"}, "metric": {"zh": "售后文件齐全性", "en": "After-sales document completeness"}, "ratings": [4, 5, 5], "source_slide": 66},
+      {"group": {"zh": "资料", "en": "Documentation"}, "metric": {"zh": "售后文件易读性", "en": "After-sales document readability"}, "ratings": [4, 5, 5], "source_slide": 66}
+    ]
+  },
+  "competitiveness_profile": {
+    "title": {"zh": "历史竞争力维度画像", "en": "Historical competitiveness profile"},
+    "subtitle": {"zh": "源文件雷达图原值；当前量产状态需重新验证", "en": "Original source-presentation radar values; current production status requires revalidation"},
+    "source_slide": 67,
+    "source_type": "历史内部综合评价",
+    "as_of_date": "PPT 11.14 version",
+    "dimensions": [
+      {"zh": "整机参数", "en": "Machine specifications"},
+      {"zh": "性能配置", "en": "Performance and equipment"},
+      {"zh": "安全性", "en": "Safety"},
+      {"zh": "环境适应性", "en": "Environmental capability"},
+      {"zh": "操控性", "en": "Control"},
+      {"zh": "维修性", "en": "Serviceability"},
+      {"zh": "经济性", "en": "Economy"},
+      {"zh": "外观细节", "en": "Finish and details"},
+      {"zh": "软文资料", "en": "Documentation"}
+    ],
+    "series": [
+      {"model": "XE35U", "values": [4.5, 4.5, 5, 4.5, 4, 5, 5, 4, 4.5], "color": "#f5b400"},
+      {"model": "KX033-4", "values": [5, 5, 5, 5, 5, 5, 4, 5, 5], "color": "#005aa7"},
+      {"model": "U35-4", "values": [5, 5, 5, 5, 5, 5, 4, 5, 5], "color": "#829bb2"}
+    ]
+  },
+  "historical_positioning": {
+    "title": {"zh": "历史产品定位对照", "en": "Historical product-position comparison"},
+    "subtitle": {"zh": "此处使用源文件第68页口径，与第48页EDA样本不可合并", "en": "This uses the slide 68 basis and must not be merged with the slide 48 EDA sample"},
+    "source_slide": 68,
+    "source_type": "历史定位与目标",
+    "as_of_date": "2025 historical target context",
+    "rows": [
+      {"brand": "XCMG", "models": "XE35U", "price_usd": 54000, "share": "<1%", "historical_score": 44},
+      {"brand": "KUBOTA", "models": "KX030-4 / KX033-4 / U35-4", "price_usd": 60000, "share": "25.1%", "historical_score": 50},
+      {"brand": "BOBCAT", "models": "E32 / E35", "price_usd": 60000, "share": "19.0%", "historical_score": 48},
+      {"brand": "DEERE", "models": "30P / 35P", "price_usd": 73000, "share": "16.9%", "historical_score": 47},
+      {"brand": "CAT", "models": "303 CR / 303.5 CR", "price_usd": 65000, "share": "8.4%", "historical_score": 46},
+      {"brand": "SANY", "models": "SY35U", "price_usd": 57000, "share": "4.7%", "historical_score": 44}
+    ]
+  },
+  "historical_improvement_ledger": {
+    "title": {"zh": "XE35U历史问题与升级台账", "en": "Historical XE35U issue and upgrade ledger"},
+    "subtitle": {"zh": "源文件列出的13项历史计划；日期已到不代表已完成，当前状态必须逐项复核", "en": "Thirteen historical source plans; elapsed dates do not prove completion and every current status must be verified"},
+    "source_slide": 236,
+    "source_type": "历史产品竞争力提升计划",
+    "as_of_date": "Historical plan dates in 2025-2026",
+    "items": [
+      {"id": 1, "system": {"zh": "运输", "en": "Transport"}, "problem": {"zh": "整机偏重，运输经济性和灵活性不足", "en": "Machine mass limits transport economy and flexibility"}, "source_action": {"zh": "下一代标配机+快换+拇指钳+副配重+12英寸斗+48英寸清理斗控制在4.5吨以内", "en": "Keep the next-generation standard machine plus coupler, thumb, counterweight, 12-inch bucket and 48-inch cleanup bucket below 4.5 t"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 2, "system": {"zh": "推土铲", "en": "Blade"}, "problem": {"zh": "缺少四向推土铲和浮动功能，回填效率不足", "en": "No four-way blade or float function, reducing backfill productivity"}, "source_action": {"zh": "开发带浮动功能的四向推土铲，并把偏摆及高低速切换集成到推土铲手柄", "en": "Develop a four-way blade with float and integrate blade-angle and travel-speed controls into the blade lever"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 3, "system": {"zh": "底盘", "en": "Undercarriage"}, "problem": {"zh": "前后支重轮偏小，启停和加速时整车前后摇晃", "en": "Small front and rear track rollers contribute to fore-aft rocking during start, stop and acceleration"}, "source_action": {"zh": "下一代所有支重轮统一采用大支重轮", "en": "Use larger track rollers throughout on the next generation"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 4, "system": {"zh": "工作装置", "en": "Work equipment"}, "problem": {"zh": "铲斗挖掘力偏小", "en": "Bucket digging force is low"}, "source_action": {"zh": "下一代按U35基准优化铲斗挖掘力", "en": "Optimize next-generation bucket force against the U35 benchmark"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 5, "system": {"zh": "行走", "en": "Travel"}, "problem": {"zh": "行走速度偏慢", "en": "Travel speed is low"}, "source_action": {"zh": "按4.6 km/h竞品参考提升；源文件记录当时已提升至4.4 km/h", "en": "Use 4.6 km/h as the competitor reference; the source recorded 4.4 km/h at that time"}, "upgrade_date": "2026-02-28", "production_date": "2026-02-28"},
+      {"id": 6, "system": {"zh": "液压", "en": "Hydraulics"}, "problem": {"zh": "AUX1流量偏低", "en": "AUX1 flow is low"}, "source_action": {"zh": "备用管路由121206加粗至151508，目标流量58 L/min", "en": "Increase auxiliary-line size from 121206 to 151508 with a 58 L/min source target"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 7, "system": {"zh": "效率", "en": "Productivity"}, "problem": {"zh": "整机挖掘效率偏低", "en": "Overall digging productivity is low"}, "source_action": {"zh": "下一代对标久保田优化挖掘效率", "en": "Optimize next-generation digging productivity against Kubota"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 8, "system": {"zh": "回转", "en": "Swing"}, "problem": {"zh": "回转制动线性不足，制动冲击导致工作装置回摆", "en": "Poor swing-braking linearity causes implement rebound"}, "source_action": {"zh": "增加防反转阀", "en": "Add an anti-reverse valve"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 9, "system": {"zh": "维修", "en": "Service"}, "problem": {"zh": "缺少液压油独立加注口", "en": "No dedicated hydraulic-oil fill point"}, "source_action": {"zh": "将油箱空滤头改为旋拧式，打开后兼作独立加注口", "en": "Use a twist-open tank breather that also serves as a dedicated fill point"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 10, "system": {"zh": "驾驶室", "en": "Cab"}, "problem": {"zh": "驾驶室缺少手机支架", "en": "No phone holder in the cab"}, "source_action": {"zh": "增加靠近充电口的手机支架和充电口", "en": "Add a phone holder and charging point in close proximity"}, "upgrade_date": "2025-12-25", "production_date": "2026-06-15"},
+      {"id": 11, "system": {"zh": "驾驶室", "en": "Cab"}, "problem": {"zh": "侧门定位锁在门上，驾驶员在车内解锁关门不便", "en": "The door detent release is on the door and awkward to reach from the seat"}, "source_action": {"zh": "下一代把解锁拉手布置在驾驶室内部", "en": "Move the release handle inside the cab on the next generation"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 12, "system": {"zh": "HMI", "en": "HMI"}, "problem": {"zh": "现款屏幕偏小，交互友好性不足", "en": "The current display is small and the interface is less usable"}, "source_action": {"zh": "参考XE45U升级7英寸触摸屏", "en": "Adopt a 7-inch touchscreen using XE45U as the reference"}, "upgrade_date": "2025-10-15", "production_date": "2026-06-15"},
+      {"id": 13, "system": {"zh": "人机工程", "en": "Ergonomics"}, "problem": {"zh": "座椅至脚踏距离和扶手箱内档宽度偏小，大体型用户受限", "en": "Seat-to-pedal distance and console inside width constrain larger operators"}, "source_action": {"zh": "下一代扶手箱内档宽度由491 mm增至497 mm，与XE45U一致", "en": "Increase next-generation console inside width from 491 mm to 497 mm, matching XE45U"}, "upgrade_date": "2025-12-25", "production_date": "2026-06-15"}
+    ]
+  }
+}

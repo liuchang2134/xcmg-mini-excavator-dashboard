@@ -52,6 +52,16 @@
       positioningTitle: '历史价格与市场份额定位', positioningBrand: '品牌', positioningModels: '代表机型', positioningPrice: '历史参考价', positioningShare: '历史份额', positioningCaveat: '价格、份额和产品状态均为历史快照，只用于理解当时定位；对外使用前必须更新当前市场数据。',
       navMarket: '市场与客户', navScenarios: '真实作业场景', navPaper: '参数与配置', navField: '实机评价', navActions: '改进路线',
       phaseNow: '优先验证', phaseNext: '系统改进', phasePlatform: '平台规划', validationOutput: '应形成的验证输出',
+      sourcePpt: '研究资料', historicalBasis: '历史口径', currentUnverified: '当前状态待核验',
+      year: '年份', total: '合计', dataStatus: '数据属性', sourceEstimate: '源文件估计', sourceForecast: '源文件预测',
+      brandSalesTable: '品牌销量明细', modelDemandTitle: '主销机型排名', priceShareTitle: '价格与份额分布',
+      priceAxis: '历史单价（万美元）', shareAxis: '历史份额（%）', sourceVolume: '源文件销量口径',
+      transportBreakdownTitle: '整机与附件重量构成', packageName: '运输组合', component: '构成项', weight: '重量', packageTotal: '组合总重', optionalAttachments: '可追加属具',
+      performanceVisualTitle: '关键性能分项对比', performanceScaleNote: '每个指标按本组最大值显示条长，右侧保留原始单位。', noSourceValue: '源页未给值',
+      fieldHeatmapTitle: '历史实机评价热力矩阵', ratingLegend: '1级较弱，5级较强；颜色只表达源文件历史等级。',
+      profileTitle: '历史竞争力维度画像', profileKey: '维度索引',
+      ledgerTitle: 'XE35U历史问题与升级台账', ledgerCaveat: '这是源文件记录的历史计划，不表示已批准、已完成或已量产；当前状态必须逐项复核。',
+      itemNo: '序号', system: '系统', problem: '源文件问题', sourceAction: '源文件升级方案', historicalUpgradeDate: '历史升级日期', historicalProductionDate: '历史量产日期',
       loadError: '扩展分析数据未能载入，请通过本地预览地址打开。'
     },
     en: {
@@ -94,6 +104,16 @@
       positioningTitle: 'Historical price and market-share position', positioningBrand: 'Brand', positioningModels: 'Representative models', positioningPrice: 'Historical reference price', positioningShare: 'Historical share', positioningCaveat: 'Prices, shares and product status are a historical snapshot used only to explain the position at that time. Refresh current market data before external use.',
       navMarket: 'Market and customers', navScenarios: 'Real job applications', navPaper: 'Specifications and equipment', navField: 'Field evaluation', navActions: 'Improvement path',
       phaseNow: 'Validate first', phaseNext: 'System improvements', phasePlatform: 'Platform planning', validationOutput: 'Required validation output',
+      sourcePpt: 'Source file', historicalBasis: 'Historical basis', currentUnverified: 'Current status unverified',
+      year: 'Year', total: 'Total', dataStatus: 'Data status', sourceEstimate: 'Source estimate', sourceForecast: 'Source forecast',
+      brandSalesTable: 'Brand-volume detail', modelDemandTitle: 'Leading-model ranking', priceShareTitle: 'Price and share distribution',
+      priceAxis: 'Historical price (USD 10k)', shareAxis: 'Historical share (%)', sourceVolume: 'Source volume basis',
+      transportBreakdownTitle: 'Machine and attachment mass build-up', packageName: 'Transport package', component: 'Component', weight: 'Mass', packageTotal: 'Package total', optionalAttachments: 'Additional attachments',
+      performanceVisualTitle: 'Key performance comparisons', performanceScaleNote: 'Bar length is normalized to the maximum within each metric; original units remain at right.', noSourceValue: 'No source value',
+      fieldHeatmapTitle: 'Historical field-evaluation heatmap', ratingLegend: '1 is weaker and 5 is stronger; color represents source historical ratings only.',
+      profileTitle: 'Historical competitiveness profile', profileKey: 'Dimension key',
+      ledgerTitle: 'Historical XE35U issue and upgrade ledger', ledgerCaveat: 'This is a historical source-file plan and does not prove approval, completion or production release. Verify every current status.',
+      itemNo: 'No.', system: 'System', problem: 'Source issue', sourceAction: 'Source upgrade action', historicalUpgradeDate: 'Historical upgrade date', historicalProductionDate: 'Historical production date',
       loadError: 'The extended analysis could not be loaded. Open this page through the local preview address.'
     }
   }[language];
@@ -369,7 +389,7 @@
       return `<${tag}${scope}${xcmgClass}>${escapeHtml(technicalText(value))}</${tag}>`;
     }).join('')}</tr>`).join('');
     return `<article class="sourceDataGroup" data-source-slide="${group.slide}">
-      <div class="sourceDataHeading"><div><span>${kind === 'paper' ? escapeHtml(copy.completePaperData) : escapeHtml(copy.completeFieldData)}</span><h3>${escapeHtml(text(group.title))}</h3></div><p>${escapeHtml(text(group.description))}</p></div>
+      <div class="sourceDataHeading"><div><span>${kind === 'paper' ? escapeHtml(copy.completePaperData) : escapeHtml(copy.completeFieldData)}</span><h3>${escapeHtml(text(group.title))}</h3></div><div class="sourceDataMeta"><p>${escapeHtml(text(group.description))}</p>${sourceBadge(group.slide)}</div></div>
       <div class="sourceDataScroll"><table><caption class="srOnly">${escapeHtml(text(group.title))}</caption><thead><tr>${header}</tr></thead><tbody>${rows}</tbody></table></div>
     </article>`;
   }
@@ -394,18 +414,161 @@
     return `<div class="decisionNarrative ${className}">${items.map((item) => `<article><span>${escapeHtml(text(item.label))}</span><h3>${escapeHtml(text(item.title))}</h3><p>${escapeHtml(text(item.detail))}</p></article>`).join('')}</div>`;
   }
 
-  function renderMarket(view) {
-    const section = makeSection('ppt-market', copy.marketTitle, copy.marketSubtitle);
-    const max = Math.max(...view.market.volume.map((item) => item.units));
-    const volumes = view.market.volume.map((item) => {
-      const typeLabel = item.type === 'source_forecast' ? copy.forecast : item.type === 'source_estimate' ? copy.estimate : copy.historical;
-      const forecastClass = item.type === 'historical' ? '' : ' forecast';
-      return `<div class="volumeColumn${forecastClass}"><i style="height:${Math.max(8, item.units / max * 100).toFixed(1)}%"></i><b>${item.units.toLocaleString(language === 'en' ? 'en-US' : 'zh-CN')} ${copy.units}</b><span>${item.year} · ${escapeHtml(typeLabel)}</span></div>`;
+  function sourcePageText(value) {
+    const pages = (Array.isArray(value) ? value : [value]).map(Number).filter(Number.isFinite).sort((a, b) => a - b);
+    if (!pages.length) return copy.sourcePpt;
+    const ranges = [];
+    let start = pages[0];
+    let end = pages[0];
+    pages.slice(1).forEach((page) => {
+      if (page === end + 1) end = page;
+      else { ranges.push(start === end ? `${start}` : `${start}-${end}`); start = page; end = page; }
+    });
+    ranges.push(start === end ? `${start}` : `${start}-${end}`);
+    return language === 'en' ? `${copy.sourcePpt} · pp. ${ranges.join(', ')}` : `${copy.sourcePpt} · 第${ranges.join('、')}页`;
+  }
+
+  function sourceBadge(source, statusLabel = copy.historicalBasis) {
+    const pages = typeof source === 'object' && source !== null ? source.source_slide : source;
+    const label = sourcePageText(pages);
+    return `<span class="sourceBadge" data-source-slide="${escapeHtml(Array.isArray(pages) ? pages.join(',') : pages)}"><b>${escapeHtml(label)}</b><em>${escapeHtml(statusLabel)}</em></span>`;
+  }
+
+  function dataStatusLabel(status) {
+    if (status === 'source_forecast') return copy.sourceForecast;
+    if (status === 'source_estimate') return copy.sourceEstimate;
+    return copy.historical;
+  }
+
+  function formatNumber(value, digits = 0) {
+    return Number(value).toLocaleString(language === 'en' ? 'en-US' : 'zh-CN', {maximumFractionDigits: digits});
+  }
+
+  function renderBrandSales(data) {
+    if (!data) return '';
+    const rows = data.years.map((year, yearIndex) => {
+      const segments = data.series.map((series) => {
+        const value = series.values[yearIndex];
+        const width = year.total ? value / year.total * 100 : 0;
+        return `<span style="width:${width.toFixed(3)}%;background:${escapeHtml(series.color)}" title="${escapeHtml(series.brand)} · ${formatNumber(value)} ${copy.units}"></span>`;
+      }).join('');
+      return `<div class="brandStackRow"><b>${escapeHtml(year.year)}</b><div class="brandStackTrack">${segments}</div><strong>${formatNumber(year.total)}</strong><small>${escapeHtml(dataStatusLabel(year.status))}</small></div>`;
     }).join('');
+    const legend = data.series.map((series) => `<span><i style="background:${escapeHtml(series.color)}"></i>${escapeHtml(series.brand)}</span>`).join('');
+    const tableHeader = data.series.map((series) => `<th scope="col">${escapeHtml(series.brand)}</th>`).join('');
+    const tableRows = data.years.map((year, yearIndex) => `<tr><th scope="row">${escapeHtml(year.year)}</th>${data.series.map((series) => `<td>${formatNumber(series.values[yearIndex])}</td>`).join('')}<td><b>${formatNumber(year.total)}</b></td><td>${escapeHtml(dataStatusLabel(year.status))}</td></tr>`).join('');
+    return `<article class="evidenceVisual brandSalesVisual">
+      <header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header>
+      <div class="brandStackChart" role="img" aria-label="${escapeHtml(text(data.title))}">${rows}</div>
+      <div class="chartLegend">${legend}</div>
+      <div class="evidenceTableScroll compactEvidenceTable"><table><caption class="srOnly">${escapeHtml(copy.brandSalesTable)}</caption><thead><tr><th>${escapeHtml(copy.year)}</th>${tableHeader}<th>${escapeHtml(copy.total)}</th><th>${escapeHtml(copy.dataStatus)}</th></tr></thead><tbody>${tableRows}</tbody></table></div>
+    </article>`;
+  }
+
+  function renderModelDemand(data) {
+    if (!data) return '';
+    const max = Math.max(...data.models.map((item) => item.units));
+    const rows = data.models.map((item, index) => `<div class="modelDemandRow"><span>${index + 1}</span><div><b>${escapeHtml(item.model)}</b><small>${escapeHtml(item.brand)}</small></div><i><em style="width:${(item.units / max * 100).toFixed(1)}%"></em></i><strong>${formatNumber(item.units)}</strong></div>`).join('');
+    return `<article class="evidenceVisual modelDemandVisual"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><div class="modelDemandChart">${rows}</div></article>`;
+  }
+
+  function renderPriceShare(data) {
+    if (!data) return '';
+    const xMin = 50000;
+    const xMax = 75000;
+    const yMax = 25;
+    const plot = {left: 68, top: 24, width: 570, height: 228};
+    const x = (value) => plot.left + (value - xMin) / (xMax - xMin) * plot.width;
+    const y = (value) => plot.top + plot.height - value / yMax * plot.height;
+    const maxVolume = Math.max(...data.points.map((item) => item.volume));
+    const offsets = {DEERE: [10, -10], KUBOTA: [-62, -9], BOBCAT: [10, 18], CAT: [10, -8], SANY: [10, -8], XCMG: [10, -8]};
+    const yGrid = [0, 5, 10, 15, 20, 25].map((tick) => `<g><line x1="${plot.left}" x2="${plot.left + plot.width}" y1="${y(tick)}" y2="${y(tick)}"></line><text x="${plot.left - 10}" y="${y(tick) + 4}" text-anchor="end">${tick}</text></g>`).join('');
+    const xGrid = [50000, 60000, 70000].map((tick) => `<g><line x1="${x(tick)}" x2="${x(tick)}" y1="${plot.top}" y2="${plot.top + plot.height}"></line><text x="${x(tick)}" y="${plot.top + plot.height + 20}" text-anchor="middle">${(tick / 10000).toFixed(1)}</text></g>`).join('');
+    const points = data.points.map((item) => {
+      const radius = 6 + Math.sqrt(item.volume / maxVolume) * 14;
+      const offset = offsets[item.brand] || [10, -8];
+      const fill = item.brand === 'XCMG' ? '#f5b400' : '#005aa7';
+      return `<g class="scatterPoint ${item.brand === 'XCMG' ? 'isXcmg' : ''}" tabindex="0"><title>${escapeHtml(item.brand)} · $${formatNumber(item.price_usd)} · ${item.share_pct.toFixed(1)}% · ${formatNumber(item.volume, 1)}</title><circle cx="${x(item.price_usd)}" cy="${y(item.share_pct)}" r="${radius.toFixed(1)}" fill="${fill}"></circle><text x="${x(item.price_usd) + offset[0]}" y="${y(item.share_pct) + offset[1]}">${escapeHtml(item.brand)}</text></g>`;
+    }).join('');
+    return `<article class="evidenceVisual priceShareVisual"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><svg viewBox="0 0 700 300" role="img" aria-label="${escapeHtml(text(data.title))}" class="priceShareSvg"><g class="chartGrid">${yGrid}${xGrid}</g><line class="chartAxis" x1="${plot.left}" x2="${plot.left + plot.width}" y1="${plot.top + plot.height}" y2="${plot.top + plot.height}"></line><line class="chartAxis" x1="${plot.left}" x2="${plot.left}" y1="${plot.top}" y2="${plot.top + plot.height}"></line>${points}<text class="axisTitle" x="${plot.left + plot.width / 2}" y="294" text-anchor="middle">${escapeHtml(copy.priceAxis)}</text><text class="axisTitle" transform="translate(14 ${plot.top + plot.height / 2}) rotate(-90)" text-anchor="middle">${escapeHtml(copy.shareAxis)}</text></svg></article>`;
+  }
+
+  function renderTransportBreakdown(data) {
+    if (!data) return '';
+    const max = 5000;
+    const colors = ['#005aa7', '#f5b400', '#829bb2', '#0f7b45'];
+    const packageRows = data.packages.map((item) => {
+      const segments = item.components.map((component, index) => `<span style="width:${(component.kg / max * 100).toFixed(2)}%;background:${colors[index]}" title="${escapeHtml(text(component.label))} · ${formatNumber(component.kg)} kg"></span>`).join('');
+      return `<div class="massPackageRow"><div><b>${escapeHtml(text(item.label))}</b><small>${item.status === 'historical_plan_unverified' ? escapeHtml(copy.currentUnverified) : escapeHtml(copy.historicalBasis)}</small></div><div class="massTrack">${segments}</div><strong>${formatNumber(item.equipped_total_kg)} kg</strong></div>`;
+    }).join('');
+    const componentRows = data.packages.map((item) => `<tr><th scope="row">${escapeHtml(text(item.label))}</th><td>${item.components.map((component) => `${escapeHtml(text(component.label))} ${formatNumber(component.kg)} kg`).join(' + ')}</td><td><b>${formatNumber(item.equipped_total_kg)} kg</b></td></tr>`).join('');
+    const optional = data.additional_attachments.map((item) => `<li><span>${escapeHtml(text(item.label))}</span><b>${formatNumber(item.kg)} kg</b></li>`).join('');
+    return `<article class="evidenceVisual transportBreakdownVisual"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><div class="massPackageChart">${packageRows}</div><div class="massDetailGrid"><div class="evidenceTableScroll"><table><thead><tr><th>${escapeHtml(copy.packageName)}</th><th>${escapeHtml(copy.component)}</th><th>${escapeHtml(copy.packageTotal)}</th></tr></thead><tbody>${componentRows}</tbody></table></div><div class="optionalAttachmentList"><h4>${escapeHtml(copy.optionalAttachments)}</h4><ul>${optional}</ul></div></div></article>`;
+  }
+
+  function renderPerformanceVisual(data) {
+    if (!data) return '';
+    const cards = data.metrics.map((metric) => {
+      const finite = metric.values.filter((value) => Number.isFinite(value));
+      const max = Math.max(...finite);
+      const rows = data.models.map((model, index) => {
+        const value = metric.values[index];
+        const hasValue = Number.isFinite(value);
+        return `<div class="performanceBarRow ${index === 0 ? 'isXcmg' : ''}"><span>${escapeHtml(model)}</span><i>${hasValue ? `<em style="width:${Math.max(2, value / max * 100).toFixed(1)}%"></em>` : ''}</i><b>${hasValue ? `${formatNumber(value, 1)} ${escapeHtml(metric.unit)}` : escapeHtml(copy.noSourceValue)}</b></div>`;
+      }).join('');
+      const basis = metric.basis ? `<p>${escapeHtml(text(metric.basis))}</p>` : '';
+      return `<article class="performanceFacet"><h4>${escapeHtml(text(metric.label))}<small>${escapeHtml(metric.unit)}</small></h4>${rows}${basis}</article>`;
+    }).join('');
+    return `<article class="evidenceVisual performanceEvidence"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(copy.performanceScaleNote)}</p></div>${sourceBadge(data)}</header><div class="performanceFacetGrid">${cards}</div></article>`;
+  }
+
+  function renderFieldHeatmap(data) {
+    if (!data) return '';
+    let lastGroup = '';
+    const rows = data.rows.map((item) => {
+      const group = text(item.group);
+      const groupCell = group === lastGroup ? '' : group;
+      lastGroup = group;
+      return `<tr><th scope="row">${escapeHtml(groupCell)}</th><td>${escapeHtml(text(item.metric))}<small>${sourcePageText(item.source_slide)}</small></td>${item.ratings.map((rating) => `<td class="ratingCell" data-rating="${rating}" title="${escapeHtml(text(item.metric))}: ${rating}/5"><b>${rating}</b></td>`).join('')}</tr>`;
+    }).join('');
+    return `<article class="evidenceVisual fieldHeatmapVisual"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><div class="heatmapLegend"><span>1</span><i data-rating="1"></i><i data-rating="2"></i><i data-rating="3"></i><i data-rating="4"></i><i data-rating="5"></i><span>5</span><b>${escapeHtml(copy.ratingLegend)}</b></div><div class="evidenceTableScroll"><table class="ratingHeatmap"><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th>${data.models.map((model, index) => `<th class="${index === 0 ? 'xcmgHeatHeader' : ''}">${escapeHtml(model)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div></article>`;
+  }
+
+  function radarPoints(values, cx, cy, radius) {
+    return values.map((value, index) => {
+      const angle = -Math.PI / 2 + index * Math.PI * 2 / values.length;
+      const r = radius * Number(value) / 5;
+      return `${(cx + Math.cos(angle) * r).toFixed(1)},${(cy + Math.sin(angle) * r).toFixed(1)}`;
+    }).join(' ');
+  }
+
+  function renderCompetitivenessProfile(data) {
+    if (!data) return '';
+    const cx = 250;
+    const cy = 176;
+    const radius = 126;
+    const levels = [1, 2, 3, 4, 5].map((level) => `<polygon points="${radarPoints(Array(data.dimensions.length).fill(level), cx, cy, radius)}"></polygon>`).join('');
+    const axes = data.dimensions.map((_, index) => {
+      const angle = -Math.PI / 2 + index * Math.PI * 2 / data.dimensions.length;
+      return `<line x1="${cx}" y1="${cy}" x2="${(cx + Math.cos(angle) * radius).toFixed(1)}" y2="${(cy + Math.sin(angle) * radius).toFixed(1)}"></line><text x="${(cx + Math.cos(angle) * (radius + 22)).toFixed(1)}" y="${(cy + Math.sin(angle) * (radius + 22) + 4).toFixed(1)}" text-anchor="middle">${index + 1}</text>`;
+    }).join('');
+    const series = data.series.map((item) => `<polygon class="radarSeries" points="${radarPoints(item.values, cx, cy, radius)}" style="--series:${escapeHtml(item.color)}"><title>${escapeHtml(item.model)}: ${item.values.join(' / ')}</title></polygon>`).join('');
+    const legend = data.series.map((item) => `<span><i style="background:${escapeHtml(item.color)}"></i>${escapeHtml(item.model)}</span>`).join('');
+    const keys = data.dimensions.map((item, index) => `<li><b>${index + 1}</b>${escapeHtml(text(item))}</li>`).join('');
+    return `<article class="evidenceVisual competitivenessProfile"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><div class="radarLayout"><div><svg viewBox="0 0 500 340" role="img" aria-label="${escapeHtml(text(data.title))}" class="competitivenessRadar"><g class="radarGrid">${levels}${axes}</g>${series}</svg><div class="chartLegend radarLegend">${legend}</div></div><div class="radarKey"><h4>${escapeHtml(copy.profileKey)}</h4><ol>${keys}</ol></div></div></article>`;
+  }
+
+  function renderImprovementLedger(data) {
+    if (!data) return '';
+    const rows = data.items.map((item) => `<tr><td>${item.id}</td><th scope="row">${escapeHtml(text(item.system))}</th><td>${escapeHtml(text(item.problem))}</td><td>${escapeHtml(text(item.source_action))}</td><td>${escapeHtml(item.upgrade_date)}</td><td>${escapeHtml(item.production_date)}</td><td><span class="scenarioStatus status-pending">${escapeHtml(copy.currentUnverified)}</span></td></tr>`).join('');
+    return `<article class="evidenceVisual improvementLedger"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data, copy.currentUnverified)}</header><p class="ledgerCaveat">${escapeHtml(copy.ledgerCaveat)}</p><div class="evidenceTableScroll"><table><thead><tr><th>${escapeHtml(copy.itemNo)}</th><th>${escapeHtml(copy.system)}</th><th>${escapeHtml(copy.problem)}</th><th>${escapeHtml(copy.sourceAction)}</th><th>${escapeHtml(copy.historicalUpgradeDate)}</th><th>${escapeHtml(copy.historicalProductionDate)}</th><th>${escapeHtml(copy.status)}</th></tr></thead><tbody>${rows}</tbody></table></div></article>`;
+  }
+
+  function renderMarket(view, sourceVisuals) {
+    const section = makeSection('ppt-market', copy.marketTitle, copy.marketSubtitle);
     const customers = view.market.customer_mix.map((item) => `<span style="width:${item.value}%" title="${escapeHtml(text(item.label))} ${item.value}%"></span>`).join('');
     const customerLegend = view.market.customer_mix.map((item) => `<li><i></i><span>${escapeHtml(text(item.label))}</span><b>${item.value}%</b></li>`).join('');
     const logic = view.market.purchase_logic.map((item) => `<li>${escapeHtml(text(item))}</li>`).join('');
-    const transports = view.market.transport.map((item) => `<div class="transportRow${item.id === 'historical_pro' ? ' historical' : ''}"><strong>${escapeHtml(narrative(item.label))}</strong><div class="transportTrack"><span style="width:${Math.min(100, item.equipped_kg / 5000 * 100).toFixed(1)}%"></span></div><div class="transportNumbers"><b>${item.equipped_kg.toLocaleString()} kg</b>${copy.baseMass} ${item.base_kg.toLocaleString()} kg</div></div>`).join('');
     const marketPoints = [
       {label: copy.marketRead, title: copy.marketRole, detail: copy.marketRoleText},
       {label: copy.marketRead, title: copy.competition, detail: copy.competitionText},
@@ -413,15 +576,17 @@
     ];
     const portfolioRows = expanded.marketPortfolio.map((item) => `<tr class="${item.brand === 'XCMG' ? 'xcmgPortfolioRow' : ''}"><th scope="row">${escapeHtml(item.brand)}</th><td>${escapeHtml(item.models)}</td><td>${escapeHtml(text(item.architecture))}</td><td>${escapeHtml(text(item.implication))}</td></tr>`).join('');
     const transportRuleRows = expanded.transportRules.map((item) => `<tr><th scope="row">${escapeHtml(item.level)}</th><td>${escapeHtml(text(item.threshold))}</td><td>${escapeHtml(text(item.implication))}</td></tr>`).join('');
-    const positionRows = expanded.positioning.map((item) => `<tr class="${item.brand === 'XCMG' ? 'xcmgPositionRow' : ''}"><th scope="row">${escapeHtml(item.brand)}</th><td>${escapeHtml(item.models)}</td><td>${escapeHtml(item.price)}</td><td>${escapeHtml(item.share)}</td></tr>`).join('');
+    const positionData = sourceVisuals?.historical_positioning;
+    const positionRows = (positionData?.rows || expanded.positioning).map((item) => `<tr class="${item.brand === 'XCMG' ? 'xcmgPositionRow' : ''}"><th scope="row">${escapeHtml(item.brand)}</th><td>${escapeHtml(item.models)}</td><td>${escapeHtml(item.price || `$${formatNumber(item.price_usd)}`)}</td><td>${escapeHtml(item.share)}</td></tr>`).join('');
 
     section.insertAdjacentHTML('beforeend', `
       <p class="analysisScope">${escapeHtml(copy.scoringBoundary)}</p>
       <div class="marketDecisionGrid">
-        <div class="pptModule"><div class="pptModuleTitle"><span>${escapeHtml(copy.volumeTitle)}</span></div><div class="volumeSeries" role="img" aria-label="${escapeHtml(copy.volumeTitle)}">${volumes}</div><div class="shareStrip"><div class="shareStripHead"><span>${escapeHtml(copy.shareTitle)}</span><b>${view.market.leading_share.value}%</b></div><div class="shareBar"><span></span></div><div class="brandNames"><span>${escapeHtml(copy.shareNote)}</span></div></div></div>
-        <div class="pptModule"><div class="pptModuleTitle"><span>${escapeHtml(copy.customerTitle)}</span></div><div class="customerMix" aria-label="${escapeHtml(copy.customerTitle)}">${customers}</div><ul class="customerLegend">${customerLegend}</ul><p class="sourceCaveat">${escapeHtml(narrative(view.market.customer_mix_note))}</p><h3 class="pptModuleTitle"><span>${escapeHtml(copy.purchaseLogic)}</span></h3><ul class="purchaseLogic">${logic}</ul></div>
+        ${renderBrandSales(sourceVisuals?.market?.annual_brand_sales)}
+        <div class="pptModule customerEvidence"><div class="pptModuleTitle"><span>${escapeHtml(copy.customerTitle)}</span>${sourceBadge(49)}</div><div class="shareStrip"><div class="shareStripHead"><span>${escapeHtml(copy.shareTitle)}</span><b>${view.market.leading_share.value}%</b></div><div class="shareBar"><span></span></div><div class="brandNames"><span>${escapeHtml(copy.shareNote)}</span>${sourceBadge(48)}</div></div><div class="customerMix" aria-label="${escapeHtml(copy.customerTitle)}">${customers}</div><ul class="customerLegend">${customerLegend}</ul><p class="sourceCaveat">${escapeHtml(narrative(view.market.customer_mix_note))}</p><h3 class="pptModuleTitle"><span>${escapeHtml(copy.purchaseLogic)}</span></h3><ul class="purchaseLogic">${logic}</ul></div>
       </div>
-      <div class="transportCompare"><div class="pptModuleTitle"><span>${escapeHtml(copy.transportTitle)}</span></div><div class="transportRows">${transports}</div></div>
+      <div class="sourceVisualPair">${renderModelDemand(sourceVisuals?.market?.model_demand_2025)}${renderPriceShare(sourceVisuals?.market?.brand_position_2025)}</div>
+      ${renderTransportBreakdown(sourceVisuals?.transport)}
       ${renderInsightPoints(marketPoints, 'marketNarrative')}
       <article class="transportStory">
         <div class="transportStoryCopy"><span>${escapeHtml(copy.marketRead)}</span><h3>${escapeHtml(copy.transportStoryTitle)}</h3><p>${escapeHtml(copy.transportStoryText)}</p></div>
@@ -431,7 +596,7 @@
         <article class="marketDetailBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.portfolioTitle)}</span></div><div class="marketTableScroll"><table class="marketPortfolioMatrix"><thead><tr><th>${escapeHtml(copy.portfolioBrand)}</th><th>${escapeHtml(copy.portfolioCount)}</th><th>${escapeHtml(copy.portfolioArchitecture)}</th><th>${escapeHtml(copy.portfolioImplication)}</th></tr></thead><tbody>${portfolioRows}</tbody></table></div></article>
         <article class="marketDetailBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.transportRuleTitle)}</span></div><p class="marketTableCaveat">${escapeHtml(copy.transportRuleCaveat)}</p><div class="marketTableScroll"><table class="transportRuleTable"><thead><tr><th>${escapeHtml(copy.licenceClass)}</th><th>${escapeHtml(copy.generalThreshold)}</th><th>${escapeHtml(copy.applicationImpact)}</th></tr></thead><tbody>${transportRuleRows}</tbody></table></div></article>
       </div>
-      <div class="positioningBlock marketPositioning"><div class="pptModuleTitle"><span>${escapeHtml(copy.positioningTitle)}</span></div><p>${escapeHtml(copy.positioningCaveat)}</p><div class="positioningScroll"><table><thead><tr><th>${escapeHtml(copy.positioningBrand)}</th><th>${escapeHtml(copy.positioningModels)}</th><th>${escapeHtml(copy.positioningPrice)}</th><th>${escapeHtml(copy.positioningShare)}</th></tr></thead><tbody>${positionRows}</tbody></table></div></div>`);
+      <div class="positioningBlock marketPositioning"><div class="pptModuleTitle"><span>${escapeHtml(copy.positioningTitle)}</span>${sourceBadge(positionData || 68)}</div><p>${escapeHtml(copy.positioningCaveat)}</p><div class="positioningScroll"><table><thead><tr><th>${escapeHtml(copy.positioningBrand)}</th><th>${escapeHtml(copy.positioningModels)}</th><th>${escapeHtml(copy.positioningPrice)}</th><th>${escapeHtml(copy.positioningShare)}</th></tr></thead><tbody>${positionRows}</tbody></table></div></div>`);
     return section;
   }
 
@@ -458,7 +623,7 @@
       <article class="scenarioBand" id="job-${escapeHtml(record.id)}" data-scenario-id="${escapeHtml(record.id)}">
         <header class="scenarioBandHeader">
           <span class="scenarioNumber">${String(index + 1).padStart(2, '0')}</span>
-          <div class="scenarioBandTitle"><h3>${escapeHtml(text(record.title))}</h3><div class="scenarioConditionLinks"><span>${escapeHtml(copy.linkedConditions)}</span>${links}</div></div>
+          <div class="scenarioBandTitle"><h3>${escapeHtml(text(record.title))}</h3><div class="scenarioConditionLinks"><span>${escapeHtml(copy.linkedConditions)}</span>${links}</div><div class="scenarioSource">${sourceBadge(record)}</div></div>
           <span class="scenarioStatus status-${key}">${escapeHtml(findingLabel(record.finding_status))}</span>
         </header>
         <div class="scenarioBandMain">
@@ -487,7 +652,7 @@
     return section;
   }
 
-  function renderPaper(view) {
+  function renderPaper(view, sourceVisuals) {
     const section = makeSection('ppt-paper', copy.paperTitle, copy.paperSubtitle);
     const headerModels = view.paper_comparison.models.map((model, index) => `<th class="${index === 0 ? 'xcmgColumn' : ''}">${escapeHtml(model)}</th>`).join('');
     const rows = view.paper_comparison.metrics.map((metric) => {
@@ -498,11 +663,11 @@
     const insights = `<div class="paperInsightGrid">${paperInsights.map((item) => `<article class="tone-${item.tone}"><span>${escapeHtml(text(item.title))}</span><b>${escapeHtml(text(item.metric))}</b><p>${escapeHtml(text(item.detail))}</p></article>`).join('')}</div>`;
     const conflictRows = paperConflicts.map((item) => `<tr><th scope="row">${escapeHtml(text(item.metric))}</th><td>${escapeHtml(item.current)}</td><td>${escapeHtml(item.historical)}</td><td>${escapeHtml(copy.conflictRule)}</td></tr>`).join('');
     const completeGroups = expanded.paperGroups.map((group) => renderSourceDataGroup(group, 'paper')).join('');
-    section.insertAdjacentHTML('beforeend', `<p class="analysisScope">${escapeHtml(copy.paperBoundary)}</p><div class="pptModuleTitle"><span>${escapeHtml(copy.paperRead)}</span></div>${insights}<div class="dataConflictBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.dataConflictTitle)}</span></div><div class="dataConflictScroll"><table><thead><tr><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.currentDataset)}</th><th>${escapeHtml(copy.historicalReference)}</th><th>${escapeHtml(copy.handlingRule)}</th></tr></thead><tbody>${conflictRows}</tbody></table></div></div><div class="pptModuleTitle directDataTitle"><span>${escapeHtml(copy.fullPaper)}</span></div><div class="comparisonMatrix"><table><thead><tr><th>${escapeHtml(copy.metric)}</th>${headerModels}<th>${escapeHtml(copy.findingColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div><div class="pptModuleTitle configTitle"><span>${escapeHtml(copy.configurationTitle)}</span></div><div class="configMatrix">${configRows}</div><div class="sourceDataGroups paperSourceGroups">${completeGroups}</div>`);
+    section.insertAdjacentHTML('beforeend', `<p class="analysisScope">${escapeHtml(copy.paperBoundary)}</p>${renderPerformanceVisual(sourceVisuals?.performance)}<div class="pptModuleTitle"><span>${escapeHtml(copy.paperRead)}</span>${sourceBadge([59, 60, 61])}</div>${insights}<div class="dataConflictBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.dataConflictTitle)}</span></div><div class="dataConflictScroll"><table><thead><tr><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.currentDataset)}</th><th>${escapeHtml(copy.historicalReference)}</th><th>${escapeHtml(copy.handlingRule)}</th></tr></thead><tbody>${conflictRows}</tbody></table></div></div><div class="pptModuleTitle directDataTitle"><span>${escapeHtml(copy.fullPaper)}</span>${sourceBadge([59, 60, 61])}</div><div class="comparisonMatrix"><table><thead><tr><th>${escapeHtml(copy.metric)}</th>${headerModels}<th>${escapeHtml(copy.findingColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div><div class="pptModuleTitle configTitle"><span>${escapeHtml(copy.configurationTitle)}</span>${sourceBadge(60)}</div><div class="configMatrix">${configRows}</div><div class="sourceDataGroups paperSourceGroups">${completeGroups}</div>`);
     return section;
   }
 
-  function renderField(records) {
+  function renderField(records, sourceVisuals) {
     const section = makeSection('ppt-field', copy.fieldTitle, copy.fieldSubtitle);
     const counts = records.reduce((result, record) => { const key = findingKey(record.finding_status); result[key] = (result[key] || 0) + 1; return result; }, {});
     const summary = ['advantage', 'gap', 'pending', 'missing'].map((key) => `<span class="status-${key}"><b>${counts[key] || 0}</b>${escapeHtml(copy[key])}</span>`).join('');
@@ -512,28 +677,28 @@
     }).join('');
     const themes = `<div class="fieldThemeGrid">${fieldThemes.map((item) => `<article class="tone-${item.tone}"><span>${escapeHtml(text(item.title))}</span><p>${escapeHtml(text(item.detail))}</p></article>`).join('')}</div>`;
     const completeGroups = expanded.fieldGroups.map((group) => renderSourceDataGroup(group, 'field')).join('');
-    section.insertAdjacentHTML('beforeend', `<p class="analysisScope">${escapeHtml(copy.fieldBoundary)}</p><div class="fieldSummary">${summary}</div><div class="pptModuleTitle"><span>${escapeHtml(copy.fieldRead)}</span></div>${themes}<div class="pptModuleTitle directDataTitle"><span>${escapeHtml(copy.fullField)}</span></div><div class="fieldMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.conclusion)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.validation)}</th></tr></thead><tbody>${rows}</tbody></table></div><p class="historicalRatingNote">${escapeHtml(copy.historicalRatingNote)}</p><div class="sourceDataGroups fieldSourceGroups">${completeGroups}</div>`);
+    section.insertAdjacentHTML('beforeend', `<p class="analysisScope">${escapeHtml(copy.fieldBoundary)}</p><div class="fieldSummary">${summary}</div><div class="pptModuleTitle"><span>${escapeHtml(copy.fieldRead)}</span>${sourceBadge([62, 63, 64, 65, 66])}</div>${themes}${renderCompetitivenessProfile(sourceVisuals?.competitiveness_profile)}${renderFieldHeatmap(sourceVisuals?.field_rating_heatmap)}<div class="pptModuleTitle directDataTitle"><span>${escapeHtml(copy.fullField)}</span>${sourceBadge([62, 63, 64, 65, 66])}</div><div class="fieldMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.conclusion)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.validation)}</th></tr></thead><tbody>${rows}</tbody></table></div><p class="historicalRatingNote">${escapeHtml(copy.historicalRatingNote)}</p><div class="sourceDataGroups fieldSourceGroups">${completeGroups}</div>`);
     return section;
   }
 
-  function renderActions(roadmap, portfolio) {
+  function renderActions(roadmap, portfolio, sourceVisuals) {
     const section = makeSection('ppt-actions', copy.actionTitle, copy.actionSubtitle);
     const rows = roadmap.map((record) => `<div class="roadmapRow" data-priority="${escapeHtml(record.priority)}"><span class="roadmapPriority">${escapeHtml(record.priority)}</span><span class="roadmapTopic">${escapeHtml(text(roadmapTopics[record.id]) || record.id)}</span><span class="roadmapAction">${escapeHtml(narrative(record.action))}</span><span class="roadmapValidation">${escapeHtml(copy.verifyRequired)}</span></div>`).join('');
     const portfolioGap = portfolio.find((record) => record.id === 'portfolio-current-gap');
     const phases = `<div class="actionPhaseGrid">${actionPhases.map((phase, index) => `<article><span>${escapeHtml([copy.phaseNow, copy.phaseNext, copy.phasePlatform][index])}</span><h3>${escapeHtml(text(phase.title))}</h3><ul>${(phase.items[language] || phase.items.zh).map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></article>`).join('')}</div>`;
     const dimensionRows = expanded.competitionDimensions.map((item) => `<tr><th scope="row">${escapeHtml(text(item.dimension))}</th><td>${escapeHtml(text(item.strength))}</td><td>${escapeHtml(text(item.gap))}</td><td>${escapeHtml(text(item.action))}</td></tr>`).join('');
-    section.insertAdjacentHTML('beforeend', `<p class="analysisScope">${escapeHtml(copy.actionBoundary)}</p><div class="pptModuleTitle"><span>${escapeHtml(copy.competitionDetail)}</span></div><div class="competitionGapMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.strengthColumn)}</th><th>${escapeHtml(copy.gapColumn)}</th><th>${escapeHtml(copy.actionColumn)}</th></tr></thead><tbody>${dimensionRows}</tbody></table></div>${phases}<div class="roadmapTable">${rows}</div><div class="portfolioNote"><div><b>${escapeHtml(copy.portfolio)}</b><p>${escapeHtml(narrative(portfolioGap?.conclusion))}</p></div><div><b>${escapeHtml(copy.historicalPositioning)}</b><p>${language === 'en' ? 'Revalidate target price, channel support, residual value and current product status before using the historical value-positioning claim.' : '历史材料中的价值型定位、价格主张和产品状态必须结合当前售价、渠道支持、残值与量产配置重新评估。'}</p></div></div>`);
+    section.insertAdjacentHTML('beforeend', `<p class="analysisScope">${escapeHtml(copy.actionBoundary)}</p><div class="pptModuleTitle"><span>${escapeHtml(copy.competitionDetail)}</span>${sourceBadge(67)}</div><div class="competitionGapMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.strengthColumn)}</th><th>${escapeHtml(copy.gapColumn)}</th><th>${escapeHtml(copy.actionColumn)}</th></tr></thead><tbody>${dimensionRows}</tbody></table></div>${renderImprovementLedger(sourceVisuals?.historical_improvement_ledger)}${phases}<div class="roadmapTable">${rows}</div><div class="portfolioNote"><div><b>${escapeHtml(copy.portfolio)}</b><p>${escapeHtml(narrative(portfolioGap?.conclusion))}</p></div><div><b>${escapeHtml(copy.historicalPositioning)}</b><p>${language === 'en' ? 'Revalidate target price, channel support, residual value and current product status before using the historical value-positioning claim.' : '历史材料中的价值型定位、价格主张和产品状态必须结合当前售价、渠道支持、残值与量产配置重新评估。'}</p></div></div>`);
     return section;
   }
 
   async function loadData() {
-    const names = ['tonnage-3-4t-view', 'tonnage', 'field-evaluation', 'roadmap', 'portfolio', 'visual-assets'];
+    const names = ['tonnage-3-4t-view', 'tonnage', 'field-evaluation', 'roadmap', 'portfolio', 'visual-assets', 'source-visuals-3-4t'];
     const values = await Promise.all(names.map(async (name) => {
       const response = await fetch(`data/ppt-insights/${name}.json`);
       if (!response.ok) throw new Error(`${name}: ${response.status}`);
       return response.json();
     }));
-    return {tonnage34tView: values[0], tonnage: values[1], fieldEvaluation: values[2], roadmap: values[3], portfolio: values[4], visualAssets: values[5]};
+    return {tonnage34tView: values[0], tonnage: values[1], fieldEvaluation: values[2], roadmap: values[3], portfolio: values[4], visualAssets: values[5], sourceVisuals: values[6]};
   }
 
   async function init() {
@@ -544,11 +709,11 @@
       state = await loadData();
       const eyebrow = document.querySelector('.hero .eyebrow');
       if (eyebrow) eyebrow.textContent = copy.internal;
-      document.querySelector('#summary')?.after(renderMarket(state.tonnage34tView));
+      document.querySelector('#summary')?.after(renderMarket(state.tonnage34tView, state.sourceVisuals));
       const scenarios = renderScenarios(state.tonnage.records.filter((record) => record.id.startsWith('scenario-')));
-      const paper = renderPaper(state.tonnage34tView);
+      const paper = renderPaper(state.tonnage34tView, state.sourceVisuals);
       document.querySelector('#conditions')?.after(scenarios, paper);
-      document.querySelector('#cond6')?.after(renderField(state.fieldEvaluation.records), renderActions(state.roadmap.records, state.portfolio.records));
+      document.querySelector('#cond6')?.after(renderField(state.fieldEvaluation.records, state.sourceVisuals), renderActions(state.roadmap.records, state.portfolio.records, state.sourceVisuals));
       window.XCMGPPTIntegration = {language, data: state};
     } catch (error) {
       const section = makeSection('ppt-load-error', copy.marketTitle, '');

@@ -18,7 +18,11 @@ CORE_DATA = {
     "roadmap.json",
     "evidence.json",
 }
-NEW_DATA = {"tonnage-3-4t-view.json", "excavator-overview.json"}
+NEW_DATA = {
+    "tonnage-3-4t-view.json",
+    "excavator-overview.json",
+    "source-visuals-3-4t.json",
+}
 TRACE_FIELDS = {
     "id",
     "tonnage",
@@ -40,6 +44,7 @@ PROTECTED = {
     "assets/dashboard.js",
     "assets/i18n.js",
 }
+PROTECTED_BASELINE_BRANCH = "codex/add-24-40t-benchmarks"
 
 
 def load_json(name: str) -> dict:
@@ -98,6 +103,18 @@ class PptIntegrationDemoTests(unittest.TestCase):
         self.assertGreaterEqual(len(view["paper_comparison"]["metrics"]), 9)
         self.assertGreaterEqual(len(view["paper_comparison"]["configuration_findings"]), 4)
 
+    def test_source_visuals_retain_ppt_charts_tables_and_historical_boundaries(self):
+        visuals = load_json("source-visuals-3-4t.json")
+        self.assertEqual([48, 49, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 236], visuals["meta"]["source_slides"])
+        self.assertEqual(5, len(visuals["market"]["annual_brand_sales"]["series"]))
+        self.assertEqual(10, len(visuals["market"]["model_demand_2025"]["models"]))
+        self.assertEqual(8, len(visuals["performance"]["metrics"]))
+        self.assertEqual(18, len(visuals["field_rating_heatmap"]["rows"]))
+        self.assertEqual(9, len(visuals["competitiveness_profile"]["dimensions"]))
+        self.assertEqual(13, len(visuals["historical_improvement_ledger"]["items"]))
+        self.assertTrue(all(item["upgrade_date"] and item["production_date"] for item in visuals["historical_improvement_ledger"]["items"]))
+        self.assertIn("不代表", visuals["meta"]["status_note"]["zh"])
+
     def test_full_3_4t_analysis_is_rendered_as_native_content(self):
         html = (DEMO / "index.html").read_text(encoding="utf-8")
         script = (DEMO / "assets" / "integrated.js").read_text(encoding="utf-8")
@@ -112,6 +129,16 @@ class PptIntegrationDemoTests(unittest.TestCase):
         self.assertIn("competitionDimensions", expanded)
         self.assertIn("scenarioSequence", script)
         self.assertIn("scenarioImageCaptions", script)
+        self.assertIn("source-visuals-3-4t", script)
+        self.assertIn("renderBrandSales", script)
+        self.assertIn("renderModelDemand", script)
+        self.assertIn("renderPriceShare", script)
+        self.assertIn("renderTransportBreakdown", script)
+        self.assertIn("renderPerformanceVisual", script)
+        self.assertIn("renderFieldHeatmap", script)
+        self.assertIn("renderCompetitivenessProfile", script)
+        self.assertIn("renderImprovementLedger", script)
+        self.assertIn("sourceBadge(record)", script)
         self.assertNotIn("scenarioTabs", script)
         scenario_assets = {
             name
@@ -163,12 +190,19 @@ class PptIntegrationDemoTests(unittest.TestCase):
             self.assertIn(marker, formal)
             self.assertIn(marker, integrated)
 
-    def test_formal_site_files_match_main(self):
+    def test_formal_site_files_unchanged_from_demo_branch_baseline(self):
+        baseline = subprocess.run(
+            ["git", "merge-base", "HEAD", PROTECTED_BASELINE_BRANCH],
+            cwd=REPO,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
         protected = set(PROTECTED)
         protected.update(path.name for path in REPO.glob("excavator-*.html"))
         for relative in sorted(protected):
             result = subprocess.run(
-                ["git", "diff", "--quiet", "main", "--", relative],
+                ["git", "diff", "--quiet", baseline, "--", relative],
                 cwd=REPO,
                 check=False,
             )
