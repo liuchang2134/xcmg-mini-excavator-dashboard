@@ -10,13 +10,48 @@
   let refreshTimer = 0;
   let pulseTimer = 0;
   let scrollLock = null;
+  let initialHash = '';
+  let restoreHashEnabled = false;
 
   function canonicalizePreviewUrl() {
     const url = new URL(window.location.href);
-    if (!url.searchParams.has('rev') && !url.hash) return;
+    initialHash = url.hash;
+    restoreHashEnabled = Boolean(initialHash && initialHash !== '#');
+    if (!url.searchParams.has('rev')) return;
     url.searchParams.delete('rev');
-    url.hash = '';
-    window.history.replaceState(window.history.state, '', url.pathname + url.search);
+    window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+  }
+
+  function navigationOffset() {
+    const compactNavigation = window.matchMedia('(max-width: 56.249rem)').matches;
+    if (!compactNavigation) return 16;
+    return (document.querySelector('aside.nav')?.getBoundingClientRect().height || 0) + 8;
+  }
+
+  function scrollToTarget(target, behavior = 'auto', updateHistory = false) {
+    if (!target) return;
+    const id = target.id;
+    if (updateHistory && id) {
+      const url = new URL(window.location.href);
+      url.hash = id;
+      window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+    }
+    const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - navigationOffset());
+    window.scrollTo({top, behavior});
+  }
+
+  function restoreInitialHash() {
+    if (!restoreHashEnabled) return;
+    const hash = initialHash || window.location.hash;
+    if (!hash || hash === '#') return;
+    const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!target) return;
+    const entry = sections.find((item) => item.target === target);
+    if (entry) {
+      scrollLock = {id: entry.id, started: performance.now()};
+      setActive(entry.id);
+    }
+    scrollToTarget(target, 'auto', false);
   }
 
   function refreshSections() {
@@ -127,6 +162,7 @@
     const target = document.getElementById(decodeURIComponent(hash.slice(1)));
     event.preventDefault();
     if (!target) return;
+    restoreHashEnabled = false;
     const entry = sections.find((item) => item.target === target);
     if (entry) {
       scrollLock = {id: entry.id, started: performance.now()};
@@ -135,12 +171,18 @@
       scrollLock = null;
     }
     pulseTarget(target);
-    target.scrollIntoView({behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start'});
+    scrollToTarget(target, reducedMotion.matches ? 'auto' : 'smooth', true);
   });
 
   window.addEventListener('scroll', scheduleUpdate, {passive: true});
-  window.addEventListener('wheel', () => { scrollLock = null; }, {passive: true});
-  window.addEventListener('touchstart', () => { scrollLock = null; }, {passive: true});
+  const cancelHashRestore = () => {
+    scrollLock = null;
+    restoreHashEnabled = false;
+  };
+  window.addEventListener('wheel', cancelHashRestore, {passive: true, once: true});
+  window.addEventListener('touchstart', cancelHashRestore, {passive: true, once: true});
+  window.addEventListener('pointerdown', cancelHashRestore, {passive: true, once: true});
+  window.addEventListener('keydown', cancelHashRestore, {once: true});
   window.addEventListener('resize', () => {
     window.clearTimeout(refreshTimer);
     refreshTimer = window.setTimeout(refreshSections, 100);
@@ -154,5 +196,12 @@
     });
     observer.observe(main, {childList: true, subtree: true});
   }
-  window.setTimeout(refreshSections, 250);
+  window.addEventListener('load', restoreInitialHash, {once: true});
+  document.addEventListener('xcmg:i18n-rendered', restoreInitialHash);
+  [0, 250, 900, 1600, 2600].forEach((delay) => {
+    window.setTimeout(() => {
+      refreshSections();
+      restoreInitialHash();
+    }, delay);
+  });
 })();

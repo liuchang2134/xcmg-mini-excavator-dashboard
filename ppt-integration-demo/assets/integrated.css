@@ -512,17 +512,18 @@ html[data-language="en"] .pptIntegratedDemo .improvementLedger tbody th{min-widt
   .positionMetricStrip{grid-template-columns:repeat(2,minmax(0,1fr))}.positionMetricStrip article:nth-child(2n){border-right:0}.positionMetricStrip article{border-bottom:1px solid #d9e4ed}.positionMetricStrip article:last-child{grid-column:1/-1;border-bottom:0}
 }
 @media(min-width:56.25rem) and (max-width:75rem){
-  .pptOverviewPage .layout{display:grid;grid-template-columns:220px minmax(0,1fr)}
-  .pptOverviewPage aside.nav{position:sticky;top:0;display:block;height:100vh;overflow:auto;padding:18px 14px;border-right:5px solid var(--yellow);border-bottom:0}
+  .pptOverviewPage .layout{display:grid;grid-template-columns:clamp(13.5rem,16vw,15.75rem) minmax(0,1fr)}
+  .pptOverviewPage aside.nav{position:sticky;top:0;display:flex;flex-direction:column;height:100vh;overflow:hidden;padding:18px 14px;border-right:5px solid var(--yellow);border-bottom:0}
   .pptOverviewPage .nav img{width:104px;padding:5px}
   .pptOverviewPage .navTitle{margin:10px 0 6px;font-size:16px}
   .pptOverviewPage .nav small{font-size:10px}
   .pptOverviewPage .languageToggle{margin:10px 0}
   .pptOverviewPage .navToggle,.pptOverviewPage .mobileTop{display:none}
-  .pptOverviewPage .navMenu{display:block;max-height:none;overflow:visible;padding-top:0}
+  .pptOverviewPage .navMenu{display:block;flex:1;min-height:0;max-height:none;overflow-y:auto;padding:0 .3rem 3.2rem 0}
   .pptOverviewPage .navMenu .home{margin:12px 0}
   .pptOverviewPage main{padding:16px}
   .pptOverviewPage section,.pptOverviewPage .hero{scroll-margin-top:0}
+  .pptOverviewPage .layout.sidebarCollapsed{grid-template-columns:4.75rem minmax(0,1fr)}
 }
 
 /* Persistent page location for the long-form integrated benchmark. */
@@ -571,15 +572,15 @@ html[data-language="en"] .pptIntegratedDemo .improvementLedger tbody th{min-widt
 .pptIntegratedDemo .actionMethod p{align-self:center;margin:0;padding:.72rem .85rem;color:#29465f;font-size:.72rem;line-height:1.65}
 
 @media(min-width:56.25rem){
-  .pptIntegratedDemo .layout{display:grid;grid-template-columns:260px minmax(0,1fr)}
+  .pptIntegratedDemo .layout{display:grid;grid-template-columns:clamp(13.5rem,16vw,15.75rem) minmax(0,1fr)}
   .pptIntegratedDemo aside.nav{position:sticky;top:0;display:flex;flex-direction:column;height:100vh;overflow:hidden;padding:18px 14px;border-right:5px solid var(--yellow);border-bottom:0}
   .pptIntegratedDemo .navMenu{display:block;flex:1;min-height:0;max-height:none;overflow-y:auto;padding:0 .3rem 3.2rem 0}
   .pptIntegratedDemo .navMenu .home{margin:12px 0}
   .pptIntegratedDemo .navToggle,.pptIntegratedDemo .mobileTop{display:none}
   .pptIntegratedDemo section,.pptIntegratedDemo .hero{scroll-margin-top:1rem}
+  .pptIntegratedDemo .layout.sidebarCollapsed{grid-template-columns:4.75rem minmax(0,1fr)}
 }
 @media(min-width:56.25rem) and (max-width:75rem){
-  .pptIntegratedDemo .layout{grid-template-columns:220px minmax(0,1fr)}
   .pptIntegratedDemo .nav img{width:104px;padding:5px}
   .pptIntegratedDemo .navTitle{margin:10px 0 6px;font-size:16px}
   .pptIntegratedDemo .nav small{font-size:10px}

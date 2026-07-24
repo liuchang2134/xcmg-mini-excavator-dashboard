@@ -2107,7 +2107,7 @@ def render_source_table(record):
     ]
     rows = [[row[index] for index in populated_columns] for row in rows]
     width = len(populated_columns)
-    fit_table = width <= 7
+    fit_table = width <= 10
     headers = [str(cell or "").strip() for cell in rows[0]]
 
     column_weights = []
@@ -2122,7 +2122,7 @@ def render_source_table(record):
             weight = 13
         elif "需求" in header_text:
             weight = 18
-        elif "满足性" in header_text or "分析" in header_text or "结论" in header_text:
+        elif any(token in header_text for token in ("满足性", "分析", "结论", "结果")):
             weight = 17
         else:
             weight = max(10, min(22, len(header_text) * 2 or 12))
@@ -2339,11 +2339,11 @@ def render_html(model):
     .pptBusinessGroup{{margin-top:16px;padding-top:12px;border-top:3px solid var(--blue)}}.pptBusinessGroupHead{{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:10px}}.pptBusinessGroupHead h3{{margin:0;color:#073c70;font-size:16px}}.pptBusinessGroupHead p{{max-width:760px;margin:0;color:#526c82;font-size:11px;line-height:1.55;text-align:right}}.pptBusinessTableStack{{display:grid;gap:12px}}.pptBusinessTable{{min-width:0;border:1px solid #b8ccdd;background:#fff}}.pptBusinessTable>summary{{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:9px 11px;border-bottom:1px solid #c8d7e6;background:#f3f8fb;cursor:pointer;list-style:none}}.pptBusinessTable>summary::-webkit-details-marker{{display:none}}.pptBusinessTable>summary h3{{margin:0;color:#073c70;font-size:13px;line-height:1.45}}.pptBusinessTable>summary span{{flex:0 0 auto;color:#61788c;font-size:10px;font-weight:800}}.pptBusinessTable:not([open])>summary{{border-bottom:0}}.pptBusinessTableScroll{{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-color:#8299ad #edf2f6}}.pptBusinessTableScroll table{{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0;table-layout:auto;font-size:11px}}.pptBusinessTableScroll th,.pptBusinessTableScroll td{{position:static;min-width:116px;max-width:420px;padding:8px 9px;border-right:1px solid #d7e2ec;border-bottom:1px solid #d7e2ec;background:#fff;box-shadow:none;line-height:1.55;text-align:left;vertical-align:top;white-space:pre-line;overflow-wrap:anywhere}}.pptBusinessTableScroll thead th{{position:sticky;top:0;z-index:3;min-width:132px;background:#075da8;color:#fff;font-weight:900}}.pptBusinessTableScroll tbody th{{position:sticky;left:0;z-index:2;min-width:145px;background:#eef5fa!important;color:#073c70;font-weight:900}}.pptBusinessTableScroll tbody tr:nth-child(even) td{{background:#f8fbfd}}.pptBusinessTableScroll tr>*:last-child{{border-right:0}}.pptBusinessTableScroll tbody tr:last-child>*{{border-bottom:0}}
     .sourceContentSection{{padding:0;border-top:4px solid var(--blue);overflow:hidden}}.sourceContentSection>h2{{padding:18px 20px 0;margin-bottom:6px}}.sourceSlideStack{{display:block}}.sourceSlide{{padding:20px;border-top:1px solid #c8d7e6;background:#fff}}.sourceSlide:first-child{{border-top:0}}.sourceSlideHeader{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:10px}}.sourceSlideHeader h3{{margin:0;color:#073c70;font-size:18px;line-height:1.45}}.sourceNarrative{{max-width:1180px}}.sourceParagraph{{margin:0 0 10px;color:#203f5b;font-size:14px;line-height:1.82;white-space:pre-line;overflow-wrap:anywhere}}.sourceParagraph:last-child{{margin-bottom:0}}.sourceMacroGrid{{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(340px,.65fr);gap:16px;align-items:start}}.sourceMacroColumn{{min-width:0;padding:14px 16px;border-left:4px solid var(--blue);background:#f6f9fc}}.sourceMacroColumn:last-child{{border-left-color:var(--yellow)}}.sourceMacroColumn .sourceParagraph:first-child{{color:#075da8;font-weight:900}}.sourceVisualGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 2px;align-items:start}}.sourceVisualGrid-1{{grid-template-columns:minmax(0,980px);justify-content:center}}.sourceVisualGrid-3{{grid-template-columns:repeat(3,minmax(0,1fr))}}.sourceVisualGrid-4{{grid-template-columns:repeat(2,minmax(0,1fr))}}.sourceVisual{{display:flex;align-items:center;justify-content:center;min-width:0;margin:0;border:1px solid #c8d7e6;background:#f7fafc;overflow:hidden}}.sourceVisual img{{display:block;width:100%;height:auto;max-height:560px;object-fit:contain;background:#fff}}.sourceVisual-picture img{{max-height:480px}}.sourceTableBlock{{margin-top:16px;border-top:3px solid var(--blue)}}.sourceTableScroll{{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;border:1px solid #b8ccdd;border-top:0;background:#fff}}.sourceTableScroll table{{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0;table-layout:auto;font-size:12px}}.sourceTableCaption{{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}}.sourceTableScroll th,.sourceTableScroll td{{position:static;min-width:118px;max-width:460px;padding:9px 10px;border-right:1px solid #d7e2ec;border-bottom:1px solid #d7e2ec;background:#fff;box-shadow:none;line-height:1.65;text-align:left;vertical-align:top;white-space:pre-line;overflow-wrap:anywhere}}.sourceTableScroll thead th{{position:sticky;top:0;z-index:3;background:#075da8;color:#fff;font-weight:900}}.sourceTableScroll tbody th{{position:sticky;left:0;z-index:2;min-width:150px;background:#eef5fa!important;color:#073c70;font-weight:900}}.sourceTableScroll tbody tr:nth-child(even) td{{background:#f8fbfd}}.sourceTableScroll tr>*:last-child{{border-right:0}}.sourceTableScroll tbody tr:last-child>*{{border-bottom:0}}.sourceNotes{{margin-top:12px;padding:9px 11px;border-left:4px solid var(--blue);background:#f3f7fa}}.sourceDataNote{{margin:0;color:#526a7f;font-size:11px;line-height:1.6;white-space:pre-line}}
     .simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:12px}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
-    @media(max-width:1200px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.languageToggle{{margin:0}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home{{grid-column:1/-1;margin:0}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.productGapSpotlight{{grid-template-columns:260px minmax(0,1fr)}}.conditionVisualNav{{grid-template-columns:repeat(2,minmax(0,1fr))}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
+    @media(max-width:900px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.languageToggle{{margin:0}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home,.navGroup{{grid-column:1/-1}}.navMenu .home{{margin:0}}.navSubmenu{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.productGapSpotlight{{grid-template-columns:260px minmax(0,1fr)}}.conditionVisualNav{{grid-template-columns:repeat(2,minmax(0,1fr))}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
     @media(max-width:720px){{body{{font-size:14px}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:12px;line-height:1.25}}.nav small{{font-size:9px}}.languageToggle{{min-width:40px;min-height:32px;padding:0 6px;font-size:11px}}.navToggle,.mobileTop{{padding:6px 8px;font-size:11px}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:12px;padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}.heroMedia img{{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}}h1{{font-size:26px;margin:6px 0 8px}}h2{{font-size:20px;margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:15px}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:12px}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:24px;line-height:1.15;margin:3px 0}}.kpi span{{font-size:11px;line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:12px;margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:18px;overflow-wrap:anywhere;margin-bottom:0}}.conditionTitle span{{font-size:10px}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:12px}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:12px}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:11px;padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:anywhere}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:anywhere;font-size:11px;padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:900;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:11px;color:var(--blue);font-weight:800}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:12px}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:12px;padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:28px}}.tableScroll{{max-height:62vh}}}}
     @media(max-width:720px){{.actions{{display:grid;grid-template-columns:1fr;gap:6px;overflow:visible;margin-top:10px;padding-bottom:0}}.actions .btn{{width:100%;min-height:38px;padding:7px 9px;font-size:12px}}}}
     @media(max-width:720px){{.productGapSpotlight{{grid-template-columns:1fr;min-height:0}}.productGapMedia{{border-right:0;border-bottom:1px solid var(--line);padding:12px}}.productGapMedia img{{height:155px;padding:4px}}.productGapContent{{padding:12px}}.productGapContent h3{{font-size:17px}}.productGapContent ol{{grid-template-columns:1fr;gap:6px}}.conditionVisualNav{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:12%;margin:9px 0}}.conditionVisualCard{{scroll-snap-align:start;min-height:178px}}.conditionVisualSource{{font-size:9px}}}}
-    @media(max-width:1200px){{.navGroup{{grid-column:1/-1}}.navSubmenu{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}}.marketInsightGrid,.marketEvidenceGrid{{grid-template-columns:1fr}}.applicationGrid{{grid-template-columns:repeat(2,minmax(0,1fr))}}.engineeringPriorityGrid{{grid-template-columns:1fr 1fr}}.sourceMacroGrid{{grid-template-columns:1fr}}.sourceVisualGrid-3{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
+    @media(max-width:1200px){{.marketInsightGrid,.marketEvidenceGrid{{grid-template-columns:1fr}}.applicationGrid{{grid-template-columns:repeat(2,minmax(0,1fr))}}.engineeringPriorityGrid{{grid-template-columns:1fr 1fr}}.sourceMacroGrid{{grid-template-columns:1fr}}.sourceVisualGrid-3{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
     @media(max-width:720px){{.navSubmenu{{grid-template-columns:1fr}}.marketKpis{{grid-template-columns:1fr 1fr;gap:7px}}.marketKpis>div{{padding:9px;min-height:82px}}.marketKpis b{{font-size:15px}}.marketInsightGrid,.marketEvidenceGrid{{gap:8px}}.marketTrendPanel,.marketReading,.marketDataPanel,.marketFactPanel{{padding:10px}}.marketColumns{{height:205px;grid-template-columns:repeat(4,minmax(46px,1fr));gap:4px;padding-inline:2px}}.marketColumn{{grid-template-rows:135px auto auto auto}}.marketBarShell{{height:135px}}.marketBar{{width:min(42px,78%)}}.marketColumn>strong{{font-size:10px}}.marketLegend{{gap:5px 9px}}.marketDecisionList>div{{grid-template-columns:1fr;gap:3px;padding:8px 0}}.marketDecisionList dt{{font-size:10px}}.marketSeriesEmpty{{min-height:170px;padding:14px}}.marketDataTableWrap{{overscroll-behavior-inline:contain}}.marketFactList{{gap:6px}}.applicationGrid{{grid-template-columns:1fr;gap:8px}}.applicationCard img{{aspect-ratio:16/9}}.applicationMatrixWrap{{padding:10px}}.applicationMatrix,.applicationMatrix tbody,.applicationMatrix tr,.applicationMatrix th,.applicationMatrix td{{display:block;width:100%}}.applicationMatrix thead{{display:none}}.applicationMatrix tr{{margin:0 0 9px;border:1px solid #b9ccdc;background:#fff}}.applicationMatrix th,.applicationMatrix td{{border-bottom:1px solid #dde7ef;padding:9px 10px}}.applicationMatrix tbody th{{border-left:4px solid var(--blue)}}.applicationMatrix .applicationCapabilityCell{{border-left:4px solid var(--yellow);border-bottom:0}}.engineeringScope{{grid-template-columns:1fr}}.engineeringScope>b{{border-right:0;border-bottom:1px solid #c8d7e6}}.engineeringPriorityGrid{{grid-template-columns:1fr;gap:6px}}.engineeringTableWrap{{overflow:visible;border:0}}.engineeringTable,.engineeringTable tbody,.engineeringTable tr,.engineeringTable th,.engineeringTable td{{display:block;width:100%}}.engineeringTable thead{{display:none}}.engineeringTable tr{{margin:0 0 9px;border:1px solid #b9ccdc;background:#fff}}.engineeringTable th,.engineeringTable td{{border-bottom:1px solid #dde7ef;padding:9px 10px}}.engineeringTable tbody th{{border-left:4px solid var(--green)}}.engineeringTable .gapColumn,.engineeringTable .actionColumn{{border-left:4px solid}}.engineeringTable .actionColumn{{border-bottom:0}}.cellLabel{{display:block;margin-bottom:3px;color:#5b7185;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}}.pptBusinessGroup{{margin-top:10px;padding-top:9px}}.pptBusinessGroupHead{{display:block;margin-bottom:7px}}.pptBusinessGroupHead h3{{font-size:14px}}.pptBusinessGroupHead p{{margin-top:4px;text-align:left}}.pptBusinessTableStack{{gap:8px}}.pptBusinessTable>summary{{align-items:flex-start;min-height:40px;padding:8px 9px}}.pptBusinessTable>summary h3{{font-size:12px}}.pptBusinessTableScroll{{max-height:72vh}}.pptBusinessTableScroll table{{font-size:10px}}.pptBusinessTableScroll th,.pptBusinessTableScroll td{{min-width:106px;max-width:290px;padding:7px 8px}}.pptBusinessTableScroll tbody th{{min-width:122px}}.sourceContentSection>h2{{padding:14px 12px 0}}.sourceSlide{{padding:14px 12px}}.sourceSlideHeader h3{{font-size:16px}}.sourceParagraph{{font-size:13px;line-height:1.75}}.sourceVisualGrid,.sourceVisualGrid-1,.sourceVisualGrid-3,.sourceVisualGrid-4{{grid-template-columns:1fr;gap:8px;margin-top:12px}}.sourceVisual img,.sourceVisual-picture img{{max-height:none}}.sourceTableScroll table{{font-size:10px}}.sourceTableScroll th,.sourceTableScroll td{{min-width:112px;max-width:300px;padding:7px 8px}}.sourceTableScroll tbody th{{min-width:126px}}}}
     html[data-language="en"] .conditionIntro b:after,html[data-language="en"] .overallNotes p>b:first-child:after,html[data-language="en"] .summaryCard p>b:first-child:after{{content:" "}}html[data-language="en"] .navMenu a,html[data-language="en"] .conditionTitle h2,html[data-language="en"] .simOptions b,html[data-language="en"] .simOptions small{{overflow-wrap:anywhere}}html[data-language="en"] .sourceNote b{{white-space:normal}}html[data-language="en"] th{{white-space:normal;overflow-wrap:anywhere}}html[data-language="en"] .radar-label{{font-size:11px}}
     @media(max-width:720px){{html[data-language="en"] .navTitle{{font-size:11px;line-height:1.2}}html[data-language="en"] .nav small{{display:none}}html[data-language="en"] .summaryGrid,html[data-language="en"] .conditionIntro,html[data-language="en"] .gapGrid{{display:grid;grid-template-columns:1fr;grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;scroll-snap-type:none;padding:0}}html[data-language="en"] .summaryCard{{min-height:0}}html[data-language="en"] .summaryCard,html[data-language="en"] .conditionIntro p,html[data-language="en"] .gapGrid article{{scroll-snap-align:none}}html[data-language="en"] .mobileDisclosure>summary,html[data-language="en"] .radarPicker>summary{{white-space:normal;overflow-wrap:anywhere}}html[data-language="en"] .radarHead{{align-items:flex-start;flex-wrap:wrap}}html[data-language="en"] .radarCurrent{{white-space:normal}}html[data-language="en"] .simHead{{gap:8px;align-items:flex-start}}html[data-language="en"] .resetSim{{flex:0 0 auto;white-space:normal}}}}
@@ -2352,6 +2352,12 @@ def render_html(model):
     .sourceTableScrollFit table.sourceTableFit th,.sourceTableScrollFit table.sourceTableFit td{{position:static;min-width:0;max-width:none;padding:8px 9px;white-space:pre-line;overflow-wrap:anywhere;word-break:normal;line-height:1.55}}
     .sourceTableScrollFit table.sourceTableFit tbody th{{position:static;min-width:0}}
     @media(max-width:720px){{.sourceTableScroll.sourceTableScrollFit{{max-height:none;overflow:visible;border:0}}.sourceTableScrollFit table.sourceTableFit,.sourceTableScrollFit .sourceTableFit tbody,.sourceTableScrollFit .sourceTableFit tr,.sourceTableScrollFit .sourceTableFit th,.sourceTableScrollFit .sourceTableFit td{{display:block;width:100%}}.sourceTableScrollFit .sourceTableFit colgroup,.sourceTableScrollFit .sourceTableFit thead{{display:none}}.sourceTableScrollFit .sourceTableFit tr{{margin-bottom:10px;border:1px solid #b8ccdd;background:#fff}}.sourceTableScrollFit .sourceTableFit th,.sourceTableScrollFit .sourceTableFit td{{display:grid;grid-template-columns:minmax(88px,7rem) minmax(0,1fr);gap:8px;border-right:0;padding:8px 9px}}.sourceTableScrollFit .sourceTableFit th::before,.sourceTableScrollFit .sourceTableFit td::before{{content:attr(data-label);color:#075da8;font-size:10px;font-weight:900}}.sourceTableScrollFit .sourceTableFit tbody th{{border-left:4px solid #075da8;background:#eef5fa!important}}.sourceTableScrollFit .sourceTableFit tr>:last-child{{border-bottom:0}}}}
+    /* Reader-facing copy remains comfortable without loosening dense data tables. */
+    .insightLead,.marketRole,.marketDecisionList dd,.marketFactList p,.applicationCard>p,.engineeringScope>span,.engineeringPriorityGrid p,.sourceParagraph,.sourceDataNote{{font-size:14px;line-height:1.7}}
+    .marketEvidenceBoundary p,.applicationRequirement b{{font-size:13px;line-height:1.65}}
+    .sidebarToggle{{display:none}}
+    @media(min-width:901px){{.layout{{grid-template-columns:clamp(216px,16vw,252px) minmax(0,1fr);transition:grid-template-columns .18s ease}}aside.nav{{display:flex;flex-direction:column;overflow:hidden;padding-bottom:66px}}.navMenu{{display:block;grid-column:auto;flex:1;min-height:0;max-height:none;overflow-y:auto;padding:0 3px 0 0}}.navToggle,.mobileTop{{display:none}}.backTop{{left:14px;bottom:14px;min-height:40px;border-radius:4px;padding:8px 14px}}.sourceTableScroll table:not(:has(tr > :nth-child(11))){{width:100%;min-width:100%;table-layout:fixed}}.sourceTableScroll table:not(:has(tr > :nth-child(11))) th,.sourceTableScroll table:not(:has(tr > :nth-child(11))) td{{min-width:0;max-width:none}}.sidebarToggle{{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:36px;margin:0 0 10px;border:1px solid rgba(255,255,255,.36);border-radius:4px;background:transparent;color:#fff;font-size:12px;font-weight:800;cursor:pointer}}.sidebarToggle:hover,.sidebarToggle:focus-visible{{border-color:var(--yellow);color:var(--yellow);outline:none}}.layout.sidebarCollapsed{{grid-template-columns:76px minmax(0,1fr)}}.layout.sidebarCollapsed aside.nav{{padding-left:10px;padding-right:10px;align-items:center}}.layout.sidebarCollapsed .navBrand img{{width:48px;padding:4px}}.layout.sidebarCollapsed .navTitle,.layout.sidebarCollapsed aside.nav>div>small,.layout.sidebarCollapsed .languageToggle,.layout.sidebarCollapsed .navMenu{{display:none}}.layout.sidebarCollapsed .sidebarToggle{{width:52px;margin-top:10px;padding:5px;line-height:1.25}}}}
+    @media(max-width:720px){{.languageToggle,.navToggle,.mobileTop,.actions .btn,.radarLegend button,.radarPicker>summary,.resetSim,.rawTabs button{{min-height:44px}}.languageToggle{{min-width:44px}}.navToggle,.mobileTop{{padding:8px 10px}}.insightLead,.marketRole,.marketDecisionList dd,.marketFactList p,.applicationCard>p,.engineeringScope>span,.engineeringPriorityGrid p,.sourceParagraph,.sourceDataNote{{font-size:15px;line-height:1.72}}.mobileDisclosure>summary,.radarPicker>summary{{min-height:44px}}}}
   </style>
 </head>
 <body>
@@ -2361,6 +2367,7 @@ def render_html(model):
     <a class="navBrand" href="arc.html" aria-label="返回全产品线竞品对标平台主页"><img src="assets/xcmg-logo.svg" alt="XCMG"></a>
     <div><div class="navTitle">{esc(meta["label"])}挖掘机对标</div><small>{esc(meta["xcmg"])}</small></div>
     <button class="languageToggle" type="button" aria-label="Switch to English">EN</button>
+    <button class="sidebarToggle" type="button" aria-expanded="true" aria-controls="page-nav"><span>收起侧栏</span></button>
     <button class="navToggle" type="button" aria-expanded="false" aria-controls="page-nav">页面导航</button>
     <a class="mobileTop" href="#top">顶部</a>
     <div class="navMenu" id="page-nav">
@@ -2535,7 +2542,7 @@ function setupPageNavigation(){{
       toggle.textContent=open?'收起导航':'页面导航';
     }});
     menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{{
-      if(window.matchMedia('(max-width:1200px)').matches){{
+      if(window.matchMedia('(max-width:900px)').matches){{
         menu.classList.remove('open');
         toggle.setAttribute('aria-expanded','false');
         toggle.textContent='页面导航';
@@ -2544,11 +2551,36 @@ function setupPageNavigation(){{
   }}
   const navLinks=menu?[...menu.querySelectorAll('a[href^="#"]')]:[];
   const tracked=navLinks.map(link=>({{link,section:document.querySelector(link.getAttribute('href'))}})).filter(item=>item.section);
+  const initialHash=window.location.hash;
+  let restoreHashEnabled=Boolean(initialHash&&initialHash!=='#');
+  const navigationOffset=()=>window.matchMedia('(max-width:900px)').matches
+    ? (document.querySelector('aside.nav')?.getBoundingClientRect().height||0)+8
+    : 16;
+  const scrollToSection=(section,hash,behavior='auto',updateHistory=false)=>{{
+    if(!section) return;
+    if(updateHistory&&hash){{
+      const url=new URL(window.location.href);
+      url.hash=hash;
+      window.history.replaceState(window.history.state,'',url.pathname+url.search+url.hash);
+    }}
+    const top=Math.max(0,window.scrollY+section.getBoundingClientRect().top-navigationOffset());
+    window.scrollTo({{top,behavior}});
+  }};
+  navLinks.forEach(link=>link.addEventListener('click',event=>{{
+    if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey) return;
+    const hash=link.getAttribute('href');
+    const section=hash?document.querySelector(hash):null;
+    if(!section) return;
+    event.preventDefault();
+    restoreHashEnabled=false;
+    navLinks.forEach(item=>item.classList.toggle('active',item===link));
+    scrollToSection(section,hash,window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',true);
+  }}));
   let navTicking=false;
   const updateActiveNav=()=>{{
     navTicking=false;
     if(!tracked.length) return;
-    const offset=window.matchMedia('(max-width:1200px)').matches?92:120;
+    const offset=window.matchMedia('(max-width:900px)').matches?92:120;
     let active=tracked[0];
     tracked.forEach(item=>{{if(item.section.getBoundingClientRect().top<=offset) active=item;}});
     navLinks.forEach(link=>link.classList.toggle('active',link===active.link));
@@ -2566,12 +2598,69 @@ function setupPageNavigation(){{
   window.addEventListener('scroll',scheduleActiveNav,{{passive:true}});
   window.addEventListener('resize',scheduleActiveNav,{{passive:true}});
   scheduleActiveNav();
+  const restoreHash=()=>{{
+    if(!restoreHashEnabled) return;
+    const hash=initialHash;
+    if(!hash||hash==='#') return;
+    const section=document.querySelector(hash);
+    if(section) scrollToSection(section,hash,'auto',false);
+  }};
+  const cancelHashRestore=()=>{{restoreHashEnabled=false;}};
+  window.addEventListener('wheel',cancelHashRestore,{{passive:true,once:true}});
+  window.addEventListener('touchstart',cancelHashRestore,{{passive:true,once:true}});
+  window.addEventListener('pointerdown',cancelHashRestore,{{passive:true,once:true}});
+  window.addEventListener('keydown',cancelHashRestore,{{once:true}});
+  window.addEventListener('load',restoreHash,{{once:true}});
+  document.addEventListener('xcmg:i18n-rendered',restoreHash);
+  [0,250,900,1600,2600].forEach(delay=>window.setTimeout(restoreHash,delay));
   const backTop=document.querySelector('.backTop');
   if(backTop){{
     const update=()=>backTop.classList.toggle('show',window.scrollY>640);
     window.addEventListener('scroll',update,{{passive:true}});
     update();
   }}
+}}
+function setupSidebarCollapse(){{
+  const layout=document.querySelector('.layout');
+  const nav=layout?.querySelector('aside.nav');
+  if(!layout||!nav)return;
+  let toggle=nav.querySelector('.sidebarToggle');
+  if(!toggle){{
+    toggle=document.createElement('button');
+    toggle.className='sidebarToggle';
+    toggle.type='button';
+    toggle.setAttribute('aria-expanded','true');
+    toggle.setAttribute('aria-controls',nav.querySelector('.navMenu')?.id||'page-nav');
+    toggle.innerHTML='<span>收起侧栏</span>';
+    nav.insertBefore(toggle,nav.querySelector('.navToggle')||nav.querySelector('.navMenu'));
+  }}
+  const desktop=window.matchMedia('(min-width:901px)');
+  const storageKey='xcmg-dashboard-sidebar-collapsed';
+  let stored=false;
+  try{{stored=localStorage.getItem(storageKey)==='1';}}catch(error){{stored=false;}}
+  const getLabel=collapsed=>{{
+    const isEn=document.documentElement.dataset.language==='en';
+    return collapsed?(isEn?'Open navigation':'展开侧栏'):(isEn?'Collapse navigation':'收起侧栏');
+  }};
+  const apply=(collapsed,persist)=>{{
+    const effective=desktop.matches&&collapsed;
+    layout.classList.toggle('sidebarCollapsed',effective);
+    toggle.setAttribute('aria-expanded',String(!effective));
+    const text=getLabel(effective);
+    const label=toggle.querySelector('span');
+    if(label)label.textContent=text;
+    toggle.setAttribute('aria-label',text);
+    if(persist){{
+      stored=effective;
+      try{{localStorage.setItem(storageKey,effective?'1':'0');}}catch(error){{}}
+    }}
+  }};
+  apply(stored,false);
+  toggle.addEventListener('click',()=>apply(!layout.classList.contains('sidebarCollapsed'),true));
+  const sync=()=>apply(stored,false);
+  if(desktop.addEventListener)desktop.addEventListener('change',sync);
+  else if(desktop.addListener)desktop.addListener(sync);
+  document.addEventListener('xcmg:i18n-rendered',()=>apply(layout.classList.contains('sidebarCollapsed'),false));
 }}
 function setupMobileDisclosures(){{
   const media=window.matchMedia('(max-width:720px)');
@@ -2589,6 +2678,7 @@ setupMobileDisclosures();
 setupRadars();
 setupSimulators();
 setupRawTabs();
+setupSidebarCollapse();
 setupPageNavigation();
 </script>
 <script src="assets/i18n.js?v=20260723c"></script>
@@ -2889,8 +2979,8 @@ PPT_CHART_CSS = r"""
 .sourceDataChart{display:block;min-width:0;padding:0;border:1px solid #b8ccdd;background:#fff;overflow:hidden}
 .sourceDataChart>figcaption{display:flex;align-items:center;min-height:42px;padding:10px 14px;border-bottom:1px solid #d7e2ec;background:#f3f8fb;color:#073c70;font-size:14px;font-weight:900;line-height:1.4}
 .sourceChartViewport{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-color:#8299ad #edf2f6;background:#fff}
-.sourceChartSvg{display:block;width:100%;min-width:44rem;height:auto;max-height:none;background:#fff;font-family:"Segoe UI",Arial,"Microsoft YaHei",sans-serif}
-.sourceDataChart[data-chart-density="dense"] .sourceChartSvg{width:100%;min-width:66rem}
+.sourceChartSvg{display:block;width:min(100%,72rem);min-width:0;height:auto;max-height:none;margin-inline:auto;background:#fff;font-family:"Segoe UI",Arial,"Microsoft YaHei",sans-serif}
+.sourceDataChart[data-chart-density="dense"] .sourceChartSvg{width:100%;min-width:0}
 .sourceChartGrid line,.sourceChartRadarGrid line,.sourceChartRadarGrid polygon{fill:none;stroke:#dbe6ef;stroke-width:1}
 .sourceChartSvg text,.sourceChartGrid,.sourceChartRadarGrid,.sourceChartLabels{pointer-events:none}
 .sourceChartGrid text,.sourceChartLabels text{fill:#36536d;font-size:12px}
@@ -3255,12 +3345,12 @@ def externalize_dashboard_assets(page_html):
     (assets_dir / "dashboard.js").write_text(javascript, encoding="utf-8", newline="\n")
 
     page_html = page_html[:style_start] + (
-        '  <link rel="stylesheet" href="assets/dashboard.css?v=20260724h">\n'
+        '  <link rel="stylesheet" href="assets/dashboard.css?v=20260724k">\n'
         '  <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">'
     ) + page_html[style_end:]
     script_start = page_html.rfind("<script>")
     script_end = page_html.index("</script>", script_start) + len("</script>")
-    page_html = page_html[:script_start] + '<script src="assets/dashboard.js?v=20260723g"></script>' + page_html[script_end:]
+    page_html = page_html[:script_start] + '<script src="assets/dashboard.js?v=20260724k"></script>' + page_html[script_end:]
     return page_html
 
 

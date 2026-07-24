@@ -98,7 +98,7 @@ function setupPageNavigation(){
       toggle.textContent=open?'收起导航':'页面导航';
     });
     menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
-      if(window.matchMedia('(max-width:1200px)').matches){
+      if(window.matchMedia('(max-width:900px)').matches){
         menu.classList.remove('open');
         toggle.setAttribute('aria-expanded','false');
         toggle.textContent='页面导航';
@@ -107,11 +107,36 @@ function setupPageNavigation(){
   }
   const navLinks=menu?[...menu.querySelectorAll('a[href^="#"]')]:[];
   const tracked=navLinks.map(link=>({link,section:document.querySelector(link.getAttribute('href'))})).filter(item=>item.section);
+  const initialHash=window.location.hash;
+  let restoreHashEnabled=Boolean(initialHash&&initialHash!=='#');
+  const navigationOffset=()=>window.matchMedia('(max-width:900px)').matches
+    ? (document.querySelector('aside.nav')?.getBoundingClientRect().height||0)+8
+    : 16;
+  const scrollToSection=(section,hash,behavior='auto',updateHistory=false)=>{
+    if(!section) return;
+    if(updateHistory&&hash){
+      const url=new URL(window.location.href);
+      url.hash=hash;
+      window.history.replaceState(window.history.state,'',url.pathname+url.search+url.hash);
+    }
+    const top=Math.max(0,window.scrollY+section.getBoundingClientRect().top-navigationOffset());
+    window.scrollTo({top,behavior});
+  };
+  navLinks.forEach(link=>link.addEventListener('click',event=>{
+    if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey) return;
+    const hash=link.getAttribute('href');
+    const section=hash?document.querySelector(hash):null;
+    if(!section) return;
+    event.preventDefault();
+    restoreHashEnabled=false;
+    navLinks.forEach(item=>item.classList.toggle('active',item===link));
+    scrollToSection(section,hash,window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',true);
+  }));
   let navTicking=false;
   const updateActiveNav=()=>{
     navTicking=false;
     if(!tracked.length) return;
-    const offset=window.matchMedia('(max-width:1200px)').matches?92:120;
+    const offset=window.matchMedia('(max-width:900px)').matches?92:120;
     let active=tracked[0];
     tracked.forEach(item=>{if(item.section.getBoundingClientRect().top<=offset) active=item;});
     navLinks.forEach(link=>link.classList.toggle('active',link===active.link));
@@ -129,12 +154,69 @@ function setupPageNavigation(){
   window.addEventListener('scroll',scheduleActiveNav,{passive:true});
   window.addEventListener('resize',scheduleActiveNav,{passive:true});
   scheduleActiveNav();
+  const restoreHash=()=>{
+    if(!restoreHashEnabled) return;
+    const hash=initialHash;
+    if(!hash||hash==='#') return;
+    const section=document.querySelector(hash);
+    if(section) scrollToSection(section,hash,'auto',false);
+  };
+  const cancelHashRestore=()=>{restoreHashEnabled=false;};
+  window.addEventListener('wheel',cancelHashRestore,{passive:true,once:true});
+  window.addEventListener('touchstart',cancelHashRestore,{passive:true,once:true});
+  window.addEventListener('pointerdown',cancelHashRestore,{passive:true,once:true});
+  window.addEventListener('keydown',cancelHashRestore,{once:true});
+  window.addEventListener('load',restoreHash,{once:true});
+  document.addEventListener('xcmg:i18n-rendered',restoreHash);
+  [0,250,900,1600,2600].forEach(delay=>window.setTimeout(restoreHash,delay));
   const backTop=document.querySelector('.backTop');
   if(backTop){
     const update=()=>backTop.classList.toggle('show',window.scrollY>640);
     window.addEventListener('scroll',update,{passive:true});
     update();
   }
+}
+function setupSidebarCollapse(){
+  const layout=document.querySelector('.layout');
+  const nav=layout?.querySelector('aside.nav');
+  if(!layout||!nav)return;
+  let toggle=nav.querySelector('.sidebarToggle');
+  if(!toggle){
+    toggle=document.createElement('button');
+    toggle.className='sidebarToggle';
+    toggle.type='button';
+    toggle.setAttribute('aria-expanded','true');
+    toggle.setAttribute('aria-controls',nav.querySelector('.navMenu')?.id||'page-nav');
+    toggle.innerHTML='<span>收起侧栏</span>';
+    nav.insertBefore(toggle,nav.querySelector('.navToggle')||nav.querySelector('.navMenu'));
+  }
+  const desktop=window.matchMedia('(min-width:901px)');
+  const storageKey='xcmg-dashboard-sidebar-collapsed';
+  let stored=false;
+  try{stored=localStorage.getItem(storageKey)==='1';}catch(error){stored=false;}
+  const getLabel=collapsed=>{
+    const isEn=document.documentElement.dataset.language==='en';
+    return collapsed?(isEn?'Open navigation':'展开侧栏'):(isEn?'Collapse navigation':'收起侧栏');
+  };
+  const apply=(collapsed,persist)=>{
+    const effective=desktop.matches&&collapsed;
+    layout.classList.toggle('sidebarCollapsed',effective);
+    toggle.setAttribute('aria-expanded',String(!effective));
+    const text=getLabel(effective);
+    const label=toggle.querySelector('span');
+    if(label)label.textContent=text;
+    toggle.setAttribute('aria-label',text);
+    if(persist){
+      stored=effective;
+      try{localStorage.setItem(storageKey,effective?'1':'0');}catch(error){}
+    }
+  };
+  apply(stored,false);
+  toggle.addEventListener('click',()=>apply(!layout.classList.contains('sidebarCollapsed'),true));
+  const sync=()=>apply(stored,false);
+  if(desktop.addEventListener)desktop.addEventListener('change',sync);
+  else if(desktop.addListener)desktop.addListener(sync);
+  document.addEventListener('xcmg:i18n-rendered',()=>apply(layout.classList.contains('sidebarCollapsed'),false));
 }
 function setupMobileDisclosures(){
   const media=window.matchMedia('(max-width:720px)');
@@ -152,6 +234,7 @@ setupMobileDisclosures();
 setupRadars();
 setupSimulators();
 setupRawTabs();
+setupSidebarCollapse();
 setupPageNavigation();
 (function () {
   'use strict';

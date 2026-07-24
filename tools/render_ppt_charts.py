@@ -154,12 +154,14 @@ def fmt_percent(value, digits=1):
     return f"{float(value) * 100:.{digits}f}%"
 
 
-def nice_ceiling(value):
+def nice_ceiling(value, tick_count=5):
+    """Return a readable axis ceiling without wasting most of the plot area."""
     value = max(1.0, float(value))
     magnitude = 10 ** math.floor(math.log10(value))
     normalized = value / magnitude
-    step = 1 if normalized <= 1 else 2 if normalized <= 2 else 5 if normalized <= 5 else 10
-    return step * magnitude
+    steps = (1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10)
+    ceiling = next(candidate for candidate in steps if normalized <= candidate)
+    return ceiling * magnitude
 
 
 def series_color(name, index):
@@ -216,8 +218,8 @@ def render_clustered(chart):
     count = len(categories)
     dense = count > 10
     width = max(920, count * (76 if dense else 120))
-    height = 500
-    left, right, top, bottom = 78, (86 if line_series else 26), 30, 82
+    height = 460 if dense else 420
+    left, right, top, bottom = 78, (86 if line_series else 26), 24, 66
     plot_width = width - left - right
     plot_height = height - top - bottom
     max_value = max(
@@ -341,8 +343,8 @@ def render_stacked(chart, normalized=False, area=False):
     if not categories or not series:
         return ""
     count = len(categories)
-    width, height = max(920, count * 130), 500
-    left, right, top, bottom = 72, 28, 30, 72
+    width, height = max(920, count * 130), 420
+    left, right, top, bottom = 72, 28, 24, 62
     plot_width = width - left - right
     plot_height = height - top - bottom
     raw_totals = []

@@ -823,14 +823,18 @@
   }
 
   function translateCore(value) {
-    let text = String(value || '').trim().replace(/\s+/g, ' ');
+    const original = String(value || '').trim().replace(/\s+/g, ' ');
+    let text = original;
     if (!HAN.test(text)) return text;
     if (Object.prototype.hasOwnProperty.call(exactTranslations, text)) {
       return exactTranslations[text];
     }
     for (const [pattern, handler] of sentenceRules) {
       const match = text.match(pattern);
-      if (match) return handler(...match.slice(1));
+      if (match) {
+        const translated = handler(...match.slice(1));
+        return HAN.test(translated) ? original : translated;
+      }
     }
     text = text
       .replace(/^无(?=[、，,])/, 'None')
@@ -845,7 +849,7 @@
     for (const [source, target] of termEntries) {
       text = text.split(source).join(target);
     }
-    return text
+    const translated = text
       .replace(/，/g, ', ')
       .replace(/；/g, '; ')
       .replace(/：/g, ': ')
@@ -860,6 +864,7 @@
       .replace(/\s+\./g, '.')
       .replace(/\s{2,}/g, ' ')
       .trim();
+    return HAN.test(translated) ? original : translated;
   }
 
   function translateValue(value) {
@@ -891,7 +896,7 @@
     for (const element of elements) {
       if (shouldSkip(element)) continue;
       const explicitEnglish = element.getAttribute('data-en');
-      if (explicitEnglish !== null) {
+      if (explicitEnglish !== null && !HAN.test(explicitEnglish)) {
         if (element.textContent !== explicitEnglish) element.textContent = explicitEnglish;
         continue;
       }
@@ -991,6 +996,17 @@
     translateElement(document.body);
     normalizeEnglishRadarLabels(document);
     decorateInternalLinks();
+    scheduleRenderingSettled();
+  }
+
+  let renderingSettledTimer = 0;
+  function scheduleRenderingSettled() {
+    window.clearTimeout(renderingSettledTimer);
+    renderingSettledTimer = window.setTimeout(() => {
+      document.dispatchEvent(new CustomEvent('xcmg:i18n-rendered', {
+        detail: {language}
+      }));
+    }, 60);
   }
 
   document.documentElement.lang = language === 'en' ? 'en-US' : 'zh-CN';
@@ -1002,6 +1018,7 @@
     normalizeEnglishRadarLabels(document);
     decorateInternalLinks();
     installEnglishDisclosureLabels();
+    scheduleRenderingSettled();
     window.addEventListener('load', finalizeEnglishRendering, {once: true});
     requestAnimationFrame(() => requestAnimationFrame(finalizeEnglishRendering));
     if (typeof MutationObserver === 'function') {
@@ -1026,6 +1043,7 @@
           });
         }
         decorateInternalLinks();
+        scheduleRenderingSettled();
         translating = false;
       });
       observer.observe(document.body, {childList: true, characterData: true, subtree: true});

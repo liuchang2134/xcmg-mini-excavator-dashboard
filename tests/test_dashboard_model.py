@@ -21,6 +21,7 @@ from tools.build_excavator_dashboards import (
     option_score,
     parse_metric_value,
 )
+from tools.render_ppt_charts import nice_ceiling
 
 
 class StructureParser(HTMLParser):
@@ -220,6 +221,77 @@ class DashboardModelTests(unittest.TestCase):
                 self.assertIn('class="mobileDisclosure rawDisclosure"', html)
                 self.assertIn('src="assets/dashboard.js?v=', html)
                 self.assertNotIn('class="summaryGrid" style="margin-top:12px"', html)
+
+    def test_chart_scale_and_sidebar_are_responsive(self):
+        dashboard_css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
+        dashboard_js = (ROOT / "assets" / "dashboard.js").read_text(encoding="utf-8")
+
+        self.assertEqual(nice_ceiling(2138 * 1.08), 2500)
+        self.assertEqual(nice_ceiling(718 * 1.08), 800)
+        self.assertIn(
+            "grid-template-columns:clamp(216px,16vw,252px) minmax(0,1fr)",
+            dashboard_css,
+        )
+        self.assertIn(".layout.sidebarCollapsed", dashboard_css)
+        self.assertIn("width:min(100%,72rem);min-width:0", dashboard_css)
+        self.assertIn("@media(max-width:900px)", dashboard_css)
+        self.assertIn("@media(min-width:901px)", dashboard_css)
+        self.assertIn("document.createElement('button')", dashboard_js)
+        self.assertIn("window.matchMedia('(min-width:901px)')", dashboard_js)
+        self.assertIn("setupSidebarCollapse();", dashboard_js)
+
+        shared_layout_pages = [
+            *[ROOT / meta["output"] for meta in SOURCE_FILES],
+            ROOT / "excavator-market-overview.html",
+            ROOT / "ppt-integration-demo" / "index.html",
+            ROOT / "ppt-integration-demo" / "excavator-overview.html",
+        ]
+        for page in shared_layout_pages:
+            with self.subTest(page=page.name):
+                html = page.read_text(encoding="utf-8")
+                self.assertIn("assets/dashboard.css?v=20260724k", html)
+                self.assertIn('class="sidebarToggle"', html)
+
+        market_html = (ROOT / "excavator-market-overview.html").read_text(encoding="utf-8")
+        self.assertIn('data-en="150,000"', market_html)
+        self.assertNotIn('data-en="200,000"', market_html)
+
+        for meta in SOURCE_FILES:
+            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
+            sales_chart = re.search(
+                r'<figure class="[^"]*sourceDataChart[^"]*"[^>]*>'
+                r'.*?<figcaption[^>]*>.*?产品近年销量.*?</figcaption>'
+                r'.*?</figure>',
+                html,
+                flags=re.DOTALL,
+            )
+            if sales_chart is None:
+                continue
+            chart_html = sales_chart.group(0)
+            grid = re.search(
+                r'<g class="sourceChartGrid">(.*?)</g>',
+                chart_html,
+                flags=re.DOTALL,
+            )
+            self.assertIsNotNone(grid, meta["output"])
+            axis_values = [
+                int(value.replace(",", ""))
+                for value in re.findall(r"<text[^>]*>\s*([\d,]+)\s*</text>", grid.group(1))
+            ]
+            totals = [
+                int(value.replace(",", ""))
+                for value in re.findall(
+                    r'<text[^>]*class="sourceChartTotal"[^>]*>\s*([\d,]+)\s*</text>',
+                    chart_html,
+                )
+            ]
+            self.assertTrue(axis_values, meta["output"])
+            self.assertTrue(totals, meta["output"])
+            y_max = max(axis_values)
+            max_total = max(totals)
+            with self.subTest(page=meta["output"]):
+                self.assertGreaterEqual(y_max, max_total)
+                self.assertLessEqual(y_max, max_total * 1.40)
 
     def test_every_tonnage_page_uses_its_own_source_chapter(self):
         source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"

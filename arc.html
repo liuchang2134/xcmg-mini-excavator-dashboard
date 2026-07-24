@@ -575,8 +575,10 @@
     .lineCard.is-disabled{
       cursor:not-allowed;
       box-shadow:none;
-      opacity:.78;
+      background:#f8fafc;
     }
+    .lineCard.is-disabled .lineImage img{filter:saturate(.72);opacity:.78}
+    .lineCard.is-disabled .status{color:#526b80;background:#edf2f6}
     .lineCard.is-disabled:hover{
       border-color:var(--line);
       box-shadow:none;
@@ -870,6 +872,7 @@
     .projectResultCount{min-width:140px;color:#4b647b;font-size:12px;font-weight:900;text-align:right;padding-bottom:11px}
     .liveGrid{
       display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:12px;
     }
     .projectRow{
@@ -877,9 +880,9 @@
       border:1px solid var(--line);
       box-shadow:0 9px 22px rgba(0,55,101,.05);
       display:grid;
-      grid-template-columns:210px minmax(0,1fr);
+      grid-template-columns:160px minmax(0,1fr);
       gap:0;
-      min-height:164px;
+      min-height:150px;
       overflow:hidden;
       cursor:pointer;
       transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease;
@@ -906,13 +909,13 @@
       object-fit:contain;
     }
     .projectInfo{
-      padding:20px 22px;
+      padding:17px 18px;
       min-width:0;
     }
     .projectInfo h3{
       margin:0;
       color:var(--blue-ink);
-      font-size:21px;
+      font-size:18px;
       line-height:1.25;
     }
     .projectInfo p{
@@ -927,7 +930,7 @@
       align-items:center;
       gap:14px;
       flex-wrap:wrap;
-      margin-top:14px;
+      margin-top:11px;
     }
     .projectCount{
       display:inline-flex;
@@ -1079,7 +1082,8 @@
       .productMatrix{grid-template-columns:1fr 1fr}
       .lineCard.featured{grid-column:span 2;grid-row:span 1;grid-template-columns:320px minmax(0,1fr);min-height:0;height:280px}
       .lineCard.featured .lineImage{height:280px}
-      .projectRow{grid-template-columns:190px minmax(0,1fr)}
+      .liveGrid{grid-template-columns:1fr}
+      .projectRow{grid-template-columns:180px minmax(0,1fr)}
       .projectActions{grid-column:1 / -1;border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr}
       .lineDetailPanel{grid-template-columns:1fr 1fr}
       .lineDetailAction{grid-column:1 / -1;min-width:0}
@@ -1167,20 +1171,20 @@
       .brandText span{display:none}
       .navLinks{top:56px;height:calc(100dvh - 56px)}
       .navBackdrop{inset:56px 0 0}
-      .languageToggle{min-width:42px;min-height:34px;padding:0 7px;font-size:11px}
-      .navToggle{min-width:68px;padding:0 8px}
+      .languageToggle{min-width:44px;min-height:44px;padding:0 8px;font-size:12px}
+      .navToggle{min-width:76px;min-height:44px;padding:0 10px}
       .hero{padding:16px 13px;margin-top:10px}
       .kicker{font-size:10px;margin-bottom:9px}
       h1{font-size:29px;line-height:1.08}
       .mobileBreak{display:block}
       .heroLead{font-size:14px;line-height:1.6;margin-top:12px}
       .heroActions{margin-top:16px;gap:7px;flex-wrap:wrap;overflow:visible;padding-bottom:0}
-      .heroActions .btn{flex:1 1 30%;min-height:38px;padding:0 10px;font-size:11px}
+      .heroActions .btn{flex:1 1 30%;min-height:44px;padding:0 10px;font-size:11px}
       .quickAccess{padding:10px;margin-top:14px}
       .quickAccessGrid{grid-template-columns:1fr}
       .quickField{gap:4px}
-      .quickField select{min-height:36px}
-      #quick-open{min-height:38px}
+      .quickField select{min-height:44px}
+      #quick-open{min-height:44px}
       .quickSelectionSummary{display:none}
       .platformStrip{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px}
       .platformMetric{padding:9px 4px;min-height:64px}
@@ -1417,63 +1421,63 @@
         <div class="liveGrid" aria-label="挖掘机对标">
           <a class="projectRow" data-tonnage="1-2" data-model="XCMG XE19U" href="excavator-1-2t.html" aria-label="进入 XCMG XE19U 1-2 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe19u-official-cropped.png" alt="XCMG XE19U"></div>
-            <div class="projectInfo"><h3>XE19U 1-2 吨级小型挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>11</b> 对标产品</span><div class="projectTags"><span>入户 / 庭院</span><span>市政施工</span><span>租赁</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE19U 1-2 t Compact Excavator">XE19U 1-2 吨级小型挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>11</b> 对标产品</span><div class="projectTags"><span>入户 / 庭院</span><span>市政施工</span><span>租赁</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="2-3" data-model="XCMG XE27U" href="excavator-2-3t.html" aria-label="进入 XCMG XE27U 2-3 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe27u-official-cropped.jpg" alt="XCMG XE27U"></div>
-            <div class="projectInfo"><h3>XE27U 2-3 吨级小型挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>窄场地</span><span>沟槽</span><span>属具适配</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE27U 2-3 t Compact Excavator">XE27U 2-3 吨级小型挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>窄场地</span><span>沟槽</span><span>属具适配</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="3.5" data-model="XCMG XE35U" href="index.html" aria-label="进入 XCMG XE35U 3-4 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U"></div>
-            <div class="projectInfo"><h3>XE35U 3-4 吨级小型挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>10</b> 对标产品</span><div class="projectTags"><span>狭窄空间</span><span>短循环</span><span>破碎</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE35U 3-4 t Compact Excavator">XE35U 3-4 吨级小型挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>10</b> 对标产品</span><div class="projectTags"><span>狭窄空间</span><span>短循环</span><span>破碎</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="4-5" data-model="XCMG XE45U" href="excavator-4-5t.html" aria-label="进入 XCMG XE45U 4-5 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe45u-official-cropped.png" alt="XCMG XE45U"></div>
-            <div class="projectInfo"><h3>XE45U 4-5 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>7</b> 对标产品</span><div class="projectTags"><span>运输边界</span><span>沟槽</span><span>租赁</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE45U 4-5 t Excavator">XE45U 4-5 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>7</b> 对标产品</span><div class="projectTags"><span>运输边界</span><span>沟槽</span><span>租赁</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="5-6" data-model="XCMG XE55U" href="excavator-5-6t.html" aria-label="进入 XCMG XE55U 5-6 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe55u-official-cropped.jpg" alt="XCMG XE55U"></div>
-            <div class="projectInfo"><h3>XE55U 5-6 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>10</b> 对标产品</span><div class="projectTags"><span>土方装车</span><span>液压属具</span><span>驾驶安全</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE55U 5-6 t Excavator">XE55U 5-6 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>10</b> 对标产品</span><div class="projectTags"><span>土方装车</span><span>液压属具</span><span>驾驶安全</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="7-8" data-model="XCMG XE75U" href="excavator-7-8t.html" aria-label="进入 XCMG XE75U 7-8 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe75u-official-cropped.jpg" alt="XCMG XE75U"></div>
-            <div class="projectInfo"><h3>XE75U 7-8 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>6</b> 对标产品</span><div class="projectTags"><span>沟槽深挖</span><span>坡地</span><span>吊装</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE75U 7-8 t Excavator">XE75U 7-8 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>6</b> 对标产品</span><div class="projectTags"><span>沟槽深挖</span><span>坡地</span><span>吊装</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="8-10" data-model="XCMG XE80U" href="excavator-8-10t.html" aria-label="进入 XCMG XE80U 8-10 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe80u-official-cropped.jpg" alt="XCMG XE80U"></div>
-            <div class="projectInfo"><h3>XE80U 8-10 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>土方装车</span><span>破碎</span><span>吊装稳定</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE80U 8-10 t Excavator">XE80U 8-10 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>土方装车</span><span>破碎</span><span>吊装稳定</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="12-14" data-model="XCMG XE135U" href="excavator-12-14t.html" aria-label="进入 XCMG XE135U 12-14 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe135u-official-cropped.webp" alt="XCMG XE135U"></div>
-            <div class="projectInfo"><h3>XE135U 12-14 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>基础深挖</span><span>重载挖掘</span><span>吊装</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE135U 12-14 t Excavator">XE135U 12-14 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>基础深挖</span><span>重载挖掘</span><span>吊装</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="14-16-short-tail" data-model="XCMG XE155UCR" href="excavator-14-16t-short-tail.html" aria-label="进入 XCMG XE155UCR 14-16 吨级短尾对标看板">
             <div class="projectImage"><img src="assets/arc/xe155ucr-official-cropped.jpg" alt="XCMG XE155UCR"></div>
-            <div class="projectInfo"><h3>XE155UCR 14-16 吨级短尾挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>短尾回转</span><span>受限空间</span><span>装车</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE155UCR 14-16 t Short-Tail Excavator">XE155UCR 14-16 吨级短尾挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>短尾回转</span><span>受限空间</span><span>装车</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="21-24" data-model="XCMG XE225U" href="excavator-21-24t.html" aria-label="进入 XCMG XE225U 21-24 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe225u-official-cropped.png" alt="XCMG XE225U"></div>
-            <div class="projectInfo"><h3>XE225U 21-24 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>重载土方</span><span>深挖</span><span>破碎</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE225U 21-24 t Excavator">XE225U 21-24 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>重载土方</span><span>深挖</span><span>破碎</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="24-28" data-model="XCMG XE250U" href="excavator-24-28t.html" aria-label="进入 XCMG XE250U 24-28 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe250u-official-cropped.webp" alt="XCMG XE250U"></div>
-            <div class="projectInfo"><h3>XE250U 24-28 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>重载土方</span><span>装车</span><span>破碎</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE250U 24-28 t Excavator">XE250U 24-28 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>重载土方</span><span>装车</span><span>破碎</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="24-28-short-tail" data-model="XCMG XE235UCR" href="excavator-24-28t-short-tail.html" aria-label="进入 XCMG XE235UCR 24-28 吨级短尾对标看板">
             <div class="projectImage"><img src="assets/arc/xe235ucr-official-cropped.webp" alt="XCMG XE235UCR"></div>
-            <div class="projectInfo"><h3>XE235UCR 24-28 吨级短尾挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>8</b> 对标产品</span><div class="projectTags"><span>短尾回转</span><span>道路施工</span><span>受限场地</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE235UCR 24-28 t Short-Tail Excavator">XE235UCR 24-28 吨级短尾挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>8</b> 对标产品</span><div class="projectTags"><span>短尾回转</span><span>道路施工</span><span>受限场地</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="28-33" data-model="XCMG XE300U" href="excavator-28-33t.html" aria-label="进入 XCMG XE300U 28-33 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe300u-official-cropped.webp" alt="XCMG XE300U"></div>
-            <div class="projectInfo"><h3>XE300U 28-33 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>基础深挖</span><span>装车</span><span>多属具</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE300U 28-33 t Excavator">XE300U 28-33 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>基础深挖</span><span>装车</span><span>多属具</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="33-40" data-model="XCMG XE360U" href="excavator-33-40t.html" aria-label="进入 XCMG XE360U 33-40 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe360u-official-cropped.webp" alt="XCMG XE360U"></div>
-            <div class="projectInfo"><h3>XE360U 33-40 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>大型土方</span><span>高产能</span><span>重载</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE360U 33-40 t Excavator">XE360U 33-40 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>大型土方</span><span>高产能</span><span>重载</span></div></div></div>
           </a>
           <a class="projectRow" data-tonnage="40-60" data-model="XCMG XE490U" href="excavator-40-60t.html" aria-label="进入 XCMG XE490U 40-60 吨级对标看板">
             <div class="projectImage"><img src="assets/arc/xe490u-official.jpg" alt="XCMG XE490U"></div>
-            <div class="projectInfo"><h3>XE490U 40-60 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>大型土方</span><span>矿山剥离</span><span>重载装车</span></div></div></div>
+            <div class="projectInfo"><h3 data-en="XE490U 40-60 t Excavator">XE490U 40-60 吨级挖掘机</h3><div class="projectMeta"><span class="projectCount"><b>9</b> 对标产品</span><div class="projectTags"><span>大型土方</span><span>矿山剥离</span><span>重载装车</span></div></div></div>
           </a>
         </div>
         <div class="projectFilterEmpty" id="project-filter-empty">没有匹配的吨级或型号，请调整筛选条件。</div>
@@ -1777,10 +1781,36 @@
 
     const sectionLinks = [...document.querySelectorAll('[data-nav-target]')];
     const topbar = document.querySelector('.topbar');
+    const initialHash = window.location.hash;
+    let restoreHashEnabled = Boolean(initialHash && initialHash !== '#');
     const navSections = sectionLinks.map((link) => ({
       id: link.dataset.navTarget,
       section: document.getElementById(link.dataset.navTarget)
     })).filter((item) => item.section);
+    function pageNavigationOffset() {
+      return (topbar?.getBoundingClientRect().height ?? 0) + 8;
+    }
+    function scrollToPageTarget(hash, behavior = 'auto', updateHistory = false) {
+      if (!hash || hash === '#') return;
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (!target) return;
+      if (updateHistory) {
+        const url = new URL(window.location.href);
+        url.hash = hash;
+        history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+      }
+      const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - pageNavigationOffset());
+      window.scrollTo({top, behavior});
+    }
+    sectionLinks.forEach((link) => {
+      const hash = link.getAttribute('href');
+      if (!hash || hash === '#top') return;
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        restoreHashEnabled = false;
+        scrollToPageTarget(hash, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', true);
+      });
+    });
     function updateActiveNav() {
       const marker = window.scrollY + (topbar?.offsetHeight ?? 0) + 32;
       let activeTarget = 'top';
@@ -1817,6 +1847,21 @@
       modelSearch.value = initialQuery.replace(/^XCMG\s+/i, '');
       filterProjectRows(false);
     }
+    const restoreInitialHash = () => {
+      if (restoreHashEnabled) scrollToPageTarget(initialHash, 'auto', false);
+    };
+    const cancelHashRestore = () => {
+      restoreHashEnabled = false;
+    };
+    window.addEventListener('wheel', cancelHashRestore, {passive: true, once: true});
+    window.addEventListener('touchstart', cancelHashRestore, {passive: true, once: true});
+    window.addEventListener('pointerdown', cancelHashRestore, {passive: true, once: true});
+    window.addEventListener('keydown', cancelHashRestore, {once: true});
+    window.addEventListener('load', restoreInitialHash, {once: true});
+    document.addEventListener('xcmg:i18n-rendered', restoreInitialHash);
+    [0, 250, 900, 1600, 2600].forEach((delay) => {
+      window.setTimeout(restoreInitialHash, delay);
+    });
   </script>
   <script src="assets/i18n.js?v=20260723d"></script>
 </body>

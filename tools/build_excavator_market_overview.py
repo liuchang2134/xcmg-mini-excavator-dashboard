@@ -632,8 +632,8 @@ def build_page():
   <meta name="robots" content="noindex,nofollow">
   <title>北美挖掘机市场与产品洞察｜XCMG ARC</title>
   <link rel="icon" href="assets/xcmg-logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/dashboard.css?v=20260723g">
-  <link rel="stylesheet" href="assets/excavator-market-overview-source.css?v=20260724c">
+  <link rel="stylesheet" href="assets/dashboard.css?v=20260724k">
+  <link rel="stylesheet" href="assets/excavator-market-overview-source.css?v=20260724d">
   <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">
 </head>
 <body class="marketOverviewPage sourceOverviewPage">
@@ -646,6 +646,7 @@ def build_page():
       <small>XCMG ARC INTERNAL</small>
     </div>
     <button class="languageToggle" type="button" aria-label="Switch to English">EN</button>
+    <button class="sidebarToggle" type="button" aria-expanded="true" aria-controls="page-nav"><span>收起侧栏</span></button>
     <button class="navToggle" type="button" aria-expanded="false" aria-controls="page-nav" data-en="Page navigation">页面导航</button>
     <a class="mobileTop" href="#top" data-en="Top">顶部</a>
     <div class="navMenu" id="page-nav">
@@ -676,7 +677,7 @@ def build_page():
     </div>
   </main>
 </div>
-<script src="assets/dashboard.js?v=20260723g"></script>
+<script src="assets/dashboard.js?v=20260724k"></script>
 <script src="assets/excavator-market-overview-navigation.js?v=20260724a"></script>
 <script src="assets/i18n.js?v=20260723e"></script>
 </body>

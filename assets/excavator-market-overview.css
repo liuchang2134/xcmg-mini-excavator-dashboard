@@ -56,3 +56,22 @@
 .cycleChart>.interactiveDatum.is-focused,.targetColumns>.interactiveDatum.is-focused{box-shadow:none}
 .cycleChart>.interactiveDatum.is-focused .cycleBar,.targetColumns>.interactiveDatum.is-focused i{box-shadow:0 0 0 2px #fdbb30,0 8px 18px rgba(0,57,104,.16)}
 @media(prefers-reduced-motion:reduce){.interactiveDatum{transition:none}.interactiveDatum.is-focused,.interactiveDatum:focus-visible{transform:none}}
+
+/* Reader-facing density and typography */
+.sectionHeading>p{font-size:13px;line-height:1.68}
+.executiveNarrative p,.readingBlock p,.benchmarkPanel>p,.planReading>p{font-size:14px;line-height:1.72}
+.classRows p,.tierRow p,.sourceGrid p,.validityTable p{font-size:13px;line-height:1.65}
+.benchmarkPanel dl dd,.portfolioSummaryBand p,.themeGrid p,.planReading ol,.modelTarget>p{font-size:12px;line-height:1.65}
+.cycleChart{height:258px}
+.cycleColumn{grid-template-rows:178px auto auto}
+.targetColumns{height:276px}
+.targetColumns>div{grid-template-rows:184px auto auto}
+@media(max-width:720px){
+  .sectionHeading>p{font-size:13px;line-height:1.65}
+  .executiveNarrative p,.readingBlock p,.benchmarkPanel>p,.planReading>p{font-size:15px;line-height:1.72}
+  .classRows p,.tierRow p,.sourceGrid p,.validityTable p{font-size:13px;line-height:1.65}
+  .cycleChart{height:228px}
+  .cycleColumn{grid-template-rows:150px auto auto}
+  .targetColumns{height:236px}
+  .targetColumns>div{grid-template-rows:150px auto auto}
+}
