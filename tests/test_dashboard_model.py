@@ -715,6 +715,32 @@ class DashboardModelTests(unittest.TestCase):
             with self.subTest(page=meta["output"]):
                 self.assertFalse(any(line.endswith((" ", "\t")) for line in html.splitlines()))
 
+    def test_all_formal_pages_include_project_credits(self):
+        formal_pages = [
+            "arc.html",
+            "data-downloads.html",
+            "excavator-market-overview.html",
+            *(meta["output"] for meta in SOURCE_FILES),
+        ]
+        self.assertEqual(len(formal_pages), 18)
+        for output in formal_pages:
+            html = (ROOT / output).read_text(encoding="utf-8")
+            with self.subTest(page=output):
+                self.assertEqual(
+                    len(re.findall(r'class="[^"]*\bsiteCredits\b[^"]*"', html)),
+                    1,
+                )
+                self.assertIn('href="assets/site-credits.css?v=20260724a"', html)
+                self.assertIn("指导领导：张盛楠", html)
+                self.assertIn("数据可视化：刘畅", html)
+                self.assertIn("数据来源：ARC产品小组", html)
+                self.assertIn("问题提报：", html)
+                self.assertIn('href="mailto:changl@xcmgarc.com"', html)
+                self.assertIn("Executive Sponsor: Zhang Shengnan", html)
+                self.assertIn("Data Visualization: Liu Chang", html)
+                self.assertIn("Data Source: ARC Product Team", html)
+                self.assertIn("Issue Reporting:", html)
+
     def test_manifest_matches_generated_models(self):
         manifest = json.loads((ROOT / "data" / "project-manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["excavatorTonnageCount"], len(self.models))

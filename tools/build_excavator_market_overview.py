@@ -634,6 +634,7 @@ def build_page():
   <link rel="icon" href="assets/xcmg-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/dashboard.css?v=20260723g">
   <link rel="stylesheet" href="assets/excavator-market-overview-source.css?v=20260724c">
+  <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">
 </head>
 <body class="marketOverviewPage sourceOverviewPage">
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
@@ -667,6 +668,12 @@ def build_page():
       <div class="heroMedia"><img src="assets/arc/xe55u-official-cropped.jpg" alt="XCMG XE55U 挖掘机完整产品图"></div>
     </div>
     {sections}
+    <div class="siteCredits" aria-label="项目署名">
+      <span data-en="Executive Sponsor: Zhang Shengnan">指导领导：张盛楠</span>
+      <span data-en="Data Visualization: Liu Chang">数据可视化：刘畅</span>
+      <span data-en="Data Source: ARC Product Team">数据来源：ARC产品小组</span>
+      <span><span data-en="Issue Reporting:">问题提报：</span> <a href="mailto:changl@xcmgarc.com">changl@xcmgarc.com</a></span>
+    </div>
   </main>
 </div>
 <script src="assets/dashboard.js?v=20260723g"></script>

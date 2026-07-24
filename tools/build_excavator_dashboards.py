@@ -2425,6 +2425,12 @@ def render_html(model):
         <div class="tableScroll rawTable" data-name="option" data-open="false"><table><caption class="srOnly">全部原始标选配数据</caption><thead><tr><th scope="col">类别</th><th scope="col">配置</th><th scope="col">单位</th>{param_head}</tr></thead><tbody>{option_rows}</tbody></table></div>
       </details>
     </section>
+    <div class="siteCredits" aria-label="项目署名">
+      <span data-en="Executive Sponsor: Zhang Shengnan">指导领导：张盛楠</span>
+      <span data-en="Data Visualization: Liu Chang">数据可视化：刘畅</span>
+      <span data-en="Data Source: ARC Product Team">数据来源：ARC产品小组</span>
+      <span><span data-en="Issue Reporting:">问题提报：</span> <a href="mailto:changl@xcmgarc.com">changl@xcmgarc.com</a></span>
+    </div>
   </main>
 </div>
 <script type="application/json" id="dashboard-data">{data_json}</script>
@@ -3248,7 +3254,10 @@ def externalize_dashboard_assets(page_html):
     (assets_dir / "dashboard.css").write_text(css, encoding="utf-8", newline="\n")
     (assets_dir / "dashboard.js").write_text(javascript, encoding="utf-8", newline="\n")
 
-    page_html = page_html[:style_start] + '  <link rel="stylesheet" href="assets/dashboard.css?v=20260724h">' + page_html[style_end:]
+    page_html = page_html[:style_start] + (
+        '  <link rel="stylesheet" href="assets/dashboard.css?v=20260724h">\n'
+        '  <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">'
+    ) + page_html[style_end:]
     script_start = page_html.rfind("<script>")
     script_end = page_html.index("</script>", script_start) + len("</script>")
     page_html = page_html[:script_start] + '<script src="assets/dashboard.js?v=20260723g"></script>' + page_html[script_end:]
