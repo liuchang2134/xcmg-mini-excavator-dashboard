@@ -13,26 +13,33 @@
 
   const copy = {
     zh: {
-      internal: 'XCMG ARC内部分析',
+      internal: 'XCMG ARC 产品对标',
       marketTitle: '市场、客户与运输适配',
-      marketSubtitle: '先看该吨级为什么被购买，再判断产品参数和配置是否覆盖真实使用边界。',
-      scoringBoundary: '本节解释市场适配背景，不改变现有参数分、配置分、总体分和工况分。',
-      volumeTitle: '3-4吨市场规模变化', historical: '历史实绩', estimate: '源文件滚动估计', forecast: '源文件预测', units: '台', basePeriod: '基期', yearOverYear: '同比',
+      marketSubtitle: '',
+      scoringBoundary: '',
+      volumeTitle: '3-4吨五品牌EDA样本变化', historical: '历史实绩', estimate: '报告原估计', forecast: '报告原预测', units: '台', basePeriod: '基期', yearOverYear: '同比',
       shareTitle: '四个领先品牌合计份额', shareNote: '久保田、约翰迪尔、山猫、卡特',
       customerTitle: '主要客户结构', purchaseLogic: '购买判断重点', transportTitle: '典型运输组合重量',
       portfolioTitle: '同吨级产品型谱覆盖', portfolioBrand: '品牌', portfolioCount: '主力机型数', portfolioArchitecture: '型谱结构', portfolioImplication: '竞争含义',
-      transportRuleTitle: '运输与驾照边界', licenceClass: '许可类型', generalThreshold: '通用门槛', applicationImpact: '对3-4吨产品的影响', transportRuleCaveat: '以下为历史材料中的通用判断。州法规、商业用途、车辆额定值及组合总质量必须按实际运输方案复核。',
+      transportRuleTitle: '运输与驾照边界', licenceClass: '许可类型', generalThreshold: '通用门槛', applicationImpact: '对3-4吨产品的影响', transportRuleCaveat: '州法规、商业用途、车辆额定值及组合总质量应按实际运输方案复核。',
       baseMass: '基础机', equippedMass: '典型配置后', marketRead: '市场判断',
       marketRole: '吨级角色', marketRoleText: '3-4吨是微小挖销量核心，也是租赁市场的高频规格。成熟品牌通常用短尾、常规尾和不同配置层级覆盖运输、狭窄施工与重载稳定需求。',
-      competition: '竞争结构', competitionText: '历史样本中，久保田、约翰迪尔、山猫和卡特合计约占74%。竞争优势来自产品型谱、附件体系、渠道服务和残值，而不只是单项参数。',
+      competition: '竞争结构', competitionText: '久保田、约翰迪尔、山猫和卡特合计约占74%。竞争优势来自产品型谱、附件体系、渠道服务和残值，而不只是单项参数。',
       xcmgEntry: 'XCMG切入点', xcmgEntryText: 'XE35U需要优先处理整备后运输重量、行走速度、AUX流量、回填配置和驾驶舒适性，同时保留AUX2、斗杆力和起吊能力等可验证优势。',
+      rightInsightTitle: '该吨级的购买逻辑',
+      leadingModelsTitle: '主销机型锚点',
+      leadingModelsText: '2025 年 3-4 吨主销机型集中在 Deere 35P、Bobcat E35、Kubota U35、CAT 303.5 CR 与 Kubota KX033。客户并非只买低价，而是在短尾、租赁保有量、属具适配、服务网络和残值之间做综合判断。',
+      transportFitTitle: '运输约束不是附属条件',
+      transportFitText: '该吨级常被皮卡和14K拖车跨工地转运。基础机重量、快换、拇指钳、副配重和铲斗必须按整备组合核算；一旦压缩有效载荷余量，客户会转向更轻或配置分层更清晰的竞品。',
+      productFitTitle: '对 XCMG 的产品含义',
+      productFitText: 'XE35U 的切入点应放在“短尾+多属具+可运输”的组合价值上。优先验证运输重量、AUX1流量、行走速度、推土铲浮动和驾驶室舒适性，避免只用挖掘深度或单项力值解释竞争力。',
       transportStoryTitle: '运输边界直接影响成交和跨工地周转',
-      transportStoryText: '现款基础机记录重量为4,200 kg；加副配重、快换、拇指钳和标准斗后约4,579 kg。该组合会明显压缩皮卡与14K拖车的有效载荷余量，选车、拖车额定值、组合总质量和驾驶许可必须按具体方案核验。',
-      transportPayloadWindow: '14K拖车常见有效载荷', transportCurrentPackage: 'XE35U常用配置后', transportHistoricalPackage: 'XE35U PRO历史方案', transportMargin: '相对载荷下限余量',
-      transportMarginNote: '负值表示设备组合已超过源文件所述常见有效载荷区间下限。', transportDecisionTitle: '运输判断', transportDecisionText: '现款常用组合已越过常见载荷区间下限，历史PRO方案能够恢复一定余量。实际运输仍须复核拖车铭牌、牵引车额定值、组合总质量和驾驶许可。',
+      transportStoryText: '现款基础机重量为4,200 kg；加副配重、快换、拇指钳和标准斗后约4,579 kg。该组合会明显压缩皮卡与14K拖车的有效载荷余量，牵引车、拖车额定值、组合总质量和驾驶许可必须按具体方案核验。',
+      transportPayloadWindow: '14K拖车常见有效载荷', transportCurrentPackage: 'XE35U常用配置后', transportHistoricalPackage: 'XE35U PRO方案', transportMargin: '相对载荷下限余量',
+      transportMarginNote: '负值表示设备组合已超过常见有效载荷区间下限。', transportDecisionTitle: '运输判断', transportDecisionText: '现款常用组合已越过常见载荷区间下限，PRO方案可恢复一定余量。实际运输仍须复核拖车铭牌、牵引车额定值、组合总质量和驾驶许可。',
       transportCaptionA: '轻型皮卡与14K拖车是该吨级常见转运组合', transportCaptionB: '竞品35G装车状态：整机与附件共同占用有效载荷',
       scenarioTitle: '真实作业场景', scenarioSubtitle: '把现场任务、客户要求和产品差距直接连接到现有量化工况。',
-      customer: '主要客户', needs: '作业要求', steps: '任务链', finding: '当前判断', scenarioIndex: '八类场景快速对照', workObjects: '作业对象', operatingCharacteristics: '作业特点', historicalAssessment: '历史适应性判断', historicalAssessmentNote: '以下保留资料形成时的产品判断；历史方案和计划不代表当前量产状态。',
+      customer: '主要客户', needs: '作业要求', steps: '任务链', finding: '当前判断', scenarioIndex: '八类场景快速对照', workObjects: '作业对象', operatingCharacteristics: '作业特点', historicalAssessment: '产品适应性判断', historicalAssessmentNote: '',
       workCondition: '作业场景', keyFinding: '关键差距', status: '工程判断', parameterImpact: '关键参数差距', configurationImpact: '关键配置作用', engineeringAction: '产品动作',
       scenarioRequirement: '客户任务', currentFit: '当前产品适配', productAction: '验证与产品动作', covered: '已具备基础', mixed: '部分满足，仍有缺口', linkedConditions: '关联量化工况',
       paperTitle: '纸面竞争力复核', paperSubtitle: '把尺寸、作业能力、液压和属具配置放回具体应用中解释。',
@@ -44,49 +51,73 @@
       fieldTitle: '实机评价', fieldSubtitle: '将操控、舒适性、可靠性和维修性与纸面参数分开呈现。',
       fieldBoundary: '没有统一工况下的当前量化试验时，只标记优势、差距或待验证，不生成新分数。',
       fullField: '实机评价矩阵', dimension: '维度', conclusion: '工程判断', validation: '验证要求',
-      advantage: '优势', gap: '已识别具体差距', pending: '证据不足，需验证', missing: '未覆盖', fieldRead: '实机评价重点',
-      completeFieldData: '历史实机评价明细', historicalRatingNote: '表内1-5级为历史样机评价，仅用于定位差异，不并入现有评分；当前量产机状态仍需按统一工况复测。',
+      advantage: '优势', gap: '已识别具体差距', pending: '待实机验证', missing: '暂无评价', fieldRead: '实机评价重点',
+      completeFieldData: '实机评价明细', historicalRatingNote: '',
+      ratingRuleTitle: '评分口径', ratingScaleTitle: '等级方向', ratingScaleText: '采用1–5级，数值越高表示该项评价越强；2–4级尚无统一量化阈值。',
+      ratingAverageTitle: '分组算法', ratingAverageText: '同一维度内各指标等权平均，保留1位小数，不增加额外主观权重。',
+      ratingVisualTitle: '图形与状态', ratingVisualText: '数字为分组均值；条形相对本行最高值；优势、差距和待验证为记录条数。',
+      ratingBoundaryTitle: '使用边界', ratingBoundaryText: '仅用于定位实机差异，不并入参数分、配置分、工况分或综合评分。',
       actionTitle: 'XCMG产品改进路径', actionSubtitle: '把市场、参数和实机差距转化为系统级工程任务。',
       actionBoundary: '以下为建议动作和验证任务，不代表已经立项、完成或承诺时间。',
       priority: '优先级', topic: '改进主题', action: '工程动作', validationState: '验证状态',
-      verifyRequired: '需工程、试验与市场共同验证', portfolio: '型谱差距', historicalPositioning: '市场定位复核',
+      verifyRequired: '需工程、试验与市场共同验证', portfolio: '型谱差距', historicalPositioning: '市场定位',
       competitionDetail: '九个维度的具体差距与动作', strengthColumn: '已有基础', gapColumn: '具体差距', actionColumn: '弥补动作',
-      positioningTitle: '历史价格与市场份额定位', positioningBrand: '品牌', positioningModels: '代表机型', positioningPrice: '历史参考价', positioningShare: '历史份额', positioningCaveat: '价格、份额和产品状态均为历史快照，只用于理解当时定位；对外使用前必须更新当前市场数据。',
-      navMarket: '市场与客户', navScenarios: '真实作业场景', navPaper: '参数与配置', navField: '实机评价', navActions: '改进路线',
+      actionRuleTitle: '判断口径', actionRuleValue: '不设置总分', actionRuleText: '依据可核验参数、配置状态和实机评价逐项判断；已有基础、具体差距与弥补动作之间一一对应，建议动作不代表已经立项或完成。',
+      positioningTitle: '价格与市场份额定位', positioningBrand: '品牌', positioningModels: '代表机型', positioningPrice: '参考价格', positioningShare: '市场份额', positioningCaveat: '价格与份额按同一市场口径对比，并随渠道和产品状态更新。',
+      positionSectionTitle: '产品定位与竞争主张', positionSectionSubtitle: '',
+      positionHeadline: '低价切入尚未转化为市场份额，产品价值必须由运输适配、属具能力、操控品质和渠道支持共同支撑。',
+      positionHistory: '历史定位', positionHistoryValue: '中质低价', positionPrice: '参考价格', positionPriceValue: '$54,000', positionPriceDetail: '较久保田 $60,000 参考价低 $6,000，按表内价格计算约低 10%。',
+      positionShare: '历史份额记录', positionShareValue: '<1%', positionShareDetail: '低价并未自动形成份额，需同步补齐产品适应性、渠道和服务能力。',
+      positionTarget: '2025历史目标', positionTargetValue: '194 台', positionTargetDetail: '属于历史销售目标，现有材料未提供实际完成结果。',
+      positionPortfolio: '型谱缺口', positionPortfolioValue: '缺常规尾', positionPortfolioDetail: '当前以短尾机型切入，尚未形成与标杆同等的短尾、常规尾组合覆盖。',
+      positionBoundary: '历史价格、份额和销售目标用于定位复盘，不与当前 Excel 综合评分合并；“低15%”的历史表述与表内 $54,000 对 $60,000 的约10%价差存在口径差异，正式决策前应统一报价时间、配置和渠道条件。',
+      positionArchitectureTitle: '品牌型谱策略', positionDecisionTitle: '定位结论', profileBoundary: '维度画像沿用历史1–5级评价，只用于说明竞争结构，不并入当前参数分、配置分或总体评分。',
+      navMarket: '市场与客户', navScenarios: '真实作业场景', navPaper: '参数与配置', navField: '实机评价', navPositioning: '产品定位', navActions: '改进路线',
       phaseNow: '优先验证', phaseNext: '系统改进', phasePlatform: '平台规划', validationOutput: '应形成的验证输出',
-      sourcePpt: '研究资料', historicalBasis: '历史口径', currentUnverified: '当前状态待核验',
-      year: '年份', total: '合计', dataStatus: '数据属性', sourceEstimate: '源文件滚动估计', sourceForecast: '源文件预测',
+      sourcePpt: '', historicalBasis: '产品配置', currentUnverified: '状态待确认',
+      year: '年份', total: '五品牌合计', dataStatus: '数据属性', sourceEstimate: '报告原估计（待实绩回填）', sourceForecast: '报告原预测（待实绩回填）',
       brandSalesTable: '品牌销量明细', modelDemandTitle: '主销机型排名', priceShareTitle: '价格与份额分布',
-      priceAxis: '历史单价（万美元）', shareAxis: '历史份额（%）', sourceVolume: '源文件销量口径',
+      priceAxis: '参考单价（万美元）', shareAxis: '市场份额（%）', sourceVolume: '销量',
+      marketEvidenceTitle: '本吨级四个关键事实', topSellingModel: '主销机型', xcmgVolumeSignal: 'XCMG销量变化', xcmgPricePosition: '价格位置', transportRiskSignal: '运输余量',
+      marketEvidenceNote: '',
+      scenarioMatrixTitle: '八类真实工况矩阵', scenarioCustomerColumn: '客户与场景', scenarioEvidenceColumn: '作业内容', scenarioLinkColumn: '关联工况',
+      fieldGroupTitle: '实机评价分组', fieldGroupNote: '',
       transportBreakdownTitle: '整机与附件重量构成', packageName: '运输组合', component: '构成项', weight: '重量', packageTotal: '组合总重', optionalAttachments: '可追加属具',
-      performanceVisualTitle: '关键性能分项对比', performanceScaleNote: '每个指标按本组最大值显示条长，右侧保留原始单位。', noSourceValue: '源页未给值',
-      fieldHeatmapTitle: '历史实机评价热力矩阵', ratingLegend: '1级较弱，5级较强；颜色只表达源文件历史等级。',
-      profileTitle: '历史竞争力维度画像', profileKey: '维度索引',
-      ledgerTitle: 'XE35U历史问题与升级台账', ledgerCaveat: '这是源文件记录的历史计划，不表示已批准、已完成或已量产；当前状态必须逐项复核。',
-      itemNo: '序号', system: '系统', problem: '源文件问题', sourceAction: '源文件升级方案', historicalUpgradeDate: '历史升级日期', historicalProductionDate: '历史量产日期',
-      loadError: '扩展分析数据未能载入，请通过本地预览地址打开。'
+      performanceVisualTitle: '关键性能分项对比', performanceScaleNote: '', noSourceValue: '暂无数据',
+      fieldHeatmapTitle: '实机评价热力矩阵', ratingLegend: '1级较弱，5级较强。',
+      profileTitle: '竞争力维度画像', profileKey: '维度索引',
+      ledgerTitle: 'XE35U问题与升级台账', ledgerCaveat: '',
+      itemNo: '序号', system: '系统', problem: '现存问题', sourceAction: '升级方案', historicalUpgradeDate: '计划升级节点', historicalProductionDate: '计划量产节点',
+      loadError: '分析数据载入失败。'
     },
     en: {
-      internal: 'XCMG ARC INTERNAL ANALYSIS',
+      internal: 'XCMG ARC PRODUCT BENCHMARKING',
       marketTitle: 'Market, Customer and Transport Fit',
-      marketSubtitle: 'Start with why the class is purchased, then test whether the product covers real operating constraints.',
-      scoringBoundary: 'This section explains market fit and does not change the existing specification, equipment, overall or application scores.',
-      volumeTitle: '3-4 t market volume trend', historical: 'Historical actual', estimate: 'Source rolling estimate', forecast: 'Source forecast', units: 'units', basePeriod: 'Base period', yearOverYear: 'YoY',
+      marketSubtitle: '',
+      scoringBoundary: '',
+      volumeTitle: '3-4 t five-brand EDA sample trend', historical: 'Historical actuals', estimate: 'Original report estimate', forecast: 'Original report forecast', units: 'units', basePeriod: 'Base period', yearOverYear: 'YoY',
       shareTitle: 'Combined share of four leading brands', shareNote: 'Kubota, John Deere, Bobcat and Caterpillar',
       customerTitle: 'Primary customer mix', purchaseLogic: 'Purchase priorities', transportTitle: 'Representative transport mass',
       portfolioTitle: 'Portfolio coverage within the class', portfolioBrand: 'Brand', portfolioCount: 'Core models', portfolioArchitecture: 'Portfolio structure', portfolioImplication: 'Competitive implication',
-      transportRuleTitle: 'Transport and licence boundaries', licenceClass: 'Licence class', generalThreshold: 'General threshold', applicationImpact: 'Impact on the 3-4 t product', transportRuleCaveat: 'These are general boundaries from the historical material. State law, commercial use, vehicle ratings and gross combination mass must be checked for the actual transport setup.',
+      transportRuleTitle: 'Transport and licence boundaries', licenceClass: 'Licence class', generalThreshold: 'General threshold', applicationImpact: 'Impact on the 3-4 t product', transportRuleCaveat: 'Check state law, commercial use, vehicle ratings and gross combination mass for the actual transport setup.',
       baseMass: 'Base machine', equippedMass: 'Representative equipped mass', marketRead: 'Market interpretation',
       marketRole: 'Role of the class', marketRoleText: 'The 3-4 t class is a compact-excavator volume center and a high-frequency rental size. Established brands use short-tail, conventional-tail and multiple trim levels to span transport, confined work and stability needs.',
-      competition: 'Competitive structure', competitionText: 'In the historical sample, Kubota, John Deere, Bobcat and Caterpillar account for about 74% combined. Advantage comes from portfolio breadth, attachments, channel support and residual value, not one specification.',
+      competition: 'Competitive structure', competitionText: 'Kubota, John Deere, Bobcat and Caterpillar account for about 74% combined. Advantage comes from portfolio breadth, attachments, channel support and residual value, not one specification.',
       xcmgEntry: 'XCMG opportunity', xcmgEntryText: 'XE35U priorities are equipped transport mass, travel speed, auxiliary flow, backfill equipment and cab comfort, while retaining validated strengths in AUX2 provision, arm force and lifting capability.',
+      rightInsightTitle: 'How this class is purchased',
+      leadingModelsTitle: 'Leading-model anchors',
+      leadingModelsText: 'In 2025, demand in the 3-4 t class clusters around Deere 35P, Bobcat E35, Kubota U35, CAT 303.5 CR and Kubota KX033. Customers are not buying on price alone; they weigh tail architecture, rental availability, attachment fit, dealer support and residual value.',
+      transportFitTitle: 'Transport is not a secondary issue',
+      transportFitText: 'This class is frequently moved between jobsites by pickup and 14K trailer. Base machine, coupler, thumb, counterweight and buckets must be assessed as one transport package; once useful payload margin is compressed, customers shift toward lighter or better-tiered competitor offerings.',
+      productFitTitle: 'Product implication for XCMG',
+      productFitText: 'XE35U should be positioned around a “short-tail + multi-attachment + transportable” value proposition. Priorities are equipped mass, AUX1 flow, travel speed, blade float and cab comfort, rather than explaining competitiveness through digging depth or one force value alone.',
       transportStoryTitle: 'Transport limits directly affect purchase and jobsite mobility',
-      transportStoryText: 'Recorded base-machine mass is 4,200 kg; counterweight, coupler, thumb and standard bucket bring a representative combination to about 4,579 kg. This compresses useful payload margin on a pickup and 14K trailer, so tow rating, trailer rating, gross combination mass and licence requirements must be checked for each setup.',
-      transportPayloadWindow: 'Typical effective payload of a 14K trailer', transportCurrentPackage: 'XE35U with common equipment', transportHistoricalPackage: 'Historical XE35U PRO proposal', transportMargin: 'Margin to lower payload bound',
-      transportMarginNote: 'A negative value means the machine package exceeds the lower end of the common effective-payload range stated in the source.', transportDecisionTitle: 'Transport assessment', transportDecisionText: 'The current common package exceeds the lower end of the typical payload window, while the historical PRO proposal restores some margin. Verify the trailer data plate, tow-vehicle ratings, gross combination mass and licence requirement for the actual setup.',
+      transportStoryText: 'Base-machine mass is 4,200 kg; counterweight, coupler, thumb and standard bucket bring a representative combination to about 4,579 kg. This compresses useful payload margin on a pickup and 14K trailer, so tow rating, trailer rating, gross combination mass and licence requirements must be checked for each setup.',
+      transportPayloadWindow: 'Typical effective payload of a 14K trailer', transportCurrentPackage: 'XE35U with common equipment', transportHistoricalPackage: 'XE35U PRO package', transportMargin: 'Margin to lower payload bound',
+      transportMarginNote: 'A negative value means the machine package exceeds the lower end of the common effective-payload range.', transportDecisionTitle: 'Transport assessment', transportDecisionText: 'The current common package exceeds the lower end of the typical payload window, while the PRO package restores some margin. Verify the trailer data plate, tow-vehicle ratings, gross combination mass and licence requirement for the actual setup.',
       transportCaptionA: 'A light-duty pickup and 14K trailer are a common transport combination in this class', transportCaptionB: 'Competitor 35G loaded for transport: machine and equipment consume the same payload allowance',
       scenarioTitle: 'Real Job Applications', scenarioSubtitle: 'Connect field tasks and customer requirements directly to the existing quantified applications.',
-      customer: 'Primary users', needs: 'Operating requirements', steps: 'Task sequence', finding: 'Current assessment', scenarioIndex: 'Eight-application comparison', workObjects: 'Work objects', operatingCharacteristics: 'Operating characteristics', historicalAssessment: 'Historical application-fit assessment', historicalAssessmentNote: 'The statements below retain the source-period product assessment. Historical proposals and plans do not represent current production status.',
+      customer: 'Primary users', needs: 'Operating requirements', steps: 'Task sequence', finding: 'Current assessment', scenarioIndex: 'Eight-application comparison', workObjects: 'Work objects', operatingCharacteristics: 'Operating characteristics', historicalAssessment: 'Product application-fit assessment', historicalAssessmentNote: '',
       workCondition: 'Application', keyFinding: 'Principal gap', status: 'Engineering assessment', parameterImpact: 'Relevant specification gap', configurationImpact: 'Equipment effect', engineeringAction: 'Product action',
       scenarioRequirement: 'Customer task', currentFit: 'Current product fit', productAction: 'Validation and product action', covered: 'Baseline capability present', mixed: 'Partly met; gap remains', linkedConditions: 'Linked quantified applications',
       paperTitle: 'Paper Competitiveness Review', paperSubtitle: 'Interpret dimensions, working capability, hydraulics and equipment in the applications they affect.',
@@ -98,27 +129,44 @@
       fieldTitle: 'Field Evaluation', fieldSubtitle: 'Keep control, comfort, reliability and serviceability separate from paper specifications.',
       fieldBoundary: 'Where no current quantified common-condition test exists, use Advantage, Gap or Pending Validation rather than creating a score.',
       fullField: 'Field-evaluation matrix', dimension: 'Dimension', conclusion: 'Engineering assessment', validation: 'Validation requirement',
-      advantage: 'Advantage', gap: 'Specific gap identified', pending: 'Evidence incomplete; validate', missing: 'Not covered', fieldRead: 'Field-evaluation priorities',
-      completeFieldData: 'Historical field-evaluation detail', historicalRatingNote: 'The 1-5 ratings below are historical prototype evaluations used only to locate differences. They do not enter the existing score and require common-condition retesting on the current production machine.',
+      advantage: 'Advantage', gap: 'Specific gap identified', pending: 'Field validation required', missing: 'No evaluation', fieldRead: 'Field-evaluation priorities',
+      completeFieldData: 'Field-evaluation detail', historicalRatingNote: '',
+      ratingRuleTitle: 'Rating Method', ratingScaleTitle: 'Scale direction', ratingScaleText: 'Uses a 1–5 scale; higher values indicate stronger performance. Levels 2–4 do not yet have uniform quantitative thresholds.',
+      ratingAverageTitle: 'Group calculation', ratingAverageText: 'Metrics within each dimension receive equal weight and are averaged to one decimal place, with no added subjective weighting.',
+      ratingVisualTitle: 'Bars and status', ratingVisualText: 'Numbers are group means; bars are relative to the row leader; Advantage, Gap and Pending are record counts.',
+      ratingBoundaryTitle: 'Use boundary', ratingBoundaryText: 'Used only to locate field-performance differences; excluded from specification, equipment, work-condition and overall scores.',
       actionTitle: 'XCMG Product Improvement Path', actionSubtitle: 'Translate market, specification and field gaps into system-level engineering work.',
       actionBoundary: 'The items below are recommendations and validation tasks, not evidence of approval, completion or committed timing.',
       priority: 'Priority', topic: 'Improvement topic', action: 'Engineering action', validationState: 'Validation status',
-      verifyRequired: 'Joint engineering, test and market validation required', portfolio: 'Portfolio gap', historicalPositioning: 'Market-position review',
+      verifyRequired: 'Joint engineering, test and market validation required', portfolio: 'Portfolio gap', historicalPositioning: 'Market position',
       competitionDetail: 'Concrete gaps and actions across nine dimensions', strengthColumn: 'Existing foundation', gapColumn: 'Specific gap', actionColumn: 'Closing action',
-      positioningTitle: 'Historical price and market-share position', positioningBrand: 'Brand', positioningModels: 'Representative models', positioningPrice: 'Historical reference price', positioningShare: 'Historical share', positioningCaveat: 'Prices, shares and product status are a historical snapshot used only to explain the position at that time. Refresh current market data before external use.',
-      navMarket: 'Market and customers', navScenarios: 'Real job applications', navPaper: 'Specifications and equipment', navField: 'Field evaluation', navActions: 'Improvement path',
+      actionRuleTitle: 'Assessment Method', actionRuleValue: 'No aggregate score', actionRuleText: 'Each item is assessed from verifiable specifications, equipment status and field evaluation. Existing foundation, specific gap and closing action map one to one; recommendations do not imply approval or completion.',
+      positioningTitle: 'Price and market-share position', positioningBrand: 'Brand', positioningModels: 'Representative models', positioningPrice: 'Reference price', positioningShare: 'Market share', positioningCaveat: 'Compare price and share on a consistent market basis and update them as channel and product status changes.',
+      positionSectionTitle: 'Product Positioning and Competitive Proposition', positionSectionSubtitle: '',
+      positionHeadline: 'A lower entry price has not yet translated into share; transport fit, attachment capability, control quality and channel support must carry the value proposition together.',
+      positionHistory: 'Historical position', positionHistoryValue: 'Mid-quality, value price', positionPrice: 'Reference price', positionPriceValue: '$54,000', positionPriceDetail: '$6,000 below the $60,000 Kubota reference, or about 10% on the table values.',
+      positionShare: 'Historical share record', positionShareValue: '<1%', positionShareDetail: 'A lower price did not automatically create share; product fit, channel and service capability must improve together.',
+      positionTarget: 'Historical 2025 target', positionTargetValue: '194 units', positionTargetDetail: 'This is a historical sales target; the available material does not provide the actual result.',
+      positionPortfolio: 'Portfolio gap', positionPortfolioValue: 'No conventional-tail model', positionPortfolioDetail: 'The current offer enters with a short-tail model without the short-tail and conventional-tail coverage of the benchmark portfolio.',
+      positionBoundary: 'Historical price, share and sales targets are used for positioning review and are not merged into the current Excel overall score. The historical “15% lower” statement conflicts with the roughly 10% difference between $54,000 and $60,000; align quote date, equipment and channel conditions before a decision.',
+      positionArchitectureTitle: 'Brand portfolio strategy', positionDecisionTitle: 'Positioning conclusion', profileBoundary: 'The profile retains the historical 1–5 assessment and is used only to explain competitive structure. It is excluded from the current specification, equipment and overall scores.',
+      navMarket: 'Market and customers', navScenarios: 'Real job applications', navPaper: 'Specifications and equipment', navField: 'Field evaluation', navPositioning: 'Product positioning', navActions: 'Improvement path',
       phaseNow: 'Validate first', phaseNext: 'System improvements', phasePlatform: 'Platform planning', validationOutput: 'Required validation output',
-      sourcePpt: 'Source file', historicalBasis: 'Historical basis', currentUnverified: 'Current status unverified',
-      year: 'Year', total: 'Total', dataStatus: 'Data status', sourceEstimate: 'Source rolling estimate', sourceForecast: 'Source forecast',
+      sourcePpt: '', historicalBasis: 'Product configuration', currentUnverified: 'Status to be confirmed',
+      year: 'Year', total: 'Five-brand total', dataStatus: 'Data status', sourceEstimate: 'Original estimate (actual pending)', sourceForecast: 'Original forecast (actual pending)',
       brandSalesTable: 'Brand-volume detail', modelDemandTitle: 'Leading-model ranking', priceShareTitle: 'Price and share distribution',
-      priceAxis: 'Historical price (USD 10k)', shareAxis: 'Historical share (%)', sourceVolume: 'Source volume basis',
+      priceAxis: 'Reference price (USD 10k)', shareAxis: 'Market share (%)', sourceVolume: 'Sales volume',
+      marketEvidenceTitle: 'Four facts to read first', topSellingModel: 'Top-selling model', xcmgVolumeSignal: 'XCMG volume trend', xcmgPricePosition: 'Price position', transportRiskSignal: 'Transport margin',
+      marketEvidenceNote: '',
+      scenarioMatrixTitle: 'Eight real-application matrix', scenarioCustomerColumn: 'Customer and application', scenarioEvidenceColumn: 'Application detail', scenarioLinkColumn: 'Related conditions',
+      fieldGroupTitle: 'Field-evaluation groups', fieldGroupNote: '',
       transportBreakdownTitle: 'Machine and attachment mass build-up', packageName: 'Transport package', component: 'Component', weight: 'Mass', packageTotal: 'Package total', optionalAttachments: 'Additional attachments',
-      performanceVisualTitle: 'Key performance comparisons', performanceScaleNote: 'Bar length is normalized to the maximum within each metric; original units remain at right.', noSourceValue: 'No source value',
-      fieldHeatmapTitle: 'Historical field-evaluation heatmap', ratingLegend: '1 is weaker and 5 is stronger; color represents source historical ratings only.',
-      profileTitle: 'Historical competitiveness profile', profileKey: 'Dimension key',
-      ledgerTitle: 'Historical XE35U issue and upgrade ledger', ledgerCaveat: 'This is a historical source-file plan and does not prove approval, completion or production release. Verify every current status.',
-      itemNo: 'No.', system: 'System', problem: 'Source issue', sourceAction: 'Source upgrade action', historicalUpgradeDate: 'Historical upgrade date', historicalProductionDate: 'Historical production date',
-      loadError: 'The extended analysis could not be loaded. Open this page through the local preview address.'
+      performanceVisualTitle: 'Key performance comparisons', performanceScaleNote: '', noSourceValue: 'No data',
+      fieldHeatmapTitle: 'Field-evaluation heatmap', ratingLegend: '1 is weaker and 5 is stronger.',
+      profileTitle: 'Competitiveness profile', profileKey: 'Dimension key',
+      ledgerTitle: 'XE35U issue and upgrade ledger', ledgerCaveat: '',
+      itemNo: 'No.', system: 'System', problem: 'Current issue', sourceAction: 'Upgrade action', historicalUpgradeDate: 'Planned upgrade milestone', historicalProductionDate: 'Planned production milestone',
+      loadError: 'Analysis data failed to load.'
     }
   }[language];
 
@@ -133,7 +181,7 @@
     service_access_and_fluid_fill: {zh: '维修可达性与液压油加注', en: 'Service access and hydraulic-oil filling'},
     fuel_economy: {zh: '燃油经济性', en: 'Fuel economy'},
     coating_and_line_identification: {zh: '涂装与管线识别', en: 'Coating and line identification'},
-    sales_service_documentation: {zh: '销售与售后资料', en: 'Sales and service documentation'}
+    sales_service_documentation: {zh: '销售与售后文档', en: 'Sales and service documentation'}
   };
 
   const roadmapTopics = {
@@ -272,13 +320,13 @@
     {tone: 'gap', title: {zh: '操控精度', en: 'Control precision'}, detail: {zh: '微动、作业精准性和平顺性为3分，久保田为4分；回转制动冲击导致工作装置回摆，是首要标定问题。', en: 'Inching, task precision and smoothness are rated 3 versus Kubota at 4; implement rebound from swing-braking shock is the first calibration issue.'}},
     {tone: 'gap', title: {zh: '驾驶环境', en: 'Operator environment'}, detail: {zh: '空调、座椅和界面友好性为3分，竞品为4分；脚踏距离、扶手箱内宽、屏幕和侧门操作均需目标用户验证。', en: 'HVAC, seat and interface usability are rated 3 versus 4; pedal reach, console width, display and door operation need target-user validation.'}},
     {tone: 'gap', title: {zh: '耐久与维修', en: 'Durability and service'}, detail: {zh: '防锈、薄板涂层和橡胶耐久为4分，竞品为5分；维修可达性4分对5分，并缺少独立液压油加注口。', en: 'Corrosion, sheet-metal coating and rubber durability are rated 4 versus 5; service access is 4 versus 5 and a dedicated hydraulic-oil fill point is absent.'}},
-    {tone: 'advantage', title: {zh: '经济性潜力', en: 'Operating-economy potential'}, detail: {zh: '历史评价将燃油经济性列为优势，但必须在统一属具、负载和循环下实测，才能用于销售论证。', en: 'Historical evaluation identifies fuel economy as a strength, but common attachment, load and duty-cycle testing is required before using it in sales claims.'}}
+    {tone: 'advantage', title: {zh: '经济性潜力', en: 'Operating-economy potential'}, detail: {zh: '燃油经济性具备优势潜力；销售论证前仍需在统一属具、负载和循环条件下完成实测。', en: 'Fuel economy shows advantage potential; a common attachment, load and duty-cycle test is still required before a sales claim is made.'}}
   ];
 
   const actionPhases = [
-    {title: {zh: '先建立事实基线', en: 'Establish the facts first'}, items: {zh: ['整备组合称重与拖车余量', '行走速度、循环时间与油耗', 'AUX流量、压力、背压和热平衡', '机手盲评与操控数据'], en: ['Equipped-combination mass and trailer margin', 'Travel speed, cycle time and fuel use', 'Auxiliary flow, pressure, back pressure and thermal balance', 'Operator blind evaluation and control data']}},
-    {title: {zh: '再做系统级改进', en: 'Then improve systems'}, items: {zh: ['行走系统匹配', '回转与工作装置标定', '推土铲浮动与偏摆', '驾驶室、人机与维修可达性'], en: ['Travel-system matching', 'Swing and implement calibration', 'Blade float and angling', 'Cab, ergonomics and service access']}},
-    {title: {zh: '最后形成平台方案', en: 'Finish with a platform decision'}, items: {zh: ['短尾与常规尾组合', '北美属具与配置包', '耐久、涂层和资料标准', '价格、渠道和残值闭环'], en: ['Short-tail and conventional-tail portfolio', 'North American attachment packages', 'Durability, coating and documentation standards', 'Price, channel and residual-value loop']}}
+    {title: {zh: '验证基线', en: 'Validation baseline'}, items: {zh: ['整备组合称重与拖车余量', '行走速度、循环时间与油耗', 'AUX流量、压力、背压和热平衡', '机手盲评与操控数据'], en: ['Equipped-combination mass and trailer margin', 'Travel speed, cycle time and fuel use', 'Auxiliary flow, pressure, back pressure and thermal balance', 'Operator blind evaluation and control data']}},
+    {title: {zh: '系统改进', en: 'System improvements'}, items: {zh: ['行走系统匹配', '回转与工作装置标定', '推土铲浮动与偏摆', '驾驶室、人机与维修可达性'], en: ['Travel-system matching', 'Swing and implement calibration', 'Blade float and angling', 'Cab, ergonomics and service access']}},
+    {title: {zh: '平台规划', en: 'Platform planning'}, items: {zh: ['短尾与常规尾组合', '北美属具与配置包', '耐久、涂层和资料标准', '价格、渠道和残值闭环'], en: ['Short-tail and conventional-tail portfolio', 'North American attachment packages', 'Durability, coating and documentation standards', 'Price, channel and residual-value loop']}}
   ];
 
   let state = null;
@@ -292,9 +340,59 @@
   function narrative(value) {
     let output = text(value);
     const replacements = language === 'en'
-      ? [[/The PPT/gi, 'The historical evaluation'], [/the PPT/gi, 'the historical evaluation'], [/PPT basis/gi, 'historical basis'], [/PPT/gi, 'historical record'], [/The source/gi, 'The historical evaluation'], [/the source/gi, 'the historical evaluation'], [/historical source material/gi, 'historical proposal']]
-      : [[/PPT口径/g, '历史口径'], [/PPT显示/g, '历史记录显示'], [/PPT/g, '历史记录'], [/资料认为/g, '历史评价认为'], [/资料称/g, '历史记录显示'], [/资料将/g, '历史评价将'], [/资料中/g, '历史记录中'], [/资料/g, '历史记录']];
+      ? [
+          [/Slides?\s+\d+(?:\s*[–—-]\s*\d+)?\s+(?:describe|states?|records?|shows?)/gi, ''],
+          [/The PPT rates (.+?) as (.+)/gi, '$1 is $2'], [/The PPT positions (.+?) as (.+)/gi, '$1 is positioned as $2'],
+          [/The PPT shows one XCMG short-tail model in the class/gi, 'XCMG has one short-tail model in the class'],
+          [/The PPT provides no /gi, 'No '], [/The PPT mentions /gi, 'The product plan includes '],
+          [/The PPT/gi, ''], [/the PPT/gi, ''], [/PPT basis/gi, ''], [/PPT/gi, ''],
+          [/The source explicitly assesses (.+?) as (.+)/gi, '$1 is $2'], [/The source assesses (.+?) as (.+)/gi, '$1 is $2'],
+          [/The source considers (.+?) (broadly .+)/gi, '$1 is $2'], [/The source explicitly identifies /gi, ''],
+          [/The source-level conclusion also identifies /gi, ''], [/The source states that /gi, ''], [/The source calls for /gi, 'The product requires '],
+          [/The source records no /gi, 'The current configuration has no '], [/The source records missing /gi, 'The current configuration has no '],
+          [/the source records only /gi, 'only '], [/the source records /gi, ''], [/The source lists /gi, ''], [/The source rates /gi, ''],
+          [/Market feedback in the source identifies /gi, 'Market feedback identifies '],
+          [/The source file/gi, ''], [/the source file/gi, ''], [/The source/gi, ''], [/the source/gi, ''],
+          [/source basis/gi, ''], [/source-presentation/gi, ''], [/source-period/gi, ''], [/source estimate/gi, 'estimate'], [/source forecast/gi, 'forecast'], [/source target/gi, 'target'],
+          [/historical XE35U PRO proposal/gi, 'XE35U PRO package'], [/historical PRO proposal/gi, 'PRO package'],
+          [/historical source material/gi, ''], [/historical material/gi, ''], [/historical evaluation/gi, 'field performance'], [/historical proposal/gi, 'proposal'],
+          [/historical plan/gi, 'plan'], [/historical record/gi, ''], [/historical sample/gi, 'sample'],
+          [/recorded base-machine mass/gi, 'base-machine mass'], [/the material requires/gi, 'the product requires'], [/the material recommends/gi, 'the recommended action is'],
+          [/the material explicitly concludes/gi, ''], [/the material concludes/gi, ''], [/according to the material/gi, ''],
+          [/These transport and licence statements reflect the\s+basis\.?/gi, ''],
+          [/and records that alarm muting was not equipped at that time/gi, '; alarm muting is not equipped'],
+          [/and records missing alarm muting/gi, '; alarm muting is not equipped']
+        ]
+      : [
+          [/第\d+(?:\s*[–—-]\s*\d+)?页(?:又)?(?:称|显示|记录|指出)?/g, ''],
+          [/PPT口径/g, ''], [/PPT显示/g, ''], [/PPT列出的/g, ''], [/PPT未列出/g, '尚未配置'], [/PPT未给出/g, '尚无'],
+          [/PPT提及/g, '方案包含'], [/PPT建议/g, '建议'], [/PPT将/g, ''], [/PPT/g, ''],
+          [/源文件口径/g, ''], [/源文件中/g, ''], [/源文件记录/g, ''], [/源文件给出的/g, ''], [/源文件所述/g, ''], [/源文件估计/g, '估计'], [/源文件预测/g, '预测'], [/源文件/g, '数据'],
+          [/以上运输和驾照判断为资料形成时口径[；;]?/g, ''], [/资料形成时口径/g, ''],
+          [/历史材料未给出([^。；]+)[。；]?/g, '$1尚未明确。'], [/历史材料提供通用门槛/g, '通用门槛已经明确'], [/历史材料/g, ''], [/历史资料/g, ''],
+          [/资料总体结论还指出/g, ''], [/资料明确判断/g, ''], [/资料建议/g, '建议'], [/资料要求/g, '需要'], [/资料指出/g, ''], [/资料表明/g, ''],
+          [/资料认为/g, ''], [/资料称/g, ''], [/资料将/g, ''], [/资料记录/g, ''], [/资料中/g, ''], [/资料未配置/g, '未配置'], [/资料未覆盖/g, '暂无评价'],
+          [/历史XE35U PRO方案/g, 'XE35U PRO方案'], [/历史PRO方案/g, 'PRO方案'], [/历史PRO驾驶(?:室)?空间改进/g, 'XE35U PRO驾驶室空间方案'], [/历史方案/g, '方案'], [/历史计划/g, '计划'],
+          [/历史样机/g, '样机'], [/历史评价/g, '实机表现'], [/历史反馈/g, '反馈'], [/历史优势/g, '优势'], [/历史差距/g, '差距'],
+          [/历史记录显示/g, ''], [/历史记录中/g, ''], [/历史记录/g, ''], [/历史口径/g, ''],
+          [/PRO方案记录基础机/g, 'PRO方案基础机'], [/记录的地面3\s*m起吊力/g, '地面3 m起吊力'], [/记录的3\s*m起吊能力/g, '3 m起吊能力'],
+          [/有优势记录/g, '表现较好'], [/被记录为/g, ''], [/记录较完整/g, '较完整'], [/在源页可比数据中/g, '在当前可比数据中'],
+          [/XCMG为源页五款产品最高/g, 'XCMG在当前五款产品中最高'], [/优于源页久保田与三一配置/g, '优于久保田与三一的当前配置'],
+          [/当时未配置蜂鸣器消音，后续仪表报警逻辑属于计划，当前状态待核/g, '蜂鸣器消音与仪表报警逻辑的当前状态待核'],
+          [/当时蜂鸣器不具备消音功能，后续报警逻辑属于计划/g, '蜂鸣器消音与报警逻辑的当前状态待核'],
+          [/蜂鸣器消音缺失，后续报警逻辑属于计划/g, '蜂鸣器消音与报警逻辑的当前状态待核'],
+          [/并指出蜂鸣器消音当时未配置/g, '；蜂鸣器消音功能尚未确认'], [/并记录蜂鸣器消音缺失/g, '；蜂鸣器消音功能尚未确认'],
+          [/资料与交付/g, '文档与交付'], [/销售与售后资料/g, '销售与售后文档'], [/售前售后资料/g, '售前售后文档'], [/资料种类/g, '文档种类'], [/资料标准/g, '文档标准']
+        ];
     replacements.forEach(([pattern, replacement]) => { output = output.replace(pattern, replacement); });
+    output = output
+      .replace(/；\s*；/g, '；')
+      .replace(/。\s*。/g, '。')
+      .replace(/[（(]\s*[）)]/g, '')
+      .replace(/\s{2,}/g, ' ')
+      .replace(/^\s*[，,；;:：]\s*/u, '')
+      .trim();
+    if (language === 'en' && /^[a-z]/.test(output)) output = output.charAt(0).toUpperCase() + output.slice(1);
     return output;
   }
 
@@ -303,14 +401,14 @@
   }
 
   function statementFromItems(items, separator) {
-    const values = (items || []).map((item) => trimSentence(item)).filter(Boolean);
+    const values = (items || []).map((item) => trimSentence(narrative(item))).filter(Boolean);
     if (!values.length) return '';
     const joiner = separator || (language === 'en' ? '; ' : '；');
     return `${values.join(joiner)}${language === 'en' ? '.' : '。'}`;
   }
 
   function workflowFromItems(items) {
-    const values = (items || []).map((item) => trimSentence(item)).filter(Boolean);
+    const values = (items || []).map((item) => trimSentence(narrative(item))).filter(Boolean);
     if (!values.length) return '';
     if (values.length === 1) return `${values[0]}${language === 'en' ? '.' : '。'}`;
     const first = values[0];
@@ -325,7 +423,7 @@
   }
 
   function workObjectNarrative(items) {
-    const values = (items || []).map((item) => trimSentence(item)).filter(Boolean);
+    const values = (items || []).map((item) => trimSentence(narrative(item))).filter(Boolean);
     if (!values.length) return '';
     if (language === 'en') return `The primary work scope covers ${values.map((item) => item.charAt(0).toLowerCase() + item.slice(1)).join(', ')}.`;
     return `主要作业对象包括${values.join('、')}。`;
@@ -348,7 +446,7 @@
   function findingKey(value) {
     if (value === '优势') return 'advantage';
     if (value === '差距') return 'gap';
-    if (value === '资料未覆盖') return 'missing';
+    if (value === '资料未覆盖' || value === '暂无评价') return 'missing';
     return 'pending';
   }
 
@@ -368,9 +466,18 @@
 
   function technicalText(value) {
     const raw = String(value == null ? '' : value).trim();
-    if (language !== 'en' || !/[\u3400-\u9fff]/.test(raw)) return raw;
-    if (expanded.translations[raw]) return expanded.translations[raw];
-    let translated = raw;
+    const normalized = raw === '资料未配置'
+      ? '未配置'
+      : raw === '软文资料'
+        ? '产品文档'
+        : raw === '资料'
+          ? '文档交付'
+          : raw;
+    if (language !== 'en' || !/[\u3400-\u9fff]/.test(normalized)) return narrative(normalized);
+    if (normalized === '产品文档') return 'Product documentation';
+    if (normalized === '文档交付') return 'Documentation delivery';
+    if (expanded.translations[normalized]) return expanded.translations[normalized];
+    let translated = normalized;
     Object.keys(expanded.translations)
       .sort((a, b) => b.length - a.length)
       .forEach((term) => { translated = translated.split(term).join(expanded.translations[term]); });
@@ -422,7 +529,7 @@
     if (!table) return '';
     const normalized = normalizedSourceRows(table, kind);
     const header = normalized.headers.map((value) => {
-      const label = technicalText(value);
+      const label = technicalText(narrative(value));
       const xcmgClass = /XE35U|XCMG/.test(label) ? ' class="xcmgSourceColumn"' : '';
       return `<th scope="col"${xcmgClass}>${escapeHtml(label)}</th>`;
     }).join('');
@@ -431,11 +538,11 @@
       const tag = index === rowHeaderIndex ? 'th' : 'td';
       const scope = index === rowHeaderIndex ? ' scope="row"' : '';
       const xcmgClass = /XE35U|XCMG/.test(normalized.headers[index]) ? ' class="xcmgSourceColumn"' : '';
-      return `<${tag}${scope}${xcmgClass}>${escapeHtml(technicalText(value))}</${tag}>`;
+      return `<${tag}${scope}${xcmgClass}>${escapeHtml(technicalText(narrative(value)))}</${tag}>`;
     }).join('')}</tr>`).join('');
-    return `<article class="sourceDataGroup" data-source-slide="${group.slide}">
-      <div class="sourceDataHeading"><div><span>${kind === 'paper' ? escapeHtml(copy.completePaperData) : escapeHtml(copy.completeFieldData)}</span><h3>${escapeHtml(text(group.title))}</h3></div><div class="sourceDataMeta"><p>${escapeHtml(text(group.description))}</p>${sourceBadge(group.slide)}</div></div>
-      <div class="sourceDataScroll"><table><caption class="srOnly">${escapeHtml(text(group.title))}</caption><thead><tr>${header}</tr></thead><tbody>${rows}</tbody></table></div>
+    return `<article class="sourceDataGroup">
+      <div class="sourceDataHeading"><h3>${escapeHtml(narrative(group.title))}</h3></div>
+      <div class="sourceDataScroll"><table><caption class="srOnly">${escapeHtml(narrative(group.title))}</caption><thead><tr>${header}</tr></thead><tbody>${rows}</tbody></table></div>
     </article>`;
   }
 
@@ -447,11 +554,12 @@
     return language === 'en' ? 'Service and economy' : '维修与经济性';
   }
 
-  function makeSection(id, title, subtitle) {
+  function makeSection(id, title, subtitle, sourceSlides = []) {
     const section = document.createElement('section');
     section.id = id;
     section.className = 'pptSection';
-    section.innerHTML = `<h2>${escapeHtml(title)}</h2><p class="sectionLead">${escapeHtml(subtitle)}</p>`;
+    if (sourceSlides.length) section.dataset.sourceSlides = sourceSlides.join(' ');
+    section.innerHTML = `<h2>${escapeHtml(title)}</h2>`;
     return section;
   }
 
@@ -474,9 +582,7 @@
   }
 
   function sourceBadge(source, statusLabel = copy.historicalBasis) {
-    const pages = typeof source === 'object' && source !== null ? source.source_slide : source;
-    const label = sourcePageText(pages);
-    return `<span class="sourceBadge" data-source-slide="${escapeHtml(Array.isArray(pages) ? pages.join(',') : pages)}"><b>${escapeHtml(label)}</b><em>${escapeHtml(statusLabel)}</em></span>`;
+    return '';
   }
 
   function dataStatusLabel(status) {
@@ -522,7 +628,7 @@
     const tableHeader = data.series.map((series) => `<th scope="col">${escapeHtml(series.brand)}</th>`).join('');
     const tableRows = data.years.map((year, yearIndex) => `<tr><th scope="row">${escapeHtml(year.year)}</th>${data.series.map((series) => `<td>${formatNumber(series.values[yearIndex])}</td>`).join('')}<td><b>${formatNumber(year.total)}</b></td><td>${escapeHtml(dataStatusLabel(year.status))}</td></tr>`).join('');
     return `<article class="evidenceVisual brandSalesVisual">
-      <header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header>
+      <header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div></header>
       <div class="volumeStatusLegend" aria-label="${escapeHtml(copy.dataStatus)}">${volumeLegend}</div>
       <div class="volumeSeries" role="img" aria-label="${escapeHtml(copy.volumeTitle)}">${volumeColumns}</div>
       <div class="brandStackChart" role="img" aria-label="${escapeHtml(text(data.title))}">${rows}</div>
@@ -535,7 +641,7 @@
     if (!data) return '';
     const max = Math.max(...data.models.map((item) => item.units));
     const rows = data.models.map((item, index) => `<div class="modelDemandRow"><span>${index + 1}</span><div><b>${escapeHtml(item.model)}</b><small>${escapeHtml(item.brand)}</small></div><i><em style="width:${(item.units / max * 100).toFixed(1)}%"></em></i><strong>${formatNumber(item.units)}</strong></div>`).join('');
-    return `<article class="evidenceVisual modelDemandVisual"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><div class="modelDemandChart">${rows}</div></article>`;
+    return `<article class="evidenceVisual modelDemandVisual"><header><div><h3>${escapeHtml(text(data.title))}</h3></div></header><div class="modelDemandChart">${rows}</div></article>`;
   }
 
   function renderPriceShare(data) {
@@ -556,7 +662,48 @@
       const fill = item.brand === 'XCMG' ? '#f5b400' : '#005aa7';
       return `<g class="scatterPoint ${item.brand === 'XCMG' ? 'isXcmg' : ''}" tabindex="0"><title>${escapeHtml(item.brand)} · $${formatNumber(item.price_usd)} · ${item.share_pct.toFixed(1)}% · ${formatNumber(item.volume, 1)}</title><circle cx="${x(item.price_usd)}" cy="${y(item.share_pct)}" r="${radius.toFixed(1)}" fill="${fill}"></circle><text x="${x(item.price_usd) + offset[0]}" y="${y(item.share_pct) + offset[1]}">${escapeHtml(item.brand)}</text></g>`;
     }).join('');
-    return `<article class="evidenceVisual priceShareVisual"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><svg viewBox="0 0 700 300" role="img" aria-label="${escapeHtml(text(data.title))}" class="priceShareSvg"><g class="chartGrid">${yGrid}${xGrid}</g><line class="chartAxis" x1="${plot.left}" x2="${plot.left + plot.width}" y1="${plot.top + plot.height}" y2="${plot.top + plot.height}"></line><line class="chartAxis" x1="${plot.left}" x2="${plot.left}" y1="${plot.top}" y2="${plot.top + plot.height}"></line>${points}<text class="axisTitle" x="${plot.left + plot.width / 2}" y="294" text-anchor="middle">${escapeHtml(copy.priceAxis)}</text><text class="axisTitle" transform="translate(14 ${plot.top + plot.height / 2}) rotate(-90)" text-anchor="middle">${escapeHtml(copy.shareAxis)}</text></svg></article>`;
+    const title = text(data.title);
+    return `<article class="evidenceVisual priceShareVisual"><header><div><h3>${escapeHtml(title)}</h3></div></header><svg viewBox="0 0 700 300" role="img" aria-label="${escapeHtml(title)}" class="priceShareSvg"><g class="chartGrid">${yGrid}${xGrid}</g><line class="chartAxis" x1="${plot.left}" x2="${plot.left + plot.width}" y1="${plot.top + plot.height}" y2="${plot.top + plot.height}"></line><line class="chartAxis" x1="${plot.left}" x2="${plot.left}" y1="${plot.top}" y2="${plot.top + plot.height}"></line>${points}<text class="axisTitle" x="${plot.left + plot.width / 2}" y="294" text-anchor="middle">${escapeHtml(copy.priceAxis)}</text><text class="axisTitle" transform="translate(14 ${plot.top + plot.height / 2}) rotate(-90)" text-anchor="middle">${escapeHtml(copy.shareAxis)}</text></svg></article>`;
+  }
+
+  function renderMarketEvidenceSummary(sourceVisuals) {
+    const market = sourceVisuals?.market;
+    const modelDemand = market?.model_demand_2025;
+    const brandSales = market?.annual_brand_sales;
+    const priceShare = market?.brand_position_2025;
+    if (!modelDemand || !brandSales || !priceShare) return '';
+    const topModel = modelDemand.models[0];
+    const xcmgSeries = brandSales.series.find((item) => item.brand === 'XCMG');
+    const xcmg2025 = xcmgSeries?.values?.[2];
+    const xcmg2026 = xcmgSeries?.values?.[3];
+    const xcmgPoint = priceShare.points.find((item) => item.brand === 'XCMG');
+    const kubotaPoint = priceShare.points.find((item) => item.brand === 'KUBOTA');
+    const currentPackage = sourceVisuals?.transport?.packages?.find((item) => item.id === 'xe35u-current');
+    const lowerPayload = sourceVisuals?.transport?.trailer_context?.effective_payload_kg?.[0];
+    const margin = Number.isFinite(lowerPayload) && currentPackage ? lowerPayload - currentPackage.equipped_total_kg : null;
+    const cards = [
+      {
+        label: language === 'en' ? '2025 demand anchor in the study' : '研究口径的2025主销锚点',
+        value: `${topModel.brand} ${topModel.model}`,
+        detail: language === 'en' ? `${formatNumber(topModel.units)} units in the study dataset; used to identify the mainstream package.` : `研究样本销量${formatNumber(topModel.units)}台，用于识别主流产品组合。`
+      },
+      {
+        label: language === 'en' ? 'XCMG planning signal, not actual sales' : 'XCMG规划信号，并非实绩',
+        value: `${formatNumber(xcmg2025)} → ${formatNumber(xcmg2026)} ${copy.units}`,
+        detail: language === 'en' ? 'Original 2025 estimate to 2026 forecast; current actuals still require backfill.' : '报告原2025估计到2026预测，当前实绩仍需回填。'
+      },
+      {
+        label: language === 'en' ? 'Reference price position' : '参考价格位置',
+        value: `$${formatNumber(xcmgPoint.price_usd)}`,
+        detail: kubotaPoint ? (language === 'en' ? `About $${formatNumber(kubotaPoint.price_usd - xcmgPoint.price_usd)} below the Kubota reference; align quote date and equipment.` : `较久保田参考低约$${formatNumber(kubotaPoint.price_usd - xcmgPoint.price_usd)}，需统一报价时间与配置。`) : ''
+      },
+      {
+        label: language === 'en' ? '14K trailer lower-bound fit' : '14K拖车常见载荷下限适配',
+        value: margin == null ? '-' : `${margin > 0 ? '+' : ''}${formatNumber(margin)} kg`,
+        detail: margin == null ? '' : (language === 'en' ? 'Representative equipped package versus the lower end of the common payload range; verify the actual combination.' : '常用配置组合相对常见有效载荷区间下限，实际组合仍须复核。')
+      }
+    ];
+    return `<div class="marketEvidenceSummary"><div class="pptModuleTitle"><span>${escapeHtml(copy.marketEvidenceTitle)}</span></div><div class="marketEvidenceCards">${cards.map((item) => `<article><span>${escapeHtml(item.label)}</span><b>${escapeHtml(item.value)}</b><small>${escapeHtml(item.detail)}</small></article>`).join('')}</div></div>`;
   }
 
   function renderTransportBreakdown(data) {
@@ -565,11 +712,12 @@
     const colors = ['#005aa7', '#f5b400', '#829bb2', '#0f7b45'];
     const packageRows = data.packages.map((item) => {
       const segments = item.components.map((component, index) => `<span style="width:${(component.kg / max * 100).toFixed(2)}%;background:${colors[index]}" title="${escapeHtml(text(component.label))} · ${formatNumber(component.kg)} kg"></span>`).join('');
-      return `<div class="massPackageRow"><div><b>${escapeHtml(text(item.label))}</b><small>${item.status === 'historical_plan_unverified' ? escapeHtml(copy.currentUnverified) : escapeHtml(copy.historicalBasis)}</small></div><div class="massTrack">${segments}</div><strong>${formatNumber(item.equipped_total_kg)} kg</strong></div>`;
+      return `<div class="massPackageRow"><div><b>${escapeHtml(narrative(item.label))}</b><small>${item.status === 'historical_plan_unverified' ? escapeHtml(copy.currentUnverified) : escapeHtml(copy.historicalBasis)}</small></div><div class="massTrack">${segments}</div><strong>${formatNumber(item.equipped_total_kg)} kg</strong></div>`;
     }).join('');
-    const componentRows = data.packages.map((item) => `<tr><th scope="row">${escapeHtml(text(item.label))}</th><td>${item.components.map((component) => `${escapeHtml(text(component.label))} ${formatNumber(component.kg)} kg`).join(' + ')}</td><td><b>${formatNumber(item.equipped_total_kg)} kg</b></td></tr>`).join('');
+    const componentRows = data.packages.map((item) => `<tr><th scope="row">${escapeHtml(narrative(item.label))}</th><td>${item.components.map((component) => `${escapeHtml(text(component.label))} ${formatNumber(component.kg)} kg`).join(' + ')}</td><td><b>${formatNumber(item.equipped_total_kg)} kg</b></td></tr>`).join('');
     const optional = data.additional_attachments.map((item) => `<li><span>${escapeHtml(text(item.label))}</span><b>${formatNumber(item.kg)} kg</b></li>`).join('');
-    return `<article class="evidenceVisual transportBreakdownVisual"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><div class="massPackageChart">${packageRows}</div><div class="massDetailGrid"><div class="evidenceTableScroll"><table><thead><tr><th>${escapeHtml(copy.packageName)}</th><th>${escapeHtml(copy.component)}</th><th>${escapeHtml(copy.packageTotal)}</th></tr></thead><tbody>${componentRows}</tbody></table></div><div class="optionalAttachmentList"><h4>${escapeHtml(copy.optionalAttachments)}</h4><ul>${optional}</ul></div></div></article>`;
+    const subtitle = narrative(data.subtitle);
+    return `<article class="evidenceVisual transportBreakdownVisual"><header><div><h3>${escapeHtml(narrative(data.title))}</h3>${subtitle ? `<p>${escapeHtml(subtitle)}</p>` : ''}</div></header><div class="massPackageChart">${packageRows}</div><div class="massDetailGrid"><div class="evidenceTableScroll"><table><thead><tr><th>${escapeHtml(copy.packageName)}</th><th>${escapeHtml(copy.component)}</th><th>${escapeHtml(copy.packageTotal)}</th></tr></thead><tbody>${componentRows}</tbody></table></div><div class="optionalAttachmentList"><h4>${escapeHtml(copy.optionalAttachments)}</h4><ul>${optional}</ul></div></div></article>`;
   }
 
   function renderPerformanceVisual(data) {
@@ -582,22 +730,69 @@
         const hasValue = Number.isFinite(value);
         return `<div class="performanceBarRow ${index === 0 ? 'isXcmg' : ''}"><span>${escapeHtml(model)}</span><i>${hasValue ? `<em style="width:${Math.max(2, value / max * 100).toFixed(1)}%"></em>` : ''}</i><b>${hasValue ? `${formatNumber(value, 1)} ${escapeHtml(metric.unit)}` : escapeHtml(copy.noSourceValue)}</b></div>`;
       }).join('');
-      const basis = metric.basis ? `<p>${escapeHtml(text(metric.basis))}</p>` : '';
+      const basis = metric.basis ? `<p>${escapeHtml(narrative(metric.basis))}</p>` : '';
       return `<article class="performanceFacet"><h4>${escapeHtml(text(metric.label))}<small>${escapeHtml(metric.unit)}</small></h4>${rows}${basis}</article>`;
     }).join('');
-    return `<article class="evidenceVisual performanceEvidence"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(copy.performanceScaleNote)}</p></div>${sourceBadge(data)}</header><div class="performanceFacetGrid">${cards}</div></article>`;
+    return `<article class="evidenceVisual performanceEvidence"><header><div><h3>${escapeHtml(narrative(data.title))}</h3></div></header><div class="performanceFacetGrid">${cards}</div></article>`;
   }
 
   function renderFieldHeatmap(data) {
     if (!data) return '';
     let lastGroup = '';
     const rows = data.rows.map((item) => {
-      const group = text(item.group);
+      const group = technicalText(text(item.group));
       const groupCell = group === lastGroup ? '' : group;
       lastGroup = group;
-      return `<tr><th scope="row">${escapeHtml(groupCell)}</th><td>${escapeHtml(text(item.metric))}<small>${sourcePageText(item.source_slide)}</small></td>${item.ratings.map((rating) => `<td class="ratingCell" data-rating="${rating}" title="${escapeHtml(text(item.metric))}: ${rating}/5"><b>${rating}</b></td>`).join('')}</tr>`;
+      return `<tr><th scope="row">${escapeHtml(groupCell)}</th><td>${escapeHtml(text(item.metric))}</td>${item.ratings.map((rating) => `<td class="ratingCell" data-rating="${rating}" title="${escapeHtml(text(item.metric))}: ${rating}/5"><b>${rating}</b></td>`).join('')}</tr>`;
     }).join('');
-    return `<article class="evidenceVisual fieldHeatmapVisual"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><div class="heatmapLegend"><span>1</span><i data-rating="1"></i><i data-rating="2"></i><i data-rating="3"></i><i data-rating="4"></i><i data-rating="5"></i><span>5</span><b>${escapeHtml(copy.ratingLegend)}</b></div><div class="evidenceTableScroll"><table class="ratingHeatmap"><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th>${data.models.map((model, index) => `<th class="${index === 0 ? 'xcmgHeatHeader' : ''}">${escapeHtml(model)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div></article>`;
+    return `<article class="evidenceVisual fieldHeatmapVisual"><header><div><h3>${escapeHtml(copy.fieldHeatmapTitle)}</h3></div></header><div class="heatmapLegend"><span>1</span><i data-rating="1"></i><i data-rating="2"></i><i data-rating="3"></i><i data-rating="4"></i><i data-rating="5"></i><span>5</span><b>${escapeHtml(copy.ratingLegend)}</b></div><div class="evidenceTableScroll"><table class="ratingHeatmap"><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th>${data.models.map((model, index) => `<th class="${index === 0 ? 'xcmgHeatHeader' : ''}">${escapeHtml(model)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div></article>`;
+  }
+
+  function renderFieldGroupSummary(data) {
+    if (!data?.rows?.length) return '';
+    const groups = new Map();
+    data.rows.forEach((row) => {
+      const group = technicalText(text(row.group));
+      if (!groups.has(group)) groups.set(group, {count: 0, sums: Array(data.models.length).fill(0)});
+      const entry = groups.get(group);
+      entry.count += 1;
+      row.ratings.forEach((rating, index) => { entry.sums[index] += Number(rating) || 0; });
+    });
+    const rows = [...groups.entries()].map(([group, entry]) => {
+      const averages = entry.sums.map((sum) => sum / entry.count);
+      const best = Math.max(...averages);
+      return `<tr><th scope="row">${escapeHtml(group)}</th>${averages.map((avg, index) => `<td class="${index === 0 ? 'xcmgFieldAvg' : ''}"><b>${avg.toFixed(1)}</b><i><em style="width:${(avg / best * 100).toFixed(1)}%"></em></i></td>`).join('')}</tr>`;
+    }).join('');
+    return `<article class="fieldGroupSummary"><div class="pptModuleTitle"><span>${escapeHtml(copy.fieldGroupTitle)}</span></div><div class="evidenceTableScroll"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th>${data.models.map((model, index) => `<th class="${index === 0 ? 'xcmgHeatHeader' : ''}">${escapeHtml(model)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div></article>`;
+  }
+
+  function renderScenarioMatrix(records) {
+    if (!records?.length) return '';
+    const sourceLine = (label, items, separator = language === 'en' ? '; ' : '；') => {
+      const localized = items?.[language] || items?.zh || [];
+      const values = Array.isArray(localized) ? localized : [localized];
+      if (!values.length) return '';
+      const content = values.map((item) => trimSentence(narrative(item))).filter(Boolean);
+      if (!content.length) return '';
+      return `<div class="sourceContentLine"><span>${escapeHtml(label)}</span><p>${content.map((item) => escapeHtml(item)).join(separator)}</p></div>`;
+    };
+    const rows = records.map((record) => {
+      const links = (scenarioConditionLinks[record.id] || []).map((item) => `<a href="#${escapeHtml(item.id)}">${escapeHtml(language === 'en' ? item.en : item.zh)}</a>`).join('');
+      const sourceContent = [
+        sourceLine(copy.needs, record.needs),
+        sourceLine(copy.steps, record.steps, language === 'en' ? ' -> ' : ' → '),
+        sourceLine(copy.historicalAssessment, record.historical_assessment)
+      ].filter(Boolean).join('');
+      return `<tr>
+        <th scope="row"><b>${escapeHtml(text(record.title))}</b><small>${escapeHtml(text(record.customer))}</small></th>
+        <td class="scenarioSourceOriginal">${sourceContent}</td>
+        <td><div class="scenarioConditionLinks matrixLinks">${links}</div></td>
+      </tr>`;
+    }).join('');
+    return `<article class="scenarioMatrix">
+      <header class="scenarioMatrixHeader"><h3>${escapeHtml(copy.scenarioMatrixTitle)}</h3></header>
+      <div class="scenarioMatrixTable"><table><colgroup><col class="scenarioMatrixScenario"><col class="scenarioMatrixSourceContent"><col class="scenarioMatrixMapping"></colgroup><thead><tr><th>${escapeHtml(copy.scenarioCustomerColumn)}</th><th>${escapeHtml(copy.scenarioEvidenceColumn)}</th><th>${escapeHtml(copy.scenarioLinkColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div>
+    </article>`;
   }
 
   function radarPoints(values, cx, cy, radius) {
@@ -621,17 +816,168 @@
     const series = data.series.map((item) => `<polygon class="radarSeries" points="${radarPoints(item.values, cx, cy, radius)}" style="--series:${escapeHtml(item.color)}"><title>${escapeHtml(item.model)}: ${item.values.join(' / ')}</title></polygon>`).join('');
     const legend = data.series.map((item) => `<span><i style="background:${escapeHtml(item.color)}"></i>${escapeHtml(item.model)}</span>`).join('');
     const keys = data.dimensions.map((item, index) => `<li><b>${index + 1}</b>${escapeHtml(text(item))}</li>`).join('');
-    return `<article class="evidenceVisual competitivenessProfile"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data)}</header><div class="radarLayout"><div><svg viewBox="0 0 500 340" role="img" aria-label="${escapeHtml(text(data.title))}" class="competitivenessRadar"><g class="radarGrid">${levels}${axes}</g>${series}</svg><div class="chartLegend radarLegend">${legend}</div></div><div class="radarKey"><h4>${escapeHtml(copy.profileKey)}</h4><ol>${keys}</ol></div></div></article>`;
+    return `<article class="evidenceVisual competitivenessProfile"><header><div><h3>${escapeHtml(copy.profileTitle)}</h3></div></header><div class="radarLayout"><div><svg viewBox="0 0 500 340" role="img" aria-label="${escapeHtml(copy.profileTitle)}" class="competitivenessRadar"><g class="radarGrid">${levels}${axes}</g>${series}</svg><div class="chartLegend radarLegend">${legend}</div></div><div class="radarKey"><h4>${escapeHtml(copy.profileKey)}</h4><ol>${keys}</ol></div></div></article>`;
   }
 
   function renderImprovementLedger(data) {
     if (!data) return '';
-    const rows = data.items.map((item) => `<tr><td>${item.id}</td><th scope="row">${escapeHtml(text(item.system))}</th><td>${escapeHtml(text(item.problem))}</td><td>${escapeHtml(text(item.source_action))}</td><td>${escapeHtml(item.upgrade_date)}</td><td>${escapeHtml(item.production_date)}</td><td><span class="scenarioStatus status-pending">${escapeHtml(copy.currentUnverified)}</span></td></tr>`).join('');
-    return `<article class="evidenceVisual improvementLedger"><header><div><h3>${escapeHtml(text(data.title))}</h3><p>${escapeHtml(text(data.subtitle))}</p></div>${sourceBadge(data, copy.currentUnverified)}</header><p class="ledgerCaveat">${escapeHtml(copy.ledgerCaveat)}</p><div class="evidenceTableScroll"><table><thead><tr><th>${escapeHtml(copy.itemNo)}</th><th>${escapeHtml(copy.system)}</th><th>${escapeHtml(copy.problem)}</th><th>${escapeHtml(copy.sourceAction)}</th><th>${escapeHtml(copy.historicalUpgradeDate)}</th><th>${escapeHtml(copy.historicalProductionDate)}</th><th>${escapeHtml(copy.status)}</th></tr></thead><tbody>${rows}</tbody></table></div></article>`;
+    const rows = data.items.map((item) => `<tr><td>${item.id}</td><th scope="row">${escapeHtml(text(item.system))}</th><td>${escapeHtml(text(item.problem))}</td><td>${escapeHtml(narrative(item.source_action))}</td><td>${escapeHtml(item.upgrade_date)}</td><td>${escapeHtml(item.production_date)}</td><td><span class="scenarioStatus status-pending">${escapeHtml(copy.currentUnverified)}</span></td></tr>`).join('');
+    return `<article class="evidenceVisual improvementLedger"><header><div><h3>${escapeHtml(copy.ledgerTitle)}</h3></div></header><div class="evidenceTableScroll"><table><thead><tr><th>${escapeHtml(copy.itemNo)}</th><th>${escapeHtml(copy.system)}</th><th>${escapeHtml(copy.problem)}</th><th>${escapeHtml(copy.sourceAction)}</th><th>${escapeHtml(copy.historicalUpgradeDate)}</th><th>${escapeHtml(copy.historicalProductionDate)}</th><th>${escapeHtml(copy.status)}</th></tr></thead><tbody>${rows}</tbody></table></div></article>`;
   }
 
-  function renderMarket(view, sourceVisuals) {
-    const section = makeSection('ppt-market', copy.marketTitle, copy.marketSubtitle);
+  function visualParagraphs(data) {
+    const paragraphs = data?.paragraphs?.[language] || data?.paragraphs?.zh || [];
+    return paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('');
+  }
+
+  function renderVisualStory(data, visual, className = '') {
+    if (!data) return '';
+    return `<article class="decisionVisual ${escapeHtml(className)}">
+      <header class="decisionVisualHeader"><span>${escapeHtml(text(data.title))}</span><h3>${escapeHtml(text(data.conclusion))}</h3></header>
+      <div class="decisionVisualLayout">
+        <div class="decisionVisualStage">${visual}</div>
+        <div class="decisionVisualAnalysis">${visualParagraphs(data)}<div class="decisionAction"><b>${language === 'en' ? 'Product action' : '产品动作'}</b><p>${escapeHtml(text(data.action))}</p></div></div>
+      </div>
+    </article>`;
+  }
+
+  function renderCategoryContext(data) {
+    if (!data) return '';
+    const focus = `<div class="classFocusBanner"><span>${escapeHtml(text(data.focus.label))}</span><strong>${escapeHtml(data.focus.range)}</strong><b>${escapeHtml(text(data.focus.statement))}</b></div>`;
+    const blocks = data.decision_blocks.map((item) => `<article class="classDecisionCard">
+      <span>${escapeHtml(text(item.label))}</span>
+      <h4>${escapeHtml(text(item.headline))}</h4>
+      <p>${escapeHtml(text(item.detail))}</p>
+    </article>`).join('');
+    const benchmarks = data.benchmark_roles.map((item) => `<div class="benchmarkRole"><span>${escapeHtml(text(item.class))}</span><strong>${escapeHtml(text(item.brand))}</strong><p>${escapeHtml(text(item.reason))}</p></div>`).join('');
+    return renderVisualStory(data, `${focus}<div class="classDecisionGrid">${blocks}</div><div class="benchmarkRoles">${benchmarks}</div>`, 'categoryContextVisual');
+  }
+
+  function renderPortfolioCoverage(data) {
+    if (!data) return '';
+    const headers = data.slots.map((slot) => `<th>${escapeHtml(text(slot.label))}</th>`).join('');
+    const rows = data.rows.map((row) => {
+      const cells = data.slots.map((slot) => {
+        const model = row.coverage[slot.id];
+        const missing = !model;
+        return `<td class="${missing ? 'portfolioMissing' : 'portfolioCovered'}"><span>${missing ? (language === 'en' ? 'No dedicated product' : '无专属产品') : escapeHtml(text(model))}</span></td>`;
+      }).join('');
+      return `<tr class="${row.xcmg ? 'portfolioXcmg' : ''}"><th scope="row">${escapeHtml(row.brand)}</th>${cells}</tr>`;
+    }).join('');
+    const visual = `<div class="portfolioCoverageScroll"><table class="portfolioCoverageTable"><thead><tr><th>${language === 'en' ? 'Brand' : '品牌'}</th>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
+    return renderVisualStory(data, visual, 'portfolioCoverageVisual');
+  }
+
+  function renderTaskCapability(data, scenarioRecords) {
+    if (!data) return '';
+    const scenarioMap = new Map(scenarioRecords.map((record) => [record.id, record]));
+    const tabs = data.records.map((record, index) => {
+      const scenario = scenarioMap.get(record.scenario_id);
+      return `<button type="button" class="capabilityTab${index === 0 ? ' is-active' : ''}" data-capability-target="capability-${escapeHtml(record.scenario_id)}" aria-pressed="${index === 0 ? 'true' : 'false'}">${escapeHtml(text(scenario?.title) || record.scenario_id)}</button>`;
+    }).join('');
+    const panels = data.records.map((record, index) => {
+      const stages = [
+        {label: language === 'en' ? 'Customer objective' : '客户目标', value: text(record.customer)},
+        {label: language === 'en' ? 'Task sequence' : '任务步骤', value: text(record.task)},
+        {label: language === 'en' ? 'Critical capability' : '关键能力', value: text(record.capability)},
+        {label: language === 'en' ? 'Validation metric' : '验证指标', value: text(record.measure)}
+      ];
+      return `<div class="capabilityPanel${index === 0 ? ' is-active' : ''}" id="capability-${escapeHtml(record.scenario_id)}" ${index === 0 ? '' : 'hidden'}>${stages.map((stage, stageIndex) => `<article><span>${String(stageIndex + 1).padStart(2, '0')} · ${escapeHtml(stage.label)}</span><p>${escapeHtml(stage.value)}</p></article>`).join('')}</div>`;
+    }).join('');
+    return renderVisualStory(data, `<div class="capabilityExplorer"><div class="capabilityTabs" role="group">${tabs}</div>${panels}</div>`, 'taskCapabilityVisual');
+  }
+
+  function renderAttachmentHeatmap(data, scenarioRecords) {
+    if (!data) return '';
+    const scenarioMap = new Map(scenarioRecords.map((record) => [record.id, record]));
+    const levelMap = new Map(data.legend.map((item) => [item.value, text(item.label)]));
+    const legend = data.legend.map((item) => `<span><i class="attachmentHeat heat-${item.value}"></i>${escapeHtml(text(item.label))}</span>`).join('');
+    const headers = data.attachments.map((item) => `<th><span>${escapeHtml(text(item.label))}</span></th>`).join('');
+    const rows = data.rows.map((row) => {
+      const scenario = scenarioMap.get(row.scenario_id);
+      const cells = row.values.map((value) => `<td class="attachmentHeat heat-${value}" title="${escapeHtml(levelMap.get(value))}"><span>${value}</span><small>${escapeHtml(levelMap.get(value))}</small></td>`).join('');
+      return `<tr><th scope="row">${escapeHtml(text(scenario?.title) || row.scenario_id)}</th>${cells}</tr>`;
+    }).join('');
+    const visual = `<div class="attachmentLegend">${legend}</div><div class="attachmentHeatmapScroll"><table class="attachmentHeatmap"><thead><tr><th>${language === 'en' ? 'Application' : '作业场景'}</th>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
+    return renderVisualStory(data, visual, 'attachmentMatrixVisual');
+  }
+
+  function formatDelta(metric) {
+    const sign = metric.delta > 0 ? '+' : '';
+    return `${sign}${formatMetricValue(metric.delta)} ${metric.unit}`;
+  }
+
+  function formatMetricValue(value) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return String(value);
+    return number.toLocaleString(language === 'en' ? 'en-US' : 'zh-CN', {
+      minimumFractionDigits: Number.isInteger(number) ? 0 : 1,
+      maximumFractionDigits: 1
+    });
+  }
+
+  function renderAbsoluteGaps(data) {
+    if (!data) return '';
+    const rows = data.metrics.map((metric) => {
+      const ratio = Math.min(42, Math.max(4, Math.abs(metric.delta / metric.benchmark) * 130));
+      const benchmarkDisplay = metric.benchmark_display || formatNumber(metric.benchmark);
+      const side = metric.status === 'advantage' ? 'positive' : 'negative';
+      return `<article class="gapMetricRow status-${escapeHtml(metric.status)}">
+        <div class="gapMetricIdentity"><b>${escapeHtml(text(metric.label))}</b><span>${escapeHtml(metric.benchmark_model)}</span></div>
+        <div class="gapMetricValues"><span><i>XCMG</i><b>${formatMetricValue(metric.xcmg)} ${escapeHtml(metric.unit)}</b></span><span><i>${language === 'en' ? 'Benchmark' : '标杆'}</i><b>${escapeHtml(metric.benchmark_display ? String(benchmarkDisplay) : formatMetricValue(metric.benchmark))} ${escapeHtml(metric.unit)}</b></span></div>
+        <div class="gapDeltaChart"><div class="gapZero"></div><span class="gapDeltaBar ${side}" style="--gap-width:${ratio}%"></span><strong>${escapeHtml(formatDelta(metric))}</strong></div>
+        <p>${escapeHtml(text(metric.impact))}</p>
+      </article>`;
+    }).join('');
+    return renderVisualStory(data, `<div class="absoluteGapChart"><div class="gapAxis"><span>${language === 'en' ? 'Gap' : '短板'}</span><b>0</b><span>${language === 'en' ? 'Advantage' : '优势'}</span></div>${rows}</div>`, 'absoluteGapVisual');
+  }
+
+  function renderFieldEvidence(data) {
+    if (!data) return '';
+    const levelMap = new Map(data.levels.map((item) => [item.value, text(item.label)]));
+    const legend = data.levels.map((item) => `<span><i class="evidenceLevel level-${item.value}"></i>${escapeHtml(text(item.label))}</span>`).join('');
+    const headers = data.axes.map((axis) => `<th>${escapeHtml(text(axis.label))}</th>`).join('');
+    const rows = data.rows.map((row) => `<tr><th scope="row">${escapeHtml(text(row.label))}</th>${row.values.map((value) => `<td class="evidenceLevel level-${value}"><b>${value}</b><span>${escapeHtml(levelMap.get(value))}</span></td>`).join('')}<td class="evidenceFinding">${escapeHtml(text(row.finding))}</td></tr>`).join('');
+    const visual = `<div class="evidenceLevelLegend">${legend}</div><div class="fieldEvidenceScroll"><table class="fieldEvidenceTable"><thead><tr><th>${language === 'en' ? 'Dimension' : '维度'}</th>${headers}<th>${language === 'en' ? 'Current reading' : '当前判断'}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    return renderVisualStory(data, visual, 'fieldEvidenceVisual');
+  }
+
+  function renderClosureTimeline(data, ledger) {
+    if (!data || !ledger) return '';
+    const rows = ledger.items.map((item) => `<div class="closureRow">
+      <div class="closureIdentity"><b>${item.id}. ${escapeHtml(text(item.system))}</b><span>${escapeHtml(text(item.problem))}</span></div>
+      <div class="closureMilestone"><i class="milestoneDot historical"></i><span>${escapeHtml(item.upgrade_date)}</span></div>
+      <div class="closureMilestone"><i class="milestoneDot historical"></i><span>${escapeHtml(item.production_date)}</span></div>
+      <div class="closureMilestone current"><i class="milestoneDot pending"></i><span>${escapeHtml(copy.currentUnverified)}</span></div>
+      <p>${escapeHtml(text(data.close_criteria[String(item.id)]))}</p>
+    </div>`).join('');
+    const phaseHeaders = data.phase_labels.map((phase) => `<span>${escapeHtml(text(phase.label))}</span>`).join('');
+    const visual = `<div class="closureTimeline"><div class="closureTimelineHead"><span>${language === 'en' ? 'Issue / system' : '问题 / 系统'}</span>${phaseHeaders}<span>${language === 'en' ? 'Closure evidence' : '关闭证据'}</span></div>${rows}</div>`;
+    return renderVisualStory(data, visual, 'closureTimelineVisual');
+  }
+
+  function initCapabilityExplorer(root = document) {
+    root.querySelectorAll('.capabilityExplorer').forEach((explorer) => {
+      explorer.querySelectorAll('.capabilityTab').forEach((button) => {
+        button.addEventListener('click', () => {
+          const target = button.dataset.capabilityTarget;
+          explorer.querySelectorAll('.capabilityTab').forEach((item) => {
+            const active = item === button;
+            item.classList.toggle('is-active', active);
+            item.setAttribute('aria-pressed', String(active));
+          });
+          explorer.querySelectorAll('.capabilityPanel').forEach((panel) => {
+            const active = panel.id === target;
+            panel.classList.toggle('is-active', active);
+            panel.hidden = !active;
+          });
+        });
+      });
+    });
+  }
+
+  function renderMarket(view, sourceVisuals, visualExpansion) {
+    const section = makeSection('ppt-market', copy.marketTitle, copy.marketSubtitle, [48, 49]);
     const customers = view.market.customer_mix.map((item) => `<span style="width:${item.value}%" title="${escapeHtml(text(item.label))} ${item.value}%"></span>`).join('');
     const customerLegend = view.market.customer_mix.map((item) => `<li><i></i><span>${escapeHtml(text(item.label))}</span><b>${item.value}%</b></li>`).join('');
     const logic = view.market.purchase_logic.map((item) => `<li>${escapeHtml(text(item))}</li>`).join('');
@@ -640,10 +986,11 @@
       {label: copy.marketRead, title: copy.competition, detail: copy.competitionText},
       {label: copy.marketRead, title: copy.xcmgEntry, detail: copy.xcmgEntryText}
     ];
-    const portfolioRows = expanded.marketPortfolio.map((item) => `<tr class="${item.brand === 'XCMG' ? 'xcmgPortfolioRow' : ''}"><th scope="row">${escapeHtml(item.brand)}</th><td>${escapeHtml(item.models)}</td><td>${escapeHtml(text(item.architecture))}</td><td>${escapeHtml(text(item.implication))}</td></tr>`).join('');
-    const transportRuleRows = expanded.transportRules.map((item) => `<tr><th scope="row">${escapeHtml(item.level)}</th><td>${escapeHtml(text(item.threshold))}</td><td>${escapeHtml(text(item.implication))}</td></tr>`).join('');
-    const positionData = sourceVisuals?.historical_positioning;
-    const positionRows = (positionData?.rows || expanded.positioning).map((item) => `<tr class="${item.brand === 'XCMG' ? 'xcmgPositionRow' : ''}"><th scope="row">${escapeHtml(item.brand)}</th><td>${escapeHtml(item.models)}</td><td>${escapeHtml(item.price || `$${formatNumber(item.price_usd)}`)}</td><td>${escapeHtml(item.share)}</td></tr>`).join('');
+    const transportRuleRows = expanded.transportRules.map((item) => `<tr><th scope="row">${escapeHtml(item.level)}</th><td>${escapeHtml(narrative(item.threshold))}</td><td>${escapeHtml(narrative(item.implication))}</td></tr>`).join('');
+    const rightInsightCards = [
+      {title: copy.leadingModelsTitle, detail: copy.leadingModelsText, source: 48},
+      {title: copy.transportFitTitle, detail: copy.transportFitText, source: 49}
+    ].map((item) => `<article><header><b>${escapeHtml(item.title)}</b></header><p>${escapeHtml(narrative(item.detail))}</p></article>`).join('');
     const transportSource = sourceVisuals?.transport;
     const currentPackage = transportSource?.packages?.find((item) => item.id === 'xe35u-current');
     const historicalPackage = transportSource?.packages?.find((item) => item.id === 'xe35u-pro-historical');
@@ -659,12 +1006,21 @@
       <p class="transportMarginNote">${escapeHtml(copy.transportMarginNote)}</p>` : '';
 
     section.insertAdjacentHTML('beforeend', `
-      <p class="analysisScope">${escapeHtml(copy.scoringBoundary)}</p>
+      ${renderMarketEvidenceSummary(sourceVisuals)}
+      ${renderCategoryContext(visualExpansion?.category_context)}
       <div class="marketDecisionGrid">
         ${renderBrandSales(sourceVisuals?.market?.annual_brand_sales)}
-        <div class="pptModule customerEvidence"><div class="pptModuleTitle"><span>${escapeHtml(copy.customerTitle)}</span>${sourceBadge(49)}</div><div class="shareStrip"><div class="shareStripHead"><span>${escapeHtml(copy.shareTitle)}</span><b>${view.market.leading_share.value}%</b></div><div class="shareBar"><span></span></div><div class="brandNames"><span>${escapeHtml(copy.shareNote)}</span>${sourceBadge(48)}</div></div><div class="customerMix" aria-label="${escapeHtml(copy.customerTitle)}">${customers}</div><ul class="customerLegend">${customerLegend}</ul><p class="sourceCaveat">${escapeHtml(narrative(view.market.customer_mix_note))}</p><h3 class="pptModuleTitle"><span>${escapeHtml(copy.purchaseLogic)}</span></h3><ul class="purchaseLogic">${logic}</ul></div>
+        <div class="pptModule customerEvidence">
+          <div class="customerEvidenceTop">
+            <div class="pptModuleTitle"><span>${escapeHtml(copy.customerTitle)}</span>${sourceBadge(49)}</div>
+            <div class="shareStrip"><div class="shareStripHead"><span>${escapeHtml(copy.shareTitle)}</span><b>${view.market.leading_share.value}%</b></div><div class="shareBar"><span></span></div><div class="brandNames"><span>${escapeHtml(copy.shareNote)}</span>${sourceBadge(48)}</div></div>
+            <div class="customerMix" aria-label="${escapeHtml(copy.customerTitle)}">${customers}</div><ul class="customerLegend">${customerLegend}</ul><p class="sourceCaveat">${escapeHtml(language === 'en' ? 'The four listed customer groups account for 90%; the remaining 10% is grouped as other customers.' : '四类客户占比合计90%，其余10%归入其他客户。')}</p>
+          </div>
+          <div class="marketRightInsights"><h3>${escapeHtml(copy.rightInsightTitle)}</h3>${rightInsightCards}</div>
+          <div class="purchaseLogicBlock"><h3 class="pptModuleTitle"><span>${escapeHtml(copy.purchaseLogic)}</span></h3><ul class="purchaseLogic">${logic}</ul></div>
+        </div>
       </div>
-      <div class="sourceVisualPair">${renderModelDemand(sourceVisuals?.market?.model_demand_2025)}${renderPriceShare(sourceVisuals?.market?.brand_position_2025)}</div>
+      <div class="marketModelDemand">${renderModelDemand(sourceVisuals?.market?.model_demand_2025)}</div>
       ${renderTransportBreakdown(sourceVisuals?.transport)}
       ${renderInsightPoints(marketPoints, 'marketNarrative')}
       <article class="transportStory">
@@ -675,10 +1031,8 @@
         </div>
       </article>
       <div class="marketDetailGrid">
-        <article class="marketDetailBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.portfolioTitle)}</span></div><div class="marketTableScroll"><table class="marketPortfolioMatrix"><thead><tr><th>${escapeHtml(copy.portfolioBrand)}</th><th>${escapeHtml(copy.portfolioCount)}</th><th>${escapeHtml(copy.portfolioArchitecture)}</th><th>${escapeHtml(copy.portfolioImplication)}</th></tr></thead><tbody>${portfolioRows}</tbody></table></div></article>
-        <article class="marketDetailBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.transportRuleTitle)}</span></div><p class="marketTableCaveat">${escapeHtml(copy.transportRuleCaveat)}</p><div class="marketTableScroll"><table class="transportRuleTable"><thead><tr><th>${escapeHtml(copy.licenceClass)}</th><th>${escapeHtml(copy.generalThreshold)}</th><th>${escapeHtml(copy.applicationImpact)}</th></tr></thead><tbody>${transportRuleRows}</tbody></table></div></article>
-      </div>
-      <div class="positioningBlock marketPositioning"><div class="pptModuleTitle"><span>${escapeHtml(copy.positioningTitle)}</span>${sourceBadge(positionData || 68)}</div><p>${escapeHtml(copy.positioningCaveat)}</p><div class="positioningScroll"><table><thead><tr><th>${escapeHtml(copy.positioningBrand)}</th><th>${escapeHtml(copy.positioningModels)}</th><th>${escapeHtml(copy.positioningPrice)}</th><th>${escapeHtml(copy.positioningShare)}</th></tr></thead><tbody>${positionRows}</tbody></table></div></div>`);
+        <article class="marketDetailBlock transportRuleBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.transportRuleTitle)}</span></div><p class="marketTableCaveat">${escapeHtml(copy.transportRuleCaveat)}</p><div class="marketTableScroll"><table class="transportRuleTable"><thead><tr><th>${escapeHtml(copy.licenceClass)}</th><th>${escapeHtml(copy.generalThreshold)}</th><th>${escapeHtml(copy.applicationImpact)}</th></tr></thead><tbody>${transportRuleRows}</tbody></table></div></article>
+      </div>`);
     return section;
   }
 
@@ -702,14 +1056,13 @@
     const links = (scenarioConditionLinks[record.id] || []).map((item) => `<a href="#${escapeHtml(item.id)}">${escapeHtml(language === 'en' ? item.en : item.zh)}</a>`).join('');
     const assessments = (expanded.scenarioAssessments[record.id] || []).map((item) => {
       const statusKey = assessmentKey(item.status);
-      return `<tr><th scope="row" data-label="${escapeHtml(copy.scenarioRequirement)}">${escapeHtml(text(item.need))}</th><td data-label="${escapeHtml(copy.status)}"><div class="assessmentJudgment"><span class="scenarioStatus status-${statusKey}">${escapeHtml(assessmentLabel(item.status))}</span><p>${escapeHtml(text(item.current))}</p></div></td><td data-label="${escapeHtml(copy.productAction)}">${escapeHtml(text(item.action))}</td></tr>`;
+      return `<tr><th scope="row" data-label="${escapeHtml(copy.scenarioRequirement)}">${escapeHtml(text(item.need))}</th><td data-label="${escapeHtml(copy.status)}"><div class="assessmentJudgment"><span class="scenarioStatus status-${statusKey}">${escapeHtml(assessmentLabel(item.status))}</span><p>${escapeHtml(narrative(item.current))}</p></div></td><td data-label="${escapeHtml(copy.productAction)}">${escapeHtml(narrative(item.action))}</td></tr>`;
     }).join('');
     return `
       <article class="scenarioBand" id="job-${escapeHtml(record.id)}" data-scenario-id="${escapeHtml(record.id)}">
         <header class="scenarioBandHeader">
           <span class="scenarioNumber">${String(index + 1).padStart(2, '0')}</span>
           <div class="scenarioBandTitle"><h3>${escapeHtml(text(record.title))}</h3><div class="scenarioConditionLinks"><span>${escapeHtml(copy.linkedConditions)}</span>${links}</div><div class="scenarioSource">${sourceBadge(record)}</div></div>
-          <span class="scenarioStatus status-${key}">${escapeHtml(findingLabel(record.finding_status))}</span>
         </header>
         <div class="scenarioBandMain">
           ${renderScenarioGallery(record)}
@@ -718,14 +1071,14 @@
               <div class="scenarioFact"><dt>${escapeHtml(copy.customer)}</dt><dd>${escapeHtml(text(record.customer))}</dd></div>
               <div class="scenarioFact"><dt>${escapeHtml(copy.needs)}</dt><dd><p class="scenarioNarrative">${escapeHtml(statementFromItems(needs))}</p></dd></div>
               <div class="scenarioFact"><dt>${escapeHtml(copy.steps)}</dt><dd><p class="scenarioNarrative">${escapeHtml(workflowFromItems(steps))}</p></dd></div>
-              <div class="scenarioFact"><dt>${escapeHtml(copy.finding)}</dt><dd class="scenarioFinding">${escapeHtml(narrative(record.conclusion))}</dd></div>
+              <div class="scenarioFact scenarioFindingFact"><dt>${escapeHtml(copy.finding)}</dt><dd class="scenarioFinding"><span class="scenarioStatus status-${key}">${escapeHtml(findingLabel(record.finding_status))}</span><p>${escapeHtml(narrative(record.conclusion))}</p></dd></div>
             </dl>
           </div>
         </div>
         <div class="scenarioSourceContext">
           <section class="workObjects"><h4>${escapeHtml(copy.workObjects)}</h4><p class="scenarioNarrative" data-item-count="${workObjects.length}">${escapeHtml(workObjectNarrative(workObjects))}</p></section>
           <section class="operatingCharacteristics"><h4>${escapeHtml(copy.operatingCharacteristics)}</h4><p class="scenarioNarrative" data-item-count="${operatingCharacteristics.length}">${escapeHtml(statementFromItems(operatingCharacteristics))}</p></section>
-          <section class="historicalAssessment"><div><h4>${escapeHtml(copy.historicalAssessment)}</h4><p>${escapeHtml(copy.historicalAssessmentNote)}</p></div><p class="scenarioNarrative historicalNarrative" data-item-count="${historicalAssessment.length}">${escapeHtml(historicalNarrative(historicalAssessment))}</p></section>
+          <section class="historicalAssessment"><h4>${escapeHtml(copy.historicalAssessment)}</h4><p class="scenarioNarrative historicalNarrative" data-item-count="${historicalAssessment.length}">${escapeHtml(historicalNarrative(historicalAssessment))}</p></section>
         </div>
         <div class="scenarioEngineering">
           <article><span>${escapeHtml(copy.parameterImpact)}</span><p>${escapeHtml(text(engineering?.parameter))}</p></article>
@@ -736,14 +1089,14 @@
       </article>`;
   }
 
-  function renderScenarios(records) {
-    const section = makeSection('ppt-scenarios', copy.scenarioTitle, copy.scenarioSubtitle);
-    section.insertAdjacentHTML('beforeend', `<div class="scenarioSequence">${records.map((record, index) => renderScenarioBody(record, index)).join('')}</div>`);
+  function renderScenarios(records, visualExpansion) {
+    const section = makeSection('ppt-scenarios', copy.scenarioTitle, copy.scenarioSubtitle, [50, 51, 52, 53, 54, 55, 56, 57, 58]);
+    section.insertAdjacentHTML('beforeend', `${renderTaskCapability(visualExpansion?.task_capability, records)}${renderAttachmentHeatmap(visualExpansion?.attachment_matrix, records)}${renderScenarioMatrix(records)}<div class="scenarioSequence">${records.map((record, index) => renderScenarioBody(record, index)).join('')}</div>`);
     return section;
   }
 
-  function renderPaper(view, sourceVisuals) {
-    const section = makeSection('ppt-paper', copy.paperTitle, copy.paperSubtitle);
+  function renderPaper(view, sourceVisuals, visualExpansion) {
+    const section = makeSection('ppt-paper', copy.paperTitle, copy.paperSubtitle, [59, 60, 61]);
     const headerModels = view.paper_comparison.models.map((model, index) => `<th class="${index === 0 ? 'xcmgColumn' : ''}">${escapeHtml(model)}</th>`).join('');
     const rows = view.paper_comparison.metrics.map((metric) => {
       const values = metric.values.map((value, index) => `<td class="${index === 0 ? 'xcmgColumn' : ''}">${escapeHtml(value)}${value !== '/' ? ` <small>${escapeHtml(metric.unit)}</small>` : ''}</td>`).join('');
@@ -751,65 +1104,191 @@
     }).join('');
     const configRows = view.paper_comparison.configuration_findings.map((item) => `<div class="configRow"><b>${escapeHtml(text(item.label))}</b><strong>${escapeHtml(narrative(item.xcmg))}</strong><span>${escapeHtml(narrative(item.comparison))}</span></div>`).join('');
     const insights = `<div class="paperInsightGrid">${paperInsights.map((item) => `<article class="tone-${item.tone}"><span>${escapeHtml(text(item.title))}</span><b>${escapeHtml(text(item.metric))}</b><p>${escapeHtml(text(item.detail))}</p></article>`).join('')}</div>`;
-    const conflictRows = paperConflicts.map((item) => `<tr><th scope="row">${escapeHtml(text(item.metric))}</th><td>${escapeHtml(item.current)}</td><td>${escapeHtml(item.historical)}</td><td>${escapeHtml(copy.conflictRule)}</td></tr>`).join('');
     const completeGroups = expanded.paperGroups.map((group) => renderSourceDataGroup(group, 'paper')).join('');
-    section.insertAdjacentHTML('beforeend', `<p class="analysisScope">${escapeHtml(copy.paperBoundary)}</p>${renderPerformanceVisual(sourceVisuals?.performance)}<div class="pptModuleTitle"><span>${escapeHtml(copy.paperRead)}</span>${sourceBadge([59, 60, 61])}</div>${insights}<div class="dataConflictBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.dataConflictTitle)}</span></div><div class="dataConflictScroll"><table><thead><tr><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.currentDataset)}</th><th>${escapeHtml(copy.historicalReference)}</th><th>${escapeHtml(copy.handlingRule)}</th></tr></thead><tbody>${conflictRows}</tbody></table></div></div><div class="pptModuleTitle directDataTitle"><span>${escapeHtml(copy.fullPaper)}</span>${sourceBadge([59, 60, 61])}</div><div class="comparisonMatrix"><table><thead><tr><th>${escapeHtml(copy.metric)}</th>${headerModels}<th>${escapeHtml(copy.findingColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div><div class="pptModuleTitle configTitle"><span>${escapeHtml(copy.configurationTitle)}</span>${sourceBadge(60)}</div><div class="configMatrix">${configRows}</div><div class="sourceDataGroups paperSourceGroups">${completeGroups}</div>`);
+    section.insertAdjacentHTML('beforeend', `${renderPerformanceVisual(sourceVisuals?.performance)}${renderAbsoluteGaps(visualExpansion?.absolute_gaps)}<div class="pptModuleTitle"><span>${escapeHtml(copy.paperRead)}</span></div>${insights}<div class="pptModuleTitle directDataTitle"><span>${escapeHtml(copy.fullPaper)}</span></div><div class="comparisonMatrix"><table><thead><tr><th>${escapeHtml(copy.metric)}</th>${headerModels}<th>${escapeHtml(copy.findingColumn)}</th></tr></thead><tbody>${rows}</tbody></table></div><div class="pptModuleTitle configTitle"><span>${escapeHtml(copy.configurationTitle)}</span></div><div class="configMatrix">${configRows}</div><div class="sourceDataGroups paperSourceGroups">${completeGroups}</div>`);
     return section;
   }
 
-  function renderField(records, sourceVisuals) {
-    const section = makeSection('ppt-field', copy.fieldTitle, copy.fieldSubtitle);
+  function renderField(records, sourceVisuals, visualExpansion) {
+    const section = makeSection('ppt-field', copy.fieldTitle, copy.fieldSubtitle, [62, 63, 64, 65, 66]);
     const counts = records.reduce((result, record) => { const key = findingKey(record.finding_status); result[key] = (result[key] || 0) + 1; return result; }, {});
     const summary = ['advantage', 'gap', 'pending', 'missing'].map((key) => `<span class="status-${key}"><b>${counts[key] || 0}</b>${escapeHtml(copy[key])}</span>`).join('');
     const rows = records.map((record) => {
       const key = findingKey(record.finding_status);
       return `<tr><td>${escapeHtml(fieldGroup(record.metric))}</td><td><b>${escapeHtml(text(fieldMetricNames[record.metric]) || record.metric)}</b></td><td>${escapeHtml(narrative(record.conclusion))}</td><td><span class="scenarioStatus status-${key}">${escapeHtml(copy[key])}</span></td><td><span class="validationText">${escapeHtml(text(validationLabels[record.validation_status]))}</span></td></tr>`;
     }).join('');
-    const themes = `<div class="fieldThemeGrid">${fieldThemes.map((item) => `<article class="tone-${item.tone}"><span>${escapeHtml(text(item.title))}</span><p>${escapeHtml(text(item.detail))}</p></article>`).join('')}</div>`;
+    const ratingMethod = `<div class="scoringMethod fieldScoringMethod"><div class="scoringMethodLead"><span>${escapeHtml(copy.ratingRuleTitle)}</span><strong>1–5</strong></div><dl><div><dt>${escapeHtml(copy.ratingScaleTitle)}</dt><dd>${escapeHtml(copy.ratingScaleText)}</dd></div><div><dt>${escapeHtml(copy.ratingAverageTitle)}</dt><dd>${escapeHtml(copy.ratingAverageText)}</dd></div><div><dt>${escapeHtml(copy.ratingVisualTitle)}</dt><dd>${escapeHtml(copy.ratingVisualText)}</dd></div><div><dt>${escapeHtml(copy.ratingBoundaryTitle)}</dt><dd>${escapeHtml(copy.ratingBoundaryText)}</dd></div></dl></div>`;
+    const themes = `<div class="fieldThemeGrid">${fieldThemes.map((item) => `<article class="tone-${item.tone}"><span>${escapeHtml(text(item.title))}</span><p>${escapeHtml(narrative(item.detail))}</p></article>`).join('')}</div>`;
     const completeGroups = expanded.fieldGroups.map((group) => renderSourceDataGroup(group, 'field')).join('');
-    section.insertAdjacentHTML('beforeend', `<p class="analysisScope">${escapeHtml(copy.fieldBoundary)}</p><div class="fieldSummary">${summary}</div><div class="pptModuleTitle"><span>${escapeHtml(copy.fieldRead)}</span>${sourceBadge([62, 63, 64, 65, 66])}</div>${themes}${renderCompetitivenessProfile(sourceVisuals?.competitiveness_profile)}${renderFieldHeatmap(sourceVisuals?.field_rating_heatmap)}<div class="pptModuleTitle directDataTitle"><span>${escapeHtml(copy.fullField)}</span>${sourceBadge([62, 63, 64, 65, 66])}</div><div class="fieldMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.conclusion)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.validation)}</th></tr></thead><tbody>${rows}</tbody></table></div><p class="historicalRatingNote">${escapeHtml(copy.historicalRatingNote)}</p><div class="sourceDataGroups fieldSourceGroups">${completeGroups}</div>`);
+    section.insertAdjacentHTML('beforeend', `${ratingMethod}<div class="fieldSummary">${summary}</div>${renderFieldEvidence(visualExpansion?.field_evidence)}<div class="pptModuleTitle"><span>${escapeHtml(copy.fieldRead)}</span></div>${themes}${renderFieldGroupSummary(sourceVisuals?.field_rating_heatmap)}${renderFieldHeatmap(sourceVisuals?.field_rating_heatmap)}<div class="pptModuleTitle directDataTitle"><span>${escapeHtml(copy.fullField)}</span></div><div class="fieldMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.metric)}</th><th>${escapeHtml(copy.conclusion)}</th><th>${escapeHtml(copy.status)}</th><th>${escapeHtml(copy.validation)}</th></tr></thead><tbody>${rows}</tbody></table></div><div class="sourceDataGroups fieldSourceGroups">${completeGroups}</div>`);
     return section;
   }
 
-  function renderActions(roadmap, portfolio, sourceVisuals) {
-    const section = makeSection('ppt-actions', copy.actionTitle, copy.actionSubtitle);
+  function renderPositioning(sourceVisuals, visualExpansion) {
+    const section = makeSection('ppt-positioning', copy.positionSectionTitle, copy.positionSectionSubtitle, [67, 68]);
+    const positionData = sourceVisuals?.historical_positioning;
+    const positionRows = (positionData?.rows || expanded.positioning).map((item) => {
+      const price = item.price || (Number.isFinite(item.price_usd) ? `$${formatNumber(item.price_usd)}` : '-');
+      return `<tr class="${item.brand === 'XCMG' ? 'xcmgPositionRow' : ''}"><th scope="row">${escapeHtml(item.brand)}</th><td>${escapeHtml(item.models)}</td><td>${escapeHtml(price)}</td><td>${escapeHtml(item.share)}</td></tr>`;
+    }).join('');
+    const portfolioRows = expanded.marketPortfolio.map((item) => `<tr class="${item.brand === 'XCMG' ? 'xcmgPortfolioRow' : ''}"><th scope="row">${escapeHtml(item.brand)}</th><td>${escapeHtml(item.models)}</td><td>${escapeHtml(narrative(item.architecture))}</td><td>${escapeHtml(narrative(item.implication))}</td></tr>`).join('');
+    const metrics = [
+      {label: copy.positionHistory, value: copy.positionHistoryValue, detail: copy.positionHeadline},
+      {label: copy.positionPrice, value: copy.positionPriceValue, detail: copy.positionPriceDetail},
+      {label: copy.positionShare, value: copy.positionShareValue, detail: copy.positionShareDetail},
+      {label: copy.positionTarget, value: copy.positionTargetValue, detail: copy.positionTargetDetail},
+      {label: copy.positionPortfolio, value: copy.positionPortfolioValue, detail: copy.positionPortfolioDetail}
+    ].map((item) => `<article><span>${escapeHtml(item.label)}</span><b>${escapeHtml(item.value)}</b><p>${escapeHtml(item.detail)}</p></article>`).join('');
+    const positioningTable = `<article class="positioningBlock"><div class="pptModuleTitle"><span>${escapeHtml(copy.positioningTitle)}</span></div><div class="positioningScroll"><table><thead><tr><th>${escapeHtml(copy.positioningBrand)}</th><th>${escapeHtml(copy.positioningModels)}</th><th>${escapeHtml(copy.positioningPrice)}</th><th>${escapeHtml(copy.positioningShare)}</th></tr></thead><tbody>${positionRows}</tbody></table></div></article>`;
+    const portfolioTable = `<article class="marketDetailBlock positionPortfolioTable"><div class="pptModuleTitle"><span>${escapeHtml(copy.positionArchitectureTitle)}</span></div><div class="marketTableScroll"><table class="marketPortfolioMatrix"><thead><tr><th>${escapeHtml(copy.portfolioBrand)}</th><th>${escapeHtml(copy.portfolioCount)}</th><th>${escapeHtml(copy.portfolioArchitecture)}</th><th>${escapeHtml(copy.portfolioImplication)}</th></tr></thead><tbody>${portfolioRows}</tbody></table></div></article>`;
+    section.insertAdjacentHTML('beforeend', `
+      <div class="positionDecision">
+        <div class="positionDecisionLead"><span>${escapeHtml(copy.positionDecisionTitle)}</span><h3>${escapeHtml(copy.positionHeadline)}</h3><p>${escapeHtml(copy.positionBoundary)}</p></div>
+        <div class="positionMetricStrip">${metrics}</div>
+      </div>
+      <div class="positionVisualGrid">
+        ${renderPriceShare(sourceVisuals?.market?.brand_position_2025)}
+        ${positioningTable}
+      </div>
+      ${renderPortfolioCoverage(visualExpansion?.portfolio_matrix)}
+      ${portfolioTable}
+      <div class="profileBoundary">${escapeHtml(copy.profileBoundary)}</div>
+      ${renderCompetitivenessProfile(sourceVisuals?.competitiveness_profile)}`);
+    return section;
+  }
+
+  function renderActions(roadmap, portfolio, sourceVisuals, visualExpansion) {
+    const section = makeSection('ppt-actions', copy.actionTitle, copy.actionSubtitle, [67]);
     const rows = roadmap.map((record) => `<div class="roadmapRow" data-priority="${escapeHtml(record.priority)}"><span class="roadmapPriority">${escapeHtml(record.priority)}</span><span class="roadmapTopic">${escapeHtml(text(roadmapTopics[record.id]) || record.id)}</span><span class="roadmapAction">${escapeHtml(narrative(record.action))}</span><span class="roadmapValidation">${escapeHtml(copy.verifyRequired)}</span></div>`).join('');
     const portfolioGap = portfolio.find((record) => record.id === 'portfolio-current-gap');
     const phases = `<div class="actionPhaseGrid">${actionPhases.map((phase, index) => `<article><span>${escapeHtml([copy.phaseNow, copy.phaseNext, copy.phasePlatform][index])}</span><h3>${escapeHtml(text(phase.title))}</h3><ul>${(phase.items[language] || phase.items.zh).map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></article>`).join('')}</div>`;
-    const dimensionRows = expanded.competitionDimensions.map((item) => `<tr><th scope="row">${escapeHtml(text(item.dimension))}</th><td>${escapeHtml(text(item.strength))}</td><td>${escapeHtml(text(item.gap))}</td><td>${escapeHtml(text(item.action))}</td></tr>`).join('');
-    section.insertAdjacentHTML('beforeend', `<p class="analysisScope">${escapeHtml(copy.actionBoundary)}</p><div class="pptModuleTitle"><span>${escapeHtml(copy.competitionDetail)}</span>${sourceBadge(67)}</div><div class="competitionGapMatrix"><table><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.strengthColumn)}</th><th>${escapeHtml(copy.gapColumn)}</th><th>${escapeHtml(copy.actionColumn)}</th></tr></thead><tbody>${dimensionRows}</tbody></table></div>${renderImprovementLedger(sourceVisuals?.historical_improvement_ledger)}${phases}<div class="roadmapTable">${rows}</div><div class="portfolioNote"><div><b>${escapeHtml(copy.portfolio)}</b><p>${escapeHtml(narrative(portfolioGap?.conclusion))}</p></div><div><b>${escapeHtml(copy.historicalPositioning)}</b><p>${language === 'en' ? 'Revalidate target price, channel support, residual value and current product status before using the historical value-positioning claim.' : '历史材料中的价值型定位、价格主张和产品状态必须结合当前售价、渠道支持、残值与量产配置重新评估。'}</p></div></div>`);
+    const dimensionRows = expanded.competitionDimensions.map((item) => `<tr><th scope="row">${escapeHtml(text(item.dimension))}</th><td>${escapeHtml(narrative(item.strength))}</td><td>${escapeHtml(narrative(item.gap))}</td><td>${escapeHtml(narrative(item.action))}</td></tr>`).join('');
+    const actionMethod = `<div class="scoringMethod actionMethod"><div class="scoringMethodLead"><span>${escapeHtml(copy.actionRuleTitle)}</span><strong>${escapeHtml(copy.actionRuleValue)}</strong></div><p>${escapeHtml(copy.actionRuleText)}</p></div>`;
+    section.insertAdjacentHTML('beforeend', `${actionMethod}<div class="pptModuleTitle"><span>${escapeHtml(copy.competitionDetail)}</span></div><div class="competitionGapMatrix"><table><colgroup><col class="gapDimensionCol"><col class="gapFoundationCol"><col class="gapDetailCol"><col class="gapActionCol"></colgroup><thead><tr><th>${escapeHtml(copy.dimension)}</th><th>${escapeHtml(copy.strengthColumn)}</th><th>${escapeHtml(copy.gapColumn)}</th><th>${escapeHtml(copy.actionColumn)}</th></tr></thead><tbody>${dimensionRows}</tbody></table></div>${renderClosureTimeline(visualExpansion?.closure_timeline, sourceVisuals?.historical_improvement_ledger)}${renderImprovementLedger(sourceVisuals?.historical_improvement_ledger)}${phases}<div class="roadmapTable">${rows}</div><div class="portfolioNote"><div><b>${escapeHtml(copy.portfolio)}</b><p>${escapeHtml(narrative(portfolioGap?.conclusion))}</p></div><div><b>${escapeHtml(copy.historicalPositioning)}</b><p>${language === 'en' ? 'Align target price, channel support, residual value and production equipment into one market position.' : '目标价格、渠道支持、残值与量产配置应形成一致的市场定位。'}</p></div></div>`);
     return section;
   }
 
+  function applyStaticDemoCopy() {
+    const labels = language === 'en'
+      ? {
+          fullData: 'Complete Data',
+          exportData: 'Export Complete Data',
+          allData: 'All Specifications and Equipment',
+          parameterCaption: 'Complete Specification Data',
+          equipmentCaption: 'Complete Equipment Data',
+          gapLead: 'Verified gaps currently center on blade float, joystick travel, the AUX1 selector valve and the case-drain line. The list below shows the underlying specifications and equipment status.'
+        }
+      : {
+          fullData: '完整数据',
+          exportData: '导出完整数据',
+          allData: '全量参数与配置',
+          parameterCaption: '全部参数数据',
+          equipmentCaption: '全部标选配数据',
+          gapLead: '当前可核验差距集中在推土铲浮动、手柄行走、AUX1换向阀和卸油管路。下列均为具体参数或标选配状态。'
+        };
+    document.documentElement.lang = language === 'en' ? 'en-US' : 'zh-CN';
+    document.querySelectorAll('a[href="#raw"]').forEach((link) => { link.textContent = labels.fullData; });
+    const heading = document.querySelector('#raw > h2');
+    if (heading) heading.textContent = labels.fullData;
+    document.querySelectorAll('a[download][href*="XCMG_3.5t_mini_excavator_competitor_source.xlsx"]').forEach((link) => { link.textContent = labels.exportData; });
+    const summary = document.querySelector('#raw .rawDisclosure > summary');
+    if (summary) summary.textContent = labels.allData;
+    const captions = document.querySelectorAll('#raw .rawTable caption');
+    if (captions[0]) captions[0].textContent = labels.parameterCaption;
+    if (captions[1]) captions[1].textContent = labels.equipmentCaption;
+    const gapLead = document.querySelector('.productGapContent > p');
+    if (gapLead) gapLead.textContent = labels.gapLead;
+  }
+
+  async function loadJson(name, {optional = false} = {}) {
+    let lastError;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      try {
+        const url = new URL(`data/ppt-insights/${name}.json`, document.baseURI);
+        if (attempt) url.searchParams.set('retry', String(Date.now()));
+        const response = await fetch(url, {cache: 'no-store'});
+        if (!response.ok) throw new Error(`${name}: ${response.status}`);
+        return await response.json();
+      } catch (error) {
+        lastError = error;
+        if (!attempt) await new Promise((resolve) => window.setTimeout(resolve, 180));
+      }
+    }
+    if (optional) {
+      console.warn(`Optional analysis data unavailable: ${name}`, lastError);
+      return null;
+    }
+    throw lastError;
+  }
+
+  async function loadDemoJson(name) {
+    let lastError;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      try {
+        const url = new URL(`ppt-integration-demo/data/${name}.json`, document.baseURI);
+        if (attempt) url.searchParams.set('retry', String(Date.now()));
+        const response = await fetch(url, {cache: 'no-store'});
+        if (!response.ok) throw new Error(`${name}: ${response.status}`);
+        return await response.json();
+      } catch (error) {
+        lastError = error;
+        if (!attempt) await new Promise((resolve) => window.setTimeout(resolve, 180));
+      }
+    }
+    throw lastError;
+  }
+
   async function loadData() {
-    const names = ['tonnage-3-4t-view', 'tonnage', 'field-evaluation', 'roadmap', 'portfolio', 'visual-assets', 'source-visuals-3-4t'];
-    const values = await Promise.all(names.map(async (name) => {
-      const response = await fetch(`data/ppt-insights/${name}.json`);
-      if (!response.ok) throw new Error(`${name}: ${response.status}`);
-      return response.json();
-    }));
-    return {tonnage34tView: values[0], tonnage: values[1], fieldEvaluation: values[2], roadmap: values[3], portfolio: values[4], visualAssets: values[5], sourceVisuals: values[6]};
+    const requiredNames = ['tonnage-3-4t-view', 'tonnage', 'field-evaluation', 'roadmap', 'portfolio'];
+    const optionalNames = ['visual-assets', 'source-visuals-3-4t', 'visual-expansion-3-4t'];
+    const [required, optional, coverage] = await Promise.all([
+      Promise.all(requiredNames.map((name) => loadJson(name))),
+      Promise.all(optionalNames.map((name) => loadJson(name, {optional: true}))),
+      loadDemoJson('coverage-3-4t')
+    ]);
+    return {
+      tonnage34tView: required[0],
+      tonnage: required[1],
+      fieldEvaluation: required[2],
+      roadmap: required[3],
+      portfolio: required[4],
+      visualAssets: optional[0],
+      sourceVisuals: optional[1],
+      visualExpansion: optional[2],
+      coverage
+    };
   }
 
   async function init() {
     if (!document.body.classList.contains('pptIntegratedDemo')) return;
-    const navLabels = {market: copy.navMarket, scenarios: copy.navScenarios, paper: copy.navPaper, field: copy.navField, actions: copy.navActions};
+    const navLabels = {market: copy.navMarket, scenarios: copy.navScenarios, paper: copy.navPaper, field: copy.navField, positioning: copy.navPositioning, actions: copy.navActions};
     document.querySelectorAll('[data-ppt-nav]').forEach((link) => { link.textContent = navLabels[link.dataset.pptNav] || link.textContent; });
     try {
       state = await loadData();
+      const coveredSlides = [...new Set(state.coverage.records.map((record) => record.slide))].sort((a, b) => a - b);
+      if (coveredSlides.length !== state.coverage.meta.expected_slide_count || coveredSlides[0] !== state.coverage.meta.first_slide || coveredSlides.at(-1) !== state.coverage.meta.last_slide) throw new Error('3-4 t content coverage manifest is incomplete');
+      document.body.dataset.coveredSlides = coveredSlides.join(' ');
       const eyebrow = document.querySelector('.hero .eyebrow');
       if (eyebrow) eyebrow.textContent = copy.internal;
-      document.querySelector('#summary')?.after(renderMarket(state.tonnage34tView, state.sourceVisuals));
-      const scenarios = renderScenarios(state.tonnage.records.filter((record) => record.id.startsWith('scenario-')));
-      const paper = renderPaper(state.tonnage34tView, state.sourceVisuals);
+      document.querySelector('#summary')?.after(renderMarket(state.tonnage34tView, state.sourceVisuals, state.visualExpansion));
+      const scenarios = renderScenarios(state.tonnage.records.filter((record) => record.id.startsWith('scenario-')), state.visualExpansion);
+      const paper = renderPaper(state.tonnage34tView, state.sourceVisuals, state.visualExpansion);
       document.querySelector('#conditions')?.after(scenarios, paper);
-      document.querySelector('#cond6')?.after(renderField(state.fieldEvaluation.records, state.sourceVisuals), renderActions(state.roadmap.records, state.portfolio.records, state.sourceVisuals));
-      window.XCMGPPTIntegration = {language, data: state};
+      document.querySelector('#cond6')?.after(
+        renderField(state.fieldEvaluation.records, state.sourceVisuals, state.visualExpansion),
+        renderPositioning(state.sourceVisuals, state.visualExpansion),
+        renderActions(state.roadmap.records, state.portfolio.records, state.sourceVisuals, state.visualExpansion)
+      );
+      initCapabilityExplorer(document);
+      window.XCMGPPTIntegration = {language, data: state, coveredSlides};
     } catch (error) {
       const section = makeSection('ppt-load-error', copy.marketTitle, '');
       section.innerHTML += `<p class="scopeBoundary">${escapeHtml(copy.loadError)}</p>`;
       document.querySelector('#summary')?.after(section);
       console.error(error);
+    } finally {
+      applyStaticDemoCopy();
+      window.setTimeout(applyStaticDemoCopy, 0);
     }
   }
 

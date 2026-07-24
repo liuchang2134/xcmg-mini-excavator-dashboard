@@ -24,6 +24,7 @@
 | `source-excel/XCMG_24-28t_short_tail_excavator_competitor_source.xlsx` | 24-28 吨级短尾挖掘机 | `24-28短尾.xlsx` |
 | `source-excel/XCMG_28-33t_excavator_competitor_source.xlsx` | 28-33 吨级挖掘机 | `28-33.xlsx` |
 | `source-excel/XCMG_33-40t_excavator_competitor_source.xlsx` | 33-40 吨级挖掘机 | 修订版 `33-40 1.xlsx` |
+| `source-excel/XCMG_40-60t_excavator_competitor_source.xlsx` | 40-60 吨级挖掘机 | `40-60.xlsx` |
 
 `source-register.csv` 用于登记每个数据集的市场版本、外部来源和核验状态。当前未填写的厂家资料不得自动推断；页面中的空白配置按“待核验”处理，不自动等同于“无配置”。
 
@@ -36,3 +37,14 @@
 | `source-presentations/XCMG_北美挖机产品线洞察_11.14_源文件.pptx` | 北美挖掘机产品线洞察补充材料 | 仅限内部研究参考；其中市场、价格、销量、产品问题和开发计划需核验后再用于看板结论。 |
 
 该演示文稿体积约 188 MB，并包含内部信息，因此保存在本地项目目录但不纳入 Git 版本库。
+
+## PPT 业务表格结构化数据
+
+`ppt-insights/ppt-business-tables.json` 保存演示文稿中的全部业务表格，并按“挖掘机市场总览”和对应吨级页面建立映射。原始中文单元格不改写，便于核对数字、型号、配置和计划日期。
+
+提取范围排除两类非业务内容：
+
+- 各页重复出现的章节导航表。
+- 包含员工姓名等非必要个人信息的人员表。
+
+中文页面默认展开原始业务表格；英文页面默认折叠中文原始矩阵，只显示经过审校的英文分组标题，防止未经人工核对的机械翻译被误认为正式工程结论。

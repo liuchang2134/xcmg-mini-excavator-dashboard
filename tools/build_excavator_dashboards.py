@@ -8,10 +8,50 @@ from pathlib import Path
 
 import pandas as pd
 
+try:
+    from .render_ppt_charts import render_chart_figure
+except ImportError:
+    from render_ppt_charts import render_chart_figure
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data" / "source-excel"
 ASSET_DIR = ROOT / "assets" / "arc"
+TONNAGE_INSIGHT_PATH = ROOT / "data" / "ppt-insights" / "tonnage-insights.json"
+PPT_BUSINESS_TABLE_PATH = ROOT / "data" / "ppt-insights" / "ppt-business-tables.json"
+PPT_SOURCE_CONTENT_PATH = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
+
+
+def load_tonnage_insights():
+    if not TONNAGE_INSIGHT_PATH.exists():
+        return {}
+    payload = json.loads(TONNAGE_INSIGHT_PATH.read_text(encoding="utf-8"))
+    return {record["slug"]: record for record in payload.get("records", [])}
+
+
+def load_ppt_business_tables():
+    if not PPT_BUSINESS_TABLE_PATH.exists():
+        return {"records": {}, "by_slug": {}, "summary": {}}
+    payload = json.loads(PPT_BUSINESS_TABLE_PATH.read_text(encoding="utf-8"))
+    records = {record["id"]: record for record in payload.get("records", [])}
+    return {
+        "records": records,
+        "by_slug": payload.get("by_slug", {}),
+        "summary": payload.get("summary", {}),
+    }
+
+
+def load_ppt_source_content():
+    if not PPT_SOURCE_CONTENT_PATH.exists():
+        return {"slides": {}, "by_slug": {}, "overview": [], "summary": {}}
+    payload = json.loads(PPT_SOURCE_CONTENT_PATH.read_text(encoding="utf-8"))
+    slides = {record["id"]: record for record in payload.get("slides", [])}
+    return {
+        "slides": slides,
+        "by_slug": payload.get("by_slug", {}),
+        "overview": payload.get("overview", []),
+        "summary": payload.get("summary", {}),
+    }
 
 
 SOURCE_FILES = [
@@ -168,6 +208,17 @@ SOURCE_FILES = [
         "download": "XCMG_33-40t_excavator_competitor_source.xlsx",
         "image": "assets/arc/xe360u-official-cropped.webp",
         "image_source": "XCMG USA XE360U",
+    },
+    {
+        "slug": "excavator-40-60t",
+        "output": "excavator-40-60t.html",
+        "label": "40-60 吨级",
+        "title": "XCMG XE490U 40-60 吨级挖掘机竞品对标看板",
+        "xcmg": "XCMG XE490U",
+        "source": DATA_DIR / "XCMG_40-60t_excavator_competitor_source.xlsx",
+        "download": "XCMG_40-60t_excavator_competitor_source.xlsx",
+        "image": "assets/arc/xe490u-official.jpg",
+        "image_source": "XCMG USA XE490U",
     },
 ]
 
@@ -1553,6 +1604,655 @@ def render_overall_section(model):
     )
 
 
+def bilingual_leaf(value, tag="span", class_name=""):
+    if isinstance(value, dict):
+        zh = value.get("zh", "")
+        en = value.get("en") or zh
+    else:
+        zh = en = str(value or "")
+    class_attr = f' class="{esc(class_name)}"' if class_name else ""
+    return f'<{tag}{class_attr} data-en="{esc(en)}">{esc(zh)}</{tag}>'
+
+
+def clean_ppt_table_title(value):
+    value = str(value or "")
+    prefixes = (
+        "二、大区产业板块洞察 | ",
+        "二、细分市场洞察 | ",
+        "2、核心产品线—履带式挖掘机 ",
+        "2、核心产品线—挖掘机 ",
+    )
+    for prefix in prefixes:
+        if value.startswith(prefix):
+            value = value[len(prefix):]
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def render_ppt_business_table(record):
+    matrix = record.get("matrix_zh") or []
+    if not matrix:
+        return ""
+    width = max((len(row) for row in matrix), default=1)
+    rows = [
+        list(row) + [""] * max(0, width - len(row))
+        for row in matrix
+    ]
+    header = "".join(
+        f'<th scope="col">{esc(cell) if cell else "&nbsp;"}</th>'
+        for cell in rows[0]
+    )
+    body = []
+    for row in rows[1:]:
+        cells = []
+        for index, cell in enumerate(row):
+            tag = "th" if index == 0 else "td"
+            scope = ' scope="row"' if index == 0 else ""
+            cells.append(
+                f'<{tag}{scope}>{esc(cell) if cell else "&nbsp;"}</{tag}>'
+            )
+        body.append(f'<tr>{"".join(cells)}</tr>')
+    title = clean_ppt_table_title(record.get("title"))
+    english_titles = {
+        "market": "Complete market-data table",
+        "application": "Complete application-fit table",
+        "product_comparison": "Complete specification, equipment and field-evaluation table",
+        "positioning": "Complete product-positioning and historical-target table",
+    }
+    english_title = english_titles.get(
+        record.get("role"),
+        "Complete business-data table",
+    )
+    return (
+        f'<details class="pptBusinessTable" open data-source-slide="{record.get("slide")}" '
+        f'data-table-role="{esc(record.get("role"))}">'
+        '<summary>'
+        f'<h3 data-en="{esc(english_title)}">{esc(title)}</h3>'
+        f'<span data-en="{record.get("rows", len(rows))} rows × {record.get("columns", width)} columns">'
+        f'{record.get("rows", len(rows))} 行 × {record.get("columns", width)} 列</span>'
+        '</summary>'
+        '<div class="pptBusinessTableScroll">'
+        '<table lang="zh-CN">'
+        f'<caption class="srOnly">{esc(title)}</caption>'
+        f'<thead><tr>{header}</tr></thead>'
+        f'<tbody>{"".join(body)}</tbody>'
+        '</table></div></details>'
+    )
+
+
+def render_ppt_table_group(records, roles, title, title_en, lead, lead_en):
+    selected = [record for record in records if record.get("role") in roles]
+    if not selected:
+        return ""
+    return (
+        '<div class="pptBusinessGroup">'
+        '<div class="pptBusinessGroupHead">'
+        f'<h3 data-en="{esc(title_en)}">{esc(title)}</h3>'
+        f'<p data-en="{esc(lead_en)}">{esc(lead)}</p>'
+        '</div>'
+        f'<div class="pptBusinessTableStack">{"".join(render_ppt_business_table(record) for record in selected)}</div>'
+        '</div>'
+    )
+
+
+def market_status_label(status):
+    labels = {
+        "historical_actual": {"zh": "历史实际", "en": "Historical actual"},
+        "historical_estimate": {"zh": "历史估计", "en": "Historical estimate"},
+        "historical_forecast": {"zh": "原资料预测", "en": "Original forecast"},
+    }
+    return labels.get(status, {"zh": "历史口径", "en": "Historical basis"})
+
+
+def market_color(brand, index):
+    if "XCMG" in str(brand).upper():
+        return "#f5b400"
+    palette = ["#005ca9", "#397fb8", "#829db6", "#137a47", "#6b5aa6", "#9b5b37"]
+    return palette[index % len(palette)]
+
+
+def render_market_chart(insight):
+    chart = insight.get("market_chart") or {}
+    years = chart.get("years") or []
+    series = chart.get("series") or []
+    statuses = chart.get("status") or []
+    if not years or not series:
+        return (
+            '<div class="marketSeriesEmpty">'
+            + bilingual_leaf({
+                "zh": "本吨级在现有市场资料中未单独拆分销量序列。页面只呈现该吨级能够独立核验的客户、运输、应用和工程判断，不借用相邻吨级数据。",
+                "en": "The available market material does not separate a sales series for this class. This page uses only class-specific customer, transport, application and engineering evidence rather than borrowing adjacent-class data.",
+            }, "p")
+            + "</div>"
+        )
+
+    totals = [sum(item.get("values", [0] * len(years))[i] for item in series) for i in range(len(years))]
+    max_total = max(totals) or 1
+    columns = []
+    for year_index, year in enumerate(years):
+        year_match = re.search(r"\d{4}", str(year))
+        year_label = year_match.group(0) if year_match else str(year)
+        total = totals[year_index]
+        segments = []
+        for brand_index, item in enumerate(series):
+            values = item.get("values") or []
+            value = values[year_index] if year_index < len(values) else 0
+            if value <= 0 or total <= 0:
+                continue
+            height = value / total * 100
+            color = market_color(item.get("brand"), brand_index)
+            segments.append(
+                f'<span style="height:{height:.3f}%;background:{color}" title="{esc(item.get("brand"))}: {value:,}"></span>'
+            )
+        overall_height = max(10, total / max_total * 100)
+        status = statuses[year_index] if year_index < len(statuses) else ""
+        columns.append(
+            '<div class="marketColumn">'
+            f'<div class="marketBarShell"><div class="marketBar" style="height:{overall_height:.2f}%">{"".join(segments)}</div></div>'
+            f'<b>{esc(year_label)}</b><strong>{total:,} {bilingual_leaf({"zh": "台", "en": "units"})}</strong>'
+            + bilingual_leaf(market_status_label(status), "small")
+            + "</div>"
+        )
+    legend = "".join(
+        f'<span><i style="background:{market_color(item.get("brand"), index)}"></i>{esc(item.get("brand"))}</span>'
+        for index, item in enumerate(series)
+    )
+    return (
+        '<div class="marketChart" role="img" aria-label="按品牌展示历史销量、估计值与原预测值">'
+        f'<div class="marketColumns">{"".join(columns)}</div>'
+        f'<div class="marketLegend">{legend}</div>'
+        "</div>"
+    )
+
+
+def render_market_detail(insight):
+    chart = insight.get("market_chart") or {}
+    years = chart.get("years") or []
+    series = chart.get("series") or []
+    statuses = chart.get("status") or []
+    if not years or not series:
+        return (
+            '<div class="marketEvidenceBoundary">'
+            + bilingual_leaf({
+                "zh": "本吨级没有独立拆分的品牌销量明细，因此不生成市场份额、增长率或品牌排名。客户、运输、作业场景和工程判断仍按本吨级已有记录呈现。",
+                "en": "No class-specific brand-volume series is available, so this page does not calculate market share, growth or brand rank. Customer, transport, application and engineering findings remain limited to the evidence recorded for this class.",
+            }, "p")
+            + "</div>"
+        )
+
+    totals = [
+        sum((item.get("values") or [0] * len(years))[index] for item in series)
+        for index in range(len(years))
+    ]
+    actual_indices = [
+        index for index, status in enumerate(statuses)
+        if status == "historical_actual"
+    ]
+    latest_actual_index = actual_indices[-1] if actual_indices else min(1, len(years) - 1)
+    previous_actual_index = actual_indices[-2] if len(actual_indices) > 1 else None
+    latest_total = totals[latest_actual_index]
+
+    latest_values = [
+        ((item.get("values") or [0] * len(years))[latest_actual_index], item)
+        for item in series
+    ]
+    leader_value, leader = max(latest_values, key=lambda entry: entry[0])
+    leader_share = leader_value / latest_total * 100 if latest_total else 0
+    xcmg = next(
+        (item for item in series if "XCMG" in str(item.get("brand", "")).upper()),
+        None,
+    )
+    xcmg_value = (
+        (xcmg.get("values") or [0] * len(years))[latest_actual_index]
+        if xcmg else 0
+    )
+    xcmg_share = xcmg_value / latest_total * 100 if latest_total else 0
+
+    if previous_actual_index is not None and totals[previous_actual_index]:
+        change = (
+            (latest_total - totals[previous_actual_index])
+            / totals[previous_actual_index]
+            * 100
+        )
+        change_zh = f"{change:+.1f}%"
+        change_en = f"{change:+.1f}%"
+        comparison_zh = (
+            f"{years[latest_actual_index]} 合计 {latest_total:,} 台，"
+            f"较 {years[previous_actual_index]} 的 {totals[previous_actual_index]:,} 台"
+            f"变化 {change_zh}。"
+        )
+        comparison_en = (
+            f"{years[latest_actual_index]} totals {latest_total:,} units, "
+            f"{change_en} versus {totals[previous_actual_index]:,} units in "
+            f"{years[previous_actual_index]}."
+        )
+    else:
+        comparison_zh = f"{years[latest_actual_index]} 可核验市场规模为 {latest_total:,} 台。"
+        comparison_en = f"The verifiable {years[latest_actual_index]} market volume is {latest_total:,} units."
+
+    gap_value = max(0, leader_value - xcmg_value)
+    facts = [
+        {
+            "label": {"zh": "市场变化", "en": "Market movement"},
+            "value": comparison_zh,
+            "value_en": comparison_en,
+        },
+        {
+            "label": {"zh": "领先品牌", "en": "Leading brand"},
+            "value": (
+                f"{leader.get('brand')} 在 {years[latest_actual_index]} 为 {leader_value:,} 台，"
+                f"占本表合计约 {leader_share:.1f}%。"
+            ),
+            "value_en": (
+                f"{leader.get('brand')} records {leader_value:,} units in "
+                f"{years[latest_actual_index]}, about {leader_share:.1f}% of the displayed total."
+            ),
+        },
+        {
+            "label": {"zh": "XCMG 位置", "en": "XCMG position"},
+            "value": (
+                f"{years[latest_actual_index]} 记录 {xcmg_value:,} 台，约占 {xcmg_share:.1f}%；"
+                f"与表内领先品牌相差 {gap_value:,} 台。"
+            ),
+            "value_en": (
+                f"XCMG records {xcmg_value:,} units in {years[latest_actual_index]}, "
+                f"about {xcmg_share:.1f}%, with a {gap_value:,}-unit gap to the displayed leader."
+            ),
+        },
+    ]
+    fact_html = "".join(
+        '<article>'
+        + bilingual_leaf(fact["label"], "b")
+        + bilingual_leaf({"zh": fact["value"], "en": fact["value_en"]}, "p")
+        + "</article>"
+        for fact in facts
+    )
+
+    header_cells = []
+    for index, year in enumerate(years):
+        year_match = re.search(r"\d{4}", str(year))
+        year_label = year_match.group(0) if year_match else str(year)
+        header_cells.append(
+            f'<th scope="col"><span>{esc(year_label)}</span>'
+            + bilingual_leaf(
+                market_status_label(statuses[index] if index < len(statuses) else ""),
+                "small",
+            )
+            + "</th>"
+        )
+    header_cells = "".join(header_cells)
+    body_rows = []
+    for item in series:
+        values = item.get("values") or []
+        cells = "".join(
+            f"<td>{(values[index] if index < len(values) else 0):,}</td>"
+            for index in range(len(years))
+        )
+        row_class = " xcmgMarketRow" if "XCMG" in str(item.get("brand", "")).upper() else ""
+        body_rows.append(
+            f'<tr class="{row_class.strip()}"><th scope="row">{esc(item.get("brand"))}</th>{cells}</tr>'
+        )
+    total_cells = "".join(f"<td>{value:,}</td>" for value in totals)
+    body_rows.append(
+        '<tr class="marketTotalRow"><th scope="row" data-en="Displayed total">表内合计</th>'
+        f"{total_cells}</tr>"
+    )
+    return (
+        '<div class="marketEvidenceGrid">'
+        '<article class="marketDataPanel"><div class="insightPanelTitle"><span data-en="Brand volume detail">品牌销量明细</span></div>'
+        '<div class="marketDataTableWrap"><table class="marketDataTable"><caption class="srOnly" data-en="Brand volume by year and data status">分品牌、年份与数据状态的销量明细</caption>'
+        f'<thead><tr><th scope="col" data-en="Brand">品牌</th>{header_cells}</tr></thead>'
+        f'<tbody>{"".join(body_rows)}</tbody></table></div></article>'
+        '<article class="marketFactPanel"><div class="insightPanelTitle"><span data-en="Quantified reading">量化结论</span></div>'
+        f'<div class="marketFactList">{fact_html}</div></article>'
+        "</div>"
+    )
+
+
+def render_market_insight(insight, business_tables=None):
+    business_tables = business_tables or []
+    chart = insight.get("market_chart") or {}
+    years = chart.get("years") or []
+    series = chart.get("series") or []
+    totals = [sum(item.get("values", [0] * len(years))[i] for item in series) for i in range(len(years))] if years else []
+    actual_index = 1 if len(years) > 1 else 0
+    actual_value = f"{totals[actual_index]:,}" if totals else "--"
+    actual_label_zh = f"{years[actual_index]} 实际规模" if years else "独立销量序列"
+    actual_label_en = f"{years[actual_index]} actual market" if years else "Class sales series"
+    xcmg_series = next((item for item in series if "XCMG" in str(item.get("brand", "")).upper()), None)
+    if xcmg_series and xcmg_series.get("values"):
+        values = xcmg_series["values"]
+        xcmg_zh = f"{values[0]:,} → {values[-1]:,} 台"
+        xcmg_en = f"{values[0]:,} → {values[-1]:,} units"
+    else:
+        xcmg_zh = "暂无独立序列"
+        xcmg_en = "No separate series"
+    source_slides = insight.get("source_slides") or []
+    source_attr = f' data-source-slides="{esc("-".join(str(value) for value in source_slides))}"'
+    return (
+        f'<section id="market-insight" class="insightSection"{source_attr}>'
+        f'<h2>{bilingual_leaf({"zh": "市场、客户与运输适配", "en": "Market, Customer and Transport Fit"})}</h2>'
+        '<div class="marketKpis">'
+        f'<div><span data-en="{esc(actual_label_en)}">{esc(actual_label_zh)}</span><b>{actual_value}</b>{bilingual_leaf({"zh": "台", "en": "units"}, "small") if totals else ""}</div>'
+        f'<div><span data-en="XCMG volume path">XCMG 销量路径</span>{bilingual_leaf({"zh": xcmg_zh, "en": xcmg_en}, "b")}</div>'
+        f'<div><span data-en="Competitive concentration">竞争集中度</span>{bilingual_leaf(insight.get("concentration"), "b")}</div>'
+        f'<div><span data-en="Primary benchmark">主要标杆</span>{bilingual_leaf(insight.get("benchmark"), "b")}</div>'
+        "</div>"
+        '<div class="marketInsightGrid">'
+        '<article class="marketTrendPanel"><div class="insightPanelTitle"><span data-en="Historical market structure">历史市场结构</span></div>'
+        + render_market_chart(insight)
+        + bilingual_leaf({
+            "zh": "时间口径：2023-2024 为历史实际，2025 为原资料中的历史估计，2026 为原预测值；2026 实际销量需在最新数据到位后回填。",
+            "en": "Time basis: 2023-2024 are historical actuals, 2025 is the historical estimate in the source material, and 2026 is the original forecast. Replace it with 2026 actuals when current data is available.",
+        }, "p", "marketTimeBasis")
+        + "</article>"
+        '<article class="marketReading"><div class="insightPanelTitle"><span data-en="Class decision view">吨级判断</span></div>'
+        + bilingual_leaf(insight.get("role"), "p", "marketRole")
+        + '<dl class="marketDecisionList">'
+        f'<div><dt data-en="Primary customers">主要客户</dt><dd>{bilingual_leaf(insight.get("customers"))}</dd></div>'
+        f'<div><dt data-en="Typical jobs">典型任务</dt><dd>{bilingual_leaf(insight.get("jobs"))}</dd></div>'
+        f'<div><dt data-en="Purchase priorities">购买重点</dt><dd>{bilingual_leaf(insight.get("purchase"))}</dd></div>'
+        f'<div class="transportDecision"><dt data-en="Transport boundary">运输边界</dt><dd>{bilingual_leaf(insight.get("transport"))}</dd></div>'
+        "</dl></article></div>"
+        + render_market_detail(insight)
+        + render_ppt_table_group(
+            business_tables,
+            {"market"},
+            "完整市场数据表",
+            "Complete market data tables",
+            "按品牌、年份和机型保留该吨级市场表中的全部业务数据。",
+            "All business data from the class market tables are retained by brand, year and model.",
+        )
+        + "</section>"
+    )
+
+
+def render_application_insight(insight, business_tables=None):
+    business_tables = business_tables or []
+    cards = []
+    matrix_rows = []
+    for item in insight.get("applications", []):
+        cards.append(
+            f'<article class="applicationCard" data-source-slide="{esc(item.get("source_slide"))}">'
+            '<figure>'
+            f'<img src="{esc(item.get("image"))}" alt="{esc(item.get("title", {}).get("zh", "作业场景"))}" loading="lazy">'
+            f'<figcaption>{bilingual_leaf(item.get("title"), "strong")}</figcaption>'
+            "</figure>"
+            f'{bilingual_leaf(item.get("body"), "p")}'
+            '<div class="applicationRequirement"><span data-en="Capability requirements">能力要求</span>'
+            f'{bilingual_leaf(item.get("requirements"), "b")}</div></article>'
+        )
+        matrix_rows.append(
+            "<tr>"
+            f'<th scope="row">{bilingual_leaf(item.get("title"), "b")}</th>'
+            f"<td>{bilingual_leaf(item.get('body'))}</td>"
+            f'<td class="applicationCapabilityCell">{bilingual_leaf(item.get("requirements"))}</td>'
+            "</tr>"
+        )
+    return (
+        '<section id="job-applications" class="insightSection">'
+        f'<h2>{bilingual_leaf({"zh": "真实作业场景", "en": "Real Job Applications"})}</h2>'
+        + bilingual_leaf({
+            "zh": "以下场景按本吨级客户的实际任务链展开，直接说明机器需要完成什么工作，以及参数、配置和操控应满足哪些边界。",
+            "en": "These applications follow the actual task chain for this class and show what the machine must accomplish and which specification, equipment and control boundaries matter.",
+        }, "p", "insightLead")
+        + f'<div class="applicationGrid">{"".join(cards)}</div>'
+        '<div class="applicationMatrixWrap"><div class="insightPanelTitle"><span data-en="Job-to-capability comparison">任务与能力对照</span></div>'
+        '<table class="applicationMatrix"><caption class="srOnly" data-en="Application task and capability comparison">作业任务与关键能力对照</caption>'
+        '<thead><tr><th scope="col" data-en="Application">作业场景</th><th scope="col" data-en="Customer task">客户任务</th><th scope="col" data-en="Critical machine capability">关键整机能力</th></tr></thead>'
+        f'<tbody>{"".join(matrix_rows)}</tbody></table></div>'
+        + render_ppt_table_group(
+            business_tables,
+            {"application"},
+            "完整工况适应性表",
+            "Complete application-fit tables",
+            "保留客户、任务链、运输边界、关键能力和产品适配判断的全部表格内容。",
+            "Retains the complete customer, task-chain, transport-boundary, capability and product-fit table content.",
+        )
+        + "</section>"
+    )
+
+
+def render_engineering_insight(insight, business_tables=None):
+    business_tables = business_tables or []
+    rows = []
+    priorities = []
+    for item in insight.get("engineering", []):
+        priorities.append(
+            '<article>'
+            f'{bilingual_leaf(item.get("dimension"), "b")}'
+            f'{bilingual_leaf(item.get("gap"), "p")}'
+            "</article>"
+        )
+        rows.append(
+            f'<tr data-source-slides="{esc("-".join(str(value) for value in item.get("source_slides", [])))}">'
+            f'<th scope="row"><span class="cellLabel" data-en="Dimension">维度</span>{bilingual_leaf(item.get("dimension"), "b")}</th>'
+            f'<td><span class="cellLabel" data-en="Existing foundation">已有基础</span>{bilingual_leaf(item.get("basis"))}</td>'
+            f'<td class="gapColumn"><span class="cellLabel" data-en="Specific gap">具体差距</span>{bilingual_leaf(item.get("gap"))}</td>'
+            f'<td class="actionColumn"><span class="cellLabel" data-en="Closing action">弥补动作</span>{bilingual_leaf(item.get("action"))}</td>'
+            "</tr>"
+        )
+    return (
+        '<section id="engineering-insight" class="insightSection">'
+        f'<h2>{bilingual_leaf({"zh": "实机与工程判断", "en": "Field and Engineering Assessment"})}</h2>'
+        '<div class="engineeringScope"><b data-en="Assessment boundary">判断边界</b>'
+        + bilingual_leaf({
+            "zh": "本模块不另设总分，也不改变现有参数、配置和工况评分。已有基础、具体差距与弥补动作逐项对应；动作只有在样机、试验或市场复核完成后才能关闭。",
+            "en": "This module adds no total score and does not change the existing specification, equipment or application scores. Each foundation, gap and closing action is paired; an action closes only after prototype, test or market validation.",
+        })
+        + "</div>"
+        f'<div class="engineeringPriorityGrid">{"".join(priorities)}</div>'
+        '<div class="engineeringTableWrap"><table class="engineeringTable"><caption class="srOnly" data-en="Field and engineering assessment details">实机与工程判断明细</caption>'
+        '<thead><tr><th scope="col" data-en="Dimension">维度</th><th scope="col" data-en="Existing foundation">已有基础</th><th scope="col" data-en="Specific gap">具体差距</th><th scope="col" data-en="Closing action">弥补动作</th></tr></thead>'
+        f'<tbody>{"".join(rows)}</tbody></table></div>'
+        + render_ppt_table_group(
+            business_tables,
+            {"product_comparison"},
+            "完整参数、配置与实机评价表",
+            "Complete specification, equipment and field-evaluation tables",
+            "原有参数、标选配、可靠性、操控性、舒适性、维修性和经济性表格全部保留；历史判断不自动视为当前量产状态。",
+            "All specification, equipment, reliability, controllability, comfort, serviceability and economy tables are retained. Historical findings are not automatically treated as current production status.",
+        )
+        + render_ppt_table_group(
+            business_tables,
+            {"positioning"},
+            "产品定位与历史目标表",
+            "Product-positioning and historical-target tables",
+            "定位、价格带、销量目标和时间节点按原年份保留，当前状态仍以最新业务复核为准。",
+            "Positioning, price band, volume target and timing remain tied to the original year and require current business confirmation.",
+        )
+        + "</section>"
+    )
+
+
+SOURCE_SECTION_META = {
+    "market": {
+        "id": "market-insight",
+        "zh": "市场销量与产品结构",
+        "en": "Market Volume and Product Structure",
+    },
+    "applications": {
+        "id": "job-applications",
+        "zh": "客户工况与运输适应性",
+        "en": "Customer Applications and Transport Fit",
+    },
+    "comparison": {
+        "id": "engineering-insight",
+        "zh": "参数、配置与实机对比",
+        "en": "Specification, Equipment and Field Comparison",
+    },
+    "positioning": {
+        "id": "product-positioning",
+        "zh": "产品定位与市场目标",
+        "en": "Product Positioning and Market Target",
+    },
+    "analysis": {
+        "id": "source-analysis",
+        "zh": "产品分析",
+        "en": "Product Analysis",
+    },
+}
+
+
+def render_source_table(record):
+    matrix = record.get("matrix_zh") or []
+    if not matrix:
+        return ""
+    caption = (record.get("title") or f'源表 {record.get("id", "")}').strip()
+    width = max((len(row) for row in matrix), default=1)
+    rows = [list(row) + [""] * max(0, width - len(row)) for row in matrix]
+    populated_columns = [
+        index
+        for index in range(width)
+        if any(str(row[index] or "").strip() for row in rows)
+    ]
+    rows = [[row[index] for index in populated_columns] for row in rows]
+    width = len(populated_columns)
+    fit_table = width <= 7
+    headers = [str(cell or "").strip() for cell in rows[0]]
+
+    column_weights = []
+    for header_text in headers:
+        if "吨级" in header_text or header_text in {"序号", "类型"}:
+            weight = 8
+        elif "场景及" in header_text or "工况描述" in header_text:
+            weight = 30
+        elif "施工场景" in header_text or "应用场景" in header_text:
+            weight = 14
+        elif "客户类型" in header_text:
+            weight = 13
+        elif "需求" in header_text:
+            weight = 18
+        elif "满足性" in header_text or "分析" in header_text or "结论" in header_text:
+            weight = 17
+        else:
+            weight = max(10, min(22, len(header_text) * 2 or 12))
+        column_weights.append(weight)
+    weight_total = sum(column_weights) or 1
+    colgroup = ""
+    if fit_table:
+        colgroup = "<colgroup>" + "".join(
+            f'<col style="width:{weight / weight_total * 100:.3f}%">'
+            for weight in column_weights
+        ) + "</colgroup>"
+
+    header = "".join(
+        f'<th scope="col">{esc(cell) if cell else "&nbsp;"}</th>'
+        for cell in rows[0]
+    )
+    body = []
+    for row in rows[1:]:
+        cells = []
+        for index, cell in enumerate(row):
+            tag = "th" if index == 0 else "td"
+            scope = ' scope="row"' if index == 0 else ""
+            label = headers[index] if index < len(headers) else ""
+            cells.append(
+                f'<{tag}{scope} data-label="{esc(label)}">'
+                f'{esc(cell) if cell else "&nbsp;"}</{tag}>'
+            )
+        body.append(f'<tr>{"".join(cells)}</tr>')
+    wrapper_class = "sourceTableScroll sourceTableScrollFit" if fit_table else "sourceTableScroll"
+    table_class = "sourceTableFit" if fit_table else "sourceTableWide"
+    return (
+        '<div class="sourceTableBlock">'
+        f'<div class="{wrapper_class}">'
+        f'<table class="{table_class}" lang="zh-CN">'
+        f'<caption class="sourceTableCaption">{esc(caption)}</caption>'
+        f"{colgroup}"
+        f'<thead><tr>{header}</tr></thead>'
+        f'<tbody>{"".join(body)}</tbody>'
+        '</table></div></div>'
+    )
+
+
+def render_source_visuals(record):
+    visuals = record.get("visuals") or []
+    if not visuals:
+        return ""
+    figures = []
+    title = record.get("title", {}).get("zh", "产品分析")
+    for index, visual in enumerate(visuals, start=1):
+        kind = visual.get("kind", "picture")
+        if kind == "chart":
+            fallback_title = title if len(visuals) == 1 else f"{title} · {index}"
+            native_chart = render_chart_figure(visual, fallback_title)
+            if native_chart:
+                figures.append(native_chart)
+                continue
+        alt = f"{title} - {'图表' if kind == 'chart' else '实景图'} {index}"
+        figures.append(
+            f'<figure class="sourceVisual sourceVisual-{esc(kind)}">'
+            f'<img src="{esc(visual.get("file"))}" alt="{esc(alt)}" loading="lazy">'
+            "</figure>"
+        )
+    count_class = f" sourceVisualGrid-{min(len(figures), 4)}"
+    return f'<div class="sourceVisualGrid{count_class}">{"".join(figures)}</div>'
+
+
+def render_source_slide(record, table_records):
+    body = "".join(
+        bilingual_leaf(item, "p", "sourceParagraph")
+        for item in record.get("body", [])
+    )
+    notes = "".join(
+        bilingual_leaf(item, "p", "sourceDataNote")
+        for item in record.get("notes", [])
+    )
+    tables = "".join(
+        render_source_table(table_records[table_id])
+        for table_id in record.get("table_ids", [])
+        if table_id in table_records
+    )
+    return (
+        f'<article class="sourceSlide" data-source-slide="{record.get("slide")}">'
+        '<header class="sourceSlideHeader">'
+        f'{bilingual_leaf(record.get("title"), "h3")}'
+        "</header>"
+        f'<div class="sourceNarrative">{body}</div>'
+        + render_source_visuals(record)
+        + tables
+        + (f'<div class="sourceNotes">{notes}</div>' if notes else "")
+        + "</article>"
+    )
+
+
+def render_source_section(section, records, table_records):
+    meta = SOURCE_SECTION_META[section]
+    slides = "".join(render_source_slide(record, table_records) for record in records)
+    return (
+        f'<section id="{meta["id"]}" class="insightSection sourceContentSection">'
+        f'<h2 data-en="{esc(meta["en"])}">{esc(meta["zh"])}</h2>'
+        f'<div class="sourceSlideStack">{slides}</div>'
+        "</section>"
+    )
+
+
+def render_tonnage_insights(model):
+    slug = model["meta"].get("slug")
+    source_payload = load_ppt_source_content()
+    slide_ids = source_payload["by_slug"].get(slug, [])
+    records = [
+        source_payload["slides"][slide_id]
+        for slide_id in slide_ids
+        if slide_id in source_payload["slides"]
+    ]
+    if not records:
+        return ""
+    table_payload = load_ppt_business_tables()
+    sections = []
+    for section in ("market", "applications", "comparison", "positioning", "analysis"):
+        selected = [record for record in records if record.get("section") == section]
+        if selected:
+            sections.append(
+                render_source_section(
+                    section,
+                    selected,
+                    table_payload["records"],
+                )
+            )
+    return "".join(sections)
+
+
 def render_html(model):
     meta = model["meta"]
     xcmg = meta["xcmg"]
@@ -1564,6 +2264,25 @@ def render_html(model):
     total_detail_rows = sum(len(v) for v in model["conditionDetails"].values())
     product_count = len(model["products"])
     summary_cards = render_summary_cards(model)
+    tonnage_insights_html = render_tonnage_insights(model)
+    primary_analysis_target = "#market-insight" if tonnage_insights_html else "#overall"
+    primary_analysis_zh = "市场与产品分析" if tonnage_insights_html else "查看总体评分"
+    primary_analysis_en = "Market and product analysis" if tonnage_insights_html else "View overall score"
+    source_nav_html = (
+        """
+      <details class="navGroup" open>
+        <summary data-en="Product and market insight">产品与市场洞察</summary>
+        <div class="navSubmenu">
+          <a href="#market-insight" data-en="Market volume and product structure">市场销量与产品结构</a>
+          <a href="#job-applications" data-en="Customers, applications and transport">客户工况与运输适应性</a>
+          <a href="#engineering-insight" data-en="Specifications, equipment and field comparison">参数、配置与实机对比</a>
+          <a href="#product-positioning" data-en="Product positioning and market target">产品定位与市场目标</a>
+        </div>
+      </details>
+        """
+        if tonnage_insights_html
+        else ""
+    )
     condition_visual_nav = render_condition_visual_nav(model)
     conditions_html = []
     for idx, c in enumerate(model["conditions"], start=1):
@@ -1612,13 +2331,27 @@ def render_html(model):
     .gapPanel{{border:1px solid #dfb650;background:#fffdf4;border-radius:5px;padding:14px;margin:12px 0}}.gapGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.gapGrid article{{background:#fff;border:1px solid #ecd991;padding:12px}}.gapGrid b{{display:block;color:#08335d}}.gapGrid p{{margin:5px 0 0;font-size:13px}}.overallNotes p{{margin:7px 0 4px}}.gapList{{margin:6px 0 0;padding-left:18px;font-size:13px;line-height:1.55}}.gapList li{{margin:4px 0}}.methodNote,.coverageNote,.sourceNote{{font-size:12px;color:#526a7f;background:#f6f9fc;border-left:4px solid var(--yellow);padding:9px 11px;margin:0 0 12px}}.coverageNote{{margin:10px 0 0}}.sourceNote{{display:flex;gap:10px;align-items:flex-start}}.sourceNote b{{color:#08335d;white-space:nowrap}}
     .productGapSpotlight{{display:grid;grid-template-columns:310px minmax(0,1fr);min-height:285px;margin:14px 0 18px;border:1px solid var(--line);border-top:4px solid var(--blue);background:#fff;overflow:hidden}}.productGapMedia{{display:grid;grid-template-rows:auto 1fr auto;min-width:0;padding:16px;background:#f4f8fb;border-right:1px solid var(--line)}}.productGapMedia>span,.productGapContent>span{{color:var(--blue);font-size:10px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}}.productGapMedia img{{display:block;width:100%;height:190px;object-fit:contain;padding:10px}}.productGapMedia>div{{display:flex;justify-content:space-between;gap:8px;align-items:end;border-top:1px solid #d7e3ed;padding-top:10px}}.productGapMedia b{{color:#08335d;font-size:16px}}.productGapMedia small{{color:#65798c;font-size:10px}}.productGapContent{{min-width:0;padding:18px}}.productGapContent h3{{margin:5px 0 6px;color:#08335d;font-size:19px}}.productGapContent>p{{margin:0;color:#536b80;font-size:12px;line-height:1.6}}.productGapContent ol{{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 0;padding:0;list-style:none}}.productGapContent li{{display:grid;grid-template-columns:32px minmax(0,1fr);gap:9px;padding:10px;border:1px solid #d9e5ef;background:#f8fbfd}}.productGapContent li>span{{display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--blue);color:#fff;font-size:11px;font-weight:900}}.productGapContent li small,.productGapContent li b,.productGapContent li p{{display:block}}.productGapContent li small{{color:#6b7e8f;font-size:9px;font-weight:900}}.productGapContent li b{{margin-top:2px;color:#0b3155;font-size:13px}}.productGapContent li p{{margin:4px 0 0;color:#526a7f;font-size:11px;line-height:1.45;white-space:normal}}
     .conditionVisualNav{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}}.conditionVisualCard{{position:relative;min-height:172px;overflow:hidden;border:1px solid var(--line);background:#092d50;color:#fff}}.conditionVisualCard:after{{content:"";position:absolute;inset:0;background:rgba(2,24,45,.36);transition:background .18s}}.conditionVisualCard:hover:after,.conditionVisualCard:focus-visible:after{{background:rgba(2,24,45,.20)}}.conditionVisualCard:focus-visible{{outline:3px solid rgba(245,180,0,.50);outline-offset:2px}}.conditionVisualCard img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .2s}}.conditionVisualCard:hover img{{transform:scale(1.025)}}.conditionVisualCard>div{{position:absolute;z-index:1;inset:auto 0 0;padding:13px;background:rgba(2,28,52,.82);border-top:2px solid var(--yellow)}}.conditionVisualCard span,.conditionVisualCard strong,.conditionVisualCard small{{display:block}}.conditionVisualCard span{{color:var(--yellow);font-size:9px;font-weight:900;letter-spacing:.10em}}.conditionVisualCard strong{{margin-top:3px;color:#fff;font-size:14px}}.conditionVisualCard small{{margin-top:4px;color:#d4e2ee;font-size:10px;line-height:1.4}}.conditionVisualSource{{margin:0 0 14px;color:#64798c;font-size:10px;line-height:1.5}}
+    .navGroup{{margin:3px 0;border-left:3px solid rgba(255,255,255,.18)}}.navGroup>summary{{display:flex;align-items:center;justify-content:space-between;min-height:36px;padding:7px 10px;color:#fff;font-size:13px;font-weight:900;cursor:pointer;list-style:none}}.navGroup>summary::-webkit-details-marker{{display:none}}.navGroup>summary:after{{content:"+";color:var(--yellow);font-size:16px}}.navGroup[open]>summary:after{{content:"−"}}.navSubmenu{{padding:0 0 4px 7px}}.navSubmenu a{{font-size:12px!important;color:#d9e8f4!important}}.navMenu a.active{{background:rgba(255,255,255,.14);border-left-color:var(--yellow);color:#fff}}.navSubmenu a.active{{color:#fff!important}}
+    .insightSection{{border-top:4px solid var(--blue)}}.insightLead{{margin:-4px 0 14px;max-width:1050px;color:#536b80;font-size:13px}}.marketKpis{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}}.marketKpis>div{{min-width:0;border:1px solid #c9d8e7;border-left:4px solid var(--yellow);background:#f8fbfd;padding:11px 12px}}.marketKpis span,.marketKpis b,.marketKpis small{{display:block}}.marketKpis>div>span{{color:#557087;font-size:11px;font-weight:800}}.marketKpis b{{margin-top:4px;color:#073c70;font-size:18px;line-height:1.35;overflow-wrap:anywhere}}.marketKpis small{{color:#657a8e;font-size:10px}}.marketInsightGrid{{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(340px,.85fr);gap:14px;align-items:stretch}}.marketTrendPanel,.marketReading{{min-width:0;border:1px solid #c8d7e6;background:#fff;padding:14px}}.insightPanelTitle{{display:flex;align-items:center;min-height:30px;margin-bottom:10px;border-bottom:1px solid #dce6ef;color:#083a68;font-size:14px;font-weight:900}}.marketColumns{{display:grid;grid-template-columns:repeat(4,minmax(58px,1fr));gap:12px;height:230px;align-items:end;padding:8px 6px 0;border-bottom:1px solid #aac0d4;background:repeating-linear-gradient(to top,#fff 0,#fff 56px,#edf3f8 57px)}}.marketColumn{{display:grid;grid-template-rows:160px auto auto auto;gap:2px;align-items:end;text-align:center;min-width:0}}.marketBarShell{{height:160px;display:flex;align-items:flex-end;justify-content:center}}.marketBar{{display:flex;flex-direction:column-reverse;width:min(52px,72%);min-height:3px;border-top:1px solid rgba(0,45,85,.18);overflow:hidden}}.marketBar span{{display:block;min-height:2px}}.marketColumn>b{{color:#0a3155;font-size:12px}}.marketColumn>strong{{color:#082b4d;font-size:12px;white-space:nowrap}}.marketColumn>strong span{{display:inline}}.marketColumn>small{{min-height:16px;color:#61778b;font-size:9px;line-height:1.2}}.marketLegend{{display:flex;flex-wrap:wrap;gap:7px 13px;margin-top:10px;color:#425b70;font-size:10px}}.marketLegend span{{display:inline-flex;align-items:center;gap:5px}}.marketLegend i{{width:11px;height:11px}}.marketTimeBasis{{margin:10px 0 0;padding-top:9px;border-top:1px solid #e0e9f1;color:#5b7084;font-size:11px;line-height:1.55}}.marketSeriesEmpty{{display:flex;align-items:center;min-height:230px;padding:24px;border:1px dashed #9eb5c9;background:#f7fafc}}.marketSeriesEmpty p{{margin:0;color:#496277;line-height:1.75}}.marketRole{{margin:0 0 11px;padding:11px;border-left:4px solid var(--yellow);background:#f7fafc;color:#183d5e;line-height:1.7}}.marketDecisionList{{margin:0}}.marketDecisionList>div{{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid #e1e9f1}}.marketDecisionList dt{{color:#0a4f8c;font-size:11px;font-weight:900}}.marketDecisionList dd{{margin:0;color:#334f67;font-size:12px;line-height:1.6}}.transportDecision{{margin-top:4px;padding:10px!important;border-left:4px solid var(--blue);background:#f5f9fc}}
+    .marketEvidenceGrid{{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:14px;margin-top:14px}}.marketDataPanel,.marketFactPanel{{min-width:0;border:1px solid #c8d7e6;background:#fff;padding:14px}}.marketDataTableWrap{{max-width:100%;overflow-x:auto}}.marketDataTable{{min-width:610px;table-layout:fixed;font-size:11px}}.marketDataTable th,.marketDataTable td{{position:static!important;padding:8px 9px;text-align:right;white-space:normal;box-shadow:none!important}}.marketDataTable thead th{{background:#075da8;color:#fff;text-align:center}}.marketDataTable thead th:first-child,.marketDataTable tbody th{{text-align:left}}.marketDataTable thead small{{display:block;margin-top:2px;color:#dbeaf7;font-size:8px;font-weight:600}}.marketDataTable tbody th{{width:19%;background:#f4f8fb;color:#0b3e6b}}.marketDataTable .xcmgMarketRow th,.marketDataTable .xcmgMarketRow td{{background:#fff5cf;font-weight:900}}.marketDataTable .marketTotalRow th,.marketDataTable .marketTotalRow td{{border-top:2px solid var(--blue);background:#eef5fb;font-weight:900}}.marketFactList{{display:grid;gap:9px}}.marketFactList article{{padding:10px 11px;border-left:4px solid var(--blue);background:#f5f9fc}}.marketFactList article:nth-child(2){{border-left-color:var(--green)}}.marketFactList article:nth-child(3){{border-left-color:var(--yellow)}}.marketFactList b{{display:block;color:#0a4b84;font-size:11px}}.marketFactList p{{margin:4px 0 0;color:#334f67;font-size:12px;line-height:1.65}}.marketEvidenceBoundary{{margin-top:14px;padding:14px;border:1px solid #c8d7e6;border-left:4px solid var(--yellow);background:#f7fafc}}.marketEvidenceBoundary p{{margin:0;color:#3f5a70;line-height:1.7}}
+    .applicationGrid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}}.applicationCard{{display:grid;grid-template-rows:auto 1fr auto;min-width:0;border:1px solid #c8d7e6;background:#fff}}.applicationCard figure{{margin:0;border-bottom:1px solid #c8d7e6;background:#edf3f7}}.applicationCard img{{display:block;width:100%;aspect-ratio:16/10;object-fit:contain;background:#eaf0f5}}.applicationCard figcaption{{padding:9px 11px;border-top:3px solid var(--yellow);background:#f8fbfd;color:#093960}}.applicationCard>p{{margin:0;padding:11px;color:#3f5b71;font-size:12px;line-height:1.68}}.applicationRequirement{{margin:0 11px 11px;padding:9px 10px;border-left:3px solid var(--blue);background:#f4f8fb}}.applicationRequirement span,.applicationRequirement b{{display:block}}.applicationRequirement span{{color:#527087;font-size:10px;font-weight:900}}.applicationRequirement b{{margin-top:3px;color:#0a3f70;font-size:11px;line-height:1.55}}.applicationMatrixWrap{{margin-top:14px;padding:14px;border:1px solid #c8d7e6;background:#fff}}.applicationMatrix{{table-layout:fixed;font-size:12px}}.applicationMatrix th,.applicationMatrix td{{position:static!important;padding:10px 11px;white-space:normal;overflow-wrap:anywhere;line-height:1.6;box-shadow:none!important}}.applicationMatrix thead th{{background:#075da8;color:#fff}}.applicationMatrix thead th:nth-child(1){{width:20%}}.applicationMatrix thead th:nth-child(2){{width:45%}}.applicationMatrix thead th:nth-child(3){{width:35%}}.applicationMatrix tbody th{{background:#f4f8fb;color:#083b69;text-align:left}}.applicationCapabilityCell{{border-left:3px solid var(--yellow);background:#fffdf4;color:#163f63;font-weight:800}}
+    .engineeringScope{{display:grid;grid-template-columns:150px minmax(0,1fr);border:1px solid #c8d7e6;background:#f5f9fc;margin-bottom:12px}}.engineeringScope>b{{display:flex;align-items:center;padding:10px 12px;border-right:1px solid #c8d7e6;color:#0a4b84}}.engineeringScope>span{{padding:10px 12px;color:#3f5a70;font-size:12px;line-height:1.6}}.engineeringPriorityGrid{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:12px}}.engineeringPriorityGrid article{{min-width:0;padding:10px 11px;border:1px solid #c8d7e6;border-top:3px solid #c93434;background:#fff}}.engineeringPriorityGrid b{{display:block;color:#0a4b84;font-size:11px}}.engineeringPriorityGrid p{{margin:4px 0 0;color:#3f566b;font-size:11px;line-height:1.55}}.engineeringTableWrap{{border:1px solid #afc5d9;overflow:hidden}}.engineeringTable{{table-layout:fixed;font-size:12px}}.engineeringTable th,.engineeringTable td{{position:static!important;white-space:normal;overflow-wrap:anywhere;padding:10px 11px;line-height:1.55;box-shadow:none!important}}.engineeringTable thead th{{background:#075da8;color:#fff}}.engineeringTable thead th:nth-child(1){{width:16%}}.engineeringTable thead th:nth-child(2){{width:28%}}.engineeringTable thead th:nth-child(3){{width:30%}}.engineeringTable thead th:nth-child(4){{width:26%}}.engineeringTable tbody th{{background:#f4f8fb!important;color:#083b69;border-left:4px solid var(--green)}}.engineeringTable .gapColumn{{border-left:3px solid #c93434;background:#fffafa}}.engineeringTable .actionColumn{{border-left:3px solid var(--yellow);background:#fffdf6}}.cellLabel{{display:none}}
+    .pptBusinessGroup{{margin-top:16px;padding-top:12px;border-top:3px solid var(--blue)}}.pptBusinessGroupHead{{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:10px}}.pptBusinessGroupHead h3{{margin:0;color:#073c70;font-size:16px}}.pptBusinessGroupHead p{{max-width:760px;margin:0;color:#526c82;font-size:11px;line-height:1.55;text-align:right}}.pptBusinessTableStack{{display:grid;gap:12px}}.pptBusinessTable{{min-width:0;border:1px solid #b8ccdd;background:#fff}}.pptBusinessTable>summary{{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:9px 11px;border-bottom:1px solid #c8d7e6;background:#f3f8fb;cursor:pointer;list-style:none}}.pptBusinessTable>summary::-webkit-details-marker{{display:none}}.pptBusinessTable>summary h3{{margin:0;color:#073c70;font-size:13px;line-height:1.45}}.pptBusinessTable>summary span{{flex:0 0 auto;color:#61788c;font-size:10px;font-weight:800}}.pptBusinessTable:not([open])>summary{{border-bottom:0}}.pptBusinessTableScroll{{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-color:#8299ad #edf2f6}}.pptBusinessTableScroll table{{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0;table-layout:auto;font-size:11px}}.pptBusinessTableScroll th,.pptBusinessTableScroll td{{position:static;min-width:116px;max-width:420px;padding:8px 9px;border-right:1px solid #d7e2ec;border-bottom:1px solid #d7e2ec;background:#fff;box-shadow:none;line-height:1.55;text-align:left;vertical-align:top;white-space:pre-line;overflow-wrap:anywhere}}.pptBusinessTableScroll thead th{{position:sticky;top:0;z-index:3;min-width:132px;background:#075da8;color:#fff;font-weight:900}}.pptBusinessTableScroll tbody th{{position:sticky;left:0;z-index:2;min-width:145px;background:#eef5fa!important;color:#073c70;font-weight:900}}.pptBusinessTableScroll tbody tr:nth-child(even) td{{background:#f8fbfd}}.pptBusinessTableScroll tr>*:last-child{{border-right:0}}.pptBusinessTableScroll tbody tr:last-child>*{{border-bottom:0}}
+    .sourceContentSection{{padding:0;border-top:4px solid var(--blue);overflow:hidden}}.sourceContentSection>h2{{padding:18px 20px 0;margin-bottom:6px}}.sourceSlideStack{{display:block}}.sourceSlide{{padding:20px;border-top:1px solid #c8d7e6;background:#fff}}.sourceSlide:first-child{{border-top:0}}.sourceSlideHeader{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:10px}}.sourceSlideHeader h3{{margin:0;color:#073c70;font-size:18px;line-height:1.45}}.sourceNarrative{{max-width:1180px}}.sourceParagraph{{margin:0 0 10px;color:#203f5b;font-size:14px;line-height:1.82;white-space:pre-line;overflow-wrap:anywhere}}.sourceParagraph:last-child{{margin-bottom:0}}.sourceMacroGrid{{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(340px,.65fr);gap:16px;align-items:start}}.sourceMacroColumn{{min-width:0;padding:14px 16px;border-left:4px solid var(--blue);background:#f6f9fc}}.sourceMacroColumn:last-child{{border-left-color:var(--yellow)}}.sourceMacroColumn .sourceParagraph:first-child{{color:#075da8;font-weight:900}}.sourceVisualGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 2px;align-items:start}}.sourceVisualGrid-1{{grid-template-columns:minmax(0,980px);justify-content:center}}.sourceVisualGrid-3{{grid-template-columns:repeat(3,minmax(0,1fr))}}.sourceVisualGrid-4{{grid-template-columns:repeat(2,minmax(0,1fr))}}.sourceVisual{{display:flex;align-items:center;justify-content:center;min-width:0;margin:0;border:1px solid #c8d7e6;background:#f7fafc;overflow:hidden}}.sourceVisual img{{display:block;width:100%;height:auto;max-height:560px;object-fit:contain;background:#fff}}.sourceVisual-picture img{{max-height:480px}}.sourceTableBlock{{margin-top:16px;border-top:3px solid var(--blue)}}.sourceTableScroll{{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;border:1px solid #b8ccdd;border-top:0;background:#fff}}.sourceTableScroll table{{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0;table-layout:auto;font-size:12px}}.sourceTableCaption{{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}}.sourceTableScroll th,.sourceTableScroll td{{position:static;min-width:118px;max-width:460px;padding:9px 10px;border-right:1px solid #d7e2ec;border-bottom:1px solid #d7e2ec;background:#fff;box-shadow:none;line-height:1.65;text-align:left;vertical-align:top;white-space:pre-line;overflow-wrap:anywhere}}.sourceTableScroll thead th{{position:sticky;top:0;z-index:3;background:#075da8;color:#fff;font-weight:900}}.sourceTableScroll tbody th{{position:sticky;left:0;z-index:2;min-width:150px;background:#eef5fa!important;color:#073c70;font-weight:900}}.sourceTableScroll tbody tr:nth-child(even) td{{background:#f8fbfd}}.sourceTableScroll tr>*:last-child{{border-right:0}}.sourceTableScroll tbody tr:last-child>*{{border-bottom:0}}.sourceNotes{{margin-top:12px;padding:9px 11px;border-left:4px solid var(--blue);background:#f3f7fa}}.sourceDataNote{{margin:0;color:#526a7f;font-size:11px;line-height:1.6;white-space:pre-line}}
     .simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:12px}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
     @media(max-width:1200px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.languageToggle{{margin:0}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home{{grid-column:1/-1;margin:0}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.productGapSpotlight{{grid-template-columns:260px minmax(0,1fr)}}.conditionVisualNav{{grid-template-columns:repeat(2,minmax(0,1fr))}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
     @media(max-width:720px){{body{{font-size:14px}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:12px;line-height:1.25}}.nav small{{font-size:9px}}.languageToggle{{min-width:40px;min-height:32px;padding:0 6px;font-size:11px}}.navToggle,.mobileTop{{padding:6px 8px;font-size:11px}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:12px;padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}.heroMedia img{{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}}h1{{font-size:26px;margin:6px 0 8px}}h2{{font-size:20px;margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:15px}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:12px}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:24px;line-height:1.15;margin:3px 0}}.kpi span{{font-size:11px;line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:12px;margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:18px;overflow-wrap:anywhere;margin-bottom:0}}.conditionTitle span{{font-size:10px}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:12px}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:12px}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:11px;padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:anywhere}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:anywhere;font-size:11px;padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:900;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:11px;color:var(--blue);font-weight:800}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:12px}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:12px;padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:28px}}.tableScroll{{max-height:62vh}}}}
     @media(max-width:720px){{.actions{{display:grid;grid-template-columns:1fr;gap:6px;overflow:visible;margin-top:10px;padding-bottom:0}}.actions .btn{{width:100%;min-height:38px;padding:7px 9px;font-size:12px}}}}
     @media(max-width:720px){{.productGapSpotlight{{grid-template-columns:1fr;min-height:0}}.productGapMedia{{border-right:0;border-bottom:1px solid var(--line);padding:12px}}.productGapMedia img{{height:155px;padding:4px}}.productGapContent{{padding:12px}}.productGapContent h3{{font-size:17px}}.productGapContent ol{{grid-template-columns:1fr;gap:6px}}.conditionVisualNav{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:12%;margin:9px 0}}.conditionVisualCard{{scroll-snap-align:start;min-height:178px}}.conditionVisualSource{{font-size:9px}}}}
+    @media(max-width:1200px){{.navGroup{{grid-column:1/-1}}.navSubmenu{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}}.marketInsightGrid,.marketEvidenceGrid{{grid-template-columns:1fr}}.applicationGrid{{grid-template-columns:repeat(2,minmax(0,1fr))}}.engineeringPriorityGrid{{grid-template-columns:1fr 1fr}}.sourceMacroGrid{{grid-template-columns:1fr}}.sourceVisualGrid-3{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
+    @media(max-width:720px){{.navSubmenu{{grid-template-columns:1fr}}.marketKpis{{grid-template-columns:1fr 1fr;gap:7px}}.marketKpis>div{{padding:9px;min-height:82px}}.marketKpis b{{font-size:15px}}.marketInsightGrid,.marketEvidenceGrid{{gap:8px}}.marketTrendPanel,.marketReading,.marketDataPanel,.marketFactPanel{{padding:10px}}.marketColumns{{height:205px;grid-template-columns:repeat(4,minmax(46px,1fr));gap:4px;padding-inline:2px}}.marketColumn{{grid-template-rows:135px auto auto auto}}.marketBarShell{{height:135px}}.marketBar{{width:min(42px,78%)}}.marketColumn>strong{{font-size:10px}}.marketLegend{{gap:5px 9px}}.marketDecisionList>div{{grid-template-columns:1fr;gap:3px;padding:8px 0}}.marketDecisionList dt{{font-size:10px}}.marketSeriesEmpty{{min-height:170px;padding:14px}}.marketDataTableWrap{{overscroll-behavior-inline:contain}}.marketFactList{{gap:6px}}.applicationGrid{{grid-template-columns:1fr;gap:8px}}.applicationCard img{{aspect-ratio:16/9}}.applicationMatrixWrap{{padding:10px}}.applicationMatrix,.applicationMatrix tbody,.applicationMatrix tr,.applicationMatrix th,.applicationMatrix td{{display:block;width:100%}}.applicationMatrix thead{{display:none}}.applicationMatrix tr{{margin:0 0 9px;border:1px solid #b9ccdc;background:#fff}}.applicationMatrix th,.applicationMatrix td{{border-bottom:1px solid #dde7ef;padding:9px 10px}}.applicationMatrix tbody th{{border-left:4px solid var(--blue)}}.applicationMatrix .applicationCapabilityCell{{border-left:4px solid var(--yellow);border-bottom:0}}.engineeringScope{{grid-template-columns:1fr}}.engineeringScope>b{{border-right:0;border-bottom:1px solid #c8d7e6}}.engineeringPriorityGrid{{grid-template-columns:1fr;gap:6px}}.engineeringTableWrap{{overflow:visible;border:0}}.engineeringTable,.engineeringTable tbody,.engineeringTable tr,.engineeringTable th,.engineeringTable td{{display:block;width:100%}}.engineeringTable thead{{display:none}}.engineeringTable tr{{margin:0 0 9px;border:1px solid #b9ccdc;background:#fff}}.engineeringTable th,.engineeringTable td{{border-bottom:1px solid #dde7ef;padding:9px 10px}}.engineeringTable tbody th{{border-left:4px solid var(--green)}}.engineeringTable .gapColumn,.engineeringTable .actionColumn{{border-left:4px solid}}.engineeringTable .actionColumn{{border-bottom:0}}.cellLabel{{display:block;margin-bottom:3px;color:#5b7185;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}}.pptBusinessGroup{{margin-top:10px;padding-top:9px}}.pptBusinessGroupHead{{display:block;margin-bottom:7px}}.pptBusinessGroupHead h3{{font-size:14px}}.pptBusinessGroupHead p{{margin-top:4px;text-align:left}}.pptBusinessTableStack{{gap:8px}}.pptBusinessTable>summary{{align-items:flex-start;min-height:40px;padding:8px 9px}}.pptBusinessTable>summary h3{{font-size:12px}}.pptBusinessTableScroll{{max-height:72vh}}.pptBusinessTableScroll table{{font-size:10px}}.pptBusinessTableScroll th,.pptBusinessTableScroll td{{min-width:106px;max-width:290px;padding:7px 8px}}.pptBusinessTableScroll tbody th{{min-width:122px}}.sourceContentSection>h2{{padding:14px 12px 0}}.sourceSlide{{padding:14px 12px}}.sourceSlideHeader h3{{font-size:16px}}.sourceParagraph{{font-size:13px;line-height:1.75}}.sourceVisualGrid,.sourceVisualGrid-1,.sourceVisualGrid-3,.sourceVisualGrid-4{{grid-template-columns:1fr;gap:8px;margin-top:12px}}.sourceVisual img,.sourceVisual-picture img{{max-height:none}}.sourceTableScroll table{{font-size:10px}}.sourceTableScroll th,.sourceTableScroll td{{min-width:112px;max-width:300px;padding:7px 8px}}.sourceTableScroll tbody th{{min-width:126px}}}}
     html[data-language="en"] .conditionIntro b:after,html[data-language="en"] .overallNotes p>b:first-child:after,html[data-language="en"] .summaryCard p>b:first-child:after{{content:" "}}html[data-language="en"] .navMenu a,html[data-language="en"] .conditionTitle h2,html[data-language="en"] .simOptions b,html[data-language="en"] .simOptions small{{overflow-wrap:anywhere}}html[data-language="en"] .sourceNote b{{white-space:normal}}html[data-language="en"] th{{white-space:normal;overflow-wrap:anywhere}}html[data-language="en"] .radar-label{{font-size:11px}}
     @media(max-width:720px){{html[data-language="en"] .navTitle{{font-size:11px;line-height:1.2}}html[data-language="en"] .nav small{{display:none}}html[data-language="en"] .summaryGrid,html[data-language="en"] .conditionIntro,html[data-language="en"] .gapGrid{{display:grid;grid-template-columns:1fr;grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;scroll-snap-type:none;padding:0}}html[data-language="en"] .summaryCard{{min-height:0}}html[data-language="en"] .summaryCard,html[data-language="en"] .conditionIntro p,html[data-language="en"] .gapGrid article{{scroll-snap-align:none}}html[data-language="en"] .mobileDisclosure>summary,html[data-language="en"] .radarPicker>summary{{white-space:normal;overflow-wrap:anywhere}}html[data-language="en"] .radarHead{{align-items:flex-start;flex-wrap:wrap}}html[data-language="en"] .radarCurrent{{white-space:normal}}html[data-language="en"] .simHead{{gap:8px;align-items:flex-start}}html[data-language="en"] .resetSim{{flex:0 0 auto;white-space:normal}}}}
+    .sourceTableScroll.sourceTableScrollFit{{overflow-x:hidden}}
+    .sourceTableScrollFit table.sourceTableFit{{width:100%;min-width:0;table-layout:fixed;font-size:11px}}
+    .sourceTableScrollFit table.sourceTableFit th,.sourceTableScrollFit table.sourceTableFit td{{position:static;min-width:0;max-width:none;padding:8px 9px;white-space:pre-line;overflow-wrap:anywhere;word-break:normal;line-height:1.55}}
+    .sourceTableScrollFit table.sourceTableFit tbody th{{position:static;min-width:0}}
+    @media(max-width:720px){{.sourceTableScroll.sourceTableScrollFit{{max-height:none;overflow:visible;border:0}}.sourceTableScrollFit table.sourceTableFit,.sourceTableScrollFit .sourceTableFit tbody,.sourceTableScrollFit .sourceTableFit tr,.sourceTableScrollFit .sourceTableFit th,.sourceTableScrollFit .sourceTableFit td{{display:block;width:100%}}.sourceTableScrollFit .sourceTableFit colgroup,.sourceTableScrollFit .sourceTableFit thead{{display:none}}.sourceTableScrollFit .sourceTableFit tr{{margin-bottom:10px;border:1px solid #b8ccdd;background:#fff}}.sourceTableScrollFit .sourceTableFit th,.sourceTableScrollFit .sourceTableFit td{{display:grid;grid-template-columns:minmax(88px,7rem) minmax(0,1fr);gap:8px;border-right:0;padding:8px 9px}}.sourceTableScrollFit .sourceTableFit th::before,.sourceTableScrollFit .sourceTableFit td::before{{content:attr(data-label);color:#075da8;font-size:10px;font-weight:900}}.sourceTableScrollFit .sourceTableFit tbody th{{border-left:4px solid #075da8;background:#eef5fa!important}}.sourceTableScrollFit .sourceTableFit tr>:last-child{{border-bottom:0}}}}
   </style>
 </head>
 <body>
@@ -1633,6 +2366,7 @@ def render_html(model):
     <div class="navMenu" id="page-nav">
       <a class="home" href="arc.html">返回对标平台主页</a>
       <a href="#summary">对标概览</a>
+      {source_nav_html}
       <a href="#overall">总体评分</a>
       <a href="#radar">工况竞争格局</a>
       <a href="#conditions">工况总览</a>
@@ -1643,10 +2377,9 @@ def render_html(model):
   <main>
     <div class="hero">
       <div class="heroText">
-        <span class="eyebrow">XCMG ARC 独立开发</span>
+        <span class="eyebrow" data-en="North America Product Benchmark">北美产品竞争力分析</span>
         <h1>{esc(meta["title"])}</h1>
-        <p class="heroDescription">本页按照统一口径展示参数、标选配、典型工况、配置贡献、差距来源和提升模拟。全部结论可追溯至原始数据表和来源登记。</p>
-        <div class="actions"><a class="btn blue" href="#conditions">查看工况对标</a><a class="btn yellow" href="data/source-excel/{esc(meta["download"])}" download>导出原始 Excel</a><a class="btn" href="arc.html">返回对标平台主页</a></div>
+        <div class="actions"><a class="btn blue" href="{primary_analysis_target}" data-en="{primary_analysis_en}">{primary_analysis_zh}</a><a class="btn yellow" href="#conditions" data-en="Work-condition benchmark">工况对标</a><a class="btn" href="data-downloads.html" data-en="Data center">数据中心</a></div>
       </div>
       <div class="heroMedia"><img src="{esc(meta["image"])}" alt="{esc(meta["xcmg"])} 产品图"></div>
     </div>
@@ -1660,6 +2393,8 @@ def render_html(model):
         <div class="kpi"><span>XCMG 数据覆盖</span><b>{fmt_percent(model["overallCoverage"].get(xcmg))}</b><span>完整度等级：{completeness_label(model["overallCoverage"].get(xcmg))}</span></div>
       </div>
     </section>
+
+    {tonnage_insights_html}
 
     {render_overall_section(model)}
 
@@ -1775,6 +2510,15 @@ function setupRawTabs(){{
     document.querySelectorAll('.rawTable').forEach(t=>t.dataset.open=String(t.dataset.name===btn.dataset.table));
   }}));
 }}
+function setupPptBusinessTables(){{
+  const query=new URLSearchParams(window.location.search).get('lang');
+  let stored='';
+  try{{stored=localStorage.getItem('xcmg-benchmark-language')||'';}}catch(_error){{}}
+  const language=query==='en'||(query!=='zh'&&stored==='en')?'en':'zh';
+  document.querySelectorAll('.pptBusinessTable').forEach(item=>{{
+    item.open=language!=='en';
+  }});
+}}
 function setupPageNavigation(){{
   const toggle=document.querySelector('.navToggle');
   const menu=document.querySelector('.navMenu');
@@ -1792,6 +2536,30 @@ function setupPageNavigation(){{
       }}
     }}));
   }}
+  const navLinks=menu?[...menu.querySelectorAll('a[href^="#"]')]:[];
+  const tracked=navLinks.map(link=>({{link,section:document.querySelector(link.getAttribute('href'))}})).filter(item=>item.section);
+  let navTicking=false;
+  const updateActiveNav=()=>{{
+    navTicking=false;
+    if(!tracked.length) return;
+    const offset=window.matchMedia('(max-width:1200px)').matches?92:120;
+    let active=tracked[0];
+    tracked.forEach(item=>{{if(item.section.getBoundingClientRect().top<=offset) active=item;}});
+    navLinks.forEach(link=>link.classList.toggle('active',link===active.link));
+    menu?.querySelectorAll('.navGroup').forEach(group=>{{
+      const current=Boolean(group.querySelector('a.active'));
+      group.classList.toggle('current',current);
+      if(current) group.open=true;
+    }});
+  }};
+  const scheduleActiveNav=()=>{{
+    if(navTicking) return;
+    navTicking=true;
+    window.requestAnimationFrame(updateActiveNav);
+  }};
+  window.addEventListener('scroll',scheduleActiveNav,{{passive:true}});
+  window.addEventListener('resize',scheduleActiveNav,{{passive:true}});
+  scheduleActiveNav();
   const backTop=document.querySelector('.backTop');
   if(backTop){{
     const update=()=>backTop.classList.toggle('show',window.scrollY>640);
@@ -1810,13 +2578,14 @@ function setupMobileDisclosures(){{
   if(media.addEventListener) media.addEventListener('change',apply);
   else if(media.addListener) media.addListener(apply);
 }}
+setupPptBusinessTables();
 setupMobileDisclosures();
 setupRadars();
 setupSimulators();
 setupRawTabs();
 setupPageNavigation();
 </script>
-<script src="assets/i18n.js?v=20260721c"></script>
+<script src="assets/i18n.js?v=20260723c"></script>
 </body>
 </html>
 """
@@ -2069,6 +2838,8 @@ def update_arc_metrics(models):
 
 
 def write_project_manifest(models):
+    ppt_business_tables = load_ppt_business_tables()
+    table_summary = ppt_business_tables.get("summary", {})
     manifest = {
         "productLineCount": 7,
         "excavatorTonnageCount": len(models),
@@ -2076,6 +2847,18 @@ def write_project_manifest(models):
         "sourceWorkbookCount": len(SOURCE_FILES),
         "minimumScoreCoverage": MIN_SCORE_COVERAGE,
         "overallWeights": OVERALL_WEIGHTS,
+        "marketOverview": {
+            "output": "excavator-market-overview.html",
+            "data": "data/ppt-insights/excavator-market-overview.json",
+            "classification": "XCMG ARC INTERNAL",
+        },
+        "pptBusinessTables": {
+            "data": "data/ppt-insights/ppt-business-tables.json",
+            "includedBusinessTableCount": table_summary.get("included_table_count", 0),
+            "excludedNavigationTableCount": table_summary.get("excluded", {}).get("navigation_table", 0),
+            "excludedPersonnelTableCount": table_summary.get("excluded", {}).get("personnel_table", 0),
+            "classification": "XCMG ARC INTERNAL",
+        },
         "dashboards": [
             {
                 "label": model["meta"]["label"],
@@ -2094,24 +2877,381 @@ def write_project_manifest(models):
     )
 
 
+PPT_CHART_CSS = r"""
+/* Source charts are rebuilt from the embedded workbook data. */
+.sourceVisualGrid:has(.sourceDataChart){grid-template-columns:minmax(0,1fr)}
+.sourceDataChart{display:block;min-width:0;padding:0;border:1px solid #b8ccdd;background:#fff;overflow:hidden}
+.sourceDataChart>figcaption{display:flex;align-items:center;min-height:42px;padding:10px 14px;border-bottom:1px solid #d7e2ec;background:#f3f8fb;color:#073c70;font-size:14px;font-weight:900;line-height:1.4}
+.sourceChartViewport{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-color:#8299ad #edf2f6;background:#fff}
+.sourceChartSvg{display:block;width:100%;min-width:44rem;height:auto;max-height:none;background:#fff;font-family:"Segoe UI",Arial,"Microsoft YaHei",sans-serif}
+.sourceDataChart[data-chart-density="dense"] .sourceChartSvg{width:100%;min-width:66rem}
+.sourceChartGrid line,.sourceChartRadarGrid line,.sourceChartRadarGrid polygon{fill:none;stroke:#dbe6ef;stroke-width:1}
+.sourceChartSvg text,.sourceChartGrid,.sourceChartRadarGrid,.sourceChartLabels{pointer-events:none}
+.sourceChartGrid text,.sourceChartLabels text{fill:#36536d;font-size:12px}
+.sourceChartCategory,.sourceChartRadarLabel,.sourceChartAxisTitle{fill:#0a355c!important;font-weight:800}
+.sourceChartAxisTitle{font-size:13px!important}
+.sourceChartAxisValue,.sourceChartSecondaryAxis{fill:#64798c!important;font-size:10px!important}
+.sourceChartValue,.sourceChartTotal,.sourceChartGrowthValue{fill:#082f54!important;font-size:11px!important;font-weight:900}
+.sourceChartSegmentValue{fill:#fff!important;font-size:10px!important;font-weight:900;paint-order:stroke;stroke:rgba(0,35,68,.38);stroke-width:2px}
+.sourceChartMark,.sourceChartPoint,.sourceChartSeries,.sourceChartBubble,.sourceChartDonutArc{transition:opacity .16s ease,filter .16s ease,stroke-width .16s ease}
+.sourceChartMarks:hover .sourceChartMark:not(:hover),.sourceChartMarks:hover .sourceChartSeries:not(:hover),.sourceChartMarks:hover .sourceChartBubble:not(:hover){opacity:.24}
+.sourceChartMark:hover,.sourceChartSeries:hover,.sourceChartBubble:hover{opacity:1;filter:brightness(1.04) saturate(1.12)}
+.sourceChartLine{fill:none;stroke-width:3}
+.sourceChartSeries polygon{fill:var(--series-color);fill-opacity:.10;stroke:var(--series-color);stroke-width:2.4}
+.sourceChartSeries circle{fill:var(--series-color);fill-opacity:.88;stroke:#fff;stroke-width:1.5}
+.sourceChartSeries:hover polygon{fill-opacity:.20;stroke-width:3.4}
+.sourceChartArea{opacity:.86;stroke:#fff;stroke-width:1}
+.sourceChartBubble circle{fill:var(--series-color);fill-opacity:.74;stroke:var(--series-color);stroke-width:2}
+.sourceChartLeader{stroke:var(--series-color);stroke-width:1.2;opacity:.72}
+.sourceChartBubbleLabel{fill:#0a355c!important;font-size:11px!important;font-weight:900}
+.sourceChartBubbleValue{fill:#60758a!important;font-size:9px!important;font-weight:800}
+.sourceChartLegend{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px 14px;padding:10px 14px 12px;border-top:1px solid #e0e8ef;background:#fbfdff;color:#334f67;font-size:11px}
+.sourceChartLegendItem{display:inline-flex;align-items:center;gap:5px;min-width:0}
+.sourceChartLegendItem i{display:inline-block;width:11px;height:11px;flex:0 0 11px;background:var(--series-color)}
+.sourceChartLegendLine i{height:3px}
+.sourceChartLegendItem b{font-weight:800;overflow-wrap:anywhere}
+.sourceChartDonutArc{fill:none}
+.sourceChartDonutTotal{fill:#073c70;font-size:32px;font-weight:900}
+.sourceChartDonutLabel{fill:#64798c;font-size:11px;font-weight:800;letter-spacing:.08em}
+.sourceVisual-picture{min-height:0}
+.sourceVisual-picture img{width:auto;max-width:100%;height:auto;max-height:480px;object-fit:contain}
+.sourceDataChart,.nativeChartPanel{position:relative}
+.chartInteractable{cursor:pointer;outline:none;transform-box:fill-box;transform-origin:center;transition:opacity .16s ease,filter .16s ease,transform .16s ease,stroke-width .16s ease}
+.chartHasFocus .chartInteractable.is-dimmed{opacity:.16!important;filter:saturate(.24)}
+.chartInteractable.is-focused{opacity:1!important;filter:drop-shadow(0 2px 3px rgba(3,52,92,.28)) brightness(1.05) saturate(1.12)}
+.sourceChartMark.is-focused,.nativeChartBar.is-focused{transform:translateY(-2px)}
+.sourceChartDonutArc.is-focused{stroke-width:78!important}
+.nativeDonutSegment.is-focused{stroke-width:60!important}
+.chartInteractable:focus-visible{stroke:#f7b500!important;stroke-width:3!important;filter:drop-shadow(0 0 3px rgba(247,181,0,.58))}
+.sourceChartLegendItem,.nativeChartLegendItem,.nativeDonutLegend li{cursor:pointer;outline:none;border-radius:2px;transition:opacity .16s ease,background .16s ease,box-shadow .16s ease}
+.sourceChartLegendItem.is-dimmed,.nativeChartLegendItem.is-dimmed,.nativeDonutLegend li.is-dimmed{opacity:.3}
+.sourceChartLegendItem.is-focused,.nativeChartLegendItem.is-focused,.nativeDonutLegend li.is-focused{opacity:1;background:#eaf3fa;box-shadow:0 0 0 2px #a8c7df}
+.sourceChartLegendItem:focus-visible,.nativeChartLegendItem:focus-visible,.nativeDonutLegend li:focus-visible{box-shadow:0 0 0 2px #f7b500}
+.chartLockState{position:absolute;z-index:4;top:8px;right:10px;display:inline-flex;align-items:center;gap:7px;min-height:27px;padding:4px 8px;border:1px solid #8fb5d2;background:#fff;color:#075da8;font:800 11px/1 "Segoe UI",Arial,"Microsoft YaHei",sans-serif;box-shadow:0 2px 8px rgba(7,60,112,.12);cursor:pointer}
+.chartLockState[hidden]{display:none}
+.chartLockState b{font-size:15px;line-height:1}
+.sourceDataChart:has(.chartLockState:not([hidden]))>figcaption,.nativeChartPanel:has(.chartLockState:not([hidden]))>h4{padding-right:92px}
+.chartInteractionTooltip{position:fixed;z-index:10000;max-width:min(340px,calc(100vw - 24px));padding:8px 10px;border:1px solid #6f9cbd;background:#062f54;color:#fff;font:700 12px/1.45 "Segoe UI",Arial,"Microsoft YaHei",sans-serif;box-shadow:0 6px 20px rgba(3,32,58,.24);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}
+.chartInteractionTooltip.is-visible{opacity:1;transform:translateY(0)}
+@media(max-width:720px){
+  .sourceDataChart>figcaption{min-height:38px;padding:9px 10px;font-size:12px}
+  .sourceChartSvg{min-width:42rem}
+  .sourceDataChart[data-chart-density="dense"] .sourceChartSvg{width:72rem;min-width:72rem}
+  .sourceChartLegend{justify-content:flex-start;gap:6px 10px;padding:8px 10px 10px;font-size:10px}
+  .sourceVisual-picture img{width:auto;max-width:100%;height:auto;max-height:none}
+  .chartLockState{position:static;margin:8px 10px 0;box-shadow:none}
+  .sourceDataChart:has(.chartLockState:not([hidden]))>figcaption,.nativeChartPanel:has(.chartLockState:not([hidden]))>h4{padding-right:10px}
+}
+"""
+
+
+PPT_CHART_INTERACTION_JS = r"""
+(function () {
+  'use strict';
+
+  const chartSelector = '.sourceDataChart, .nativeChartPanel';
+  const markSelector = [
+    '.sourceChartMark',
+    '.sourceChartSeries',
+    '.sourceChartBubble',
+    '.sourceChartPoint',
+    '.sourceChartDonutArc',
+    '.nativeChartMark'
+  ].join(',');
+  const legendSelector = [
+    '.sourceChartLegendItem',
+    '.nativeChartLegendItem',
+    '.nativeDonutLegend li'
+  ].join(',');
+  let tooltip = null;
+
+  function isEnglish() {
+    return document.documentElement.lang.toLowerCase().startsWith('en');
+  }
+
+  function copy() {
+    return isEnglish()
+      ? {locked: 'Locked', clear: 'Clear chart selection'}
+      : {locked: '已锁定', clear: '清除图表选择'};
+  }
+
+  function ensureTooltip() {
+    if (tooltip) return tooltip;
+    tooltip = document.createElement('div');
+    tooltip.className = 'chartInteractionTooltip';
+    tooltip.setAttribute('role', 'tooltip');
+    tooltip.hidden = true;
+    document.body.appendChild(tooltip);
+    return tooltip;
+  }
+
+  function labelFor(node) {
+    if (!node) return '';
+    const explicit = isEnglish() ? node.dataset.tooltipEn : node.dataset.tooltip;
+    if (explicit) return explicit.trim();
+    const title = node.querySelector(':scope > title') || node.querySelector('title');
+    if (title?.textContent?.trim()) return title.textContent.trim();
+    return (node.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function placeTooltip(event, node) {
+    const tip = ensureTooltip();
+    const rect = node.getBoundingClientRect();
+    const requestedX = event?.clientX ?? rect.left + rect.width / 2;
+    const requestedY = event?.clientY ?? rect.top;
+    const margin = 12;
+    const width = tip.offsetWidth;
+    const height = tip.offsetHeight;
+    const left = Math.max(margin, Math.min(window.innerWidth - width - margin, requestedX + 13));
+    const above = requestedY - height - 12;
+    const top = above >= margin
+      ? above
+      : Math.min(window.innerHeight - height - margin, requestedY + 16);
+    tip.style.left = `${left}px`;
+    tip.style.top = `${Math.max(margin, top)}px`;
+  }
+
+  function showTooltip(node, event) {
+    const text = labelFor(node);
+    if (!text) return;
+    const tip = ensureTooltip();
+    tip.textContent = text;
+    tip.hidden = false;
+    tip.classList.add('is-visible');
+    window.requestAnimationFrame(() => placeTooltip(event, node));
+  }
+
+  function hideTooltip() {
+    if (!tooltip) return;
+    tooltip.classList.remove('is-visible');
+    window.setTimeout(() => {
+      if (!tooltip.classList.contains('is-visible')) tooltip.hidden = true;
+    }, 130);
+  }
+
+  function renderableMark(node) {
+    if (!(node instanceof SVGGraphicsElement)) return true;
+    try {
+      const box = node.getBBox();
+      return box.width > 0.2 || box.height > 0.2;
+    } catch (_) {
+      return true;
+    }
+  }
+
+  function seriesIndex(node) {
+    const value = node?.dataset?.seriesIndex;
+    return value === undefined ? '' : String(value);
+  }
+
+  function setPressed(node, pressed) {
+    node.classList.toggle('is-focused', pressed);
+    node.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+  }
+
+  function applyFocus(chart, target) {
+    const marks = [...chart.querySelectorAll(markSelector)].filter(renderableMark);
+    const legends = [...chart.querySelectorAll(legendSelector)];
+    const targetIsLegend = Boolean(target?.matches(legendSelector));
+    const targetSeries = seriesIndex(target);
+    const selectedMarks = targetIsLegend && targetSeries !== ''
+      ? marks.filter((mark) => seriesIndex(mark) === targetSeries)
+      : target ? [target] : [];
+
+    chart.classList.toggle('chartHasFocus', selectedMarks.length > 0);
+    marks.forEach((mark) => {
+      const selected = selectedMarks.includes(mark);
+      mark.classList.toggle('is-dimmed', selectedMarks.length > 0 && !selected);
+      setPressed(mark, selected);
+    });
+    legends.forEach((legend) => {
+      const selected = targetSeries !== '' && seriesIndex(legend) === targetSeries;
+      legend.classList.toggle('is-dimmed', selectedMarks.length > 0 && targetSeries !== '' && !selected);
+      setPressed(legend, selected);
+    });
+  }
+
+  function clearFocus(chart) {
+    chart.classList.remove('chartHasFocus');
+    chart.querySelectorAll(`${markSelector},${legendSelector}`).forEach((node) => {
+      node.classList.remove('is-focused', 'is-dimmed');
+      node.setAttribute('aria-pressed', 'false');
+    });
+  }
+
+  function updateLockState(chart) {
+    const state = chart.querySelector(':scope > .chartLockState');
+    if (!state) return;
+    const language = copy();
+    state.hidden = !chart.__chartLocked;
+    state.querySelector('span').textContent = language.locked;
+    state.setAttribute('aria-label', language.clear);
+    state.title = chart.__chartLocked ? labelFor(chart.__chartLocked) : language.clear;
+  }
+
+  function clearLock(chart) {
+    chart.__chartLocked = null;
+    clearFocus(chart);
+    updateLockState(chart);
+    hideTooltip();
+  }
+
+  function lockTarget(chart, target, event) {
+    if (chart.__chartLocked === target) {
+      clearLock(chart);
+      return;
+    }
+    chart.__chartLocked = target;
+    applyFocus(chart, target);
+    updateLockState(chart);
+    showTooltip(target, event);
+  }
+
+  function eventTarget(chart, event) {
+    const origin = event.target instanceof Element ? event.target : event.target?.parentElement;
+    const target = origin?.closest(`${markSelector},${legendSelector}`);
+    return target && chart.contains(target) ? target : null;
+  }
+
+  function prepareInteractiveNode(node, index) {
+    if (!node.dataset.seriesIndex && node.matches(legendSelector)) {
+      node.dataset.seriesIndex = String(index);
+    }
+    node.classList.add('chartInteractable');
+    node.setAttribute('role', 'button');
+    node.setAttribute('tabindex', '0');
+    node.setAttribute('aria-pressed', 'false');
+    const label = labelFor(node);
+    if (label) node.setAttribute('aria-label', label);
+  }
+
+  function initializeChart(chart) {
+    if (chart.dataset.chartInteractions === 'ready') return;
+    chart.dataset.chartInteractions = 'ready';
+    const marks = [...chart.querySelectorAll(markSelector)].filter(renderableMark);
+    const legends = [...chart.querySelectorAll(legendSelector)];
+    marks.forEach((node, index) => prepareInteractiveNode(node, index));
+    legends.forEach((node, index) => prepareInteractiveNode(node, index));
+    if (!marks.length) return;
+
+    const lockState = document.createElement('button');
+    lockState.className = 'chartLockState';
+    lockState.type = 'button';
+    lockState.hidden = true;
+    lockState.innerHTML = '<span></span><b aria-hidden="true">×</b>';
+    lockState.addEventListener('click', (event) => {
+      event.stopPropagation();
+      clearLock(chart);
+    });
+    chart.appendChild(lockState);
+    updateLockState(chart);
+
+    chart.addEventListener('pointerover', (event) => {
+      const target = eventTarget(chart, event);
+      if (!target || target.contains(event.relatedTarget)) return;
+      if (!chart.__chartLocked) applyFocus(chart, target);
+      showTooltip(target, event);
+    });
+    chart.addEventListener('pointermove', (event) => {
+      const target = eventTarget(chart, event);
+      if (target && tooltip && !tooltip.hidden) placeTooltip(event, target);
+    });
+    chart.addEventListener('pointerout', (event) => {
+      const target = eventTarget(chart, event);
+      if (!target || target.contains(event.relatedTarget)) return;
+      if (chart.__chartLocked) applyFocus(chart, chart.__chartLocked);
+      else clearFocus(chart);
+      hideTooltip();
+    });
+    chart.addEventListener('focusin', (event) => {
+      const target = eventTarget(chart, event);
+      if (!target) return;
+      if (!chart.__chartLocked) applyFocus(chart, target);
+      showTooltip(target);
+    });
+    chart.addEventListener('focusout', (event) => {
+      if (chart.contains(event.relatedTarget)) return;
+      if (chart.__chartLocked) applyFocus(chart, chart.__chartLocked);
+      else clearFocus(chart);
+      hideTooltip();
+    });
+    chart.addEventListener('click', (event) => {
+      const target = eventTarget(chart, event);
+      if (target) {
+        event.preventDefault();
+        lockTarget(chart, target, event);
+        return;
+      }
+      if (event.target.closest('.sourceChartViewport,.nativeChartCanvas,.sourceChartLegend,.nativeChartLegend,.nativeDonutLayout')) {
+        clearLock(chart);
+      }
+    });
+    chart.addEventListener('keydown', (event) => {
+      const target = eventTarget(chart, event);
+      if (event.key === 'Escape') {
+        clearLock(chart);
+      } else if (target && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        lockTarget(chart, target);
+      }
+    });
+  }
+
+  function initializeCharts(root) {
+    root.querySelectorAll(chartSelector).forEach(initializeChart);
+  }
+
+  function init() {
+    initializeCharts(document);
+    const observer = new MutationObserver((records) => {
+      records.forEach((record) => {
+        record.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return;
+          if (node.matches(chartSelector)) initializeChart(node);
+          initializeCharts(node);
+        });
+      });
+    });
+    observer.observe(document.body, {childList: true, subtree: true});
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, {once: true});
+  } else {
+    init();
+  }
+})();
+"""
+
+
 def externalize_dashboard_assets(page_html):
     style_start = page_html.index("  <style>")
     style_end = page_html.index("  </style>", style_start) + len("  </style>")
-    css = page_html[style_start + len("  <style>"): style_end - len("  </style>")].strip() + "\n"
+    css = (
+        page_html[style_start + len("  <style>"): style_end - len("  </style>")].strip()
+        + "\n"
+        + PPT_CHART_CSS.strip()
+        + "\n"
+    )
 
     script_start = page_html.rfind("<script>")
     script_end = page_html.index("</script>", script_start) + len("</script>")
-    javascript = page_html[script_start + len("<script>"): script_end - len("</script>")].strip() + "\n"
+    javascript = (
+        page_html[script_start + len("<script>"): script_end - len("</script>")].strip()
+        + "\n"
+        + PPT_CHART_INTERACTION_JS.strip()
+        + "\n"
+    )
 
     assets_dir = ROOT / "assets"
     assets_dir.mkdir(parents=True, exist_ok=True)
     (assets_dir / "dashboard.css").write_text(css, encoding="utf-8", newline="\n")
     (assets_dir / "dashboard.js").write_text(javascript, encoding="utf-8", newline="\n")
 
-    page_html = page_html[:style_start] + '  <link rel="stylesheet" href="assets/dashboard.css?v=20260717a">' + page_html[style_end:]
+    page_html = page_html[:style_start] + '  <link rel="stylesheet" href="assets/dashboard.css?v=20260724h">' + page_html[style_end:]
     script_start = page_html.rfind("<script>")
     script_end = page_html.index("</script>", script_start) + len("</script>")
-    page_html = page_html[:script_start] + '<script src="assets/dashboard.js"></script>' + page_html[script_end:]
+    page_html = page_html[:script_start] + '<script src="assets/dashboard.js?v=20260723g"></script>' + page_html[script_end:]
     return page_html
 
 
@@ -2124,6 +3264,7 @@ def main():
         model = build_model(wb, meta)
         models.append(model)
         page_html = externalize_dashboard_assets(render_html(model))
+        page_html = "\n".join(line.rstrip() for line in page_html.splitlines()) + "\n"
         (ROOT / meta["output"]).write_text(page_html, encoding="utf-8", newline="\n")
     write_project_manifest(models)
     update_arc_metrics(models)

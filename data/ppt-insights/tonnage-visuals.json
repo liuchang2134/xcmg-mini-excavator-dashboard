@@ -1,0 +1,384 @@
+{
+  "source": "XCMG_北美挖机产品线洞察_11.14_源文件.pptx",
+  "rule": "Selected picture shapes only; no full-slide screenshots.",
+  "records": [
+    {
+      "slug": "excavator-1-2t",
+      "sequence": 1,
+      "source_slide": 18,
+      "source_picture": 3,
+      "file": "assets/ppt-insights/excavator-1-2t-01.webp",
+      "pixel_width": 1154,
+      "pixel_height": 777
+    },
+    {
+      "slug": "excavator-1-2t",
+      "sequence": 2,
+      "source_slide": 20,
+      "source_picture": 3,
+      "file": "assets/ppt-insights/excavator-1-2t-02.webp",
+      "pixel_width": 1280,
+      "pixel_height": 658
+    },
+    {
+      "slug": "excavator-1-2t",
+      "sequence": 3,
+      "source_slide": 22,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-1-2t-03.webp",
+      "pixel_width": 579,
+      "pixel_height": 380
+    },
+    {
+      "slug": "excavator-1-2t",
+      "sequence": 4,
+      "source_slide": 24,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-1-2t-04.webp",
+      "pixel_width": 1280,
+      "pixel_height": 682
+    },
+    {
+      "slug": "excavator-2-3t",
+      "sequence": 1,
+      "source_slide": 36,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-2-3t-01.webp",
+      "pixel_width": 300,
+      "pixel_height": 296
+    },
+    {
+      "slug": "excavator-2-3t",
+      "sequence": 2,
+      "source_slide": 37,
+      "source_picture": 3,
+      "file": "assets/ppt-insights/excavator-2-3t-02.webp",
+      "pixel_width": 1034,
+      "pixel_height": 627
+    },
+    {
+      "slug": "excavator-2-3t",
+      "sequence": 3,
+      "source_slide": 37,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-2-3t-03.webp",
+      "pixel_width": 562,
+      "pixel_height": 356
+    },
+    {
+      "slug": "excavator-35t",
+      "sequence": 1,
+      "source_slide": 50,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-35t-01.webp",
+      "pixel_width": 1280,
+      "pixel_height": 734
+    },
+    {
+      "slug": "excavator-35t",
+      "sequence": 2,
+      "source_slide": 52,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-35t-02.webp",
+      "pixel_width": 1280,
+      "pixel_height": 678
+    },
+    {
+      "slug": "excavator-35t",
+      "sequence": 3,
+      "source_slide": 53,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-35t-03.webp",
+      "pixel_width": 1210,
+      "pixel_height": 731
+    },
+    {
+      "slug": "excavator-35t",
+      "sequence": 4,
+      "source_slide": 54,
+      "source_picture": 3,
+      "file": "assets/ppt-insights/excavator-35t-04.webp",
+      "pixel_width": 991,
+      "pixel_height": 629
+    },
+    {
+      "slug": "excavator-4-5t",
+      "sequence": 1,
+      "source_slide": 71,
+      "source_picture": 4,
+      "file": "assets/ppt-insights/excavator-4-5t-01.webp",
+      "pixel_width": 1085,
+      "pixel_height": 675
+    },
+    {
+      "slug": "excavator-4-5t",
+      "sequence": 2,
+      "source_slide": 72,
+      "source_picture": 3,
+      "file": "assets/ppt-insights/excavator-4-5t-02.webp",
+      "pixel_width": 1108,
+      "pixel_height": 672
+    },
+    {
+      "slug": "excavator-4-5t",
+      "sequence": 3,
+      "source_slide": 73,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-4-5t-03.webp",
+      "pixel_width": 1133,
+      "pixel_height": 667
+    },
+    {
+      "slug": "excavator-4-5t",
+      "sequence": 4,
+      "source_slide": 74,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-4-5t-04.webp",
+      "pixel_width": 1143,
+      "pixel_height": 633
+    },
+    {
+      "slug": "excavator-5-6t",
+      "sequence": 1,
+      "source_slide": 92,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-5-6t-01.webp",
+      "pixel_width": 1079,
+      "pixel_height": 611
+    },
+    {
+      "slug": "excavator-5-6t",
+      "sequence": 2,
+      "source_slide": 93,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-5-6t-02.webp",
+      "pixel_width": 955,
+      "pixel_height": 663
+    },
+    {
+      "slug": "excavator-5-6t",
+      "sequence": 3,
+      "source_slide": 94,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-5-6t-03.webp",
+      "pixel_width": 794,
+      "pixel_height": 637
+    },
+    {
+      "slug": "excavator-5-6t",
+      "sequence": 4,
+      "source_slide": 95,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-5-6t-04.webp",
+      "pixel_width": 1140,
+      "pixel_height": 659
+    },
+    {
+      "slug": "excavator-8-10t",
+      "sequence": 1,
+      "source_slide": 110,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-8-10t-01.webp",
+      "pixel_width": 1280,
+      "pixel_height": 718
+    },
+    {
+      "slug": "excavator-8-10t",
+      "sequence": 2,
+      "source_slide": 111,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-8-10t-02.webp",
+      "pixel_width": 1008,
+      "pixel_height": 654
+    },
+    {
+      "slug": "excavator-8-10t",
+      "sequence": 3,
+      "source_slide": 112,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-8-10t-03.webp",
+      "pixel_width": 1280,
+      "pixel_height": 694
+    },
+    {
+      "slug": "excavator-8-10t",
+      "sequence": 4,
+      "source_slide": 113,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-8-10t-04.webp",
+      "pixel_width": 966,
+      "pixel_height": 668
+    },
+    {
+      "slug": "excavator-12-16t",
+      "sequence": 1,
+      "source_slide": 133,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-12-16t-01.webp",
+      "pixel_width": 1280,
+      "pixel_height": 854
+    },
+    {
+      "slug": "excavator-12-16t",
+      "sequence": 2,
+      "source_slide": 134,
+      "source_picture": 3,
+      "file": "assets/ppt-insights/excavator-12-16t-02.webp",
+      "pixel_width": 1280,
+      "pixel_height": 724
+    },
+    {
+      "slug": "excavator-12-16t",
+      "sequence": 3,
+      "source_slide": 135,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-12-16t-03.webp",
+      "pixel_width": 1280,
+      "pixel_height": 797
+    },
+    {
+      "slug": "excavator-12-16t",
+      "sequence": 4,
+      "source_slide": 136,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-12-16t-04.webp",
+      "pixel_width": 969,
+      "pixel_height": 617
+    },
+    {
+      "slug": "excavator-19-24t",
+      "sequence": 1,
+      "source_slide": 154,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-19-24t-01.webp",
+      "pixel_width": 1071,
+      "pixel_height": 673
+    },
+    {
+      "slug": "excavator-19-24t",
+      "sequence": 2,
+      "source_slide": 155,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-19-24t-02.webp",
+      "pixel_width": 601,
+      "pixel_height": 900
+    },
+    {
+      "slug": "excavator-19-24t",
+      "sequence": 3,
+      "source_slide": 157,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-19-24t-03.webp",
+      "pixel_width": 1017,
+      "pixel_height": 622
+    },
+    {
+      "slug": "excavator-24-33t",
+      "sequence": 1,
+      "source_slide": 172,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-24-33t-01.webp",
+      "pixel_width": 600,
+      "pixel_height": 900
+    },
+    {
+      "slug": "excavator-24-33t",
+      "sequence": 2,
+      "source_slide": 173,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-24-33t-02.webp",
+      "pixel_width": 1280,
+      "pixel_height": 720
+    },
+    {
+      "slug": "excavator-24-33t",
+      "sequence": 3,
+      "source_slide": 174,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-24-33t-03.webp",
+      "pixel_width": 1100,
+      "pixel_height": 669
+    },
+    {
+      "slug": "excavator-24-33t",
+      "sequence": 4,
+      "source_slide": 175,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-24-33t-04.webp",
+      "pixel_width": 1127,
+      "pixel_height": 671
+    },
+    {
+      "slug": "excavator-33-40t",
+      "sequence": 1,
+      "source_slide": 201,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-33-40t-01.webp",
+      "pixel_width": 1280,
+      "pixel_height": 854
+    },
+    {
+      "slug": "excavator-33-40t",
+      "sequence": 2,
+      "source_slide": 202,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-33-40t-02.webp",
+      "pixel_width": 786,
+      "pixel_height": 476
+    },
+    {
+      "slug": "excavator-33-40t",
+      "sequence": 3,
+      "source_slide": 203,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-33-40t-03.webp",
+      "pixel_width": 1280,
+      "pixel_height": 724
+    },
+    {
+      "slug": "excavator-33-40t",
+      "sequence": 4,
+      "source_slide": 204,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-33-40t-04.webp",
+      "pixel_width": 1020,
+      "pixel_height": 669
+    },
+    {
+      "slug": "excavator-40-60t",
+      "sequence": 1,
+      "source_slide": 218,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-40-60t-01.webp",
+      "pixel_width": 1280,
+      "pixel_height": 735
+    },
+    {
+      "slug": "excavator-40-60t",
+      "sequence": 2,
+      "source_slide": 219,
+      "source_picture": 2,
+      "file": "assets/ppt-insights/excavator-40-60t-02.webp",
+      "pixel_width": 1173,
+      "pixel_height": 670
+    },
+    {
+      "slug": "excavator-40-60t",
+      "sequence": 3,
+      "source_slide": 220,
+      "source_picture": 3,
+      "file": "assets/ppt-insights/excavator-40-60t-03.webp",
+      "pixel_width": 1119,
+      "pixel_height": 664
+    },
+    {
+      "slug": "excavator-40-60t",
+      "sequence": 4,
+      "source_slide": 221,
+      "source_picture": 1,
+      "file": "assets/ppt-insights/excavator-40-60t-04.webp",
+      "pixel_width": 1280,
+      "pixel_height": 764
+    }
+  ]
+}

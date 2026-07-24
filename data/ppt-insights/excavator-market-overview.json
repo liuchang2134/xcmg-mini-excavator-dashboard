@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "classification": "XCMG ARC INTERNAL",
+    "scope": "excavator-category-overview",
+    "title": {
+      "zh": "北美挖掘机市场总览",
+      "en": "North American Excavator Market Overview"
+    },
+    "source_file": "XCMG_北美挖机产品线洞察_11.14_源文件.pptx",
+    "included_slides": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 246],
+    "excluded_slides": {
+      "1-2": "cover and divider",
+      "245": "employee names and role assignments are not exposed"
+    },
+    "current_review_date": "2026-07-22",
+    "current_status_rule": "Historical forecasts, targets and plan dates are not treated as actual results until revalidated."
+  },
+  "external_environment": [
+    {
+      "factor": {"zh": "社会与区域需求", "en": "Social and regional demand"},
+      "source_slides": [3, 8],
+      "metrics": [
+        {"zh": "美国人口约 3.35 亿，资料时点增速 0.5%", "en": "U.S. population approximately 335 million, with 0.5% growth at the source date"},
+        {"zh": "加拿大人口约 3,900 万，资料时点增速 1.2%", "en": "Canadian population approximately 39 million, with 1.2% growth at the source date"},
+        {"zh": "TX、FL、NC、GA、SC、TN 等增长州的人口增速超过 1.1%", "en": "Population growth exceeded 1.1% in states including TX, FL, NC, GA, SC and TN"}
+      ],
+      "observation": {
+        "zh": "人口和建设活动向南部、东南部迁移，住宅、市政、公用工程和租赁需求随之变化。客户普遍把可靠性、效率和使用口碑放在采购价格之前，并通过视频平台、行业论坛和社交媒体获取设备信息。",
+        "en": "Population and construction activity were shifting toward the South and Southeast, changing residential, municipal, utility and rental demand. Customers generally placed reliability, efficiency and operating reputation ahead of purchase price and used video platforms, industry forums and social media to research equipment."
+      },
+      "product_decision": {
+        "zh": "样机、备件和属具验证应优先覆盖增长州；产品定义需把可靠性、作业效率、远程诊断和数字化内容同步纳入，而不是只调整销售区域。",
+        "en": "Prototype placement, parts stock and attachment validation should prioritize growth states. Product definition should include reliability, job efficiency, remote diagnostics and digital content rather than only changing sales territory."
+      },
+      "status": {"zh": "资料时点市场观察，区域优先级需用最新销量复核", "en": "Source-period market observation; regional priorities require refresh with current sales"}
+    },
+    {
+      "factor": {"zh": "技术与本地化", "en": "Technology and localization"},
+      "source_slides": [4, 8],
+      "metrics": [
+        {"zh": "行业方向：高端化、智能化、低排放", "en": "Industry direction: premium, intelligent and lower-emission products"},
+        {"zh": "资料判断：本地用户理解与产品创新仍是 XCMG 的短板", "en": "Source finding: local user understanding and product innovation remained XCMG gaps"}
+      ],
+      "observation": {
+        "zh": "北美客户不会仅因配置名称购买设备，更关注液压响应、复合动作、辅助功能、可靠性和人机交互是否经过本地工况标定。品牌认知偏差也会放大尚未验证的产品风险。",
+        "en": "North American customers do not buy on feature names alone. They care whether hydraulic response, combined motion, assistance functions, reliability and HMI have been calibrated in local applications. Brand-perception gaps also magnify unverified product risk."
+      },
+      "product_decision": {
+        "zh": "让经销商、租赁公司和终端机手参与样机评审；优先验证液压标定、坡度辅助、全景影像、远程诊断和电动产品的真实使用边界，并用可复现试验解释优势。",
+        "en": "Include dealers, rental fleets and end users in prototype reviews. Prioritize field validation of hydraulic calibration, grade assistance, surround view, remote diagnostics and the real operating envelope of electric products, supported by repeatable tests."
+      },
+      "status": {"zh": "定性判断，需由当前产品与用户测试更新", "en": "Qualitative finding requiring current-product and user-test refresh"}
+    },
+    {
+      "factor": {"zh": "经济、融资与租赁", "en": "Economy, finance and rental"},
+      "source_slides": [5, 8],
+      "metrics": [
+        {"zh": "美国 2023 年实际 GDP 增长 2.5%", "en": "U.S. real GDP grew 2.5% in 2023"},
+        {"zh": "加拿大资料时点预测：2024 年约 1.0%，2025 年约 1.8%", "en": "Source-period Canadian outlook: approximately 1.0% in 2024 and 1.8% in 2025"},
+        {"zh": "United Rentals 2023 年租赁收入 120.64 亿美元，同比增长 19.1%", "en": "United Rentals reported 2023 rental revenue of USD 12.064 billion, up 19.1%"},
+        {"zh": "MCI-EFI 2024 年第二季度指数为 55.2", "en": "MCI-EFI index was 55.2 in Q2 2024"}
+      ],
+      "observation": {
+        "zh": "高利率和通胀提高设备月供与经销库存成本，市场从车队补库高点进入调整。租赁仍是重要渠道，矿山需求在资料时点相对更强，公用事业和房地产更弱。",
+        "en": "Higher interest rates and inflation raised monthly ownership and dealer inventory cost as the market moved from fleet restocking into correction. Rental remained an important channel; mining was relatively stronger at the source date while utility and real-estate demand was weaker."
+      },
+      "product_decision": {
+        "zh": "产品定义需同时覆盖租赁通用配置、维修周转、金融方案、二手机残值和大吨位专业工况；历史利率预期不得作为当前 2026 年事实使用。",
+        "en": "Product definition must address rental-ready configuration, service turnaround, finance, residual value and professional large-machine applications. Historical rate expectations must not be presented as current 2026 facts."
+      },
+      "status": {"zh": "历史实际与历史预测混合，预测项未视为当前结果", "en": "Mix of historical actuals and historical forecasts; forecast items are not current results"}
+    },
+    {
+      "factor": {"zh": "环境、排放与气候", "en": "Environment, emissions and climate"},
+      "source_slides": [6, 8],
+      "metrics": [
+        {"zh": "加州 CORE 等项目支持低排放或零排放非道路设备", "en": "Programs such as California CORE support low- or zero-emission off-road equipment"},
+        {"zh": "各州激励强度、补能条件和采用速度并不一致", "en": "Incentive strength, charging conditions and adoption rates differ by state"}
+      ],
+      "observation": {
+        "zh": "新能源设备的适用性取决于法规、补能、班次、温度和任务周期；危险材料、防泄漏以及高温、极寒、粉尘和腐蚀环境同样影响准入和可靠性。",
+        "en": "Suitability of electrified equipment depends on regulation, charging, shift length, temperature and duty cycle. Hazardous-material compliance, leak prevention, heat, extreme cold, dust and corrosion also affect market access and reliability."
+      },
+      "product_decision": {
+        "zh": "按州、客户和工况分层开展新能源试点；同步建立高温、极寒、防腐、防泄漏和电池安全验证，不把单一补贴项目等同于全市场需求。",
+        "en": "Stage electrified pilots by state, customer and application. Build heat, extreme-cold, corrosion, leak-prevention and battery-safety validation in parallel rather than treating one incentive program as nationwide demand."
+      },
+      "status": {"zh": "法规与激励会变化，正式决策前需当前复核", "en": "Regulations and incentives change and require current verification before decisions"}
+    },
+    {
+      "factor": {"zh": "贸易、认证与本地采购", "en": "Trade, certification and local procurement"},
+      "source_slides": [7, 8],
+      "metrics": [
+        {"zh": "资料曾采用 55% 关税情景进行内部风险分析", "en": "The source used a 55% tariff scenario for internal risk analysis"},
+        {"zh": "反倾销、认证文件和本地采购要求均可能改变落地成本", "en": "Trade remedies, certification files and local procurement rules can change landed cost"}
+      ],
+      "observation": {
+        "zh": "保护主义、认证门槛和地缘政治风险会影响配置选择、供应路径、交付周期与价格竞争力；历史关税情景不是当前税率结论。",
+        "en": "Protectionism, certification barriers and geopolitical risk affect configuration, sourcing path, lead time and price competitiveness. The historical tariff scenario is not a statement of the current tariff rate."
+      },
+      "product_decision": {
+        "zh": "同步评估友岸保供、零部件本地化、认证替代和技术文件完整性，把落地成本与交付风险纳入平台方案。",
+        "en": "Evaluate allied sourcing, component localization, certification alternatives and technical-file completeness together, including landed cost and delivery risk in the platform decision."
+      },
+      "status": {"zh": "历史政策情景，必须按当前法规重新核验", "en": "Historical policy scenario requiring revalidation against current regulation"}
+    }
+  ],
+  "market_cycle": [
+    {"year": "2021", "units": 83030, "status": "historical_actual", "source_slide": 9},
+    {"year": "2022", "units": 114106, "status": "historical_actual", "source_slide": 9},
+    {"year": "2023", "units": 132013, "status": "historical_actual", "source_slide": 9},
+    {"year": "2024", "units": 98632, "status": "historical_actual", "source_slide": 9},
+    {"year": "2025", "units": 90741, "status": "historical_forecast_not_current_actual", "source_slide": 9}
+  ],
+  "market_mix": {
+    "source": "EDA",
+    "source_slide": 11,
+    "years": ["2019", "2020", "2021", "2022", "2023", "2024"],
+    "series": {
+      "mini": [0.383853, 0.445993, 0.404408, 0.408595, 0.3975, 0.4],
+      "compact": [0.326015, 0.352346, 0.379527, 0.373958, 0.374749, 0.37],
+      "medium": [0.19073, 0.137617, 0.154453, 0.155684, 0.155274, 0.16],
+      "large": [0.099402, 0.064044, 0.061611, 0.061763, 0.072477, 0.07]
+    }
+  },
+  "competition_history": {
+    "source_slide": 10,
+    "years": ["2019", "2020", "2021", "2022", "2023"],
+    "origin_mix": {
+      "north_american": [63, 61, 57, 55, 55],
+      "japanese": [32, 34, 36, 36, 37],
+      "european": [3, 3, 3, 3, 3],
+      "korean": [1, 1, 1, 2, 2],
+      "chinese": [1, 1, 3, 4, 3]
+    },
+    "cr4": [87, 86, 81, 80, 82],
+    "interpretation": {
+      "zh": "本土品牌份额在资料期内下降，但仍保持约 55%；日系升至约 37%。前四品牌集中度由 2019 年 87% 降至 2022 年 80%，2023 年回升至 82%，说明市场虽有新进入者，但领先品牌体系仍然稳固。",
+      "en": "North American brands declined during the source period but still held about 55%, while Japanese brands rose to about 37%. CR4 fell from 87% in 2019 to 80% in 2022 and recovered to 82% in 2023, indicating new entrants without a collapse of the leading systems."
+    }
+  },
+  "tonnage_volume": [
+    {"range": "0-1 t", "group": "mini", "y2023": 2373, "y2024": 1091, "yoy": -0.540244},
+    {"range": "1-2 t", "group": "mini", "y2023": 8313, "y2024": 4299, "yoy": -0.482858},
+    {"range": "2-3 t", "group": "mini", "y2023": 7044, "y2024": 4632, "yoy": -0.342419},
+    {"range": "3-4 t", "group": "mini", "y2023": 27052, "y2024": 17832, "yoy": -0.340825},
+    {"range": "4-5 t", "group": "compact", "y2023": 13829, "y2024": 12362, "yoy": -0.106081},
+    {"range": "5-6 t", "group": "compact", "y2023": 17289, "y2024": 13557, "yoy": -0.215859},
+    {"range": "6-8 t", "group": "compact", "y2023": 5791, "y2024": 4256, "yoy": -0.265066},
+    {"range": "8-10 t", "group": "compact", "y2023": 9427, "y2024": 7294, "yoy": -0.226265},
+    {"range": "12-14 t", "group": "medium", "y2023": 2186, "y2024": 1092, "yoy": -0.500457},
+    {"range": "14-16 t", "group": "medium", "y2023": 3965, "y2024": 2246, "yoy": -0.433544},
+    {"range": "16-19 t", "group": "medium", "y2023": 2463, "y2024": 1009, "yoy": -0.590337},
+    {"range": "19-21 t", "group": "medium", "y2023": 1939, "y2024": 1518, "yoy": -0.217122},
+    {"range": "21-24 t", "group": "medium", "y2023": 4991, "y2024": 2864, "yoy": -0.426167},
+    {"range": "24-28 t", "group": "medium", "y2023": 2966, "y2024": 1559, "yoy": -0.474376},
+    {"range": "28-33 t", "group": "medium", "y2023": 1840, "y2024": 1366, "yoy": -0.257609},
+    {"range": "33-40 t", "group": "large", "y2023": 5704, "y2024": 4315, "yoy": -0.243513},
+    {"range": "40-50 t", "group": "large", "y2023": 2169, "y2024": 1776, "yoy": -0.181189},
+    {"range": "50-66 t", "group": "large", "y2023": 209, "y2024": 116, "yoy": -0.444976},
+    {"range": "66-80 t", "group": "large", "y2023": 198, "y2024": 149, "yoy": -0.247475},
+    {"range": "80-100 t", "group": "large", "y2023": 163, "y2024": 137, "yoy": -0.159509}
+  ],
+  "class_priorities": [
+    {
+      "group": {"zh": "微挖 0–4 吨", "en": "Mini 0-4 t"},
+      "share_2024": 40,
+      "primary": "3-4 t / 1-2 t / 2-3 t",
+      "secondary": "0-1 t",
+      "decision": {"zh": "以运输、狭窄进入、低速微操、地面保护和租赁通用性定义产品。", "en": "Define the product around transport, confined access, low-speed control, ground protection and rental versatility."}
+    },
+    {
+      "group": {"zh": "小挖 4–10 吨", "en": "Compact 4-10 t"},
+      "share_2024": 37,
+      "primary": "5-6 t / 4-5 t",
+      "secondary": "8-10 t / 6-8 t",
+      "decision": {"zh": "在运输灵活性基础上提升挖掘、起吊、行走和多属具效率。", "en": "Improve digging, lifting, travel and attachment productivity without losing transport flexibility."}
+    },
+    {
+      "group": {"zh": "中挖 10–33 吨", "en": "Medium 10-33 t"},
+      "share_2024": 16,
+      "primary": "21-24 t / 14-16 t / 24-28 t",
+      "secondary": "19-21 t / 12-14 t / 28-33 t",
+      "decision": {"zh": "围绕沟槽、基础、起吊和装车分别定义常规尾、短尾与长斗杆方案。", "en": "Define conventional-tail, short-tail and long-stick packages for trenching, foundations, lifting and loading."}
+    },
+    {
+      "group": {"zh": "大挖 33 吨以上", "en": "Large above 33 t"},
+      "share_2024": 7,
+      "primary": "33-40 t / 40-50 t",
+      "secondary": "50-66 t / 66-80 t",
+      "decision": {"zh": "以装车产量、重载耐久、运输拆装、散热和全生命周期支持定义产品。", "en": "Define the product through loading output, heavy-duty durability, transport preparation, cooling and lifecycle support."}
+    }
+  ],
+  "competition_2025": {
+    "source": "EDA",
+    "source_slide": 12,
+    "compact": [
+      {"brand": "KUBOTA", "units": 8917, "share": 24},
+      {"brand": "CAT", "units": 7083, "share": 19},
+      {"brand": "BOBCAT", "units": 6005, "share": 16},
+      {"brand": "DEERE", "units": 5578, "share": 15},
+      {"brand": "TAKEUCHI", "units": 1389, "share": 4},
+      {"brand": "KOMATSU", "units": 1032, "share": 3},
+      {"brand": "HITACHI", "units": 903, "share": 2},
+      {"brand": "YANMAR", "units": 840, "share": 2},
+      {"brand": "SANY", "units": 828, "share": 2},
+      {"brand": "CASE", "units": 748, "share": 2},
+      {"brand": "XCMG", "units": 145, "share": 0, "share_label": "<1%"}
+    ],
+    "mid_large": [
+      {"brand": "CAT", "units": 4221, "share": 35},
+      {"brand": "KOMATSU", "units": 2163, "share": 18},
+      {"brand": "DEERE", "units": 1947, "share": 16},
+      {"brand": "HITACHI", "units": 734, "share": 6},
+      {"brand": "VOLVO", "units": 525, "share": 4},
+      {"brand": "LINK-BELT", "units": 464, "share": 4},
+      {"brand": "KOBELCO", "units": 371, "share": 3},
+      {"brand": "CASE", "units": 332, "share": 3},
+      {"brand": "LIEBHERR", "units": 291, "share": 2},
+      {"brand": "SANY", "units": 275, "share": 2},
+      {"brand": "XCMG", "units": 21, "share": 0, "share_label": "<1%"}
+    ],
+    "data_quality_note": "The narrative rank and table-row position for XCMG in 0-10 t are inconsistent, so this page uses units and share rather than a formal rank."
+  },
+  "brand_volume_2024_2025": {
+    "source_slide": 12,
+    "compact": [
+      {"brand": "KUBOTA", "y2024_units": 9699, "y2024_share": 28, "y2025_units": 8917, "y2025_share": 24},
+      {"brand": "BOBCAT", "y2024_units": 5632, "y2024_share": 17, "y2025_units": 6005, "y2025_share": 16},
+      {"brand": "CAT", "y2024_units": 5577, "y2024_share": 16, "y2025_units": 7083, "y2025_share": 19},
+      {"brand": "DEERE", "y2024_units": 4511, "y2024_share": 13, "y2025_units": 5578, "y2025_share": 15},
+      {"brand": "TAKEUCHI", "y2024_units": 1206, "y2024_share": 4, "y2025_units": 1389, "y2025_share": 4},
+      {"brand": "SANY", "y2024_units": 1097, "y2024_share": 3, "y2025_units": 828, "y2025_share": 2},
+      {"brand": "CASE", "y2024_units": 999, "y2024_share": 3, "y2025_units": 748, "y2025_share": 2},
+      {"brand": "KOMATSU", "y2024_units": 854, "y2024_share": 3, "y2025_units": 1032, "y2025_share": 3},
+      {"brand": "YANMAR", "y2024_units": 798, "y2024_share": 2, "y2025_units": 840, "y2025_share": 2},
+      {"brand": "HITACHI", "y2024_units": 714, "y2024_share": 2, "y2025_units": 903, "y2025_share": 2},
+      {"brand": "NEW HOLLAND", "y2024_units": 382, "y2024_share": 1, "y2025_units": 285, "y2025_share": 1},
+      {"brand": "JCB", "y2024_units": 369, "y2024_share": 1, "y2025_units": 394, "y2025_share": 1},
+      {"brand": "DEVELON", "y2024_units": 338, "y2024_share": 1, "y2025_units": 199, "y2025_share": 1},
+      {"brand": "VOLVO", "y2024_units": 255, "y2024_share": 1, "y2025_units": 230, "y2025_share": 1},
+      {"brand": "KOBELCO", "y2024_units": 236, "y2024_share": 1, "y2025_units": 270, "y2025_share": 1},
+      {"brand": "HYUNDAI", "y2024_units": 205, "y2024_share": 1, "y2025_units": 176, "y2025_share": 0},
+      {"brand": "AGT INDL", "y2024_units": 175, "y2024_share": 1, "y2025_units": 280, "y2025_share": 1},
+      {"brand": "KYMRON", "y2024_units": 118, "y2024_share": 0, "y2025_units": 86, "y2025_share": 0},
+      {"brand": "WACKER NEUSON", "y2024_units": 118, "y2024_share": 0, "y2025_units": 154, "y2025_share": 0},
+      {"brand": "AGROTK", "y2024_units": 86, "y2024_share": 0, "y2025_units": 8, "y2025_share": 0},
+      {"brand": "LIUGONG", "y2024_units": 85, "y2024_share": 0, "y2025_units": 57, "y2025_share": 0},
+      {"brand": "XCMG", "y2024_units": 80, "y2024_share": 0, "y2025_units": 145, "y2025_share": 0},
+      {"brand": "KATO", "y2024_units": 72, "y2024_share": 0, "y2025_units": 86, "y2025_share": 0}
+    ],
+    "mid_large": [
+      {"brand": "CAT", "y2024_units": 3541, "y2024_share": 33, "y2025_units": 4221, "y2025_share": 35},
+      {"brand": "DEERE", "y2024_units": 2129, "y2024_share": 20, "y2025_units": 1947, "y2025_share": 16},
+      {"brand": "KOMATSU", "y2024_units": 1824, "y2024_share": 17, "y2025_units": 2163, "y2025_share": 18},
+      {"brand": "VOLVO", "y2024_units": 545, "y2024_share": 5, "y2025_units": 525, "y2025_share": 4},
+      {"brand": "HITACHI", "y2024_units": 512, "y2024_share": 5, "y2025_units": 734, "y2025_share": 6},
+      {"brand": "LINK-BELT", "y2024_units": 418, "y2024_share": 4, "y2025_units": 464, "y2025_share": 4},
+      {"brand": "CASE", "y2024_units": 376, "y2024_share": 3, "y2025_units": 332, "y2025_share": 3},
+      {"brand": "KOBELCO", "y2024_units": 346, "y2024_share": 3, "y2025_units": 371, "y2025_share": 3},
+      {"brand": "SANY", "y2024_units": 267, "y2024_share": 2, "y2025_units": 275, "y2025_share": 2},
+      {"brand": "HYUNDAI", "y2024_units": 263, "y2024_share": 2, "y2025_units": 216, "y2025_share": 2},
+      {"brand": "DEVELON", "y2024_units": 216, "y2024_share": 2, "y2025_units": 126, "y2025_share": 1},
+      {"brand": "JCB", "y2024_units": 59, "y2024_share": 1, "y2025_units": 67, "y2025_share": 1},
+      {"brand": "LIUGONG", "y2024_units": 46, "y2024_share": 0, "y2025_units": 24, "y2025_share": 0},
+      {"brand": "TAKEUCHI", "y2024_units": 44, "y2024_share": 0, "y2025_units": 38, "y2025_share": 0},
+      {"brand": "DOOSAN", "y2024_units": 43, "y2024_share": 0, "y2025_units": null, "y2025_share": null},
+      {"brand": "BOBCAT", "y2024_units": 37, "y2024_share": 0, "y2025_units": 60, "y2025_share": 0},
+      {"brand": "LIEBHERR", "y2024_units": 20, "y2024_share": 0, "y2025_units": 291, "y2025_share": 2},
+      {"brand": "XCMG", "y2024_units": 17, "y2024_share": 0, "y2025_units": 21, "y2025_share": 0},
+      {"brand": "KATO", "y2024_units": 10, "y2024_share": 0, "y2025_units": null, "y2025_share": null},
+      {"brand": "AGROTK", "y2024_units": 9, "y2024_share": 0, "y2025_units": null, "y2025_share": null}
+    ]
+  },
+  "benchmark_systems": [
+    {
+      "brand": "KUBOTA",
+      "scope": {"zh": "微挖与小挖标杆", "en": "Mini and compact benchmark"},
+      "source_slide": 13,
+      "product": {"zh": "三泵节流系统强调复合动作细腻性，短尾与常规尾并行，并以不同配置覆盖细分工况。", "en": "A three-pump load-sensing approach emphasizes fine combined motion, with short-tail and conventional-tail variants and multiple trims for distinct applications."},
+      "customer": {"zh": "中小客户、融资和租赁用户重视易用、可靠、快速决策和口碑传播。", "en": "Small customers, finance users and rental fleets value usability, reliability, short decision paths and word-of-mouth."},
+      "positioning": {"zh": "资料把久保田概括为高稳定性、高残值和较高价格的微挖专家。", "en": "The source characterizes Kubota as a mini-excavator specialist with high stability, strong residual value and relatively high pricing."},
+      "commercial": {"zh": "资料时点政策包括租赁与分期方案；XCMG 价格约低 15%，但融资灵活度和残值体系仍需完善。", "en": "Source-period policies included rental and installment options. XCMG was described as approximately 15% lower in price but less mature in financing flexibility and residual-value support."},
+      "service": {"zh": "资料时点：整机 2 年/2,000 小时，最长延保 5 年/5,000 小时，发动机 500 小时保养，并强调 24 小时服务和备件响应。", "en": "Source-period policy: 2 years/2,000 hours, extension up to 5 years/5,000 hours, 500-hour engine service interval, with emphasis on 24-hour service and parts response."},
+      "xcmg_implication": {"zh": "微小挖不能只靠低价，应建立液压手感、尾型组合、配置梯度、融资、服务和残值的完整拥有路径。", "en": "Mini and compact products cannot rely on low price alone; they need a complete ownership path covering hydraulic feel, tail choices, trim levels, finance, service and residual value."},
+      "status": {"zh": "历史商务与服务政策，正式引用前需当前核验", "en": "Historical commercial and service policy requiring current verification"}
+    },
+    {
+      "brand": "CATERPILLAR",
+      "scope": {"zh": "中挖与大挖标杆", "en": "Medium and large benchmark"},
+      "source_slide": 14,
+      "product": {"zh": "资料把全电控液压、智能辅助、重载平台、操控性和可靠性视为中大挖技术标尺。", "en": "The source treats electrohydraulic control, intelligent assistance, heavy-duty platforms, controllability and reliability as the technical reference for medium and large excavators."},
+      "customer": {"zh": "专业客户把 CAT 作为定价、品质、产量和全生命周期成本的参照，即使采购其他品牌也会与其比较。", "en": "Professional customers use CAT as a reference for price, quality, output and lifecycle cost even when purchasing another brand."},
+      "positioning": {"zh": "高端、专业、安全、可靠，产品价值由主机与完整支持体系共同构成。", "en": "Premium, professional, safe and reliable, with value created jointly by the machine and the support system."},
+      "commercial": {"zh": "资料时点具有融资租赁、弹性付款、残值回购和再制造闭环；XCMG 价格约低 25%–30%。", "en": "At the source date, the system included finance leasing, flexible payment, residual-value buyback and remanufacturing. XCMG was described as approximately 25%-30% lower in price."},
+      "service": {"zh": "资料时点：1 年不限小时质保，最长延保 5 年/10,000 小时，24/7 服务，备件可在 24–48 小时响应。", "en": "Source-period policy: one-year unlimited-hour warranty, extension up to 5 years/10,000 hours, 24/7 service and 24-48 hour parts response."},
+      "xcmg_implication": {"zh": "中大挖需要同时证明生产率、可靠性、电液控制、智能化、服务、配件、金融和残值；只有达到使用门槛后，价格优势才有说服力。", "en": "Medium and large machines must prove productivity, reliability, electrohydraulic control, intelligence, service, parts, finance and residual value. Price advantage matters only after the operating threshold is met."},
+      "status": {"zh": "历史商务与服务政策，正式引用前需当前核验", "en": "Historical commercial and service policy requiring current verification"}
+    }
+  ],
+  "class_case_1_2t": {
+    "source_slides": [16, 17, 18],
+    "status": "historical_class_evidence",
+    "title": {"zh": "1–2 吨：运输边界、客户结构与园林任务链", "en": "1-2 t: transport boundary, customer mix and landscaping task chain"},
+    "model_heatmap_image": "assets/ppt-insights/overview-1-2t-model-heatmap.png",
+    "model_findings": {
+      "zh": "资料期内久保田、迪尔、山猫和卡特合计约占 65%，无尾产品是主流。久保田、卡特和三一均以双机型或多配置覆盖狭窄作业、驾驶室舒适性和价格梯度；单一基础机型难以覆盖全部需求。",
+      "en": "During the source period, Kubota, Deere, Bobcat and Caterpillar together held about 65%, and zero-tail machines were the mainstream. Kubota, Caterpillar and SANY used multiple models or trims to cover confined work, cab comfort and price tiers; one base machine could not cover every need."
+    },
+    "customer_mix": [
+      {"segment": {"zh": "景观绿化公司", "en": "Landscaping companies"}, "share": 35},
+      {"segment": {"zh": "小型承包商", "en": "Small contractors"}, "share": 30},
+      {"segment": {"zh": "设备租赁公司", "en": "Equipment rental"}, "share": 25},
+      {"segment": {"zh": "公共部门", "en": "Public sector"}, "share": 5},
+      {"segment": {"zh": "农场主", "en": "Farm owners"}, "share": 5}
+    ],
+    "transport": {
+      "images": [
+        "assets/ppt-insights/overview-1-2t-transport-trailer.png",
+        "assets/ppt-insights/overview-1-2t-pickup-trailer.png"
+      ],
+      "facts": [
+        {"zh": "普通驾照运输边界：组合额定总质量不超过 26,000 lb，拖车不超过 10,000 lb", "en": "Non-CDL transport boundary: GCWR at or below 26,000 lb and trailer at or below 10,000 lb"},
+        {"zh": "XE18U 资料操作重量为 1,795 kg", "en": "Source-listed XE18U operating mass: 1,795 kg"},
+        {"zh": "12 英寸挖沟斗 33 kg + 36 英寸清理斗 60 kg，组合约 1,888 kg", "en": "12-inch trench bucket 33 kg plus 36-inch cleanup bucket 60 kg, approximately 1,888 kg combined"},
+        {"zh": "资料所列 6K 拖车有效载荷约 1,900–2,040 kg", "en": "Source-listed 6K trailer payload: approximately 1,900-2,040 kg"}
+      ],
+      "conclusion": {
+        "zh": "该组合在资料时点满足最经济运输边界，但实际销售配置必须按拖车铭牌、属具、燃油、快换和附加选项重新核算，不能只用裸机质量判断。",
+        "en": "The source-period combination met the lowest-cost transport envelope, but every sales configuration must be recalculated using trailer rating, attachments, fuel, coupler and options rather than bare-machine mass."
+      }
+    },
+    "landscaping": {
+      "images": [
+        "assets/ppt-insights/overview-1-2t-landscape-trench.png",
+        "assets/ppt-insights/overview-1-2t-landscape-handling.png",
+        "assets/ppt-insights/overview-1-2t-landscape-precision.png"
+      ],
+      "tasks": [
+        {"zh": "规划并标记树坑、沟渠、花坛、走道与灌溉管线位置", "en": "Plan and mark tree pits, trenches, flower beds, walkways and irrigation lines"},
+        {"zh": "用铲斗和拇指钳清理植被、石块和水泥板", "en": "Clear vegetation, rocks and concrete slabs with bucket and thumb"},
+        {"zh": "使用 12/18/24 英寸定宽斗开挖并控制沟底宽度与深度", "en": "Excavate with 12/18/24-inch buckets while controlling trench width and depth"},
+        {"zh": "抓取或吊装树木、植物和管道并完成回填", "en": "Handle or lift trees, plants and pipe, then backfill"},
+        {"zh": "使用 18 英寸标准斗或 36 英寸清理斗配合推土铲整平", "en": "Grade with an 18-inch standard bucket or 36-inch cleanup bucket and blade"}
+      ],
+      "requirements": [
+        {"zh": "靠墙、围栏和既有景观附近的精细复合动作", "en": "Fine combined motion beside walls, fences and finished landscaping"},
+        {"zh": "990 mm 级窄机身与可伸缩底盘进入受限空间", "en": "Approximately 990 mm narrow body and retractable undercarriage for confined access"},
+        {"zh": "橡胶履带或橡胶履带块保护草坪和硬化地面", "en": "Rubber tracks or pads to protect turf and finished surfaces"},
+        {"zh": "本地快换、铲斗、破碎锤、液压夯和倾转属具兼容", "en": "Compatibility with local couplers, buckets, hammers, compactors and tilt attachments"}
+      ],
+      "conclusion": {
+        "zh": "1–2 吨的竞争不是单项挖掘力，而是运输、进入、精细操控、属具、地面保护和回填效率组成的完整任务链。",
+        "en": "Competition in 1-2 t is not one digging-force number; it is the complete task chain of transport, access, fine control, attachments, ground protection and backfill productivity."
+      }
+    }
+  },
+  "portfolio": {
+    "source_slides": [233, 234, 242, 243],
+    "historical_coverage": {"mini_compact": 0.75, "mid_large": 0.78},
+    "mini_compact": [
+      {"range": "0-1 t", "xcmg": "/", "status": "gap_low_priority", "historical_direction": "no introduction recommended"},
+      {"range": "1-2 t", "xcmg": "XE18U / XE19U", "status": "covered", "historical_direction": "higher-power variant"},
+      {"range": "2-3 t", "xcmg": "XE27U", "status": "covered", "historical_direction": "cab and PRO package"},
+      {"range": "3-4 t", "xcmg": "XE35U", "status": "covered", "historical_direction": "lightweight conventional-tail complement"},
+      {"range": "4-5 t", "xcmg": "XE45U", "status": "pilot_in_source", "historical_direction": "validate sales readiness"},
+      {"range": "5-6 t", "xcmg": "XE55U", "status": "covered", "historical_direction": "power and travel upgrade"},
+      {"range": "6-8 t", "xcmg": "XE75U", "status": "covered", "historical_direction": "generation update and short-tail complement"},
+      {"range": "8-10 t", "xcmg": "XE80U", "status": "covered", "historical_direction": "height, mass and stability optimization"}
+    ],
+    "mid_large": [
+      {"range": "12-14 t", "xcmg": "XE135U", "status": "covered", "historical_direction": "maintain class coverage"},
+      {"range": "14-16 t", "xcmg": "XE155U / XE155UCR", "status": "covered_overlap", "historical_direction": "simplify overlap and strengthen short-tail"},
+      {"range": "16-19 t", "xcmg": "/", "status": "gap", "historical_direction": "historical XE170U proposal"},
+      {"range": "19-21 t", "xcmg": "/", "status": "gap_low_priority", "historical_direction": "no introduction recommended in source"},
+      {"range": "21-24 t", "xcmg": "XE225U / XE235UCR", "status": "covered", "historical_direction": "conventional and short-tail pair"},
+      {"range": "24-28 t", "xcmg": "XE250U", "status": "covered", "historical_direction": "strength and control optimization"},
+      {"range": "28-33 t", "xcmg": "XE300U", "status": "covered", "historical_direction": "long-reach complement"},
+      {"range": "33-40 t", "xcmg": "XE360U", "status": "partial", "historical_direction": "short-tail and heavy-duty complements"},
+      {"range": "40-60 t", "xcmg": "XE490U", "status": "covered", "historical_direction": "transport and loading upgrade"}
+    ]
+  },
+  "improvement_ledger": {
+    "source_slides": [235, 236, 237, 238, 239, 240, 241],
+    "status": "historical_plan_current_completion_not_verified",
+    "models": [
+      {"model": "XE18U", "issue_count": 5, "themes": ["travel", "swing_control", "cab_hmi"], "original_window": "2025 H2"},
+      {"model": "XE27U", "issue_count": 9, "themes": ["travel", "work_equipment", "hydraulics", "cab_hmi"], "original_window": "2025 H2"},
+      {"model": "XE35U", "issue_count": 13, "themes": ["transport", "travel", "swing_control", "work_equipment", "hydraulics", "cab_hmi", "service"], "original_window": "2025 H2-2026 H1"},
+      {"model": "XE45U", "issue_count": 4, "themes": ["transport", "travel", "swing_control", "cab_hmi"], "original_window": "2025 H2-2026 H1"},
+      {"model": "XE55U", "issue_count": 10, "themes": ["travel", "work_equipment", "hydraulics", "cab_hmi", "service", "vision"], "original_window": "2025 H2-2027 H1"},
+      {"model": "XE75U", "issue_count": 3, "themes": ["work_equipment", "hydraulics", "cab_hmi"], "original_window": "2025 H2-2026 H1"},
+      {"model": "XE80U", "issue_count": 5, "themes": ["transport", "travel", "stability", "service"], "original_window": "2025 H2-2027 H1"},
+      {"model": "XE155UCR", "issue_count": 7, "themes": ["work_equipment", "swing_control", "cab_hmi", "vision", "travel"], "original_window": "2025 H2-2026 H2"},
+      {"model": "XE225U", "issue_count": 7, "themes": ["work_equipment", "swing_control", "cab_hmi", "vision", "travel"], "original_window": "2025 H2"},
+      {"model": "XE235UCR", "issue_count": 6, "themes": ["work_equipment", "swing_control", "cab_hmi", "vision", "travel"], "original_window": "2025 H2-2027 H1"},
+      {"model": "XE250U", "issue_count": 6, "themes": ["work_equipment", "swing_control", "travel"], "original_window": "2025 H2"},
+      {"model": "XE300U", "issue_count": 5, "themes": ["work_equipment", "swing_control", "travel"], "original_window": "2025 H2-2026 H1"},
+      {"model": "XE360U", "issue_count": 9, "themes": ["transport", "work_equipment", "swing_control", "stability", "cab_hmi", "vision", "travel"], "original_window": "2025 H2-2026 H1"},
+      {"model": "XE490U", "issue_count": 9, "themes": ["transport", "work_equipment", "swing_control", "stability", "cab_hmi", "vision"], "original_window": "2025 H2-2026 H1"}
+    ]
+  },
+  "historical_sales_plan": {
+    "source_slide": 244,
+    "status": "historical_target_not_actual",
+    "totals": [
+      {"year": "2024", "units": 729, "share": 0.71, "type": "historical_actual"},
+      {"year": "2025", "units": 700, "share": 0.7, "type": "historical_target"},
+      {"year": "2026", "units": 2006, "share": 2.1, "type": "historical_target"},
+      {"year": "2027", "units": 2908, "share": 3.0, "type": "historical_target"}
+    ],
+    "top_2027_models": [
+      {"model": "XE35U", "units": 804},
+      {"model": "XE55U", "units": 703},
+      {"model": "XE45U", "units": 216},
+      {"model": "XE80U", "units": 208},
+      {"model": "XE75U", "units": 167},
+      {"model": "XE27U", "units": 159},
+      {"model": "XE18U", "units": 145}
+    ]
+  },
+  "source_system": [
+    {"source": "AEM", "use": "industry cycle and tonnage volume"},
+    {"source": "EDA", "use": "market mix, brand volume and share"},
+    {"source": "dealer, rental and customer feedback", "use": "applications, purchase logic and unmet needs"},
+    {"source": "engineering and service observations", "use": "product gaps, improvement actions and field validation"}
+  ]
+}

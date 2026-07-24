@@ -1,0 +1,26 @@
+{
+  "captured": "2026-07-23",
+  "purpose": "Protect the formal-site state after the authorized all-tonnage PPT integration",
+  "files": {
+    "arc.html": "170a421d0bf8a484f0315ea1e20e973f8ce851885f1eaf2e0c4cc732670aaed2",
+    "index.html": "c2d5ff58fb32bac35e79538428175a6a5c6553c477142eb1b3a12e7c379c91b2",
+    "assets/dashboard.css": "f8c1ba93c34091c5459c1181b8fb187791f0127cacf5b81d6ba3a8177cd51e04",
+    "assets/dashboard.js": "590fc746662e9890f67d731f92ef5def26b2d3898ed7cb609232e96211e9821c",
+    "assets/i18n.js": "f011bdb11470bbea123dd2d6a28800f97361f3c0d19ff41932f58f7e361d036f",
+    "excavator-12-14t.html": "331ff073150319fc75bc23c22ad002530e2b3a701a2b09fb8834944384f2e244",
+    "excavator-1-2t.html": "e67ba571afa418f766caac2bb306647a4486d542dc010ec1507ad2156c7efd54",
+    "excavator-14-16t-short-tail.html": "4f5e61d8f11a538caec1143eb8fa346c41b13b6e1412cac12eeb7e68cbe84337",
+    "excavator-21-24t.html": "1cb76c93a7c84a2d92ae23da6adacfc95e07c70c7dc3937b54e4faa5de6fc621",
+    "excavator-2-3t.html": "c41d645a783a8c946b8f2f1c9ba993f697518a8798760b6240946a944d79de24",
+    "excavator-24-28t.html": "9f7c4dc2efe1e6fe31174f63a57e609eca33e120acb187b72ce5b18b84d8adaf",
+    "excavator-24-28t-short-tail.html": "85d3bfcc65ee42bf2387ab66ad6cb16793c0cb8768accb530d2b7ff16247e772",
+    "excavator-28-33t.html": "e6a2cbdf4279ea80b6b0c9b75fae1e61107f6d4f56e70d9aa1f46280e9f7b121",
+    "excavator-33-40t.html": "d5f60eb97eae8db61fc1e868b317d42788e436188bfbcb671e730368cf7e4154",
+    "excavator-40-60t.html": "0e91ea78060637c50ec06b3c42161764f8081d1a9c80c270b2f26e0dfc55a7e8",
+    "excavator-4-5t.html": "e60e3fd4497dac7ceb6f3cb6b88f8c34dcd35ba53968b4cee60efb2611261aff",
+    "excavator-5-6t.html": "cbb2ecb90c0a65111c3c1feffee8db02d39ffec7f2d89fd1c2a03d5b9be939d2",
+    "excavator-7-8t.html": "feff68277ce429f51bf8aaefc8fcdf75c4734df56fd8df7b0168a51e7b3e81a1",
+    "excavator-8-10t.html": "9ab6912d2f72c85f867c6a67ea5d006327062cc9376a8dfa0b5ef1385fa53f85",
+    "excavator-market-overview.html": "917b9cc2384aa175d724d64d293790293d36a6f3b08642e3a78eb552ca1d2d1e"
+  }
+}

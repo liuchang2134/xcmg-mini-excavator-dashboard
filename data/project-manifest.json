@@ -1,12 +1,24 @@
 {
   "productLineCount": 7,
-  "excavatorTonnageCount": 14,
-  "benchmarkProductCount": 124,
-  "sourceWorkbookCount": 14,
+  "excavatorTonnageCount": 15,
+  "benchmarkProductCount": 133,
+  "sourceWorkbookCount": 15,
   "minimumScoreCoverage": 0.6,
   "overallWeights": {
     "parameter": 0.65,
     "option": 0.35
+  },
+  "marketOverview": {
+    "output": "excavator-market-overview.html",
+    "data": "data/ppt-insights/excavator-market-overview.json",
+    "classification": "XCMG ARC INTERNAL"
+  },
+  "pptBusinessTables": {
+    "data": "data/ppt-insights/ppt-business-tables.json",
+    "includedBusinessTableCount": 220,
+    "excludedNavigationTableCount": 208,
+    "excludedPersonnelTableCount": 1,
+    "classification": "XCMG ARC INTERNAL"
   },
   "dashboards": [
     {
@@ -106,6 +118,13 @@
       "xcmg": "XCMG XE360U",
       "productCount": 9,
       "source": "data/source-excel/XCMG_33-40t_excavator_competitor_source.xlsx"
+    },
+    {
+      "label": "40-60 吨级",
+      "output": "excavator-40-60t.html",
+      "xcmg": "XCMG XE490U",
+      "productCount": 9,
+      "source": "data/source-excel/XCMG_40-60t_excavator_competitor_source.xlsx"
     }
   ]
 }

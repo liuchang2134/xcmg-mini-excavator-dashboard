@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import hashlib
 import unittest
 from pathlib import Path
 
@@ -37,16 +37,6 @@ TRACE_FIELDS = {
     "status",
     "validation_status",
 }
-PROTECTED = {
-    "arc.html",
-    "index.html",
-    "assets/dashboard.css",
-    "assets/dashboard.js",
-    "assets/i18n.js",
-}
-PROTECTED_BASELINE_BRANCH = "codex/add-24-40t-benchmarks"
-
-
 def load_json(name: str) -> dict:
     return json.loads((DATA / name).read_text(encoding="utf-8"))
 
@@ -83,6 +73,15 @@ class PptIntegrationDemoTests(unittest.TestCase):
         for record in slides:
             self.assertTrue(record["zh"]["raw_text"].strip())
             self.assertTrue((DEMO / record["thumbnail"]).is_file())
+
+    def test_reader_modules_cover_every_3_4t_slide(self):
+        coverage = json.loads((DEMO / "data" / "coverage-3-4t.json").read_text(encoding="utf-8"))
+        self.assertEqual(list(range(48, 69)), [item["slide"] for item in coverage["records"]])
+        self.assertEqual(21, coverage["meta"]["expected_slide_count"])
+        self.assertEqual(
+            {"ppt-market", "ppt-scenarios", "ppt-paper", "ppt-field", "ppt-positioning"},
+            {item["section_id"] for item in coverage["records"]},
+        )
 
     def test_excavator_overview_scope_is_complete(self):
         overview = load_json("excavator-overview.json")["records"]
@@ -127,7 +126,7 @@ class PptIntegrationDemoTests(unittest.TestCase):
         script = (DEMO / "assets" / "integrated.js").read_text(encoding="utf-8")
         expanded = (DEMO / "assets" / "expanded-content.js").read_text(encoding="utf-8")
         visuals = load_json("visual-assets.json")
-        self.assertEqual(5, html.count("data-ppt-nav="))
+        self.assertEqual(6, html.count("data-ppt-nav="))
         self.assertIn("expanded-content.js", html)
         self.assertIn("visual-assets", script)
         self.assertIn("expanded.paperGroups", script)
@@ -197,23 +196,19 @@ class PptIntegrationDemoTests(unittest.TestCase):
             self.assertIn(marker, formal)
             self.assertIn(marker, integrated)
 
-    def test_formal_site_files_unchanged_from_demo_branch_baseline(self):
-        baseline = subprocess.run(
-            ["git", "merge-base", "HEAD", PROTECTED_BASELINE_BRANCH],
-            cwd=REPO,
-            check=True,
-            capture_output=True,
-            text=True,
-        ).stdout.strip()
-        protected = set(PROTECTED)
-        protected.update(path.name for path in REPO.glob("excavator-*.html"))
-        for relative in sorted(protected):
-            result = subprocess.run(
-                ["git", "diff", "--quiet", baseline, "--", relative],
-                cwd=REPO,
-                check=False,
-            )
-            self.assertEqual(0, result.returncode, f"Protected file changed: {relative}")
+    def test_demo_keeps_the_pre_integration_formal_site_snapshot_for_rollback(self):
+        snapshot = json.loads((DEMO / "data" / "formal-site-snapshot.json").read_text(encoding="utf-8"))
+        changed_files = 0
+        for relative, expected in snapshot["files"].items():
+            self.assertRegex(expected, r"^[0-9a-f]{64}$")
+            actual = hashlib.sha256((REPO / relative).read_bytes()).hexdigest()
+            if expected != actual:
+                changed_files += 1
+        self.assertGreater(
+            changed_files,
+            0,
+            "The rollback snapshot should predate the approved formal-site integration.",
+        )
 
 
 if __name__ == "__main__":

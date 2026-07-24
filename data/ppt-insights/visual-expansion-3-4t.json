@@ -1,0 +1,269 @@
+{
+  "meta": {
+    "scope": "3-4t integrated demo visual expansion",
+    "classification": "XCMG ARC INTERNAL",
+    "as_of_date": "2026-07-22",
+    "rule": {
+      "zh": "所有图表保留原始单位。历史计划日期仅表示原计划节点，不表示当前已完成。",
+      "en": "All charts retain original units. Historical plan dates are schedule markers only and do not establish current completion."
+    }
+  },
+  "category_context": {
+    "title": {"zh": "3-4吨级客户与产品要求", "en": "3-4 t Customer and Product Requirements"},
+    "conclusion": {
+      "zh": "3-4吨是北美承包、租赁和市政客户的高频通用规格，竞争力取决于整备后运输、多属具作业、现场效率和全生命周期使用体验。",
+      "en": "The 3-4 t class is a high-use general-purpose size for North American contractors, rental fleets and municipalities; competitiveness depends on equipped transport, multi-tool work, jobsite productivity and lifecycle experience."
+    },
+    "paragraphs": {
+      "zh": [
+        "客户选择3-4吨，通常不是因为某个参数最大，而是希望同一台设备能够完成沟槽、基础、景观、轻型拆除和回填，并能携带常用属具在多个工地之间转运。购买判断因此围绕整备组合重量、属具覆盖、循环效率、可靠性和操作者体验展开。",
+        "XE35U在这个吨级的判断边界很明确：短尾结构要保证受限空间作业，运输组合要核算快换、拇指钳、副配重和铲斗后的实际重量，液压系统要覆盖目标属具，推土铲、行走和驾驶环境则要支持高频租赁与承包作业。"
+      ],
+      "en": [
+        "Customers choose 3-4 t machines not because one specification is the largest, but because one machine can perform trenching, foundation, landscaping, light demolition and backfill while carrying common attachments between jobsites. Purchase decisions therefore focus on equipped transport mass, attachment coverage, cycle productivity, reliability and operator experience.",
+        "The XE35U requirements within this class are clear: short-tail packaging must support confined work; the transport package must include coupler, thumb, counterweight and bucket mass; the hydraulic system must cover target tools; and blade, travel and cab performance must support frequent rental and contractor duty."
+      ]
+    },
+    "action": {
+      "zh": "围绕3-4吨目标客户建立统一验证包：按当前量产配置实测整备重量、14K拖车余量、AUX1流量、高速行走、推土铲浮动、完整循环时间和驾驶舒适性。",
+      "en": "Build one validation package for the target 3-4 t customer: measure equipped mass, 14K trailer margin, AUX1 flow, high travel speed, blade float, complete cycle time and operator comfort on the current production configuration."
+    },
+    "focus": {
+      "label": {"zh": "当前分析范围", "en": "Current analysis scope"},
+      "range": "3-4 t",
+      "statement": {"zh": "北美多工况通用型微小挖", "en": "North American multi-application compact excavator"}
+    },
+    "decision_blocks": [
+      {
+        "label": {"zh": "主要客户", "en": "Primary customers"},
+        "headline": {"zh": "承包商、租赁商、市政与公共事业单位", "en": "Contractors, rental fleets, municipalities and utilities"},
+        "detail": {"zh": "要求设备容易调度、多人上手稳定，并能覆盖高频维修与租赁周转。", "en": "The machine must be easy to dispatch, predictable for different operators and support high-utilization service cycles."}
+      },
+      {
+        "label": {"zh": "典型任务", "en": "Typical jobs"},
+        "headline": {"zh": "沟槽、基础、景观、轻型拆除与回填", "en": "Trenching, foundations, landscaping, light demolition and backfill"},
+        "detail": {"zh": "同一台设备需要频繁换具，并在挖掘、抓取、破碎、吊装和整平之间切换。", "en": "One machine must change tools frequently and switch among digging, handling, breaking, lifting and grading."}
+      },
+      {
+        "label": {"zh": "购买重点", "en": "Purchase priorities"},
+        "headline": {"zh": "运输组合、属具覆盖、可靠性、操控与残值", "en": "Transport package, tool coverage, reliability, control and residual value"},
+        "detail": {"zh": "客户比较的是整备后的完整机器和长期使用成本，不是裸机单项最大参数。", "en": "Customers compare the fully equipped machine and long-term ownership outcome, not one maximum base-machine specification."}
+      },
+      {
+        "label": {"zh": "产品要求", "en": "Product requirements"},
+        "headline": {"zh": "短尾、可运输、多属具、高效率、易维护", "en": "Short tail, transportable, multi-tool, productive and serviceable"},
+        "detail": {"zh": "这些要求需要由结构布置、液压匹配、配置包和实机循环共同验证。", "en": "These requirements must be validated through packaging, hydraulic matching, equipment bundles and full-cycle machine tests."}
+      }
+    ],
+    "benchmark_roles": [
+      {"class": {"zh": "直接对标机型", "en": "Direct benchmark set"}, "brand": "35P · E35 · U35 · KX033 · 303.5 CR", "reason": {"zh": "比较时应统一尾型、驾驶室版本、配重和属具配置，避免把不同配置状态当作产品差距。", "en": "Normalize tail architecture, cab version, counterweight and attachments so equipment differences are not mistaken for product gaps."}},
+      {"class": {"zh": "最终判断规则", "en": "Decision rule"}, "brand": {"zh": "看完整任务，不看单项最大值", "en": "Evaluate the full job, not one peak value"}, "reason": {"zh": "只有同时满足目标工况、运输组合和客户总成本的3-4吨方案，才算有效竞争力。", "en": "A 3-4 t solution is competitive only when it fits the target job, transport combination and customer total cost at the same time."}}
+    ]
+  },
+  "portfolio_matrix": {
+    "title": {"zh": "3-4吨产品型谱覆盖", "en": "3-4 t Portfolio Coverage"},
+    "conclusion": {
+      "zh": "XCMG当前对标资料中只有XE35U短尾产品，竞品通过尾型和配置层级覆盖更多客户任务。",
+      "en": "The current XCMG benchmark record contains only the XE35U short-tail product, while competitors use tail architecture and equipment tiers to cover more customer jobs."
+    },
+    "paragraphs": {
+      "zh": [
+        "久保田在同一吨级用U35-4、KX033-4和KX030-4形成短尾、常规尾与价值型覆盖；山猫、迪尔和卡特也通过不同尾型或配置层级覆盖租赁客户、专业承包商与重载稳定需求。这个差异会直接影响渠道能否用一个品牌完成多类客户匹配。",
+        "XE35U的短尾结构适合围墙、庭院和道路边缘等受限场地，但单一型谱难以同时把运输重量、开阔场地稳定性、价格门槛和高配置属具全部做到最优。缺口首先是产品组合问题，其次才是单机参数问题。"
+      ],
+      "en": [
+        "Kubota uses U35-4, KX033-4 and KX030-4 to cover short-tail, conventional-tail and value-oriented positions in one class. Bobcat, Deere and Caterpillar likewise use tail or equipment tiers to address rental users, professional contractors and stability-sensitive work. This directly affects whether a dealer can match several customer jobs with one brand.",
+        "XE35U's short-tail package fits walls, yards and road edges, but one portfolio position cannot simultaneously optimize transport mass, open-site stability, acquisition price and high-equipment attachment work. The first gap is portfolio architecture; individual specifications come second."
+      ]
+    },
+    "action": {
+      "zh": "先用销量、客户任务和渠道询价验证常规尾及价值型空档，再决定新增机型、配置包或现有XE35U的版本分层。",
+      "en": "Validate the conventional-tail and value-tier gaps with sales, customer jobs and dealer quotes before choosing a new model, an equipment package or XE35U trim segmentation."
+    },
+    "slots": [
+      {"id": "confined", "label": {"zh": "受限空间短尾", "en": "Confined-work short tail"}},
+      {"id": "conventional", "label": {"zh": "开阔场地常规尾", "en": "Open-site conventional tail"}},
+      {"id": "value", "label": {"zh": "租赁 / 价值型", "en": "Rental / value tier"}},
+      {"id": "premium", "label": {"zh": "高配 / 专业型", "en": "Premium / professional tier"}}
+    ],
+    "rows": [
+      {"brand": "XCMG", "xcmg": true, "coverage": {"confined": "XE35U", "conventional": null, "value": null, "premium": {"zh": "XE35U（配置待分层）", "en": "XE35U (trim structure pending)"}}},
+      {"brand": "Kubota", "coverage": {"confined": "U35-4", "conventional": "KX033-4", "value": "KX030-4", "premium": "U35-4 / KX033-4"}},
+      {"brand": "Bobcat", "coverage": {"confined": "E35", "conventional": "E32", "value": "E32", "premium": "E35"}},
+      {"brand": "John Deere", "coverage": {"confined": "35P", "conventional": "30P", "value": "30P", "premium": "35P"}},
+      {"brand": "Caterpillar", "coverage": {"confined": "303.5 CR", "conventional": "303 CR", "value": "303 CR", "premium": "303.5 CR"}},
+      {"brand": "SANY", "coverage": {"confined": "SY35U", "conventional": null, "value": "SY35U", "premium": null}}
+    ]
+  },
+  "task_capability": {
+    "title": {"zh": "客户任务到工程验证的能力链", "en": "Customer-Task-to-Engineering Validation Chain"},
+    "conclusion": {
+      "zh": "同一台3-4吨挖掘机在不同场景中的价值来自完整任务链，而不是某一项最大参数。",
+      "en": "The value of one 3-4 t excavator changes by job because it is created by the complete task chain, not one maximum specification."
+    },
+    "paragraphs": {
+      "zh": [
+        "例如市政沟槽并不只要求挖深，还包含到场运输、路面切割、连续开挖、管线吊装、回填压实和恢复路面。运输包络、微动控制、起吊稳定、属具切换和推土铲浮动会在同一个循环中连续影响效率。",
+        "因此每个场景都按“客户目标—任务步骤—关键能力—验证指标”展开。这样可以把纸面参数、标选配状态和实机评价放到同一条业务链中，同时保持现有评分不变。"
+      ],
+      "en": [
+        "Municipal trenching, for example, requires more than digging depth. The full job includes transport, pavement cutting, continuous excavation, pipe lifting, backfill compaction and surface restoration. Transport packaging, fine control, lifting stability, attachment changeover and blade float affect one continuous cycle.",
+        "Each application is therefore expressed as customer objective, task sequence, critical capability and validation metric. This connects specifications, equipment status and field evaluation in one business chain without changing existing scores."
+      ]
+    },
+    "action": {
+      "zh": "场景试验应记录完整循环时间、能耗、精度、换属具时间和操作者负荷，避免只测单动作峰值。",
+      "en": "Application tests should record complete cycle time, energy use, accuracy, attachment-change time and operator workload rather than isolated peak values."
+    },
+    "records": [
+      {"scenario_id": "scenario-transport", "customer": {"zh": "低门槛跨工地转运", "en": "Low-barrier jobsite mobility"}, "task": {"zh": "装载设备与常用属具，固定后由皮卡和14K拖车转运", "en": "Load machine and common attachments, secure them and transport by pickup with 14K trailer"}, "capability": {"zh": "整备组合重量、运输包络、固定点与拖车余量", "en": "Equipped mass, transport envelope, tie-downs and trailer margin"}, "measure": {"zh": "组合称重、轴荷、有效载荷余量、装卸时间", "en": "Combination mass, axle load, payload margin and load/unload time"}},
+      {"scenario_id": "scenario-municipal-roadwork", "customer": {"zh": "市政沟槽连续施工", "en": "Continuous municipal trenching"}, "task": {"zh": "测量、破路、开挖、吊管、回填并恢复路面", "en": "Survey, break pavement, excavate, lift pipe, backfill and restore surface"}, "capability": {"zh": "挖深、微动、起吊、快换、AUX与回填效率", "en": "Depth, fine control, lift, coupler, AUX and backfill productivity"}, "measure": {"zh": "每延米循环时间、深度误差、换具时间和油耗", "en": "Cycle time per metre, depth error, tool-change time and fuel"}},
+      {"scenario_id": "scenario-light-demolition", "customer": {"zh": "小型拆除与分拣装车", "en": "Light demolition, sorting and loading"}, "task": {"zh": "破碎结构、抓取分拣、装车并清理场地", "en": "Break structures, sort material, load trucks and clear the site"}, "capability": {"zh": "破碎锤回路、卸油管路、拇指钳、快换与稳定性", "en": "Breaker circuit, case drain, thumb, coupler and stability"}, "measure": {"zh": "破碎产量、背压油温、分拣循环和倾覆裕度", "en": "Breaker output, back pressure, oil temperature, sorting cycle and stability margin"}},
+      {"scenario_id": "scenario-foundation", "customer": {"zh": "基础与地基精确开挖", "en": "Precise foundation excavation"}, "task": {"zh": "放样、分层开挖、修边、清底并装运材料", "en": "Set out, excavate in lifts, trim, clean the bottom and load material"}, "capability": {"zh": "挖掘范围、铲斗力、微动性、视野和回转控制", "en": "Working range, bucket force, inching, visibility and swing control"}, "measure": {"zh": "尺寸误差、循环时间、回摆量和单位土方油耗", "en": "Dimensional error, cycle time, rebound and fuel per unit volume"}},
+      {"scenario_id": "scenario-landscape", "customer": {"zh": "景观整形与多属具作业", "en": "Landscape shaping and multi-tool work"}, "task": {"zh": "清表、挖树坑、沟槽排水、整形并恢复场地", "en": "Clear, excavate planting holes, trench drainage, shape and restore the site"}, "capability": {"zh": "多斗适配、螺旋钻、快换、平整控制和低扰动", "en": "Bucket range, auger, coupler, grading control and low disturbance"}, "measure": {"zh": "换具时间、平整误差、地表损伤和任务总时长", "en": "Tool-change time, grade error, surface damage and total task time"}},
+      {"scenario_id": "scenario-road-bridge", "customer": {"zh": "道路与桥梁辅助施工", "en": "Road and bridge support work"}, "task": {"zh": "定位开挖、清沟、基础处理、压实和材料搬运", "en": "Excavate to marks, clean ditches, prepare foundations, compact and handle material"}, "capability": {"zh": "稳定性、压实属具、回填控制、运输尺寸与安全提醒", "en": "Stability, compaction tools, backfill control, transport dimensions and warnings"}, "measure": {"zh": "定位误差、压实遍数、循环时间和近机安全事件", "en": "Position error, compaction passes, cycle time and near-machine safety events"}},
+      {"scenario_id": "scenario-agriculture-clearing", "customer": {"zh": "农场清理与高流量属具", "en": "Farm clearing with high-flow tools"}, "task": {"zh": "割草、开带、拔桩、抓取并场内长距离转运", "en": "Mow, cut brush, pull posts, grapple and travel across the property"}, "capability": {"zh": "AUX1流量、冷却、卸油回路、牵引力和高速行走", "en": "AUX1 flow, cooling, case drain, traction and high travel speed"}, "measure": {"zh": "持续产量、油温背压、单位面积油耗和转场时间", "en": "Sustained output, oil temperature/back pressure, fuel per area and travel time"}},
+      {"scenario_id": "scenario-agriculture-drainage", "customer": {"zh": "农业排水与管道安装", "en": "Agricultural drainage and pipe installation"}, "task": {"zh": "连续开沟、吊放管道、回填、整平并转场", "en": "Trench continuously, place pipe, backfill, grade and relocate"}, "capability": {"zh": "深度控制、起吊稳定、推土铲浮动、回转回填和报警控制", "en": "Depth control, lifting stability, blade float, swing backfill and alarm control"}, "measure": {"zh": "每100米工时、沟底误差、回填质量和转场时间", "en": "Labour per 100 m, trench-bottom error, backfill quality and travel time"}}
+    ]
+  },
+  "attachment_matrix": {
+    "title": {"zh": "场景与属具需求热力图", "en": "Application and Attachment Demand Heatmap"},
+    "conclusion": {"zh": "快换、拇指钳和多规格铲斗是通用基础，高流量AUX、卸油管路、浮动推土铲和专用属具决定高价值场景覆盖。", "en": "Coupler, thumb and bucket range form the common baseline; high-flow AUX, case drain, blade float and specialist tools determine coverage of higher-value applications."},
+    "paragraphs": {
+      "zh": [
+        "热力图不是标配清单，而是客户任务对配置的重要度。市政、拆除和景观高度依赖快速换具；拆除与农场清理更依赖拇指钳、破碎锤或割草机；沟槽和排水则把铲斗组合、压实工具、推土铲浮动和报警控制串成完整循环。",
+        "XE35U已有AUX2和斗杆力等纸面基础，但AUX1流量、卸油管路、浮动功能及当前量产配置边界仍会限制部分属具。配置决策应按目标场景包形成，而不是逐项孤立增加。"
+      ],
+      "en": [
+        "The heatmap is not a standard-equipment list; it expresses how important each item is to the customer job. Municipal, demolition and landscape work depend heavily on rapid tool change. Demolition and farm clearing rely more on thumbs, breakers or mowers, while trenching and drainage connect bucket range, compaction, blade float and alarm control into one cycle.",
+        "XE35U has paper foundations such as AUX2 and arm force, but AUX1 flow, case-drain plumbing, blade float and current production boundaries still constrain some tools. Equipment decisions should be packaged by target application rather than added one item at a time."
+      ]
+    },
+    "action": {"zh": "为每个目标配置包建立属具品牌、流量、压力、背压、冷却、接头和质保边界，并用连续负载试验确认。", "en": "For each target package, define tool brand, flow, pressure, back pressure, cooling, couplers and warranty limits, then confirm them under continuous load."},
+    "legend": [
+      {"value": 0, "label": {"zh": "非核心", "en": "Not core"}},
+      {"value": 1, "label": {"zh": "有帮助", "en": "Useful"}},
+      {"value": 2, "label": {"zh": "重要", "en": "Important"}},
+      {"value": 3, "label": {"zh": "关键", "en": "Critical"}}
+    ],
+    "attachments": [
+      {"id": "coupler", "label": {"zh": "快换", "en": "Coupler"}},
+      {"id": "thumb", "label": {"zh": "拇指钳", "en": "Thumb"}},
+      {"id": "breaker", "label": {"zh": "破碎锤", "en": "Breaker"}},
+      {"id": "buckets", "label": {"zh": "多规格斗", "en": "Bucket range"}},
+      {"id": "auger", "label": {"zh": "螺旋钻", "en": "Auger"}},
+      {"id": "mower", "label": {"zh": "割草 / 开带", "en": "Mower / cutter"}},
+      {"id": "compactor", "label": {"zh": "压实属具", "en": "Compactor"}},
+      {"id": "aux", "label": {"zh": "高流量AUX", "en": "High-flow AUX"}},
+      {"id": "float", "label": {"zh": "推土铲浮动", "en": "Blade float"}},
+      {"id": "alarm", "label": {"zh": "报警控制", "en": "Alarm control"}}
+    ],
+    "rows": [
+      {"scenario_id": "scenario-transport", "values": [3, 3, 1, 3, 1, 1, 1, 1, 0, 0]},
+      {"scenario_id": "scenario-municipal-roadwork", "values": [3, 1, 2, 3, 0, 0, 2, 3, 3, 2]},
+      {"scenario_id": "scenario-light-demolition", "values": [3, 3, 3, 2, 0, 0, 0, 3, 0, 2]},
+      {"scenario_id": "scenario-foundation", "values": [2, 1, 1, 3, 1, 0, 1, 2, 1, 1]},
+      {"scenario_id": "scenario-landscape", "values": [3, 2, 1, 3, 2, 1, 2, 2, 2, 1]},
+      {"scenario_id": "scenario-road-bridge", "values": [2, 1, 2, 3, 0, 0, 3, 2, 2, 2]},
+      {"scenario_id": "scenario-agriculture-clearing", "values": [2, 3, 1, 2, 2, 3, 1, 3, 1, 2]},
+      {"scenario_id": "scenario-agriculture-drainage", "values": [2, 1, 0, 3, 1, 0, 2, 2, 3, 3]}
+    ]
+  },
+  "absolute_gaps": {
+    "title": {"zh": "XCMG与标杆的绝对参数差距", "en": "Absolute Specification Gaps to Benchmarks"},
+    "conclusion": {"zh": "XE35U的主要纸面短板集中在整机重量与运输尺寸、铲斗力、高速行走和AUX1流量；斗杆力具有可保留优势。", "en": "XE35U's principal paper gaps are machine mass and transport dimensions, bucket force, high travel speed and AUX1 flow, while arm force is a retainable advantage."},
+    "paragraphs": {
+      "zh": [
+        "图中直接显示原值、单位和参照机型，不再把不同物理量折算成一个分数。运输宽度较KX033-4高190 mm，运输长度较KX030-4高370 mm；最大挖深较KX033-4少150 mm，铲斗力低7.6 kN。",
+        "高速行走较久保田低1.0 km/h，AUX1流量低20 L/min，分别影响场内转场与高流量属具覆盖。斗杆力高0.5 kN属于纸面优势，但不能抵消整机循环效率、铲斗力或液压附件能力的差距。操作重量采用KX033-4历史上限作保守参照，版本和配置必须在当前样机上统一。"
+      ],
+      "en": [
+        "The chart shows source values, units and reference models directly instead of converting unlike physical measures into one score. Transport width is 190 mm above KX033-4 and transport length is 370 mm above KX030-4. Maximum digging depth is 150 mm below KX033-4 and bucket force is 7.6 kN lower.",
+        "High travel speed is 1.0 km/h below Kubota and AUX1 flow is 20 L/min lower, affecting jobsite relocation and high-flow tool coverage respectively. A 0.5 kN arm-force advantage is useful but cannot offset cycle, bucket-force or attachment-hydraulic gaps. Operating mass uses the historical KX033-4 upper bound as a conservative reference; versions and equipment must be normalized on current machines."
+      ]
+    },
+    "action": {"zh": "先确认当前量产机、常用配置和竞品版本，再把每项差距转为整机布置、液压匹配、结构强度和实机循环的工程目标。", "en": "First confirm current production machines, common equipment and competitor versions, then convert each gap into packaging, hydraulic matching, structural and full-cycle engineering targets."},
+    "metrics": [
+      {"id": "operating-mass", "label": {"zh": "操作重量", "en": "Operating mass"}, "unit": "kg", "xcmg": 4200, "benchmark": 3764, "benchmark_display": "3365-3764", "benchmark_model": "Kubota KX033-4", "delta": 436, "direction": "lower", "status": "gap", "impact": {"zh": "相对历史上限仍重436 kg，压缩运输余量。", "en": "436 kg above the historical upper bound, reducing transport margin."}},
+      {"id": "transport-width", "label": {"zh": "整机运输宽度", "en": "Transport width"}, "unit": "mm", "xcmg": 1740, "benchmark": 1550, "benchmark_model": "Kubota KX033-4", "delta": 190, "direction": "lower", "status": "gap", "impact": {"zh": "受限进场和拖车布置更不灵活。", "en": "Reduces confined access and trailer-packaging flexibility."}},
+      {"id": "transport-length", "label": {"zh": "整机运输长度", "en": "Transport length"}, "unit": "mm", "xcmg": 4970, "benchmark": 4600, "benchmark_model": "Kubota KX030-4", "delta": 370, "direction": "lower", "status": "gap", "impact": {"zh": "设备与属具组合占用更多甲板空间。", "en": "Consumes more trailer-deck length with equipment."}},
+      {"id": "dig-depth", "label": {"zh": "最大挖掘深度", "en": "Maximum digging depth"}, "unit": "mm", "xcmg": 3060, "benchmark": 3210, "benchmark_model": "Kubota KX033-4", "delta": -150, "direction": "higher", "status": "gap", "impact": {"zh": "深沟和基础开挖覆盖少150 mm。", "en": "150 mm less reach for deep trench and foundation work."}},
+      {"id": "bucket-force", "label": {"zh": "铲斗挖掘力", "en": "Bucket digging force"}, "unit": "kN", "xcmg": 28.6, "benchmark": 36.2, "benchmark_model": "Kubota KX033-4", "delta": -7.6, "direction": "higher", "status": "gap", "impact": {"zh": "重挖和装载破土能力偏弱。", "en": "Lower paper capability for hard digging and loading."}},
+      {"id": "travel-speed", "label": {"zh": "高速行走", "en": "High travel speed"}, "unit": "km/h", "xcmg": 3.6, "benchmark": 4.6, "benchmark_model": "Kubota U35-4 / KX033-4", "delta": -1.0, "direction": "higher", "status": "gap", "impact": {"zh": "场内转场和租赁通用性受限。", "en": "Reduces jobsite relocation and rental versatility."}},
+      {"id": "aux1-flow", "label": {"zh": "AUX1最大流量", "en": "Maximum AUX1 flow"}, "unit": "L/min", "xcmg": 40, "benchmark": 60, "benchmark_model": "Kubota U35-4 / KX033-4", "delta": -20, "direction": "higher", "status": "gap", "impact": {"zh": "高流量割草和开带属具覆盖不足。", "en": "Limits higher-flow mower and brush-cutter coverage."}},
+      {"id": "arm-force", "label": {"zh": "斗杆挖掘力", "en": "Arm digging force"}, "unit": "kN", "xcmg": 20.3, "benchmark": 19.8, "benchmark_model": "Kubota U35-4", "delta": 0.5, "direction": "higher", "status": "advantage", "impact": {"zh": "沟槽和硬土开挖具有纸面优势。", "en": "Paper advantage for trenching and firm-soil excavation."}}
+    ]
+  },
+  "field_evidence": {
+    "title": {"zh": "实机结论的证据成熟度", "en": "Evidence Maturity of Field Conclusions"},
+    "conclusion": {"zh": "现有实机评价能指出方向，但多数仍是历史样机判断；当前量产机的统一工况定量验证几乎尚未闭环。", "en": "Existing field evaluations identify direction, but most are historical prototype judgments; common-condition quantitative validation on current production machines is largely not closed."},
+    "paragraphs": {
+      "zh": [
+        "深色表示直接证据更完整，浅色表示只有部分记录，空白表示当前资料未形成证据。操控、驾驶环境和可靠性有历史样机对比，但缺少当前量产机、同一属具、同一土质和统一操作者条件下的数据。",
+        "因此“优势”表示历史记录中的相对表现，不等同于当前产品已验证优势；“已识别差距”表示问题描述具体，但改进是否生效仍需当前实机确认。该矩阵只管理证据成熟度，不进入原有参数分、配置分或综合评分。"
+      ],
+      "en": [
+        "Darker cells indicate more direct evidence, lighter cells indicate partial records and blank cells indicate no evidence in the current material. Control, operator environment and reliability have historical prototype comparisons, but current production machines lack common-condition data with the same tool, soil and operator basis.",
+        "An Advantage therefore means a relative result in the historical record, not a currently validated production advantage. A Specific Gap means the problem is concrete, but the effectiveness of any change still requires current machine confirmation. This matrix manages evidence maturity only and does not enter specification, equipment or overall scores."
+      ]
+    },
+    "action": {"zh": "优先用同场地AB对比补齐微动、平顺性、回转制动、座椅振动、空调降温、维修工时和油耗；每次验证同时保存测试条件与配置版本。", "en": "Prioritize same-site A/B tests for inching, smoothness, swing braking, seat vibration, HVAC pull-down, service time and fuel use, storing test conditions and configuration versions with every result."},
+    "axes": [
+      {"id": "paper", "label": {"zh": "规格 / 配置记录", "en": "Specification / equipment record"}},
+      {"id": "historical", "label": {"zh": "历史样机评价", "en": "Historical prototype evaluation"}},
+      {"id": "market", "label": {"zh": "客户 / 市场反馈", "en": "Customer / market feedback"}},
+      {"id": "current", "label": {"zh": "当前定量验证", "en": "Current quantitative validation"}}
+    ],
+    "levels": [
+      {"value": 0, "label": {"zh": "未覆盖", "en": "Not covered"}},
+      {"value": 1, "label": {"zh": "线索", "en": "Signal"}},
+      {"value": 2, "label": {"zh": "有记录", "en": "Documented"}},
+      {"value": 3, "label": {"zh": "直接对比", "en": "Direct comparison"}}
+    ],
+    "rows": [
+      {"label": {"zh": "安全系统", "en": "Safety systems"}, "values": [2, 2, 1, 0], "finding": {"zh": "当前量产配置边界待审计", "en": "Current production boundaries require audit"}},
+      {"label": {"zh": "环境与耐久", "en": "Environment and durability"}, "values": [2, 2, 1, 0], "finding": {"zh": "防腐差距具体，高原与长期数据缺失", "en": "Corrosion gap is specific; altitude and long-duration data are absent"}},
+      {"label": {"zh": "微动与平顺性", "en": "Inching and smoothness"}, "values": [1, 3, 2, 0], "finding": {"zh": "历史差距明确，缺当前仪器曲线与盲评", "en": "Historical gap is clear; current traces and blind review are absent"}},
+      {"label": {"zh": "回填协调性", "en": "Backfill coordination"}, "values": [2, 3, 2, 0], "finding": {"zh": "历史优势与回转制动短板同时存在", "en": "Historical advantage coexists with a swing-braking gap"}},
+      {"label": {"zh": "驾驶环境", "en": "Operator environment"}, "values": [2, 3, 2, 0], "finding": {"zh": "空间、座椅、空调和HMI差距具体", "en": "Space, seat, HVAC and HMI gaps are specific"}},
+      {"label": {"zh": "维修性", "en": "Serviceability"}, "values": [1, 2, 2, 0], "finding": {"zh": "可达性与独立加注口需任务工时验证", "en": "Access and dedicated fill require service-time study"}},
+      {"label": {"zh": "经济性与残值", "en": "Economy and residual value"}, "values": [1, 1, 2, 0], "finding": {"zh": "缺统一循环油耗、停机与残值数据", "en": "No common-cycle fuel, downtime or residual-value data"}},
+      {"label": {"zh": "资料与交付", "en": "Documentation and delivery"}, "values": [2, 2, 2, 0], "finding": {"zh": "需按当前配置抽检完整性和准确性", "en": "Completeness and accuracy require current-configuration sampling"}}
+    ]
+  },
+  "closure_timeline": {
+    "title": {"zh": "历史改进计划的闭环状态", "en": "Closure Status of the Historical Improvement Plan"},
+    "conclusion": {"zh": "13项问题都有历史计划节点，但日期经过不等于改进已经量产；当前应从“计划表”转为“证据闭环表”。", "en": "All 13 issues have historical schedule markers, but elapsed dates do not prove production implementation; the plan must now become an evidence-closure register."},
+    "paragraphs": {
+      "zh": [
+        "历史计划大多把设计升级安排在2025年10月至12月、量产节点安排在2026年6月。当前已进入2026年7月，因此不能继续只展示日期，也不能直接标记逾期或完成；必须逐项确认BOM、图纸、软件版本、生产切换和当前样机状态。",
+        "闭环条件应和问题类型对应：减重需要配置化称重记录，行走与液压需要性能和热平衡数据，回转与操控需要仪器曲线和盲评，驾驶室需要北美用户诊所，维修性需要典型任务工时。只有证据满足后，状态才可由“未核验”转为“已验证”。"
+      ],
+      "en": [
+        "Most historical design milestones were scheduled from October through December 2025, with production markers in June 2026. As of July 2026, dates alone are insufficient and should not be labeled either overdue or complete. BOM, drawings, software versions, production changeover and current-machine status must be confirmed item by item.",
+        "Closure criteria must match the problem type: lightweighting needs configuration-based weighing records; travel and hydraulics need performance and thermal data; swing and controls need instrument traces and blind review; the cab needs North American user clinics; serviceability needs standard task-time studies. Status moves from Unverified to Validated only when the evidence is complete."
+      ]
+    },
+    "action": {"zh": "由产品、研发、制造、试验和市场共同维护单一台账；每项至少包含责任系统、当前版本、验证方法、证据文件、结论和关闭日期。", "en": "Product, engineering, manufacturing, test and market teams should maintain one register containing the responsible system, current version, validation method, evidence file, conclusion and closure date for every item."},
+    "phase_labels": [
+      {"id": "design", "label": {"zh": "历史设计节点", "en": "Historical design marker"}},
+      {"id": "production", "label": {"zh": "历史量产节点", "en": "Historical production marker"}},
+      {"id": "current", "label": {"zh": "当前核验", "en": "Current verification"}}
+    ],
+    "close_criteria": {
+      "1": {"zh": "配置化称重单与14K拖车组合边界", "en": "Configuration weigh ticket and 14K-trailer envelope"},
+      "2": {"zh": "浮动 / 四向功能与回填循环对比", "en": "Float / four-way function and backfill-cycle comparison"},
+      "3": {"zh": "启停俯仰、冲击与障碍路面数据", "en": "Start-stop pitch, shock and obstacle-course data"},
+      "4": {"zh": "统一斗型和压力下的铲斗力报告", "en": "Bucket-force report at normalized bucket and pressure"},
+      "5": {"zh": "速度、牵引力、热平衡与油耗联合报告", "en": "Combined speed, traction, thermal and fuel report"},
+      "6": {"zh": "AUX流量、背压、油温与连续属具循环", "en": "AUX flow, back pressure, oil temperature and continuous tool cycle"},
+      "7": {"zh": "统一土质下的完整挖掘循环时间", "en": "Full digging-cycle time in normalized soil"},
+      "8": {"zh": "回转制动减速度、冲击与回摆曲线", "en": "Swing deceleration, shock and rebound traces"},
+      "9": {"zh": "典型保养任务工时与可达步骤", "en": "Standard service-task time and access steps"},
+      "10": {"zh": "当前量产配置清单与用户使用确认", "en": "Current production list and user-use confirmation"},
+      "11": {"zh": "坐姿关门任务成功率与可达性", "en": "Seated door-close success and reachability"},
+      "12": {"zh": "HMI任务时间、错误率与阳光可读性", "en": "HMI task time, error rate and sunlight readability"},
+      "13": {"zh": "北美目标用户人体尺寸与长时舒适性评审", "en": "North American anthropometry and long-duration comfort review"}
+    }
+  }
+}

@@ -1,0 +1,3727 @@
+{
+  "meta": {
+    "source": "XCMG_北美挖机产品线洞察_11.14_源文件.pptx",
+    "classification": "XCMG ARC INTERNAL",
+    "scoring_boundary": "Market and field insight modules do not alter the Excel-based benchmark scores.",
+    "market_time_basis": "2023-2024 historical actual; 2025 historical estimate; 2026 historical forecast pending actual backfill."
+  },
+  "records": [
+    {
+      "slug": "excavator-1-2t",
+      "label": {
+        "zh": "1-2 吨级",
+        "en": "1-2 t class"
+      },
+      "model": "XCMG XE19U",
+      "source_slides": [
+        16,
+        34
+      ],
+      "market_slide": 16,
+      "concentration": {
+        "zh": "四个领先品牌合计约 65%",
+        "en": "Four leading brands hold about 65%"
+      },
+      "benchmark": {
+        "zh": "久保田 U17 / KX018",
+        "en": "Kubota U17 / KX018"
+      },
+      "role": {
+        "zh": "狭窄空间、高频转场和轻型运输是本吨级的核心价值，客户同时比较驾驶棚/驾驶室、属具覆盖和非专业机手易用性。",
+        "en": "Confined access, frequent relocation and light transport define this class. Buyers also compare canopy/cab availability, attachment coverage and ease of use for occasional operators."
+      },
+      "transport": {
+        "zh": "历史运输组合为轻型皮卡加 6K 拖车；XE18U 自重 1,795 kg。实际交付应按快换、拇指钳、铲斗和驾驶室等完整配置复核组合总重。",
+        "en": "The historical reference is a light-duty pickup with a 6K trailer and a 1,795 kg XE18U base machine. Actual delivery packages must be checked with coupler, thumb, buckets and cab equipment included."
+      },
+      "customers": {
+        "zh": "园林承包商、租赁商、市政维护单位、农场及小型施工队",
+        "en": "Landscape contractors, rental fleets, municipalities, farms and small contractors"
+      },
+      "jobs": {
+        "zh": "景观整形、住宅改造、管线沟槽、市政维护、农业清理",
+        "en": "Landscaping, residential renovation, utility trenching, municipal maintenance and farm cleanup"
+      },
+      "purchase": {
+        "zh": "运输便利、窄机身与短尾、可伸缩底盘、动臂偏摆、驾驶室选择和属具流量",
+        "en": "Transportability, narrow packaging, short tail, variable undercarriage, boom swing, cab choice and auxiliary flow"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "园林绿化",
+            "en": "Landscaping"
+          },
+          "body": {
+            "zh": "覆盖场地清理、种植坑开挖、地形修整和排水沟施工，要求机器能穿过窄门并减少对既有景观的扰动。",
+            "en": "Covers site cleanup, planting holes, shaping and drainage trenches, with emphasis on passing narrow gates and limiting disturbance to finished areas."
+          },
+          "requirements": {
+            "zh": "窄机身、可伸缩底盘、精细微动和低接地扰动",
+            "en": "Narrow width, variable undercarriage, fine modulation and low ground disturbance"
+          },
+          "image": "assets/ppt-insights/excavator-1-2t-01.webp",
+          "source_slide": 18
+        },
+        {
+          "title": {
+            "zh": "住宅与商业改造",
+            "en": "Residential and commercial renovation"
+          },
+          "body": {
+            "zh": "用于后院、建筑周边和室内外改造中的开挖、拆除、装车与回填，作业空间通常受围墙和既有建筑约束。",
+            "en": "Supports excavation, light demolition, loading and backfill around homes and commercial buildings where fences and existing structures constrain movement."
+          },
+          "requirements": {
+            "zh": "短尾、动臂偏摆、拇指钳和可控回转",
+            "en": "Short tail, boom swing, thumb and controlled swing"
+          },
+          "image": "assets/ppt-insights/excavator-1-2t-02.webp",
+          "source_slide": 20
+        },
+        {
+          "title": {
+            "zh": "市政维护",
+            "en": "Municipal maintenance"
+          },
+          "body": {
+            "zh": "面向人行道、路缘、绿化带和浅层管线维护，频繁转场要求启停平顺、装卸快速且安全警示完整。",
+            "en": "Targets sidewalks, curbs, verges and shallow utilities; frequent moves require smooth travel, quick loading and complete warning equipment."
+          },
+          "requirements": {
+            "zh": "行走线性、运输效率、报警和照明",
+            "en": "Travel modulation, transport efficiency, alarms and lighting"
+          },
+          "image": "assets/ppt-insights/excavator-1-2t-03.webp",
+          "source_slide": 22
+        },
+        {
+          "title": {
+            "zh": "农业与土地维护",
+            "en": "Agriculture and land maintenance"
+          },
+          "body": {
+            "zh": "用于小型沟渠、围栏、灌溉和土地清理，非专业机手更加关注操作直观、稳定性和附件切换。",
+            "en": "Used for small ditches, fencing, irrigation and land cleanup, where occasional operators value intuitive control, stability and attachment changes."
+          },
+          "requirements": {
+            "zh": "易操作性、稳定性、快换和多属具",
+            "en": "Ease of use, stability, coupler and multi-attachment capability"
+          },
+          "image": "assets/ppt-insights/excavator-1-2t-04.webp",
+          "source_slide": 24
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "整机与运输",
+            "en": "Machine and transport"
+          },
+          "basis": {
+            "zh": "短尾布置满足受限空间，基础运输质量适合轻型组合。",
+            "en": "Short-tail packaging supports confined work and the base mass fits a light transport concept."
+          },
+          "gap": {
+            "zh": "完整附件包后的组合重量边界尚需统一管理。",
+            "en": "The transport margin of the fully equipped package is not yet governed as one envelope."
+          },
+          "action": {
+            "zh": "建立基础机、快换、拇指钳、铲斗和驾驶室的配置质量清单。",
+            "en": "Create a configuration mass sheet covering base machine, coupler, thumb, buckets and cab."
+          },
+          "source_slides": [
+            17,
+            25
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "作业与液压",
+            "en": "Performance and hydraulics"
+          },
+          "basis": {
+            "zh": "可选长斗杆、AUX1 流量、斗杆力和系统压力具备纸面基础。",
+            "en": "Optional long stick, AUX1 flow, arm force and system pressure provide a sound paper baseline."
+          },
+          "gap": {
+            "zh": "动臂偏摆范围、行驶速度和复合动作仍弱于标杆。",
+            "en": "Boom-swing range, travel speed and combined-function performance trail the benchmark."
+          },
+          "action": {
+            "zh": "联合优化偏摆包络、行走标定和复合动作流量分配。",
+            "en": "Jointly optimize boom-swing envelope, travel calibration and combined-flow allocation."
+          },
+          "source_slides": [
+            26,
+            27,
+            33
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "操控与安全",
+            "en": "Controls and safety"
+          },
+          "basis": {
+            "zh": "安全标识及多数间接安全配置较完整。",
+            "en": "Safety labels and most indirect safety provisions are broadly complete."
+          },
+          "gap": {
+            "zh": "脚踏阀死区、行走加速线性和回转制动需要改进。",
+            "en": "Pedal deadband, travel acceleration linearity and swing braking need improvement."
+          },
+          "action": {
+            "zh": "开展仪器化操控测试，锁定脚踏阀、回转制动和软件标定目标。",
+            "en": "Run instrumented control tests and lock targets for pedal valves, swing braking and software calibration."
+          },
+          "source_slides": [
+            28,
+            30
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "驾驶与耐久",
+            "en": "Operator environment and durability"
+          },
+          "basis": {
+            "zh": "低油耗和基础维修性具备优势。",
+            "en": "Low fuel use and basic serviceability are positive foundations."
+          },
+          "gap": {
+            "zh": "驾驶室覆盖、涂层防锈和橡胶件耐久弱于标杆。",
+            "en": "Cab availability, coating corrosion resistance and rubber durability trail the benchmark."
+          },
+          "action": {
+            "zh": "补齐驾驶室方案并实施涂层、紧固件和橡胶件耐久验证。",
+            "en": "Complete the cab offer and validate coatings, fasteners and rubber durability."
+          },
+          "source_slides": [
+            29,
+            31,
+            32
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "KUBOTA",
+            "values": [
+              953,
+              702,
+              666,
+              700
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              398,
+              327,
+              385,
+              410
+            ]
+          },
+          {
+            "brand": "BOBCAT",
+            "values": [
+              341,
+              454,
+              465,
+              480
+            ]
+          },
+          {
+            "brand": "CAT",
+            "values": [
+              444,
+              335,
+              423,
+              460
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              2,
+              2,
+              12,
+              20
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-2-3t",
+      "label": {
+        "zh": "2-3 吨级",
+        "en": "2-3 t class"
+      },
+      "model": "XCMG XE27U",
+      "source_slides": [
+        35,
+        47
+      ],
+      "market_slide": 35,
+      "concentration": {
+        "zh": "四个领先品牌合计超过 80%",
+        "en": "Four leading brands exceed 80% combined"
+      },
+      "benchmark": {
+        "zh": "久保田 U27-4 / 山猫同级产品",
+        "en": "Kubota U27-4 / Bobcat class benchmark"
+      },
+      "role": {
+        "zh": "本吨级延续微挖的园林、市政和住宅需求，但客户开始更重视驾驶室、挖掘力、AUX 流量和连续作业舒适性。",
+        "en": "This class retains landscaping, municipal and residential demand while placing greater weight on cab availability, digging force, auxiliary flow and all-day comfort."
+      },
+      "transport": {
+        "zh": "运输评价应按驾驶室、快换、拇指钳和常用铲斗后的交付质量进行，不仅比较基础机重量；同一拖车组合还需核验轴荷与固定方案。",
+        "en": "Transport should be evaluated at delivered mass with cab, coupler, thumb and common buckets, not base-machine mass alone; axle loading and securement also require verification."
+      },
+      "customers": {
+        "zh": "园林与景观承包商、租赁商、市政单位、住宅改造和小型公用工程客户",
+        "en": "Landscape contractors, rental fleets, municipalities, residential renovators and light utility contractors"
+      },
+      "jobs": {
+        "zh": "清表、平地、沟槽、破碎、钻孔、抓取、起吊和回填",
+        "en": "Clearing, grading, trenching, breaking, augering, grabbing, lifting and backfill"
+      },
+      "purchase": {
+        "zh": "驾驶室与空调、AUX2、多属具适配、行走效率、铲斗力和维修可达性",
+        "en": "Cab and HVAC, AUX2, attachment coverage, travel productivity, bucket force and service access"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "园林与景观",
+            "en": "Landscaping"
+          },
+          "body": {
+            "zh": "2-3 吨机型可承担更连续的挖沟、整形和材料搬运，同时仍需保持后院和城市绿地的通过性。",
+            "en": "The 2-3 t class supports more continuous trenching, shaping and material handling while retaining access to yards and urban green space."
+          },
+          "requirements": {
+            "zh": "短尾、驾驶室选择、微动和多属具",
+            "en": "Short tail, cab choice, fine control and multi-attachment capability"
+          },
+          "image": "assets/ppt-insights/excavator-2-3t-01.webp",
+          "source_slide": 36
+        },
+        {
+          "title": {
+            "zh": "市政与管线",
+            "en": "Municipal and utility work"
+          },
+          "body": {
+            "zh": "用于浅层管线、路缘和道路维护，作业链同时包含挖掘、装车、回填和短距离转场。",
+            "en": "Used for shallow utilities, curbs and road maintenance with excavation, loading, backfill and short relocations in one cycle."
+          },
+          "requirements": {
+            "zh": "行走速度、AUX 流量、平地协调和警示配置",
+            "en": "Travel speed, auxiliary flow, grading coordination and warning equipment"
+          },
+          "image": "assets/ppt-insights/excavator-2-3t-02.webp",
+          "source_slide": 37
+        },
+        {
+          "title": {
+            "zh": "轻拆与属具作业",
+            "en": "Light demolition and attachments"
+          },
+          "body": {
+            "zh": "破碎锤、拇指钳和螺旋钻等属具扩展了应用，但对 AUX1 流量、AUX2、快换和冷却余量提出更高要求。",
+            "en": "Breaker, thumb and auger work expands the application envelope while increasing demand on AUX1 flow, AUX2, coupler performance and cooling reserve."
+          },
+          "requirements": {
+            "zh": "AUX1/AUX2、快换、流量设定和驾驶防护",
+            "en": "AUX1/AUX2, coupler, flow settings and operator protection"
+          },
+          "image": "assets/ppt-insights/excavator-2-3t-03.webp",
+          "source_slide": 37
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "整机参数",
+            "en": "Machine parameters"
+          },
+          "basis": {
+            "zh": "基础尺寸和工作范围与久保田总体接近。",
+            "en": "Base dimensions and working range are broadly close to Kubota."
+          },
+          "gap": {
+            "zh": "整机高度与交付质量需按运输组合继续控制。",
+            "en": "Overall height and delivered mass require continued transport-envelope control."
+          },
+          "action": {
+            "zh": "建立交付状态运输边界并按驾驶室/驾驶棚分别确认。",
+            "en": "Define delivered transport envelopes separately for cab and canopy versions."
+          },
+          "source_slides": [
+            38
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "液压与作业",
+            "en": "Hydraulics and performance"
+          },
+          "basis": {
+            "zh": "标配 AUX2，平地复合协调性具备优势。",
+            "en": "Standard AUX2 and grading coordination are strengths."
+          },
+          "gap": {
+            "zh": "行驶速度、AUX1 流量和铲斗挖掘力低于标杆。",
+            "en": "Travel speed, AUX1 flow and bucket digging force trail the benchmark."
+          },
+          "action": {
+            "zh": "优化泵阀匹配、行走标定和铲斗机构参数。",
+            "en": "Optimize pump/valve matching, travel calibration and bucket linkage targets."
+          },
+          "source_slides": [
+            39,
+            40,
+            46
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "操控与驾驶",
+            "en": "Controls and operator environment"
+          },
+          "basis": {
+            "zh": "7 英寸显示器和信息呈现具备基础。",
+            "en": "The 7-inch display and information presentation provide a good base."
+          },
+          "gap": {
+            "zh": "双速切换、脚踏死区、空调和座椅减震存在差距。",
+            "en": "Two-speed switching, pedal deadband, HVAC and seat suspension remain gaps."
+          },
+          "action": {
+            "zh": "把双速控制移至高频操作区，补齐冷暖空调并优化座椅与行走微动。",
+            "en": "Move two-speed control into the primary control zone, add heating/cooling and improve seat and travel modulation."
+          },
+          "source_slides": [
+            43,
+            44
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "维修与品质",
+            "en": "Serviceability and quality"
+          },
+          "basis": {
+            "zh": "燃油经济性优于历史标杆评价。",
+            "en": "Fuel economy was rated favorably against the historical benchmark."
+          },
+          "gap": {
+            "zh": "主阀可达性、涂装防锈和售后资料质量不足。",
+            "en": "Main-valve access, coating corrosion resistance and service-document quality are insufficient."
+          },
+          "action": {
+            "zh": "调整维修开口并建立涂装、标识和售后文件闭环。",
+            "en": "Improve service openings and close the loop on coating, identification and service documentation."
+          },
+          "source_slides": [
+            42,
+            45
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "KUBOTA",
+            "values": [
+              526,
+              475,
+              487,
+              500
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              310,
+              321,
+              375,
+              400
+            ]
+          },
+          {
+            "brand": "BOBCAT",
+            "values": [
+              338,
+              426,
+              537,
+              540
+            ]
+          },
+          {
+            "brand": "CAT",
+            "values": [
+              448,
+              310,
+              396,
+              420
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              0,
+              6,
+              7,
+              20
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-35t",
+      "label": {
+        "zh": "3-4 吨级",
+        "en": "3-4 t class"
+      },
+      "model": "XCMG XE35U",
+      "source_slides": [
+        48,
+        68
+      ],
+      "market_slide": 48,
+      "concentration": {
+        "zh": "四个领先品牌合计约 74%",
+        "en": "Four leading brands hold about 74% combined"
+      },
+      "benchmark": {
+        "zh": "久保田 U35/KX033 与迪尔 35P",
+        "en": "Kubota U35/KX033 and Deere 35P"
+      },
+      "role": {
+        "zh": "3-4 吨是北美高频通用规格，覆盖承包商、租赁商、市政和景观客户；竞争力取决于带附件运输、多工具作业、短循环效率和全生命周期体验。",
+        "en": "The 3-4 t class is a high-use general-purpose size for contractors, rental fleets, municipalities and landscapers. Competitiveness depends on equipped transport, multi-tool work, short-cycle productivity and lifecycle experience."
+      },
+      "transport": {
+        "zh": "历史记录中的 XE35U 基础质量为 4,200 kg；加副配重、快换、拇指钳和标准斗后的典型组合约 4,579 kg，已逼近 14K 拖车常见有效载荷边界。",
+        "en": "The historical XE35U base mass is 4,200 kg. A representative package with counterweight, coupler, thumb and bucket is about 4,579 kg, close to the common payload boundary of a 14K trailer."
+      },
+      "customers": {
+        "zh": "中小承包商、租赁商、市政及公用事业单位、景观与农业客户",
+        "en": "Small and mid-size contractors, rental fleets, municipalities, utilities, landscapers and agricultural users"
+      },
+      "jobs": {
+        "zh": "沟槽、地基、景观、轻拆、回填、吊装和多属具作业",
+        "en": "Trenching, foundations, landscaping, light demolition, backfill, lifting and multi-attachment work"
+      },
+      "purchase": {
+        "zh": "带附件运输质量、属具覆盖、循环效率、可靠性、操控舒适性和残值",
+        "en": "Equipped transport mass, attachment coverage, cycle productivity, reliability, operator comfort and residual value"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "皮卡与 14K 拖车转运",
+            "en": "Pickup and 14K trailer transport"
+          },
+          "body": {
+            "zh": "经销商交付和客户转场通常要求一套运输组合携带主机及常用附件，因此采购判断必须看交付状态总重。",
+            "en": "Dealer delivery and customer relocation often require one transport package to carry the machine and common attachments, so purchase decisions must use delivered mass."
+          },
+          "requirements": {
+            "zh": "整机减重、附件质量清单、装载固定和合规复核",
+            "en": "Machine mass reduction, attachment mass sheet, securement and compliance review"
+          },
+          "image": "assets/ppt-insights/excavator-35t-01.webp",
+          "source_slide": 50
+        },
+        {
+          "title": {
+            "zh": "房建与轻拆",
+            "en": "Building work and light demolition"
+          },
+          "body": {
+            "zh": "小型拆除和改造需要铲斗、拇指钳、破碎锤与封闭驾驶环境，并要求在受限空间内完成拆分和装车。",
+            "en": "Light demolition and renovation require buckets, thumb, breaker and an enclosed operator environment, with sorting and loading in constrained space."
+          },
+          "requirements": {
+            "zh": "AUX 流量、驾驶防护、精细操控和作业范围",
+            "en": "Auxiliary flow, operator protection, fine control and working range"
+          },
+          "image": "assets/ppt-insights/excavator-35t-02.webp",
+          "source_slide": 52
+        },
+        {
+          "title": {
+            "zh": "地基与管线",
+            "en": "Foundation and utility excavation"
+          },
+          "body": {
+            "zh": "现场测量、开挖、清底、管线安装和回填形成完整任务链，短尾和动臂偏摆直接影响贴边施工。",
+            "en": "Surveying, excavation, cleanup, utility installation and backfill form a complete workflow; short tail and boom swing directly affect close-to-structure work."
+          },
+          "requirements": {
+            "zh": "挖掘深度、偏摆包络、回转力矩和推土铲功能",
+            "en": "Digging depth, boom-swing envelope, swing torque and blade functions"
+          },
+          "image": "assets/ppt-insights/excavator-35t-03.webp",
+          "source_slide": 53
+        },
+        {
+          "title": {
+            "zh": "景观与排水",
+            "en": "Landscaping and drainage"
+          },
+          "body": {
+            "zh": "从清表、整形、沟槽到回填和绿化收尾，需要一台机器频繁切换挖掘、搬运、平地和吊装动作。",
+            "en": "From clearing and shaping through trenching, backfill and final landscaping, one machine must switch frequently among digging, handling, grading and lifting."
+          },
+          "requirements": {
+            "zh": "多属具、坡度/深度控制、微动和回填效率",
+            "en": "Multi-attachment capability, grade/depth control, fine modulation and backfill productivity"
+          },
+          "image": "assets/ppt-insights/excavator-35t-04.webp",
+          "source_slide": 54
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "运输与型谱",
+            "en": "Transport and portfolio"
+          },
+          "basis": {
+            "zh": "短尾可覆盖受限空间，附件配置较完整。",
+            "en": "The short-tail package supports confined work with broad attachment availability."
+          },
+          "gap": {
+            "zh": "整机偏重，且型谱缺少常规尾重载选择。",
+            "en": "Machine mass is high and the portfolio lacks a conventional-tail heavy-duty choice."
+          },
+          "action": {
+            "zh": "锁定轻量化交付质量边界，并评估同平台常规尾产品。",
+            "en": "Lock a lightweight delivered-mass envelope and evaluate a conventional-tail platform variant."
+          },
+          "source_slides": [
+            49,
+            59,
+            67
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "性能与液压",
+            "en": "Performance and hydraulics"
+          },
+          "basis": {
+            "zh": "斗杆力、AUX2 和起吊数据具备纸面基础。",
+            "en": "Arm force, AUX2 and lift data provide paper strengths."
+          },
+          "gap": {
+            "zh": "行驶速度、AUX1 流量、铲斗力和回转回填效率偏弱。",
+            "en": "Travel speed, AUX1 flow, bucket force and swing/backfill productivity are weak."
+          },
+          "action": {
+            "zh": "联合优化行走、附件液压和回转制动/力矩标定。",
+            "en": "Jointly optimize travel, attachment hydraulics and swing braking/torque calibration."
+          },
+          "source_slides": [
+            60,
+            61,
+            67
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "操控与驾驶",
+            "en": "Controls and cab"
+          },
+          "basis": {
+            "zh": "安全配置整体接近历史标杆。",
+            "en": "Safety equipment is broadly close to the historical benchmark."
+          },
+          "gap": {
+            "zh": "微动、精准性、平顺性、座椅、空间和显示交互存在差距。",
+            "en": "Inching, precision, smoothness, seat, space and display interaction remain gaps."
+          },
+          "action": {
+            "zh": "以仪器测试和目标机手盲评锁定阀控、软件及驾驶室目标。",
+            "en": "Use instrumented tests and blind operator evaluations to set valve, software and cab targets."
+          },
+          "source_slides": [
+            62,
+            64,
+            65
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "耐久与交付",
+            "en": "Durability and support"
+          },
+          "basis": {
+            "zh": "燃油经济性具备潜在优势。",
+            "en": "Fuel economy shows potential advantage."
+          },
+          "gap": {
+            "zh": "防锈、涂层、橡胶件、维修加注和售后资料弱于标杆。",
+            "en": "Corrosion protection, coatings, rubber parts, service filling and after-sales documentation trail the benchmark."
+          },
+          "action": {
+            "zh": "补齐耐久验证、维修工时和文件准确性闭环。",
+            "en": "Close validation loops for durability, service labor and documentation accuracy."
+          },
+          "source_slides": [
+            63,
+            66
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "KUBOTA",
+            "values": [
+              2274,
+              2138,
+              1819,
+              1800
+            ]
+          },
+          {
+            "brand": "BOBCAT",
+            "values": [
+              1886,
+              1775,
+              1765,
+              1750
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              1539,
+              1438,
+              1886,
+              2000
+            ]
+          },
+          {
+            "brand": "CAT",
+            "values": [
+              935,
+              723,
+              975,
+              1000
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              29,
+              33,
+              50,
+              75
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-4-5t",
+      "label": {
+        "zh": "4-5 吨级",
+        "en": "4-5 t class"
+      },
+      "model": "XCMG XE45U",
+      "source_slides": [
+        69,
+        89
+      ],
+      "market_slide": 69,
+      "concentration": {
+        "zh": "四个领先品牌合计超过 85%",
+        "en": "Four leading brands exceed 85% combined"
+      },
+      "benchmark": {
+        "zh": "久保田 U48 / KX040 与卡特同级产品",
+        "en": "Kubota U48 / KX040 and Caterpillar class benchmark"
+      },
+      "role": {
+        "zh": "4-5 吨是北美微小挖销量第三的区间，市场主要集中在 4 吨级，购买逻辑是在作业能力和 14K 运输组合之间寻找平衡。",
+        "en": "The 4-5 t range is the third-largest compact class in the source market view, concentrated near 4 t, where buyers balance work capability against a 14K transport package."
+      },
+      "transport": {
+        "zh": "XE45U 加副配重、快换、拇指钳和挖沟斗后约 5.16 t；再携带清理斗时超过资料中的 5.2 t 有效载荷上限，运输灵活性成为核心约束。",
+        "en": "XE45U reaches about 5.16 t with counterweight, coupler, thumb and trenching bucket; adding a cleanup bucket exceeds the 5.2 t reference payload, making transport flexibility a primary constraint."
+      },
+      "customers": {
+        "zh": "市政与道路承包商、景观与住宅施工企业、租赁商和公用工程客户",
+        "en": "Municipal and road contractors, landscape and residential builders, rental fleets and utility contractors"
+      },
+      "jobs": {
+        "zh": "人行道、排水沟、小型拆除、泳池与地基、景观土方",
+        "en": "Sidewalks, drainage ditches, light demolition, pools and foundations, and landscape earthwork"
+      },
+      "purchase": {
+        "zh": "带附件运输质量、稳定与起吊、AUX 流量、驾驶便利和回填效率",
+        "en": "Equipped transport mass, stability and lift, auxiliary flow, operator convenience and backfill productivity"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "人行道与路缘",
+            "en": "Sidewalks and curbs"
+          },
+          "body": {
+            "zh": "狭窄道路和人行区施工需要小回转包络、精准平地和对周边人员的安全隔离。",
+            "en": "Work on narrow roads and pedestrian areas requires compact swing clearance, precise grading and safe separation from nearby people."
+          },
+          "requirements": {
+            "zh": "短尾、摄像头、精细操控和快速转场",
+            "en": "Short tail, camera, fine control and fast relocation"
+          },
+          "image": "assets/ppt-insights/excavator-4-5t-01.webp",
+          "source_slide": 71
+        },
+        {
+          "title": {
+            "zh": "排水沟施工",
+            "en": "Drainage ditch work"
+          },
+          "body": {
+            "zh": "开挖、清底、管件安装和回填要求工作范围、AUX 配置与推土铲动作协同。",
+            "en": "Excavation, cleanup, pipe installation and backfill require coordinated working range, auxiliary circuits and blade functions."
+          },
+          "requirements": {
+            "zh": "挖深、流量、回填效率和坡度控制",
+            "en": "Digging depth, flow, backfill productivity and grade control"
+          },
+          "image": "assets/ppt-insights/excavator-4-5t-02.webp",
+          "source_slide": 72
+        },
+        {
+          "title": {
+            "zh": "小型建筑拆除",
+            "en": "Light building demolition"
+          },
+          "body": {
+            "zh": "破碎、拆分、抓取和装车连续发生，对铲斗力、拇指钳、破碎管路和驾驶防护提出综合要求。",
+            "en": "Breaking, sorting, grabbing and loading occur in one cycle, combining requirements for bucket force, thumb, breaker plumbing and operator protection."
+          },
+          "requirements": {
+            "zh": "铲斗力、AUX、快换、驾驶防护",
+            "en": "Bucket force, AUX, coupler and operator protection"
+          },
+          "image": "assets/ppt-insights/excavator-4-5t-03.webp",
+          "source_slide": 73
+        },
+        {
+          "title": {
+            "zh": "泳池与地基",
+            "en": "Pool and foundation excavation"
+          },
+          "body": {
+            "zh": "受限宅基地内需要深挖、贴边、清底和土方装运，稳定性和最远端操控直接影响质量。",
+            "en": "Confined residential sites require digging, close-wall work, cleanup and spoil handling; stability and far-reach control directly affect quality."
+          },
+          "requirements": {
+            "zh": "工作范围、稳定性、微动和运输组合",
+            "en": "Working range, stability, fine control and transport package"
+          },
+          "image": "assets/ppt-insights/excavator-4-5t-04.webp",
+          "source_slide": 74
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "运输与稳定",
+            "en": "Transport and stability"
+          },
+          "basis": {
+            "zh": "整机稳定性和起吊表现优于历史标杆判断。",
+            "en": "Machine stability and lifting were rated favorably in the historical comparison."
+          },
+          "gap": {
+            "zh": "带完整附件运输余量不足，资料建议减重 100-150 kg。",
+            "en": "The fully equipped transport margin is limited; the source recommends a 100-150 kg mass reduction."
+          },
+          "action": {
+            "zh": "以 14K 运输包为边界开展轻量化，并保持起吊稳定性。",
+            "en": "Use the 14K transport package as the mass target while preserving lifting stability."
+          },
+          "source_slides": [
+            70,
+            80
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "性能与属具",
+            "en": "Performance and attachments"
+          },
+          "basis": {
+            "zh": "斗杆力、系统流量和机具流量具备优势。",
+            "en": "Arm force, system flow and attachment flow are strengths."
+          },
+          "gap": {
+            "zh": "铲斗挖掘力偏低，回转启停晃动稍大。",
+            "en": "Bucket force is low and swing start/stop oscillation is excessive."
+          },
+          "action": {
+            "zh": "优化铲斗机构和回转制动标定，并验证复合动作。",
+            "en": "Optimize bucket linkage and swing-braking calibration, then validate combined functions."
+          },
+          "source_slides": [
+            81,
+            82,
+            85
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "安全与驾驶",
+            "en": "Safety and cab"
+          },
+          "basis": {
+            "zh": "起吊报警、回转制动、后视摄像头和 7 英寸交互具备基础。",
+            "en": "Lift alarm, swing brake, rear camera and 7-inch interface provide a sound base."
+          },
+          "gap": {
+            "zh": "驾驶操作仍需在高频任务中验证可及性和视野。",
+            "en": "Control reach and visibility still require validation in frequent tasks."
+          },
+          "action": {
+            "zh": "按目标机手和典型任务开展人机诊断。",
+            "en": "Run ergonomic diagnostics with target operators and representative tasks."
+          },
+          "source_slides": [
+            83,
+            86
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "耐久与品质",
+            "en": "Durability and quality"
+          },
+          "basis": {
+            "zh": "覆盖件开启与基础维修性接近标杆。",
+            "en": "Panel access and basic serviceability are close to the benchmark."
+          },
+          "gap": {
+            "zh": "油漆、防锈和橡胶件耐久仍需加强。",
+            "en": "Paint, corrosion protection and rubber durability still need improvement."
+          },
+          "action": {
+            "zh": "补充高海拔、防腐和长期耐久试验。",
+            "en": "Add high-altitude, corrosion and long-duration validation."
+          },
+          "source_slides": [
+            84,
+            87,
+            88
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "KUBOTA",
+            "values": [
+              2902,
+              2784,
+              2648,
+              2500
+            ]
+          },
+          {
+            "brand": "BOBCAT",
+            "values": [
+              1145,
+              1193,
+              1473,
+              1600
+            ]
+          },
+          {
+            "brand": "CAT",
+            "values": [
+              744,
+              790,
+              1004,
+              1100
+            ]
+          },
+          {
+            "brand": "TAKEUCHI",
+            "values": [
+              193,
+              169,
+              204,
+              220
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              0,
+              0,
+              18,
+              50
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-5-6t",
+      "label": {
+        "zh": "5-6 吨级",
+        "en": "5-6 t class"
+      },
+      "model": "XCMG XE55U",
+      "source_slides": [
+        90,
+        107
+      ],
+      "market_slide": 90,
+      "concentration": {
+        "zh": "四个领先品牌合计超过 70%",
+        "en": "Four leading brands exceed 70% combined"
+      },
+      "benchmark": {
+        "zh": "久保田 KX057/U55 与卡特 305 CR",
+        "en": "Kubota KX057/U55 and Caterpillar 305 CR"
+      },
+      "role": {
+        "zh": "5-6 吨是北美微小挖销量第二的区间；常规尾销量领先短尾，说明客户对起吊、稳定和重载能力的权重上升。",
+        "en": "The 5-6 t range is the second-largest compact class in the source view. Conventional-tail volume leads short-tail volume, indicating greater emphasis on lift, stability and heavy-duty capability."
+      },
+      "transport": {
+        "zh": "XE55U 带副配重、快换、拇指钳和两只常用铲斗后的典型组合约 6,255 kg，处于 16K 拖车资料参考载荷范围内。",
+        "en": "A representative XE55U package with counterweight, coupler, thumb and two common buckets is about 6,255 kg, within the referenced 16K trailer payload range."
+      },
+      "customers": {
+        "zh": "市政与公用工程承包商、景观施工企业、租赁商和中小土方客户",
+        "en": "Municipal and utility contractors, landscapers, rental fleets and small earthmoving contractors"
+      },
+      "jobs": {
+        "zh": "沟槽与排水、基础、材料搬运、重载回填、景观和多属具作业",
+        "en": "Trenching and drainage, foundations, material handling, heavy backfill, landscaping and multi-attachment work"
+      },
+      "purchase": {
+        "zh": "稳定与起吊、发动机储备、铲斗力、属具流量、推土铲操控和安全摄像头",
+        "en": "Stability and lift, engine reserve, bucket force, attachment flow, blade controls and safety camera"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "市政沟槽",
+            "en": "Municipal trenching"
+          },
+          "body": {
+            "zh": "持续挖沟、管件搬运和回填要求液压温控、行走效率和推土铲操控连续稳定。",
+            "en": "Continuous trenching, pipe handling and backfill require stable hydraulic temperature, travel productivity and blade control."
+          },
+          "requirements": {
+            "zh": "长时间液压性能、行走、吊装和回填",
+            "en": "Sustained hydraulics, travel, lifting and backfill"
+          },
+          "image": "assets/ppt-insights/excavator-5-6t-01.webp",
+          "source_slide": 92
+        },
+        {
+          "title": {
+            "zh": "房建与基础",
+            "en": "Building and foundation work"
+          },
+          "body": {
+            "zh": "本吨级承担更大土方量和更重物料，常规尾与副配重能够改善最远端稳定和起吊。",
+            "en": "This class handles larger spoil volumes and heavier materials; conventional-tail packaging and counterweight improve far-reach stability and lift."
+          },
+          "requirements": {
+            "zh": "稳定性、工作范围、铲斗力和起吊表",
+            "en": "Stability, working range, bucket force and lift chart"
+          },
+          "image": "assets/ppt-insights/excavator-5-6t-02.webp",
+          "source_slide": 93
+        },
+        {
+          "title": {
+            "zh": "景观与整形",
+            "en": "Landscaping and grading"
+          },
+          "body": {
+            "zh": "在景观工程中同时完成清表、挖沟、平地和材料搬运，操作手对微动、双速和偏摆控制非常敏感。",
+            "en": "Landscape projects combine clearing, trenching, grading and material handling, making modulation, two-speed and blade-angle controls highly visible to operators."
+          },
+          "requirements": {
+            "zh": "微动、双速、推土铲偏摆和低噪声",
+            "en": "Fine control, two-speed, angle blade and low noise"
+          },
+          "image": "assets/ppt-insights/excavator-5-6t-03.webp",
+          "source_slide": 94
+        },
+        {
+          "title": {
+            "zh": "多属具作业",
+            "en": "Multi-attachment work"
+          },
+          "body": {
+            "zh": "高流量附件和两套管路扩大破碎、钻孔和抓取能力，但要求发动机与主泵具备持续功率余量。",
+            "en": "High-flow tools and dual circuits expand breaker, auger and grapple use but require sustained engine and pump power reserve."
+          },
+          "requirements": {
+            "zh": "AUX1/AUX2、冷却、发动机储备和快换",
+            "en": "AUX1/AUX2, cooling, engine reserve and coupler"
+          },
+          "image": "assets/ppt-insights/excavator-5-6t-04.webp",
+          "source_slide": 95
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "稳定与起吊",
+            "en": "Stability and lifting"
+          },
+          "basis": {
+            "zh": "副配重、较高稳定性和起吊能力是纸面优势。",
+            "en": "Counterweight, stability and lifting capability are paper strengths."
+          },
+          "gap": {
+            "zh": "当前仅一款短尾，重载型谱覆盖弱于久保田。",
+            "en": "A single short-tail model provides less heavy-duty portfolio coverage than Kubota."
+          },
+          "action": {
+            "zh": "形成副配重标准包并评估重载/常规尾型谱。",
+            "en": "Standardize a counterweight package and evaluate heavy-duty/conventional-tail coverage."
+          },
+          "source_slides": [
+            90,
+            98
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "动力与作业",
+            "en": "Power and performance"
+          },
+          "basis": {
+            "zh": "斗杆力、起吊和附件流量表现较好。",
+            "en": "Arm force, lift and attachment flow perform well."
+          },
+          "gap": {
+            "zh": "发动机功率储备、铲斗力和行走驱动力偏弱。",
+            "en": "Engine reserve, bucket force and travel drive are weak."
+          },
+          "action": {
+            "zh": "升级动力与主泵匹配，优化铲斗机构和行走牵引。",
+            "en": "Upgrade engine/pump matching and optimize bucket linkage and travel traction."
+          },
+          "source_slides": [
+            99,
+            100,
+            106
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "操控与安全",
+            "en": "Controls and safety"
+          },
+          "basis": {
+            "zh": "多数安全功能及基础操控接近标杆。",
+            "en": "Most safety functions and base controls are close to the benchmark."
+          },
+          "gap": {
+            "zh": "缺少后视摄像头；偏摆与双速开关布局不便。",
+            "en": "Rear camera is missing and angle-blade/two-speed switch placement is inconvenient."
+          },
+          "action": {
+            "zh": "标配摄像头并把偏摆、双速集成到推土铲手柄。",
+            "en": "Standardize the camera and integrate angle-blade/two-speed controls into the blade lever."
+          },
+          "source_slides": [
+            101,
+            103,
+            104
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "环境与维修",
+            "en": "Environment and service"
+          },
+          "basis": {
+            "zh": "燃油经济性和基础维修性具备优势。",
+            "en": "Fuel economy and basic serviceability are positive."
+          },
+          "gap": {
+            "zh": "高海拔动力储备、独立液压油加注和表面耐久不足。",
+            "en": "High-altitude power reserve, independent hydraulic-oil filling and surface durability are insufficient."
+          },
+          "action": {
+            "zh": "采用增压动力方案并改善加注口、防腐和橡胶件验证。",
+            "en": "Use a turbocharged power solution and improve fill access, corrosion protection and rubber validation."
+          },
+          "source_slides": [
+            102,
+            105
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "KUBOTA",
+            "values": [
+              2655,
+              2265,
+              2183,
+              2100
+            ]
+          },
+          {
+            "brand": "CAT",
+            "values": [
+              1311,
+              1375,
+              1785,
+              2000
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              814,
+              871,
+              1141,
+              1200
+            ]
+          },
+          {
+            "brand": "BOBCAT",
+            "values": [
+              694,
+              622,
+              540,
+              500
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              15,
+              27,
+              30,
+              50
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-7-8t",
+      "label": {
+        "zh": "7-8 吨级",
+        "en": "7-8 t class"
+      },
+      "model": "XCMG XE75U",
+      "source_slides": [
+        11,
+        15
+      ],
+      "market_slide": null,
+      "concentration": {
+        "zh": "小挖扩展规格",
+        "en": "Extended compact-excavator class"
+      },
+      "benchmark": {
+        "zh": "久保田小挖产品体系",
+        "en": "Kubota compact-excavator portfolio"
+      },
+      "role": {
+        "zh": "6-8 吨在产品线销量结构中属于小挖次销规格，价值不在单纯放大参数，而在兼顾运输、稳定、多属具和高利用率。",
+        "en": "The 6-8 t range is an extended compact class. Its value is not simply larger specifications but a balance of transport, stability, attachment versatility and high utilization."
+      },
+      "transport": {
+        "zh": "本吨级应以交付状态质量、拖车轴荷、机宽机高和常用附件同车运输能力建立边界，并由最新州法规和承运方案复核。",
+        "en": "This class requires a delivered-mass envelope covering trailer axle loads, machine width/height and common attachments carried together, with current state regulations and carrier plans verified."
+      },
+      "customers": {
+        "zh": "租赁商、市政与公用工程承包商、景观与中小土方客户",
+        "en": "Rental fleets, municipal and utility contractors, landscapers and small earthmoving contractors"
+      },
+      "jobs": {
+        "zh": "公用工程、沟槽、材料搬运、回填、坡地和多属具作业",
+        "en": "Utility work, trenching, material handling, backfill, slopes and multi-attachment work"
+      },
+      "purchase": {
+        "zh": "利用率、稳定与起吊、属具覆盖、运输包、可靠性和操控一致性",
+        "en": "Utilization, stability and lift, attachment coverage, transport package, reliability and consistent controls"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "市政与管线",
+            "en": "Municipal and utility work"
+          },
+          "body": {
+            "zh": "典型任务包括沟槽、管件吊装、回填和路面恢复，一台机器需要覆盖完整任务链。",
+            "en": "Typical work includes trenching, pipe handling, backfill and surface restoration, requiring one machine to cover the full task chain."
+          },
+          "requirements": {
+            "zh": "工作范围、起吊、附件管路和回填效率",
+            "en": "Working range, lift, attachment circuits and backfill productivity"
+          },
+          "image": "assets/conditions/trench-foundation.jpg",
+          "source_slide": 15
+        },
+        {
+          "title": {
+            "zh": "材料搬运与装车",
+            "en": "Material handling and loading"
+          },
+          "body": {
+            "zh": "更高质量级带来稳定性，同时也要求回转、动臂提升和装车循环保持协调。",
+            "en": "The higher mass class adds stability while requiring coordinated swing, boom lift and loading cycles."
+          },
+          "requirements": {
+            "zh": "稳定性、回转力矩、提升速度和视野",
+            "en": "Stability, swing torque, boom speed and visibility"
+          },
+          "image": "assets/conditions/loading-cycle.jpg",
+          "source_slide": 15
+        },
+        {
+          "title": {
+            "zh": "坡地与软土",
+            "en": "Slopes and soft ground"
+          },
+          "body": {
+            "zh": "租赁和市政客户需要机器在坡地、松软地面和不同机手之间保持可预测的行走与制动响应。",
+            "en": "Rental and municipal users need predictable travel and braking on slopes, soft ground and across different operators."
+          },
+          "requirements": {
+            "zh": "牵引、制动、接地与操控一致性",
+            "en": "Traction, braking, ground contact and control consistency"
+          },
+          "image": "assets/conditions/slope-soft-ground.jpg",
+          "source_slide": 15
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "市场角色",
+            "en": "Market role"
+          },
+          "basis": {
+            "zh": "该吨级补齐小挖从轻型施工到高利用率工程任务的过渡。",
+            "en": "This class bridges light compact work and higher-utilization contracting tasks."
+          },
+          "gap": {
+            "zh": "专项销量与实机场景资料没有单独拆分。",
+            "en": "Dedicated class-level sales and field-use evidence is not separately reported."
+          },
+          "action": {
+            "zh": "用当前源表和北美客户样本建立本吨级独立市场与工况证据。",
+            "en": "Build class-specific market and jobsite evidence from the current workbook and North American customer samples."
+          },
+          "source_slides": [
+            11,
+            15
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "运输与配置",
+            "en": "Transport and equipment"
+          },
+          "basis": {
+            "zh": "短尾和多属具能够覆盖市政与租赁需求。",
+            "en": "Short-tail packaging and multi-attachment capability support municipal and rental use."
+          },
+          "gap": {
+            "zh": "交付状态运输包和常用附件组合需要统一。",
+            "en": "Delivered transport and common attachment packages need one definition."
+          },
+          "action": {
+            "zh": "建立按客户类型区分的运输与附件包。",
+            "en": "Define transport and attachment packages by customer type."
+          },
+          "source_slides": [
+            15
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "操控与效率",
+            "en": "Controls and productivity"
+          },
+          "basis": {
+            "zh": "本吨级应延续小挖对易用性和多功能的要求。",
+            "en": "This class should retain compact-machine ease of use and versatility."
+          },
+          "gap": {
+            "zh": "跨机手一致性、短循环效率和坡地操控需要实测。",
+            "en": "Cross-operator consistency, short-cycle productivity and slope control require field tests."
+          },
+          "action": {
+            "zh": "开展循环计时、坡地行走和多机手盲评。",
+            "en": "Run cycle timing, slope travel and multi-operator blind evaluations."
+          },
+          "source_slides": [
+            11,
+            15
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "可靠性与残值",
+            "en": "Reliability and residual value"
+          },
+          "basis": {
+            "zh": "成熟市场客户高度重视稳定性和使用成本。",
+            "en": "Mature-market customers place high value on stability and ownership cost."
+          },
+          "gap": {
+            "zh": "当前缺少本吨级独立的耐久、维修工时和残值闭环。",
+            "en": "A class-specific loop for durability, service labor and residual value is missing."
+          },
+          "action": {
+            "zh": "建立故障、保养工时、备件和二手机残值台账。",
+            "en": "Establish failure, service-labor, parts and used-value tracking."
+          },
+          "source_slides": [
+            11,
+            13
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [],
+        "series": [],
+        "status": []
+      }
+    },
+    {
+      "slug": "excavator-8-10t",
+      "label": {
+        "zh": "8-10 吨级",
+        "en": "8-10 t class"
+      },
+      "model": "XCMG XE80U",
+      "source_slides": [
+        108,
+        125
+      ],
+      "market_slide": 108,
+      "concentration": {
+        "zh": "四个领先品牌合计超过 70%",
+        "en": "Four leading brands exceed 70% combined"
+      },
+      "benchmark": {
+        "zh": "久保田 KX080 与卡特 308/309 CR",
+        "en": "Kubota KX080 and Caterpillar 308/309 CR"
+      },
+      "role": {
+        "zh": "8-10 吨是微小挖销量第四的区间，客户已经接受 CDL 和重型运输组合，因此更关注生产率、稳定、起吊与附件能力。",
+        "en": "The 8-10 t range is the fourth-largest compact segment in the source view. With CDL and heavy transport already accepted, buyers focus more on productivity, stability, lifting and attachment capability."
+      },
+      "transport": {
+        "zh": "XE80U 带快换、拇指钳和常用铲斗后的典型组合约 10,210 kg，资料采用重型皮卡加 30K 鹅颈拖车，并明确需要 CDL。",
+        "en": "A representative XE80U package with coupler, thumb and common buckets is about 10,210 kg. The source uses a heavy-duty pickup and 30K gooseneck trailer and identifies CDL operation."
+      },
+      "customers": {
+        "zh": "专业承包商、租赁商、市政与公用工程客户、景观和轻土方企业",
+        "en": "Professional contractors, rental fleets, municipal/utility users, landscapers and light earthmoving firms"
+      },
+      "jobs": {
+        "zh": "深沟、基础、土方、材料搬运、破碎、起吊和道路维护",
+        "en": "Deep trenching, foundations, earthmoving, material handling, breaking, lifting and road maintenance"
+      },
+      "purchase": {
+        "zh": "稳定、起吊、挖掘力、液压流量、运输高度、长斗杆和驾驶舒适性",
+        "en": "Stability, lift, digging forces, hydraulic flow, transport height, long stick and operator comfort"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "道路与市政",
+            "en": "Road and municipal work"
+          },
+          "body": {
+            "zh": "更长作业循环和更重材料要求机器在挖掘、回转、行走和回填之间保持效率。",
+            "en": "Longer cycles and heavier materials require efficient transitions among digging, swing, travel and backfill."
+          },
+          "requirements": {
+            "zh": "循环效率、视野、推土铲和报警",
+            "en": "Cycle productivity, visibility, blade functions and alarms"
+          },
+          "image": "assets/ppt-insights/excavator-8-10t-01.webp",
+          "source_slide": 110
+        },
+        {
+          "title": {
+            "zh": "基础与深沟",
+            "en": "Foundations and deep trenches"
+          },
+          "body": {
+            "zh": "深沟和基础开挖对长斗杆、稳定、挖深和吊装能力提出更高要求。",
+            "en": "Deep trench and foundation work places greater demand on long-stick availability, stability, depth and lifting capability."
+          },
+          "requirements": {
+            "zh": "长斗杆、挖深、稳定和起吊表",
+            "en": "Long stick, digging depth, stability and lift chart"
+          },
+          "image": "assets/ppt-insights/excavator-8-10t-02.webp",
+          "source_slide": 111
+        },
+        {
+          "title": {
+            "zh": "材料搬运",
+            "en": "Material handling"
+          },
+          "body": {
+            "zh": "拇指钳、快换和大流量附件扩展了搬运与拆分任务，但牵引和回转响应需要匹配更大质量。",
+            "en": "Thumb, coupler and high-flow tools expand handling and sorting, while travel and swing response must match the higher mass."
+          },
+          "requirements": {
+            "zh": "AUX 流量、牵引、回转和稳定",
+            "en": "Auxiliary flow, traction, swing and stability"
+          },
+          "image": "assets/ppt-insights/excavator-8-10t-03.webp",
+          "source_slide": 112
+        },
+        {
+          "title": {
+            "zh": "轻拆与多属具",
+            "en": "Light demolition and multi-tool work"
+          },
+          "body": {
+            "zh": "更高发动机和液压能力支持破碎和切割，驾驶防护、冷却和附件设定决定持续作业能力。",
+            "en": "Higher engine and hydraulic capability supports breaking and cutting; cab protection, cooling and tool settings determine sustained output."
+          },
+          "requirements": {
+            "zh": "防护、冷却、AUX 设定和快换",
+            "en": "Protection, cooling, AUX settings and coupler"
+          },
+          "image": "assets/ppt-insights/excavator-8-10t-04.webp",
+          "source_slide": 113
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "整机与运输",
+            "en": "Machine and transport"
+          },
+          "basis": {
+            "zh": "动力和液压基础较强。",
+            "en": "Power and hydraulic foundations are strong."
+          },
+          "gap": {
+            "zh": "整机偏重、运输高度偏高，长斗杆状态下稳定性不足。",
+            "en": "Machine mass and transport height are high, with insufficient stability in long-stick configuration."
+          },
+          "action": {
+            "zh": "轻量化并重算长斗杆、配重和运输高度组合。",
+            "en": "Reduce mass and recalculate long-stick, counterweight and transport-height combinations."
+          },
+          "source_slides": [
+            109,
+            116
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "作业性能",
+            "en": "Working performance"
+          },
+          "basis": {
+            "zh": "主泵流量、压力和 AUX1 流量具备优势。",
+            "en": "Main-pump flow, pressure and AUX1 flow are strengths."
+          },
+          "gap": {
+            "zh": "铲斗力、牵引和起吊能力弱于主要竞品。",
+            "en": "Bucket force, traction and lift trail key competitors."
+          },
+          "action": {
+            "zh": "优化机构、行走驱动和稳定性，按任务循环验证。",
+            "en": "Optimize linkage, travel drive and stability, then validate by task cycle."
+          },
+          "source_slides": [
+            117,
+            118
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "操控与驾驶",
+            "en": "Controls and operator environment"
+          },
+          "basis": {
+            "zh": "平地与行走优化后得到较好市场反馈。",
+            "en": "Grading and travel improvements received favorable market feedback."
+          },
+          "gap": {
+            "zh": "双速开关未集成，双动臂版本稳定性仍需提升。",
+            "en": "Two-speed control is not integrated and dual-boom stability still needs improvement."
+          },
+          "action": {
+            "zh": "优化手柄控制和双动臂配重/底盘匹配。",
+            "en": "Improve lever controls and counterweight/undercarriage matching for dual-boom variants."
+          },
+          "source_slides": [
+            121,
+            122,
+            124
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "可靠性与维修",
+            "en": "Reliability and service"
+          },
+          "basis": {
+            "zh": "三面开启覆盖件有利于维修。",
+            "en": "Three-side panel access supports serviceability."
+          },
+          "gap": {
+            "zh": "表面耐久和工作灯延迟等细节配置存在差距。",
+            "en": "Surface durability and details such as delayed work lights remain gaps."
+          },
+          "action": {
+            "zh": "补充耐久验证并建立高频客户配置清单。",
+            "en": "Add durability validation and define a high-frequency customer equipment list."
+          },
+          "source_slides": [
+            119,
+            120,
+            123
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "KUBOTA",
+            "values": [
+              1053,
+              969,
+              912,
+              950
+            ]
+          },
+          {
+            "brand": "CAT",
+            "values": [
+              907,
+              777,
+              1018,
+              1100
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              448,
+              474,
+              604,
+              650
+            ]
+          },
+          {
+            "brand": "KOMATSU",
+            "values": [
+              333,
+              370,
+              440,
+              460
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              1,
+              5,
+              16,
+              30
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-12-14t",
+      "label": {
+        "zh": "12-14 吨级",
+        "en": "12-14 t class"
+      },
+      "model": "XCMG XE135U",
+      "source_slides": [
+        126,
+        151
+      ],
+      "market_slide": 126,
+      "concentration": {
+        "zh": "四个领先品牌合计超过 70%",
+        "en": "Four leading brands exceed 70% combined"
+      },
+      "benchmark": {
+        "zh": "卡特同级中挖",
+        "en": "Caterpillar class benchmark"
+      },
+      "role": {
+        "zh": "12-14 吨市场总量较低且历史销量下滑，产品决策应优先验证真实客户和应用，而不是仅用参数覆盖证明必要性。",
+        "en": "The 12-14 t market is relatively small and historically declined, so product decisions should validate real customers and applications rather than rely on specification coverage alone."
+      },
+      "transport": {
+        "zh": "13-16 吨级资料采用阶梯式拖车；宽度目标为 2,590 mm，并按单轴 9,072 kg 参考值配置两轴运输。实际运输需按州法规复核。",
+        "en": "The 13-16 t reference uses a step-deck trailer, a 2,590 mm width target and two axles based on a 9,072 kg per-axle reference. Actual moves require state-level verification."
+      },
+      "customers": {
+        "zh": "市政、公用工程、房建、道路施工和专业租赁客户",
+        "en": "Municipal, utility, building, roadwork and professional rental customers"
+      },
+      "jobs": {
+        "zh": "沟槽、基础、土方、吊装、破碎和市政综合施工",
+        "en": "Trenching, foundations, earthmoving, lifting, breaking and mixed municipal work"
+      },
+      "purchase": {
+        "zh": "运输尺寸、长斗杆、起吊、行走效率、附件液压和智能辅助",
+        "en": "Transport dimensions, long stick, lifting, travel productivity, attachment hydraulics and machine guidance"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "城市基础施工",
+            "en": "Urban foundation work"
+          },
+          "body": {
+            "zh": "在城市项目中完成基坑、管线和回填，运输宽度、尾部包络和作业范围共同决定适配性。",
+            "en": "Urban projects combine excavation, utilities and backfill, where transport width, tail envelope and working range jointly determine fit."
+          },
+          "requirements": {
+            "zh": "运输宽度、工作范围、稳定和回填效率",
+            "en": "Transport width, working range, stability and backfill productivity"
+          },
+          "image": "assets/ppt-insights/excavator-12-16t-01.webp",
+          "source_slide": 133
+        },
+        {
+          "title": {
+            "zh": "深沟与管线",
+            "en": "Deep trench and utilities"
+          },
+          "body": {
+            "zh": "较深管线要求长斗杆、挖深、吊装和精确清底，缺少长斗杆会直接缩小任务覆盖。",
+            "en": "Deeper utilities require a long stick, digging depth, lifting and precise cleanup; lack of a long stick directly narrows task coverage."
+          },
+          "requirements": {
+            "zh": "长斗杆、挖深、起吊和 2D 引导",
+            "en": "Long stick, digging depth, lift and 2D guidance"
+          },
+          "image": "assets/ppt-insights/excavator-12-16t-02.webp",
+          "source_slide": 134
+        },
+        {
+          "title": {
+            "zh": "土方与装车",
+            "en": "Earthmoving and loading"
+          },
+          "body": {
+            "zh": "重载挖掘和装车需要挖掘力、回转、动臂提升和液压流量协同。",
+            "en": "Heavy digging and truck loading require coordinated digging force, swing, boom lift and hydraulic flow."
+          },
+          "requirements": {
+            "zh": "循环时间、回转力矩、流量和燃油",
+            "en": "Cycle time, swing torque, flow and fuel"
+          },
+          "image": "assets/ppt-insights/excavator-12-16t-03.webp",
+          "source_slide": 135
+        },
+        {
+          "title": {
+            "zh": "破碎与属具",
+            "en": "Breaker and attachment work"
+          },
+          "body": {
+            "zh": "PTO、AUX 和卸油能力决定破碎锤及其他机具的持续输出，驾驶室防护决定安全边界。",
+            "en": "PTO, AUX and case-drain capability determine sustained breaker and tool output, while cab protection defines the safety envelope."
+          },
+          "requirements": {
+            "zh": "PTO/AUX、卸油、冷却和防护",
+            "en": "PTO/AUX, case drain, cooling and protection"
+          },
+          "image": "assets/ppt-insights/excavator-12-16t-04.webp",
+          "source_slide": 136
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "工作范围",
+            "en": "Working range"
+          },
+          "basis": {
+            "zh": "发动机功率和重载挖掘基础较强。",
+            "en": "Engine power and heavy-digging foundation are strong."
+          },
+          "gap": {
+            "zh": "标配斗杆偏短，挖掘范围不足。",
+            "en": "The standard stick is short and limits working range."
+          },
+          "action": {
+            "zh": "加长标配斗杆并重算稳定、起吊和运输包络。",
+            "en": "Lengthen the standard stick and recalculate stability, lift and transport envelope."
+          },
+          "source_slides": [
+            137,
+            138
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "液压与附件",
+            "en": "Hydraulics and attachments"
+          },
+          "basis": {
+            "zh": "PTO、AUX1 合流和较大流量有利于附件作业。",
+            "en": "PTO, AUX1 combining and high flow support attachment work."
+          },
+          "gap": {
+            "zh": "全电控精度和复合动作智能化弱于卡特。",
+            "en": "Electrohydraulic precision and combined-function intelligence trail Caterpillar."
+          },
+          "action": {
+            "zh": "建立主泵、主阀和控制器联合标定目标。",
+            "en": "Set joint calibration targets for pump, valve and controller."
+          },
+          "source_slides": [
+            138,
+            139
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "力学与转场",
+            "en": "Forces and relocation"
+          },
+          "basis": {
+            "zh": "挖掘力和行走牵引力具备优势。",
+            "en": "Digging force and travel traction are strengths."
+          },
+          "gap": {
+            "zh": "起吊能力和行走速度弱于标杆。",
+            "en": "Lift and travel speed trail the benchmark."
+          },
+          "action": {
+            "zh": "优化稳定、起吊和行走驱动并完成载荷表验证。",
+            "en": "Optimize stability, lift and travel drive and validate the lift chart."
+          },
+          "source_slides": [
+            140
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "智能与验证",
+            "en": "Intelligence and validation"
+          },
+          "basis": {
+            "zh": "现有安全与附件基础可支持扩展。",
+            "en": "Existing safety and attachment foundations support further development."
+          },
+          "gap": {
+            "zh": "缺少 2D/3D、电子围栏和称重等智能功能。",
+            "en": "2D/3D guidance, e-fence and payload functions are missing."
+          },
+          "action": {
+            "zh": "按客户任务配置智能包，并用作业效率和安全收益验证。",
+            "en": "Configure an intelligent package by customer task and validate productivity and safety benefit."
+          },
+          "source_slides": [
+            139,
+            150
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "CAT",
+            "values": [
+              186,
+              156,
+              172,
+              170
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              96,
+              91,
+              63,
+              60
+            ]
+          },
+          {
+            "brand": "SANY",
+            "values": [
+              79,
+              44,
+              42,
+              40
+            ]
+          },
+          {
+            "brand": "KOMATSU",
+            "values": [
+              41,
+              37,
+              33,
+              30
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              0,
+              0,
+              3,
+              5
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-14-16t-short-tail",
+      "label": {
+        "zh": "14-16 吨级短尾",
+        "en": "14-16 t short-tail class"
+      },
+      "model": "XCMG XE155UCR",
+      "source_slides": [
+        127,
+        151
+      ],
+      "market_slide": 127,
+      "concentration": {
+        "zh": "三个领先品牌合计约 64%",
+        "en": "Three leading brands hold about 64% combined"
+      },
+      "benchmark": {
+        "zh": "卡特短尾中挖",
+        "en": "Caterpillar short-tail benchmark"
+      },
+      "role": {
+        "zh": "14-16 吨是中挖热门短尾区间，面向城市道路、住宅和公共设施建设，核心价值是受限空间中的中挖生产率。",
+        "en": "The 14-16 t range is a popular short-tail mid-size class for urban roads, residential and public infrastructure, combining confined-site packaging with mid-size productivity."
+      },
+      "transport": {
+        "zh": "资料采用阶梯式拖车并控制 2,590 mm 宽度；两轴运输能力按交付质量复核，州际限高与许可要求需逐项目确认。",
+        "en": "The reference uses a step-deck trailer with a 2,590 mm width target. Two-axle capacity must be checked at delivered mass and interstate height/permit requirements confirmed by project."
+      },
+      "customers": {
+        "zh": "城市道路、市政、公用工程、住宅建设和专业租赁客户",
+        "en": "Urban road, municipal, utility, residential construction and professional rental customers"
+      },
+      "jobs": {
+        "zh": "受限空间基础、管线、土方、吊装、破碎和回填",
+        "en": "Confined foundations, utilities, earthmoving, lifting, breaking and backfill"
+      },
+      "purchase": {
+        "zh": "短尾包络、工作范围、起吊、流量、行走平顺和智能辅助",
+        "en": "Short-tail envelope, working range, lift, flow, travel smoothness and machine guidance"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "城市道路",
+            "en": "Urban roadwork"
+          },
+          "body": {
+            "zh": "短尾降低对车道和周边设施的侵入，但视野、警示和回转制动仍决定现场安全。",
+            "en": "Short-tail packaging reduces lane and infrastructure intrusion, while visibility, warnings and swing braking still determine jobsite safety."
+          },
+          "requirements": {
+            "zh": "短尾、摄像头、警示和回转控制",
+            "en": "Short tail, cameras, warnings and swing control"
+          },
+          "image": "assets/ppt-insights/excavator-12-16t-01.webp",
+          "source_slide": 133
+        },
+        {
+          "title": {
+            "zh": "深沟与基础",
+            "en": "Deep trench and foundations"
+          },
+          "body": {
+            "zh": "在受限空间中同时要求挖深、长斗杆和稳定，单纯缩短尾部不能替代工作范围。",
+            "en": "Confined sites still require depth, long-stick coverage and stability; short tail alone cannot replace working range."
+          },
+          "requirements": {
+            "zh": "长斗杆、挖深、稳定和精确控制",
+            "en": "Long stick, depth, stability and precise control"
+          },
+          "image": "assets/ppt-insights/excavator-12-16t-02.webp",
+          "source_slide": 134
+        },
+        {
+          "title": {
+            "zh": "吊装与回填",
+            "en": "Lifting and backfill"
+          },
+          "body": {
+            "zh": "管件和预制件吊装后紧接回填与整平，要求起吊表、回转、推土铲和行走复合稳定。",
+            "en": "Pipe and precast lifting is followed by backfill and grading, requiring a verified lift chart and stable swing, blade and travel combinations."
+          },
+          "requirements": {
+            "zh": "起吊、回转、推土铲和复合动作",
+            "en": "Lift, swing, blade and combined functions"
+          },
+          "image": "assets/ppt-insights/excavator-12-16t-03.webp",
+          "source_slide": 135
+        },
+        {
+          "title": {
+            "zh": "破碎与多属具",
+            "en": "Breaker and multi-tool work"
+          },
+          "body": {
+            "zh": "城市改造对低噪声、驾驶防护、附件管路和快速换装提出更高要求。",
+            "en": "Urban renovation raises requirements for low noise, operator protection, attachment plumbing and rapid tool changes."
+          },
+          "requirements": {
+            "zh": "AUX、卸油、防护、冷却和快换",
+            "en": "AUX, case drain, protection, cooling and coupler"
+          },
+          "image": "assets/ppt-insights/excavator-12-16t-04.webp",
+          "source_slide": 136
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "短尾与范围",
+            "en": "Short tail and range"
+          },
+          "basis": {
+            "zh": "短尾布置适合城市受限工地。",
+            "en": "Short-tail packaging fits confined urban jobsites."
+          },
+          "gap": {
+            "zh": "标配斗杆偏短，挖掘范围没有优势。",
+            "en": "The standard stick is short and working range lacks advantage."
+          },
+          "action": {
+            "zh": "加长斗杆并同步验证尾部、稳定和运输边界。",
+            "en": "Lengthen the stick and jointly validate tail clearance, stability and transport limits."
+          },
+          "source_slides": [
+            141,
+            150
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "动力与液压",
+            "en": "Power and hydraulics"
+          },
+          "basis": {
+            "zh": "发动机、挖掘力、起吊和附件系统基础较好。",
+            "en": "Engine power, digging force, lift and attachment system provide a good base."
+          },
+          "gap": {
+            "zh": "主泵流量和全电控智能化弱于标杆。",
+            "en": "Main-pump flow and electrohydraulic intelligence trail the benchmark."
+          },
+          "action": {
+            "zh": "升级主泵并建立泵阀控一体化标定。",
+            "en": "Upgrade the main pump and establish integrated pump/valve/controller calibration."
+          },
+          "source_slides": [
+            142,
+            143,
+            144
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "行走与复合",
+            "en": "Travel and combined functions"
+          },
+          "basis": {
+            "zh": "行走电控与阀芯优化已提供改进基础。",
+            "en": "Travel electronic control and spool optimization provide an improvement base."
+          },
+          "gap": {
+            "zh": "行走与上车复合的平顺性仍有差距。",
+            "en": "Travel and upper-structure combined-function smoothness remains a gap."
+          },
+          "action": {
+            "zh": "用加速度、冲击和循环时间建立客观标定目标。",
+            "en": "Set objective calibration targets using acceleration, shock and cycle time."
+          },
+          "source_slides": [
+            134,
+            150
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "智能辅助",
+            "en": "Machine guidance"
+          },
+          "basis": {
+            "zh": "现有安全和机具系统可作为集成平台。",
+            "en": "Existing safety and tool systems can support integration."
+          },
+          "gap": {
+            "zh": "2D/3D 智能辅助和高级安全功能不足。",
+            "en": "2D/3D guidance and advanced safety functions are insufficient."
+          },
+          "action": {
+            "zh": "按城市沟槽、平地和吊装任务配置智能包。",
+            "en": "Configure an intelligent package for urban trenching, grading and lifting."
+          },
+          "source_slides": [
+            143,
+            150
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "CAT",
+            "values": [
+              472,
+              455,
+              492,
+              510
+            ]
+          },
+          {
+            "brand": "KOMATSU",
+            "values": [
+              335,
+              266,
+              361,
+              380
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              257,
+              345,
+              400,
+              420
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              1,
+              3,
+              11,
+              20
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-21-24t",
+      "label": {
+        "zh": "21-24 吨级",
+        "en": "21-24 t class"
+      },
+      "model": "XCMG XE225U",
+      "source_slides": [
+        152,
+        168
+      ],
+      "market_slide": 152,
+      "concentration": {
+        "zh": "三个领先品牌合计约 70%",
+        "en": "Three leading brands hold about 70% combined"
+      },
+      "benchmark": {
+        "zh": "卡特 320/323 产品体系",
+        "en": "Caterpillar 320/323 portfolio"
+      },
+      "role": {
+        "zh": "19-24 吨是中大挖热门区间，覆盖中大型土方、建筑地基和市政工程；竞品通过高、中、经济配置形成客户分层。",
+        "en": "The 19-24 t range is a high-volume mid-size class for earthmoving, foundations and municipal work. Competitors segment customers with premium, core and economy configurations."
+      },
+      "transport": {
+        "zh": "XE225U 运输高度 3,030 mm，资料采用阶梯式拖车和三轴承载，并指出机宽超过 2,590 mm 时需要超宽许可。",
+        "en": "XE225U transport height is 3,030 mm. The reference uses a step-deck trailer and three axles and identifies an oversize-width permit when machine width exceeds 2,590 mm."
+      },
+      "customers": {
+        "zh": "土方与基础承包商、市政道路企业、专业租赁商和公用工程客户",
+        "en": "Earthmoving and foundation contractors, municipal road firms, professional rental fleets and utilities"
+      },
+      "jobs": {
+        "zh": "土方装车、基础、沟槽、破碎、吊装和场地平整",
+        "en": "Truck loading, foundations, trenching, breaking, lifting and site grading"
+      },
+      "purchase": {
+        "zh": "循环效率、可靠性、附件系统、起吊、智能辅助、服务与残值",
+        "en": "Cycle productivity, reliability, attachment system, lifting, machine guidance, service and residual value"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "大土方与装车",
+            "en": "Bulk earthmoving and loading"
+          },
+          "body": {
+            "zh": "中大规模土方要求挖掘、回转、提升和装车循环保持稳定产量。",
+            "en": "Medium-to-large earthmoving requires consistent output across digging, swing, boom lift and truck loading."
+          },
+          "requirements": {
+            "zh": "循环时间、斗容、回转力矩和油耗",
+            "en": "Cycle time, bucket capacity, swing torque and fuel"
+          },
+          "image": "assets/ppt-insights/excavator-19-24t-01.webp",
+          "source_slide": 154
+        },
+        {
+          "title": {
+            "zh": "基础与沟槽",
+            "en": "Foundations and trenching"
+          },
+          "body": {
+            "zh": "建筑基础和深沟需要长斗杆、精确控制、起吊和高密封驾驶环境。",
+            "en": "Building foundations and deep trenches require a long stick, precise control, lifting and a sealed operator environment."
+          },
+          "requirements": {
+            "zh": "长斗杆、挖深、起吊和驾驶防护",
+            "en": "Long stick, digging depth, lift and cab protection"
+          },
+          "image": "assets/ppt-insights/excavator-19-24t-02.webp",
+          "source_slide": 155
+        },
+        {
+          "title": {
+            "zh": "破碎与重型属具",
+            "en": "Breaker and heavy attachments"
+          },
+          "body": {
+            "zh": "标配 AUX1、AUX2、卸油、PTO 和合流能够提升机具匹配，但持续输出仍需温控和结构验证。",
+            "en": "Standard AUX1, AUX2, case drain, PTO and flow combining improve tool matching, while sustained output still requires thermal and structural validation."
+          },
+          "requirements": {
+            "zh": "流量、压力、冷却、管路和防护",
+            "en": "Flow, pressure, cooling, plumbing and protection"
+          },
+          "image": "assets/ppt-insights/excavator-19-24t-03.webp",
+          "source_slide": 157
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "型谱与工作范围",
+            "en": "Portfolio and working range"
+          },
+          "basis": {
+            "zh": "基础参数与标杆总体接近。",
+            "en": "Base parameters are broadly close to the benchmark."
+          },
+          "gap": {
+            "zh": "缺少长斗杆，深沟作业受限。",
+            "en": "The lack of a long stick limits deep-trench work."
+          },
+          "action": {
+            "zh": "配置长斗杆并同步建立起吊、稳定和运输数据。",
+            "en": "Offer a long stick and jointly establish lift, stability and transport data."
+          },
+          "source_slides": [
+            156,
+            158
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "液压与附件",
+            "en": "Hydraulics and attachments"
+          },
+          "basis": {
+            "zh": "系统流量、AUX1/AUX2、卸油、PTO 和合流具备优势。",
+            "en": "System flow, AUX1/AUX2, case drain, PTO and flow combining are strengths."
+          },
+          "gap": {
+            "zh": "回转系统压力和铲斗挖掘力偏低。",
+            "en": "Swing-system pressure and bucket digging force are low."
+          },
+          "action": {
+            "zh": "优化回转与铲斗机构，保持附件系统优势。",
+            "en": "Optimize swing and bucket linkage while preserving attachment-system strengths."
+          },
+          "source_slides": [
+            157,
+            161
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "操控与智能",
+            "en": "Controls and intelligence"
+          },
+          "basis": {
+            "zh": "行走电控和阀芯优化改善了复合动作。",
+            "en": "Travel electronic control and spool optimization improved combined functions."
+          },
+          "gap": {
+            "zh": "停止上车动作时行走冲击较大，智能辅助和 360°环视不足。",
+            "en": "Travel shock occurs when upper functions stop, and guidance/360-degree visibility are insufficient."
+          },
+          "action": {
+            "zh": "优化全电控标定并完成 360°与 2D/3D 功能验证。",
+            "en": "Optimize electrohydraulic calibration and validate 360-degree vision and 2D/3D functions."
+          },
+          "source_slides": [
+            156,
+            160
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "重载与安全",
+            "en": "Heavy duty and safety"
+          },
+          "basis": {
+            "zh": "高密封增压驾驶室和全防护适合破碎作业。",
+            "en": "A sealed pressurized cab and full guarding support breaker work."
+          },
+          "gap": {
+            "zh": "起吊能力和回转装车效率弱于高配标杆。",
+            "en": "Lift and swing-loading productivity trail premium benchmarks."
+          },
+          "action": {
+            "zh": "用载荷表、循环计时和冲击数据设定重载目标。",
+            "en": "Set heavy-duty targets using lift charts, cycle timing and shock data."
+          },
+          "source_slides": [
+            157,
+            161
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "CAT",
+            "values": [
+              719,
+              623,
+              777,
+              790
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              407,
+              448,
+              388,
+              400
+            ]
+          },
+          {
+            "brand": "KOMATSU",
+            "values": [
+              410,
+              341,
+              440,
+              450
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              5,
+              8,
+              2,
+              10
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-24-28t",
+      "label": {
+        "zh": "24-28 吨级",
+        "en": "24-28 t class"
+      },
+      "model": "XCMG XE250U",
+      "source_slides": [
+        169,
+        187
+      ],
+      "market_slide": 169,
+      "concentration": {
+        "zh": "三个领先品牌合计约 75%",
+        "en": "Three leading brands hold about 75% combined"
+      },
+      "benchmark": {
+        "zh": "卡特 325/326 产品体系",
+        "en": "Caterpillar 325/326 portfolio"
+      },
+      "role": {
+        "zh": "24-28 吨市场同时存在常规尾和短尾，历史销量中短尾总体更好；常规尾仍承担大范围、重载和高效率任务。",
+        "en": "The 24-28 t market includes conventional- and short-tail machines, with short-tail historically stronger overall, while conventional-tail machines retain working-range, heavy-duty and productivity roles."
+      },
+      "transport": {
+        "zh": "XE250U 运输高度 3,210 mm、操作质量约 27,300 kg，资料采用三轴低底盘拖车并指出承载已接近参考边界，运输灵活性有限。",
+        "en": "XE250U transport height is 3,210 mm and operating mass about 27,300 kg. The source uses a three-axle lowboy and notes that payload is near the reference boundary, limiting transport flexibility."
+      },
+      "customers": {
+        "zh": "大型土方、道路桥梁、城市建设、基础与专业租赁客户",
+        "en": "Large earthmoving, road/bridge, urban construction, foundation and professional rental customers"
+      },
+      "jobs": {
+        "zh": "大土方装车、深沟、破碎、吊装、平地和重型附件",
+        "en": "Bulk loading, deep trenching, breaking, lifting, grading and heavy attachments"
+      },
+      "purchase": {
+        "zh": "生产率、挖掘力、回转、工作范围、附件系统、智能化和运输成本",
+        "en": "Productivity, digging forces, swing, working range, attachment system, intelligence and transport cost"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "重载土方",
+            "en": "Heavy earthmoving"
+          },
+          "body": {
+            "zh": "常规尾和较大工作范围支持大斗容装车，但最远端平地的斗杆控制需要保持稳定。",
+            "en": "Conventional-tail packaging and working range support larger-bucket loading, while far-reach grading requires stable stick control."
+          },
+          "requirements": {
+            "zh": "斗容、回转、提升、平地微动和燃油",
+            "en": "Bucket capacity, swing, boom lift, grading modulation and fuel"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-01.webp",
+          "source_slide": 172
+        },
+        {
+          "title": {
+            "zh": "深沟与基础",
+            "en": "Deep trench and foundations"
+          },
+          "body": {
+            "zh": "缺少长斗杆会限制深沟覆盖，负流量系统的微操控也会影响清底和边坡质量。",
+            "en": "Lack of a long stick limits deep-trench coverage, while negative-flow modulation affects cleanup and slope quality."
+          },
+          "requirements": {
+            "zh": "长斗杆、挖深、微动和 2D/3D 引导",
+            "en": "Long stick, depth, fine control and 2D/3D guidance"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-02.webp",
+          "source_slide": 173
+        },
+        {
+          "title": {
+            "zh": "装车与场地整形",
+            "en": "Loading and site shaping"
+          },
+          "body": {
+            "zh": "行走与上车复合、回转制动和平地协调直接影响循环和操作冲击。",
+            "en": "Travel/upper combined functions, swing braking and grading coordination directly affect cycle time and operating shock."
+          },
+          "requirements": {
+            "zh": "复合动作、回转制动、平地和行走",
+            "en": "Combined functions, swing braking, grading and travel"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-03.webp",
+          "source_slide": 174
+        },
+        {
+          "title": {
+            "zh": "破碎与重型机具",
+            "en": "Breaker and heavy tools"
+          },
+          "body": {
+            "zh": "AUX1、AUX2、卸油、PTO 和合流支持高流量机具，高密封驾驶室和防护构成安全基础。",
+            "en": "AUX1, AUX2, case drain, PTO and flow combining support high-flow tools; sealed cab and guarding provide the safety base."
+          },
+          "requirements": {
+            "zh": "流量、压力、冷却、防护和结构耐久",
+            "en": "Flow, pressure, cooling, guarding and structural durability"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-04.webp",
+          "source_slide": 175
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "整机与运输",
+            "en": "Machine and transport"
+          },
+          "basis": {
+            "zh": "标配挖掘范围和恶劣路面行走驱动力具备优势。",
+            "en": "Standard working range and travel drive on difficult ground are strengths."
+          },
+          "gap": {
+            "zh": "三轴运输接近载荷边界。",
+            "en": "Three-axle transport is near the payload boundary."
+          },
+          "action": {
+            "zh": "控制交付质量并评估附件拆分运输方案。",
+            "en": "Control delivered mass and evaluate split shipment of attachments."
+          },
+          "source_slides": [
+            171,
+            177,
+            180
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "液压与附件",
+            "en": "Hydraulics and attachments"
+          },
+          "basis": {
+            "zh": "系统流量、AUX 和机具合流优于标杆。",
+            "en": "System flow, AUX and attachment-flow combining are strengths."
+          },
+          "gap": {
+            "zh": "负流量系统微操控和智能化不足。",
+            "en": "Negative-flow fine control and machine intelligence are insufficient."
+          },
+          "action": {
+            "zh": "升级控制架构并保留附件液压优势。",
+            "en": "Upgrade the control architecture while retaining attachment-hydraulic strengths."
+          },
+          "source_slides": [
+            178,
+            180
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "重载性能",
+            "en": "Heavy-duty performance"
+          },
+          "basis": {
+            "zh": "行走驱动力和系统流量适合泥泞及机具工况。",
+            "en": "Travel drive and system flow support soft-ground and tool applications."
+          },
+          "gap": {
+            "zh": "挖掘力和回转力矩弱于卡特，影响装车循环。",
+            "en": "Digging force and swing torque trail Caterpillar and affect loading cycles."
+          },
+          "action": {
+            "zh": "按大斗容装车循环优化机构、回转和提升。",
+            "en": "Optimize linkage, swing and boom lift using large-bucket loading cycles."
+          },
+          "source_slides": [
+            180
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "智能与安全",
+            "en": "Intelligence and safety"
+          },
+          "basis": {
+            "zh": "驾驶室密封与附件防护具备基础。",
+            "en": "Cab sealing and attachment protection provide a good base."
+          },
+          "gap": {
+            "zh": "缺少成熟 360°环视和高级智控。",
+            "en": "Mature 360-degree vision and advanced control functions are missing."
+          },
+          "action": {
+            "zh": "完成 360°、2D/3D 和安全边界的整机验证。",
+            "en": "Complete machine validation of 360-degree vision, 2D/3D and safety boundaries."
+          },
+          "source_slides": [
+            179
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "CAT",
+            "values": [
+              408,
+              405,
+              491,
+              500
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              286,
+              329,
+              334,
+              340
+            ]
+          },
+          {
+            "brand": "KOMATSU",
+            "values": [
+              222,
+              277,
+              316,
+              320
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              2,
+              0,
+              3,
+              10
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-24-28t-short-tail",
+      "label": {
+        "zh": "24-28 吨级短尾",
+        "en": "24-28 t short-tail class"
+      },
+      "model": "XCMG XE235UCR",
+      "source_slides": [
+        169,
+        187
+      ],
+      "market_slide": 169,
+      "concentration": {
+        "zh": "三个领先品牌合计约 75%",
+        "en": "Three leading brands hold about 75% combined"
+      },
+      "benchmark": {
+        "zh": "卡特 325/326 短尾体系",
+        "en": "Caterpillar 325/326 short-tail portfolio"
+      },
+      "role": {
+        "zh": "24-28 吨历史销量中短尾总体更好，核心客户在城市、居民区和道路项目中需要降低尾部碰撞风险，同时保留中挖生产率。",
+        "en": "Short-tail machines historically lead the 24-28 t range, serving urban, residential and road projects that need lower tail-strike risk without giving up mid-size productivity."
+      },
+      "transport": {
+        "zh": "XE235UCR 运输高度 3,181 mm、操作质量约 26,300 kg，资料显示可落在三轴低底盘参考承载范围内，但仍需超宽许可。",
+        "en": "XE235UCR transport height is 3,181 mm and operating mass about 26,300 kg, within the referenced three-axle lowboy payload while still requiring an oversize-width permit."
+      },
+      "customers": {
+        "zh": "城市建设、市政道路、居民区基础、公用工程和专业租赁客户",
+        "en": "Urban construction, municipal roads, residential foundations, utilities and professional rental fleets"
+      },
+      "jobs": {
+        "zh": "受限空间土方、沟槽、回填、吊装、破碎和多属具",
+        "en": "Confined earthmoving, trenching, backfill, lifting, breaking and multi-tool work"
+      },
+      "purchase": {
+        "zh": "短尾安全、运输、工作范围、复合动作、附件液压和驾驶视野",
+        "en": "Short-tail safety, transport, working range, combined functions, attachment hydraulics and visibility"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "城市受限土方",
+            "en": "Confined urban earthmoving"
+          },
+          "body": {
+            "zh": "短尾降低对车道和邻近建筑的侵入，最远端平地和回转制动决定施工质量与冲击。",
+            "en": "Short-tail packaging reduces lane and building intrusion; far-reach grading and swing braking determine quality and shock."
+          },
+          "requirements": {
+            "zh": "尾部包络、视野、平地微动和回转控制",
+            "en": "Tail envelope, visibility, grading modulation and swing control"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-01.webp",
+          "source_slide": 172
+        },
+        {
+          "title": {
+            "zh": "沟槽与公用工程",
+            "en": "Trenching and utilities"
+          },
+          "body": {
+            "zh": "在受限空间中仍需要长斗杆和精确清底，短尾不能替代工作范围和稳定验证。",
+            "en": "Confined work still requires a long stick and precise cleanup; short tail cannot replace working range and stability validation."
+          },
+          "requirements": {
+            "zh": "长斗杆、挖深、起吊和稳定",
+            "en": "Long stick, depth, lift and stability"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-02.webp",
+          "source_slide": 173
+        },
+        {
+          "title": {
+            "zh": "回填与整形",
+            "en": "Backfill and shaping"
+          },
+          "body": {
+            "zh": "行走与上车复合、回转制动和推土铲动作影响城市工程中的短循环效率。",
+            "en": "Travel/upper combined functions, swing braking and blade actions affect short-cycle productivity in urban work."
+          },
+          "requirements": {
+            "zh": "复合动作、回转、行走和平地",
+            "en": "Combined functions, swing, travel and grading"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-03.webp",
+          "source_slide": 174
+        },
+        {
+          "title": {
+            "zh": "破碎与防护",
+            "en": "Breaker work and protection"
+          },
+          "body": {
+            "zh": "高密封驾驶室、全防护和完整附件管路是城市拆改及重型机具作业的基础。",
+            "en": "A sealed cab, full guarding and complete attachment plumbing support urban demolition and heavy-tool work."
+          },
+          "requirements": {
+            "zh": "驾驶防护、AUX、卸油、冷却和噪声",
+            "en": "Cab protection, AUX, case drain, cooling and noise"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-04.webp",
+          "source_slide": 175
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "短尾与运输",
+            "en": "Short tail and transport"
+          },
+          "basis": {
+            "zh": "短尾和较低交付质量更适合城市运输与施工。",
+            "en": "Short tail and lower delivered mass better suit urban transport and work."
+          },
+          "gap": {
+            "zh": "仍需超宽许可，附件组合会侵蚀载荷余量。",
+            "en": "Oversize-width permitting remains and attachment packages consume payload margin."
+          },
+          "action": {
+            "zh": "建立城市运输包和附件拆装流程。",
+            "en": "Define an urban transport package and attachment removal process."
+          },
+          "source_slides": [
+            169,
+            171
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "工作范围",
+            "en": "Working range"
+          },
+          "basis": {
+            "zh": "基础作业能力可覆盖主流城市任务。",
+            "en": "Base capability covers mainstream urban tasks."
+          },
+          "gap": {
+            "zh": "缺少长斗杆和超长工装，深沟覆盖不足。",
+            "en": "Long-stick and long-reach options are missing, limiting deep-trench coverage."
+          },
+          "action": {
+            "zh": "优先配置长斗杆，超长工装按市场需求单独立项。",
+            "en": "Prioritize a long stick; treat long-reach equipment as a separate market-driven program."
+          },
+          "source_slides": [
+            173,
+            176,
+            178
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "操控与液压",
+            "en": "Controls and hydraulics"
+          },
+          "basis": {
+            "zh": "AUX、PTO、合流和驾驶防护具备优势。",
+            "en": "AUX, PTO, flow combining and cab protection are strengths."
+          },
+          "gap": {
+            "zh": "复合动作停止冲击和微操控线性不足。",
+            "en": "Combined-function stop shock and fine-control linearity are insufficient."
+          },
+          "action": {
+            "zh": "优化全电控回转与行走复合标定。",
+            "en": "Optimize electrohydraulic swing and travel-combination calibration."
+          },
+          "source_slides": [
+            173,
+            175,
+            178
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "智能安全",
+            "en": "Intelligent safety"
+          },
+          "basis": {
+            "zh": "短尾本体降低碰撞风险。",
+            "en": "Short-tail packaging inherently reduces strike risk."
+          },
+          "gap": {
+            "zh": "360°环视和高级智能辅助尚未形成成熟配置。",
+            "en": "360-degree vision and advanced guidance are not yet mature equipment offers."
+          },
+          "action": {
+            "zh": "将环视、电子围栏和 2D/3D 组成城市安全包验证。",
+            "en": "Validate an urban safety package combining surround view, e-fence and 2D/3D."
+          },
+          "source_slides": [
+            179
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "CAT",
+            "values": [
+              408,
+              405,
+              491,
+              500
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              286,
+              329,
+              334,
+              340
+            ]
+          },
+          {
+            "brand": "KOMATSU",
+            "values": [
+              222,
+              277,
+              316,
+              320
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              2,
+              0,
+              3,
+              10
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-28-33t",
+      "label": {
+        "zh": "28-33 吨级",
+        "en": "28-33 t class"
+      },
+      "model": "XCMG XE300U",
+      "source_slides": [
+        170,
+        198
+      ],
+      "market_slide": 170,
+      "concentration": {
+        "zh": "三个领先品牌合计约 74%",
+        "en": "Three leading brands hold about 74% combined"
+      },
+      "benchmark": {
+        "zh": "卡特 330 产品体系",
+        "en": "Caterpillar 330 portfolio"
+      },
+      "role": {
+        "zh": "28-33 吨历史市场总量偏低、优先级低于相邻主销吨级，但现有负流量平台仍需要升级以维持基本竞争力。",
+        "en": "The 28-33 t market is historically smaller and lower priority than adjacent core classes, but the current negative-flow platform still requires modernization to remain competitive."
+      },
+      "transport": {
+        "zh": "XE300U 操作质量约 32,500 kg、运输高度 3,360 mm，资料采用四轴低底盘拖车并要求按超宽和轴荷复核。",
+        "en": "XE300U operating mass is about 32,500 kg and transport height 3,360 mm. The reference uses a four-axle lowboy with oversize-width and axle-load checks."
+      },
+      "customers": {
+        "zh": "中大型土方、道路桥梁、基础施工、采石辅助和专业租赁客户",
+        "en": "Medium/large earthmoving, road/bridge, foundation, quarry support and professional rental customers"
+      },
+      "jobs": {
+        "zh": "重载挖掘、装车、深沟、破碎、吊装和水利施工",
+        "en": "Heavy digging, truck loading, deep trenches, breaking, lifting and waterworks"
+      },
+      "purchase": {
+        "zh": "发动机与液压效率、挖掘力、起吊、回转、工装覆盖和智能控制",
+        "en": "Engine/hydraulic efficiency, digging force, lift, swing, work-equipment coverage and intelligent control"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "重载挖掘",
+            "en": "Heavy excavation"
+          },
+          "body": {
+            "zh": "系统流量和挖掘力支持重载，但发动机储备和控制架构决定持续生产率。",
+            "en": "System flow and digging force support heavy work, while engine reserve and control architecture determine sustained productivity."
+          },
+          "requirements": {
+            "zh": "发动机功率、流量、挖掘力和冷却",
+            "en": "Engine power, flow, digging force and cooling"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-01.webp",
+          "source_slide": 172
+        },
+        {
+          "title": {
+            "zh": "深沟与水利",
+            "en": "Deep trench and waterworks"
+          },
+          "body": {
+            "zh": "深沟和疏浚需要长斗杆或超长工装，缺少配置会直接限制投标与任务覆盖。",
+            "en": "Deep trenching and dredging require long-stick or long-reach equipment; missing options directly limit bids and task coverage."
+          },
+          "requirements": {
+            "zh": "长斗杆、超长工装、稳定和作业范围",
+            "en": "Long stick, long reach, stability and working range"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-02.webp",
+          "source_slide": 173
+        },
+        {
+          "title": {
+            "zh": "土方装车",
+            "en": "Earthmoving and loading"
+          },
+          "body": {
+            "zh": "挖掘、回转和提升循环需要动力、回转力矩和全电控协调。",
+            "en": "Dig, swing and boom cycles require coordinated power, swing torque and electrohydraulic control."
+          },
+          "requirements": {
+            "zh": "循环、回转、提升、燃油和视野",
+            "en": "Cycle time, swing, boom lift, fuel and visibility"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-03.webp",
+          "source_slide": 174
+        },
+        {
+          "title": {
+            "zh": "重型机具",
+            "en": "Heavy attachments"
+          },
+          "body": {
+            "zh": "大流量附件是徐工基础优势，持续作业仍需验证冷却、结构和回油。",
+            "en": "High-flow attachments are an XCMG foundation strength, while sustained work still requires cooling, structural and return-line validation."
+          },
+          "requirements": {
+            "zh": "AUX、PTO、卸油、冷却和防护",
+            "en": "AUX, PTO, case drain, cooling and guarding"
+          },
+          "image": "assets/ppt-insights/excavator-24-33t-04.webp",
+          "source_slide": 175
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "平台与动力",
+            "en": "Platform and power"
+          },
+          "basis": {
+            "zh": "挖掘力和系统流量具备重载基础。",
+            "en": "Digging force and system flow provide a heavy-duty base."
+          },
+          "gap": {
+            "zh": "老旧负流量平台和发动机功率不足削弱持续效率。",
+            "en": "The aging negative-flow platform and limited engine power reduce sustained productivity."
+          },
+          "action": {
+            "zh": "评估动力与全电控液压平台升级。",
+            "en": "Evaluate an engine and full electrohydraulic platform upgrade."
+          },
+          "source_slides": [
+            170,
+            189,
+            197
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "工作范围",
+            "en": "Working range"
+          },
+          "basis": {
+            "zh": "基本参数与卡特接近。",
+            "en": "Base parameters are close to Caterpillar."
+          },
+          "gap": {
+            "zh": "挖掘深度略低，长斗杆与超长工装不足。",
+            "en": "Digging depth is lower and long-stick/long-reach coverage is insufficient."
+          },
+          "action": {
+            "zh": "建立标准、长斗杆和长臂三层工装策略。",
+            "en": "Establish standard, long-stick and long-reach work-equipment tiers."
+          },
+          "source_slides": [
+            176,
+            188,
+            189
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "重载性能",
+            "en": "Heavy-duty performance"
+          },
+          "basis": {
+            "zh": "挖掘力和流量优于历史标杆判断。",
+            "en": "Digging force and flow were rated favorably in the historical comparison."
+          },
+          "gap": {
+            "zh": "起吊能力和回转力矩略低。",
+            "en": "Lift and swing torque are slightly lower."
+          },
+          "action": {
+            "zh": "通过配重、结构、回转和动臂提升联合优化。",
+            "en": "Jointly optimize counterweight, structure, swing and boom lift."
+          },
+          "source_slides": [
+            191
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "智能与安全",
+            "en": "Intelligence and safety"
+          },
+          "basis": {
+            "zh": "附件液压具备扩展基础。",
+            "en": "Attachment hydraulics provide an expansion base."
+          },
+          "gap": {
+            "zh": "全电控智能化和高级安全功能落后。",
+            "en": "Full electrohydraulic intelligence and advanced safety features trail the benchmark."
+          },
+          "action": {
+            "zh": "导入 2D/3D、称重、环视和电子围栏并量化收益。",
+            "en": "Introduce 2D/3D, payload, surround view and e-fence and quantify benefit."
+          },
+          "source_slides": [
+            189,
+            190
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "CAT",
+            "values": [
+              356,
+              315,
+              341,
+              350
+            ]
+          },
+          {
+            "brand": "KOMATSU",
+            "values": [
+              112,
+              132,
+              125,
+              120
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              80,
+              105,
+              96,
+              90
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              0,
+              0,
+              0,
+              5
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-33-40t",
+      "label": {
+        "zh": "33-40 吨级",
+        "en": "33-40 t class"
+      },
+      "model": "XCMG XE360U",
+      "source_slides": [
+        199,
+        215
+      ],
+      "market_slide": 199,
+      "concentration": {
+        "zh": "三个领先品牌合计约 80%",
+        "en": "Three leading brands hold about 80% combined"
+      },
+      "benchmark": {
+        "zh": "卡特 336/340 产品体系",
+        "en": "Caterpillar 336/340 portfolio"
+      },
+      "role": {
+        "zh": "33-40 吨是中大挖热门规格，覆盖道路桥梁、城市建设、土方和初级石方；主流品牌同时布局常规尾、短尾和高低配。",
+        "en": "The 33-40 t range is a core large excavator class for roads, bridges, urban construction, earthmoving and entry-level rock work. Leading brands offer conventional-tail, short-tail and multiple performance tiers."
+      },
+      "transport": {
+        "zh": "资料采用四轴低底盘拖车，承载能力参考 38-45 t，并明确需要超宽、超高和超重许可。",
+        "en": "The reference uses a four-axle lowboy with 38-45 t payload capability and identifies oversize-width, height and weight permits."
+      },
+      "customers": {
+        "zh": "大型土方、道路桥梁、城市建设、采石场和设备租赁客户",
+        "en": "Large earthmoving, road/bridge, urban construction, quarry and rental customers"
+      },
+      "jobs": {
+        "zh": "大斗容装车、重载挖掘、道路基础、破碎、吊装和石方",
+        "en": "Large-bucket loading, heavy digging, road foundations, breaking, lifting and rock work"
+      },
+      "purchase": {
+        "zh": "吨产量、可靠性、运输、重型工装、回转效率、智能化和全生命周期成本",
+        "en": "Tons per hour, reliability, transport, heavy work equipment, swing productivity, intelligence and lifecycle cost"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "大型土方装车",
+            "en": "Large-scale loading"
+          },
+          "body": {
+            "zh": "高频装车依赖斗容、回转力矩、动臂提升和稳定性，型号高低配通常围绕这些能力分层。",
+            "en": "High-cycle loading depends on bucket capacity, swing torque, boom lift and stability, which often define model tiers."
+          },
+          "requirements": {
+            "zh": "斗容、回转、提升、稳定和循环时间",
+            "en": "Bucket capacity, swing, boom lift, stability and cycle time"
+          },
+          "image": "assets/ppt-insights/excavator-33-40t-01.webp",
+          "source_slide": 201
+        },
+        {
+          "title": {
+            "zh": "道路桥梁",
+            "en": "Road and bridge work"
+          },
+          "body": {
+            "zh": "基础开挖、回填、边坡和预制件吊装要求工作范围、起吊和智能平地。",
+            "en": "Foundation excavation, backfill, slopes and precast handling require working range, lift and intelligent grading."
+          },
+          "requirements": {
+            "zh": "工作范围、起吊、2D/3D 和视野",
+            "en": "Working range, lift, 2D/3D and visibility"
+          },
+          "image": "assets/ppt-insights/excavator-33-40t-02.webp",
+          "source_slide": 202
+        },
+        {
+          "title": {
+            "zh": "石方与破碎",
+            "en": "Rock and breaker work"
+          },
+          "body": {
+            "zh": "重型动臂、宽底盘、破碎管路和驾驶防护决定石方入门能力及持续耐久。",
+            "en": "Heavy boom, wide undercarriage, breaker plumbing and cab guarding determine entry-level rock capability and sustained durability."
+          },
+          "requirements": {
+            "zh": "重型工装、底盘、AUX、冷却和防护",
+            "en": "Heavy work equipment, undercarriage, AUX, cooling and guarding"
+          },
+          "image": "assets/ppt-insights/excavator-33-40t-03.webp",
+          "source_slide": 203
+        },
+        {
+          "title": {
+            "zh": "城市受限施工",
+            "en": "Confined urban work"
+          },
+          "body": {
+            "zh": "短尾机型补齐城市建设和人口密集区域需求，常规尾无法完全替代。",
+            "en": "A short-tail variant fills urban and dense-area demand that a conventional-tail machine cannot fully cover."
+          },
+          "requirements": {
+            "zh": "短尾型谱、环视、运输和安全边界",
+            "en": "Short-tail portfolio, surround view, transport and safety envelope"
+          },
+          "image": "assets/ppt-insights/excavator-33-40t-04.webp",
+          "source_slide": 204
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "型谱与运输",
+            "en": "Portfolio and transport"
+          },
+          "basis": {
+            "zh": "常规尾 XE360U 覆盖主流土方。",
+            "en": "The conventional-tail XE360U covers mainstream earthmoving."
+          },
+          "gap": {
+            "zh": "缺少成熟短尾产品；运输高度和工作范围弱于标杆。",
+            "en": "A mature short-tail product is missing, and transport height/working range trail the benchmark."
+          },
+          "action": {
+            "zh": "补齐短尾型谱并优化运输高度与标准工装。",
+            "en": "Complete the short-tail portfolio and optimize transport height and standard work equipment."
+          },
+          "source_slides": [
+            199,
+            200,
+            205
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "重载工装",
+            "en": "Heavy work equipment"
+          },
+          "basis": {
+            "zh": "斗杆配置较全，挖掘力具备优势。",
+            "en": "Stick choices are broad and digging force is a strength."
+          },
+          "gap": {
+            "zh": "缺少重型动臂与更宽底盘组合。",
+            "en": "Heavy-boom and wider-undercarriage combinations are missing."
+          },
+          "action": {
+            "zh": "形成土方、重载和石方工装包。",
+            "en": "Create earthmoving, heavy-duty and rock work-equipment packages."
+          },
+          "source_slides": [
+            206,
+            208
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "行走与回转",
+            "en": "Travel and swing"
+          },
+          "basis": {
+            "zh": "基础行走和挖掘性能能够覆盖主流任务。",
+            "en": "Base travel and digging performance cover mainstream tasks."
+          },
+          "gap": {
+            "zh": "没有自动双速，回转力矩低于卡特。",
+            "en": "Automatic two-speed is missing and swing torque trails Caterpillar."
+          },
+          "action": {
+            "zh": "升级自动双速并按装车循环优化回转与提升。",
+            "en": "Add automatic two-speed and optimize swing/boom lift using loading cycles."
+          },
+          "source_slides": [
+            206,
+            208
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "智能与安全",
+            "en": "Intelligence and safety"
+          },
+          "basis": {
+            "zh": "现有平台可承载附件与辅助功能。",
+            "en": "The current platform can host attachment and assist functions."
+          },
+          "gap": {
+            "zh": "智控、环视和高级作业辅助不足。",
+            "en": "Machine intelligence, surround view and advanced work assists are insufficient."
+          },
+          "action": {
+            "zh": "导入 2D/3D、称重、环视和电子围栏。",
+            "en": "Introduce 2D/3D, payload, surround view and e-fence."
+          },
+          "source_slides": [
+            207
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "CAT",
+            "values": [
+              1007,
+              892,
+              1236,
+              1300
+            ]
+          },
+          {
+            "brand": "KOMATSU",
+            "values": [
+              406,
+              402,
+              582,
+              600
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              310,
+              427,
+              456,
+              500
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              2,
+              2,
+              1,
+              10
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    },
+    {
+      "slug": "excavator-40-60t",
+      "label": {
+        "zh": "40-60 吨级",
+        "en": "40-60 t class"
+      },
+      "model": "XCMG XE490U",
+      "source_slides": [
+        216,
+        232
+      ],
+      "market_slide": 216,
+      "concentration": {
+        "zh": "四个领先品牌合计超过 85%",
+        "en": "Four leading brands exceed 85% combined"
+      },
+      "benchmark": {
+        "zh": "卡特 349/352 产品体系",
+        "en": "Caterpillar 349/352 portfolio"
+      },
+      "role": {
+        "zh": "40-60 吨是高价值大挖规格，覆盖大型土方、道路桥梁、石方和入门级采矿；运输拆分能力已经成为产品竞争力的一部分。",
+        "en": "The 40-60 t range is a high-value large-excavator class for major earthmoving, roads/bridges, rock and entry-level mining. Transport disassembly capability is part of product competitiveness."
+      },
+      "transport": {
+        "zh": "资料采用五轴低底盘拖车，重型机具可能需要六轴；XE490U 高 4,400 mm、宽 3,592 mm，历史判断认为高度超过 4,267 mm 后需要引导车并显著增加成本。",
+        "en": "The reference uses a five-axle lowboy, potentially six axles with heavy tools. XE490U height is 4,400 mm and width 3,592 mm; the historical assessment indicates that height above 4,267 mm requires escort support and materially raises cost."
+      },
+      "customers": {
+        "zh": "大型土方、道路桥梁、采石场、矿山承包商和大型租赁客户",
+        "en": "Major earthmoving, road/bridge, quarry, mining contractors and large rental fleets"
+      },
+      "jobs": {
+        "zh": "大斗容装车、重载挖掘、破碎、石方、深沟、吊装和矿山辅助",
+        "en": "Large-bucket loading, heavy digging, breaking, rock, deep trenches, lifting and mine support"
+      },
+      "purchase": {
+        "zh": "吨产量、运输拆分、回转与起吊、重型工装、底盘、智能化、可靠性和服务能力",
+        "en": "Tons per hour, transport disassembly, swing and lift, heavy work equipment, undercarriage, intelligence, reliability and service capability"
+      },
+      "applications": [
+        {
+          "title": {
+            "zh": "大型土方装车",
+            "en": "Large earthmoving and loading"
+          },
+          "body": {
+            "zh": "320 kW 动力和挖掘力支持大斗容作业，但回转、提升和稳定性决定最终循环产量。",
+            "en": "The 320 kW engine and digging force support large buckets, while swing, boom lift and stability determine final cycle output."
+          },
+          "requirements": {
+            "zh": "斗容、回转、提升、稳定和燃油",
+            "en": "Bucket capacity, swing, boom lift, stability and fuel"
+          },
+          "image": "assets/ppt-insights/excavator-40-60t-01.webp",
+          "source_slide": 218
+        },
+        {
+          "title": {
+            "zh": "石方与破碎",
+            "en": "Rock and breaker work"
+          },
+          "body": {
+            "zh": "高流量机具、PTO 和防护支持破碎作业，履带、结构、冷却和回转冲击决定耐久。",
+            "en": "High-flow tools, PTO and guarding support breaker work, while track system, structure, cooling and swing shock determine durability."
+          },
+          "requirements": {
+            "zh": "AUX/PTO、履带、结构、冷却和防护",
+            "en": "AUX/PTO, tracks, structure, cooling and guarding"
+          },
+          "image": "assets/ppt-insights/excavator-40-60t-02.webp",
+          "source_slide": 219
+        },
+        {
+          "title": {
+            "zh": "深沟与大型基础",
+            "en": "Deep trench and major foundations"
+          },
+          "body": {
+            "zh": "缺少长斗杆会限制深沟和大型基础任务，起吊与回转力矩决定管件和构件搬运效率。",
+            "en": "Lack of a long stick limits deep trenches and major foundations; lift and swing torque determine pipe and component handling."
+          },
+          "requirements": {
+            "zh": "长斗杆、挖深、起吊、回转和稳定",
+            "en": "Long stick, depth, lift, swing and stability"
+          },
+          "image": "assets/ppt-insights/excavator-40-60t-03.webp",
+          "source_slide": 220
+        },
+        {
+          "title": {
+            "zh": "采石与矿山辅助",
+            "en": "Quarry and mine support"
+          },
+          "body": {
+            "zh": "高负荷和长循环要求整机持续产量、可靠性、底盘耐久和快速服务。",
+            "en": "High loads and long cycles require sustained output, reliability, undercarriage durability and rapid service."
+          },
+          "requirements": {
+            "zh": "持续功率、热平衡、底盘、远程管理和服务",
+            "en": "Sustained power, thermal balance, undercarriage, telematics and service"
+          },
+          "image": "assets/ppt-insights/excavator-40-60t-04.webp",
+          "source_slide": 221
+        }
+      ],
+      "engineering": [
+        {
+          "dimension": {
+            "zh": "运输与底盘",
+            "en": "Transport and undercarriage"
+          },
+          "basis": {
+            "zh": "整机宽度处于资料参考的引导车边界内。",
+            "en": "Machine width is within the referenced escort threshold."
+          },
+          "gap": {
+            "zh": "运输高度高、标配履带窄，缺少伸缩底盘和可拆配重。",
+            "en": "Transport height is high, standard tracks are narrow, and retractable undercarriage/removable counterweight are unavailable."
+          },
+          "action": {
+            "zh": "以运输成本为目标开发伸缩底盘、可拆配重和履带选项。",
+            "en": "Develop retractable undercarriage, removable counterweight and track options against a transport-cost target."
+          },
+          "source_slides": [
+            217,
+            222,
+            224,
+            231
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "动力与附件",
+            "en": "Power and attachments"
+          },
+          "basis": {
+            "zh": "320 kW 动力、挖掘力、AUX1/AUX2、PTO 和合流具备优势。",
+            "en": "The 320 kW engine, digging force, AUX1/AUX2, PTO and flow combining are strengths."
+          },
+          "gap": {
+            "zh": "长斗杆和更完整工装覆盖不足。",
+            "en": "Long-stick and broader work-equipment coverage are insufficient."
+          },
+          "action": {
+            "zh": "建立土方、深沟、石方和矿山四类工装包。",
+            "en": "Create earthmoving, deep-trench, rock and mine work-equipment packages."
+          },
+          "source_slides": [
+            223,
+            225,
+            231
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "回转与起吊",
+            "en": "Swing and lifting"
+          },
+          "basis": {
+            "zh": "重载挖掘力支持高负荷作业。",
+            "en": "Heavy digging force supports high-load work."
+          },
+          "gap": {
+            "zh": "回转力矩、起吊和动臂提升速度弱于卡特，影响装车。",
+            "en": "Swing torque, lift and boom speed trail Caterpillar and reduce loading productivity."
+          },
+          "action": {
+            "zh": "按大斗容装车循环联合优化回转、提升、配重和稳定。",
+            "en": "Jointly optimize swing, boom lift, counterweight and stability using large-bucket loading cycles."
+          },
+          "source_slides": [
+            225,
+            231
+          ]
+        },
+        {
+          "dimension": {
+            "zh": "智能与服务",
+            "en": "Intelligence and service"
+          },
+          "basis": {
+            "zh": "机具系统为智能控制提供接口基础。",
+            "en": "The attachment system provides an integration base for intelligent control."
+          },
+          "gap": {
+            "zh": "智控、360°环视和运输辅助弱于高端标杆。",
+            "en": "Machine intelligence, 360-degree vision and transport aids trail the premium benchmark."
+          },
+          "action": {
+            "zh": "导入作业辅助、环视、称重和远程健康管理。",
+            "en": "Introduce work assists, surround view, payload and remote health management."
+          },
+          "source_slides": [
+            224,
+            231
+          ]
+        }
+      ],
+      "market_chart": {
+        "years": [
+          "2023",
+          "2024",
+          "2025",
+          "2026预测"
+        ],
+        "series": [
+          {
+            "brand": "CAT",
+            "values": [
+              369,
+              356,
+              393,
+              400
+            ]
+          },
+          {
+            "brand": "KOMATSU",
+            "values": [
+              208,
+              235,
+              186,
+              180
+            ]
+          },
+          {
+            "brand": "DEERE",
+            "values": [
+              103,
+              126,
+              124,
+              120
+            ]
+          },
+          {
+            "brand": "XCMG",
+            "values": [
+              1,
+              1,
+              0,
+              5
+            ]
+          }
+        ],
+        "status": [
+          "historical_actual",
+          "historical_actual",
+          "historical_estimate",
+          "historical_forecast"
+        ]
+      }
+    }
+  ]
+}

@@ -16,6 +16,15 @@
 .pptModuleTitle{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin:0 0 .65rem;color:var(--ppt-ink);font-size:.95rem}
 .pptModuleTitle small{color:var(--ppt-muted);font-size:.68rem;font-weight:600}
 .directDataTitle{margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--ppt-line)}
+.marketEvidenceSummary{margin:0 0 1rem;padding:.8rem;border:1px solid var(--ppt-line);border-top:3px solid var(--ppt-blue);background:#fff}
+.marketEvidenceCards{display:grid;grid-template-columns:1fr;gap:.6rem}
+.marketEvidenceCards article{min-width:0;padding:.65rem .75rem;border:1px solid #d8e3ed;border-left:4px solid var(--ppt-yellow);background:#f7fafc}
+.marketEvidenceCards span,.marketEvidenceCards b,.marketEvidenceCards small{display:block}
+.marketEvidenceCards span{color:var(--ppt-blue);font-size:.68rem;font-weight:900;line-height:1.4}
+.marketEvidenceCards b{margin:.18rem 0;color:var(--ppt-ink);font-size:1.05rem;font-variant-numeric:tabular-nums}
+.marketEvidenceCards small{min-height:3.1em;color:#425e76;font-size:.65rem;line-height:1.5}
+.marketEvidenceCards .sourceBadge{margin-top:.35rem}
+.marketEvidenceSummary>p{margin:.55rem 0 0;color:var(--ppt-muted);font-size:.66rem;line-height:1.45}
 .marketDecisionGrid{display:grid;grid-template-columns:1fr;gap:1rem}
 .marketDecisionGrid>.pptModule+ .pptModule{border-top:1px solid var(--ppt-line);padding-top:1rem}
 .volumeStatusLegend{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin:.1rem 0 .6rem;color:#3d556d;font-size:.68rem;font-weight:700}
@@ -43,6 +52,15 @@
 .customerLegend i{width:.55rem;height:.55rem;background:#005aa7}.customerLegend li:nth-child(2) i{background:#2d7dbb}.customerLegend li:nth-child(3) i{background:#0f7b45}.customerLegend li:nth-child(4) i{background:#f5b400}
 .customerLegend b{color:var(--ppt-blue)}
 .sourceCaveat{margin:.45rem 0 0;color:var(--ppt-muted);font-size:.67rem;line-height:1.45}
+.customerEvidence{display:flex;flex-direction:column;gap:.85rem}
+.customerEvidenceTop{min-width:0}
+.marketRightInsights{display:grid;gap:.6rem;padding-top:.8rem;border-top:1px solid var(--ppt-line)}
+.marketRightInsights h3{margin:0;color:var(--ppt-ink);font-size:.95rem}
+.marketRightInsights article{padding:.68rem .72rem;border:1px solid #d5e2ee;border-left:4px solid var(--ppt-yellow);background:#f7fafc}
+.marketRightInsights article header{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.32rem}
+.marketRightInsights article b{color:var(--ppt-blue);font-size:.76rem}
+.marketRightInsights article p{margin:0;color:#2e4b64;font-size:.72rem;line-height:1.62;text-wrap:pretty}
+.purchaseLogicBlock{padding-top:.8rem;border-top:1px solid var(--ppt-line)}
 .purchaseLogic{display:grid;grid-template-columns:1fr;gap:0;margin:.85rem 0 0;padding:0;list-style:none;border-top:1px solid var(--ppt-line)}
 .purchaseLogic li{position:relative;padding:.5rem .5rem .5rem 1.1rem;border-bottom:1px solid #e3eaf1;color:#334d66;font-size:.75rem;line-height:1.45}
 .purchaseLogic li:before{content:"";position:absolute;left:.15rem;top:.85rem;width:.4rem;height:.4rem;background:var(--ppt-yellow)}
@@ -84,10 +102,33 @@
 .marketPortfolioMatrix tbody tr:nth-child(even),.transportRuleTable tbody tr:nth-child(even),.positioningScroll tbody tr:nth-child(even){background:#f5f8fb}
 .marketPortfolioMatrix .xcmgPortfolioRow{background:#fff5cf}
 .marketPortfolioMatrix .xcmgPortfolioRow th{box-shadow:inset 4px 0 0 var(--ppt-yellow);color:var(--ppt-blue)}
+.scenarioMatrix{margin:.6rem 0 1rem;border:1px solid var(--ppt-line);border-top:3px solid var(--ppt-blue);background:#fff}
+.scenarioMatrixHeader{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding:.72rem .85rem;border-bottom:1px solid var(--ppt-line);background:#f7fafc}
+.scenarioMatrixHeader h3{margin:0;color:var(--ppt-ink);font-size:1rem}
+.scenarioMatrixSource{color:var(--ppt-muted);font-size:.65rem;line-height:1.4;white-space:nowrap}
+.scenarioMatrixTable{max-width:100%;overflow:hidden}
+.scenarioMatrix table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.74rem}
+.scenarioMatrixScenario{width:23%}.scenarioMatrixSourceContent{width:61%}.scenarioMatrixMapping{width:16%}
+.scenarioMatrix th,.scenarioMatrix td{padding:.68rem .72rem;border:0;border-bottom:1px solid #d8e3ed;text-align:left;vertical-align:top;line-height:1.58;overflow-wrap:anywhere}
+.scenarioMatrix thead th{background:var(--ppt-blue);color:#fff}
+.scenarioMatrix tbody tr:nth-child(even){background:#f7fafc}
+.scenarioMatrix tbody th{color:var(--ppt-ink)}
+.scenarioMatrix tbody th b{display:block;margin-bottom:.18rem;font-size:.8rem}
+.scenarioMatrix tbody th small{display:block;margin-bottom:.32rem;color:var(--ppt-muted);font-size:.66rem;line-height:1.45}
+.scenarioRowSource{display:block;color:#728496;font-size:.61rem;font-weight:600;line-height:1.4}
+.scenarioMatrix td p{margin:.36rem 0 0;color:#304b63;line-height:1.58}
+.scenarioMatrix .matrixLinks{display:grid;align-items:start;gap:.16rem}
+.scenarioMatrix .matrixLinks a{display:block;min-height:0;padding:.12rem 0;border:0;background:transparent;color:var(--ppt-blue);font-size:.68rem;line-height:1.45;text-decoration:underline;text-decoration-color:#b8cadb;text-underline-offset:2px}
+.scenarioMatrix .matrixLinks a:hover,.scenarioMatrix .matrixLinks a:focus-visible{border:0;background:transparent;text-decoration-color:var(--ppt-yellow)}
+.scenarioSourceOriginal{display:grid;gap:0}
+.sourceContentLine{display:grid;grid-template-columns:5.6rem minmax(0,1fr);gap:.65rem;padding:.25rem 0;border-bottom:1px solid #e3eaf1}
+.sourceContentLine:last-child{border-bottom:0}
+.sourceContentLine span{color:var(--ppt-blue);font-size:.67rem;font-weight:900;line-height:1.55}
+.sourceContentLine p{margin:0!important;color:#304b63!important;font-size:.72rem;line-height:1.62!important;text-wrap:pretty}
 .scenarioSequence{border-top:3px solid var(--ppt-blue)}
 .scenarioBand{padding:1rem 0 1.25rem;border-bottom:1px solid var(--ppt-line);scroll-margin-top:1rem}
 .scenarioBand:last-child{padding-bottom:0;border-bottom:0}
-.scenarioBandHeader{display:grid;grid-template-columns:2.7rem minmax(0,1fr) auto;align-items:start;gap:.7rem;margin-bottom:.8rem}
+.scenarioBandHeader{display:grid;grid-template-columns:2.7rem minmax(0,1fr);align-items:start;gap:.7rem;margin-bottom:.8rem}
 .scenarioNumber{display:flex;align-items:center;justify-content:center;min-height:2.7rem;background:var(--ppt-blue);box-shadow:inset 0 -4px 0 var(--ppt-yellow);color:#fff;font-size:.78rem;font-weight:900}
 .scenarioBandTitle{min-width:0}
 .scenarioBandTitle h3{margin:.05rem 0 .28rem;color:var(--ppt-ink);font-size:1.05rem;line-height:1.3}
@@ -100,7 +141,7 @@
 .scenarioPhotoGrid figure{min-width:0;margin:0;border:1px solid var(--ppt-line);background:#fff;overflow:hidden}
 .scenarioPhotoGrid img{display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:contain;object-position:center;background:#eef3f7}
 .scenarioPhotoGrid figcaption{min-height:2.35rem;padding:.42rem .5rem;background:#f4f8fb;color:#2f4b63;font-size:.66rem;font-weight:700;line-height:1.4}
-.scenarioBody{min-width:0;padding:0}
+.scenarioBody{min-width:0;padding:.65rem .8rem;border:1px solid #d8e3ed;border-left:4px solid var(--ppt-blue);background:#fff}
 .scenarioStatus{display:inline-flex;align-items:center;min-height:1.65rem;padding:.2rem .48rem;border-radius:2px;font-size:.68rem;font-weight:900;white-space:nowrap}
 .status-advantage{background:#e4f2e9;color:var(--ppt-green)}
 .status-gap{background:#fbe8e7;color:var(--ppt-red)}
@@ -109,11 +150,16 @@
 .status-covered{background:#e4f2e9;color:var(--ppt-green)}
 .status-mixed{background:#fff3d1;color:var(--ppt-amber)}
 .scenarioFacts{display:grid;grid-template-columns:1fr;margin:0}
-.scenarioFact{padding:.68rem 0;border-bottom:1px solid #e2eaf1}
+.scenarioFact{padding:.6rem 0;border-bottom:1px solid #e2eaf1}
+.scenarioFact:first-child{padding-top:0}
+.scenarioFact:last-child{padding-bottom:0;border-bottom:0}
 .scenarioFact dt{margin-bottom:.3rem;color:var(--ppt-blue);font-size:.7rem;font-weight:900}
 .scenarioFact dd{margin:0;color:#304b63;font-size:.77rem;line-height:1.68}
 .scenarioNarrative{max-width:78ch;margin:0;color:#304b63;line-height:1.7;text-wrap:pretty}
-.scenarioFinding{padding:.65rem .75rem;border-left:4px solid var(--ppt-yellow);background:#f4f8fb;color:var(--ppt-ink);font-weight:700}
+.scenarioFindingFact{margin-top:.1rem;padding-top:.72rem}
+.scenarioFinding{display:grid;gap:.45rem;padding:.65rem .75rem;border-left:4px solid var(--ppt-yellow);background:#f4f8fb;color:var(--ppt-ink);font-weight:700}
+.scenarioFinding p{margin:0;color:#24445f;line-height:1.62}
+.scenarioFinding .scenarioStatus{justify-self:start}
 .scenarioSourceContext{display:grid;grid-template-columns:1fr;margin-top:.85rem;border-top:1px solid #cbd9e5;border-bottom:1px solid #cbd9e5;background:#f7fafc}
 .scenarioSourceContext section{min-width:0;padding:.72rem .8rem;border-bottom:1px solid #d8e3ed}.scenarioSourceContext section:last-child{border-bottom:0}
 .scenarioSourceContext h4{margin:0 0 .42rem;color:var(--ppt-blue);font-size:.72rem}.scenarioSourceContext .scenarioNarrative{font-size:.72rem;line-height:1.72}
@@ -181,6 +227,17 @@
 .fieldSummary{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.75rem}
 .fieldSummary span{display:inline-flex;align-items:center;gap:.35rem;padding:.32rem .55rem;border:1px solid var(--ppt-line);background:#f8fafc;font-size:.72rem;font-weight:800}
 .fieldSummary b{font-size:.9rem}
+.fieldGroupSummary{margin:.8rem 0 1rem;padding:.85rem;border:1px solid var(--ppt-line);border-top:3px solid var(--ppt-blue);background:#fff}
+.fieldGroupSummary>p{margin:0 0 .65rem;color:var(--ppt-muted);font-size:.68rem;line-height:1.5}
+.fieldGroupSummary table{width:100%;min-width:36rem;border-collapse:collapse;font-size:.72rem}
+.fieldGroupSummary th,.fieldGroupSummary td{padding:.5rem .55rem;border:1px solid #d8e3ed;text-align:left;vertical-align:middle}
+.fieldGroupSummary thead th{background:var(--ppt-blue);color:#fff}
+.fieldGroupSummary tbody th{background:#f7fafc;color:var(--ppt-ink)}
+.fieldGroupSummary td b{display:block;color:var(--ppt-blue);font-size:.82rem;font-variant-numeric:tabular-nums}
+.fieldGroupSummary td i{display:block;height:.42rem;margin-top:.25rem;background:#e4ebf2;overflow:hidden}
+.fieldGroupSummary td i em{display:block;height:100%;background:var(--ppt-blue)}
+.fieldGroupSummary .xcmgFieldAvg{background:#fff5cf}
+.fieldGroupSummary .xcmgFieldAvg i em{background:var(--ppt-yellow)}
 .fieldMatrix{overflow-x:auto;max-width:100%;border:1px solid var(--ppt-line)}
 .fieldMatrix table{width:100%;min-width:54rem;border-collapse:collapse;font-size:.73rem}
 .fieldMatrix th{background:var(--ppt-blue);color:#fff;text-align:left}
@@ -209,8 +266,9 @@
 .actionPhaseGrid h3{margin:.25rem 0 .4rem;color:var(--ppt-ink);font-size:.9rem}
 .actionPhaseGrid ul{margin:0;padding-left:1.05rem;color:#385269;font-size:.72rem;line-height:1.55}
 .competitionGapMatrix{max-width:100%;overflow-x:auto;border:1px solid var(--ppt-line);margin-bottom:1rem}
-.competitionGapMatrix table{width:100%;min-width:62rem;border-collapse:collapse;font-size:.72rem}
-.competitionGapMatrix th,.competitionGapMatrix td{padding:.52rem .58rem;border:1px solid #d7e2ec;text-align:left;vertical-align:top;line-height:1.48}
+.competitionGapMatrix table{width:100%;min-width:62rem;table-layout:fixed;border-collapse:collapse;font-size:.72rem}
+.competitionGapMatrix .gapDimensionCol{width:16%}.competitionGapMatrix .gapFoundationCol{width:29%}.competitionGapMatrix .gapDetailCol{width:31%}.competitionGapMatrix .gapActionCol{width:24%}
+.competitionGapMatrix th,.competitionGapMatrix td{padding:.52rem .58rem;border:1px solid #d7e2ec;text-align:left;vertical-align:top;line-height:1.48;white-space:normal;overflow-wrap:break-word;word-break:normal}
 .competitionGapMatrix thead th{background:var(--ppt-blue);color:#fff}
 .competitionGapMatrix tbody th{width:11rem;color:var(--ppt-ink);background:#f4f8fb}
 .competitionGapMatrix tbody td:nth-child(2){border-left:4px solid var(--ppt-green)}
@@ -221,6 +279,32 @@
 .positioningScroll table{min-width:40rem}
 .positioningScroll .xcmgPositionRow{background:#fff5cf}
 .positioningScroll .xcmgPositionRow th{box-shadow:inset 4px 0 0 var(--ppt-yellow);color:var(--ppt-blue)}
+.marketModelDemand>.evidenceVisual{margin:1rem 0}
+.positionDecision{margin:.25rem 0 1rem;border:1px solid var(--ppt-line);border-top:3px solid var(--ppt-blue);background:#fff}
+.positionDecisionLead{display:grid;grid-template-columns:9.5rem minmax(0,1.45fr) minmax(18rem,.75fr);align-items:start;gap:.8rem;padding:.85rem .95rem;border-bottom:1px solid var(--ppt-line);background:#f7fafc}
+.positionDecisionLead>span{color:var(--ppt-blue);font-size:.68rem;font-weight:900;text-transform:uppercase}
+.positionDecisionLead h3{margin:0;color:var(--ppt-ink);font-size:1rem;line-height:1.5}
+.positionDecisionLead p{margin:0;color:#435d74;font-size:.69rem;line-height:1.6}
+.positionMetricStrip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.positionMetricStrip article{min-width:0;padding:.75rem .8rem;border-right:1px solid #d9e4ed}
+.positionMetricStrip article:last-child{border-right:0}
+.positionMetricStrip span,.positionMetricStrip b,.positionMetricStrip p{display:block}
+.positionMetricStrip span{color:var(--ppt-blue);font-size:.65rem;font-weight:900}
+.positionMetricStrip b{margin:.22rem 0;color:var(--ppt-ink);font-size:.94rem;line-height:1.3}
+.positionMetricStrip p{margin:0;color:#435d74;font-size:.64rem;line-height:1.52}
+.positionVisualGrid{display:grid;grid-template-columns:1fr;gap:1rem;align-items:stretch}
+.positionVisualGrid>.evidenceVisual,.positionVisualGrid>.positioningBlock{height:100%;margin:0}
+.positionVisualGrid>.positioningBlock{padding:.85rem;border:1px solid var(--ppt-line);border-top:3px solid var(--ppt-blue);background:#fff}
+.positionVisualGrid .positioningScroll{overflow:visible}
+.positionVisualGrid .positioningScroll table{min-width:0;table-layout:fixed}
+.positionVisualGrid .positioningScroll th:nth-child(1){width:16%}
+.positionVisualGrid .positioningScroll th:nth-child(2){width:44%}
+.positionVisualGrid .positioningScroll th:nth-child(3){width:22%}
+.positionVisualGrid .positioningScroll th:nth-child(4){width:18%}
+.positionVisualGrid .positioningScroll th,.positionVisualGrid .positioningScroll td{overflow-wrap:anywhere}
+.positionPortfolioTable{margin:1rem 0}
+.profileBoundary{margin:1rem 0 .45rem;padding:.62rem .75rem;border-left:3px solid var(--ppt-yellow);background:#f6f9fc;color:#435d74;font-size:.68rem;line-height:1.55}
+.pptIntegratedDemo #ppt-positioning .competitivenessProfile{margin-top:.45rem}
 .sourceBadge{display:inline-flex;flex:0 0 auto;align-items:center;gap:.35rem;min-height:1.55rem;padding:.18rem .42rem;border:1px solid #c4d4e3;background:#f4f8fb;color:#456079;font-size:.62rem;line-height:1.2;white-space:nowrap}
 .sourceBadge b{color:var(--ppt-blue);font-weight:900}.sourceBadge em{font-style:normal;color:var(--ppt-muted)}
 .scenarioSource{display:flex;margin-top:.35rem}.scenarioSource .sourceBadge{min-height:1.35rem;padding:.12rem .35rem}
@@ -317,7 +401,42 @@
 .tonnageShare i{height:.55rem;background:#e4ebf2;overflow:hidden}.tonnageShare em{display:block;height:100%;background:var(--ppt-blue)}
 .tonnagePriorityGrid h3{margin:.5rem 0 .35rem;color:var(--ppt-ink);font-size:.85rem}.tonnagePriorityGrid h3 small{color:var(--ppt-muted);font-size:.68rem}
 .tonnagePriorityGrid p{margin:.2rem 0;color:#405a70;font-size:.7rem;line-height:1.45}.tonnagePriorityGrid p b{color:var(--ppt-ink)}
+
+/* English labels need word-level wrapping and protected descriptor columns. */
+html[data-language="en"] .pptIntegratedDemo main table th,
+html[data-language="en"] .pptIntegratedDemo main table td{white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:none}
+html[data-language="en"] .pptIntegratedDemo .sourceDataScroll th,
+html[data-language="en"] .pptIntegratedDemo .sourceDataScroll td{white-space:pre-line}
+html[data-language="en"] .pptIntegratedDemo .marketPortfolioMatrix th:first-child,
+html[data-language="en"] .pptIntegratedDemo .marketPortfolioMatrix td:first-child{min-width:7.5rem}
+html[data-language="en"] .pptIntegratedDemo .marketPortfolioMatrix th:nth-child(2),
+html[data-language="en"] .pptIntegratedDemo .marketPortfolioMatrix td:nth-child(2){min-width:10rem}
+html[data-language="en"] .pptIntegratedDemo .transportRuleTable th:first-child,
+html[data-language="en"] .pptIntegratedDemo .transportRuleTable td:first-child{min-width:9rem}
+html[data-language="en"] .pptIntegratedDemo .comparisonMatrix table{min-width:86rem}
+html[data-language="en"] .pptIntegratedDemo .comparisonMatrix th:first-child,
+html[data-language="en"] .pptIntegratedDemo .comparisonMatrix td:first-child{width:13rem;min-width:13rem}
+html[data-language="en"] .pptIntegratedDemo .comparisonMatrix th:not(:first-child):not(:last-child),
+html[data-language="en"] .pptIntegratedDemo .comparisonMatrix td:not(:first-child):not(:last-child){min-width:6.5rem}
+html[data-language="en"] .pptIntegratedDemo .detailMatrix table{min-width:92rem}
+html[data-language="en"] .pptIntegratedDemo .detailMatrix th:first-child,
+html[data-language="en"] .pptIntegratedDemo .detailMatrix td:first-child{width:15rem;min-width:15rem}
+html[data-language="en"] .pptIntegratedDemo .sourceDataScroll th:first-child,
+html[data-language="en"] .pptIntegratedDemo .sourceDataScroll td:first-child{min-width:10rem}
+html[data-language="en"] .pptIntegratedDemo .fieldGroupSummary th:first-child,
+html[data-language="en"] .pptIntegratedDemo .fieldGroupSummary td:first-child{min-width:9rem}
+html[data-language="en"] .pptIntegratedDemo .fieldMatrix th:first-child,
+html[data-language="en"] .pptIntegratedDemo .fieldMatrix td:first-child{min-width:8rem}
+html[data-language="en"] .pptIntegratedDemo .fieldMatrix th:nth-child(2),
+html[data-language="en"] .pptIntegratedDemo .fieldMatrix td:nth-child(2){min-width:10rem}
+html[data-language="en"] .pptIntegratedDemo .positioningScroll th:first-child,
+html[data-language="en"] .pptIntegratedDemo .positioningScroll td:first-child{min-width:8rem}
+html[data-language="en"] .pptIntegratedDemo .competitionGapMatrix table{min-width:74rem}
+html[data-language="en"] .pptIntegratedDemo .evidenceTableScroll th:first-child,
+html[data-language="en"] .pptIntegratedDemo .evidenceTableScroll td:first-child{min-width:7rem}
+html[data-language="en"] .pptIntegratedDemo .improvementLedger tbody th{min-width:8rem}
 @media(min-width:48rem){
+  .marketEvidenceCards{grid-template-columns:repeat(4,minmax(0,1fr))}
   .marketDecisionGrid{grid-template-columns:minmax(0,1.1fr) minmax(18rem,.9fr)}
   .marketDecisionGrid>.pptModule+ .pptModule{border-top:0;border-left:1px solid var(--ppt-line);padding-top:.25rem;padding-left:1rem}
   .customerLegend{grid-template-columns:1fr 1fr}
@@ -349,6 +468,7 @@
   .massDetailGrid{grid-template-columns:minmax(0,1fr) minmax(12rem,.3fr)}
   .performanceFacetGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .radarLayout{grid-template-columns:minmax(22rem,1fr) minmax(16rem,.55fr)}
+  .positionVisualGrid{grid-template-columns:minmax(21rem,1.05fr) minmax(20rem,.95fr)}
 }
 @media(min-width:68.75rem){
   .paperInsightGrid{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -372,6 +492,9 @@
   .sourceDataHeading{grid-template-columns:1fr;gap:.3rem;align-items:start}
   .sourceDataScroll table{font-size:.66rem}.sourceDataScroll th,.sourceDataScroll td{padding:.38rem .42rem}
   .marketDetailGrid{gap:.8rem}.marketDetailBlock{min-width:0}
+  .scenarioMatrixHeader{display:block}.scenarioMatrixSource{display:block;margin-top:.25rem;white-space:normal}
+  .scenarioMatrixTable{overflow:visible}.scenarioMatrix table,.scenarioMatrix thead,.scenarioMatrix tbody{display:block;width:100%;min-width:0}.scenarioMatrix colgroup,.scenarioMatrix thead{display:none}.scenarioMatrix tbody{display:grid;gap:.65rem;padding:.65rem;background:#eef3f7}.scenarioMatrix tr{display:grid;grid-template-columns:1fr;width:100%;min-width:0;background:#fff!important;border-left:4px solid var(--ppt-blue)}.scenarioMatrix th,.scenarioMatrix td{display:block;width:auto;padding:.58rem .65rem;border-bottom:1px solid #dfe8f0}.scenarioMatrix td:last-child{border-bottom:0}.scenarioMatrix .matrixLinks{display:flex;flex-wrap:wrap;gap:.35rem}.scenarioMatrix .matrixLinks a{display:inline-flex;align-items:center;min-height:2.75rem;padding:.25rem .55rem;border:1px solid #b9ccde;background:#f7fafc;text-decoration:none}
+  .sourceContentLine{grid-template-columns:1fr;gap:.12rem;padding:.42rem 0}.sourceContentLine p{font-size:.76rem;line-height:1.68!important}
   .scenarioAssessment{margin-top:0;padding:.55rem;background:#f4f8fb;overflow:visible}.scenarioAssessment table{display:block;width:100%;min-width:0;font-size:.7rem}.scenarioAssessment thead{display:none}.scenarioAssessment tbody{display:grid;width:100%;gap:.55rem}.scenarioAssessment tr{box-sizing:border-box;display:grid;width:100%;min-width:0;padding:.55rem .6rem;border-left:4px solid var(--ppt-blue);background:#fff}.scenarioAssessment th,.scenarioAssessment td,.scenarioAssessment tbody th,.scenarioAssessment tbody td:nth-child(n){display:block;width:auto;min-width:0;padding:.35rem 0;border:0;background:transparent;overflow-wrap:anywhere}.scenarioAssessment th:before,.scenarioAssessment td:before{content:attr(data-label);display:block;margin-bottom:.16rem;color:var(--ppt-blue);font-size:.61rem;font-weight:900;text-transform:uppercase}.scenarioAssessment td+td{border-top:1px solid #e0e8ef}.assessmentJudgment{grid-template-columns:1fr;gap:.3rem}.assessmentJudgment .scenarioStatus{justify-self:start}.assessmentJudgment p{margin:0;line-height:1.65}
   .competitionGapMatrix table{font-size:.68rem}
   .evidenceVisual{padding:.65rem}.evidenceVisual>header{display:block}.evidenceVisual>header .sourceBadge{margin-top:.45rem}
@@ -382,6 +505,11 @@
   .massPackageRow{grid-template-columns:1fr 4.6rem}.massTrack{grid-column:1/-1;grid-row:2}.massPackageRow>strong{grid-column:2;grid-row:1}
   .performanceBarRow{grid-template-columns:4.2rem minmax(0,1fr) 4.8rem}.performanceBarRow>span{font-size:.59rem}.performanceBarRow>b{font-size:.58rem}
   .radarKey ol{grid-template-columns:1fr}.heatmapLegend b{display:none}
+  .positionDecisionLead{grid-template-columns:1fr;gap:.35rem}.positionDecisionLead h3{font-size:.9rem}.positionMetricStrip{grid-template-columns:1fr}.positionMetricStrip article{border-right:0;border-bottom:1px solid #d9e4ed}.positionMetricStrip article:last-child{border-bottom:0}
+}
+@media(min-width:48rem) and (max-width:68.749rem){
+  .positionDecisionLead{grid-template-columns:8rem minmax(0,1fr)}.positionDecisionLead p{grid-column:2}
+  .positionMetricStrip{grid-template-columns:repeat(2,minmax(0,1fr))}.positionMetricStrip article:nth-child(2n){border-right:0}.positionMetricStrip article{border-bottom:1px solid #d9e4ed}.positionMetricStrip article:last-child{grid-column:1/-1;border-bottom:0}
 }
 @media(min-width:56.25rem) and (max-width:75rem){
   .pptOverviewPage .layout{display:grid;grid-template-columns:220px minmax(0,1fr)}
@@ -395,4 +523,179 @@
   .pptOverviewPage .navMenu .home{margin:12px 0}
   .pptOverviewPage main{padding:16px}
   .pptOverviewPage section,.pptOverviewPage .hero{scroll-margin-top:0}
+}
+
+/* Persistent page location for the long-form integrated benchmark. */
+.pptIntegratedDemo .navMenu a[href^="#"]{position:relative;display:grid;grid-template-columns:minmax(0,1fr) .55rem;align-items:center;gap:.55rem;transition:background-color .16s ease,border-color .16s ease,transform .16s ease}
+.pptIntegratedDemo .navMenu a[href^="#"]:after{content:"";width:.42rem;height:.42rem;border-radius:50%;background:var(--yellow);opacity:0;transform:scale(.55);transition:opacity .16s ease,transform .16s ease}
+.pptIntegratedDemo .navMenu a[href^="#"]:hover,.pptIntegratedDemo .navMenu a[href^="#"]:focus-visible{transform:translateX(.12rem)}
+.pptIntegratedDemo .navMenu a[href^="#"].is-active{border-left-color:var(--yellow);background:rgba(255,255,255,.15);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.pptIntegratedDemo .navMenu a[href^="#"].is-active:after{opacity:1;transform:scale(1)}
+.pptIntegratedDemo .navMenu a[href^="#"].navSubitem{padding-left:1.25rem;color:#d5e6f4;font-size:.76rem;font-weight:650}
+.pptIntegratedDemo .navMenu a[href^="#"].navSubitem.is-active{color:#fff}
+.pptIntegratedDemo .navGroup{margin:.2rem 0 .35rem;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.pptIntegratedDemo .navGroup>summary{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:2.45rem;padding:.55rem .6rem;color:#fff;font-size:.8rem;font-weight:800;line-height:1.35;cursor:pointer;list-style:none;transition:background-color .16s ease,color .16s ease}
+.pptIntegratedDemo .navGroup>summary::-webkit-details-marker{display:none}
+.pptIntegratedDemo .navGroup>summary:after{content:"";flex:0 0 auto;width:.45rem;height:.45rem;margin-left:.6rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-.12rem);transition:transform .16s ease}
+.pptIntegratedDemo .navGroup[open]>summary:after{transform:rotate(225deg) translate(-.08rem,-.08rem)}
+.pptIntegratedDemo .navGroup>summary:hover,.pptIntegratedDemo .navGroup>summary:focus-visible{background:rgba(255,255,255,.09)}
+.pptIntegratedDemo .navGroup.is-current>summary{color:var(--yellow);background:rgba(245,180,0,.08)}
+.pptIntegratedDemo .navSubmenu{position:relative;padding:0 0 .32rem .45rem}
+.pptIntegratedDemo .navSubmenu:before{content:"";position:absolute;top:.1rem;bottom:.55rem;left:.65rem;width:1px;background:rgba(159,194,223,.38)}
+.pptIntegratedDemo .navSubmenu a[href^="#"].navSubitem{min-height:2.15rem;margin:.08rem 0;padding:.42rem .55rem .42rem 1.15rem;border-left:0;font-size:.72rem}
+.pptIntegratedDemo .navSubmenu a[href^="#"].navSubitem:before{content:"";position:absolute;left:.38rem;width:.42rem;height:1px;background:rgba(159,194,223,.45)}
+.pptIntegratedDemo .navSubmenu a[href^="#"].navSubitem.is-active{border-left:0;background:rgba(255,255,255,.14);box-shadow:inset 3px 0 0 var(--yellow)}
+.pptIntegratedDemo .navLocation{position:sticky;top:0;z-index:3;grid-column:1/-1;margin:.25rem 0 .55rem;padding:.58rem .65rem;border:1px solid rgba(255,255,255,.18);border-left:3px solid var(--yellow);background:rgba(0,30,61,.96);box-shadow:0 .35rem .9rem rgba(0,20,42,.24)}
+.pptIntegratedDemo .navLocationLabel,.pptIntegratedDemo .navLocationTitle{display:block}
+.pptIntegratedDemo .navLocationLabel{color:#9fc2df;font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.pptIntegratedDemo .navLocationTitle{margin-top:.08rem;color:#fff;font-size:.78rem;line-height:1.4}
+.pptIntegratedDemo .navProgressMeta{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:.45rem;color:#bcd3e8;font-size:.58rem;font-weight:700}
+.pptIntegratedDemo .navProgressMeta b{color:var(--yellow);font-variant-numeric:tabular-nums}
+.pptIntegratedDemo .navProgressTrack{height:.2rem;margin-top:.22rem;overflow:hidden;background:rgba(255,255,255,.16)}
+.pptIntegratedDemo .navProgressTrack i{display:block;width:0;height:100%;background:var(--yellow);transition:width .12s linear}
+.pptIntegratedDemo .navMenu{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.28) transparent;overscroll-behavior:contain}
+.pptIntegratedDemo .navMenu::-webkit-scrollbar{width:.32rem}.pptIntegratedDemo .navMenu::-webkit-scrollbar-thumb{background:rgba(255,255,255,.28);border-radius:.2rem}
+.pptIntegratedDemo .navTargetPulse{animation:navTargetArrival .8s ease-out}
+@keyframes navTargetArrival{0%{outline:3px solid rgba(245,180,0,.72);outline-offset:.18rem}100%{outline:3px solid rgba(245,180,0,0);outline-offset:.5rem}}
+
+/* Compact methodology bands keep rating boundaries visible without adding card clutter. */
+.pptIntegratedDemo .scoringMethod{display:grid;grid-template-columns:9.2rem minmax(0,1fr);margin:.8rem 0 1rem;border-top:2px solid var(--blue);border-bottom:1px solid #c6d7e7;background:#f4f8fb;color:#0b2f52}
+.pptIntegratedDemo .scoringMethodLead{display:flex;flex-direction:column;justify-content:center;gap:.2rem;padding:.7rem .8rem;border-right:1px solid #c6d7e7}
+.pptIntegratedDemo .scoringMethodLead span{color:#47647d;font-size:.67rem;font-weight:800}
+.pptIntegratedDemo .scoringMethodLead strong{color:#004f94;font-size:.95rem;line-height:1.25}
+.pptIntegratedDemo .fieldScoringMethod dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0}
+.pptIntegratedDemo .fieldScoringMethod dl>div{min-width:0;padding:.62rem .72rem;border-right:1px solid #d8e3ed}
+.pptIntegratedDemo .fieldScoringMethod dl>div:last-child{border-right:0}
+.pptIntegratedDemo .fieldScoringMethod dt{margin:0 0 .18rem;color:#005da8;font-size:.7rem;font-weight:850}
+.pptIntegratedDemo .fieldScoringMethod dd{margin:0;color:#29465f;font-size:.68rem;line-height:1.55}
+.pptIntegratedDemo .actionMethod p{align-self:center;margin:0;padding:.72rem .85rem;color:#29465f;font-size:.72rem;line-height:1.65}
+
+@media(min-width:56.25rem){
+  .pptIntegratedDemo .layout{display:grid;grid-template-columns:260px minmax(0,1fr)}
+  .pptIntegratedDemo aside.nav{position:sticky;top:0;display:flex;flex-direction:column;height:100vh;overflow:hidden;padding:18px 14px;border-right:5px solid var(--yellow);border-bottom:0}
+  .pptIntegratedDemo .navMenu{display:block;flex:1;min-height:0;max-height:none;overflow-y:auto;padding:0 .3rem 3.2rem 0}
+  .pptIntegratedDemo .navMenu .home{margin:12px 0}
+  .pptIntegratedDemo .navToggle,.pptIntegratedDemo .mobileTop{display:none}
+  .pptIntegratedDemo section,.pptIntegratedDemo .hero{scroll-margin-top:1rem}
+}
+@media(min-width:56.25rem) and (max-width:75rem){
+  .pptIntegratedDemo .layout{grid-template-columns:220px minmax(0,1fr)}
+  .pptIntegratedDemo .nav img{width:104px;padding:5px}
+  .pptIntegratedDemo .navTitle{margin:10px 0 6px;font-size:16px}
+  .pptIntegratedDemo .nav small{font-size:10px}
+  .pptIntegratedDemo .languageToggle{margin:10px 0}
+  .pptIntegratedDemo main{padding:16px}
+}
+@media(max-width:56.249rem){
+  .pptIntegratedDemo .navLocation{margin:.15rem 0 .35rem}
+  .pptIntegratedDemo .navMenu a[href^="#"]{min-height:2.75rem}
+  .pptIntegratedDemo .navGroup>summary{min-height:2.75rem}
+  .pptIntegratedDemo .navSubmenu a[href^="#"].navSubitem{min-height:2.75rem;padding-top:.62rem;padding-bottom:.62rem}
+  .pptIntegratedDemo .scoringMethod{grid-template-columns:1fr}
+  .pptIntegratedDemo .scoringMethodLead{flex-direction:row;align-items:baseline;justify-content:flex-start;border-right:0;border-bottom:1px solid #c6d7e7}
+  .pptIntegratedDemo .fieldScoringMethod dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pptIntegratedDemo .fieldScoringMethod dl>div:nth-child(2){border-right:0}
+  .pptIntegratedDemo .fieldScoringMethod dl>div:nth-child(-n+2){border-bottom:1px solid #d8e3ed}
+}
+@media(max-width:31rem){
+  .pptIntegratedDemo .fieldScoringMethod dl{grid-template-columns:1fr}
+  .pptIntegratedDemo .fieldScoringMethod dl>div{border-right:0;border-bottom:1px solid #d8e3ed}
+  .pptIntegratedDemo .fieldScoringMethod dl>div:last-child{border-bottom:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .pptIntegratedDemo .navMenu a[href^="#"],.pptIntegratedDemo .navMenu a[href^="#"]:after,.pptIntegratedDemo .navGroup>summary,.pptIntegratedDemo .navGroup>summary:after,.pptIntegratedDemo .navProgressTrack i{transition:none}
+  .pptIntegratedDemo .navMenu a[href^="#"]:hover,.pptIntegratedDemo .navMenu a[href^="#"]:focus-visible{transform:none}
+  .pptIntegratedDemo .navTargetPulse{animation:none}
+}
+
+/* Decision visuals: one visual argument plus continuous engineering interpretation. */
+.pptIntegratedDemo .decisionVisual{margin:1.2rem 0 1.55rem;padding:1rem 0 1.2rem;border-top:2px solid var(--blue);border-bottom:1px solid #c6d7e7;background:#fff}
+.pptIntegratedDemo .decisionVisualHeader{display:grid;grid-template-columns:13rem minmax(0,1fr);align-items:start;gap:1rem;margin:0 0 1rem;padding:0 .2rem}
+.pptIntegratedDemo .decisionVisualHeader>span{color:#005da8;font-size:.72rem;font-weight:900;letter-spacing:.03em;text-transform:uppercase}
+.pptIntegratedDemo .decisionVisualHeader h3{margin:0;color:#062f56;font-size:1.14rem;line-height:1.45;letter-spacing:0}
+.pptIntegratedDemo .decisionVisualLayout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(18rem,.75fr);gap:1.25rem;align-items:start}
+.pptIntegratedDemo .decisionVisualStage{min-width:0}
+.pptIntegratedDemo .decisionVisualAnalysis{min-width:0;padding-left:1.1rem;border-left:1px solid #c7d7e6;color:#243f58}
+.pptIntegratedDemo .decisionVisualAnalysis>p{margin:0 0 .78rem;font-size:.76rem;line-height:1.78;text-align:justify}
+.pptIntegratedDemo .decisionAction{margin-top:1rem;padding:.72rem .8rem;border-left:4px solid var(--yellow);background:#f4f8fb}
+.pptIntegratedDemo .decisionAction b{display:block;margin-bottom:.25rem;color:#004f94;font-size:.72rem}
+.pptIntegratedDemo .decisionAction p{margin:0;color:#173c5d;font-size:.72rem;line-height:1.7}
+
+.pptIntegratedDemo .classFocusBanner{display:grid;grid-template-columns:8rem 7rem minmax(0,1fr);align-items:center;gap:.8rem;padding:.72rem .8rem;border-top:4px solid var(--yellow);background:#fff8df;color:#06385f}
+.pptIntegratedDemo .classFocusBanner span{font-size:.62rem;font-weight:850}.pptIntegratedDemo .classFocusBanner strong{font-size:1.25rem}.pptIntegratedDemo .classFocusBanner b{font-size:.76rem;line-height:1.5}
+.pptIntegratedDemo .classDecisionGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem;margin-top:.65rem}
+.pptIntegratedDemo .classDecisionCard{min-width:0;padding:.72rem .78rem;border:1px solid #c5d6e5;border-top:3px solid #6f91ad;background:#f7fafc}
+.pptIntegratedDemo .classDecisionCard span{display:block;color:#0061aa;font-size:.61rem;font-weight:900}.pptIntegratedDemo .classDecisionCard h4{margin:.22rem 0 .28rem;color:#07385f;font-size:.74rem;line-height:1.45}.pptIntegratedDemo .classDecisionCard p{margin:0;color:#35526b;font-size:.64rem;line-height:1.55}
+.pptIntegratedDemo .benchmarkRoles{display:grid;grid-template-columns:1fr;gap:.45rem;margin-top:.65rem}
+.pptIntegratedDemo .benchmarkRole{display:grid;grid-template-columns:7.2rem minmax(13rem,.85fr) minmax(0,1.6fr);align-items:center;gap:.65rem;padding:.65rem .75rem;border-left:4px solid #0065a9;background:#eef4f8}
+.pptIntegratedDemo .benchmarkRole span{color:#48657e;font-size:.64rem;font-weight:850}.pptIntegratedDemo .benchmarkRole strong{color:#003d73;font-size:.74rem;line-height:1.45}.pptIntegratedDemo .benchmarkRole p{margin:0;color:#29465f;font-size:.64rem;line-height:1.55}
+
+.pptIntegratedDemo .portfolioCoverageScroll{max-width:100%;overflow:auto;border:1px solid #c4d6e6;scrollbar-width:thin}
+.pptIntegratedDemo .portfolioCoverageTable{width:100%;min-width:49rem;border-collapse:collapse;table-layout:fixed;font-size:.7rem}
+.pptIntegratedDemo .portfolioCoverageTable th,.pptIntegratedDemo .portfolioCoverageTable td{height:3.35rem;padding:.5rem .6rem;border-right:1px solid #d2dfeb;border-bottom:1px solid #d2dfeb;text-align:left;vertical-align:middle}
+.pptIntegratedDemo .portfolioCoverageTable thead th{height:auto;background:#075da5;color:#fff;font-size:.65rem}.pptIntegratedDemo .portfolioCoverageTable thead th:first-child{width:6.8rem}
+.pptIntegratedDemo .portfolioCoverageTable tbody th{background:#edf3f8;color:#07345a;font-size:.72rem}
+.pptIntegratedDemo .portfolioCoverageTable .portfolioXcmg th{background:#004f94;color:#fff}.pptIntegratedDemo .portfolioCoverageTable .portfolioXcmg td{background:#fff9e5;box-shadow:inset 0 2px 0 var(--yellow),inset 0 -2px 0 var(--yellow)}
+.pptIntegratedDemo .portfolioCovered span{display:inline-flex;align-items:center;min-height:1.75rem;padding:.28rem .48rem;border:1px solid #a8c3d9;background:#fff;color:#06375f;font-weight:800}
+.pptIntegratedDemo .portfolioMissing span{display:inline-flex;align-items:center;min-height:1.75rem;padding:.28rem .48rem;border:1px dashed #cc4d4d;background:#fff4f4;color:#a91f1f;font-size:.63rem;font-weight:800}
+
+.pptIntegratedDemo .capabilityTabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem}
+.pptIntegratedDemo .capabilityTab{min-height:2.25rem;padding:.42rem .68rem;border:1px solid #a9c3d8;border-radius:3px;background:#fff;color:#054a83;font:inherit;font-size:.65rem;font-weight:850;cursor:pointer}
+.pptIntegratedDemo .capabilityTab:hover,.pptIntegratedDemo .capabilityTab:focus-visible{border-color:#0065a9;background:#eef6fc}.pptIntegratedDemo .capabilityTab.is-active{border-color:#e3a900;background:var(--yellow);color:#082c4d;box-shadow:inset 0 -3px 0 #9a6c00}
+.pptIntegratedDemo .capabilityPanel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem;padding:.8rem;border:1px solid #c4d6e6;background:#f4f8fb}
+.pptIntegratedDemo .capabilityPanel[hidden]{display:none}.pptIntegratedDemo .capabilityPanel article{position:relative;min-width:0;min-height:7.4rem;padding:.72rem .72rem .65rem;border-top:4px solid #0065a9;background:#fff}
+.pptIntegratedDemo .capabilityPanel article:not(:last-child):after{content:"";position:absolute;top:48%;right:-1rem;width:.8rem;height:.8rem;border-top:2px solid #7595af;border-right:2px solid #7595af;transform:rotate(45deg)}
+.pptIntegratedDemo .capabilityPanel article span{display:block;color:#0061a9;font-size:.62rem;font-weight:900}.pptIntegratedDemo .capabilityPanel article p{margin:.5rem 0 0;color:#173c5d;font-size:.7rem;font-weight:700;line-height:1.65}
+
+.pptIntegratedDemo .attachmentLegend,.pptIntegratedDemo .evidenceLevelLegend{display:flex;flex-wrap:wrap;gap:.8rem;margin:0 0 .55rem;color:#48657e;font-size:.62rem;font-weight:800}
+.pptIntegratedDemo .attachmentLegend span,.pptIntegratedDemo .evidenceLevelLegend span{display:inline-flex;align-items:center;gap:.3rem}.pptIntegratedDemo .attachmentLegend i,.pptIntegratedDemo .evidenceLevelLegend i{width:.85rem;height:.85rem;border:1px solid rgba(0,45,84,.15)}
+.pptIntegratedDemo .attachmentHeatmapScroll,.pptIntegratedDemo .fieldEvidenceScroll{max-width:100%;overflow:auto;border:1px solid #c4d6e6;scrollbar-width:thin}
+.pptIntegratedDemo .attachmentHeatmap{width:100%;min-width:58rem;border-collapse:collapse;table-layout:fixed;font-size:.65rem}
+.pptIntegratedDemo .attachmentHeatmap thead th{height:4.4rem;padding:.35rem;background:#075da5;color:#fff;vertical-align:bottom}.pptIntegratedDemo .attachmentHeatmap thead th:first-child{width:11rem;text-align:left}
+.pptIntegratedDemo .attachmentHeatmap tbody th{padding:.55rem .65rem;border-bottom:1px solid #d5e1eb;background:#f2f6f9;color:#0b3457;text-align:left;line-height:1.35}
+.pptIntegratedDemo .attachmentHeatmap td{height:2.8rem;padding:.25rem;border:1px solid #fff;text-align:center}.pptIntegratedDemo .attachmentHeatmap td span{display:block;font-size:.78rem;font-weight:900}.pptIntegratedDemo .attachmentHeatmap td small{display:block;margin-top:.08rem;font-size:.52rem;font-weight:750}
+.pptIntegratedDemo .attachmentHeat.heat-0{background:#edf1f4;color:#8294a4}.pptIntegratedDemo .attachmentHeat.heat-1{background:#d7e8f5;color:#185b8f}.pptIntegratedDemo .attachmentHeat.heat-2{background:#ffd86a;color:#594000}.pptIntegratedDemo .attachmentHeat.heat-3{background:#005da8;color:#fff}
+
+.pptIntegratedDemo .absoluteGapChart{border:1px solid #c4d6e6;background:#f8fafc}
+.pptIntegratedDemo .gapAxis{display:grid;grid-template-columns:1fr 3rem 1fr;align-items:center;padding:.45rem .7rem;border-bottom:1px solid #d3dfeb;color:#48657e;font-size:.62rem;font-weight:850}.pptIntegratedDemo .gapAxis span:last-child{text-align:right}.pptIntegratedDemo .gapAxis b{text-align:center;color:#003d73}
+.pptIntegratedDemo .gapMetricRow{display:grid;grid-template-columns:9.5rem 12.5rem minmax(12rem,1fr) minmax(12rem,1fr);align-items:center;gap:.7rem;min-height:4.65rem;padding:.55rem .7rem;border-bottom:1px solid #d6e2ec}.pptIntegratedDemo .gapMetricRow:last-child{border-bottom:0}
+.pptIntegratedDemo .gapMetricIdentity b{display:block;color:#07365e;font-size:.7rem}.pptIntegratedDemo .gapMetricIdentity span{display:block;margin-top:.15rem;color:#6a7f91;font-size:.56rem;line-height:1.35}
+.pptIntegratedDemo .gapMetricValues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem}.pptIntegratedDemo .gapMetricValues span{min-width:0;padding:.35rem .42rem;border-left:2px solid #9db6cb;background:#fff}.pptIntegratedDemo .gapMetricValues i{display:block;color:#6a7f91;font-size:.52rem;font-style:normal;font-weight:800}.pptIntegratedDemo .gapMetricValues b{display:block;margin-top:.1rem;color:#0b3457;font-size:.66rem;overflow-wrap:anywhere}
+.pptIntegratedDemo .gapDeltaChart{position:relative;height:2.1rem;background:linear-gradient(to right,#f8e7e7 0,#fff 50%,#e3f3ea 100%)}.pptIntegratedDemo .gapZero{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#163e60}.pptIntegratedDemo .gapDeltaBar{position:absolute;top:.55rem;height:1rem}.pptIntegratedDemo .gapDeltaBar.negative{right:50%;width:var(--gap-width);background:#d84d4d}.pptIntegratedDemo .gapDeltaBar.positive{left:50%;width:var(--gap-width);background:#16895b}.pptIntegratedDemo .gapDeltaChart strong{position:absolute;top:.58rem;right:.45rem;color:#0b3457;font-size:.6rem}.pptIntegratedDemo .gapMetricRow.status-gap .gapDeltaChart strong{color:#b42323}.pptIntegratedDemo .gapMetricRow.status-advantage .gapDeltaChart strong{color:#087345}
+.pptIntegratedDemo .gapMetricRow>p{margin:0;color:#29465f;font-size:.64rem;line-height:1.55}
+
+.pptIntegratedDemo .fieldEvidenceTable{width:100%;min-width:46rem;border-collapse:collapse;table-layout:fixed;font-size:.65rem}.pptIntegratedDemo .fieldEvidenceTable thead th{padding:.5rem .32rem;background:#075da5;color:#fff}.pptIntegratedDemo .fieldEvidenceTable thead th:first-child{width:7.5rem}.pptIntegratedDemo .fieldEvidenceTable thead th:last-child{width:13rem}
+.pptIntegratedDemo .fieldEvidenceTable tbody th{padding:.52rem .6rem;border-bottom:1px solid #d5e1eb;background:#f2f6f9;color:#0b3457;text-align:left}.pptIntegratedDemo .fieldEvidenceTable td{height:3rem;padding:.3rem;border:1px solid #fff;text-align:center}.pptIntegratedDemo .fieldEvidenceTable td b{display:block;font-size:.75rem}.pptIntegratedDemo .fieldEvidenceTable td span{display:block;margin-top:.08rem;font-size:.53rem;font-weight:750}
+.pptIntegratedDemo .evidenceLevel.level-0{background:#edf1f4;color:#7c8d9b}.pptIntegratedDemo .evidenceLevel.level-1{background:#d9eaf6;color:#175985}.pptIntegratedDemo .evidenceLevel.level-2{background:#ffdc78;color:#5d4300}.pptIntegratedDemo .evidenceLevel.level-3{background:#13805a;color:#fff}
+.pptIntegratedDemo .fieldEvidenceTable .evidenceFinding{padding:.45rem .55rem;background:#fff;color:#29465f;text-align:left;font-size:.61rem;line-height:1.5}
+
+.pptIntegratedDemo .closureTimeline{min-width:52rem;border:1px solid #c4d6e6;background:#fff}.pptIntegratedDemo .decisionVisualStage:has(.closureTimeline){overflow:auto;scrollbar-width:thin}
+.pptIntegratedDemo .closureTimelineHead,.pptIntegratedDemo .closureRow{display:grid;grid-template-columns:minmax(13rem,1.3fr) 7rem 7rem 7rem minmax(14rem,1fr);align-items:stretch}
+.pptIntegratedDemo .closureTimelineHead{position:sticky;top:0;z-index:1;background:#075da5;color:#fff;font-size:.61rem;font-weight:850}.pptIntegratedDemo .closureTimelineHead span{padding:.5rem .55rem;border-right:1px solid rgba(255,255,255,.2)}
+.pptIntegratedDemo .closureRow{min-height:3.6rem;border-bottom:1px solid #d4e0ea;font-size:.62rem}.pptIntegratedDemo .closureRow:last-child{border-bottom:0}.pptIntegratedDemo .closureIdentity{padding:.48rem .55rem;background:#f3f7fa}.pptIntegratedDemo .closureIdentity b{display:block;color:#07365e}.pptIntegratedDemo .closureIdentity span{display:block;margin-top:.15rem;color:#48657e;line-height:1.4}
+.pptIntegratedDemo .closureMilestone{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;padding:.35rem;border-left:1px solid #d4e0ea;color:#29465f;font-variant-numeric:tabular-nums}.pptIntegratedDemo .milestoneDot{width:.72rem;height:.72rem;border:2px solid #0065a9;border-radius:50%;background:#fff}.pptIntegratedDemo .milestoneDot.historical{background:#5d8db5}.pptIntegratedDemo .milestoneDot.pending{border-color:#d99c00;background:var(--yellow)}.pptIntegratedDemo .closureMilestone.current{background:#fff9e7;color:#7b5700;font-weight:800}
+.pptIntegratedDemo .closureRow>p{margin:0;padding:.48rem .55rem;border-left:1px solid #d4e0ea;color:#29465f;line-height:1.5}
+
+@media(max-width:75rem){
+  .pptIntegratedDemo .decisionVisualLayout{grid-template-columns:minmax(0,1.35fr) minmax(16rem,.85fr)}
+  .pptIntegratedDemo .decisionVisualHeader{grid-template-columns:10rem minmax(0,1fr)}
+  .pptIntegratedDemo .classFocusBanner{grid-template-columns:7rem 6rem minmax(0,1fr)}
+  .pptIntegratedDemo .gapMetricRow{grid-template-columns:8rem 10.5rem minmax(10rem,1fr)}
+  .pptIntegratedDemo .gapMetricRow>p{grid-column:1/-1;padding-left:8.7rem}
+}
+@media(max-width:56.249rem){
+  .pptIntegratedDemo .decisionVisual{margin:1rem 0 1.25rem;padding:.85rem 0 1rem}
+  .pptIntegratedDemo .decisionVisualHeader{display:block;padding:0}.pptIntegratedDemo .decisionVisualHeader>span{display:block;margin-bottom:.35rem}.pptIntegratedDemo .decisionVisualHeader h3{font-size:1rem}
+  .pptIntegratedDemo .decisionVisualLayout{grid-template-columns:1fr;gap:.9rem}.pptIntegratedDemo .decisionVisualAnalysis{padding:0;border-left:0;border-top:1px solid #c7d7e6;padding-top:.8rem}.pptIntegratedDemo .decisionVisualAnalysis>p{font-size:.73rem;text-align:left}
+  .pptIntegratedDemo .benchmarkRole{grid-template-columns:7rem minmax(11rem,.85fr) minmax(0,1.5fr)}
+  .pptIntegratedDemo .capabilityPanel{grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem}.pptIntegratedDemo .capabilityPanel article:not(:last-child):after{display:none}
+  .pptIntegratedDemo .gapMetricRow{grid-template-columns:1fr;gap:.42rem}.pptIntegratedDemo .gapMetricValues{grid-template-columns:repeat(2,minmax(0,1fr))}.pptIntegratedDemo .gapMetricRow>p{grid-column:auto;padding-left:0}.pptIntegratedDemo .gapDeltaChart{height:2.35rem}
+}
+@media(max-width:31rem){
+  .pptIntegratedDemo .classFocusBanner{grid-template-columns:1fr auto}.pptIntegratedDemo .classFocusBanner b{grid-column:1/-1}.pptIntegratedDemo .classDecisionGrid,.pptIntegratedDemo .benchmarkRoles{grid-template-columns:1fr}
+  .pptIntegratedDemo .benchmarkRole{grid-template-columns:1fr 1fr}.pptIntegratedDemo .benchmarkRole p{grid-column:1/-1}
+  .pptIntegratedDemo .capabilityTabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.pptIntegratedDemo .capabilityTab{width:100%;min-width:0;padding:.38rem .42rem;white-space:normal}
+  .pptIntegratedDemo .capabilityPanel{grid-template-columns:1fr}.pptIntegratedDemo .capabilityPanel article{min-height:0}
+  .pptIntegratedDemo .gapMetricValues{grid-template-columns:1fr}
+  .pptIntegratedDemo .decisionAction{padding:.65rem .7rem}
 }

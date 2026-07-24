@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "scope": "3-4t",
+    "first_slide": 48,
+    "last_slide": 68,
+    "expected_slide_count": 21,
+    "reader_flow": [
+      "ppt-market",
+      "ppt-scenarios",
+      "ppt-paper",
+      "ppt-field",
+      "ppt-positioning",
+      "ppt-actions"
+    ]
+  },
+  "records": [
+    {"slide": 48, "section_id": "ppt-market", "content_types": ["chart", "table", "analysis"], "visible_components": ["brand volume trend", "brand mix", "leading models"]},
+    {"slide": 49, "section_id": "ppt-market", "content_types": ["photo", "table", "analysis"], "visible_components": ["customer mix", "transport package", "licence boundary"]},
+    {"slide": 50, "section_id": "ppt-scenarios", "content_types": ["photo", "table", "workflow"], "visible_components": ["municipal and road maintenance application"]},
+    {"slide": 51, "section_id": "ppt-scenarios", "content_types": ["photo", "table", "workflow"], "visible_components": ["municipal and road maintenance continuation"]},
+    {"slide": 52, "section_id": "ppt-scenarios", "content_types": ["photo", "table", "workflow"], "visible_components": ["light demolition application"]},
+    {"slide": 53, "section_id": "ppt-scenarios", "content_types": ["photo", "table", "workflow"], "visible_components": ["foundation excavation application"]},
+    {"slide": 54, "section_id": "ppt-scenarios", "content_types": ["photo", "table", "workflow"], "visible_components": ["landscape renovation application"]},
+    {"slide": 55, "section_id": "ppt-scenarios", "content_types": ["photo", "table", "workflow"], "visible_components": ["landscape renovation continuation"]},
+    {"slide": 56, "section_id": "ppt-scenarios", "content_types": ["photo", "table", "workflow"], "visible_components": ["road and bridge application"]},
+    {"slide": 57, "section_id": "ppt-scenarios", "content_types": ["photo", "table", "workflow"], "visible_components": ["agricultural land clearing application"]},
+    {"slide": 58, "section_id": "ppt-scenarios", "content_types": ["photo", "table", "workflow"], "visible_components": ["agricultural drainage application"]},
+    {"slide": 59, "section_id": "ppt-paper", "content_types": ["table", "analysis"], "visible_components": ["transport", "undercarriage and working range comparison"]},
+    {"slide": 60, "section_id": "ppt-paper", "content_types": ["table", "analysis"], "visible_components": ["power", "work equipment, attachments and hydraulics comparison"]},
+    {"slide": 61, "section_id": "ppt-paper", "content_types": ["table", "analysis"], "visible_components": ["force", "speed and auxiliary flow comparison"]},
+    {"slide": 62, "section_id": "ppt-field", "content_types": ["table", "analysis"], "visible_components": ["safety evaluation"]},
+    {"slide": 63, "section_id": "ppt-field", "content_types": ["table", "analysis"], "visible_components": ["reliability and environmental capability"]},
+    {"slide": 64, "section_id": "ppt-field", "content_types": ["table", "analysis"], "visible_components": ["travel, single-function and combined control"]},
+    {"slide": 65, "section_id": "ppt-field", "content_types": ["table", "analysis"], "visible_components": ["cab and ergonomics evaluation"]},
+    {"slide": 66, "section_id": "ppt-field", "content_types": ["table", "analysis"], "visible_components": ["serviceability, economy, detail and documentation"]},
+    {"slide": 67, "section_id": "ppt-positioning", "content_types": ["matrix", "analysis"], "visible_components": ["integrated competitiveness profile", "portfolio gap"]},
+    {"slide": 68, "section_id": "ppt-positioning", "content_types": ["chart", "table", "analysis"], "visible_components": ["historical positioning", "price and share comparison", "historical sales target"]}
+  ]
+}

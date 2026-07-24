@@ -1,7 +1,9 @@
 import json
 import math
+import re
 import unittest
 from collections import Counter
+from html import escape
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
@@ -44,6 +46,15 @@ class StructureParser(HTMLParser):
             ref = values.get("href") or values.get("src")
             if ref:
                 self.references.append(ref)
+
+
+class TextContentParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.parts = []
+
+    def handle_data(self, data):
+        self.parts.append(data)
 
 
 class DashboardModelTests(unittest.TestCase):
@@ -103,7 +114,7 @@ class DashboardModelTests(unittest.TestCase):
                         self.assertIsNone(scores[product])
 
     def test_all_tonnage_pages_remain_published(self):
-        self.assertEqual(len(SOURCE_FILES), 14)
+        self.assertEqual(len(SOURCE_FILES), 15)
         expected_outputs = {
             "excavator-8-10t.html",
             "excavator-12-14t.html",
@@ -113,6 +124,7 @@ class DashboardModelTests(unittest.TestCase):
             "excavator-24-28t-short-tail.html",
             "excavator-28-33t.html",
             "excavator-33-40t.html",
+            "excavator-40-60t.html",
         }
         self.assertTrue(expected_outputs.issubset({meta["output"] for meta in SOURCE_FILES}))
         for meta in SOURCE_FILES:
@@ -120,7 +132,7 @@ class DashboardModelTests(unittest.TestCase):
             self.assertTrue(meta["source"].exists(), meta["source"])
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertEqual(arc_html.count('class="projectRow"'), len(SOURCE_FILES))
-        self.assertIn("十四个吨级统一覆盖狭窄空间、沟槽、土方装车、破碎、坡地和租赁六类典型工况", arc_html)
+        self.assertIn("十五个吨级统一覆盖狭窄空间、沟槽、土方装车、破碎、坡地和租赁六类典型工况", arc_html)
 
     def test_new_tonnage_sources_and_models_are_bound_correctly(self):
         by_output = {model["meta"]["output"]: model for model in self.models}
@@ -138,6 +150,7 @@ class DashboardModelTests(unittest.TestCase):
             "excavator-24-28t-short-tail.html": "XCMG XE235UCR",
             "excavator-28-33t.html": "XCMG XE300U",
             "excavator-33-40t.html": "XCMG XE360U",
+            "excavator-40-60t.html": "XCMG XE490U",
         }
         for output, xcmg_model in expected_new_models.items():
             with self.subTest(output=output):
@@ -154,6 +167,17 @@ class DashboardModelTests(unittest.TestCase):
         )
         self.assertEqual(delayed_lights["values"]["XCMG XE360U"], "/")
         self.assertEqual(long_stick["values"]["XCMG XE360U"], "选配4")
+
+        large_excavator = by_output["excavator-40-60t.html"]
+        self.assertEqual(large_excavator["meta"]["label"], "40-60 吨级")
+        operating_weight = next(
+            row for row in large_excavator["rawParamRows"] if row["item"] == "操作重量"
+        )
+        reverse_fan = next(
+            row for row in large_excavator["rawOptionRows"] if row["item"] == "风扇反向"
+        )
+        self.assertEqual(operating_weight["values"]["XCMG XE490U"], "51090")
+        self.assertEqual(reverse_fan["values"]["XCMG XE490U"], "/")
 
         short_tail = by_output["excavator-24-28t-short-tail.html"]
         self.assertNotIn("\n", "".join(short_tail["products"]))
@@ -194,8 +218,69 @@ class DashboardModelTests(unittest.TestCase):
                 self.assertEqual(html.count('class="mobileDisclosure matrixDisclosure"'), 6)
                 self.assertEqual(html.count('class="mobileDisclosure simulatorDisclosure"'), 6)
                 self.assertIn('class="mobileDisclosure rawDisclosure"', html)
-                self.assertIn('src="assets/dashboard.js"', html)
+                self.assertIn('src="assets/dashboard.js?v=', html)
                 self.assertNotIn('class="summaryGrid" style="margin-top:12px"', html)
+
+    def test_every_tonnage_page_uses_its_own_source_chapter(self):
+        source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
+        payload = json.loads(source_path.read_text(encoding="utf-8"))
+        mapped_slugs = set(payload["by_slug"])
+        expected_slugs = {meta["slug"] for meta in SOURCE_FILES} - {"excavator-7-8t"}
+        self.assertEqual(mapped_slugs, expected_slugs)
+
+        for meta in SOURCE_FILES:
+            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
+            with self.subTest(page=meta["output"]):
+                if meta["slug"] == "excavator-7-8t":
+                    self.assertNotIn('class="sourceContentSection"', html)
+                    self.assertNotIn('data-source-slide="', html)
+                    self.assertNotIn("8-10 吨是小挖向中挖过渡", html)
+                    continue
+                self.assertIn('id="market-insight"', html)
+                self.assertIn('id="job-applications"', html)
+                self.assertIn('id="engineering-insight"', html)
+                self.assertIn('id="product-positioning"', html)
+                self.assertIn('class="navGroup"', html)
+                self.assertEqual(
+                    html.count('data-source-slide="'),
+                    len(payload["by_slug"][meta["slug"]]),
+                )
+
+    def test_all_ppt_business_tables_are_mapped_without_personnel_or_navigation_tables(self):
+        table_path = ROOT / "data" / "ppt-insights" / "ppt-business-tables.json"
+        self.assertTrue(table_path.exists())
+        payload = json.loads(table_path.read_text(encoding="utf-8"))
+        summary = payload["summary"]
+        self.assertEqual(summary["included_table_count"], 220)
+        self.assertEqual(summary["overview_table_count"], 19)
+        self.assertEqual(summary["excluded"]["navigation_table"], 208)
+        self.assertEqual(summary["excluded"]["personnel_table"], 1)
+        self.assertEqual(
+            summary["included_table_count"],
+            summary["overview_table_count"] + sum(
+                1 for record in payload["records"] if not record["overview"]
+            ),
+        )
+        self.assertEqual(
+            set(payload["by_slug"]),
+            {meta["slug"] for meta in SOURCE_FILES if meta["slug"] != "excavator-7-8t"},
+        )
+
+        expected_counts = {slug: len(records) for slug, records in payload["by_slug"].items()}
+        for meta in SOURCE_FILES:
+            html = (ROOT / meta["output"]).read_text(encoding="utf-8")
+            with self.subTest(page=meta["output"]):
+                self.assertEqual(
+                    html.count('class="sourceTableBlock"'),
+                    expected_counts.get(meta["slug"], 0),
+                )
+
+    def test_ppt_business_tables_are_responsive_and_language_aware(self):
+        dashboard_css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
+        self.assertIn(".sourceTableScroll", dashboard_css)
+        self.assertIn("overflow-x:auto", dashboard_css)
+        self.assertIn("position:sticky", dashboard_css)
+        self.assertIn("white-space:pre-line", dashboard_css)
 
     def test_generated_pages_use_an_inclusive_summary_label(self):
         builder_source = (ROOT / "tools" / "build_excavator_dashboards.py").read_text(
@@ -268,9 +353,9 @@ class DashboardModelTests(unittest.TestCase):
         for meta in SOURCE_FILES:
             html = (ROOT / meta["output"]).read_text(encoding="utf-8")
             with self.subTest(page=meta["output"]):
-                self.assertIn("XCMG ARC 独立开发", html)
                 self.assertIn("返回对标平台主页", html)
                 self.assertNotIn("返回 ARC 主页", html)
+                self.assertNotIn("XCMG ARC 独立开发", html)
 
     def test_arc_homepage_has_three_level_quick_selector(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
@@ -451,7 +536,11 @@ class DashboardModelTests(unittest.TestCase):
             self.assertIn("MPa", units)
 
     def test_local_page_references_exist(self):
-        pages = [ROOT / "arc.html", ROOT / "data-downloads.html"] + [
+        pages = [
+            ROOT / "arc.html",
+            ROOT / "data-downloads.html",
+            ROOT / "excavator-market-overview.html",
+        ] + [
             ROOT / meta["output"] for meta in SOURCE_FILES
         ]
         for page in pages:
@@ -466,7 +555,161 @@ class DashboardModelTests(unittest.TestCase):
                 with self.subTest(page=page.name, reference=ref):
                     self.assertTrue(target.exists(), f"Missing local reference: {ref}")
 
+    def test_excavator_market_overview_is_separate_traceable_and_internal(self):
+        page = ROOT / "excavator-market-overview.html"
+        data_file = ROOT / "data" / "ppt-insights" / "excavator-market-overview.json"
+        source_file = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
+        self.assertTrue(page.exists())
+        self.assertTrue(data_file.exists())
+        self.assertTrue(source_file.exists())
+
+        html = page.read_text(encoding="utf-8")
+        data = json.loads(data_file.read_text(encoding="utf-8"))
+        source = json.loads(source_file.read_text(encoding="utf-8"))
+        parser = StructureParser()
+        parser.feed(html)
+
+        required_sections = {
+            "environment",
+            "industry",
+            "competition",
+            "class-structure",
+            "portfolio",
+            "roadmap",
+            "sales-plan",
+            "intelligence",
+        }
+        self.assertTrue(required_sections.issubset(set(parser.ids)))
+        self.assertIn("XCMG ARC INTERNAL", html)
+        self.assertNotIn("ppt-integration-demo", html)
+        self.assertNotIn("fetch(", html)
+        self.assertNotIn("assets/excavator-market-overview-expanded.js", html)
+        self.assertIn("assets/excavator-market-overview-source.css", html)
+        self.assertEqual(html.count('data-source-slide="'), len(source["overview"]))
+        self.assertEqual(html.count('class="sourceTableBlock"'), 19)
+        self.assertEqual(html.count('class="sourceVisual '), 3)
+        self.assertEqual(html.count('class="nativeChartPanel"'), 4)
+        self.assertIn('class="nativeChartSvg"', html)
+        self.assertIn('class="nativeDonut"', html)
+        self.assertEqual(data["meta"]["scope"], "excavator-category-overview")
+        self.assertIn("245", data["meta"]["excluded_slides"])
+        self.assertEqual(
+            data["market_cycle"][-1]["status"],
+            "historical_forecast_not_current_actual",
+        )
+
+        for name in ["杜冬洋", "李梦琪", "Felix", "Terrian", "Michael Wolf", "Chris"]:
+            with self.subTest(name=name):
+                self.assertNotIn(name, html)
+                self.assertNotIn(name, data_file.read_text(encoding="utf-8"))
+
+        arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
+        self.assertIn('href="excavator-market-overview.html"', arc_html)
+        self.assertIn("北美挖掘机市场总体洞察", arc_html)
+
+    def test_ppt_source_content_is_fully_mapped_to_formal_pages(self):
+        source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
+        payload = json.loads(source_path.read_text(encoding="utf-8"))
+        slides = {record["id"]: record for record in payload["slides"]}
+        page_by_slug = {meta["slug"]: meta["output"] for meta in SOURCE_FILES}
+
+        actual_slide_ids = set()
+        actual_visuals = set()
+        expected_table_placements = 0
+        actual_table_placements = 0
+
+        page_specs = [("overview", "excavator-market-overview.html", payload["overview"])]
+        page_specs.extend(
+            (slug, page_by_slug[slug], slide_ids)
+            for slug, slide_ids in payload["by_slug"].items()
+        )
+
+        for scope, output, slide_ids in page_specs:
+            page_html = (ROOT / output).read_text(encoding="utf-8")
+            text_parser = TextContentParser()
+            text_parser.feed(page_html)
+            normalized_page_text = re.sub(r"\s+", "", "".join(text_parser.parts))
+            page_slide_ids = {
+                f"slide-{int(match):03d}"
+                for match in re.findall(r'data-source-slide="(\d+)"', page_html)
+            }
+            with self.subTest(scope=scope, page=output):
+                self.assertEqual(page_slide_ids, set(slide_ids))
+
+            expected_tables = sum(len(slides[slide_id]["table_ids"]) for slide_id in slide_ids)
+            actual_tables = page_html.count('class="sourceTableBlock"')
+            self.assertEqual(actual_tables, expected_tables, output)
+            expected_table_placements += expected_tables
+            actual_table_placements += actual_tables
+
+            for slide_id in slide_ids:
+                record = slides[slide_id]
+                actual_slide_ids.add(slide_id)
+                for item in record.get("body", []):
+                    source_text = item.get("zh", "").strip()
+                    if source_text:
+                        normalized_source_text = re.sub(r"\s+", "", source_text)
+                        self.assertIn(
+                            normalized_source_text,
+                            normalized_page_text,
+                            f"{output}: {slide_id}",
+                        )
+                for item in record.get("notes", []):
+                    source_text = item.get("zh", "").strip()
+                    if source_text:
+                        normalized_source_text = re.sub(r"\s+", "", source_text)
+                        self.assertIn(
+                            normalized_source_text,
+                            normalized_page_text,
+                            f"{output}: {slide_id}",
+                        )
+                slide_match = re.search(
+                    rf'<article class="sourceSlide[^"]*" data-source-slide="{int(record["slide"])}">.*?</article>',
+                    page_html,
+                    re.DOTALL,
+                )
+                self.assertIsNotNone(slide_match, f"{output}: {slide_id}")
+                slide_html = slide_match.group(0)
+                chart_visuals = [
+                    visual
+                    for visual in record.get("visuals", [])
+                    if visual.get("chart_data")
+                ]
+                if slide_id == "slide-010":
+                    self.assertEqual(slide_html.count('class="nativeChartPanel"'), 4)
+                else:
+                    self.assertEqual(
+                        slide_html.count("sourceDataChart"),
+                        len(chart_visuals),
+                        f"{output}: {slide_id}",
+                    )
+                for visual in record.get("visuals", []):
+                    if not visual.get("chart_data"):
+                        self.assertIn(f'src="{visual["file"]}"', slide_html)
+                    actual_visuals.add(visual["file"])
+
+        expected_slide_ids = {record["id"] for record in payload["slides"]}
+        expected_visuals = {
+            visual["file"]
+            for record in payload["slides"]
+            for visual in record.get("visuals", [])
+        }
+        self.assertEqual(actual_slide_ids, expected_slide_ids)
+        self.assertEqual(actual_visuals, expected_visuals)
+        self.assertEqual(actual_table_placements, expected_table_placements)
+        self.assertEqual(expected_table_placements, 265)
+        self.assertEqual(len(expected_visuals), 207)
+
     def test_generated_pages_strip_source_cell_edge_whitespace(self):
+        table_payload = json.loads(
+            (ROOT / "data" / "ppt-insights" / "ppt-business-tables.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        for record in table_payload["records"]:
+            for row in record["matrix_zh"]:
+                for cell in row:
+                    self.assertEqual(cell, cell.strip())
         for meta in SOURCE_FILES:
             html = (ROOT / meta["output"]).read_text(encoding="utf-8")
             with self.subTest(page=meta["output"]):
@@ -478,6 +721,14 @@ class DashboardModelTests(unittest.TestCase):
         self.assertEqual(manifest["benchmarkProductCount"], sum(len(model["products"]) for model in self.models))
         self.assertEqual(manifest["sourceWorkbookCount"], len(SOURCE_FILES))
         self.assertEqual(manifest["minimumScoreCoverage"], MIN_SCORE_COVERAGE)
+        self.assertEqual(
+            manifest["marketOverview"],
+            {
+                "output": "excavator-market-overview.html",
+                "data": "data/ppt-insights/excavator-market-overview.json",
+                "classification": "XCMG ARC INTERNAL",
+            },
+        )
 
 
 if __name__ == "__main__":

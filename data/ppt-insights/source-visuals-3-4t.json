@@ -13,8 +13,8 @@
   },
   "market": {
     "annual_brand_sales": {
-      "title": {"zh": "3-4吨品牌销量结构", "en": "3-4 t brand volume mix"},
-      "subtitle": {"zh": "单位：台；2025为源文件估计，2026为源文件预测", "en": "Units; 2025 is a source estimate and 2026 is a source forecast"},
+      "title": {"zh": "3-4吨五品牌EDA样本销量结构", "en": "3-4 t five-brand EDA sample volume mix"},
+      "subtitle": {"zh": "单位：台；2023-2024为历史实绩；2025-2026为报告原估计/预测，尚未回填当前实绩", "en": "Units; 2023-2024 are historical actuals; 2025-2026 remain the original report estimate/forecast and have not been replaced with current actuals"},
       "source_slide": 48,
       "source_type": "EDA融资购买新车数据",
       "as_of_date": "2023-2026 source series",
@@ -33,8 +33,8 @@
       ]
     },
     "model_demand_2025": {
-      "title": {"zh": "2025年主销机型热度", "en": "Leading model volume in 2025"},
-      "subtitle": {"zh": "源文件机型销量；仅反映该历史数据口径", "en": "Source model volume; valid only for this historical data basis"},
+      "title": {"zh": "报告口径：2025年主销机型热度", "en": "Original report basis: leading model volume for 2025"},
+      "subtitle": {"zh": "报告原估计值，尚未用当前实绩回填", "en": "Original report estimate; not yet replaced with current actuals"},
       "source_slide": 48,
       "source_type": "EDA融资购买新车数据",
       "as_of_date": "2025 source estimate",
@@ -52,8 +52,8 @@
       ]
     },
     "brand_position_2025": {
-      "title": {"zh": "历史价格—份额位置", "en": "Historical price-share position"},
-      "subtitle": {"zh": "横轴为源文件单价，纵轴为份额，气泡大小为源文件销量口径", "en": "Source price on the x-axis, share on the y-axis and source volume as bubble size"},
+      "title": {"zh": "报告口径：2025年价格—份额位置", "en": "Original report basis: 2025 price-share position"},
+      "subtitle": {"zh": "报告原估计口径；横轴为单价，纵轴为份额，气泡大小为样本销量", "en": "Original report estimate; price is on the x-axis, share on the y-axis and sample volume controls bubble size"},
       "source_slide": 48,
       "source_type": "EDA融资购买新车数据",
       "as_of_date": "2025 source estimate",
