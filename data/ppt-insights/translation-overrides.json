@@ -1,0 +1,135 @@
+{
+  "version": "2026-07-29",
+  "language": "en-US",
+  "review_scope": "Construction-equipment terminology, configuration status, historical plans, and engineering conclusions",
+  "translations": [
+    {
+      "source": "分析结论：360U目前配置能够基本满足该工况，但在市区内工作时，短尾机型更受青睐，目前缺少短尾机型，但380UCR已在开发中，预计26年进入北美市场。",
+      "en": "Analysis conclusion: The current 360U configuration generally meets this application. Compact-radius models are preferred for urban work, however, and the current lineup lacks a short-tail-swing model. The 380UCR was under development and was expected to enter the North American market in 2026."
+    },
+    {
+      "source": "分析结论：卡特常规机型可选配重型动臂支持大斗容土方作业或是石方作业，配合其更宽的底盘，重载作业更有劲，徐工斗杆配置齐全。徐工未配备自动双速马达，恶劣路况的灵活性不如卡特。",
+      "en": "Analysis conclusion: Caterpillar conventional-tail models are available with an optional heavy-duty boom for large-bucket earthmoving or rock applications. Together with the wider undercarriage, this provides stronger heavy-load performance. XCMG offers a comprehensive arm selection, but it does not provide an automatic two-speed travel motor, so maneuverability on rough ground is below Caterpillar."
+    },
+    {
+      "source": "分析结论：卡特常规机型可选配长斗杆、超长工装应对深沟挖掘以及水利疏浚作业，徐工竞争力不足；徐工机具系统配置和匹配性更高，优于竞品；XE250U为负流量系统，微操控线性度不足，智能化程度差距较大",
+      "en": "Analysis conclusion: Caterpillar conventional-tail models are available with optional long-arm and super-long-reach fronts for deep-trench excavation and waterway dredging, where XCMG is less competitive. XCMG's attachment hydraulic configuration and attachment compatibility are stronger than the competitors. The XE250U uses a negative-flow hydraulic system; fine-control linearity is insufficient and the gap in intelligent functions remains significant."
+    },
+    {
+      "source": "分析结论：目前徐工没有超长工装配置，但该类工况占比较低，针对优先度不高。徐工目前正在开发30吨加长臂产品，预计7月份具备先导样机导入状态。",
+      "en": "Analysis conclusion: XCMG currently has no super-long-reach front, but this application represents a relatively small share and is therefore not a high priority. XCMG is developing a 30-ton long-reach product, with a pilot prototype expected to be ready for introduction in July."
+    },
+    {
+      "source": "可选配长斗杆，工况适应更强。",
+      "en": "An optional long arm is available for broader application adaptability."
+    },
+    {
+      "source": "回转速度三一最优。",
+      "en": "SANY has the highest swing speed."
+    },
+    {
+      "source": "基本满足要求：\n1.老款产品行走速度偏慢，动臂偏摆速度偏慢，影响作业效率；\n2.基本满足客户需求\n3.整机操控性和协调性满足\n4.除割草机，其他属具匹配性满足要求\n5.短尾机型整机重量大，起吊能力和稳定性比竞品好，满足\n6.目前驾驶室版空调只有制热功能，不满足需求，新的XE27Upro驾驶室标配冷暖空调，可满足客户需求\n7.需要增加行走报警器消音功能",
+      "en": "Generally meets the requirements:\n1. The previous-generation product has low travel speed and slow boom swing response, reducing work efficiency.\n2. It generally meets customer requirements.\n3. Overall machine controllability and coordinated operation meet the requirements.\n4. Attachment compatibility meets the requirements except for the mower.\n5. The compact-radius model has a higher operating weight, providing better lift capacity and stability than the competitors; this meets the requirement.\n6. The current cab air-conditioning system provides heat only and does not meet the requirement. The new XE27U Pro cab includes heating and cooling as standard equipment and meets the requirement.\n7. Add an alarm mute function for the travel alarm."
+    },
+    {
+      "source": "总结：XE45U目前处在先导样机考核阶段，从现有参数对比来及市场反馈来看，主要升级点在于消除回转停止时的摇摆现象，此外，考虑整机重量降低100-150kg,进一步提升运输的灵活性。",
+      "en": "Summary: The XE45U is currently in pilot-prototype evaluation. Based on the available parameter comparison and market feedback, the primary upgrade is to eliminate machine oscillation when swing motion stops. A further 100-150 kg reduction in operating weight should also be considered to improve transport flexibility."
+    },
+    {
+      "source": "整机稳定性不足\n动臂操控性不足，下降速度太快，举升速度偏慢\n整机运输高度偏高\n标配斗容较小，影响大土方作业效率\n缺少自动双速马达\n回转力矩偏低，影响装车效率\n缺少辅助挖掘系统和全景影像配置\n竞品新一代产品配置10寸仪表，交互更加方便，仪表缺少英制单位\n脚阀线性度不足，阀芯开口易受整机晃动影响，造成行走冲击。",
+      "en": "Overall machine stability is insufficient.\nBoom controllability is insufficient: lowering is too fast and raising is too slow.\nTransport height is excessive.\nThe standard bucket capacity is small, reducing productivity in high-volume earthmoving.\nAn automatic two-speed travel motor is not available.\nSwing torque is low, reducing truck-loading productivity.\nAn excavator guidance system and 360-degree camera system are not available.\nNew-generation competing products use a 10-inch monitor for easier interaction; the current monitor does not provide U.S. customary units.\nFoot-pedal valve linearity is insufficient. Machine oscillation can change spool opening and cause travel shock."
+    },
+    {
+      "source": "斗杆两侧机具管路布置不够紧凑，深挖时容易碰到侧壁，损坏侧壁及管路\n标配斗杆偏短，挖掘范围不足\n回转制动线性度不足，影响挖掘时的回转控制精度\n驾驶室空间不足\n缺少智能辅助系统和全景影像\n脚阀线性度不足，阀芯开口易受整机晃动影响，造成行走冲击。\n竞品新一代产品配置10寸仪表，交互更加方便，仪表缺少英制单位",
+      "en": "Attachment lines on both sides of the arm are not packaged tightly enough and can contact the trench wall during deep excavation, damaging the wall and the lines.\nThe standard arm is short and provides insufficient working range.\nSwing-brake modulation is insufficient, reducing swing-control precision during excavation.\nCab space is insufficient.\nIntelligent assistance systems and a 360-degree camera system are not available.\nFoot-pedal valve linearity is insufficient. Machine oscillation can change spool opening and cause travel shock.\nNew-generation competing products use a 10-inch monitor for easier interaction; the current monitor does not provide U.S. customary units."
+    },
+    {
+      "source": "斗杆挖掘力更大，重载挖掘更有劲。",
+      "en": "Higher arm digging force provides stronger performance in heavy excavation."
+    },
+    {
+      "source": "斗杆挖掘力最优，铲斗挖掘力与三一相当，弱于久保田。",
+      "en": "Arm digging force is the highest. Bucket digging force is comparable with SANY but below Kubota."
+    },
+    {
+      "source": "施工步骤：\n① 现场准备与测量：确定地基\n② 台面清理与规划：\n挖斗配合拇指钳清理场地\n用破碎锤破碎原有混凝土结构，并用铲斗装车转运\n用推土铲配合铲斗剥离场地表面植被\n标出各作业点位置。\n③ 地基开挖：\n根据设计深度使用标准挖斗进行地基开挖，需要精准地基深度。\n狭小空间需要动臂偏摆配合短尾回转，进行狭小空间的挖掘作业\n④ 地基回填：\n配置清理斗对完成的地基进行回填\n作业对象：\n建筑地基\n作业特点：\n①高精度要求：挖掘尺寸、坡度和深度需严格控制\n②安全性：避免损坏现有的建筑或设施\n③空间受限：通常在城市或人口密集地区作业，空间狭小，需小心操作",
+      "en": "Work sequence:\n1. Site preparation and measurement: establish the foundation layout.\n2. Surface clearing and planning: clear the site with a digging bucket and hydraulic thumb; break existing concrete with a hydraulic breaker and load the material with the bucket; strip surface vegetation using the dozer blade and bucket; mark each work location.\n3. Foundation excavation: excavate to the specified design depth with a standard digging bucket. Accurate depth control is required. In confined areas, boom swing and a compact tail-swing envelope are needed to position the machine and excavate effectively.\n4. Foundation backfill: use a clean-up bucket to backfill the completed foundation.\nWork object: building foundations.\nApplication characteristics:\n1. High precision: excavation dimensions, slope and depth must be tightly controlled.\n2. Safety: existing buildings and utilities must not be damaged.\n3. Restricted space: work is typically performed in urban or densely populated areas, requiring careful operation within a limited envelope."
+    },
+    {
+      "source": "标配AUX1和AUX2及卸油管路，配置PTO泵和AUX1合流功能，机具系统流量大，复合动作协调，机具适配性更强\n卡特323机型使用加重配重，稳定性更好，\n标配铲斗斗容更大。",
+      "en": "AUX1, AUX2 and a case drain line are standard equipment. A PTO pump and AUX1 combined-flow function provide high attachment flow, coordinated combined operations and stronger attachment compatibility.\nThe Caterpillar 323 uses a heavier counterweight for better stability.\nIts standard bucket has a larger capacity."
+    },
+    {
+      "source": "标配AUX2，配置优于竞品。",
+      "en": "AUX2 is standard equipment, providing a configuration advantage over the competitors."
+    },
+    {
+      "source": "标配PTO泵和AUX1合流功能，机具系统流量大，复合动作协调，机具适配性更强。",
+      "en": "The PTO pump and AUX1 combined-flow function are standard equipment, providing high attachment flow, coordinated combined operations and stronger attachment compatibility."
+    },
+    {
+      "source": "标配斗杆偏短，挖掘范围偏小，工况适应性不足",
+      "en": "The standard arm is relatively short, resulting in a limited digging range and reduced application adaptability."
+    },
+    {
+      "source": "标配斗杆挖掘范围小于久保田以及三一，\n但可配备长斗杆弥补",
+      "en": "The working range with the standard arm is smaller than Kubota and SANY, but an optional long arm is available to close the gap."
+    },
+    {
+      "source": "标配斗杆挖掘范围较小，\n。",
+      "en": "The standard arm provides a relatively limited digging range."
+    },
+    {
+      "source": "标配斗杆较短。",
+      "en": "The standard arm is relatively short."
+    },
+    {
+      "source": "标配液压抓销快换",
+      "en": "A hydraulic pin-grabber quick coupler is standard equipment."
+    },
+    {
+      "source": "标配短斗杆，作业范围不如久保田、三一，可通过选配长斗杆弥补。同时动臂偏摆角度较小。",
+      "en": "The standard short arm provides less working range than Kubota and SANY; an optional long arm is available to close the gap. The boom swing angle is also relatively small."
+    },
+    {
+      "source": "标配短斗杆，挖深及半径均优于久保田。三一标配长斗杆，工作范围有一定优势，但徐工可选配长斗杆，实现工作范围反超。",
+      "en": "With the standard short arm, digging depth and reach are both better than Kubota. SANY provides a long arm as standard equipment and therefore has a working-range advantage, but XCMG is available with an optional long arm that can exceed SANY's working range."
+    },
+    {
+      "source": "核心规格产品适应性分析—12-16吨徐工VS卡特彼勒",
+      "en": "Core-Specification Product Application Analysis - 12-16 t: XCMG vs Caterpillar"
+    },
+    {
+      "source": "核心规格产品适应性分析—19-24吨徐工VS卡特彼勒",
+      "en": "Core-Specification Product Application Analysis - 19-24 t: XCMG vs Caterpillar"
+    },
+    {
+      "source": "核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "en": "Core-Specification Product Application Analysis - 24-33 t: XCMG vs Caterpillar"
+    },
+    {
+      "source": "核心规格产品适应性分析—33-40吨徐工VS卡特彼勒",
+      "en": "Core-Specification Product Application Analysis - 33-40 t: XCMG vs Caterpillar"
+    },
+    {
+      "source": "核心规格产品适应性分析—40-60吨徐工VS卡特彼勒",
+      "en": "Core-Specification Product Application Analysis - 40-60 t: XCMG vs Caterpillar"
+    },
+    {
+      "source": "私营住宅建筑需求疲软，公共基础设施和租赁市场成为主要增长点，预计2025年前租赁市场继续扩张，同时大吨位挖机市场也是一个盈利机会",
+      "en": "Private residential construction demand was weak, while public infrastructure and rental became the primary growth drivers. The rental market was expected to continue expanding through 2025, and the large-excavator segment also represented a profit opportunity."
+    },
+    {
+      "source": "考虑整机稳定性，建议提高尾部回转半径或加副配重。",
+      "en": "To improve overall machine stability, consider increasing the tail swing radius or fitting an additional counterweight."
+    },
+    {
+      "source": "行走速度偏低。",
+      "en": "Travel speed is low."
+    },
+    {
+      "source": "起吊能力优于久保田和三一。",
+      "en": "Lift capacity is higher than Kubota and SANY."
+    }
+  ]
+}

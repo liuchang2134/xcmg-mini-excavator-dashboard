@@ -23,6 +23,7 @@ from tools.build_excavator_dashboards import (
     parse_metric_value,
 )
 from tools.render_ppt_charts import nice_ceiling
+from tools.translate_ppt_insights import decode_json_object
 
 
 class StructureParser(HTMLParser):
@@ -358,6 +359,235 @@ class DashboardModelTests(unittest.TestCase):
         self.assertIn("overflow-x:auto", dashboard_css)
         self.assertIn("position:sticky", dashboard_css)
         self.assertIn("white-space:pre-line", dashboard_css)
+
+    def test_ppt_english_sidecars_are_complete_current_and_engineering_safe(self):
+        source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
+        table_path = ROOT / "data" / "ppt-insights" / "ppt-business-tables.json"
+        glossary_path = ROOT / "data" / "ppt-insights" / "translation-glossary.json"
+        source_en_path = ROOT / "data" / "ppt-insights" / "ppt-source-content-en.json"
+        table_en_path = ROOT / "data" / "ppt-insights" / "ppt-business-tables-en.json"
+        for path in (source_en_path, table_en_path, glossary_path):
+            self.assertTrue(path.exists(), path)
+
+        source = json.loads(source_path.read_text(encoding="utf-8"))
+        tables = json.loads(table_path.read_text(encoding="utf-8"))
+        source_en = json.loads(source_en_path.read_text(encoding="utf-8"))
+        tables_en = json.loads(table_en_path.read_text(encoding="utf-8"))
+        glossary = json.loads(glossary_path.read_text(encoding="utf-8"))
+        expected_hashes = {
+            "ppt_source_sha256": hashlib.sha256(source_path.read_bytes()).hexdigest(),
+            "ppt_tables_sha256": hashlib.sha256(table_path.read_bytes()).hexdigest(),
+            "glossary_sha256": hashlib.sha256(glossary_path.read_bytes()).hexdigest(),
+        }
+        for payload in (source_en, tables_en):
+            for key, value in expected_hashes.items():
+                self.assertEqual(payload["meta"].get(key), value)
+
+        han = re.compile(r"[\u3400-\u9fff]")
+        required_terms = set(glossary.get("required_terms", []))
+        alternative_terms = {
+            "计划": ("planned", "plan", "scheduled", "program", "initiative"),
+            "预测": ("forecast", "projection", "projected"),
+            "预计": ("estimate", "estimated", "expected", "projected"),
+            "整机重量": (
+                "operating weight",
+                "operating mass",
+                "machine weight",
+            ),
+            "运输重量": ("transport weight", "shipping weight"),
+            "标配": ("standard equipment", "standard", "standard-fit"),
+            "选配": (
+                "optional equipment",
+                "optional",
+                "available with",
+                "available as an option",
+                "offered with",
+            ),
+            "无配置": ("not available", "unavailable", "not offered"),
+            "起吊力": ("lift capacity", "lifting capacity"),
+            "辅助液压": ("auxiliary hydraulics", "auxiliary hydraulic"),
+        }
+        brand_terms = {
+            zh: en
+            for zh, en in glossary.get("terms", {}).items()
+            if zh in required_terms and zh not in alternative_terms
+        }
+        prohibited_translation_patterns = (
+            r"\btonsnage\b",
+            r"\bequipement\b",
+            r"\bflatits\b",
+            r"\barmcontrollability\b",
+            r"\bandforecast\b",
+            r"\bXCMG(?=XE\d)",
+            r"\bground level(?=\d)",
+        )
+
+        def assert_translation(source_text, english_text, context):
+            source_text = str(source_text or "")
+            english_text = str(english_text or "")
+            if not han.search(source_text):
+                return
+            self.assertTrue(english_text.strip(), context)
+            self.assertIsNone(han.search(english_text), context)
+            for pattern in prohibited_translation_patterns:
+                self.assertIsNone(
+                    re.search(pattern, english_text, flags=re.I),
+                    f"{context}: prohibited translation pattern {pattern}",
+                )
+            for chinese, english in brand_terms.items():
+                if chinese in source_text:
+                    self.assertIn(english.lower(), english_text.lower(), context)
+            for chinese, alternatives in alternative_terms.items():
+                if chinese in source_text:
+                    self.assertTrue(
+                        any(term in english_text.lower() for term in alternatives),
+                        f"{context}: expected one of {alternatives}",
+                    )
+
+        self.assertEqual(len(source["slides"]), 243)
+        self.assertEqual(len(source_en["slides"]), 243)
+        for slide in source["slides"]:
+            translated_slide = source_en["slides"][slide["id"]]
+            assert_translation(
+                slide.get("title", {}).get("zh"),
+                translated_slide.get("title"),
+                f'{slide["id"]}: title',
+            )
+            self.assertEqual(len(slide.get("body", [])), len(translated_slide["body"]))
+            self.assertEqual(len(slide.get("notes", [])), len(translated_slide["notes"]))
+            self.assertEqual(len(slide.get("visuals", [])), len(translated_slide["visuals"]))
+            for index, item in enumerate(slide.get("body", [])):
+                assert_translation(
+                    item.get("zh"),
+                    translated_slide["body"][index],
+                    f'{slide["id"]}: body {index}',
+                )
+            for index, item in enumerate(slide.get("notes", [])):
+                assert_translation(
+                    item.get("zh"),
+                    translated_slide["notes"][index],
+                    f'{slide["id"]}: note {index}',
+                )
+            for index, visual in enumerate(slide.get("visuals", [])):
+                chart = visual.get("chart_data") or {}
+                translated_chart = (
+                    translated_slide["visuals"][index].get("chart_data") or {}
+                )
+                if not chart:
+                    self.assertFalse(translated_chart)
+                    continue
+                assert_translation(
+                    chart.get("title"),
+                    translated_chart.get("title"),
+                    f'{slide["id"]}: chart {index} title',
+                )
+                for key in ("categories", "axis_titles"):
+                    self.assertEqual(
+                        len(chart.get(key, [])),
+                        len(translated_chart.get(key, [])),
+                        f'{slide["id"]}: chart {index} {key}',
+                    )
+                    for item_index, value in enumerate(chart.get(key, [])):
+                        assert_translation(
+                            value,
+                            translated_chart[key][item_index],
+                            f'{slide["id"]}: chart {index} {key} {item_index}',
+                        )
+                series_names = translated_chart.get("series_names", [])
+                self.assertEqual(len(chart.get("series", [])), len(series_names))
+                for item_index, series in enumerate(chart.get("series", [])):
+                    assert_translation(
+                        series.get("name"),
+                        series_names[item_index],
+                        f'{slide["id"]}: chart {index} series {item_index}',
+                    )
+
+        self.assertEqual(len(tables["records"]), 220)
+        self.assertEqual(len(tables_en["records"]), 220)
+        for record in tables["records"]:
+            translated_record = tables_en["records"][record["id"]]
+            assert_translation(
+                record.get("title"),
+                translated_record.get("title"),
+                f'{record["id"]}: title',
+            )
+            source_matrix = record.get("matrix_zh", [])
+            translated_matrix = translated_record.get("matrix", [])
+            self.assertEqual(len(source_matrix), len(translated_matrix), record["id"])
+            for row_index, row in enumerate(source_matrix):
+                self.assertEqual(
+                    len(row),
+                    len(translated_matrix[row_index]),
+                    f'{record["id"]}: row {row_index}',
+                )
+                for column_index, value in enumerate(row):
+                    assert_translation(
+                        value,
+                        translated_matrix[row_index][column_index],
+                        f'{record["id"]}: cell {row_index},{column_index}',
+                    )
+
+    def test_translation_parser_repairs_json_truncated_after_complete_values(self):
+        content = (
+            '{"translations":[{"id":"0","en":"1-2 Tonnage Class Product '
+            'Unit Sales Trend and Forecast"}]\n\n'
+        )
+        self.assertEqual(
+            decode_json_object(content),
+            {
+                "translations": [
+                    {
+                        "id": "0",
+                        "en": (
+                            "1-2 Tonnage Class Product Unit Sales Trend "
+                            "and Forecast"
+                        ),
+                    }
+                ]
+            },
+        )
+
+    def test_generated_ppt_narrative_and_tables_have_explicit_english(self):
+        han = re.compile(r"[\u3400-\u9fff]")
+        pages = [
+            ROOT / "excavator-market-overview.html",
+            *(ROOT / meta["output"] for meta in SOURCE_FILES),
+        ]
+        for page in pages:
+            html = page.read_text(encoding="utf-8")
+            with self.subTest(page=page.name):
+                narrative_items = re.findall(
+                    r'<p class="sourceParagraph[^"]*" data-en="([^"]*)">([^<]*)</p>',
+                    html,
+                )
+                for english, chinese in narrative_items:
+                    if han.search(chinese):
+                        self.assertTrue(english.strip())
+                        self.assertIsNone(han.search(english))
+
+                table_blocks = re.findall(
+                    r'<div class="sourceTableBlock">(.*?)</table></div></div>',
+                    html,
+                    re.DOTALL,
+                )
+                for block in table_blocks:
+                    for _tag, attributes, contents in re.findall(
+                        r'<(th|td)\b([^>]*)>(.*?)</\1>',
+                        block,
+                        re.DOTALL,
+                    ):
+                        plain_text = re.sub(r"<[^>]+>", "", contents)
+                        if han.search(plain_text):
+                            self.assertRegex(attributes, r'\bdata-en="[^"]+"')
+                self.assertNotRegex(
+                    html,
+                    r"<table\b[^>]*\blang=\"zh-CN\"",
+                )
+                if "sourceTableBlock" in html:
+                    self.assertRegex(
+                        html,
+                        r'\bdata-(?:label|aria-label)-en="[^"]+"',
+                    )
 
     def test_generated_pages_use_an_inclusive_summary_label(self):
         builder_source = (ROOT / "tools" / "build_excavator_dashboards.py").read_text(

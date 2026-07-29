@@ -21,6 +21,8 @@ ASSET_DIR = ROOT / "assets" / "arc"
 TONNAGE_INSIGHT_PATH = ROOT / "data" / "ppt-insights" / "tonnage-insights.json"
 PPT_BUSINESS_TABLE_PATH = ROOT / "data" / "ppt-insights" / "ppt-business-tables.json"
 PPT_SOURCE_CONTENT_PATH = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
+PPT_BUSINESS_TABLE_EN_PATH = ROOT / "data" / "ppt-insights" / "ppt-business-tables-en.json"
+PPT_SOURCE_CONTENT_EN_PATH = ROOT / "data" / "ppt-insights" / "ppt-source-content-en.json"
 
 
 def load_tonnage_insights():
@@ -35,6 +37,16 @@ def load_ppt_business_tables():
         return {"records": {}, "by_slug": {}, "summary": {}}
     payload = json.loads(PPT_BUSINESS_TABLE_PATH.read_text(encoding="utf-8"))
     records = {record["id"]: record for record in payload.get("records", [])}
+    if PPT_BUSINESS_TABLE_EN_PATH.exists():
+        english_payload = json.loads(PPT_BUSINESS_TABLE_EN_PATH.read_text(encoding="utf-8"))
+        for record_id, english in english_payload.get("records", {}).items():
+            record = records.get(record_id)
+            if not record:
+                continue
+            if str(english.get("title") or "").strip():
+                record["title_en"] = english["title"]
+            if english.get("matrix"):
+                record["matrix_en"] = english["matrix"]
     return {
         "records": records,
         "by_slug": payload.get("by_slug", {}),
@@ -47,6 +59,40 @@ def load_ppt_source_content():
         return {"slides": {}, "by_slug": {}, "overview": [], "summary": {}}
     payload = json.loads(PPT_SOURCE_CONTENT_PATH.read_text(encoding="utf-8"))
     slides = {record["id"]: record for record in payload.get("slides", [])}
+    if PPT_SOURCE_CONTENT_EN_PATH.exists():
+        english_payload = json.loads(PPT_SOURCE_CONTENT_EN_PATH.read_text(encoding="utf-8"))
+        for slide_id, english in english_payload.get("slides", {}).items():
+            slide = slides.get(slide_id)
+            if not slide:
+                continue
+            if str(english.get("title") or "").strip():
+                slide.setdefault("title", {})["en"] = english["title"]
+            for index, value in enumerate(english.get("body", [])):
+                if index < len(slide.get("body", [])) and str(value or "").strip():
+                    slide["body"][index]["en"] = value
+            for index, value in enumerate(english.get("notes", [])):
+                if index < len(slide.get("notes", [])) and str(value or "").strip():
+                    slide["notes"][index]["en"] = value
+            for index, visual_en in enumerate(english.get("visuals", [])):
+                if index >= len(slide.get("visuals", [])):
+                    continue
+                chart = slide["visuals"][index].get("chart_data")
+                translated_chart = visual_en.get("chart_data") or {}
+                if not chart or not translated_chart:
+                    continue
+                if str(translated_chart.get("title") or "").strip():
+                    chart["title_en"] = translated_chart["title"]
+                if translated_chart.get("categories"):
+                    chart["categories_en"] = translated_chart["categories"]
+                if translated_chart.get("axis_titles"):
+                    chart["axis_titles_en"] = translated_chart["axis_titles"]
+                series_names = translated_chart.get("series_names", [])
+                for series_index, value in enumerate(series_names):
+                    if (
+                        series_index < len(chart.get("series", []))
+                        and str(value or "").strip()
+                    ):
+                        chart["series"][series_index]["name_en"] = value
     return {
         "slides": slides,
         "by_slug": payload.get("by_slug", {}),
@@ -1655,6 +1701,13 @@ def render_source_narrative_item(value):
         en = value.get("en") or zh
     else:
         zh = en = str(value or "")
+    if en and en != zh:
+        return (
+            '<div class="sourceNarrativeBlock">'
+            f'<p class="sourceParagraph sourceParagraph-body sourceParagraph-complete" '
+            f'data-en="{esc(en)}">{esc(zh)}</p>'
+            "</div>"
+        )
     zh_segments = split_source_segments(zh)
     en_segments = split_source_segments(en)
     segment_count = max(len(zh_segments), len(en_segments))
@@ -1699,19 +1752,36 @@ def render_ppt_business_table(record):
         list(row) + [""] * max(0, width - len(row))
         for row in matrix
     ]
+    matrix_en = record.get("matrix_en") or []
+    rows_en = [
+        list(row) + [""] * max(0, width - len(row))
+        for row in matrix_en
+    ]
+    rows_en += [[""] * width for _ in range(max(0, len(rows) - len(rows_en)))]
+
+    def cell_markup(tag, value_zh, value_en="", extra=""):
+        english = str(value_en or "").strip()
+        data_en = f' data-en="{esc(english)}"' if english else ""
+        content = esc(value_zh) if value_zh else "&nbsp;"
+        return f"<{tag}{extra}{data_en}>{content}</{tag}>"
+
     header = "".join(
-        f'<th scope="col">{esc(cell) if cell else "&nbsp;"}</th>'
-        for cell in rows[0]
+        cell_markup(
+            "th",
+            cell,
+            rows_en[0][index] if rows_en else "",
+            ' scope="col"',
+        )
+        for index, cell in enumerate(rows[0])
     )
     body = []
-    for row in rows[1:]:
+    for row_index, row in enumerate(rows[1:], start=1):
         cells = []
         for index, cell in enumerate(row):
             tag = "th" if index == 0 else "td"
             scope = ' scope="row"' if index == 0 else ""
-            cells.append(
-                f'<{tag}{scope}>{esc(cell) if cell else "&nbsp;"}</{tag}>'
-            )
+            english = rows_en[row_index][index] if row_index < len(rows_en) else ""
+            cells.append(cell_markup(tag, cell, english, scope))
         body.append(f'<tr>{"".join(cells)}</tr>')
     title = clean_ppt_table_title(record.get("title"))
     english_titles = {
@@ -1724,6 +1794,9 @@ def render_ppt_business_table(record):
         record.get("role"),
         "Complete business-data table",
     )
+    translated_title = str(record.get("title_en") or "").strip()
+    if translated_title:
+        english_title = clean_ppt_table_title(translated_title)
     return (
         f'<details class="pptBusinessTable" open data-source-slide="{record.get("slide")}" '
         f'data-table-role="{esc(record.get("role"))}">'
@@ -1733,8 +1806,8 @@ def render_ppt_business_table(record):
         f'{record.get("rows", len(rows))} 行 × {record.get("columns", width)} 列</span>'
         '</summary>'
         '<div class="pptBusinessTableScroll">'
-        '<table lang="zh-CN">'
-        f'<caption class="srOnly">{esc(title)}</caption>'
+        '<table>'
+        f'<caption class="srOnly" data-en="{esc(english_title)}">{esc(title)}</caption>'
         f'<thead><tr>{header}</tr></thead>'
         f'<tbody>{"".join(body)}</tbody>'
         '</table></div></details>'
@@ -2160,17 +2233,29 @@ def render_source_table(record):
     if not matrix:
         return ""
     caption = (record.get("title") or f'源表 {record.get("id", "")}').strip()
+    caption_en = str(record.get("title_en") or "").strip() or caption
     width = max((len(row) for row in matrix), default=1)
     rows = [list(row) + [""] * max(0, width - len(row)) for row in matrix]
+    matrix_en = record.get("matrix_en") or []
+    rows_en = [
+        list(row) + [""] * max(0, width - len(row))
+        for row in matrix_en
+    ]
+    rows_en += [[""] * width for _ in range(max(0, len(rows) - len(rows_en)))]
     populated_columns = [
         index
         for index in range(width)
         if any(str(row[index] or "").strip() for row in rows)
     ]
     rows = [[row[index] for index in populated_columns] for row in rows]
+    rows_en = [[row[index] for index in populated_columns] for row in rows_en]
     width = len(populated_columns)
     fit_table = width <= 10
     headers = [str(cell or "").strip() for cell in rows[0]]
+    headers_en = [
+        str(cell or "").strip()
+        for cell in (rows_en[0] if rows_en else [""] * width)
+    ]
 
     column_weights = []
     for header_text in headers:
@@ -2197,19 +2282,35 @@ def render_source_table(record):
             for weight in column_weights
         ) + "</colgroup>"
 
-    header = "".join(
-        f'<th scope="col">{esc(cell) if cell else "&nbsp;"}</th>'
-        for cell in rows[0]
-    )
+    header_cells = []
+    for index, cell in enumerate(rows[0]):
+        english = headers_en[index] if index < len(headers_en) else ""
+        data_en = f' data-en="{esc(english)}"' if english else ""
+        header_cells.append(
+            f'<th scope="col"{data_en}>{esc(cell) if cell else "&nbsp;"}</th>'
+        )
+    header = "".join(header_cells)
     body = []
-    for row in rows[1:]:
+    for row_index, row in enumerate(rows[1:], start=1):
         cells = []
         for index, cell in enumerate(row):
             tag = "th" if index == 0 else "td"
             scope = ' scope="row"' if index == 0 else ""
             label = headers[index] if index < len(headers) else ""
+            label_en = headers_en[index] if index < len(headers_en) else label
+            english = (
+                rows_en[row_index][index]
+                if row_index < len(rows_en) and index < len(rows_en[row_index])
+                else ""
+            )
+            data_en = f' data-en="{esc(english)}"' if english else ""
+            data_label_en = (
+                f' data-label-en="{esc(label_en)}"'
+                if label_en
+                else ""
+            )
             cells.append(
-                f'<{tag}{scope} data-label="{esc(label)}">'
+                f'<{tag}{scope} data-label="{esc(label)}"{data_label_en}{data_en}>'
                 f'{esc(cell) if cell else "&nbsp;"}</{tag}>'
             )
         body.append(f'<tr>{"".join(cells)}</tr>')
@@ -2218,8 +2319,8 @@ def render_source_table(record):
     return (
         '<div class="sourceTableBlock">'
         f'<div class="{wrapper_class}">'
-        f'<table class="{table_class}" lang="zh-CN">'
-        f'<caption class="sourceTableCaption">{esc(caption)}</caption>'
+        f'<table class="{table_class}">'
+        f'<caption class="sourceTableCaption" data-en="{esc(caption_en)}">{esc(caption)}</caption>'
         f"{colgroup}"
         f'<thead><tr>{header}</tr></thead>'
         f'<tbody>{"".join(body)}</tbody>'
@@ -2242,7 +2343,13 @@ def render_source_visuals(record):
         kind = visual.get("kind", "picture")
         if kind == "chart":
             fallback_title = title if len(visuals) == 1 else f"{title} · {index}"
-            native_chart = render_chart_figure(visual, fallback_title)
+            chart_visual = dict(visual)
+            chart_visual["chart_data"] = dict(visual.get("chart_data") or {})
+            if not chart_visual["chart_data"].get("title_en"):
+                chart_visual["chart_data"]["title_en"] = (
+                    title_en if len(visuals) == 1 else f"{title_en} · {index}"
+                )
+            native_chart = render_chart_figure(chart_visual, fallback_title)
             if native_chart:
                 figures.append(native_chart)
                 continue
@@ -2456,6 +2563,7 @@ def render_html(model):
     @media(max-width:720px){{.sourceTableScroll.sourceTableScrollFit{{max-height:none;overflow:visible;border:0}}.sourceTableScrollFit table.sourceTableFit,.sourceTableScrollFit .sourceTableFit tbody,.sourceTableScrollFit .sourceTableFit tr,.sourceTableScrollFit .sourceTableFit th,.sourceTableScrollFit .sourceTableFit td{{display:block;width:100%}}.sourceTableScrollFit .sourceTableFit colgroup,.sourceTableScrollFit .sourceTableFit thead{{display:none}}.sourceTableScrollFit .sourceTableFit tr{{margin-bottom:10px;border:1px solid #b8ccdd;background:#fff}}.sourceTableScrollFit .sourceTableFit th,.sourceTableScrollFit .sourceTableFit td{{display:grid;grid-template-columns:minmax(88px,7rem) minmax(0,1fr);gap:8px;border-right:0;padding:8px 9px}}.sourceTableScrollFit .sourceTableFit th::before,.sourceTableScrollFit .sourceTableFit td::before{{content:attr(data-label);color:#075da8;font-size:10px;font-weight:900}}.sourceTableScrollFit .sourceTableFit tbody th{{border-left:4px solid #075da8;background:#eef5fa!important}}.sourceTableScrollFit .sourceTableFit tr>:last-child{{border-bottom:0}}}}
     /* Reader-facing copy remains comfortable without loosening dense data tables. */
     .insightLead,.marketRole,.marketDecisionList dd,.marketFactList p,.applicationCard>p,.engineeringScope>span,.engineeringPriorityGrid p,.sourceParagraph,.sourceDataNote{{font-size:14px;line-height:1.7}}
+    .sourceParagraph-complete{{white-space:pre-line}}
     .marketEvidenceBoundary p,.applicationRequirement b{{font-size:13px;line-height:1.65}}
     .sidebarToggle{{display:none}}
     @media(min-width:901px){{.layout{{grid-template-columns:clamp(216px,16vw,252px) minmax(0,1fr);transition:grid-template-columns .18s ease}}aside.nav{{display:flex;flex-direction:column;overflow:hidden;padding-bottom:66px}}.navMenu{{display:block;grid-column:auto;flex:1;min-height:0;max-height:none;overflow-y:auto;padding:0 3px 0 0}}.navToggle,.mobileTop{{display:none}}.backTop{{left:14px;bottom:14px;min-height:40px;border-radius:4px;padding:8px 14px}}.sourceTableScroll table:not(:has(tr > :nth-child(11))){{width:100%;min-width:100%;table-layout:fixed}}.sourceTableScroll table:not(:has(tr > :nth-child(11))) th,.sourceTableScroll table:not(:has(tr > :nth-child(11))) td{{min-width:0;max-width:none}}.sidebarToggle{{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:36px;margin:0 0 10px;border:1px solid rgba(255,255,255,.36);border-radius:4px;background:transparent;color:#fff;font-size:12px;font-weight:800;cursor:pointer}}.sidebarToggle:hover,.sidebarToggle:focus-visible{{border-color:var(--yellow);color:var(--yellow);outline:none}}.layout.sidebarCollapsed{{grid-template-columns:76px minmax(0,1fr)}}.layout.sidebarCollapsed aside.nav{{padding-left:10px;padding-right:10px;align-items:center}}.layout.sidebarCollapsed .navBrand img{{width:48px;padding:4px}}.layout.sidebarCollapsed .navTitle,.layout.sidebarCollapsed aside.nav>div>small,.layout.sidebarCollapsed .languageToggle,.layout.sidebarCollapsed .navMenu{{display:none}}.layout.sidebarCollapsed .sidebarToggle{{width:52px;margin-top:10px;padding:5px;line-height:1.25}}}}
@@ -2783,7 +2891,7 @@ setupRawTabs();
 setupSidebarCollapse();
 setupPageNavigation();
 </script>
-<script src="assets/i18n.js?v=20260723c"></script>
+<script src="assets/i18n.js?v=20260729a"></script>
 </body>
 </html>
 """

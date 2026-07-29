@@ -632,7 +632,7 @@ def build_page():
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>北美挖掘机市场与产品洞察｜XCMG ARC</title>
+  <title data-en="North American Excavator Market and Product Insight | XCMG ARC">北美挖掘机市场与产品洞察｜XCMG ARC</title>
   <link rel="icon" href="assets/xcmg-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/dashboard.css?v={shared_asset_version}">
   <link rel="stylesheet" href="assets/excavator-market-overview-source.css?v=20260724d">
@@ -681,7 +681,7 @@ def build_page():
 </div>
 <script src="assets/dashboard.js?v={shared_asset_version}"></script>
 <script src="assets/excavator-market-overview-navigation.js?v=20260724a"></script>
-<script src="assets/i18n.js?v=20260723e"></script>
+<script src="assets/i18n.js?v=20260729a"></script>
 </body>
 </html>
 """

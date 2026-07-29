@@ -895,6 +895,16 @@
     const elements = root.nodeType === Node.ELEMENT_NODE ? [root, ...root.querySelectorAll('*')] : [];
     for (const element of elements) {
       if (shouldSkip(element)) continue;
+      const translatedAttributes = {
+        'data-label-en': 'data-label',
+        'data-aria-label-en': 'aria-label',
+        'data-title-en': 'title',
+        'data-alt-en': 'alt'
+      };
+      for (const [source, target] of Object.entries(translatedAttributes)) {
+        const value = element.getAttribute(source);
+        if (value && !HAN.test(value)) element.setAttribute(target, value);
+      }
       const explicitEnglish = element.getAttribute('data-en');
       if (explicitEnglish !== null && !HAN.test(explicitEnglish)) {
         if (element.textContent !== explicitEnglish) element.textContent = explicitEnglish;
@@ -1013,7 +1023,7 @@
   document.documentElement.dataset.language = language;
   updateToggle();
   if (language === 'en') {
-    document.title = translateFully(document.title);
+    document.title = document.querySelector('title')?.dataset.en || translateFully(document.title);
     translateElement(document.body);
     normalizeEnglishRadarLabels(document);
     decorateInternalLinks();

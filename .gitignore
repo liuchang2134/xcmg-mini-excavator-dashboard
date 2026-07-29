@@ -4,3 +4,6 @@
 /.codex/
 **/__pycache__/
 *.py[cod]
+/data/ppt-insights/.ppt-translation-cache.json
+/.translation-models/
+/.venv-translate/

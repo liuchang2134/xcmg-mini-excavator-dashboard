@@ -122,6 +122,37 @@ def english_title(value):
     return value
 
 
+def chart_title_en(chart, fallback="Data chart"):
+    translated = str(chart.get("title_en") or "").strip()
+    if translated:
+        return translated
+    title = str(chart.get("title") or "").strip()
+    return english_title(title) if title else fallback
+
+
+def series_name(item, index=0):
+    return str(item.get("name") or f"Series {index + 1}")
+
+
+def series_name_en(item, index=0):
+    translated = str(item.get("name_en") or "").strip()
+    return translated or english_text(series_name(item, index))
+
+
+def category_name_en(chart, index, fallback):
+    translated = chart.get("categories_en") or []
+    if index < len(translated) and str(translated[index] or "").strip():
+        return str(translated[index]).strip()
+    return english_text(fallback)
+
+
+def axis_title_en(chart, index, fallback):
+    translated = chart.get("axis_titles_en") or []
+    if index < len(translated) and str(translated[index] or "").strip():
+        return str(translated[index]).strip()
+    return english_text(fallback)
+
+
 def bilingual_text(x, y, zh, en=None, **attrs):
     attributes = " ".join(
         f'{"class" if key == "class_" else key.replace("_", "-")}="{esc(value)}"'
@@ -181,12 +212,13 @@ def legend(series, line_name=None):
         return ""
     items = []
     for index, item in enumerate(series):
-        name = str(item.get("name") or f"Series {index + 1}")
+        name = series_name(item, index)
+        name_en = series_name_en(item, index)
         line_class = " sourceChartLegendLine" if name == line_name else ""
         items.append(
             f'<span class="sourceChartLegendItem{line_class}">'
             f'<i style="--series-color:{series_color(name, index)}"></i>'
-            f'<b data-en="{esc(english_text(name))}">{esc(name)}</b>'
+            f'<b data-en="{esc(name_en)}">{esc(name)}</b>'
             "</span>"
         )
     return f'<div class="sourceChartLegend">{"".join(items)}</div>'
@@ -194,11 +226,12 @@ def legend(series, line_name=None):
 
 def chart_shell(chart, svg, *, dense=False, legend_html=""):
     title = chart.get("title") or "数据图表"
+    title_en = chart_title_en(chart)
     density = "dense" if dense else "standard"
     return (
         f'<figure class="sourceVisual sourceVisual-chart sourceDataChart" '
         f'data-chart-density="{density}" data-chart-type="{esc(chart.get("type"))}">'
-        f'<figcaption data-en="{esc(english_title(title))}">{esc(title)}</figcaption>'
+        f'<figcaption data-en="{esc(title_en)}">{esc(title)}</figcaption>'
         f'<div class="sourceChartViewport">{svg}</div>'
         f"{legend_html}"
         "</figure>"
@@ -242,6 +275,7 @@ def render_clustered(chart):
     for category_index, category in enumerate(categories):
         center = left + slot * (category_index + 0.5)
         category_zh = re.sub(r"^>", "", str(category)).replace("-", "–")
+        category_en = category_name_en(chart, category_index, str(category))
         if re.fullmatch(r"\d+–\d+", category_zh):
             category_zh += "吨"
         labels.append(
@@ -249,7 +283,7 @@ def render_clustered(chart):
                 center,
                 height - 30,
                 category_zh,
-                english_text(str(category)),
+                category_en,
                 text_anchor="middle",
                 class_="sourceChartCategory",
             )
@@ -262,11 +296,16 @@ def render_clustered(chart):
             bar_height = max(0, top + plot_height - y)
             color = series_color(item.get("name"), series_index)
             tooltip = f"{item.get('name') or ''} {category}: {fmt_number(value)}"
+            tooltip_en = (
+                f"{series_name_en(item, series_index)} {category_en}: "
+                f"{fmt_number(value)}"
+            )
             marks.append(
                 f'<rect class="sourceChartMark" data-series-index="{series.index(item)}" '
                 f'data-point-index="{category_index}" x="{x:.1f}" y="{y:.1f}" '
                 f'width="{max(3, bar_width - 3):.1f}" height="{bar_height:.1f}" '
-                f'fill="{color}"><title>{esc(tooltip)}</title></rect>'
+                f'fill="{color}"><title data-en="{esc(tooltip_en)}">'
+                f'{esc(tooltip)}</title></rect>'
             )
             if direct_values and value:
                 marks.append(
@@ -293,7 +332,9 @@ def render_clustered(chart):
             marks.append(
                 f'<circle class="sourceChartPoint" data-series-index="{series.index(line_series)}" '
                 f'data-point-index="{index}" cx="{x:.1f}" cy="{y:.1f}" r="5" '
-                f'fill="{line_color}"><title>{esc(categories[index])}: {fmt_percent(value)}</title></circle>'
+                f'fill="{line_color}"><title '
+                f'data-en="{esc(category_name_en(chart, index, categories[index]))}: {fmt_percent(value)}">'
+                f'{esc(categories[index])}: {fmt_percent(value)}</title></circle>'
             )
             marks.append(
                 bilingual_text(
@@ -323,7 +364,8 @@ def render_clustered(chart):
             )
     svg = (
         f'<svg class="sourceChartSvg" viewBox="0 0 {width} {height}" '
-        f'role="img" aria-label="{esc(chart.get("title") or "数据图表")}">'
+        f'role="img" aria-label="{esc(chart.get("title") or "数据图表")}" '
+        f'data-aria-label-en="{esc(chart_title_en(chart))}">'
         f'<g class="sourceChartGrid">{"".join(grid)}</g>'
         f'<g class="sourceChartMarks">{"".join(marks)}</g>'
         f'<g class="sourceChartLabels">{"".join(labels)}</g>'
@@ -391,7 +433,8 @@ def render_stacked(chart, normalized=False, area=False):
                 f'data-series-index="{series_index}" '
                 f'points="{" ".join(top_points + bottom_points)}" '
                 f'fill="{series_color(item.get("name"), series_index)}">'
-                f'<title>{esc(item.get("name") or "")}</title></polygon>'
+                f'<title data-en="{esc(series_name_en(item, series_index))}">'
+                f'{esc(item.get("name") or "")}</title></polygon>'
             )
             cumulative = upper
     else:
@@ -407,12 +450,17 @@ def render_stacked(chart, normalized=False, area=False):
                 segment_height = value / y_max * plot_height
                 y = top + plot_height - (cumulative + value) / y_max * plot_height
                 color = series_color(item.get("name"), series_index)
+                tooltip_en = (
+                    f"{series_name_en(item, series_index)} "
+                    f"{category_name_en(chart, category_index, category)}: "
+                    f"{fmt_percent(raw_value) if normalized else fmt_number(raw_value)}"
+                )
                 marks.append(
                     f'<rect class="sourceChartMark sourceChartSeries" '
                     f'data-series-index="{series_index}" data-point-index="{category_index}" '
                     f'x="{center - bar_width / 2:.1f}" y="{y:.1f}" width="{bar_width:.1f}" '
                     f'height="{max(0, segment_height):.1f}" fill="{color}">'
-                    f'<title>{esc(item.get("name") or "")} {esc(category)}: '
+                    f'<title data-en="{esc(tooltip_en)}">{esc(item.get("name") or "")} {esc(category)}: '
                     f'{esc(fmt_percent(raw_value) if normalized else fmt_number(raw_value))}</title></rect>'
                 )
                 if value / y_max >= 0.085:
@@ -444,14 +492,15 @@ def render_stacked(chart, normalized=False, area=False):
                 x,
                 height - 28,
                 str(category),
-                english_text(category),
+                category_name_en(chart, index, category),
                 text_anchor="middle",
                 class_="sourceChartCategory",
             )
         )
     svg = (
         f'<svg class="sourceChartSvg" viewBox="0 0 {width} {height}" '
-        f'role="img" aria-label="{esc(chart.get("title") or "数据图表")}">'
+        f'role="img" aria-label="{esc(chart.get("title") or "数据图表")}" '
+        f'data-aria-label-en="{esc(chart_title_en(chart))}">'
         f'<g class="sourceChartGrid">{"".join(grid)}</g>'
         f'<g class="sourceChartMarks">{"".join(marks)}</g>'
         f'<g class="sourceChartLabels">{"".join(labels)}</g>'
@@ -497,7 +546,7 @@ def render_radar(chart):
                 lx,
                 ly + 4,
                 str(category),
-                english_text(category),
+                category_name_en(chart, index, category),
                 text_anchor=anchor,
                 class_="sourceChartRadarLabel",
             )
@@ -516,7 +565,9 @@ def render_radar(chart):
             points.append(f"{x:.1f},{y:.1f}")
             point_marks.append(
                 f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.8">'
-                f'<title>{esc(item.get("name") or "")} · {esc(category)}: {fmt_number(value)}</title>'
+                f'<title data-en="{esc(series_name_en(item, series_index))} · '
+                f'{esc(category_name_en(chart, index, category))}: {fmt_number(value)}">'
+                f'{esc(item.get("name") or "")} · {esc(category)}: {fmt_number(value)}</title>'
                 "</circle>"
             )
         color = series_color(item.get("name"), series_index)
@@ -528,7 +579,8 @@ def render_radar(chart):
         )
     svg = (
         f'<svg class="sourceChartSvg sourceRadarSvg" viewBox="0 0 {width} {height}" '
-        f'role="img" aria-label="{esc(chart.get("title") or "产品竞争力雷达图")}">'
+        f'role="img" aria-label="{esc(chart.get("title") or "产品竞争力雷达图")}" '
+        f'data-aria-label-en="{esc(chart_title_en(chart, "Product competitiveness radar"))}">'
         f'<g class="sourceChartRadarGrid">{"".join(grid)}</g>'
         f'<g class="sourceChartMarks">{"".join(marks)}</g>'
         f'<g class="sourceChartLabels">{"".join(labels)}</g>'
@@ -549,7 +601,8 @@ def render_bubble(chart):
     for index, item in enumerate(series):
         points.append(
             {
-                "name": str(item.get("name") or f"Series {index + 1}"),
+                "name": series_name(item, index),
+                "name_en": series_name_en(item, index),
                 "series_index": index,
                 "x": float(item["x_values"][0]),
                 "y": float(item["values"][0]),
@@ -560,6 +613,8 @@ def render_bubble(chart):
     axis_titles = chart.get("axis_titles") or []
     x_title = axis_titles[0] if axis_titles else "横轴"
     y_title = axis_titles[1] if len(axis_titles) > 1 else "纵轴"
+    x_title_en = axis_title_en(chart, 0, x_title)
+    y_title_en = axis_title_en(chart, 1, y_title)
     percent_y = "占有率" in y_title or max(point["y"] for point in points) <= 1
     width, height = 980, 520
     left, right, top, bottom = 86, 54, 34, 82
@@ -665,13 +720,15 @@ def render_bubble(chart):
             f'<line class="sourceChartLeader" x1="{x:.1f}" y1="{y:.1f}" '
             f'x2="{line_end_x:.1f}" y2="{label_y - 4:.1f}"></line>'
             f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{radius:.1f}">'
-            f'<title>{esc(point["name"])} · {esc(x_title)} {fmt_number(point["x"])} · '
+            f'<title data-en="{esc(point["name_en"])} · {esc(x_title_en)} '
+            f'{fmt_number(point["x"])} · {esc(y_title_en)} {tooltip_y} · '
+            f'{fmt_number(point["size"])}">{esc(point["name"])} · {esc(x_title)} {fmt_number(point["x"])} · '
             f'{esc(y_title)} {tooltip_y} · {fmt_number(point["size"])}</title></circle>'
             + bilingual_text(
                 label_x,
                 label_y,
                 point["name"],
-                english_text(point["name"]),
+                point["name_en"],
                 text_anchor=anchor,
                 class_="sourceChartBubbleLabel",
             )
@@ -689,19 +746,20 @@ def render_bubble(chart):
             left + plot_width / 2,
             height - 12,
             x_title,
-            english_text(x_title),
+            x_title_en,
             text_anchor="middle",
             class_="sourceChartAxisTitle",
         ),
         (
             f'<text class="sourceChartAxisTitle" x="18" y="{top + plot_height / 2:.1f}" '
             f'transform="rotate(-90 18 {top + plot_height / 2:.1f})" '
-            f'text-anchor="middle" data-en="{esc(english_text(y_title))}">{esc(y_title)}</text>'
+            f'text-anchor="middle" data-en="{esc(y_title_en)}">{esc(y_title)}</text>'
         ),
     ]
     svg = (
         f'<svg class="sourceChartSvg sourceBubbleSvg" viewBox="0 0 {width} {height}" '
-        f'role="img" aria-label="{esc(chart.get("title") or "竞争格局气泡图")}">'
+        f'role="img" aria-label="{esc(chart.get("title") or "竞争格局气泡图")}" '
+        f'data-aria-label-en="{esc(chart_title_en(chart, "Competitive landscape bubble chart"))}">'
         f'<g class="sourceChartGrid">{"".join(grid)}</g>'
         f'<g class="sourceChartMarks">{"".join(marks)}</g>'
         f'<g class="sourceChartLabels">{"".join(axis_labels)}</g>'
@@ -724,18 +782,21 @@ def render_donut(chart):
     for index, category in enumerate(categories):
         value = values[index] if index < len(values) else 0
         length = circumference * value / total
+        category_en = category_name_en(chart, index, category)
         arcs.append(
             f'<circle class="sourceChartDonutArc" cx="{cx}" cy="{cy}" r="{radius}" '
             f'data-series-index="{index}" '
             f'stroke="{series_color(category, index)}" stroke-width="{stroke_width}" '
             f'stroke-dasharray="{length:.2f} {circumference - length:.2f}" '
             f'stroke-dashoffset="{-offset:.2f}">'
-            f'<title>{esc(category)}: {fmt_percent(value / total)}</title></circle>'
+            f'<title data-en="{esc(category_en)}: {fmt_percent(value / total)}">'
+            f'{esc(category)}: {fmt_percent(value / total)}</title></circle>'
         )
         offset += length
     svg = (
         '<svg class="sourceChartSvg sourceDonutSvg" viewBox="0 0 560 460" '
-        f'role="img" aria-label="{esc(chart.get("title") or "份额结构")}">'
+        f'role="img" aria-label="{esc(chart.get("title") or "份额结构")}" '
+        f'data-aria-label-en="{esc(chart_title_en(chart, "Share structure"))}">'
         '<g transform="rotate(-90 280 230)">'
         f'{"".join(arcs)}</g>'
         f'<text x="{cx}" y="{cy - 2}" text-anchor="middle" class="sourceChartDonutTotal">100%</text>'
@@ -743,7 +804,11 @@ def render_donut(chart):
         "</svg>"
     )
     legend_series = [
-        {"name": category, "values": [values[index] if index < len(values) else 0]}
+        {
+            "name": category,
+            "name_en": category_name_en(chart, index, category),
+            "values": [values[index] if index < len(values) else 0],
+        }
         for index, category in enumerate(categories)
     ]
     return chart_shell(chart, svg, legend_html=legend(legend_series))
