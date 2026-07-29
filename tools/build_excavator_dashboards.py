@@ -1,4 +1,5 @@
 import html
+import hashlib
 import json
 import math
 import re
@@ -1614,6 +1615,67 @@ def bilingual_leaf(value, tag="span", class_name=""):
     return f'<{tag}{class_attr} data-en="{esc(en)}">{esc(zh)}</{tag}>'
 
 
+SOURCE_LIST_PREFIX = re.compile(
+    r"^(?:\d{1,2}[、.)．]|[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳])"
+)
+SOURCE_HEADING_PREFIX = re.compile(
+    r"^(?:分析结论|运输场景|施工步骤|作业对象|作业特点|现象趋势与原因分析|"
+    r"带来的启示或对公司的影响|优势|劣势|结论|总结)[：:]?$"
+)
+
+
+def split_source_segments(value):
+    text = str(value or "").replace("\r\n", "\n").replace("\r", "\n")
+    segments = []
+    for raw_line in text.split("\n"):
+        line = re.sub(r"[ \t]+", " ", raw_line).strip()
+        if not line:
+            continue
+        heading_match = re.match(
+            r"^((?:分析结论|运输场景|施工步骤|作业对象|作业特点|"
+            r"现象趋势与原因分析|带来的启示或对公司的影响|优势|劣势|"
+            r"结论|总结)[：:])\s*(.+)$",
+            line,
+        )
+        if heading_match:
+            segments.append(("heading", heading_match.group(1)))
+            line = heading_match.group(2).strip()
+        kind = "list" if SOURCE_LIST_PREFIX.match(line) else "body"
+        if SOURCE_HEADING_PREFIX.match(line) or (
+            len(line) <= 34 and line.endswith(("：", ":"))
+        ):
+            kind = "heading"
+        segments.append((kind, line))
+    return segments
+
+
+def render_source_narrative_item(value):
+    if isinstance(value, dict):
+        zh = value.get("zh", "")
+        en = value.get("en") or zh
+    else:
+        zh = en = str(value or "")
+    zh_segments = split_source_segments(zh)
+    en_segments = split_source_segments(en)
+    segment_count = max(len(zh_segments), len(en_segments))
+    rendered = []
+    for index in range(segment_count):
+        zh_kind, zh_text = (
+            zh_segments[index] if index < len(zh_segments) else ("body", "")
+        )
+        en_kind, en_text = (
+            en_segments[index]
+            if index < len(en_segments)
+            else (zh_kind, zh_text)
+        )
+        kind = zh_kind if zh_kind == en_kind else "body"
+        rendered.append(
+            f'<p class="sourceParagraph sourceParagraph-{kind}" '
+            f'data-en="{esc(en_text)}">{esc(zh_text)}</p>'
+        )
+    return f'<div class="sourceNarrativeBlock">{"".join(rendered)}</div>'
+
+
 def clean_ppt_table_title(value):
     value = str(value or "")
     prefixes = (
@@ -2171,6 +2233,11 @@ def render_source_visuals(record):
         return ""
     figures = []
     title = record.get("title", {}).get("zh", "产品分析")
+    title_en = record.get("title", {}).get("en") or title
+    picture_total = sum(
+        1 for visual in visuals if visual.get("kind", "picture") != "chart"
+    )
+    picture_index = 0
     for index, visual in enumerate(visuals, start=1):
         kind = visual.get("kind", "picture")
         if kind == "chart":
@@ -2179,10 +2246,45 @@ def render_source_visuals(record):
             if native_chart:
                 figures.append(native_chart)
                 continue
-        alt = f"{title} - {'图表' if kind == 'chart' else '实景图'} {index}"
+        picture_index += 1
+        alt = f"{title} - 实景图 {picture_index}"
+        alt_en = f"{title_en} - field image {picture_index}"
+        caption_zh = (
+            f"实景图 {picture_index}/{picture_total}"
+            if picture_total > 1
+            else "实景图"
+        )
+        caption_en = (
+            f"Field image {picture_index}/{picture_total}"
+            if picture_total > 1
+            else "Field image"
+        )
+        width = float(visual.get("width") or 1)
+        height = float(visual.get("height") or 1)
+        aspect = width / height if height else 1
+        aspect_class = (
+            " sourceVisual-wide"
+            if aspect >= 1.55
+            else " sourceVisual-portrait"
+            if aspect <= 0.82
+            else " sourceVisual-standard"
+        )
         figures.append(
-            f'<figure class="sourceVisual sourceVisual-{esc(kind)}">'
-            f'<img src="{esc(visual.get("file"))}" alt="{esc(alt)}" loading="lazy">'
+            f'<figure class="sourceVisual sourceVisual-{esc(kind)}{aspect_class}">'
+            f'<button type="button" class="sourceVisualOpen" '
+            f'data-media-src="{esc(visual.get("file"))}" '
+            f'data-media-title="{esc(title)}" data-media-title-en="{esc(title_en)}" '
+            f'data-media-caption="{esc(caption_zh)}" '
+            f'data-media-caption-en="{esc(caption_en)}" '
+            f'aria-label="放大查看：{esc(alt)}">'
+            f'<img src="{esc(visual.get("file"))}" alt="{esc(alt)}" '
+            f'data-alt-en="{esc(alt_en)}" loading="lazy">'
+            '<span class="sourceVisualAction" data-en="Open image">查看大图</span>'
+            "</button>"
+            '<figcaption class="sourceVisualCaption">'
+            f'<strong data-en="{esc(title_en)}">{esc(title)}</strong>'
+            f'<span data-en="{esc(caption_en)}">{esc(caption_zh)}</span>'
+            "</figcaption>"
             "</figure>"
         )
     count_class = f" sourceVisualGrid-{min(len(figures), 4)}"
@@ -2191,7 +2293,7 @@ def render_source_visuals(record):
 
 def render_source_slide(record, table_records):
     body = "".join(
-        bilingual_leaf(item, "p", "sourceParagraph")
+        render_source_narrative_item(item)
         for item in record.get("body", [])
     )
     notes = "".join(
@@ -3009,8 +3111,35 @@ PPT_CHART_CSS = r"""
 .sourceChartDonutArc{fill:none}
 .sourceChartDonutTotal{fill:#073c70;font-size:32px;font-weight:900}
 .sourceChartDonutLabel{fill:#64798c;font-size:11px;font-weight:800;letter-spacing:.08em}
-.sourceVisual-picture{min-height:0}
-.sourceVisual-picture img{width:auto;max-width:100%;height:auto;max-height:480px;object-fit:contain}
+.sourceNarrativeBlock{display:grid;gap:7px;max-width:1180px;margin:0 0 12px}
+.sourceNarrativeBlock:last-child{margin-bottom:0}
+.sourceNarrativeBlock .sourceParagraph{margin:0}
+.sourceParagraph-heading{margin-top:5px!important;color:#075da8!important;font-weight:900}
+.sourceParagraph-list{padding-left:1.55em;text-indent:-1.55em}
+.sourceVisual-picture{min-height:0;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;background:#f7fafc}
+.sourceVisualOpen{position:relative;display:flex;align-items:center;justify-content:center;width:100%;min-height:0;padding:0;border:0;background:#fff;cursor:zoom-in}
+.sourceVisualOpen:focus-visible{outline:3px solid #f7b500;outline-offset:-3px}
+.sourceVisual-picture img{display:block;width:auto;max-width:100%;height:auto;max-height:480px;margin:auto;object-fit:contain}
+.sourceVisualAction{position:absolute;right:8px;bottom:8px;padding:5px 8px;border:1px solid rgba(255,255,255,.68);background:rgba(4,45,80,.88);color:#fff;font-size:11px;font-weight:800;line-height:1.2;opacity:0;transform:translateY(3px);transition:opacity .15s ease,transform .15s ease}
+.sourceVisualOpen:hover .sourceVisualAction,.sourceVisualOpen:focus-visible .sourceVisualAction{opacity:1;transform:translateY(0)}
+.sourceVisualCaption{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-height:44px;padding:9px 11px;border-top:1px solid #d7e2ec;background:#f3f8fb;color:#274961;font-size:11px;line-height:1.45;text-align:left}
+.sourceVisualCaption strong{color:#073c70;font-weight:800}
+.sourceVisualCaption span{flex:0 0 auto;color:#64798c;white-space:nowrap}
+.mediaViewer{width:min(1180px,calc(100vw - 28px));max-width:none;height:min(880px,calc(100vh - 28px));max-height:none;padding:0;border:1px solid #6f9cbd;background:#071d30;color:#fff;box-shadow:0 24px 70px rgba(0,24,44,.38)}
+.mediaViewer::backdrop{background:rgba(1,19,34,.78)}
+.mediaViewerShell{display:grid;grid-template-rows:auto minmax(0,1fr) auto;width:100%;height:100%}
+.mediaViewerHeader{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.18);background:#062f54}
+.mediaViewerHeader h2{margin:0;color:#fff;font-size:16px;line-height:1.4}
+.mediaViewerHeader small{display:block;margin-bottom:2px;color:#9fc5df;font-size:10px;font-weight:800;text-transform:uppercase}
+.mediaViewerClose,.mediaViewerNav{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;flex:0 0 42px;border:1px solid rgba(255,255,255,.34);border-radius:0;background:#083d6c;color:#fff;font-size:24px;font-weight:400;line-height:1;cursor:pointer}
+.mediaViewerClose:hover,.mediaViewerClose:focus-visible,.mediaViewerNav:hover,.mediaViewerNav:focus-visible{border-color:#f7b500;color:#f7b500;outline:none}
+.mediaViewerStage{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr) 52px;align-items:center;min-height:0;padding:14px;background:#061726}
+.mediaViewerImage{display:block;max-width:100%;max-height:100%;margin:auto;object-fit:contain}
+.mediaViewerNav[hidden]{visibility:hidden}
+.mediaViewerFooter{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:10px 14px;border-top:1px solid rgba(255,255,255,.18);background:#062f54;color:#d6e7f4;font-size:12px;line-height:1.55}
+.mediaViewerFooter p{margin:0}
+.mediaViewerCount{flex:0 0 auto;color:#f7b500;font-weight:900}
+body.mediaViewerOpen{overflow:hidden}
 .sourceDataChart,.nativeChartPanel{position:relative}
 .chartInteractable{cursor:pointer;outline:none;transform-box:fill-box;transform-origin:center;transition:opacity .16s ease,filter .16s ease,transform .16s ease,stroke-width .16s ease}
 .chartHasFocus .chartInteractable.is-dimmed{opacity:.16!important;filter:saturate(.24)}
@@ -3035,6 +3164,16 @@ PPT_CHART_CSS = r"""
   .sourceDataChart[data-chart-density="dense"] .sourceChartSvg{width:72rem;min-width:72rem}
   .sourceChartLegend{justify-content:flex-start;gap:6px 10px;padding:8px 10px 10px;font-size:10px}
   .sourceVisual-picture img{width:auto;max-width:100%;height:auto;max-height:none}
+  .sourceVisualAction{opacity:1;transform:none}
+  .sourceVisualCaption{display:block;min-height:0}
+  .sourceVisualCaption span{display:block;margin-top:2px;white-space:normal}
+  .mediaViewer{width:100vw;height:100dvh;border:0}
+  .mediaViewerHeader{padding:9px 10px}
+  .mediaViewerHeader h2{font-size:14px}
+  .mediaViewerStage{grid-template-columns:42px minmax(0,1fr) 42px;padding:8px}
+  .mediaViewerClose,.mediaViewerNav{width:38px;height:38px;flex-basis:38px}
+  .mediaViewerFooter{display:block;padding:9px 10px}
+  .mediaViewerCount{display:block;margin-bottom:3px}
   .chartLockState{position:static;margin:8px 10px 0;box-shadow:none}
   .sourceDataChart:has(.chartLockState:not([hidden]))>figcaption,.nativeChartPanel:has(.chartLockState:not([hidden]))>h4{padding-right:10px}
 }
@@ -3320,6 +3459,175 @@ PPT_CHART_INTERACTION_JS = r"""
 """
 
 
+PPT_MEDIA_VIEWER_JS = r"""
+(function () {
+  'use strict';
+
+  let viewer = null;
+  let activeItems = [];
+  let activeIndex = 0;
+  let lastTrigger = null;
+
+  function isEnglish() {
+    return document.documentElement.lang.toLowerCase().startsWith('en');
+  }
+
+  function copy() {
+    return isEnglish()
+      ? {
+          eyebrow: 'Field evidence',
+          close: 'Close image viewer',
+          previous: 'Previous image',
+          next: 'Next image'
+        }
+      : {
+          eyebrow: '实景资料',
+          close: '关闭图片查看',
+          previous: '上一张图片',
+          next: '下一张图片'
+        };
+  }
+
+  function ensureViewer() {
+    if (viewer) return viewer;
+    viewer = document.createElement('dialog');
+    viewer.className = 'mediaViewer';
+    viewer.innerHTML = `
+      <div class="mediaViewerShell">
+        <header class="mediaViewerHeader">
+          <div><small></small><h2></h2></div>
+          <button type="button" class="mediaViewerClose" aria-label="关闭图片查看">×</button>
+        </header>
+        <div class="mediaViewerStage">
+          <button type="button" class="mediaViewerNav mediaViewerPrevious" aria-label="上一张图片">←</button>
+          <img class="mediaViewerImage" alt="">
+          <button type="button" class="mediaViewerNav mediaViewerNext" aria-label="下一张图片">→</button>
+        </div>
+        <footer class="mediaViewerFooter">
+          <span class="mediaViewerCount"></span>
+          <p></p>
+        </footer>
+      </div>`;
+    document.body.appendChild(viewer);
+
+    viewer.querySelector('.mediaViewerClose').addEventListener('click', closeViewer);
+    viewer.querySelector('.mediaViewerPrevious').addEventListener('click', () => move(-1));
+    viewer.querySelector('.mediaViewerNext').addEventListener('click', () => move(1));
+    viewer.addEventListener('click', (event) => {
+      if (event.target === viewer) closeViewer();
+    });
+    viewer.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        move(-1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        move(1);
+      }
+    });
+    viewer.addEventListener('close', () => {
+      document.body.classList.remove('mediaViewerOpen');
+      lastTrigger?.focus({preventScroll: true});
+    });
+    return viewer;
+  }
+
+  function groupFor(trigger) {
+    const grid = trigger.closest('.sourceVisualGrid');
+    const items = grid ? [...grid.querySelectorAll('.sourceVisualOpen')] : [trigger];
+    return items.filter((item) => item.dataset.mediaSrc);
+  }
+
+  function textFor(item, key) {
+    if (!item) return '';
+    const englishKey = `${key}En`;
+    return isEnglish()
+      ? item.dataset[englishKey] || item.dataset[key] || ''
+      : item.dataset[key] || '';
+  }
+
+  function renderViewer() {
+    const dialog = ensureViewer();
+    const item = activeItems[activeIndex];
+    if (!item) return;
+    const language = copy();
+    const image = dialog.querySelector('.mediaViewerImage');
+    const title = textFor(item, 'mediaTitle');
+    const caption = textFor(item, 'mediaCaption');
+    image.src = item.dataset.mediaSrc;
+    image.alt = item.querySelector('img')?.alt || title;
+    dialog.querySelector('.mediaViewerHeader small').textContent = language.eyebrow;
+    dialog.querySelector('.mediaViewerHeader h2').textContent = title;
+    dialog.querySelector('.mediaViewerFooter p').textContent = caption;
+    dialog.querySelector('.mediaViewerCount').textContent =
+      `${activeIndex + 1} / ${activeItems.length}`;
+    const previous = dialog.querySelector('.mediaViewerPrevious');
+    const next = dialog.querySelector('.mediaViewerNext');
+    const multiple = activeItems.length > 1;
+    previous.hidden = !multiple;
+    next.hidden = !multiple;
+    previous.setAttribute('aria-label', language.previous);
+    next.setAttribute('aria-label', language.next);
+    dialog.querySelector('.mediaViewerClose').setAttribute('aria-label', language.close);
+  }
+
+  function openViewer(trigger) {
+    activeItems = groupFor(trigger);
+    activeIndex = Math.max(0, activeItems.indexOf(trigger));
+    lastTrigger = trigger;
+    renderViewer();
+    const dialog = ensureViewer();
+    document.body.classList.add('mediaViewerOpen');
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+  }
+
+  function closeViewer() {
+    if (!viewer) return;
+    if (typeof viewer.close === 'function' && viewer.open) viewer.close();
+    else {
+      viewer.removeAttribute('open');
+      document.body.classList.remove('mediaViewerOpen');
+    }
+  }
+
+  function move(step) {
+    if (activeItems.length < 2) return;
+    activeIndex = (activeIndex + step + activeItems.length) % activeItems.length;
+    renderViewer();
+  }
+
+  function initialize(root) {
+    root.querySelectorAll('.sourceVisualOpen:not([data-media-ready])').forEach((trigger) => {
+      trigger.dataset.mediaReady = 'true';
+      trigger.addEventListener('click', () => openViewer(trigger));
+    });
+  }
+
+  function init() {
+    initialize(document);
+    const observer = new MutationObserver((records) => {
+      records.forEach((record) => {
+        record.addedNodes.forEach((node) => {
+          if (node instanceof Element) initialize(node);
+        });
+      });
+    });
+    observer.observe(document.body, {childList: true, subtree: true});
+    new MutationObserver(() => {
+      if (viewer?.open) renderViewer();
+    }).observe(document.documentElement, {attributes: true, attributeFilter: ['lang']});
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, {once: true});
+  } else {
+    init();
+  }
+})();
+"""
+
+
 def externalize_dashboard_assets(page_html):
     style_start = page_html.index("  <style>")
     style_end = page_html.index("  </style>", style_start) + len("  </style>")
@@ -3337,21 +3645,67 @@ def externalize_dashboard_assets(page_html):
         + "\n"
         + PPT_CHART_INTERACTION_JS.strip()
         + "\n"
+        + PPT_MEDIA_VIEWER_JS.strip()
+        + "\n"
     )
 
     assets_dir = ROOT / "assets"
     assets_dir.mkdir(parents=True, exist_ok=True)
     (assets_dir / "dashboard.css").write_text(css, encoding="utf-8", newline="\n")
     (assets_dir / "dashboard.js").write_text(javascript, encoding="utf-8", newline="\n")
+    asset_version = dashboard_asset_version(css, javascript)
 
     page_html = page_html[:style_start] + (
-        '  <link rel="stylesheet" href="assets/dashboard.css?v=20260724k">\n'
+        f'  <link rel="stylesheet" href="assets/dashboard.css?v={asset_version}">\n'
         '  <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">'
     ) + page_html[style_end:]
     script_start = page_html.rfind("<script>")
     script_end = page_html.index("</script>", script_start) + len("</script>")
-    page_html = page_html[:script_start] + '<script src="assets/dashboard.js?v=20260724k"></script>' + page_html[script_end:]
+    page_html = (
+        page_html[:script_start]
+        + f'<script src="assets/dashboard.js?v={asset_version}"></script>'
+        + page_html[script_end:]
+    )
     return page_html
+
+
+def dashboard_asset_version(css=None, javascript=None):
+    if css is None:
+        css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
+    if javascript is None:
+        javascript = (ROOT / "assets" / "dashboard.js").read_text(encoding="utf-8")
+    return hashlib.sha256(
+        f"{css}\n{javascript}".encode("utf-8")
+    ).hexdigest()[:10]
+
+
+def synchronize_dashboard_asset_references(asset_version=None):
+    version = asset_version or dashboard_asset_version()
+    dependent_pages = [
+        ROOT / "excavator-market-overview.html",
+        ROOT / "ppt-integration-demo" / "index.html",
+        ROOT / "ppt-integration-demo" / "excavator-overview.html",
+    ]
+    patterns = (
+        (
+            r'assets/dashboard\.css\?v=[^"]+',
+            f"assets/dashboard.css?v={version}",
+        ),
+        (
+            r'assets/dashboard\.js\?v=[^"]+',
+            f"assets/dashboard.js?v={version}",
+        ),
+    )
+    for page in dependent_pages:
+        if not page.exists():
+            continue
+        page_html = page.read_text(encoding="utf-8")
+        updated_html = page_html
+        for pattern, replacement in patterns:
+            updated_html = re.sub(pattern, replacement, updated_html)
+        if updated_html != page_html:
+            page.write_text(updated_html, encoding="utf-8", newline="\n")
+    return version
 
 
 def main():
@@ -3365,6 +3719,7 @@ def main():
         page_html = externalize_dashboard_assets(render_html(model))
         page_html = "\n".join(line.rstrip() for line in page_html.splitlines()) + "\n"
         (ROOT / meta["output"]).write_text(page_html, encoding="utf-8", newline="\n")
+    synchronize_dashboard_asset_references()
     write_project_manifest(models)
     update_arc_metrics(models)
 

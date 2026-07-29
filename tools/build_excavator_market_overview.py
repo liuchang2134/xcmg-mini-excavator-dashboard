@@ -11,6 +11,7 @@ from pathlib import Path
 from build_excavator_dashboards import (
     ROOT,
     bilingual_leaf,
+    dashboard_asset_version,
     esc,
     load_ppt_business_tables,
     load_ppt_source_content,
@@ -609,6 +610,7 @@ def render_section(section, anchor, title_zh, title_en, records, table_records):
 
 
 def build_page():
+    shared_asset_version = dashboard_asset_version()
     source = load_ppt_source_content()
     tables = load_ppt_business_tables()["records"]
     records = [
@@ -632,7 +634,7 @@ def build_page():
   <meta name="robots" content="noindex,nofollow">
   <title>北美挖掘机市场与产品洞察｜XCMG ARC</title>
   <link rel="icon" href="assets/xcmg-logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/dashboard.css?v=20260724k">
+  <link rel="stylesheet" href="assets/dashboard.css?v={shared_asset_version}">
   <link rel="stylesheet" href="assets/excavator-market-overview-source.css?v=20260724d">
   <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">
 </head>
@@ -677,7 +679,7 @@ def build_page():
     </div>
   </main>
 </div>
-<script src="assets/dashboard.js?v=20260724k"></script>
+<script src="assets/dashboard.js?v={shared_asset_version}"></script>
 <script src="assets/excavator-market-overview-navigation.js?v=20260724a"></script>
 <script src="assets/i18n.js?v=20260723e"></script>
 </body>

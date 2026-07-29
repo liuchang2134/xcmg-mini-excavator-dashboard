@@ -71,8 +71,35 @@
 .sourceChartDonutArc{fill:none}
 .sourceChartDonutTotal{fill:#073c70;font-size:32px;font-weight:900}
 .sourceChartDonutLabel{fill:#64798c;font-size:11px;font-weight:800;letter-spacing:.08em}
-.sourceVisual-picture{min-height:0}
-.sourceVisual-picture img{width:auto;max-width:100%;height:auto;max-height:480px;object-fit:contain}
+.sourceNarrativeBlock{display:grid;gap:7px;max-width:1180px;margin:0 0 12px}
+.sourceNarrativeBlock:last-child{margin-bottom:0}
+.sourceNarrativeBlock .sourceParagraph{margin:0}
+.sourceParagraph-heading{margin-top:5px!important;color:#075da8!important;font-weight:900}
+.sourceParagraph-list{padding-left:1.55em;text-indent:-1.55em}
+.sourceVisual-picture{min-height:0;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;background:#f7fafc}
+.sourceVisualOpen{position:relative;display:flex;align-items:center;justify-content:center;width:100%;min-height:0;padding:0;border:0;background:#fff;cursor:zoom-in}
+.sourceVisualOpen:focus-visible{outline:3px solid #f7b500;outline-offset:-3px}
+.sourceVisual-picture img{display:block;width:auto;max-width:100%;height:auto;max-height:480px;margin:auto;object-fit:contain}
+.sourceVisualAction{position:absolute;right:8px;bottom:8px;padding:5px 8px;border:1px solid rgba(255,255,255,.68);background:rgba(4,45,80,.88);color:#fff;font-size:11px;font-weight:800;line-height:1.2;opacity:0;transform:translateY(3px);transition:opacity .15s ease,transform .15s ease}
+.sourceVisualOpen:hover .sourceVisualAction,.sourceVisualOpen:focus-visible .sourceVisualAction{opacity:1;transform:translateY(0)}
+.sourceVisualCaption{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-height:44px;padding:9px 11px;border-top:1px solid #d7e2ec;background:#f3f8fb;color:#274961;font-size:11px;line-height:1.45;text-align:left}
+.sourceVisualCaption strong{color:#073c70;font-weight:800}
+.sourceVisualCaption span{flex:0 0 auto;color:#64798c;white-space:nowrap}
+.mediaViewer{width:min(1180px,calc(100vw - 28px));max-width:none;height:min(880px,calc(100vh - 28px));max-height:none;padding:0;border:1px solid #6f9cbd;background:#071d30;color:#fff;box-shadow:0 24px 70px rgba(0,24,44,.38)}
+.mediaViewer::backdrop{background:rgba(1,19,34,.78)}
+.mediaViewerShell{display:grid;grid-template-rows:auto minmax(0,1fr) auto;width:100%;height:100%}
+.mediaViewerHeader{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.18);background:#062f54}
+.mediaViewerHeader h2{margin:0;color:#fff;font-size:16px;line-height:1.4}
+.mediaViewerHeader small{display:block;margin-bottom:2px;color:#9fc5df;font-size:10px;font-weight:800;text-transform:uppercase}
+.mediaViewerClose,.mediaViewerNav{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;flex:0 0 42px;border:1px solid rgba(255,255,255,.34);border-radius:0;background:#083d6c;color:#fff;font-size:24px;font-weight:400;line-height:1;cursor:pointer}
+.mediaViewerClose:hover,.mediaViewerClose:focus-visible,.mediaViewerNav:hover,.mediaViewerNav:focus-visible{border-color:#f7b500;color:#f7b500;outline:none}
+.mediaViewerStage{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr) 52px;align-items:center;min-height:0;padding:14px;background:#061726}
+.mediaViewerImage{display:block;max-width:100%;max-height:100%;margin:auto;object-fit:contain}
+.mediaViewerNav[hidden]{visibility:hidden}
+.mediaViewerFooter{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:10px 14px;border-top:1px solid rgba(255,255,255,.18);background:#062f54;color:#d6e7f4;font-size:12px;line-height:1.55}
+.mediaViewerFooter p{margin:0}
+.mediaViewerCount{flex:0 0 auto;color:#f7b500;font-weight:900}
+body.mediaViewerOpen{overflow:hidden}
 .sourceDataChart,.nativeChartPanel{position:relative}
 .chartInteractable{cursor:pointer;outline:none;transform-box:fill-box;transform-origin:center;transition:opacity .16s ease,filter .16s ease,transform .16s ease,stroke-width .16s ease}
 .chartHasFocus .chartInteractable.is-dimmed{opacity:.16!important;filter:saturate(.24)}
@@ -97,6 +124,16 @@
   .sourceDataChart[data-chart-density="dense"] .sourceChartSvg{width:72rem;min-width:72rem}
   .sourceChartLegend{justify-content:flex-start;gap:6px 10px;padding:8px 10px 10px;font-size:10px}
   .sourceVisual-picture img{width:auto;max-width:100%;height:auto;max-height:none}
+  .sourceVisualAction{opacity:1;transform:none}
+  .sourceVisualCaption{display:block;min-height:0}
+  .sourceVisualCaption span{display:block;margin-top:2px;white-space:normal}
+  .mediaViewer{width:100vw;height:100dvh;border:0}
+  .mediaViewerHeader{padding:9px 10px}
+  .mediaViewerHeader h2{font-size:14px}
+  .mediaViewerStage{grid-template-columns:42px minmax(0,1fr) 42px;padding:8px}
+  .mediaViewerClose,.mediaViewerNav{width:38px;height:38px;flex-basis:38px}
+  .mediaViewerFooter{display:block;padding:9px 10px}
+  .mediaViewerCount{display:block;margin-bottom:3px}
   .chartLockState{position:static;margin:8px 10px 0;box-shadow:none}
   .sourceDataChart:has(.chartLockState:not([hidden]))>figcaption,.nativeChartPanel:has(.chartLockState:not([hidden]))>h4{padding-right:10px}
 }

@@ -511,3 +511,168 @@ setupPageNavigation();
     init();
   }
 })();
+(function () {
+  'use strict';
+
+  let viewer = null;
+  let activeItems = [];
+  let activeIndex = 0;
+  let lastTrigger = null;
+
+  function isEnglish() {
+    return document.documentElement.lang.toLowerCase().startsWith('en');
+  }
+
+  function copy() {
+    return isEnglish()
+      ? {
+          eyebrow: 'Field evidence',
+          close: 'Close image viewer',
+          previous: 'Previous image',
+          next: 'Next image'
+        }
+      : {
+          eyebrow: '实景资料',
+          close: '关闭图片查看',
+          previous: '上一张图片',
+          next: '下一张图片'
+        };
+  }
+
+  function ensureViewer() {
+    if (viewer) return viewer;
+    viewer = document.createElement('dialog');
+    viewer.className = 'mediaViewer';
+    viewer.innerHTML = `
+      <div class="mediaViewerShell">
+        <header class="mediaViewerHeader">
+          <div><small></small><h2></h2></div>
+          <button type="button" class="mediaViewerClose" aria-label="关闭图片查看">×</button>
+        </header>
+        <div class="mediaViewerStage">
+          <button type="button" class="mediaViewerNav mediaViewerPrevious" aria-label="上一张图片">←</button>
+          <img class="mediaViewerImage" alt="">
+          <button type="button" class="mediaViewerNav mediaViewerNext" aria-label="下一张图片">→</button>
+        </div>
+        <footer class="mediaViewerFooter">
+          <span class="mediaViewerCount"></span>
+          <p></p>
+        </footer>
+      </div>`;
+    document.body.appendChild(viewer);
+
+    viewer.querySelector('.mediaViewerClose').addEventListener('click', closeViewer);
+    viewer.querySelector('.mediaViewerPrevious').addEventListener('click', () => move(-1));
+    viewer.querySelector('.mediaViewerNext').addEventListener('click', () => move(1));
+    viewer.addEventListener('click', (event) => {
+      if (event.target === viewer) closeViewer();
+    });
+    viewer.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        move(-1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        move(1);
+      }
+    });
+    viewer.addEventListener('close', () => {
+      document.body.classList.remove('mediaViewerOpen');
+      lastTrigger?.focus({preventScroll: true});
+    });
+    return viewer;
+  }
+
+  function groupFor(trigger) {
+    const grid = trigger.closest('.sourceVisualGrid');
+    const items = grid ? [...grid.querySelectorAll('.sourceVisualOpen')] : [trigger];
+    return items.filter((item) => item.dataset.mediaSrc);
+  }
+
+  function textFor(item, key) {
+    if (!item) return '';
+    const englishKey = `${key}En`;
+    return isEnglish()
+      ? item.dataset[englishKey] || item.dataset[key] || ''
+      : item.dataset[key] || '';
+  }
+
+  function renderViewer() {
+    const dialog = ensureViewer();
+    const item = activeItems[activeIndex];
+    if (!item) return;
+    const language = copy();
+    const image = dialog.querySelector('.mediaViewerImage');
+    const title = textFor(item, 'mediaTitle');
+    const caption = textFor(item, 'mediaCaption');
+    image.src = item.dataset.mediaSrc;
+    image.alt = item.querySelector('img')?.alt || title;
+    dialog.querySelector('.mediaViewerHeader small').textContent = language.eyebrow;
+    dialog.querySelector('.mediaViewerHeader h2').textContent = title;
+    dialog.querySelector('.mediaViewerFooter p').textContent = caption;
+    dialog.querySelector('.mediaViewerCount').textContent =
+      `${activeIndex + 1} / ${activeItems.length}`;
+    const previous = dialog.querySelector('.mediaViewerPrevious');
+    const next = dialog.querySelector('.mediaViewerNext');
+    const multiple = activeItems.length > 1;
+    previous.hidden = !multiple;
+    next.hidden = !multiple;
+    previous.setAttribute('aria-label', language.previous);
+    next.setAttribute('aria-label', language.next);
+    dialog.querySelector('.mediaViewerClose').setAttribute('aria-label', language.close);
+  }
+
+  function openViewer(trigger) {
+    activeItems = groupFor(trigger);
+    activeIndex = Math.max(0, activeItems.indexOf(trigger));
+    lastTrigger = trigger;
+    renderViewer();
+    const dialog = ensureViewer();
+    document.body.classList.add('mediaViewerOpen');
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+  }
+
+  function closeViewer() {
+    if (!viewer) return;
+    if (typeof viewer.close === 'function' && viewer.open) viewer.close();
+    else {
+      viewer.removeAttribute('open');
+      document.body.classList.remove('mediaViewerOpen');
+    }
+  }
+
+  function move(step) {
+    if (activeItems.length < 2) return;
+    activeIndex = (activeIndex + step + activeItems.length) % activeItems.length;
+    renderViewer();
+  }
+
+  function initialize(root) {
+    root.querySelectorAll('.sourceVisualOpen:not([data-media-ready])').forEach((trigger) => {
+      trigger.dataset.mediaReady = 'true';
+      trigger.addEventListener('click', () => openViewer(trigger));
+    });
+  }
+
+  function init() {
+    initialize(document);
+    const observer = new MutationObserver((records) => {
+      records.forEach((record) => {
+        record.addedNodes.forEach((node) => {
+          if (node instanceof Element) initialize(node);
+        });
+      });
+    });
+    observer.observe(document.body, {childList: true, subtree: true});
+    new MutationObserver(() => {
+      if (viewer?.open) renderViewer();
+    }).observe(document.documentElement, {attributes: true, attributeFilter: ['lang']});
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, {once: true});
+  } else {
+    init();
+  }
+})();

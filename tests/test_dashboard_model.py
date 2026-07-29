@@ -1,3 +1,4 @@
+import hashlib
 import json
 import math
 import re
@@ -240,6 +241,9 @@ class DashboardModelTests(unittest.TestCase):
         self.assertIn("window.matchMedia('(min-width:901px)')", dashboard_js)
         self.assertIn("setupSidebarCollapse();", dashboard_js)
 
+        dashboard_hash = hashlib.sha256(
+            f"{dashboard_css}\n{dashboard_js}".encode("utf-8")
+        ).hexdigest()[:10]
         shared_layout_pages = [
             *[ROOT / meta["output"] for meta in SOURCE_FILES],
             ROOT / "excavator-market-overview.html",
@@ -249,7 +253,8 @@ class DashboardModelTests(unittest.TestCase):
         for page in shared_layout_pages:
             with self.subTest(page=page.name):
                 html = page.read_text(encoding="utf-8")
-                self.assertIn("assets/dashboard.css?v=20260724k", html)
+                self.assertIn(f"assets/dashboard.css?v={dashboard_hash}", html)
+                self.assertIn(f"assets/dashboard.js?v={dashboard_hash}", html)
                 self.assertIn('class="sidebarToggle"', html)
 
         market_html = (ROOT / "excavator-market-overview.html").read_text(encoding="utf-8")
@@ -747,6 +752,27 @@ class DashboardModelTests(unittest.TestCase):
                     for visual in record.get("visuals", [])
                     if visual.get("chart_data")
                 ]
+                picture_visuals = [
+                    visual
+                    for visual in record.get("visuals", [])
+                    if not visual.get("chart_data")
+                ]
+                if scope != "overview":
+                    self.assertEqual(
+                        slide_html.count('class="sourceVisualOpen"'),
+                        len(picture_visuals),
+                        f"{output}: {slide_id}",
+                    )
+                    self.assertEqual(
+                        slide_html.count('class="sourceVisualCaption"'),
+                        len(picture_visuals),
+                        f"{output}: {slide_id}",
+                    )
+                    self.assertEqual(
+                        slide_html.count('class="sourceNarrativeBlock"'),
+                        len(record.get("body", [])),
+                        f"{output}: {slide_id}",
+                    )
                 if slide_id == "slide-010":
                     self.assertEqual(slide_html.count('class="nativeChartPanel"'), 4)
                 else:

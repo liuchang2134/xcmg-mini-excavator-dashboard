@@ -90,6 +90,8 @@ async function inspect(page, spec, language, viewportName) {
       });
     }),
     sourceVisuals: document.querySelectorAll('.sourceVisual img').length,
+    sourceVisualButtons: document.querySelectorAll('.sourceVisualOpen').length,
+    sourceVisualCaptions: document.querySelectorAll('.sourceVisualCaption').length,
     sourceDataCharts: document.querySelectorAll('.sourceDataChart').length,
     rasterChartImages: document.querySelectorAll('.sourceVisual-chart img').length,
     crampedChartLabels: [...document.querySelectorAll(
@@ -160,6 +162,16 @@ async function inspect(page, spec, language, viewportName) {
       `raster charts ${state.rasterChartImages}`
     );
   }
+  const expectedPictureVisuals = spec.expectedVisuals - spec.expectedDataCharts;
+  if (
+    state.sourceVisualButtons !== expectedPictureVisuals
+    || state.sourceVisualCaptions !== expectedPictureVisuals
+  ) {
+    throw new Error(
+      `${spec.file}/${viewportName}/${language}: image interaction ` +
+      `${state.sourceVisualButtons}/${state.sourceVisualCaptions}/${expectedPictureVisuals}`
+    );
+  }
   if (state.crampedChartLabels.length) {
     throw new Error(
       `${spec.file}/${viewportName}/${language}: cramped chart labels ` +
@@ -184,6 +196,32 @@ async function inspect(page, spec, language, viewportName) {
     throw new Error(
       `${spec.file}/${viewportName}/${language}: unexpectedly short page ${state.textLength}`
     );
+  }
+
+  if (state.sourceVisualButtons) {
+    const firstImage = page.locator('.sourceVisualOpen').first();
+    await firstImage.evaluate((element) => {
+      let parent = element.parentElement;
+      while (parent) {
+        if (parent.tagName === 'DETAILS') parent.open = true;
+        parent = parent.parentElement;
+      }
+    });
+    await firstImage.scrollIntoViewIfNeeded();
+    await firstImage.click();
+    const viewerState = await page.evaluate(() => ({
+      open: document.querySelector('.mediaViewer')?.open === true,
+      imageLoaded: (document.querySelector('.mediaViewerImage')?.naturalWidth || 0) > 0,
+      title: (document.querySelector('.mediaViewerHeader h2')?.textContent || '').trim(),
+      count: (document.querySelector('.mediaViewerCount')?.textContent || '').trim()
+    }));
+    if (!viewerState.open || !viewerState.imageLoaded || !viewerState.title || !viewerState.count) {
+      throw new Error(
+        `${spec.file}/${viewportName}/${language}: media viewer failed ` +
+        JSON.stringify(viewerState)
+      );
+    }
+    await page.locator('.mediaViewerClose').click();
   }
 
   let screenshot = '';
