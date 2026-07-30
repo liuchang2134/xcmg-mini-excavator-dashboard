@@ -447,6 +447,28 @@ class DashboardModelTests(unittest.TestCase):
             "table.sourceTableFit tr>*{min-width:140px}",
             dashboard_css,
         )
+
+    def test_condition_comparison_stacks_before_nested_columns_collide(self):
+        dashboard_css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
+
+        self.assertIn(
+            "@media(max-width:1280px){.conditionTop{grid-template-columns:1fr}}",
+            dashboard_css,
+        )
+        self.assertIn(
+            ".keyTable{width:100%;border-collapse:collapse;font-size:12px;"
+            "table-layout:fixed}",
+            dashboard_css,
+        )
+        self.assertIn(
+            ".keyTable tr>:nth-child(1){width:104px;min-width:104px",
+            dashboard_css,
+        )
+        self.assertIn(
+            ".keyTable tr>:nth-child(3){width:72px;min-width:72px;"
+            "white-space:nowrap",
+            dashboard_css,
+        )
         self.assertIn(
             'html[data-language="en"] .sourceTableScrollFit '
             "table.sourceTableFit tr>:first-child{min-width:160px}",
