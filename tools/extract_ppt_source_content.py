@@ -21,34 +21,16 @@ from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 from pptx.oxml.ns import qn
 
+try:
+    from tools.ppt_scope import OVERVIEW_SLIDES, display_title, slugs_for_slide
+except ModuleNotFoundError:
+    from ppt_scope import OVERVIEW_SLIDES, display_title, slugs_for_slide
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "data" / "source-presentations"
 OUTPUT_PATH = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
 ASSET_DIR = ROOT / "assets" / "ppt-source"
-
-OVERVIEW_SLIDES = [
-    *range(3, 16),
-    *range(233, 245),
-    246,
-]
-
-SLUG_SLIDE_RANGES = {
-    "excavator-1-2t": [(16, 34)],
-    "excavator-2-3t": [(35, 47)],
-    "excavator-35t": [(48, 68)],
-    "excavator-4-5t": [(69, 89)],
-    "excavator-5-6t": [(90, 107)],
-    "excavator-8-10t": [(108, 125)],
-    "excavator-12-14t": [(126, 151)],
-    "excavator-14-16t-short-tail": [(126, 151)],
-    "excavator-21-24t": [(152, 168)],
-    "excavator-24-28t": [(169, 187)],
-    "excavator-24-28t-short-tail": [(169, 187)],
-    "excavator-28-33t": [(169, 177), (188, 198)],
-    "excavator-33-40t": [(199, 215)],
-    "excavator-40-60t": [(216, 232)],
-}
 
 SKIP_EXACT = {
     "二、大区产业板块洞察",
@@ -204,12 +186,93 @@ def classify_tonnage(title):
     return "analysis"
 
 
-def slugs_for_slide(slide_number):
-    result = []
-    for slug, ranges in SLUG_SLIDE_RANGES.items():
-        if any(start <= slide_number <= end for start, end in ranges):
-            result.append(slug)
-    return result
+TEMPORAL_STATUS_META = {
+    "forecast": {
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled.",
+    },
+    "historical_target": {
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification.",
+    },
+    "historical_plan": {
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record.",
+    },
+    "forward_plan": {
+        "label_zh": "规划目标",
+        "label_en": "Planning target",
+        "note_zh": "该内容为规划目标，不代表已经完成；后续以正式项目状态和验证结果为准。",
+        "note_en": "This is a planning target rather than a completed result. Formal program status and validation results remain authoritative.",
+    },
+}
+
+
+def detect_temporal_status(slide_number, title, body, notes, visuals=None):
+    """Identify time-sensitive statements that must not be read as current facts."""
+    chart_text = json.dumps(
+        [
+            visual.get("chart_data")
+            for visual in (visuals or [])
+            if visual.get("chart_data")
+        ],
+        ensure_ascii=False,
+    )
+    text = "\n".join(
+        [str(title or "")]
+        + [str(value or "") for value in body]
+        + [str(value or "") for value in notes]
+        + [chart_text]
+    )
+
+    sales_forecast_slides = {
+        16,
+        35,
+        48,
+        69,
+        90,
+        108,
+        126,
+        127,
+        152,
+        169,
+        170,
+        199,
+        216,
+    }
+    if (
+        "预测" in text
+        or slide_number in sales_forecast_slides
+        or re.search(r"预计2025年[^。\n]*市场(?:销售量|销量)", text)
+    ):
+        code = "forecast"
+    elif (
+        "未来三年" in text
+        or re.search(r"202[7-9]年[^。\n]*(?:目标|规划|预计|计划)", text)
+        or slide_number in {242, 243, 244}
+    ):
+        code = "forward_plan"
+    elif (
+        "占有率目标" in title
+        or re.search(r"202[0-5]年[^。\n]*(?:市场目标|销量目标|目标为|达到\s*\d+\s*台)", text)
+    ):
+        code = "historical_target"
+    elif (
+        slide_number in {176, 233, 235}
+        or re.search(r"202[0-5]年[^。\n]*(?:计划|预计|导入|量产|样机)", text)
+        or re.search(r"(?:计划|预计)[^。\n]*(?:7月|年底|季度|Q[1-4])", text, re.I)
+    ):
+        code = "historical_plan"
+    else:
+        return None
+
+    return {"code": code, **TEMPORAL_STATUS_META[code]}
 
 
 def picture_image(shape):
@@ -450,6 +513,7 @@ def extract(render_dir: Path):
 
         items = all_text_items(slide, deck.slide_width, deck.slide_height)
         source_title = choose_title(items, slide_number)
+        reader_title = display_title(slide_number, source_title)
         body_blocks = []
         source_notes = []
         for item in items:
@@ -471,18 +535,26 @@ def extract(render_dir: Path):
             seen,
         )
         section = (
-            classify_overview(slide_number, source_title)
+            classify_overview(slide_number, reader_title)
             if is_overview
-            else classify_tonnage(source_title)
+            else classify_tonnage(reader_title)
         )
         record = {
             "id": f"slide-{slide_number:03d}",
             "slide": slide_number,
             "title": {
-                "zh": clean_title(source_title),
+                "zh": clean_title(reader_title),
                 "en": "",
             },
             "source_title_zh": source_title,
+            "title_correction": (
+                {
+                    "status": "corrected_source_heading",
+                    "reason": "Source heading conflicts with the table tonnage, models and chapter context.",
+                }
+                if reader_title != source_title
+                else None
+            ),
             "section": section,
             "body": [{"zh": value, "en": ""} for value in body_blocks],
             "notes": [{"zh": value, "en": ""} for value in source_notes],
@@ -490,6 +562,13 @@ def extract(render_dir: Path):
             "table_ids": table_index.get(slide_number, []),
             "slugs": slug_values,
             "overview": is_overview,
+            "temporal_status": detect_temporal_status(
+                slide_number,
+                reader_title,
+                body_blocks,
+                source_notes,
+                visuals,
+            ),
         }
         slides.append(record)
         if is_overview:
@@ -529,6 +608,58 @@ def extract(render_dir: Path):
     return payload
 
 
+def refresh_existing_scope():
+    """Refresh slide ownership and corrected headings without re-exporting media."""
+    payload = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
+    by_slug = defaultdict(list)
+    overview = []
+    for record in payload.get("slides", []):
+        slide_number = int(record["slide"])
+        source_title = record.get("source_title_zh") or record.get("title", {}).get("zh", "")
+        reader_title = display_title(slide_number, source_title)
+        slug_values = slugs_for_slide(slide_number)
+        is_overview = slide_number in OVERVIEW_SLIDES
+        record["title"]["zh"] = clean_title(reader_title)
+        record["title_correction"] = (
+            {
+                "status": "corrected_source_heading",
+                "reason": "Source heading conflicts with the table tonnage, models and chapter context.",
+            }
+            if reader_title != source_title
+            else None
+        )
+        record["slugs"] = slug_values
+        record["overview"] = is_overview
+        record["section"] = (
+            classify_overview(slide_number, reader_title)
+            if is_overview
+            else classify_tonnage(reader_title)
+        )
+        record["temporal_status"] = detect_temporal_status(
+            slide_number,
+            reader_title,
+            [item.get("zh", "") for item in record.get("body", [])],
+            [item.get("zh", "") for item in record.get("notes", [])],
+            record.get("visuals", []),
+        )
+        if is_overview:
+            overview.append(record["id"])
+        for slug in slug_values:
+            by_slug[slug].append(record["id"])
+
+    payload["meta"]["scope_rule"] = "Centralized class-specific and shared-chapter mapping."
+    payload["summary"]["overview_slides"] = len(overview)
+    payload["summary"]["tonnage_slide_links"] = sum(len(items) for items in by_slug.values())
+    payload["overview"] = overview
+    payload["by_slug"] = dict(by_slug)
+    OUTPUT_PATH.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    return payload
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -541,12 +672,21 @@ def main():
         action="store_true",
         help="Refresh native chart series, axes and bubble values without re-exporting visuals.",
     )
+    parser.add_argument(
+        "--scope-only",
+        action="store_true",
+        help="Refresh slide ownership and heading corrections without re-exporting visuals.",
+    )
     args = parser.parse_args()
     if args.chart_data_only:
         print(json.dumps({"updated_chart_records": enrich_existing_chart_data()}))
         return
+    if args.scope_only:
+        payload = refresh_existing_scope()
+        print(json.dumps(payload["summary"], ensure_ascii=False, indent=2))
+        return
     if args.render_dir is None:
-        parser.error("--render-dir is required unless --chart-data-only is used")
+        parser.error("--render-dir is required unless --chart-data-only or --scope-only is used")
     payload = extract(args.render_dir)
     print(json.dumps(payload["summary"], ensure_ascii=False, indent=2))
 

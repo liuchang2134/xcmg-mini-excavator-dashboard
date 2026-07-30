@@ -13,11 +13,12 @@
       "personnel_slide": [
         245
       ]
-    }
+    },
+    "scope_rule": "Centralized class-specific and shared-chapter mapping."
   },
   "summary": {
     "overview_slides": 26,
-    "tonnage_slide_links": 271,
+    "tonnage_slide_links": 257,
     "visual_count": 224,
     "table_count": 220,
     "text_block_count": 284
@@ -175,7 +176,6 @@
     ],
     "excavator-12-14t": [
       "slide-126",
-      "slide-127",
       "slide-128",
       "slide-129",
       "slide-130",
@@ -189,10 +189,6 @@
       "slide-138",
       "slide-139",
       "slide-140",
-      "slide-141",
-      "slide-142",
-      "slide-143",
-      "slide-144",
       "slide-145",
       "slide-146",
       "slide-147",
@@ -202,7 +198,6 @@
       "slide-151"
     ],
     "excavator-14-16t-short-tail": [
-      "slide-126",
       "slide-127",
       "slide-128",
       "slide-129",
@@ -213,10 +208,6 @@
       "slide-134",
       "slide-135",
       "slide-136",
-      "slide-137",
-      "slide-138",
-      "slide-139",
-      "slide-140",
       "slide-141",
       "slide-142",
       "slide-143",
@@ -250,7 +241,6 @@
     ],
     "excavator-24-28t": [
       "slide-169",
-      "slide-170",
       "slide-171",
       "slide-172",
       "slide-173",
@@ -271,7 +261,6 @@
     ],
     "excavator-24-28t-short-tail": [
       "slide-169",
-      "slide-170",
       "slide-171",
       "slide-172",
       "slide-173",
@@ -291,7 +280,6 @@
       "slide-187"
     ],
     "excavator-28-33t": [
-      "slide-169",
       "slide-170",
       "slide-171",
       "slide-172",
@@ -299,7 +287,6 @@
       "slide-174",
       "slide-175",
       "slide-176",
-      "slide-177",
       "slide-188",
       "slide-189",
       "slide-190",
@@ -391,7 +378,9 @@
       "visuals": [],
       "table_ids": [],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-004",
@@ -440,7 +429,9 @@
       "visuals": [],
       "table_ids": [],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-005",
@@ -485,7 +476,9 @@
       "visuals": [],
       "table_ids": [],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-006",
@@ -530,7 +523,9 @@
       "visuals": [],
       "table_ids": [],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-007",
@@ -567,7 +562,9 @@
       "visuals": [],
       "table_ids": [],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-008",
@@ -585,7 +582,9 @@
         "s008-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-009",
@@ -646,7 +645,15 @@
       ],
       "table_ids": [],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-010",
@@ -887,7 +894,9 @@
         "s010-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-011",
@@ -998,7 +1007,9 @@
       ],
       "table_ids": [],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-012",
@@ -1027,7 +1038,9 @@
         "s012-t02"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-013",
@@ -1050,7 +1063,9 @@
         "s013-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-014",
@@ -1073,7 +1088,9 @@
         "s014-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-015",
@@ -1230,7 +1247,9 @@
       ],
       "table_ids": [],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-016",
@@ -1420,7 +1439,15 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-017",
@@ -1466,7 +1493,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-018",
@@ -1522,7 +1551,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-019",
@@ -1578,7 +1609,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-020",
@@ -1644,7 +1677,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-021",
@@ -1710,7 +1745,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-022",
@@ -1756,7 +1793,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-023",
@@ -1802,7 +1841,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-024",
@@ -1848,7 +1889,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-025",
@@ -1873,7 +1916,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-026",
@@ -1898,7 +1943,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-027",
@@ -1923,7 +1970,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-028",
@@ -1948,7 +1997,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-029",
@@ -1973,7 +2024,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-030",
@@ -1998,7 +2051,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-031",
@@ -2023,7 +2078,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-032",
@@ -2048,7 +2105,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-033",
@@ -2144,7 +2203,9 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-034",
@@ -2263,7 +2324,15 @@
       "slugs": [
         "excavator-1-2t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-035",
@@ -2453,7 +2522,15 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-036",
@@ -2499,7 +2576,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-037",
@@ -2555,7 +2634,15 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-038",
@@ -2580,7 +2667,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-039",
@@ -2605,7 +2694,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-040",
@@ -2630,7 +2721,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-041",
@@ -2655,7 +2748,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-042",
@@ -2680,7 +2775,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-043",
@@ -2705,7 +2802,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-044",
@@ -2730,7 +2829,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-045",
@@ -2755,7 +2856,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-046",
@@ -2837,7 +2940,9 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-047",
@@ -2956,7 +3061,15 @@
       "slugs": [
         "excavator-2-3t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-048",
@@ -3146,7 +3259,15 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-049",
@@ -3192,7 +3313,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-050",
@@ -3238,7 +3361,15 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-051",
@@ -3284,7 +3415,15 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-052",
@@ -3340,7 +3479,15 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-053",
@@ -3396,7 +3543,15 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-054",
@@ -3452,7 +3607,15 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-055",
@@ -3508,7 +3671,15 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-056",
@@ -3554,7 +3725,15 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-057",
@@ -3610,7 +3789,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-058",
@@ -3666,7 +3847,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-059",
@@ -3691,7 +3874,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-060",
@@ -3716,7 +3901,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-061",
@@ -3741,7 +3928,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-062",
@@ -3766,7 +3955,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-063",
@@ -3791,7 +3982,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-064",
@@ -3816,7 +4009,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-065",
@@ -3841,7 +4036,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-066",
@@ -3866,7 +4063,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-067",
@@ -3962,7 +4161,9 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-068",
@@ -4081,7 +4282,15 @@
       "slugs": [
         "excavator-35t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-069",
@@ -4259,7 +4468,15 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-070",
@@ -4305,7 +4522,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-071",
@@ -4371,7 +4590,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-072",
@@ -4427,7 +4648,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-073",
@@ -4473,7 +4696,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-074",
@@ -4539,7 +4764,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-075",
@@ -4585,7 +4812,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-076",
@@ -4631,7 +4860,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-077",
@@ -4677,7 +4908,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-078",
@@ -4723,7 +4956,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-079",
@@ -4769,7 +5004,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-080",
@@ -4794,7 +5031,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-081",
@@ -4819,7 +5058,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-082",
@@ -4844,7 +5085,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-083",
@@ -4869,7 +5112,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-084",
@@ -4894,7 +5139,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-085",
@@ -4919,7 +5166,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-086",
@@ -4944,7 +5193,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-087",
@@ -4969,7 +5220,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-088",
@@ -5065,7 +5318,9 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-089",
@@ -5172,7 +5427,15 @@
       "slugs": [
         "excavator-4-5t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-090",
@@ -5362,7 +5625,15 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-091",
@@ -5408,7 +5679,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-092",
@@ -5454,7 +5727,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-093",
@@ -5500,7 +5775,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-094",
@@ -5546,7 +5823,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-095",
@@ -5592,7 +5871,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-096",
@@ -5638,7 +5919,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-097",
@@ -5684,7 +5967,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-098",
@@ -5709,7 +5994,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-099",
@@ -5734,7 +6021,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-100",
@@ -5759,7 +6048,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-101",
@@ -5784,7 +6075,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-102",
@@ -5809,7 +6102,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-103",
@@ -5834,7 +6129,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-104",
@@ -5859,7 +6156,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-105",
@@ -5884,7 +6183,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-106",
@@ -5980,7 +6281,9 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-107",
@@ -6099,7 +6402,15 @@
       "slugs": [
         "excavator-5-6t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-108",
@@ -6289,7 +6600,15 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-109",
@@ -6325,7 +6644,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-110",
@@ -6371,7 +6692,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-111",
@@ -6417,7 +6740,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-112",
@@ -6473,7 +6798,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-113",
@@ -6519,7 +6846,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-114",
@@ -6565,13 +6894,15 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-115",
       "slide": 115,
       "title": {
-        "zh": "核心规格产品适应性分析—5-6吨徐工VS久保田",
+        "zh": "核心规格产品适应性分析—8-10吨徐工VS久保田",
         "en": ""
       },
       "source_title_zh": "2.7 核心规格产品适应性分析—5-6吨徐工VS久保田",
@@ -6611,7 +6942,12 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": {
+        "status": "corrected_source_heading",
+        "reason": "Source heading conflicts with the table tonnage, models and chapter context."
+      },
+      "temporal_status": null
     },
     {
       "id": "slide-116",
@@ -6636,7 +6972,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-117",
@@ -6661,7 +6999,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-118",
@@ -6686,7 +7026,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-119",
@@ -6711,7 +7053,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-120",
@@ -6736,7 +7080,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-121",
@@ -6761,7 +7107,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-122",
@@ -6786,7 +7134,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-123",
@@ -6811,7 +7161,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-124",
@@ -6893,7 +7245,9 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-125",
@@ -7012,7 +7366,15 @@
       "slugs": [
         "excavator-8-10t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-126",
@@ -7188,10 +7550,17 @@
       ],
       "table_ids": [],
       "slugs": [
-        "excavator-12-14t",
-        "excavator-14-16t-short-tail"
+        "excavator-12-14t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-127",
@@ -7358,10 +7727,17 @@
       ],
       "table_ids": [],
       "slugs": [
-        "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-128",
@@ -7387,7 +7763,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-129",
@@ -7446,7 +7824,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-130",
@@ -7505,7 +7885,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-131",
@@ -7554,7 +7936,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-132",
@@ -7601,7 +7985,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-133",
@@ -7648,7 +8034,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-134",
@@ -7705,7 +8093,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-135",
@@ -7752,7 +8142,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-136",
@@ -7799,7 +8191,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-137",
@@ -7822,10 +8216,11 @@
         "s137-t01"
       ],
       "slugs": [
-        "excavator-12-14t",
-        "excavator-14-16t-short-tail"
+        "excavator-12-14t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-138",
@@ -7848,10 +8243,11 @@
         "s138-t01"
       ],
       "slugs": [
-        "excavator-12-14t",
-        "excavator-14-16t-short-tail"
+        "excavator-12-14t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-139",
@@ -7874,10 +8270,11 @@
         "s139-t01"
       ],
       "slugs": [
-        "excavator-12-14t",
-        "excavator-14-16t-short-tail"
+        "excavator-12-14t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-140",
@@ -7900,10 +8297,11 @@
         "s140-t01"
       ],
       "slugs": [
-        "excavator-12-14t",
-        "excavator-14-16t-short-tail"
+        "excavator-12-14t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-141",
@@ -7926,10 +8324,11 @@
         "s141-t01"
       ],
       "slugs": [
-        "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-142",
@@ -7952,10 +8351,11 @@
         "s142-t01"
       ],
       "slugs": [
-        "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-143",
@@ -7978,10 +8378,11 @@
         "s143-t01"
       ],
       "slugs": [
-        "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-144",
@@ -8004,10 +8405,11 @@
         "s144-t01"
       ],
       "slugs": [
-        "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-145",
@@ -8033,7 +8435,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-146",
@@ -8059,7 +8463,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-147",
@@ -8085,7 +8491,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-148",
@@ -8111,7 +8519,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-149",
@@ -8137,7 +8547,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-150",
@@ -8248,7 +8660,9 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-151",
@@ -8368,7 +8782,15 @@
         "excavator-12-14t",
         "excavator-14-16t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-152",
@@ -8537,7 +8959,15 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-153",
@@ -8573,7 +9003,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-154",
@@ -8619,7 +9051,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-155",
@@ -8665,7 +9099,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-156",
@@ -8701,7 +9137,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-157",
@@ -8747,7 +9185,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-158",
@@ -8772,7 +9212,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-159",
@@ -8797,7 +9239,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-160",
@@ -8822,7 +9266,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-161",
@@ -8847,7 +9293,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-162",
@@ -8872,7 +9320,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-163",
@@ -8897,7 +9347,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-164",
@@ -8922,7 +9374,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-165",
@@ -8947,7 +9401,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-166",
@@ -8972,7 +9428,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-167",
@@ -9054,7 +9512,9 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-168",
@@ -9173,7 +9633,15 @@
       "slugs": [
         "excavator-21-24t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-169",
@@ -9341,10 +9809,17 @@
       "table_ids": [],
       "slugs": [
         "excavator-24-28t",
-        "excavator-24-28t-short-tail",
-        "excavator-28-33t"
+        "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-170",
@@ -9487,11 +9962,17 @@
       ],
       "table_ids": [],
       "slugs": [
-        "excavator-24-28t",
-        "excavator-24-28t-short-tail",
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-171",
@@ -9529,7 +10010,9 @@
         "excavator-24-28t-short-tail",
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-172",
@@ -9577,7 +10060,9 @@
         "excavator-24-28t-short-tail",
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-173",
@@ -9625,7 +10110,9 @@
         "excavator-24-28t-short-tail",
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-174",
@@ -9683,7 +10170,9 @@
         "excavator-24-28t-short-tail",
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-175",
@@ -9731,7 +10220,9 @@
         "excavator-24-28t-short-tail",
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-176",
@@ -9779,7 +10270,15 @@
         "excavator-24-28t-short-tail",
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-177",
@@ -9803,10 +10302,11 @@
       ],
       "slugs": [
         "excavator-24-28t",
-        "excavator-24-28t-short-tail",
-        "excavator-28-33t"
+        "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-178",
@@ -9832,7 +10332,9 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-179",
@@ -9858,7 +10360,9 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-180",
@@ -9884,7 +10388,9 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-181",
@@ -9910,7 +10416,9 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-182",
@@ -9936,7 +10444,9 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-183",
@@ -9962,7 +10472,9 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-184",
@@ -9988,7 +10500,9 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-185",
@@ -10014,7 +10528,9 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-186",
@@ -10125,7 +10641,9 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-187",
@@ -10245,7 +10763,15 @@
         "excavator-24-28t",
         "excavator-24-28t-short-tail"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-188",
@@ -10270,7 +10796,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-189",
@@ -10295,7 +10823,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-190",
@@ -10320,7 +10850,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-191",
@@ -10345,7 +10877,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-192",
@@ -10370,7 +10904,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-193",
@@ -10395,7 +10931,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-194",
@@ -10420,7 +10958,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-195",
@@ -10445,7 +10985,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-196",
@@ -10470,7 +11012,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-197",
@@ -10552,7 +11096,9 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-198",
@@ -10671,7 +11217,15 @@
       "slugs": [
         "excavator-28-33t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-199",
@@ -10840,7 +11394,15 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-200",
@@ -10886,7 +11448,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-201",
@@ -10932,7 +11496,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-202",
@@ -10978,7 +11544,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-203",
@@ -11034,7 +11602,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-204",
@@ -11080,7 +11650,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-205",
@@ -11105,7 +11677,15 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-206",
@@ -11130,7 +11710,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-207",
@@ -11155,7 +11737,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-208",
@@ -11180,7 +11764,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-209",
@@ -11205,7 +11791,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-210",
@@ -11230,7 +11818,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-211",
@@ -11255,7 +11845,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-212",
@@ -11280,7 +11872,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-213",
@@ -11305,7 +11899,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-214",
@@ -11387,7 +11983,9 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-215",
@@ -11506,7 +12104,15 @@
       "slugs": [
         "excavator-33-40t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-216",
@@ -11663,7 +12269,15 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forecast",
+        "label_zh": "预测口径",
+        "label_en": "Forecast basis",
+        "note_zh": "预测值与实际值分开展示；当前实绩未回填前，不作为已实现结果。",
+        "note_en": "Forecast values are shown separately from actuals and are not treated as achieved results until current actuals are backfilled."
+      }
     },
     {
       "id": "slide-217",
@@ -11709,7 +12323,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-218",
@@ -11755,7 +12371,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-219",
@@ -11801,7 +12419,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-220",
@@ -11857,7 +12477,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-221",
@@ -11903,7 +12525,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-222",
@@ -11928,7 +12552,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-223",
@@ -11953,7 +12579,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-224",
@@ -11978,7 +12606,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-225",
@@ -12003,7 +12633,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-226",
@@ -12028,7 +12660,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-227",
@@ -12053,7 +12687,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-228",
@@ -12078,7 +12714,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-229",
@@ -12103,7 +12741,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-230",
@@ -12128,7 +12768,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-231",
@@ -12210,7 +12852,9 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-232",
@@ -12329,7 +12973,15 @@
       "slugs": [
         "excavator-40-60t"
       ],
-      "overview": false
+      "overview": false,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_target",
+        "label_zh": "历史目标",
+        "label_en": "Historical target",
+        "note_zh": "目标年度已过；保留原目标用于复盘，当前实际结果需另行核验。",
+        "note_en": "The target period has passed. The original target is retained for review, while the current actual result requires separate verification."
+      }
     },
     {
       "id": "slide-233",
@@ -12352,7 +13004,15 @@
         "s233-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-234",
@@ -12375,7 +13035,15 @@
         "s234-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-235",
@@ -12402,7 +13070,15 @@
         "s235-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "historical_plan",
+        "label_zh": "历史计划",
+        "label_en": "Historical plan",
+        "note_zh": "原计划节点已过；当前导入、量产或验证状态需按最新项目记录复核。",
+        "note_en": "The original milestone has passed. Current introduction, production or validation status must be checked against the latest program record."
+      }
     },
     {
       "id": "slide-236",
@@ -12425,7 +13101,9 @@
         "s236-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-237",
@@ -12448,7 +13126,9 @@
         "s237-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-238",
@@ -12471,7 +13151,9 @@
         "s238-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-239",
@@ -12494,7 +13176,9 @@
         "s239-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-240",
@@ -12517,7 +13201,9 @@
         "s240-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-241",
@@ -12540,7 +13226,9 @@
         "s241-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     },
     {
       "id": "slide-242",
@@ -12563,7 +13251,15 @@
         "s242-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forward_plan",
+        "label_zh": "规划目标",
+        "label_en": "Planning target",
+        "note_zh": "该内容为规划目标，不代表已经完成；后续以正式项目状态和验证结果为准。",
+        "note_en": "This is a planning target rather than a completed result. Formal program status and validation results remain authoritative."
+      }
     },
     {
       "id": "slide-243",
@@ -12586,7 +13282,15 @@
         "s243-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forward_plan",
+        "label_zh": "规划目标",
+        "label_en": "Planning target",
+        "note_zh": "该内容为规划目标，不代表已经完成；后续以正式项目状态和验证结果为准。",
+        "note_en": "This is a planning target rather than a completed result. Formal program status and validation results remain authoritative."
+      }
     },
     {
       "id": "slide-244",
@@ -12609,7 +13313,15 @@
         "s244-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": {
+        "code": "forward_plan",
+        "label_zh": "规划目标",
+        "label_en": "Planning target",
+        "note_zh": "该内容为规划目标，不代表已经完成；后续以正式项目状态和验证结果为准。",
+        "note_en": "This is a planning target rather than a completed result. Formal program status and validation results remain authoritative."
+      }
     },
     {
       "id": "slide-246",
@@ -12640,7 +13352,9 @@
         "s246-t01"
       ],
       "slugs": [],
-      "overview": true
+      "overview": true,
+      "title_correction": null,
+      "temporal_status": null
     }
   ]
 }

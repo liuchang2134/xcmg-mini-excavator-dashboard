@@ -1,0 +1,4006 @@
+{
+  "meta": {
+    "classification": "XCMG ARC INTERNAL",
+    "source_file": "XCMG_北美挖机产品线洞察_11.14_源文件.pptx",
+    "source_sha256": "4d0cd230eb768230af4119f305edfd49890e2020c5915c11ca4b97c67d56c5d4",
+    "table_sha256": "c8662b4da032ef8acb868977822b4530c83e0e2152365dafd63fbc40c0a622f0",
+    "formal_page_count": 18,
+    "tonnage_page_count": 15
+  },
+  "metrics": {
+    "included_slides": 243,
+    "slide_mapping_placements": 283,
+    "unique_tables": 220,
+    "unique_visuals": 207,
+    "scored_products": 127,
+    "temporal_status_counts": {
+      "forecast": 14,
+      "historical_target": 12,
+      "historical_plan": 13,
+      "forward_plan": 3
+    }
+  },
+  "checks": {
+    "status": "pass",
+    "issue_count": 0,
+    "issues": []
+  },
+  "traceability": [
+    {
+      "slide": 3,
+      "id": "slide-003",
+      "reader_title": "宏观环境分析-Social-社会因素分析",
+      "source_title": "2、核心产品线—履带式挖掘机\n2.1 宏观环境分析-Social-社会因素分析",
+      "section": "environment",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 4,
+      "id": "slide-004",
+      "reader_title": "宏观环境分析--Technological-技术因素分析",
+      "source_title": "2、核心产品线—履带式挖掘机\n2.1宏观环境分析--Technological-技术因素分析",
+      "section": "environment",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 5,
+      "id": "slide-005",
+      "reader_title": "宏观环境分析--Economic-经济因素分析",
+      "source_title": "2、核心产品线—履带式挖掘机\n2.1宏观环境分析--Economic-经济因素分析",
+      "section": "environment",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 6,
+      "id": "slide-006",
+      "reader_title": "宏观环境分析--Environment-环境因素分析",
+      "source_title": "2、核心产品线—履带式挖掘机\n2.1宏观环境分析--Environment-环境因素分析",
+      "section": "environment",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 7,
+      "id": "slide-007",
+      "reader_title": "宏观环境分析--Political-政治因素分析",
+      "source_title": "2、核心产品线—履带式挖掘机\n2.1宏观环境分析--Political-政治因素分析",
+      "section": "environment",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 8,
+      "id": "slide-008",
+      "reader_title": "宏观环境分析—总结",
+      "source_title": "2、核心产品线—履带式挖掘机\n2.1宏观环境分析—总结",
+      "section": "environment",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s008-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 9,
+      "id": "slide-009",
+      "reader_title": "行业分析—行业趋势",
+      "source_title": "2、核心产品线—履带式挖掘机\n2.2 行业分析—行业趋势",
+      "section": "industry",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s009-chart-01.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 10,
+      "id": "slide-010",
+      "reader_title": "行业分析—竞争格局",
+      "source_title": "2、核心产品线—履带式挖掘机\n2.2 行业分析—竞争格局",
+      "section": "industry",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s010-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s010-chart-01.webp",
+        "assets/ppt-source/s010-chart-02.webp",
+        "assets/ppt-source/s010-chart-03.webp",
+        "assets/ppt-source/s010-chart-04.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 11,
+      "id": "slide-011",
+      "reader_title": "行业分析—竞争格局",
+      "source_title": "2、核心产品线—履带式挖掘机\n2.2 行业分析—竞争格局",
+      "section": "industry",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s011-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 12,
+      "id": "slide-012",
+      "reader_title": "各品牌占有率分析及竞争对手锁定",
+      "source_title": "2.3 各品牌占有率分析及竞争对手锁定",
+      "section": "competition",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s012-t01",
+        "s012-t02"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 13,
+      "id": "slide-013",
+      "reader_title": "各品牌占有率分析及标杆品牌锁定",
+      "source_title": "2.3 各品牌占有率分析及标杆品牌锁定",
+      "section": "competition",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s013-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 14,
+      "id": "slide-014",
+      "reader_title": "各品牌占有率分析及标杆品牌锁定",
+      "source_title": "2.3 各品牌占有率分析及标杆品牌锁定",
+      "section": "competition",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s014-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 15,
+      "id": "slide-015",
+      "reader_title": "销售结构分析，识别核心规格产品",
+      "source_title": "2.4 销售结构分析，识别核心规格产品",
+      "section": "class_structure",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s015-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 16,
+      "id": "slide-016",
+      "reader_title": "核心规格产品—1-2吨产品销量分析",
+      "source_title": "2.5 核心规格产品—1-2吨产品销量分析",
+      "section": "market",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s016-chart-01.webp",
+        "assets/ppt-source/s016-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 17,
+      "id": "slide-017",
+      "reader_title": "核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s017-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s017-picture-01.webp",
+        "assets/ppt-source/s017-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 18,
+      "id": "slide-018",
+      "reader_title": "核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s018-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s018-picture-01.webp",
+        "assets/ppt-source/s018-picture-02.webp",
+        "assets/ppt-source/s018-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 19,
+      "id": "slide-019",
+      "reader_title": "核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s019-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s018-picture-01.webp",
+        "assets/ppt-source/s018-picture-02.webp",
+        "assets/ppt-source/s018-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 20,
+      "id": "slide-020",
+      "reader_title": "核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s020-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s020-picture-01.webp",
+        "assets/ppt-source/s020-picture-02.webp",
+        "assets/ppt-source/s020-picture-03.webp",
+        "assets/ppt-source/s020-picture-04.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 21,
+      "id": "slide-021",
+      "reader_title": "核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s021-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s020-picture-01.webp",
+        "assets/ppt-source/s020-picture-02.webp",
+        "assets/ppt-source/s020-picture-03.webp",
+        "assets/ppt-source/s020-picture-04.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 22,
+      "id": "slide-022",
+      "reader_title": "核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s022-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s022-picture-01.webp",
+        "assets/ppt-source/s022-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 23,
+      "id": "slide-023",
+      "reader_title": "核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s023-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s022-picture-01.webp",
+        "assets/ppt-source/s022-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 24,
+      "id": "slide-024",
+      "reader_title": "核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—1-2吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s024-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s024-picture-01.webp",
+        "assets/ppt-source/s024-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 25,
+      "id": "slide-025",
+      "reader_title": "核心规格产品参数及配置对比—1-2吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—1-2吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s025-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 26,
+      "id": "slide-026",
+      "reader_title": "核心规格产品参数及配置对比—1-2吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—1-2吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s026-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 27,
+      "id": "slide-027",
+      "reader_title": "核心规格产品参数及配置对比—1-2吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—1-2吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s027-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 28,
+      "id": "slide-028",
+      "reader_title": "核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s028-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 29,
+      "id": "slide-029",
+      "reader_title": "核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s029-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 30,
+      "id": "slide-030",
+      "reader_title": "核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s030-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 31,
+      "id": "slide-031",
+      "reader_title": "核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s031-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 32,
+      "id": "slide-032",
+      "reader_title": "核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s032-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 33,
+      "id": "slide-033",
+      "reader_title": "核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—1-2吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s033-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s033-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 34,
+      "id": "slide-034",
+      "reader_title": "挖机产品线1-2吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线1-2吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-1-2t.html"
+      ],
+      "table_ids": [
+        "s034-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s034-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 35,
+      "id": "slide-035",
+      "reader_title": "核心规格产品细分市场销量分析—2-3吨产品",
+      "source_title": "2.5 核心规格产品细分市场销量分析—2-3吨产品",
+      "section": "market",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s035-chart-01.webp",
+        "assets/ppt-source/s035-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 36,
+      "id": "slide-036",
+      "reader_title": "核心规格产品适应性分析—2-3吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—2-3吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s036-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s036-picture-01.webp",
+        "assets/ppt-source/s036-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 37,
+      "id": "slide-037",
+      "reader_title": "核心规格产品适应性分析—2-3吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—2-3吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s037-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s037-picture-01.webp",
+        "assets/ppt-source/s022-picture-01.webp",
+        "assets/ppt-source/s037-picture-03.webp"
+      ],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 38,
+      "id": "slide-038",
+      "reader_title": "核心规格产品参数及配置对比—2-3吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—2-3吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s038-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 39,
+      "id": "slide-039",
+      "reader_title": "核心规格产品参数及配置对比—2-3吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—2-3吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s039-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 40,
+      "id": "slide-040",
+      "reader_title": "核心规格产品参数及配置对比—2-3吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—2-3吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s040-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 41,
+      "id": "slide-041",
+      "reader_title": "核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s041-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 42,
+      "id": "slide-042",
+      "reader_title": "核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s042-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 43,
+      "id": "slide-043",
+      "reader_title": "核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s043-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 44,
+      "id": "slide-044",
+      "reader_title": "核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s044-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 45,
+      "id": "slide-045",
+      "reader_title": "核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s045-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 46,
+      "id": "slide-046",
+      "reader_title": "核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—2-3吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s046-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s046-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 47,
+      "id": "slide-047",
+      "reader_title": "挖机产品线2-3吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线2-3吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-2-3t.html"
+      ],
+      "table_ids": [
+        "s047-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s047-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 48,
+      "id": "slide-048",
+      "reader_title": "核心规格产品—3-4吨产品销量分析",
+      "source_title": "2.5 核心规格产品—3-4吨产品销量分析",
+      "section": "market",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s048-chart-01.webp",
+        "assets/ppt-source/s048-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 49,
+      "id": "slide-049",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s049-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s049-picture-01.webp",
+        "assets/ppt-source/s049-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 50,
+      "id": "slide-050",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s050-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s050-picture-01.webp",
+        "assets/ppt-source/s050-picture-02.webp"
+      ],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 51,
+      "id": "slide-051",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s051-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s050-picture-01.webp",
+        "assets/ppt-source/s050-picture-02.webp"
+      ],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 52,
+      "id": "slide-052",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s052-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s052-picture-01.webp",
+        "assets/ppt-source/s052-picture-02.webp",
+        "assets/ppt-source/s052-picture-03.webp"
+      ],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 53,
+      "id": "slide-053",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s053-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s053-picture-01.webp",
+        "assets/ppt-source/s053-picture-02.webp",
+        "assets/ppt-source/s053-picture-03.webp"
+      ],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 54,
+      "id": "slide-054",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s054-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s054-picture-01.webp",
+        "assets/ppt-source/s054-picture-02.webp",
+        "assets/ppt-source/s054-picture-03.webp"
+      ],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 55,
+      "id": "slide-055",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s055-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s055-picture-01.webp",
+        "assets/ppt-source/s055-picture-02.webp",
+        "assets/ppt-source/s055-picture-03.webp"
+      ],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 56,
+      "id": "slide-056",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s056-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s056-picture-01.webp",
+        "assets/ppt-source/s056-picture-02.webp"
+      ],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 57,
+      "id": "slide-057",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s057-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s057-picture-01.webp",
+        "assets/ppt-source/s057-picture-02.webp",
+        "assets/ppt-source/s057-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 58,
+      "id": "slide-058",
+      "reader_title": "核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "source_title": "2.6 核心规格产品适应性分析—3-4吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s058-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s058-picture-01.webp",
+        "assets/ppt-source/s058-picture-02.webp",
+        "assets/ppt-source/s058-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 59,
+      "id": "slide-059",
+      "reader_title": "核心规格产品参数及配置对比—3-4吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—3-4吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s059-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 60,
+      "id": "slide-060",
+      "reader_title": "核心规格产品参数及配置对比—3-4吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—3-4吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s060-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 61,
+      "id": "slide-061",
+      "reader_title": "核心规格产品参数及配置对比—3-4吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—3-4吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s061-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 62,
+      "id": "slide-062",
+      "reader_title": "核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s062-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 63,
+      "id": "slide-063",
+      "reader_title": "核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s063-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 64,
+      "id": "slide-064",
+      "reader_title": "核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s064-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 65,
+      "id": "slide-065",
+      "reader_title": "核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s065-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 66,
+      "id": "slide-066",
+      "reader_title": "核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s066-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 67,
+      "id": "slide-067",
+      "reader_title": "核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—3-4吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s067-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s067-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 68,
+      "id": "slide-068",
+      "reader_title": "挖机产品线3-4吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线3-4吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "index.html"
+      ],
+      "table_ids": [
+        "s068-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s068-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 69,
+      "id": "slide-069",
+      "reader_title": "核心规格产品—4-5吨产品销量分析",
+      "source_title": "2.5 核心规格产品—4-5吨产品销量分析",
+      "section": "market",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s069-chart-01.webp",
+        "assets/ppt-source/s069-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 70,
+      "id": "slide-070",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s070-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s070-picture-01.webp",
+        "assets/ppt-source/s070-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 71,
+      "id": "slide-071",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s071-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s071-picture-01.webp",
+        "assets/ppt-source/s071-picture-02.webp",
+        "assets/ppt-source/s071-picture-03.webp",
+        "assets/ppt-source/s071-picture-04.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 72,
+      "id": "slide-072",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s072-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s072-picture-01.webp",
+        "assets/ppt-source/s072-picture-02.webp",
+        "assets/ppt-source/s072-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 73,
+      "id": "slide-073",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s073-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s073-picture-01.webp",
+        "assets/ppt-source/s073-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 74,
+      "id": "slide-074",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s074-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s074-picture-01.webp",
+        "assets/ppt-source/s074-picture-02.webp",
+        "assets/ppt-source/s074-picture-03.webp",
+        "assets/ppt-source/s074-picture-04.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 75,
+      "id": "slide-075",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s075-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s075-picture-01.webp",
+        "assets/ppt-source/s075-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 76,
+      "id": "slide-076",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s076-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s076-picture-01.webp",
+        "assets/ppt-source/s076-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 77,
+      "id": "slide-077",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s077-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s077-picture-01.webp",
+        "assets/ppt-source/s077-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 78,
+      "id": "slide-078",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s078-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s078-picture-01.webp",
+        "assets/ppt-source/s078-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 79,
+      "id": "slide-079",
+      "reader_title": "核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—4-5吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s079-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s079-picture-01.webp",
+        "assets/ppt-source/s079-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 80,
+      "id": "slide-080",
+      "reader_title": "核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s080-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 81,
+      "id": "slide-081",
+      "reader_title": "核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s081-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 82,
+      "id": "slide-082",
+      "reader_title": "核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s082-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 83,
+      "id": "slide-083",
+      "reader_title": "核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s083-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 84,
+      "id": "slide-084",
+      "reader_title": "核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s084-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 85,
+      "id": "slide-085",
+      "reader_title": "核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s085-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 86,
+      "id": "slide-086",
+      "reader_title": "核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s086-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 87,
+      "id": "slide-087",
+      "reader_title": "核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s087-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 88,
+      "id": "slide-088",
+      "reader_title": "核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—4-5吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s088-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s088-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 89,
+      "id": "slide-089",
+      "reader_title": "挖机产品线4-5吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线4-5吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-4-5t.html"
+      ],
+      "table_ids": [
+        "s089-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s089-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 90,
+      "id": "slide-090",
+      "reader_title": "核心规格产品—5-6吨产品销量分析",
+      "source_title": "2.5 核心规格产品—5-6吨产品销量分析",
+      "section": "market",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s090-chart-01.webp",
+        "assets/ppt-source/s090-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 91,
+      "id": "slide-091",
+      "reader_title": "核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s091-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s070-picture-01.webp",
+        "assets/ppt-source/s070-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 92,
+      "id": "slide-092",
+      "reader_title": "核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s092-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s092-picture-01.webp",
+        "assets/ppt-source/s092-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 93,
+      "id": "slide-093",
+      "reader_title": "核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s093-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s093-picture-01.webp",
+        "assets/ppt-source/s093-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 94,
+      "id": "slide-094",
+      "reader_title": "核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s094-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s094-picture-01.webp",
+        "assets/ppt-source/s094-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 95,
+      "id": "slide-095",
+      "reader_title": "核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s095-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s095-picture-01.webp",
+        "assets/ppt-source/s095-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 96,
+      "id": "slide-096",
+      "reader_title": "核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s096-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s096-picture-01.webp",
+        "assets/ppt-source/s096-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 97,
+      "id": "slide-097",
+      "reader_title": "核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s097-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s097-picture-01.webp",
+        "assets/ppt-source/s097-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 98,
+      "id": "slide-098",
+      "reader_title": "核心规格产品参数及配置对比—5-6吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—5-6吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s098-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 99,
+      "id": "slide-099",
+      "reader_title": "核心规格产品参数及配置对比—5-6吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—5-6吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s099-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 100,
+      "id": "slide-100",
+      "reader_title": "核心规格产品参数及配置对比—5-6吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—5-6吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s100-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 101,
+      "id": "slide-101",
+      "reader_title": "核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s101-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 102,
+      "id": "slide-102",
+      "reader_title": "核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s102-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 103,
+      "id": "slide-103",
+      "reader_title": "核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s103-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 104,
+      "id": "slide-104",
+      "reader_title": "核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s104-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 105,
+      "id": "slide-105",
+      "reader_title": "核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s105-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 106,
+      "id": "slide-106",
+      "reader_title": "核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—5-6吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s106-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s106-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 107,
+      "id": "slide-107",
+      "reader_title": "挖机产品线5-6吨产品段产品定位和占有率目标",
+      "source_title": "2.5 挖机产品线5-6吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-5-6t.html"
+      ],
+      "table_ids": [
+        "s107-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s107-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 108,
+      "id": "slide-108",
+      "reader_title": "核心规格产品细分市场销量分析—8-10吨产品",
+      "source_title": "2.5 核心规格产品细分市场销量分析—8-10吨产品",
+      "section": "market",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s108-chart-01.webp",
+        "assets/ppt-source/s108-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 109,
+      "id": "slide-109",
+      "reader_title": "核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s109-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s109-picture-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 110,
+      "id": "slide-110",
+      "reader_title": "核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s110-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s110-picture-01.webp",
+        "assets/ppt-source/s110-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 111,
+      "id": "slide-111",
+      "reader_title": "核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s111-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s111-picture-01.webp",
+        "assets/ppt-source/s111-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 112,
+      "id": "slide-112",
+      "reader_title": "核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s112-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s112-picture-01.webp",
+        "assets/ppt-source/s112-picture-02.webp",
+        "assets/ppt-source/s112-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 113,
+      "id": "slide-113",
+      "reader_title": "核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s113-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s113-picture-01.webp",
+        "assets/ppt-source/s113-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 114,
+      "id": "slide-114",
+      "reader_title": "核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s114-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s114-picture-01.webp",
+        "assets/ppt-source/s114-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 115,
+      "id": "slide-115",
+      "reader_title": "核心规格产品适应性分析—8-10吨徐工VS久保田",
+      "source_title": "2.7 核心规格产品适应性分析—5-6吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s115-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s115-picture-01.webp",
+        "assets/ppt-source/s115-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 116,
+      "id": "slide-116",
+      "reader_title": "核心规格产品参数及配置对比—8-10吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—8-10吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s116-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 117,
+      "id": "slide-117",
+      "reader_title": "核心规格产品参数及配置对比—8-10吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—8-10吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s117-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 118,
+      "id": "slide-118",
+      "reader_title": "核心规格产品参数及配置对比—8-10吨徐工VS久保田VS三一",
+      "source_title": "2.5 核心规格产品参数及配置对比—8-10吨徐工VS久保田VS三一",
+      "section": "comparison",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s118-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 119,
+      "id": "slide-119",
+      "reader_title": "核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s119-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 120,
+      "id": "slide-120",
+      "reader_title": "核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s120-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 121,
+      "id": "slide-121",
+      "reader_title": "核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s121-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 122,
+      "id": "slide-122",
+      "reader_title": "核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s122-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 123,
+      "id": "slide-123",
+      "reader_title": "核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s123-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 124,
+      "id": "slide-124",
+      "reader_title": "核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品参数及配置对比—8-10吨徐工VS久保田",
+      "section": "comparison",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s124-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s124-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 125,
+      "id": "slide-125",
+      "reader_title": "挖机产品线 8-10吨产品段产品定位和占有率目标",
+      "source_title": "2.5 挖机产品线 8-10吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-8-10t.html"
+      ],
+      "table_ids": [
+        "s125-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s125-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 126,
+      "id": "slide-126",
+      "reader_title": "核心规格产品细分市场销量分析—12-14吨产品",
+      "source_title": "2.5 核心规格产品细分市场销量分析—12-14吨产品",
+      "section": "market",
+      "targets": [
+        "excavator-12-14t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s126-chart-01.webp",
+        "assets/ppt-source/s126-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 127,
+      "id": "slide-127",
+      "reader_title": "核心规格产品细分市场销量分析—14-16吨产品",
+      "source_title": "2.5 核心规格产品细分市场销量分析—14-16吨产品",
+      "section": "market",
+      "targets": [
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s127-chart-01.webp",
+        "assets/ppt-source/s127-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 128,
+      "id": "slide-128",
+      "reader_title": "核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s128-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 129,
+      "id": "slide-129",
+      "reader_title": "核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s129-picture-01.webp",
+        "assets/ppt-source/s129-picture-02.webp",
+        "assets/ppt-source/s129-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 130,
+      "id": "slide-130",
+      "reader_title": "核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s130-picture-01.webp",
+        "assets/ppt-source/s130-picture-02.webp",
+        "assets/ppt-source/s130-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 131,
+      "id": "slide-131",
+      "reader_title": "核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s131-picture-01.webp",
+        "assets/ppt-source/s131-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 132,
+      "id": "slide-132",
+      "reader_title": "核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—12-16吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s132-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s132-picture-01.webp",
+        "assets/ppt-source/s132-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 133,
+      "id": "slide-133",
+      "reader_title": "核心规格产品适应性分析—12-16吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—12-16吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s133-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s133-picture-01.webp",
+        "assets/ppt-source/s133-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 134,
+      "id": "slide-134",
+      "reader_title": "核心规格产品适应性分析—12-16吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—12-16吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s134-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s134-picture-01.webp",
+        "assets/ppt-source/s134-picture-02.webp",
+        "assets/ppt-source/s134-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 135,
+      "id": "slide-135",
+      "reader_title": "核心规格产品适应性分析—12-16吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—12-16吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s135-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s135-picture-01.webp",
+        "assets/ppt-source/s135-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 136,
+      "id": "slide-136",
+      "reader_title": "核心规格产品适应性分析—12-16吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—12-16吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s136-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s136-picture-01.webp",
+        "assets/ppt-source/s136-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 137,
+      "id": "slide-137",
+      "reader_title": "核心规格产品参数及配置对比—12-14吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-14吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html"
+      ],
+      "table_ids": [
+        "s137-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 138,
+      "id": "slide-138",
+      "reader_title": "核心规格产品参数及配置对比—12-14吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-14吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html"
+      ],
+      "table_ids": [
+        "s138-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 139,
+      "id": "slide-139",
+      "reader_title": "核心规格产品参数及配置对比—12-14吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-14吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html"
+      ],
+      "table_ids": [
+        "s139-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 140,
+      "id": "slide-140",
+      "reader_title": "核心规格产品参数及配置对比—12-14吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-14吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html"
+      ],
+      "table_ids": [
+        "s140-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 141,
+      "id": "slide-141",
+      "reader_title": "核心规格产品参数及配置对比—14-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—14-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s141-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 142,
+      "id": "slide-142",
+      "reader_title": "核心规格产品参数及配置对比—14-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—14-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s142-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 143,
+      "id": "slide-143",
+      "reader_title": "核心规格产品参数及配置对比—14-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—14-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s143-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 144,
+      "id": "slide-144",
+      "reader_title": "核心规格产品参数及配置对比—14-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—14-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s144-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 145,
+      "id": "slide-145",
+      "reader_title": "核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s145-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 146,
+      "id": "slide-146",
+      "reader_title": "核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s146-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 147,
+      "id": "slide-147",
+      "reader_title": "核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s147-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 148,
+      "id": "slide-148",
+      "reader_title": "核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s148-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 149,
+      "id": "slide-149",
+      "reader_title": "核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s149-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 150,
+      "id": "slide-150",
+      "reader_title": "核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—12-16吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s150-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s150-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 151,
+      "id": "slide-151",
+      "reader_title": "挖机产品线 12-16吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线 12-16吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-12-14t.html",
+        "excavator-14-16t-short-tail.html"
+      ],
+      "table_ids": [
+        "s151-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s151-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 152,
+      "id": "slide-152",
+      "reader_title": "核心规格产品细分市场销量分析—19-24吨产品",
+      "source_title": "2.5 核心规格产品细分市场销量分析—19-24吨产品",
+      "section": "market",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s152-chart-01.webp",
+        "assets/ppt-source/s152-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 153,
+      "id": "slide-153",
+      "reader_title": "核心规格产品适应性分析—19-24吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—19-24吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s153-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s153-picture-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 154,
+      "id": "slide-154",
+      "reader_title": "核心规格产品适应性分析—19-24吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—19-24吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s154-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s154-picture-01.webp",
+        "assets/ppt-source/s154-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 155,
+      "id": "slide-155",
+      "reader_title": "核心规格产品适应性分析—19-24吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—19-24吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s155-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s155-picture-01.webp",
+        "assets/ppt-source/s155-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 156,
+      "id": "slide-156",
+      "reader_title": "核心规格产品适应性分析—19-24吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—19-24吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s156-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s156-picture-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 157,
+      "id": "slide-157",
+      "reader_title": "核心规格产品适应性分析—19-24吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—19-24吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s157-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s157-picture-01.webp",
+        "assets/ppt-source/s157-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 158,
+      "id": "slide-158",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s158-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 159,
+      "id": "slide-159",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s159-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 160,
+      "id": "slide-160",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s160-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 161,
+      "id": "slide-161",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s161-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 162,
+      "id": "slide-162",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s162-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 163,
+      "id": "slide-163",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s163-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 164,
+      "id": "slide-164",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s164-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 165,
+      "id": "slide-165",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s165-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 166,
+      "id": "slide-166",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s166-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 167,
+      "id": "slide-167",
+      "reader_title": "核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—19-24吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s167-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s167-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 168,
+      "id": "slide-168",
+      "reader_title": "挖机产品线 19-24吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线 19-24吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-21-24t.html"
+      ],
+      "table_ids": [
+        "s168-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s168-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 169,
+      "id": "slide-169",
+      "reader_title": "核心规格产品细分市场销量分析—24-28吨产品",
+      "source_title": "2.5 核心规格产品细分市场销量分析—24-28吨产品",
+      "section": "market",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s169-chart-01.webp",
+        "assets/ppt-source/s169-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 170,
+      "id": "slide-170",
+      "reader_title": "核心规格产品细分市场销量分析—28-33吨产品",
+      "source_title": "2.5 核心规格产品细分市场销量分析—28-33吨产品",
+      "section": "market",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s170-chart-01.webp",
+        "assets/ppt-source/s170-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 171,
+      "id": "slide-171",
+      "reader_title": "核心规格产品适应性分析—24-33吨徐工VS久保田",
+      "source_title": "2.5 核心规格产品适应性分析—24-33吨徐工VS久保田",
+      "section": "applications",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html",
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s171-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s153-picture-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 172,
+      "id": "slide-172",
+      "reader_title": "核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html",
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s172-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s172-picture-01.webp",
+        "assets/ppt-source/s172-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 173,
+      "id": "slide-173",
+      "reader_title": "核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html",
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s173-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s173-picture-01.webp",
+        "assets/ppt-source/s173-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 174,
+      "id": "slide-174",
+      "reader_title": "核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html",
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s174-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s174-picture-01.webp",
+        "assets/ppt-source/s174-picture-02.webp",
+        "assets/ppt-source/s174-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 175,
+      "id": "slide-175",
+      "reader_title": "核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html",
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s175-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s175-picture-01.webp",
+        "assets/ppt-source/s175-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 176,
+      "id": "slide-176",
+      "reader_title": "核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—24-33吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html",
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s176-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s176-picture-01.webp",
+        "assets/ppt-source/s176-picture-02.webp"
+      ],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 177,
+      "id": "slide-177",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s177-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 178,
+      "id": "slide-178",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s178-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 179,
+      "id": "slide-179",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s179-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 180,
+      "id": "slide-180",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s180-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 181,
+      "id": "slide-181",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s181-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 182,
+      "id": "slide-182",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s182-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 183,
+      "id": "slide-183",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s183-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 184,
+      "id": "slide-184",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s184-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 185,
+      "id": "slide-185",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s185-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 186,
+      "id": "slide-186",
+      "reader_title": "核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—24-28吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s186-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s186-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 187,
+      "id": "slide-187",
+      "reader_title": "挖机产品线 24-28吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线 24-28吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-24-28t.html",
+        "excavator-24-28t-short-tail.html"
+      ],
+      "table_ids": [
+        "s187-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s187-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 188,
+      "id": "slide-188",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s188-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 189,
+      "id": "slide-189",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s189-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 190,
+      "id": "slide-190",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s190-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 191,
+      "id": "slide-191",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s191-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 192,
+      "id": "slide-192",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s192-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 193,
+      "id": "slide-193",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s193-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 194,
+      "id": "slide-194",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s194-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 195,
+      "id": "slide-195",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s195-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 196,
+      "id": "slide-196",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s196-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 197,
+      "id": "slide-197",
+      "reader_title": "核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—28-33吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s197-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s197-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 198,
+      "id": "slide-198",
+      "reader_title": "挖机产品线 28-33吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线 28-33吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-28-33t.html"
+      ],
+      "table_ids": [
+        "s198-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s198-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 199,
+      "id": "slide-199",
+      "reader_title": "核心规格产品细分市场销量分析—33-40吨产品",
+      "source_title": "2.5 核心规格产品细分市场销量分析—33-40吨产品",
+      "section": "market",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s199-chart-01.webp",
+        "assets/ppt-source/s199-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 200,
+      "id": "slide-200",
+      "reader_title": "核心规格产品适应性分析—33-40吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—33-40吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s200-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s200-picture-01.webp",
+        "assets/ppt-source/s200-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 201,
+      "id": "slide-201",
+      "reader_title": "核心规格产品适应性分析—33-40吨徐工VS卡特",
+      "source_title": "2.7 核心规格产品适应性分析—33-40吨徐工VS卡特",
+      "section": "applications",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s201-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s201-picture-01.webp",
+        "assets/ppt-source/s201-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 202,
+      "id": "slide-202",
+      "reader_title": "核心规格产品适应性分析—33-40吨徐工VS卡特",
+      "source_title": "2.7 核心规格产品适应性分析—33-40吨徐工VS卡特",
+      "section": "applications",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s202-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s202-picture-01.webp",
+        "assets/ppt-source/s202-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 203,
+      "id": "slide-203",
+      "reader_title": "核心规格产品适应性分析—33-40吨徐工VS卡特",
+      "source_title": "2.7 核心规格产品适应性分析—33-40吨徐工VS卡特",
+      "section": "applications",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s203-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s203-picture-01.webp",
+        "assets/ppt-source/s203-picture-02.webp",
+        "assets/ppt-source/s203-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 204,
+      "id": "slide-204",
+      "reader_title": "核心规格产品适应性分析—33-40吨徐工VS卡特",
+      "source_title": "2.7 核心规格产品适应性分析—33-40吨徐工VS卡特",
+      "section": "applications",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s204-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s204-picture-01.webp",
+        "assets/ppt-source/s204-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 205,
+      "id": "slide-205",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s205-t01"
+      ],
+      "visuals": [],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 206,
+      "id": "slide-206",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s206-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 207,
+      "id": "slide-207",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s207-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 208,
+      "id": "slide-208",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s208-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 209,
+      "id": "slide-209",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s209-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 210,
+      "id": "slide-210",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s210-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 211,
+      "id": "slide-211",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s211-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 212,
+      "id": "slide-212",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s212-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 213,
+      "id": "slide-213",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s213-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 214,
+      "id": "slide-214",
+      "reader_title": "核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—33-40吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s214-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s214-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 215,
+      "id": "slide-215",
+      "reader_title": "挖机产品线 33-40吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线 33-40吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-33-40t.html"
+      ],
+      "table_ids": [
+        "s215-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s215-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 216,
+      "id": "slide-216",
+      "reader_title": "核心规格产品细分市场销量分析—40-60吨产品",
+      "source_title": "2.5 核心规格产品细分市场销量分析—40-60吨产品",
+      "section": "market",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [],
+      "visuals": [
+        "assets/ppt-source/s216-chart-01.webp",
+        "assets/ppt-source/s216-chart-02.webp"
+      ],
+      "temporal_status": "forecast"
+    },
+    {
+      "slide": 217,
+      "id": "slide-217",
+      "reader_title": "核心规格产品适应性分析—40-60吨徐工VS卡特彼勒",
+      "source_title": "2.5 核心规格产品适应性分析—40-60吨徐工VS卡特彼勒",
+      "section": "applications",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s217-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s200-picture-01.webp",
+        "assets/ppt-source/s200-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 218,
+      "id": "slide-218",
+      "reader_title": "核心规格产品适应性分析—40-60吨徐工VS卡特",
+      "source_title": "2.7 核心规格产品适应性分析—40-60吨徐工VS卡特",
+      "section": "applications",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s218-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s218-picture-01.webp",
+        "assets/ppt-source/s218-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 219,
+      "id": "slide-219",
+      "reader_title": "核心规格产品适应性分析—40-60吨徐工VS卡特",
+      "source_title": "2.7 核心规格产品适应性分析—40-60吨徐工VS卡特",
+      "section": "applications",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s219-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s219-picture-01.webp",
+        "assets/ppt-source/s219-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 220,
+      "id": "slide-220",
+      "reader_title": "核心规格产品适应性分析—40-60吨徐工VS卡特",
+      "source_title": "2.7 核心规格产品适应性分析—40-60吨徐工VS卡特",
+      "section": "applications",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s220-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s220-picture-01.webp",
+        "assets/ppt-source/s220-picture-02.webp",
+        "assets/ppt-source/s220-picture-03.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 221,
+      "id": "slide-221",
+      "reader_title": "核心规格产品适应性分析—40-60吨徐工VS卡特",
+      "source_title": "2.7 核心规格产品适应性分析—40-60吨徐工VS卡特",
+      "section": "applications",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s221-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s221-picture-01.webp",
+        "assets/ppt-source/s221-picture-02.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 222,
+      "id": "slide-222",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s222-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 223,
+      "id": "slide-223",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s223-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 224,
+      "id": "slide-224",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s224-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 225,
+      "id": "slide-225",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s225-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 226,
+      "id": "slide-226",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s226-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 227,
+      "id": "slide-227",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s227-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 228,
+      "id": "slide-228",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s228-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 229,
+      "id": "slide-229",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s229-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 230,
+      "id": "slide-230",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s230-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 231,
+      "id": "slide-231",
+      "reader_title": "核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "source_title": "2.5 核心规格产品参数及配置对比—40-60吨徐工VS卡特",
+      "section": "comparison",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s231-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s231-chart-01.webp"
+      ],
+      "temporal_status": null
+    },
+    {
+      "slide": 232,
+      "id": "slide-232",
+      "reader_title": "挖机产品线 40-60吨产品段产品定位和占有率目标",
+      "source_title": "2.7 挖机产品线 40-60吨产品段产品定位和占有率目标",
+      "section": "positioning",
+      "targets": [
+        "excavator-40-60t.html"
+      ],
+      "table_ids": [
+        "s232-t01"
+      ],
+      "visuals": [
+        "assets/ppt-source/s232-chart-01.webp"
+      ],
+      "temporal_status": "historical_target"
+    },
+    {
+      "slide": 233,
+      "id": "slide-233",
+      "reader_title": "微小挖对标久保田—可售型谱对比",
+      "source_title": "2.8 微小挖对标久保田—可售型谱对比",
+      "section": "portfolio",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s233-t01"
+      ],
+      "visuals": [],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 234,
+      "id": "slide-234",
+      "reader_title": "中大挖对标卡特—可售型谱对比",
+      "source_title": "2.8 中大挖对标卡特—可售型谱对比",
+      "section": "portfolio",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s234-t01"
+      ],
+      "visuals": [],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 235,
+      "id": "slide-235",
+      "reader_title": "挖机产品线竞争力提升举措",
+      "source_title": "2.9 挖机产品线竞争力提升举措",
+      "section": "roadmap",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s235-t01"
+      ],
+      "visuals": [],
+      "temporal_status": "historical_plan"
+    },
+    {
+      "slide": 236,
+      "id": "slide-236",
+      "reader_title": "挖机产品线竞争力提升举措",
+      "source_title": "2.9 挖机产品线竞争力提升举措",
+      "section": "roadmap",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s236-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 237,
+      "id": "slide-237",
+      "reader_title": "挖机产品线竞争力提升举措",
+      "source_title": "2.9 挖机产品线竞争力提升举措",
+      "section": "roadmap",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s237-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 238,
+      "id": "slide-238",
+      "reader_title": "挖机产品线竞争力提升举措",
+      "source_title": "2.9 挖机产品线竞争力提升举措",
+      "section": "roadmap",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s238-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 239,
+      "id": "slide-239",
+      "reader_title": "挖机产品线竞争力提升举措",
+      "source_title": "2.9 挖机产品线竞争力提升举措",
+      "section": "roadmap",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s239-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 240,
+      "id": "slide-240",
+      "reader_title": "挖机产品线竞争力提升举措",
+      "source_title": "2.9 挖机产品线竞争力提升举措",
+      "section": "roadmap",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s240-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 241,
+      "id": "slide-241",
+      "reader_title": "挖机产品线竞争力提升举措",
+      "source_title": "2.9 挖机产品线竞争力提升举措",
+      "section": "roadmap",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s241-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    },
+    {
+      "slide": 242,
+      "id": "slide-242",
+      "reader_title": "未来三年徐工销售产品型谱——液压挖掘机",
+      "source_title": "2、核心产品线—挖掘机\n2.7 未来三年徐工销售产品型谱——液压挖掘机",
+      "section": "portfolio",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s242-t01"
+      ],
+      "visuals": [],
+      "temporal_status": "forward_plan"
+    },
+    {
+      "slide": 243,
+      "id": "slide-243",
+      "reader_title": "未来三年徐工销售产品型谱——液压挖掘机",
+      "source_title": "2、核心产品线—挖掘机\n2.7 未来三年徐工销售产品型谱——液压挖掘机",
+      "section": "portfolio",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s243-t01"
+      ],
+      "visuals": [],
+      "temporal_status": "forward_plan"
+    },
+    {
+      "slide": 244,
+      "id": "slide-244",
+      "reader_title": "未来三年产品销售目标",
+      "source_title": "2.10 未来三年产品销售目标",
+      "section": "sales_plan",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s244-t01"
+      ],
+      "visuals": [],
+      "temporal_status": "forward_plan"
+    },
+    {
+      "slide": 246,
+      "id": "slide-246",
+      "reader_title": "、市场洞察资源及信息渠道",
+      "source_title": "2、市场洞察资源及信息渠道",
+      "section": "intelligence",
+      "targets": [
+        "excavator-market-overview.html"
+      ],
+      "table_ids": [
+        "s246-t01"
+      ],
+      "visuals": [],
+      "temporal_status": null
+    }
+  ]
+}

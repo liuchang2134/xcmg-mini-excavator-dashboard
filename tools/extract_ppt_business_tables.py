@@ -5,6 +5,11 @@ from pathlib import Path
 
 from pptx import Presentation
 
+try:
+    from tools.ppt_scope import OVERVIEW_SLIDES, display_title, slugs_for_slide
+except ModuleNotFoundError:
+    from ppt_scope import OVERVIEW_SLIDES, display_title, slugs_for_slide
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PPTX_PATH = (
@@ -22,37 +27,6 @@ NAVIGATION_LABELS = {
     "核心性能",
     "产品定位",
 }
-
-# A shared chapter is intentionally mapped to both formal pages when the source
-# evaluates the two machine classes together.
-SLUG_SLIDE_RANGES = {
-    "excavator-1-2t": [(16, 34)],
-    "excavator-2-3t": [(35, 47)],
-    "excavator-35t": [(48, 68)],
-    "excavator-4-5t": [(69, 89)],
-    "excavator-5-6t": [(90, 107)],
-    "excavator-8-10t": [(108, 125)],
-    "excavator-12-14t": [(126, 151)],
-    "excavator-14-16t-short-tail": [(126, 151)],
-    "excavator-21-24t": [(152, 168)],
-    "excavator-24-28t": [(169, 187)],
-    "excavator-24-28t-short-tail": [(169, 187)],
-    "excavator-28-33t": [(169, 177), (188, 198)],
-    "excavator-33-40t": [(199, 215)],
-    "excavator-40-60t": [(216, 232)],
-}
-
-OVERVIEW_SLIDES = {
-    *range(3, 16),
-    8,
-    10,
-    12,
-    13,
-    14,
-    *range(233, 245),
-    246,
-}
-
 
 def normalize_text(value):
     value = (value or "").replace("\r", "\n")
@@ -166,14 +140,6 @@ def classify_role(title, slide_number):
     return "field_evaluation"
 
 
-def slugs_for_slide(slide_number):
-    slugs = []
-    for slug, ranges in SLUG_SLIDE_RANGES.items():
-        if any(start <= slide_number <= end for start, end in ranges):
-            slugs.append(slug)
-    return slugs
-
-
 def table_heading(title, table_index, table_count):
     title = normalize_text(title)
     if table_count <= 1:
@@ -194,7 +160,8 @@ def extract():
             continue
 
         texts = slide_texts(slide)
-        title = choose_slide_title(texts, slide_number)
+        source_title = choose_slide_title(texts, slide_number)
+        title = display_title(slide_number, source_title)
         table_shapes = [
             shape for shape in slide.shapes if getattr(shape, "has_table", False)
         ]
@@ -220,6 +187,15 @@ def extract():
                     "slide": slide_number,
                     "table_index": table_index,
                     "title": table_heading(title, table_index, len(accepted)),
+                    "source_title_zh": source_title,
+                    "title_correction": (
+                        {
+                            "status": "corrected_source_heading",
+                            "reason": "Source heading conflicts with the table tonnage, models and chapter context.",
+                        }
+                        if title != source_title
+                        else None
+                    ),
                     "role": classify_role(title, slide_number),
                     "rows": len(rows),
                     "columns": width,

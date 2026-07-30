@@ -109,6 +109,10 @@ function setupPageNavigation(){
   const tracked=navLinks.map(link=>({link,section:document.querySelector(link.getAttribute('href'))})).filter(item=>item.section);
   const initialHash=window.location.hash;
   let restoreHashEnabled=Boolean(initialHash&&initialHash!=='#');
+  let hashRestoreTimer=0;
+  let hashRestoreAttempts=0;
+  let hashRestoreStableRounds=0;
+  const hashRestoreStarted=window.performance.now();
   const navigationOffset=()=>window.matchMedia('(max-width:900px)').matches
     ? (document.querySelector('aside.nav')?.getBoundingClientRect().height||0)+8
     : 16;
@@ -120,6 +124,14 @@ function setupPageNavigation(){
       window.history.replaceState(window.history.state,'',url.pathname+url.search+url.hash);
     }
     const top=Math.max(0,window.scrollY+section.getBoundingClientRect().top-navigationOffset());
+    if(behavior==='auto'){
+      const scrollingElement=document.scrollingElement||document.documentElement;
+      const previousBehavior=scrollingElement.style.scrollBehavior;
+      scrollingElement.style.scrollBehavior='auto';
+      scrollingElement.scrollTop=top;
+      window.requestAnimationFrame(()=>{scrollingElement.style.scrollBehavior=previousBehavior;});
+      return;
+    }
     window.scrollTo({top,behavior});
   };
   navLinks.forEach(link=>link.addEventListener('click',event=>{
@@ -129,6 +141,7 @@ function setupPageNavigation(){
     if(!section) return;
     event.preventDefault();
     restoreHashEnabled=false;
+    window.clearTimeout(hashRestoreTimer);
     navLinks.forEach(item=>item.classList.toggle('active',item===link));
     scrollToSection(section,hash,window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',true);
   }));
@@ -136,7 +149,9 @@ function setupPageNavigation(){
   const updateActiveNav=()=>{
     navTicking=false;
     if(!tracked.length) return;
-    const offset=window.matchMedia('(max-width:900px)').matches?92:120;
+    const offset=window.matchMedia('(max-width:900px)').matches
+      ? navigationOffset()+24
+      : 120;
     let active=tracked[0];
     tracked.forEach(item=>{if(item.section.getBoundingClientRect().top<=offset) active=item;});
     navLinks.forEach(link=>link.classList.toggle('active',link===active.link));
@@ -159,16 +174,36 @@ function setupPageNavigation(){
     const hash=initialHash;
     if(!hash||hash==='#') return;
     const section=document.querySelector(hash);
-    if(section) scrollToSection(section,hash,'auto',false);
+    if(!section) return;
+    hashRestoreAttempts+=1;
+    scrollToSection(section,hash,'auto',false);
+    window.requestAnimationFrame(()=>{
+      const delta=Math.abs(section.getBoundingClientRect().top-navigationOffset());
+      hashRestoreStableRounds=delta<=3?hashRestoreStableRounds+1:0;
+      scheduleActiveNav();
+      const minimumWindowElapsed=window.performance.now()-hashRestoreStarted>=2600;
+      const stable=hashRestoreStableRounds>=2&&document.readyState==='complete'&&minimumWindowElapsed;
+      if(stable||hashRestoreAttempts>=32){
+        restoreHashEnabled=false;
+        window.clearTimeout(hashRestoreTimer);
+        return;
+      }
+      window.clearTimeout(hashRestoreTimer);
+      hashRestoreTimer=window.setTimeout(restoreHash,250);
+    });
   };
-  const cancelHashRestore=()=>{restoreHashEnabled=false;};
+  const cancelHashRestore=event=>{
+    if(event?.target?.closest?.('aside.nav')) return;
+    restoreHashEnabled=false;
+    window.clearTimeout(hashRestoreTimer);
+  };
   window.addEventListener('wheel',cancelHashRestore,{passive:true,once:true});
   window.addEventListener('touchstart',cancelHashRestore,{passive:true,once:true});
   window.addEventListener('pointerdown',cancelHashRestore,{passive:true,once:true});
   window.addEventListener('keydown',cancelHashRestore,{once:true});
   window.addEventListener('load',restoreHash,{once:true});
   document.addEventListener('xcmg:i18n-rendered',restoreHash);
-  [0,250,900,1600,2600].forEach(delay=>window.setTimeout(restoreHash,delay));
+  hashRestoreTimer=window.setTimeout(restoreHash,0);
   const backTop=document.querySelector('.backTop');
   if(backTop){
     const update=()=>backTop.classList.toggle('show',window.scrollY>640);

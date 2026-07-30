@@ -22,6 +22,10 @@ from tools.build_excavator_dashboards import (
     option_score,
     parse_metric_value,
 )
+from tools.ppt_scope import (
+    DISPLAY_TITLE_OVERRIDES,
+    SLUG_ALLOWED_TONNAGE_LABELS,
+)
 from tools.render_ppt_charts import nice_ceiling
 from tools.translate_ppt_insights import decode_json_object
 
@@ -230,6 +234,7 @@ class DashboardModelTests(unittest.TestCase):
 
         self.assertEqual(nice_ceiling(2138 * 1.08), 2500)
         self.assertEqual(nice_ceiling(718 * 1.08), 800)
+        self.assertEqual(nice_ceiling(565 * 1.08), 700)
         self.assertIn(
             "grid-template-columns:clamp(216px,16vw,252px) minmax(0,1fr)",
             dashboard_css,
@@ -323,6 +328,54 @@ class DashboardModelTests(unittest.TestCase):
                     html.count('data-source-slide="'),
                     len(payload["by_slug"][meta["slug"]]),
                 )
+
+    def test_class_specific_ppt_slides_do_not_leak_into_other_tonnage_pages(self):
+        source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
+        table_path = ROOT / "data" / "ppt-insights" / "ppt-business-tables.json"
+        source = json.loads(source_path.read_text(encoding="utf-8"))
+        tables = json.loads(table_path.read_text(encoding="utf-8"))
+        slides = {record["id"]: record for record in source["slides"]}
+
+        for slug, slide_ids in source["by_slug"].items():
+            allowed = SLUG_ALLOWED_TONNAGE_LABELS[slug]
+            for slide_id in slide_ids:
+                record = slides[slide_id]
+                labels = {
+                    re.sub(r"\s", "", value).replace("~", "-").replace("至", "-")
+                    for value in re.findall(
+                        r"\d+\s*[-~至]\s*\d+",
+                        record["title"]["zh"],
+                    )
+                }
+                if labels:
+                    with self.subTest(slug=slug, slide=record["slide"]):
+                        self.assertTrue(
+                            labels & allowed,
+                            f'{record["title"]["zh"]} is not valid for {slug}',
+                        )
+
+        slide_115 = slides["slide-115"]
+        self.assertEqual(
+            slide_115["title"]["zh"],
+            "核心规格产品适应性分析—8-10吨徐工VS久保田",
+        )
+        self.assertEqual(
+            slide_115["source_title_zh"],
+            "2.7 核心规格产品适应性分析—5-6吨徐工VS久保田",
+        )
+        self.assertEqual(
+            slide_115["title_correction"]["status"],
+            "corrected_source_heading",
+        )
+        self.assertEqual(DISPLAY_TITLE_OVERRIDES[115], slide_115["source_title_zh"].replace("5-6", "8-10"))
+
+        slide_slugs = {
+            record["slide"]: set(record["slugs"])
+            for record in source["slides"]
+        }
+        for record in tables["records"]:
+            with self.subTest(table=record["id"]):
+                self.assertEqual(set(record["slugs"]), slide_slugs[record["slide"]])
 
     def test_all_ppt_business_tables_are_mapped_without_personnel_or_navigation_tables(self):
         table_path = ROOT / "data" / "ppt-insights" / "ppt-business-tables.json"
@@ -819,6 +872,13 @@ class DashboardModelTests(unittest.TestCase):
             with self.subTest(page=filename):
                 self.assertIn("ppt-integration-demo/assets/demo-navigation.js", html)
 
+    def test_generated_page_navigation_restores_deep_hash_without_css_smoothing(self):
+        dashboard_js = (ROOT / "assets" / "dashboard.js").read_text(encoding="utf-8")
+        self.assertIn("scrollingElement.style.scrollBehavior='auto';", dashboard_js)
+        self.assertIn("scrollingElement.scrollTop=top;", dashboard_js)
+        self.assertIn("hashRestoreAttempts>=32", dashboard_js)
+        self.assertIn("navigationOffset()+24", dashboard_js)
+
     def test_condition_summary_is_concise_and_quantified(self):
         for meta in SOURCE_FILES:
             html = (ROOT / meta["output"]).read_text(encoding="utf-8")
@@ -913,6 +973,82 @@ class DashboardModelTests(unittest.TestCase):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertIn('href="excavator-market-overview.html"', arc_html)
         self.assertIn("北美挖掘机市场总体洞察", arc_html)
+
+    def test_time_sensitive_source_statements_have_explicit_status(self):
+        source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
+        payload = json.loads(source_path.read_text(encoding="utf-8"))
+        records = {int(record["slide"]): record for record in payload["slides"]}
+        expected = {
+            34: "historical_target",
+            48: "forecast",
+            68: "historical_target",
+            151: "historical_target",
+            176: "historical_plan",
+            187: "historical_target",
+            198: "historical_target",
+            215: "historical_target",
+            232: "historical_target",
+            233: "historical_plan",
+            235: "historical_plan",
+            242: "forward_plan",
+            243: "forward_plan",
+            244: "forward_plan",
+        }
+        page_by_slug = {meta["slug"]: meta["output"] for meta in SOURCE_FILES}
+
+        for slide_number, code in expected.items():
+            record = records[slide_number]
+            with self.subTest(slide=slide_number):
+                self.assertEqual(record["temporal_status"]["code"], code)
+                self.assertTrue(record["temporal_status"]["label_zh"])
+                self.assertTrue(record["temporal_status"]["label_en"])
+                self.assertTrue(record["temporal_status"]["note_zh"])
+                self.assertTrue(record["temporal_status"]["note_en"])
+
+                outputs = (
+                    ["excavator-market-overview.html"]
+                    if record.get("overview")
+                    else [page_by_slug[slug] for slug in record.get("slugs", [])]
+                )
+                self.assertTrue(outputs)
+                for output in outputs:
+                    html = (ROOT / output).read_text(encoding="utf-8")
+                    slide_match = re.search(
+                        rf'<article class="sourceSlide[^"]*" data-source-slide="{slide_number}">.*?</article>',
+                        html,
+                        re.DOTALL,
+                    )
+                    self.assertIsNotNone(slide_match, output)
+                    self.assertIn(
+                        f"sourceTemporalStatus-{code}",
+                        slide_match.group(0),
+                        output,
+                    )
+
+    def test_industrial_integrity_report_is_current_and_clean(self):
+        report_path = (
+            ROOT / "data" / "ppt-insights" / "industrial-integrity-report.json"
+        )
+        source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
+        table_path = ROOT / "data" / "ppt-insights" / "ppt-business-tables.json"
+        self.assertTrue(report_path.exists())
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        self.assertEqual(report["checks"]["status"], "pass")
+        self.assertEqual(report["checks"]["issue_count"], 0)
+        self.assertEqual(report["meta"]["formal_page_count"], 18)
+        self.assertEqual(report["meta"]["tonnage_page_count"], len(SOURCE_FILES))
+        self.assertEqual(report["metrics"]["included_slides"], 243)
+        self.assertEqual(report["metrics"]["slide_mapping_placements"], 283)
+        self.assertEqual(report["metrics"]["unique_tables"], 220)
+        self.assertEqual(report["metrics"]["unique_visuals"], 207)
+        self.assertEqual(
+            report["meta"]["source_sha256"],
+            hashlib.sha256(source_path.read_bytes()).hexdigest(),
+        )
+        self.assertEqual(
+            report["meta"]["table_sha256"],
+            hashlib.sha256(table_path.read_bytes()).hexdigest(),
+        )
 
     def test_ppt_source_content_is_fully_mapped_to_formal_pages(self):
         source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
@@ -1025,7 +1161,7 @@ class DashboardModelTests(unittest.TestCase):
         self.assertEqual(actual_slide_ids, expected_slide_ids)
         self.assertEqual(actual_visuals, expected_visuals)
         self.assertEqual(actual_table_placements, expected_table_placements)
-        self.assertEqual(expected_table_placements, 265)
+        self.assertEqual(expected_table_placements, 256)
         self.assertEqual(len(expected_visuals), 207)
 
     def test_generated_pages_strip_source_cell_edge_whitespace(self):

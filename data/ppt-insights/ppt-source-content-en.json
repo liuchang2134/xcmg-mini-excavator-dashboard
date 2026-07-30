@@ -1,11 +1,11 @@
 {
   "meta": {
-    "ppt_source_sha256": "0a5a50aeb4524cfdf9443fdf639e037dbe2e51b8b5ef2593f2819022c9c71901",
-    "ppt_tables_sha256": "17b97f48dc8a4bc53e06c35e28b872c7b0ac497a154f726547f37c028c2739c0",
+    "ppt_source_sha256": "4d0cd230eb768230af4119f305edfd49890e2020c5915c11ca4b97c67d56c5d4",
+    "ppt_tables_sha256": "c8662b4da032ef8acb868977822b4530c83e0e2152365dafd63fbc40c0a622f0",
     "glossary_sha256": "bf3258c95eced6f79e8c61ed6800b7af291cd2011da48d7a6923dd4cd25275e9",
     "translation_overrides_sha256": "b46de402ab90de8e7ea20a290674cb8a37d9b98809559602c56bc05200f25dbf",
-    "model": "ct2:opus-mt-zh-en + qwen2.5:7b glossary repair + qwen3:4b glossary repair + qwen3:4b glossary repair + qwen3:4b glossary repair + qwen3:4b glossary repair + qwen3:1.7b glossary repair + qwen3:1.7b glossary repair + qwen3:4b glossary repair",
-    "backend": "ollama",
+    "model": "ct2:opus-mt-zh-en",
+    "backend": "ct2",
     "language": "en-US",
     "method": "Local translation with XCMG engineering glossary"
   },
@@ -1699,7 +1699,7 @@
       ]
     },
     "slide-115": {
-      "title": "Adaptive Analysis of Core Specifications Products - 5-6 tonnes XCMGVS Kubota",
+      "title": "Adaptive analysis of core specifications product - 8-10 tonnes XCMGVS Kubota",
       "body": [
         "The analysis concluded that XE80U had received good overall feedback in the North American market and was generally accepted by clients, but that the stability of the two-boom system needed to be further optimized."
       ],

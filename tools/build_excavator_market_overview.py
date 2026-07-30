@@ -16,6 +16,7 @@ from build_excavator_dashboards import (
     load_ppt_business_tables,
     load_ppt_source_content,
     render_source_slide,
+    render_source_temporal_status,
     render_source_table,
     render_source_visuals,
 )
@@ -372,6 +373,7 @@ def render_competition_chart_slide(record, table_records):
         f'<article class="sourceSlide sourceNativeChartSlide" data-source-slide="{record.get("slide")}">'
         '<header class="sourceSlideHeader">'
         f'{bilingual_leaf(record.get("title"), "h3")}'
+        f'{render_source_temporal_status(record)}'
         "</header>"
         + tables
         + f'<div class="nativeChartGrid">{"".join(panel_html)}</div>'
@@ -533,6 +535,7 @@ def render_macro_slide(record, table_records):
         f'<span class="macroFactorLabel" data-en="{esc(factor_en)}">{esc(factor_zh)}</span>'
         f'{bilingual_leaf(record.get("title"), "h3")}'
         "</div>"
+        f'{render_source_temporal_status(record)}'
         "</header>"
         + render_macro_facts(slide_number)
         + '<div class="macroNarrativeSection">'

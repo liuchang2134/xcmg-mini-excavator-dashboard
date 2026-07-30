@@ -190,7 +190,7 @@ def nice_ceiling(value, tick_count=5):
     value = max(1.0, float(value))
     magnitude = 10 ** math.floor(math.log10(value))
     normalized = value / magnitude
-    steps = (1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10)
+    steps = (1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 10)
     ceiling = next(candidate for candidate in steps if normalized <= candidate)
     return ceiling * magnitude
 
