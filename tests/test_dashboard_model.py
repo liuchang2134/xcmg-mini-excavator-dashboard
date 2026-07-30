@@ -413,6 +413,50 @@ class DashboardModelTests(unittest.TestCase):
         self.assertIn("position:sticky", dashboard_css)
         self.assertIn("white-space:pre-line", dashboard_css)
 
+    def test_dense_tables_protect_descriptor_columns_in_english_mobile_layouts(self):
+        dashboard_css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
+
+        self.assertIn(
+            ".detailMatrix tr>:nth-child(1){width:180px;min-width:180px",
+            dashboard_css,
+        )
+        self.assertIn(
+            ".detailMatrix tr>:nth-child(4){width:280px;min-width:280px",
+            dashboard_css,
+        )
+        self.assertIn(
+            ".rawTable tr>:nth-child(2){width:250px;min-width:250px",
+            dashboard_css,
+        )
+        self.assertIn(
+            ".tableScroll.compact tr>:first-child{width:180px;min-width:180px",
+            dashboard_css,
+        )
+        self.assertIn(
+            'html[data-language="en"] th{white-space:normal;'
+            "overflow-wrap:break-word;word-break:normal}",
+            dashboard_css,
+        )
+        self.assertIn(
+            'html[data-language="en"] .sourceTableScrollFit '
+            "table.sourceTableFit col:first-child{width:150px!important}",
+            dashboard_css,
+        )
+        self.assertIn(
+            'html[data-language="en"] .sourceTableScrollFit '
+            "table.sourceTableFit tr>*{min-width:140px}",
+            dashboard_css,
+        )
+        self.assertIn(
+            'html[data-language="en"] .sourceTableScrollFit '
+            "table.sourceTableFit tr>:first-child{min-width:160px}",
+            dashboard_css,
+        )
+        self.assertNotIn(
+            'html[data-language="en"] th{white-space:normal;overflow-wrap:anywhere}',
+            dashboard_css,
+        )
+
     def test_ppt_english_sidecars_are_complete_current_and_engineering_safe(self):
         source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
         table_path = ROOT / "data" / "ppt-insights" / "ppt-business-tables.json"
