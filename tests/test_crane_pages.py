@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 from tools.build_crane_dashboards import (
     CONFIG_ZH,
@@ -177,3 +178,22 @@ def test_every_useful_crane_ppt_visual_and_native_table_is_rendered():
         for index, chart in enumerate(slide["charts"], 1):
             if chart.get("categories") and chart.get("series"):
                 assert f'data-chart-id="slide-{slide["slide"]}-chart-{index}"' in combined
+
+
+def test_crane_insight_titles_and_multi_image_galleries_are_reader_facing():
+    build_all()
+    pages = [
+        (ROOT / "crane-market-overview.html").read_text(encoding="utf-8"),
+        *[
+            (ROOT / definition["output"]).read_text(encoding="utf-8")
+            for definition in PAGE_DEFINITIONS.values()
+        ],
+    ]
+    combined = "\n".join(pages)
+    assert not re.search(r"<h3>\s*\d+(?:\.\d+)+", combined)
+    assert "2.3 市场洞察分析" not in combined
+    assert "北美起重机区域需求分布" in combined
+    assert "2024年加拿大越野轮胎起重机销量分布" in combined
+    assert 'class="craneInsightRecord has-media many-media" data-source-slide="7"' in combined
+    assert 'class="insightImageButton"' in combined
+    assert "insightLightbox" in (ROOT / "assets" / "crane-insights.js").read_text(encoding="utf-8")

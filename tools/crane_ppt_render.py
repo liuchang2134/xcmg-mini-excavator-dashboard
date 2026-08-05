@@ -16,9 +16,44 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 
 STATUS_COPY = {
-    "historical": ("历史事实（原资料）", "Historical fact in source"),
+    "historical": ("历史数据", "Historical data"),
     "current-at-source-date": ("截至2025-07判断", "Assessment as of 2025-07"),
-    "plan": ("规划（尚未验证）", "Plan not yet validated"),
+    "plan": ("规划 / 待验证", "Plan / validation pending"),
+}
+
+SECTION_LABELS = {
+    "macro": "市场环境",
+    "market-volume": "市场规模",
+    "competition": "品牌格局",
+    "regional-demand": "区域需求",
+    "boom-truck": "通用底盘",
+    "all-terrain": "全地面",
+    "rough-terrain": "越野轮胎",
+    "crawler": "履带起重机",
+    "portfolio": "产品型谱",
+    "roadmap": "改进路线",
+    "go-to-market": "市场与服务",
+}
+
+SLIDE_TITLE_OVERRIDES = {
+    2: "北美宏观环境及其对起重机业务的影响",
+    3: "北美起重机销量与产品类别结构",
+    4: "通用底盘与越野轮胎起重机品牌份额",
+    5: "全地面与履带起重机品牌份额",
+    6: "各产品类别主要竞争标杆与市场定位",
+    7: "北美起重机区域需求分布",
+    8: "北美区域差异与产品适应性",
+    9: "北美区域需求与配置策略",
+}
+
+IMAGE_CAPTION_OVERRIDES = {
+    7: (
+        "2024年加拿大越野轮胎起重机销量分布",
+        "2024年美国越野轮胎起重机销量分布",
+        "2024年美国全地面起重机销量分布",
+        "2024年美国履带起重机销量分布",
+        "2024年美国通用底盘起重机销量分布",
+    ),
 }
 
 CLASS_INTRO = {
@@ -169,6 +204,8 @@ def _useful_text(record: dict[str, Any]) -> list[str]:
 
 
 def _display_title(record: dict[str, Any]) -> str:
+    if record["slide"] in SLIDE_TITLE_OVERRIDES:
+        return SLIDE_TITLE_OVERRIDES[record["slide"]]
     table_labels = []
     for table in record.get("tables", []):
         rows = table.get("rows") or []
@@ -178,7 +215,7 @@ def _display_title(record: dict[str, Any]) -> str:
         if label and len(label) <= 30 and label not in table_labels:
             table_labels.append(label)
     if table_labels:
-        return " · ".join(table_labels)
+        return _clean_business_title(" · ".join(table_labels))
     candidates = _useful_text(record)
     preferred_tokens = (
         "徐工型号",
@@ -195,11 +232,28 @@ def _display_title(record: dict[str, Any]) -> str:
     )
     for text in candidates:
         if any(token in text for token in preferred_tokens):
-            return text.split("：", 1)[0][:90]
+            return _clean_business_title(text.split("：", 1)[0][:90])
     for text in candidates:
         if 6 <= len(text) <= 90:
-            return text
-    return record["title"][:90]
+            return _clean_business_title(text)
+    return _clean_business_title(record["title"][:90])
+
+
+def _clean_business_title(value: str) -> str:
+    text = re.sub(r"^\s*\d+(?:\.\d+)+\s*", "", str(value)).strip()
+    region = re.fullmatch(r"\d+\s*-\s*(.+?)\s*·\s*(美国|加拿大)", text)
+    if region:
+        return f"{region.group(2)}{region.group(1).strip()}市场与工况"
+    replacements = (
+        ("占有率分析及竞争对手锁定", "品牌份额与主要竞争对手"),
+        ("市场洞察分析-", ""),
+        ("市场营销-", ""),
+        ("产品线竞争力提升举措-", ""),
+        ("可售型谱分析——", ""),
+    )
+    for source, target in replacements:
+        text = text.replace(source, target)
+    return text.strip(" -—·") or "产品与市场分析"
 
 
 def _paragraphs(record: dict[str, Any], limit: int | None = None) -> str:
@@ -212,6 +266,10 @@ def _paragraphs(record: dict[str, Any], limit: int | None = None) -> str:
     short_run = []
     for item in filtered:
         compact = re.sub(r"\s+", " ", item).strip()
+        compact = re.sub(r"^\d+(?:\.\d+)+\s+", "", compact)
+        compact = compact.replace("市场洞察分析-", "", 1).strip(" -—·")
+        if not compact or compact == title:
+            continue
         is_short = len(compact) <= 45 and not re.search(r"[。！？；:]$", compact)
         if is_short:
             short_run.append(compact)
@@ -221,7 +279,7 @@ def _paragraphs(record: dict[str, Any], limit: int | None = None) -> str:
             paragraphs.append("；".join(short_run) + "。")
             short_run = []
         if not is_short:
-            paragraphs.append(item)
+            paragraphs.append(compact)
     if short_run:
         paragraphs.append("；".join(short_run) + "。")
     return "".join(f'<p lang="zh-CN">{esc(item)}</p>' for item in paragraphs)
@@ -336,12 +394,22 @@ def _render_images(record: dict[str, Any]) -> str:
     images = record.get("images") or []
     if not images:
         return ""
-    figures = "".join(
-        f'<figure><img src="{esc(path)}" alt="{esc(_display_title(record))}" loading="lazy">'
-        f'<figcaption>{esc(_display_title(record))}</figcaption></figure>'
-        for path in images
-    )
-    return f'<div class="craneInsightGallery count-{len(images)}">{figures}</div>'
+    override_captions = IMAGE_CAPTION_OVERRIDES.get(record["slide"], ())
+    figures = []
+    for index, path in enumerate(images):
+        caption = (
+            override_captions[index]
+            if index < len(override_captions)
+            else _display_title(record)
+        )
+        figures.append(
+            '<figure><button type="button" class="insightImageButton" '
+            f'data-full-src="{esc(path)}" data-caption="{esc(caption)}" '
+            f'aria-label="放大查看：{esc(caption)}" title="放大查看">'
+            f'<img src="{esc(path)}" alt="{esc(caption)}" loading="lazy" decoding="async">'
+            f'</button><figcaption>{esc(caption)}</figcaption></figure>'
+        )
+    return f'<div class="craneInsightGallery count-{len(images)}">{"".join(figures)}</div>'
 
 
 def render_slide_record(record: dict[str, Any]) -> str:
@@ -363,11 +431,14 @@ def render_slide_record(record: dict[str, Any]) -> str:
     )
     visual_html = "".join(charts)
     content_class = " has-media" if media else ""
+    if len(record.get("images") or []) >= 3:
+        content_class += " many-media"
+    record_label = SECTION_LABELS.get(record.get("section"), "产品分析")
     return (
         f'<article class="craneInsightRecord{content_class}" data-source-slide="{record["slide"]}" '
         f'data-source-status="{esc(record["status"])}">'
         '<header><div>'
-        f'<span class="recordIndex">{record["slide"]:03d}</span>'
+        f'<span class="recordLabel">{esc(record_label)}</span>'
         f'<h3>{esc(_display_title(record))}</h3></div>{_status_badge(record["status"])}</header>'
         f'<div class="recordBody"><div class="recordNarrative">{body}</div>{media}</div>'
         f'{visual_html}{table_html}'

@@ -45,4 +45,24 @@
     item.addEventListener('mouseleave', hideTooltip);
     item.addEventListener('blur', hideTooltip);
   });
+
+  const lightbox = document.createElement('dialog');
+  lightbox.className = 'insightLightbox';
+  lightbox.innerHTML = '<button type="button" class="insightLightboxClose" aria-label="关闭">&times;</button><img alt=""><p></p>';
+  document.body.appendChild(lightbox);
+  const lightboxImage = lightbox.querySelector('img');
+  const lightboxCaption = lightbox.querySelector('p');
+  const closeLightbox = () => lightbox.close();
+  lightbox.querySelector('.insightLightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+  document.querySelectorAll('.insightImageButton').forEach((button) => {
+    button.addEventListener('click', () => {
+      lightboxImage.src = button.dataset.fullSrc || '';
+      lightboxImage.alt = button.dataset.caption || '';
+      lightboxCaption.textContent = button.dataset.caption || '';
+      lightbox.showModal();
+    });
+  });
 })();
