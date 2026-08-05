@@ -908,6 +908,30 @@
       max-height:130px;
       object-fit:contain;
     }
+    .projectImage.is-reference{
+      position:relative;
+      overflow:hidden;
+      padding:0;
+      background:#dce9f4;
+    }
+    .projectImage.is-reference img{
+      width:100%;
+      height:100%;
+      max-width:none;
+      max-height:none;
+      object-fit:cover;
+    }
+    .projectImage.is-reference span{
+      position:absolute;
+      left:8px;
+      bottom:8px;
+      padding:4px 7px;
+      border:1px solid rgba(255,255,255,.58);
+      background:rgba(4,49,84,.88);
+      color:#fff;
+      font-size:10px;
+      font-weight:900;
+    }
     .projectInfo{
       padding:17px 18px;
       min-width:0;
@@ -1219,21 +1243,6 @@
       .brandText b{font-size:14px}
       .lineAssetStats{grid-template-columns:1fr 1fr}
     }
-    .productAssetPanel{scroll-margin-top:92px;margin-top:18px;border-top:4px solid var(--blue);border-bottom:1px solid var(--line);background:#fff}
-    .productAssetPanel>header{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,390px);gap:22px;align-items:center;padding:20px 22px;border-left:1px solid var(--line);border-right:1px solid var(--line)}
-    .productAssetPanel h3{margin:4px 0 7px;color:#082f52;font-size:23px}
-    .productAssetPanel p{max-width:940px;margin:0;color:#49647a;font-size:13px;line-height:1.7}
-    .panelEyebrow{color:#0a5ca4;font-size:10px;font-weight:900;letter-spacing:.1em}
-    .assetReportLink{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;min-height:78px;padding:13px 15px;border:1px solid #0a5ca4;border-left:4px solid var(--yellow);background:#f4f8fb;color:#083b68}
-    .assetReportLink>span:first-child{font-size:10px;font-weight:900;letter-spacing:.08em}
-    .assetReportLink b{grid-column:1;font-size:14px}.assetReportLink>span:last-child{grid-column:2;grid-row:1/3;font-size:22px;transition:transform .16s}
-    .assetReportLink:hover,.assetReportLink:focus-visible{background:#eaf3fa;outline:none}.assetReportLink:hover>span:last-child{transform:translateX(3px)}
-    .assetLinkGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border:1px solid var(--line);border-top:0}
-    .assetLinkGrid a{display:grid;gap:3px;min-width:0;padding:13px 14px;border-right:1px solid var(--line);background:#f8fafc;color:#173c5b;transition:background .15s,color .15s}
-    .assetLinkGrid a:last-child{border-right:0}.assetLinkGrid a:hover,.assetLinkGrid a:focus-visible{background:#075a9f;color:#fff;outline:none}
-    .assetLinkGrid span{font-size:10px;font-weight:900;letter-spacing:.06em}.assetLinkGrid b{font-size:15px}.assetLinkGrid small{color:#60798d;font-size:10px}.assetLinkGrid a:hover small,.assetLinkGrid a:focus-visible small{color:#d9eafa}
-    @media(max-width:1050px){.productAssetPanel>header{grid-template-columns:1fr}.assetLinkGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.assetLinkGrid a:nth-child(3){border-right:0}.assetLinkGrid a:nth-child(-n+3){border-bottom:1px solid var(--line)}}
-    @media(max-width:640px){.productAssetPanel{margin-top:12px}.productAssetPanel>header{padding:16px 14px}.productAssetPanel h3{font-size:20px}.assetLinkGrid{grid-template-columns:1fr 1fr}.assetLinkGrid a:nth-child(3){border-right:1px solid var(--line)}.assetLinkGrid a:nth-child(2n){border-right:0}.assetLinkGrid a:nth-child(-n+4){border-bottom:1px solid var(--line)}.assetReportLink{grid-template-columns:1fr auto}}
   </style>
   <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">
 </head>
@@ -1383,20 +1392,72 @@
           </article>
         </div>
 
-        <div class="productAssetPanel" id="crane-assets" data-crane-asset-panel>
-          <header>
-            <div><span class="panelEyebrow">CRANE MARKET AND PRODUCT INTELLIGENCE</span><h3 data-en="Crane Market and Product Analysis">起重设备市场与产品分析</h3><p data-en="The industry report and six class assets share one entry within the main platform. The market report covers macro conditions, competition, regions, applications, portfolio, roadmap, channels, service and localization; class pages retain Excel-backed specification, equipment and work-condition benchmarking.">行业报告覆盖宏观环境、竞争格局、区域需求、客户工况、产品型谱、路线图、渠道、服务与本地化；六个吨级页继续保留基于原始 Excel 的参数、配置和工况对标。</p></div>
-            <a class="assetReportLink" href="crane-market-overview.html"><span data-en="Industry report">行业总体报告</span><b data-en="Open market and product insight">打开市场与产品洞察</b><span aria-hidden="true">→</span></a>
-          </header>
-          <div class="assetLinkGrid" aria-label="起重机吨级对标资产">
-            <a href="crane-rt-60t.html"><span>RT-60t</span><b>XCR60U</b><small data-en="Rough-terrain benchmark">越野轮胎起重机对标</small></a>
-            <a href="crane-rt-75t.html"><span>RT-75t</span><b>XCR75U</b><small data-en="Rough-terrain benchmark">越野轮胎起重机对标</small></a>
-            <a href="crane-rt-100t.html"><span>RT-100t</span><b>XCR100U</b><small data-en="Rough-terrain benchmark">越野轮胎起重机对标</small></a>
-            <a href="crane-rt-130t.html"><span>RT-130t</span><b>XCR130U</b><small data-en="Rough-terrain benchmark">越野轮胎起重机对标</small></a>
-            <a href="crane-rt-160t.html"><span>RT-160t</span><b>XCR165U</b><small data-en="Planning and benchmark evidence">规划与对标证据</small></a>
-            <a href="crane-at-150t.html"><span>AT-150t</span><b>XCA150U</b><small data-en="All-terrain benchmark">全地面起重机对标</small></a>
-          </div>
+      </section>
+
+      <section class="section" id="crane-assets" data-crane-asset-panel>
+        <div class="sectionHead">
+          <h2 data-en="Cranes and Hoisting Analysis Center">起重设备分析中心</h2>
+          <p data-en="The market overview covers macro conditions, competition, regions, customer applications, portfolio, roadmap, channels, service and localization. Six class assets organize specification, equipment and work-condition benchmarking for rough-terrain and all-terrain cranes.">总体洞察覆盖宏观环境、竞争格局、区域需求、客户工况、产品型谱、路线图、渠道、服务与本地化；六个吨级资产统一呈现越野轮胎和全地面起重机的参数、配置与工况对标。</p>
         </div>
+
+        <a class="overviewGateway" id="crane-overview-gateway" href="crane-market-overview.html" aria-label="打开北美起重设备市场与产品总体洞察">
+          <div class="overviewGatewayContent">
+            <span class="overviewGatewayEyebrow">Category intelligence</span>
+            <h3 data-en="North American Crane Market and Product Insight">北美起重设备市场与产品总体洞察</h3>
+            <p data-en="Review market size, competitive structure, regional demand, customer applications, product portfolio, channel and service systems, localization priorities and the product roadmap in one report.">集中查看市场规模、竞争结构、区域需求、客户应用、产品型谱、渠道与服务体系、本地化重点和产品改进路线。</p>
+            <div class="overviewGatewayMeta" aria-label="起重设备总体洞察覆盖主题">
+              <span data-en="Market and competition">市场与竞争</span>
+              <span data-en="Regional demand">区域需求</span>
+              <span data-en="Customer applications">客户工况</span>
+              <span data-en="Portfolio">产品型谱</span>
+              <span data-en="Localization actions">本地化行动</span>
+            </div>
+          </div>
+          <span class="overviewGatewayAction"><b data-en="Open category insight">打开总体洞察</b><span aria-hidden="true">→</span></span>
+        </a>
+
+        <h3 class="assetSubhead" data-en="Benchmark Assets by Crane Class">分吨级产品对标资产</h3>
+        <div class="projectToolbar" aria-label="起重机类型和型号筛选">
+          <label for="crane-type-filter"><span data-en="Crane type">起重机类型</span>
+            <select id="crane-type-filter">
+              <option value="" data-en="All crane types">全部类型</option>
+              <option value="rt" data-en="Rough-terrain crane">越野轮胎起重机</option>
+              <option value="at" data-en="All-terrain crane">全地面起重机</option>
+            </select>
+          </label>
+          <label for="crane-model-search"><span data-en="Model search">型号搜索</span>
+            <input id="crane-model-search" type="search" autocomplete="off" placeholder="输入型号、吨级或近似拼写" data-en-placeholder="Enter a model, class or approximate spelling">
+          </label>
+          <div class="projectResultCount" id="crane-result-count" aria-live="polite">显示 6 个吨级项目</div>
+        </div>
+
+        <div class="liveGrid" aria-label="起重设备对标">
+          <a class="projectRow craneProjectRow" data-crane-type="rt" data-tonnage="rt-60" data-model="XCMG XCR60U" href="crane-rt-60t.html" aria-label="进入 XCMG XCR60U 60 吨级起重机对标">
+            <div class="projectImage"><img src="assets/arc/cranes/xcr60u-official.jpg" alt="XCMG XCR60U"></div>
+            <div class="projectInfo"><h3 data-en="XCR60U 60 USt Rough-Terrain Crane">XCR60U 60 吨级越野轮胎起重机</h3><div class="projectMeta"><span class="projectCount"><b>9</b><span data-en="benchmark products">对标产品</span></span><div class="projectTags"><span data-en="Confined sites">狭窄场地</span><span data-en="Off-road mobility">越野机动</span><span data-en="Lifting efficiency">吊装效率</span></div></div></div>
+          </a>
+          <a class="projectRow craneProjectRow" data-crane-type="rt" data-tonnage="rt-75" data-model="XCMG XCR75U" href="crane-rt-75t.html" aria-label="进入 XCMG XCR75U 75 吨级起重机对标">
+            <div class="projectImage"><img src="assets/arc/cranes/xcr75u-official.jpg" alt="XCMG XCR75U"></div>
+            <div class="projectInfo"><h3 data-en="XCR75U 75 USt Rough-Terrain Crane">XCR75U 75 吨级越野轮胎起重机</h3><div class="projectMeta"><span class="projectCount"><b>8</b><span data-en="benchmark products">对标产品</span></span><div class="projectTags"><span data-en="Uneven ground">不平地面</span><span data-en="Short transfers">短距转场</span><span data-en="Jib work">副臂作业</span></div></div></div>
+          </a>
+          <a class="projectRow craneProjectRow" data-crane-type="rt" data-tonnage="rt-100" data-model="XCMG XCR100U" href="crane-rt-100t.html" aria-label="进入 XCMG XCR100U 100 吨级起重机对标">
+            <div class="projectImage"><img src="assets/arc/cranes/xcr100u-official.jpg" alt="XCMG XCR100U"></div>
+            <div class="projectInfo"><h3 data-en="XCR100U 100 USt Rough-Terrain Crane">XCR100U 100 吨级越野轮胎起重机</h3><div class="projectMeta"><span class="projectCount"><b>9</b><span data-en="benchmark products">对标产品</span></span><div class="projectTags"><span data-en="Long-radius lifts">大幅度吊装</span><span data-en="Outrigger setup">支腿布置</span><span data-en="Pick and carry">带载行驶</span></div></div></div>
+          </a>
+          <a class="projectRow craneProjectRow" data-crane-type="rt" data-tonnage="rt-130" data-model="XCMG XCR130U" href="crane-rt-130t.html" aria-label="进入 XCMG XCR130U 130 吨级起重机对标">
+            <div class="projectImage"><img src="assets/arc/cranes/xcr130u-product-official.jpeg" alt="XCMG XCR130U"></div>
+            <div class="projectInfo"><h3 data-en="XCR130U 130 USt Rough-Terrain Crane">XCR130U 130 吨级越野轮胎起重机</h3><div class="projectMeta"><span class="projectCount"><b>7</b><span data-en="benchmark products">对标产品</span></span><div class="projectTags"><span data-en="Heavy lifts">重载吊装</span><span data-en="Long-boom work">长臂作业</span><span data-en="Complex setup">复杂支车</span></div></div></div>
+          </a>
+          <a class="projectRow craneProjectRow" data-crane-type="rt" data-tonnage="rt-160" data-model="XCMG XCR165U" href="crane-rt-160t.html" aria-label="进入 XCMG XCR165U 160 吨级竞品参考">
+            <div class="projectImage is-reference"><img src="assets/arc/category-cranes.webp" alt="XCMG 起重设备产品线示意图"><span data-en="Product-line image">产品线示意图</span></div>
+            <div class="projectInfo"><h3 data-en="XCR165U 160 USt Planning Reference">XCR165U 160 吨级规划参考</h3><div class="projectMeta"><span class="projectCount"><b>8</b><span data-en="competitor references">竞品参考</span></span><div class="projectTags"><span data-en="XCMG data pending">XCMG 数据待补</span><span data-en="Large RT class">大吨位 RT</span><span data-en="Planning validation">规划验证</span></div></div></div>
+          </a>
+          <a class="projectRow craneProjectRow" data-crane-type="at" data-tonnage="at-150" data-model="XCMG XCA150U" href="crane-at-150t.html" aria-label="进入 XCMG XCA150U 150 吨级起重机对标">
+            <div class="projectImage"><img src="assets/arc/cranes/xca150u-product-official.jpeg" alt="XCMG XCA150U"></div>
+            <div class="projectInfo"><h3 data-en="XCA150U 150 USt All-Terrain Crane">XCA150U 150 吨级全地面起重机</h3><div class="projectMeta"><span class="projectCount"><b>7</b><span data-en="competitor references">竞品参考</span></span><div class="projectTags"><span data-en="Road travel">全地面转场</span><span data-en="Variable counterweight">可变配重</span><span data-en="Urban lifting">城市吊装</span></div></div></div>
+          </a>
+        </div>
+        <div class="projectFilterEmpty" id="crane-filter-empty" data-en="No crane class or model matches the current filter.">没有匹配的起重机类型或型号，请调整筛选条件。</div>
       </section>
 
       <section class="section" id="live">
@@ -1625,11 +1686,16 @@
     const quickTonnage = document.querySelector('#quick-tonnage');
     const quickModel = document.querySelector('#quick-model');
     const quickSummary = document.querySelector('#quick-selection-summary');
-    const projectRows = [...document.querySelectorAll('a.projectRow')];
+    const projectRows = [...document.querySelectorAll('#live a.projectRow')];
     const tonnageFilter = document.querySelector('#excavator-tonnage-filter');
     const modelSearch = document.querySelector('#excavator-model-search');
     const projectResultCount = document.querySelector('#project-result-count');
     const projectFilterEmpty = document.querySelector('#project-filter-empty');
+    const craneProjectRows = [...document.querySelectorAll('#crane-assets a.craneProjectRow')];
+    const craneTypeFilter = document.querySelector('#crane-type-filter');
+    const craneModelSearch = document.querySelector('#crane-model-search');
+    const craneResultCount = document.querySelector('#crane-result-count');
+    const craneFilterEmpty = document.querySelector('#crane-filter-empty');
     const initialParams = new URLSearchParams(window.location.search);
 
     function setSelectOptions(select, options, selectedValue) {
@@ -1751,6 +1817,24 @@
       }
     }
 
+    function filterCraneProjectRows() {
+      const craneType = craneTypeFilter.value;
+      const query = craneModelSearch.value.trim();
+      let visibleCount = 0;
+      craneProjectRows.forEach((row) => {
+        const matchesType = !craneType || row.dataset.craneType === craneType;
+        const visible = matchesType && fuzzyMatchesProject(row, query);
+        row.hidden = !visible;
+        row.classList.toggle('is-targeted', visible && Boolean(craneType || query));
+        if (visible) visibleCount += 1;
+      });
+      const isEnglish = document.documentElement.lang.toLowerCase().startsWith('en');
+      craneResultCount.textContent = isEnglish
+        ? `Showing ${visibleCount} crane class ${visibleCount === 1 ? 'asset' : 'assets'}`
+        : `显示 ${visibleCount} 个吨级项目`;
+      craneFilterEmpty.classList.toggle('show', visibleCount === 0);
+    }
+
     quickLine.addEventListener('change', () => populateQuickControls());
     quickTonnage.addEventListener('change', () => populateQuickControls(quickTonnage.value));
     quickModel.addEventListener('change', () => {
@@ -1774,6 +1858,12 @@
       filterProjectRows();
     });
     modelSearch.addEventListener('input', () => filterProjectRows());
+    craneTypeFilter.addEventListener('change', () => {
+      craneModelSearch.value = '';
+      filterCraneProjectRows();
+    });
+    craneModelSearch.addEventListener('input', filterCraneProjectRows);
+    document.addEventListener('xcmg:i18n-rendered', filterCraneProjectRows);
 
     document.querySelectorAll('.btn[href], .navLinks a[href]').forEach((control) => {
       control.addEventListener('click', () => {
