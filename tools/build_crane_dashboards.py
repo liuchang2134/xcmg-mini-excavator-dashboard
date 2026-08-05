@@ -766,9 +766,9 @@ def render_page(sheet: Any) -> str:
 <html lang="zh-CN" data-language="zh"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{esc(title_zh)} | XCMG ARC</title>
-<link rel="stylesheet" href="assets/dashboard.css?v=20260805c">
-<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805c">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260805c">
+<link rel="stylesheet" href="assets/dashboard.css?v=20260805d">
+<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805d">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260805d">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
@@ -807,7 +807,7 @@ def render_page(sheet: Any) -> str:
 <section id="quality"><h2 data-en="Data Quality and Publication Boundary">数据质量与发布边界</h2>{render_quality(sheet, scoring)}</section>
 
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260805c"></script><script src="assets/i18n.js?v=20260805c"></script><script src="assets/crane-insights.js?v=20260805c"></script>
+</main></div><script src="assets/dashboard.js?v=20260805d"></script><script src="assets/i18n.js?v=20260805d"></script><script src="assets/crane-insights.js?v=20260805d"></script>
 </body></html>'''
 
 

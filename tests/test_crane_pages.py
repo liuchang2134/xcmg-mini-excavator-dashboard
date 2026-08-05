@@ -197,3 +197,16 @@ def test_crane_insight_titles_and_multi_image_galleries_are_reader_facing():
     assert 'class="craneInsightRecord has-media many-media" data-source-slide="7"' in combined
     assert 'class="insightImageButton"' in combined
     assert "insightLightbox" in (ROOT / "assets" / "crane-insights.js").read_text(encoding="utf-8")
+
+
+def test_crane_source_tables_expand_without_nested_scrolling():
+    css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
+    table_wrap = re.search(r"\.craneSourceTable\{([^}]*)\}", css)
+    table_rule = re.search(r"\.craneSourceTable table\{([^}]*)\}", css)
+    assert table_wrap
+    assert table_rule
+    assert "max-height" not in table_wrap.group(1)
+    assert "overflow:auto" not in table_wrap.group(1).replace(" ", "")
+    assert "overflow:visible" in table_wrap.group(1).replace(" ", "")
+    assert "min-width:0" in table_rule.group(1).replace(" ", "")
+    assert "table-layout:fixed" in table_rule.group(1).replace(" ", "")
