@@ -7,3 +7,4 @@
 /data/ppt-insights/.ppt-translation-cache.json
 /.translation-models/
 /.venv-translate/
+/.worktrees/
