@@ -837,7 +837,9 @@ class DashboardModelTests(unittest.TestCase):
         self.assertEqual(arc_html.count('class="lineCard is-live"'), 2)
         self.assertEqual(arc_html.count('class="lineCard is-disabled"'), 5)
         self.assertEqual(arc_html.count('aria-disabled="true"'), 5)
-        self.assertIn('href="crane-overview.html"', arc_html)
+        self.assertNotIn('href="crane-overview.html"', arc_html)
+        self.assertIn('href="crane-market-overview.html"', arc_html)
+        self.assertIn("data-crane-asset-panel", arc_html)
 
     def test_arc_excavator_projects_are_filterable_and_clickable(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")

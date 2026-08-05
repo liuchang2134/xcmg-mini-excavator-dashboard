@@ -7,9 +7,11 @@ from typing import Any
 
 try:
     from .crane_data import load_crane_workbook
+    from .crane_ppt_render import render_class_context, render_legacy_redirect, render_market_report_page
     from .crane_scoring import CATEGORY_WEIGHTS, CONDITIONS, metric_direction, score_sheet
 except ImportError:
     from crane_data import load_crane_workbook
+    from crane_ppt_render import render_class_context, render_legacy_redirect, render_market_report_page
     from crane_scoring import CATEGORY_WEIGHTS, CONDITIONS, metric_direction, score_sheet
 
 
@@ -732,6 +734,7 @@ def page_nav(sheet: Any) -> str:
     return (
         '<a class="home" href="arc.html" data-en="Return to Platform Home">返回对标平台主页</a>'
         '<a href="#summary" data-en="Benchmark Overview">对标概览</a>'
+        '<a href="#market-context" data-en="Market, Customer and Product Evidence">市场、客户与产品证据</a>'
         '<a href="#position" data-en="Specification Position">参数竞争位置</a>'
         '<details class="navGroup" open><summary data-en="Work Conditions">典型工况</summary><div class="navSubmenu">'
         + condition_links + '</div></details>'
@@ -763,8 +766,9 @@ def render_page(sheet: Any) -> str:
 <html lang="zh-CN" data-language="zh"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{esc(title_zh)} | XCMG ARC</title>
-<link rel="stylesheet" href="assets/dashboard.css?v=20260805b">
-<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805b">
+<link rel="stylesheet" href="assets/dashboard.css?v=20260805c">
+<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805c">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260805c">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
@@ -788,6 +792,8 @@ def render_page(sheet: Any) -> str:
   <div class="kpi"><b>{fmt_percent(xcmg.parameter_coverage)}</b><span data-en="XCMG source coverage">XCMG 参数覆盖率</span></div>
 </div>{render_publication_status(xscore)}<div class="methodStrip"><b data-en="Evaluation boundary">评价边界</b><p data-en="Specification values use direction-aware normalization within the current tonnage class. Category weights total 100%. Equipment uses 0 for unavailable, 60 for optional and 100 for standard only when status is explicit. Overall scoring is withheld when verified equipment coverage is below 60%.">参数按当前吨级内同口径、方向归一化，八类权重合计 100%；配置仅在状态明确时按无配置 0、选配 60、标配 100 计入。当前配置有效覆盖率低于 60% 时，不生成综合总分和综合排名。</p></div></section>
 
+{render_class_context(sheet.label)}
+
 <section id="position"><h2 data-en="Specification Position">参数竞争位置</h2><div class="positionGrid"><article class="panel"><h3 data-en="Specification ranking">参数竞争力排名</h3>{render_rank_bars(scoring, 'parameter_score', xcmg.display_name)}</article><article class="panel">{render_category_radar(sheet, scoring)}</article></div>{render_category_table(sheet, scoring)}</section>
 
 <div id="conditions">{conditions}</div>
@@ -801,7 +807,7 @@ def render_page(sheet: Any) -> str:
 <section id="quality"><h2 data-en="Data Quality and Publication Boundary">数据质量与发布边界</h2>{render_quality(sheet, scoring)}</section>
 
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260805b"></script><script src="assets/i18n.js?v=20260805b"></script>
+</main></div><script src="assets/dashboard.js?v=20260805c"></script><script src="assets/i18n.js?v=20260805c"></script><script src="assets/crane-insights.js?v=20260805c"></script>
 </body></html>'''
 
 
@@ -839,8 +845,11 @@ def render_overview(workbook: Any) -> str:
 def build_all() -> list[Path]:
     workbook = load_crane_workbook()
     outputs = []
+    market_path = ROOT / "crane-market-overview.html"
+    market_path.write_text(render_market_report_page(), encoding="utf-8")
+    outputs.append(market_path)
     overview_path = ROOT / "crane-overview.html"
-    overview_path.write_text(render_overview(workbook), encoding="utf-8")
+    overview_path.write_text(render_legacy_redirect(), encoding="utf-8")
     outputs.append(overview_path)
     for sheet in workbook.sheets:
         output = ROOT / PAGE_DEFINITIONS[sheet.label]["output"]

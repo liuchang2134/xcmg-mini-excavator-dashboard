@@ -461,6 +461,27 @@ def source_hashes():
     return hashes
 
 
+def refresh_sidecar_meta_only():
+    """Refresh source fingerprints without changing reviewed translations."""
+    hashes = source_hashes()
+    refreshed = []
+    for path in (SOURCE_EN_PATH, TABLE_EN_PATH):
+        payload = load_json(path)
+        if not payload:
+            raise SystemExit(f"Translation sidecar is missing or empty: {path}")
+        meta = payload.setdefault("meta", {})
+        meta.update(hashes)
+        write_json(path, payload)
+        refreshed.append(str(path.relative_to(ROOT)))
+    print(
+        json.dumps(
+            {"refreshed": refreshed, "hashes": hashes},
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
+
+
 def apply_reviewed_overrides(cache, overrides, glossary):
     """Apply deterministic human-reviewed translations before model repair."""
     applied = 0
@@ -972,6 +993,14 @@ def main():
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--reset", action="store_true")
     parser.add_argument(
+        "--refresh-meta-only",
+        action="store_true",
+        help=(
+            "Refresh source fingerprints in existing English sidecars without "
+            "translating or changing any English content."
+        ),
+    )
+    parser.add_argument(
         "--review-source",
         action="store_true",
         help=(
@@ -988,6 +1017,9 @@ def main():
         ),
     )
     args = parser.parse_args()
+    if args.refresh_meta_only:
+        refresh_sidecar_meta_only()
+        return
     if args.review_source and args.repair_invalid:
         parser.error("--review-source and --repair-invalid are mutually exclusive")
     if (args.review_source or args.repair_invalid) and args.backend != "ollama":

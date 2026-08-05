@@ -1219,6 +1219,21 @@
       .brandText b{font-size:14px}
       .lineAssetStats{grid-template-columns:1fr 1fr}
     }
+    .productAssetPanel{scroll-margin-top:92px;margin-top:18px;border-top:4px solid var(--blue);border-bottom:1px solid var(--line);background:#fff}
+    .productAssetPanel>header{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,390px);gap:22px;align-items:center;padding:20px 22px;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+    .productAssetPanel h3{margin:4px 0 7px;color:#082f52;font-size:23px}
+    .productAssetPanel p{max-width:940px;margin:0;color:#49647a;font-size:13px;line-height:1.7}
+    .panelEyebrow{color:#0a5ca4;font-size:10px;font-weight:900;letter-spacing:.1em}
+    .assetReportLink{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;min-height:78px;padding:13px 15px;border:1px solid #0a5ca4;border-left:4px solid var(--yellow);background:#f4f8fb;color:#083b68}
+    .assetReportLink>span:first-child{font-size:10px;font-weight:900;letter-spacing:.08em}
+    .assetReportLink b{grid-column:1;font-size:14px}.assetReportLink>span:last-child{grid-column:2;grid-row:1/3;font-size:22px;transition:transform .16s}
+    .assetReportLink:hover,.assetReportLink:focus-visible{background:#eaf3fa;outline:none}.assetReportLink:hover>span:last-child{transform:translateX(3px)}
+    .assetLinkGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border:1px solid var(--line);border-top:0}
+    .assetLinkGrid a{display:grid;gap:3px;min-width:0;padding:13px 14px;border-right:1px solid var(--line);background:#f8fafc;color:#173c5b;transition:background .15s,color .15s}
+    .assetLinkGrid a:last-child{border-right:0}.assetLinkGrid a:hover,.assetLinkGrid a:focus-visible{background:#075a9f;color:#fff;outline:none}
+    .assetLinkGrid span{font-size:10px;font-weight:900;letter-spacing:.06em}.assetLinkGrid b{font-size:15px}.assetLinkGrid small{color:#60798d;font-size:10px}.assetLinkGrid a:hover small,.assetLinkGrid a:focus-visible small{color:#d9eafa}
+    @media(max-width:1050px){.productAssetPanel>header{grid-template-columns:1fr}.assetLinkGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.assetLinkGrid a:nth-child(3){border-right:0}.assetLinkGrid a:nth-child(-n+3){border-bottom:1px solid var(--line)}}
+    @media(max-width:640px){.productAssetPanel{margin-top:12px}.productAssetPanel>header{padding:16px 14px}.productAssetPanel h3{font-size:20px}.assetLinkGrid{grid-template-columns:1fr 1fr}.assetLinkGrid a:nth-child(3){border-right:1px solid var(--line)}.assetLinkGrid a:nth-child(2n){border-right:0}.assetLinkGrid a:nth-child(-n+4){border-bottom:1px solid var(--line)}.assetReportLink{grid-template-columns:1fr auto}}
   </style>
   <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">
 </head>
@@ -1339,13 +1354,13 @@
             </div>
           </article>
 
-          <a class="lineCard is-live" id="line-cranes" data-product-line="cranes" href="crane-overview.html" aria-label="进入起重设备竞品对标板块">
+          <a class="lineCard is-live" id="line-cranes" data-product-line="cranes" href="#crane-assets" aria-label="查看起重设备分析资产">
             <div class="lineImage scene"><img src="assets/arc/category-cranes.webp" alt="XCMG crane"></div>
             <div class="lineBody">
               <div class="lineTop"><div><h3>Cranes and Hoisting</h3><small data-en="Rough-terrain and all-terrain cranes">越野轮胎与全地面起重机</small></div><span class="status live" data-en="Available">已接入</span></div>
               <p data-en="Six class assets compare transport, mobility, boom and jib, outriggers, powertrain, winches, lifting performance, speeds and equipment status.">六个吨级资产统一比较运输、机动、主副臂、支腿、动力、卷扬、起重性能、作业速度和配置状态。</p>
               <div class="tagRow"><span class="tag">RT 60-160t</span><span class="tag">AT 150t</span><span class="tag" data-en="Six work conditions">六类工况</span></div>
-              <span class="linePrimaryAction"><b data-en="Open crane benchmarking">进入起重设备对标</b><span aria-hidden="true">→</span></span>
+              <span class="linePrimaryAction"><b data-en="View crane analysis assets">查看起重设备分析资产</b><span aria-hidden="true">↓</span></span>
             </div>
           </a>
 
@@ -1366,6 +1381,21 @@
               <div class="tagRow"><span class="tag">作业高度</span><span class="tag">平台载荷</span><span class="tag">租赁适配</span></div>
             </div>
           </article>
+        </div>
+
+        <div class="productAssetPanel" id="crane-assets" data-crane-asset-panel>
+          <header>
+            <div><span class="panelEyebrow">CRANE MARKET AND PRODUCT INTELLIGENCE</span><h3 data-en="Crane Market and Product Analysis">起重设备市场与产品分析</h3><p data-en="The industry report and six class assets share one entry within the main platform. The market report covers macro conditions, competition, regions, applications, portfolio, roadmap, channels, service and localization; class pages retain Excel-backed specification, equipment and work-condition benchmarking.">行业报告覆盖宏观环境、竞争格局、区域需求、客户工况、产品型谱、路线图、渠道、服务与本地化；六个吨级页继续保留基于原始 Excel 的参数、配置和工况对标。</p></div>
+            <a class="assetReportLink" href="crane-market-overview.html"><span data-en="Industry report">行业总体报告</span><b data-en="Open market and product insight">打开市场与产品洞察</b><span aria-hidden="true">→</span></a>
+          </header>
+          <div class="assetLinkGrid" aria-label="起重机吨级对标资产">
+            <a href="crane-rt-60t.html"><span>RT-60t</span><b>XCR60U</b><small data-en="Rough-terrain benchmark">越野轮胎起重机对标</small></a>
+            <a href="crane-rt-75t.html"><span>RT-75t</span><b>XCR75U</b><small data-en="Rough-terrain benchmark">越野轮胎起重机对标</small></a>
+            <a href="crane-rt-100t.html"><span>RT-100t</span><b>XCR100U</b><small data-en="Rough-terrain benchmark">越野轮胎起重机对标</small></a>
+            <a href="crane-rt-130t.html"><span>RT-130t</span><b>XCR130U</b><small data-en="Rough-terrain benchmark">越野轮胎起重机对标</small></a>
+            <a href="crane-rt-160t.html"><span>RT-160t</span><b>XCR165U</b><small data-en="Planning and benchmark evidence">规划与对标证据</small></a>
+            <a href="crane-at-150t.html"><span>AT-150t</span><b>XCA150U</b><small data-en="All-terrain benchmark">全地面起重机对标</small></a>
+          </div>
         </div>
       </section>
 
@@ -1564,7 +1594,7 @@
         name: 'Cranes and Hoisting / 起重设备',
         summary: '已建立 5 个越野轮胎起重机吨级和 1 个全地面起重机吨级，对比参数、配置、六类典型工况和数据覆盖。',
         stats: [['6', '吨级资产'], ['8', '参数类别'], ['6', '典型工况']],
-        actionLabel: '查看起重设备总览', actionHref: 'crane-overview.html',
+        actionLabel: '查看起重机市场与产品洞察', actionHref: 'crane-market-overview.html',
         groups: [
           {tonnage: 'rt-60', label: 'RT 60 吨级', model: 'XCMG XCR60U', url: 'crane-rt-60t.html'},
           {tonnage: 'rt-75', label: 'RT 75 吨级', model: 'XCMG XCR75U', url: 'crane-rt-75t.html'},

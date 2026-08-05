@@ -1,9 +1,9 @@
 {
   "meta": {
-    "ppt_source_sha256": "4d0cd230eb768230af4119f305edfd49890e2020c5915c11ca4b97c67d56c5d4",
-    "ppt_tables_sha256": "c8662b4da032ef8acb868977822b4530c83e0e2152365dafd63fbc40c0a622f0",
-    "glossary_sha256": "bf3258c95eced6f79e8c61ed6800b7af291cd2011da48d7a6923dd4cd25275e9",
-    "translation_overrides_sha256": "b46de402ab90de8e7ea20a290674cb8a37d9b98809559602c56bc05200f25dbf",
+    "ppt_source_sha256": "4571faa5c957677e09ddad19b6e2d10abdae680b5e257cfaf06db58d925deeb1",
+    "ppt_tables_sha256": "820cc03a81d15eb976423d88cb1475aa1178a3c6187f8e97212cd663b0612094",
+    "glossary_sha256": "fdd12f0c2f54365f85417e2cba7492ba51757535cc8e27bc8ebd4a60d5931b9a",
+    "translation_overrides_sha256": "52d496ffdd9b04fd9d14d888b5304b669395d3a8e0690ba0c7e020014b214a34",
     "model": "ct2:opus-mt-zh-en",
     "backend": "ct2",
     "language": "en-US",

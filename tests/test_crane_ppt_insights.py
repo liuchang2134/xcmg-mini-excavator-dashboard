@@ -62,6 +62,14 @@ def test_slide_records_preserve_text_tables_images_and_evidence():
     assert evidence[-1]["source_slide"] == 163
 
 
+def test_crane_ppt_extraction_counts_are_stable():
+    build_crane_ppt_insights()
+    slides = load_json("slides.json")
+    assert sum(len(item["tables"]) for item in slides) == 354
+    assert sum(len(item["charts"]) for item in slides) == 26
+    assert sum(len(item["images"]) for item in slides) == 85
+
+
 def test_extracted_assets_are_not_whole_slide_screenshots():
     build_crane_ppt_insights()
     slides = load_json("slides.json")
