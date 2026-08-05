@@ -188,6 +188,33 @@ CONDITION_COPY = {
     ),
 }
 
+CONDITION_ACTIONS = {
+    "transport": (
+        "按同配重状态复核整机运输质量、外廓和轴荷，建立可拆配重与公路转场组合边界。",
+        "Recheck transport mass, envelope and axle loads at matched counterweight states, then define removable-counterweight and road-transport envelopes.",
+    ),
+    "mobility": (
+        "联合底盘与控制团队复核转向模式、最小转弯半径、爬坡度和接近/离去角，并完成未铺装场地调位试验。",
+        "Jointly verify steering modes, turning radius, gradability and approach/departure angles, followed by an unpaved-site maneuvering test.",
+    ),
+    "main-lift": (
+        "对主卷扬拉力、绳速、典型幅度载荷和起臂时间开展同工况测试，区分液压能力与载荷表口径差异。",
+        "Run matched-condition tests for main-winch pull and speed, representative-radius loads and boom-raising time, separating hydraulic capability from load-chart scope.",
+    ),
+    "long-reach": (
+        "按相同主臂长度、副臂组合和配重状态复核远幅度载荷，并评估副臂覆盖与伸臂效率的产品目标。",
+        "Recheck long-radius loads at matched boom length, jib combination and counterweight state, then set product targets for jib coverage and boom-extension efficiency.",
+    ),
+    "stability": (
+        "补齐非对称支腿、倾斜工况载荷表和轮胎吊装数据，按同支腿档位验证支腿跨度、带载行驶及轮胎起重量。",
+        "Complete asymmetric-outrigger, out-of-level and on-tire data, then verify outrigger spread, pick-and-carry and on-tire capacities at matched extension positions.",
+    ),
+    "continuous-duty": (
+        "开展动力热平衡、主副卷扬连续循环和低温启动试验，同时核对自动润滑、加热器及低温包的标选配状态。",
+        "Run thermal-balance, continuous main/auxiliary-winch cycling and cold-start tests, while confirming standard/optional status for lubrication, heaters and cold-weather packages.",
+    ),
+}
+
 ANOMALY_COPY = {
     "stale_excavator_scoring_block_excluded": (
         "源表右侧存在历史挖掘机评分区，已从起重机数据和评分中排除。",
@@ -229,6 +256,31 @@ def fmt_number(value: Any) -> str:
             return f"{int(round(float(value))):,}"
         return f"{float(value):,.2f}".rstrip("0").rstrip(".")
     return str(value)
+
+
+def metric_value(value: Any, unit: str | None = None) -> tuple[str, str, str]:
+    """Return readable bilingual value text while preserving source semantics."""
+    unit = (unit or "").strip()
+    if value is None or value == "":
+        return "—", "—", unit
+    raw = str(value).strip()
+    lowered = raw.lower()
+    if lowered in {"none", "n/a", "na", "not available"}:
+        return "无", "None", ""
+    if unit.lower() == "y/n":
+        if lowered in {"y", "yes", "true"}:
+            return "是", "Yes", ""
+        if lowered in {"n", "no", "false"}:
+            return "否", "No", ""
+    text = fmt_number(value)
+    return text, text, unit
+
+
+def render_metric_value(value: Any, unit: str | None = None, tag: str = "span") -> str:
+    zh, en, display_unit = metric_value(value, unit)
+    suffix = f" {display_unit}" if display_unit else ""
+    source_attr = f' data-source-value="{esc(value)}"' if value not in (None, "") else ""
+    return f'<{tag} data-en="{esc(en + suffix)}"{source_attr}>{esc(zh + suffix)}</{tag}>'
 
 
 def fmt_percent(value: float | None) -> str:
@@ -394,8 +446,13 @@ def concrete_gaps(sheet: Any, scoring: dict[str, Any], condition: dict[str, Any]
         if not x_metric or x_metric.numeric_value is None:
             if candidates:
                 best = max(candidates, key=lambda item: item[0])
-                zh = f"{METRIC_ZH.get(name, name)}：XCMG 资料未记录；{best[1].display_name} 为 {fmt_number(best[2].raw_value)} {best[2].unit or ''}。"
-                en = f"{name}: XCMG data not recorded; {best[1].display_name} records {fmt_number(best[2].raw_value)} {best[2].unit or ''}."
+                best_zh, best_en, best_unit = metric_value(best[2].raw_value, best[2].unit)
+                best_suffix = f" {best_unit}" if best_unit else ""
+                explicit_none = bool(x_metric and str(x_metric.raw_value).strip().lower() == "none")
+                x_zh = "明确记录为无" if explicit_none else "资料未记录"
+                x_en = "explicitly records none" if explicit_none else "is not recorded"
+                zh = f"{METRIC_ZH.get(name, name)}：XCMG {x_zh}；{best[1].display_name} 为 {best_zh}{best_suffix}。"
+                en = f"{name}: XCMG {x_en}; {best[1].display_name} records {best_en}{best_suffix}."
                 findings.append((zh, en))
             continue
         if x_score is None or not candidates:
@@ -421,14 +478,57 @@ def concrete_gaps(sheet: Any, scoring: dict[str, Any], condition: dict[str, Any]
     return findings[:4]
 
 
-def render_condition(sheet: Any, scoring: dict[str, Any], condition: dict[str, Any], index: int) -> str:
-    metric_names = relevant_metric_names(sheet, condition)
-    config_names = relevant_config_names(sheet, condition)
-    score_rows = [
+def condition_ranking_rows(sheet: Any, scoring: dict[str, Any], condition: dict[str, Any]) -> list[dict[str, Any]]:
+    if "suspected_rt130_competitor_headers" in sheet.anomalies:
+        return []
+    rows = [
         item for item in scoring["products"]
         if item["condition_scores"].get(condition["id"]) is not None
     ]
-    score_rows.sort(key=lambda item: item["condition_scores"][condition["id"]], reverse=True)
+    rows.sort(key=lambda item: item["condition_scores"][condition["id"]], reverse=True)
+    return rows if len(rows) >= 2 else []
+
+
+def render_action_plan(sheet: Any, scoring: dict[str, Any]) -> str:
+    xcmg = next(model for model in sheet.models if model.is_xcmg)
+    cards = []
+    for condition in CONDITIONS:
+        eligible = condition_ranking_rows(sheet, scoring, condition)
+        rank = next((index for index, item in enumerate(eligible, 1) if item["is_xcmg"]), None)
+        leader = eligible[0] if eligible else None
+        xrecord = get_score_record(scoring, xcmg.display_name)
+        xscore = xrecord["condition_scores"].get(condition["id"])
+        if rank and leader and xscore is not None:
+            gap = max(0.0, leader["condition_scores"][condition["id"]] - xscore)
+            position_zh = f"第 {rank} / {len(eligible)}；距 {leader['product']} {gap:.1f} 分"
+            position_en = f"No. {rank} of {len(eligible)}; {gap:.1f} points behind {leader['product']}"
+        else:
+            position_zh = "有效字段不足，暂不形成位置判断"
+            position_en = "Insufficient verified fields for a position assessment"
+        findings = concrete_gaps(sheet, scoring, condition)
+        if findings:
+            gap_zh, gap_en = findings[0]
+        else:
+            gap_zh = "未发现可量化的明显落后项；优先补齐缺失字段并复核同工况载荷口径。"
+            gap_en = "No clear measurable disadvantage is visible; complete missing fields and verify like-for-like load-chart conditions first."
+        action_zh, action_en = CONDITION_ACTIONS[condition["id"]]
+        cards.append(
+            '<article class="craneActionItem">'
+            f'<header><h3 data-en="{esc(condition["title_en"])}">{esc(condition["title_zh"])}</h3>'
+            f'<span data-en="{esc(position_en)}">{esc(position_zh)}</span></header>'
+            '<dl><div>'
+            + bilingual("首要量化差距", "Primary Measurable Gap", "dt")
+            + f'<dd data-en="{esc(gap_en)}">{esc(gap_zh)}</dd></div><div>'
+            + bilingual("工程验证与补强动作", "Engineering Validation and Action", "dt")
+            + f'<dd data-en="{esc(action_en)}">{esc(action_zh)}</dd></div></dl></article>'
+        )
+    return '<div class="craneActionGrid">' + "".join(cards) + '</div>'
+
+
+def render_condition(sheet: Any, scoring: dict[str, Any], condition: dict[str, Any], index: int) -> str:
+    metric_names = relevant_metric_names(sheet, condition)
+    config_names = relevant_config_names(sheet, condition)
+    score_rows = condition_ranking_rows(sheet, scoring, condition)
     ranking = []
     max_score = max((item["condition_scores"][condition["id"]] for item in score_rows), default=1)
     for rank, item in enumerate(score_rows, 1):
@@ -446,9 +546,8 @@ def render_condition(sheet: Any, scoring: dict[str, Any], condition: dict[str, A
     key_rows = []
     for name in metric_names[:8]:
         metric = model_metric(xcmg, name)
-        value = fmt_number(metric.raw_value) if metric else "—"
-        unit = metric.unit if metric else ""
-        key_rows.append(f'<tr><th scope="row">{metric_label(name)}</th><td>{esc(value)} {esc(unit)}</td></tr>')
+        value_html = render_metric_value(metric.raw_value, metric.unit) if metric else render_metric_value(None)
+        key_rows.append(f'<tr><th scope="row">{metric_label(name)}</th><td>{value_html}</td></tr>')
     for name in config_names:
         item = model_config(xcmg, name)
         zh, en, cls = config_status(item) if item else ("资料未记录", "Data not recorded", "missing")
@@ -498,9 +597,9 @@ def render_parameter_matrix(sheet: Any) -> str:
             cells = []
             for model in sheet.models:
                 metric = model_metric(model, name)
-                value = fmt_number(metric.raw_value) if metric else "—"
                 cls = "missing" if not metric or metric.raw_value in (None, "") else ""
-                cells.append(f'<td class="{cls}">{esc(value)}</td>')
+                value_html = render_metric_value(metric.raw_value, None) if metric else render_metric_value(None)
+                cells.append(f'<td class="{cls}">{value_html}</td>')
             rows.append(f'<tr><th scope="row">{metric_label(name)}</th><td>{esc(unit)}</td>' + "".join(cells) + "</tr>")
         zh, en = CATEGORY_NAMES[category]
         header = "".join(f'<th class="{ "xcmgHead" if model.is_xcmg else ""}">{esc(model.display_name)}</th>' for model in sheet.models)
@@ -531,15 +630,38 @@ def render_configuration_matrix(sheet: Any) -> str:
 
 
 def render_quality(sheet: Any, scoring: dict[str, Any]) -> str:
+    parameter_ranked = sorted(
+        (item for item in scoring["products"] if item["parameter_score"] is not None),
+        key=lambda item: item["parameter_score"],
+        reverse=True,
+    )
+    parameter_ranks = {item["product"]: index for index, item in enumerate(parameter_ranked, 1)}
     rows = []
     for model in sheet.models:
         score = get_score_record(scoring, model.display_name)
-        reason = score.get("not_ranked_reason") or "—"
-        reason_en = "Eligible for available evaluation" if reason == "—" else "Insufficient verified coverage or source scope"
+        if score["parameter_score"] is not None:
+            parameter_zh = f"可排名：第 {parameter_ranks[model.display_name]}，{score['parameter_score']:.1f} 分"
+            parameter_en = f"Ranked: No. {parameter_ranks[model.display_name]}, {score['parameter_score']:.1f}"
+        else:
+            parameter_zh = "暂不纳入参数排名"
+            parameter_en = "Not included in specification ranking"
+        if score["configuration_score"] is not None:
+            config_zh = f"可评价：{score['configuration_score']:.1f} 分"
+            config_en = f"Eligible: {score['configuration_score']:.1f}"
+        else:
+            config_zh = "资料不足，暂不评分"
+            config_en = "Insufficient source coverage; not scored"
+        if score["overall_score"] is not None:
+            overall_zh = f"第 {score['overall_rank']}，{score['overall_score']:.1f} 分"
+            overall_en = f"No. {score['overall_rank']}, {score['overall_score']:.1f}"
+        else:
+            overall_zh = "暂不发布"
+            overall_en = "Not published"
         rows.append(
             f'<tr class="{ "xcmg-row" if model.is_xcmg else ""}"><th scope="row">{esc(model.display_name)}</th>'
-            f'<td>{fmt_percent(model.parameter_coverage)}</td><td>{fmt_percent(model.configuration_coverage)}</td>'
-            f'<td data-en="{esc(reason_en)}">{esc(reason)}</td></tr>'
+            f'<td>{fmt_percent(model.parameter_coverage)}</td><td data-en="{esc(parameter_en)}">{esc(parameter_zh)}</td>'
+            f'<td>{fmt_percent(model.configuration_coverage)}</td><td data-en="{esc(config_en)}">{esc(config_zh)}</td>'
+            f'<td data-en="{esc(overall_en)}">{esc(overall_zh)}</td></tr>'
         )
     anomalies = []
     for code in sheet.anomalies:
@@ -550,13 +672,56 @@ def render_quality(sheet: Any, scoring: dict[str, Any]) -> str:
     return (
         '<div class="qualityGrid"><article class="panel"><h3 data-en="Coverage by product">各产品数据覆盖</h3>'
         '<div class="tableScroll"><table><thead><tr>'
-        + bilingual("产品", "Product", "th") + bilingual("参数覆盖", "Specification Coverage", "th")
-        + bilingual("配置覆盖", "Equipment Coverage", "th") + bilingual("排名状态", "Ranking Status", "th")
+        + bilingual("产品", "Product", "th") + bilingual("参数源数据覆盖", "Specification Source Coverage", "th")
+        + bilingual("参数排名资格", "Specification Ranking Status", "th")
+        + bilingual("配置源数据覆盖", "Equipment Source Coverage", "th")
+        + bilingual("配置评价资格", "Equipment Evaluation Status", "th")
+        + bilingual("综合排名", "Overall Ranking", "th")
         + '</tr></thead><tbody>' + "".join(rows) + "</tbody></table></div></article>"
         + '<article class="panel"><h3 data-en="Source checks">源数据核验记录</h3><ul class="qualityList">'
         + "".join(anomalies)
         + '</ul><p class="methodNote" data-en="Blank equipment cells remain unknown and are never converted to unavailable or zero. The six-characteristic section is blank in the source workbook and no score is fabricated.">配置空白保留为“资料未记录”，不转换为“无配置”或 0 分；源表“六大特性”区域为空，本页不编造实机评价分数。</p></article></div>'
     )
+
+
+def render_publication_status(xscore: dict[str, Any]) -> str:
+    parameter_ready = xscore["parameter_score"] is not None
+    configuration_ready = xscore["configuration_score"] is not None
+    overall_ready = xscore["overall_score"] is not None
+    items = [
+        (
+            "参数竞争力",
+            "Specification Position",
+            "可发布" if parameter_ready else "暂不发布",
+            "Published" if parameter_ready else "Not published",
+            f"评分权重覆盖 {fmt_percent(xscore['parameter_coverage'])}" if parameter_ready else "XCMG 参数有效覆盖率不足60%",
+            f"Evaluation-weight coverage {fmt_percent(xscore['parameter_coverage'])}" if parameter_ready else "Verified XCMG specification coverage is below 60%",
+            "ready" if parameter_ready else "hold",
+        ),
+        (
+            "配置竞争力",
+            "Equipment Position",
+            "可发布" if configuration_ready else "暂不发布",
+            "Published" if configuration_ready else "Not published",
+            f"配置状态覆盖 {fmt_percent(xscore['configuration_coverage'])}" if configuration_ready else f"配置状态覆盖仅 {fmt_percent(xscore['configuration_coverage'])}",
+            f"Equipment-state coverage {fmt_percent(xscore['configuration_coverage'])}" if configuration_ready else f"Equipment-state coverage is only {fmt_percent(xscore['configuration_coverage'])}",
+            "ready" if configuration_ready else "hold",
+        ),
+        (
+            "综合总分与排名",
+            "Overall Score and Ranking",
+            "可发布" if overall_ready else "暂不发布",
+            "Published" if overall_ready else "Not published",
+            f"综合得分 {xscore['overall_score']:.1f}" if overall_ready else "参数与配置必须同时达到发布门槛",
+            f"Overall score {xscore['overall_score']:.1f}" if overall_ready else "Both specification and equipment evidence must meet the publication threshold",
+            "ready" if overall_ready else "hold",
+        ),
+    ]
+    return '<div class="publicationGrid">' + "".join(
+        f'<article class="publicationItem {cls}"><span data-en="{esc(title_en)}">{esc(title_zh)}</span>'
+        f'<b data-en="{esc(status_en)}">{esc(status_zh)}</b><small data-en="{esc(note_en)}">{esc(note_zh)}</small></article>'
+        for title_zh, title_en, status_zh, status_en, note_zh, note_en, cls in items
+    ) + '</div>'
 
 
 def page_nav(sheet: Any) -> str:
@@ -570,6 +735,7 @@ def page_nav(sheet: Any) -> str:
         '<a href="#position" data-en="Specification Position">参数竞争位置</a>'
         '<details class="navGroup" open><summary data-en="Work Conditions">典型工况</summary><div class="navSubmenu">'
         + condition_links + '</div></details>'
+        '<a href="#actions" data-en="Improvement Actions">补强清单</a>'
         '<a href="#parameters" data-en="Specification Matrix">参数明细</a>'
         '<a href="#configurations" data-en="Equipment Matrix">配置明细</a>'
         '<a href="#quality" data-en="Data Quality">数据质量</a>'
@@ -597,8 +763,8 @@ def render_page(sheet: Any) -> str:
 <html lang="zh-CN" data-language="zh"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{esc(title_zh)} | XCMG ARC</title>
-<link rel="stylesheet" href="assets/dashboard.css?v=20260805a">
-<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805a">
+<link rel="stylesheet" href="assets/dashboard.css?v=20260805b">
+<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805b">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
@@ -620,11 +786,13 @@ def render_page(sheet: Any) -> str:
   <div class="kpi"><b>{fmt_score(xscore['parameter_score'])}</b><span data-en="XCMG specification score">XCMG 参数竞争力</span></div>
   <div class="kpi"><b data-en="{esc(rank_en)}">{esc(rank_display)}</b><span data-en="Specification rank">参数排名</span></div>
   <div class="kpi"><b>{fmt_percent(xcmg.parameter_coverage)}</b><span data-en="XCMG source coverage">XCMG 参数覆盖率</span></div>
-</div><div class="methodStrip"><b data-en="Evaluation boundary">评价边界</b><p data-en="Specification values use direction-aware normalization within the current tonnage class. Category weights total 100%. Equipment uses 0 for unavailable, 60 for optional and 100 for standard only when status is explicit. Overall scoring is withheld when verified equipment coverage is below 60%.">参数按当前吨级内同口径、方向归一化，八类权重合计 100%；配置仅在状态明确时按无配置 0、选配 60、标配 100 计入。当前配置有效覆盖率低于 60% 时，不生成综合总分和综合排名。</p></div></section>
+</div>{render_publication_status(xscore)}<div class="methodStrip"><b data-en="Evaluation boundary">评价边界</b><p data-en="Specification values use direction-aware normalization within the current tonnage class. Category weights total 100%. Equipment uses 0 for unavailable, 60 for optional and 100 for standard only when status is explicit. Overall scoring is withheld when verified equipment coverage is below 60%.">参数按当前吨级内同口径、方向归一化，八类权重合计 100%；配置仅在状态明确时按无配置 0、选配 60、标配 100 计入。当前配置有效覆盖率低于 60% 时，不生成综合总分和综合排名。</p></div></section>
 
 <section id="position"><h2 data-en="Specification Position">参数竞争位置</h2><div class="positionGrid"><article class="panel"><h3 data-en="Specification ranking">参数竞争力排名</h3>{render_rank_bars(scoring, 'parameter_score', xcmg.display_name)}</article><article class="panel">{render_category_radar(sheet, scoring)}</article></div>{render_category_table(sheet, scoring)}</section>
 
 <div id="conditions">{conditions}</div>
+
+<section id="actions"><h2 data-en="XCMG Measurable Improvement Actions">XCMG 量化补强清单</h2><p class="sectionLead" data-en="Each row connects the current work-condition position to the largest verified specification gap and the engineering validation required before a design target is approved. These actions are not presented as completed improvements.">逐项把工况竞争位置、最大可核验参数差距和工程验证动作对应起来；以下为验证与产品决策输入，不代表改进已经完成。</p>{render_action_plan(sheet, scoring)}</section>
 
 <section id="parameters"><h2 data-en="Complete Specification Matrix">全部参数明细</h2><p class="sectionLead" data-en="Values are grouped by eight crane engineering systems. Empty cells remain unrecorded and are not treated as zero.">按八类起重机工程系统展示全部参数；空白保留为“资料未记录”，不按 0 值处理。</p>{render_parameter_matrix(sheet)}</section>
 
@@ -633,7 +801,7 @@ def render_page(sheet: Any) -> str:
 <section id="quality"><h2 data-en="Data Quality and Publication Boundary">数据质量与发布边界</h2>{render_quality(sheet, scoring)}</section>
 
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260805a"></script><script src="assets/i18n.js?v=20260805a"></script>
+</main></div><script src="assets/dashboard.js?v=20260805b"></script><script src="assets/i18n.js?v=20260805b"></script>
 </body></html>'''
 
 
@@ -658,14 +826,14 @@ def render_overview(workbook: Any) -> str:
         f'<article><span>{index:02d}</span><h3 data-en="{esc(condition["title_en"])}">{esc(condition["title_zh"])}</h3><p data-en="{esc(CONDITION_COPY[condition["id"]][1])}">{esc(CONDITION_COPY[condition["id"]][0])}</p></article>'
         for index, condition in enumerate(CONDITIONS, 1)
     )
-    return f'''<!doctype html><html lang="zh-CN" data-language="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>起重设备竞品对标总览 | XCMG ARC</title><link rel="stylesheet" href="assets/dashboard.css?v=20260805a"><link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805a"></head><body>
+    return f'''<!doctype html><html lang="zh-CN" data-language="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>起重设备竞品对标总览 | XCMG ARC</title><link rel="stylesheet" href="assets/dashboard.css?v=20260805b"><link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805b"></head><body>
 <a class="backTop" href="#top">回到顶部</a><div class="layout" id="top"><aside class="nav"><a class="navBrand" href="arc.html"><img src="assets/xcmg-logo.svg" alt="XCMG"></a><div><div class="navTitle" data-en="Crane Benchmark Overview">起重设备对标总览</div><small>XCMG ARC</small></div><button class="languageToggle" type="button">EN</button><button class="sidebarToggle" type="button"><span>收起侧栏</span></button><button class="navToggle" type="button">页面导航</button><div class="navMenu" id="page-nav"><a class="home" href="arc.html" data-en="Return to Platform Home">返回对标平台主页</a><a href="#portfolio" data-en="Class Assets">吨级资产</a><a href="#framework" data-en="Benchmark Framework">对标框架</a><a href="#method" data-en="Evaluation Boundary">评价边界</a></div></aside><main>
 <header class="hero craneOverviewHero"><div class="heroText"><p class="eyebrow">CRANES AND HOISTING</p><h1 data-en="Crane Competitive Benchmarking">起重设备竞品对标</h1><p data-en="Six rough-terrain and all-terrain classes are organized under one engineering framework covering source values, work conditions, equipment status and data-quality boundaries.">覆盖 5 个越野轮胎起重机吨级和 1 个全地面起重机吨级，统一管理参数原值、典型工况、配置状态和数据质量边界。</p><div class="actions"><a class="btn blue" href="#portfolio" data-en="Open Class Assets">查看吨级资产</a><a class="btn" href="{SOURCE_DOWNLOAD}" download data-en="Download Source Workbook">下载原始数据</a></div></div><div class="heroMedia"><img src="assets/arc/category-cranes.webp" alt="XCMG crane"></div></header>
 <section id="portfolio"><h2 data-en="Crane Class Assets">起重机吨级资产</h2><div class="kpis craneKpis"><div class="kpi"><b>6</b><span data-en="Tonnage classes">吨级 / 类别</span></div><div class="kpi"><b>{total_models}</b><span data-en="Benchmark products">对标产品</span></div><div class="kpi"><b>8</b><span data-en="Specification categories">参数类别</span></div><div class="kpi"><b>6</b><span data-en="Work conditions">典型工况</span></div></div><div class="craneAssetGrid">{''.join(cards)}</div></section>
 <section id="framework"><h2 data-en="Work-Condition Benchmark Framework">工况对标框架</h2><div class="conditionFramework">{condition_cards}</div></section>
 <section id="method"><h2 data-en="Evaluation and Data Boundary">评分与数据边界</h2><div class="qualityGrid"><article class="panel"><h3 data-en="Specification evaluation">参数评价</h3><p data-en="Direction-aware normalization is applied within each class. Category weights are transport 10%, chassis and mobility 12%, boom and jib 18%, outriggers 12%, powertrain 8%, winches 10%, lifting performance 25% and speeds 5%.">各吨级内部按指标方向归一化；运输 10%、底盘机动 12%、主副臂 18%、支腿 12%、动力 8%、卷扬 10%、起重性能 25%、速度 5%。</p></article><article class="panel"><h3 data-en="Equipment and missing data">配置与缺失值</h3><p data-en="Explicit unavailable, optional and standard states use 0, 60 and 100. Blank cells remain unrecorded. No overall score is published below 60% verified configuration coverage, and blank six-characteristic rows are not converted into machine-test ratings.">明确的无配置、选配、标配按 0、60、100 计入；空白保留为资料未记录。配置有效覆盖率不足 60% 时不发布综合分；空白的六大特性区域不转化为实机评价。</p></article></div></section>
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260805a"></script><script src="assets/i18n.js?v=20260805a"></script></body></html>'''
+</main></div><script src="assets/dashboard.js?v=20260805b"></script><script src="assets/i18n.js?v=20260805b"></script></body></html>'''
 
 
 def build_all() -> list[Path]:
