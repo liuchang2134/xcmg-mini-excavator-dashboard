@@ -14,3 +14,9 @@
 28-33 吨级,XCMG XE300U,source-excel/XCMG_28-33t_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,缺失项按待核验处理
 33-40 吨级,XCMG XE360U,source-excel/XCMG_33-40t_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,使用修订版 33-40 1.xlsx；缺失项按待核验处理
 40-60 吨级,XCMG XE490U,source-excel/XCMG_40-60t_excavator_competitor_source.xlsx,竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,新增 40-60.xlsx；缺失项按待核验处理
+RT 60 吨级,XCMG XCR60U,source-excel/XCMG_crane_benchmark_data_pool.xlsx#RT-60t,越野轮胎起重机竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,起重机原始页；空白按资料未记录处理
+RT 75 吨级,XCMG XCR75U,source-excel/XCMG_crane_benchmark_data_pool.xlsx#RT-75t,越野轮胎起重机竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,Zoomlion字段覆盖不足；空白按资料未记录处理
+RT 100 吨级,XCMG XCR100U,source-excel/XCMG_crane_benchmark_data_pool.xlsx#RT-100t,越野轮胎起重机竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,Zoomlion字段覆盖不足；空白按资料未记录处理
+RT 130 吨级,XCMG XCR130U,source-excel/XCMG_crane_benchmark_data_pool.xlsx#RT-130t,越野轮胎起重机竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,内部对标使用,空白按资料未记录处理
+RT 160 吨级,XCMG XCR165U,source-excel/XCMG_crane_benchmark_data_pool.xlsx#RT-160t,越野轮胎起重机竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,数据待补充,XCR165U参数为空；仅展示竞品参考数据且不生成XCMG排名
+AT 150 吨级,XCMG XCA150U,source-excel/XCMG_crane_benchmark_data_pool.xlsx#AT-150t,全地面起重机竞品参数与配置原始表,北美市场口径待逐项核验,待补充厂家手册或官网链接,数据待核验,竞品数值为空且表头疑似复用RT130吨级；不生成竞品排名
