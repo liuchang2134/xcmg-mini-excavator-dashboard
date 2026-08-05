@@ -1,5 +1,8 @@
 from pathlib import Path
+import json
 import re
+
+from PIL import Image
 
 from tools.build_crane_dashboards import (
     CONFIG_ZH,
@@ -210,3 +213,41 @@ def test_crane_source_tables_expand_without_nested_scrolling():
     assert "overflow:visible" in table_wrap.group(1).replace(" ", "")
     assert "min-width:0" in table_rule.group(1).replace(" ", "")
     assert "table-layout:fixed" in table_rule.group(1).replace(" ", "")
+
+
+def test_crane_ppt_images_use_high_resolution_powerpoint_exports():
+    build_all()
+    manifest = json.loads(
+        (ROOT / "data" / "crane-ppt-insights" / "image-display.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    slides = json.loads(
+        (ROOT / "data" / "crane-ppt-insights" / "slides.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    source_images = {
+        image
+        for slide in slides
+        for image in slide.get("images", [])
+    }
+    assert set(manifest["images"]) == source_images
+    assert manifest["image_count"] == len(source_images)
+
+    for display_path in manifest["images"].values():
+        with Image.open(ROOT / display_path) as image:
+            assert max(image.size) >= 1500, (display_path, image.size)
+            assert image.width * image.height >= 450_000, (display_path, image.size)
+
+    rendered_sources = set()
+    for page_path in ROOT.glob("crane-*.html"):
+        page = page_path.read_text(encoding="utf-8")
+        rendered_sources.update(
+            re.findall(r'data-source-src="([^"]+)"', page)
+        )
+        if 'data-source-src="assets/crane-ppt-source/' in page:
+            assert 'src="assets/crane-ppt-display/' in page
+
+    assert rendered_sources
+    assert rendered_sources <= set(manifest["images"])

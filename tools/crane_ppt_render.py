@@ -14,6 +14,21 @@ except ImportError:
 
 
 ROOT = Path(__file__).resolve().parents[1]
+IMAGE_DISPLAY_MANIFEST = ROOT / "data" / "crane-ppt-insights" / "image-display.json"
+
+
+def _load_image_display_map() -> dict[str, str]:
+    if not IMAGE_DISPLAY_MANIFEST.exists():
+        return {}
+    payload = json.loads(IMAGE_DISPLAY_MANIFEST.read_text(encoding="utf-8"))
+    return {
+        str(source): str(display)
+        for source, display in (payload.get("images") or {}).items()
+        if source and display
+    }
+
+
+IMAGE_DISPLAY_MAP = _load_image_display_map()
 
 STATUS_COPY = {
     "historical": ("历史数据", "Historical data"),
@@ -397,6 +412,7 @@ def _render_images(record: dict[str, Any]) -> str:
     override_captions = IMAGE_CAPTION_OVERRIDES.get(record["slide"], ())
     figures = []
     for index, path in enumerate(images):
+        display_path = IMAGE_DISPLAY_MAP.get(path, path)
         caption = (
             override_captions[index]
             if index < len(override_captions)
@@ -404,9 +420,9 @@ def _render_images(record: dict[str, Any]) -> str:
         )
         figures.append(
             '<figure><button type="button" class="insightImageButton" '
-            f'data-full-src="{esc(path)}" data-caption="{esc(caption)}" '
+            f'data-full-src="{esc(display_path)}" data-source-src="{esc(path)}" data-caption="{esc(caption)}" '
             f'aria-label="放大查看：{esc(caption)}" title="放大查看">'
-            f'<img src="{esc(path)}" alt="{esc(caption)}" loading="lazy" decoding="async">'
+            f'<img src="{esc(display_path)}" alt="{esc(caption)}" loading="lazy" decoding="async">'
             f'</button><figcaption>{esc(caption)}</figcaption></figure>'
         )
     return f'<div class="craneInsightGallery count-{len(images)}">{"".join(figures)}</div>'
