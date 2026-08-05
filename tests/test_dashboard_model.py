@@ -816,7 +816,11 @@ class DashboardModelTests(unittest.TestCase):
         self.assertNotIn('id="sources"', arc_html)
         self.assertNotIn("data/source-excel/", arc_html)
         self.assertNotIn("<b>Excel</b><span>原始数据</span>", arc_html)
-        self.assertEqual(download_html.count('data-source-file="'), len(SOURCE_FILES))
+        self.assertEqual(download_html.count('data-source-file="'), len(SOURCE_FILES) + 1)
+        self.assertIn(
+            'href="data/source-excel/XCMG_crane_benchmark_data_pool.xlsx"',
+            download_html,
+        )
         for meta in SOURCE_FILES:
             with self.subTest(page=meta["output"]):
                 self.assertIn(f'href="{meta["output"]}"', download_html)
@@ -830,9 +834,10 @@ class DashboardModelTests(unittest.TestCase):
         self.assertEqual(arc_html.count('data-product-line="'), 7)
         self.assertNotIn('id="product-line-detail"', arc_html)
         self.assertNotIn("renderProductLineDetail", arc_html)
-        self.assertEqual(arc_html.count('class="lineCard is-live"'), 1)
-        self.assertEqual(arc_html.count('class="lineCard is-disabled"'), 6)
-        self.assertEqual(arc_html.count('aria-disabled="true"'), 6)
+        self.assertEqual(arc_html.count('class="lineCard is-live"'), 2)
+        self.assertEqual(arc_html.count('class="lineCard is-disabled"'), 5)
+        self.assertEqual(arc_html.count('aria-disabled="true"'), 5)
+        self.assertIn('href="crane-overview.html"', arc_html)
 
     def test_arc_excavator_projects_are_filterable_and_clickable(self):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
@@ -1274,8 +1279,12 @@ class DashboardModelTests(unittest.TestCase):
     def test_manifest_matches_generated_models(self):
         manifest = json.loads((ROOT / "data" / "project-manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["excavatorTonnageCount"], len(self.models))
-        self.assertEqual(manifest["benchmarkProductCount"], sum(len(model["products"]) for model in self.models))
-        self.assertEqual(manifest["sourceWorkbookCount"], len(SOURCE_FILES))
+        excavator_count = sum(len(model["products"]) for model in self.models)
+        crane_count = sum(item["productCount"] for item in manifest["craneOverview"]["dashboards"])
+        self.assertEqual(manifest["excavatorBenchmarkProductCount"], excavator_count)
+        self.assertEqual(manifest["craneBenchmarkProductCount"], crane_count)
+        self.assertEqual(manifest["benchmarkProductCount"], excavator_count + crane_count)
+        self.assertEqual(manifest["sourceWorkbookCount"], len(SOURCE_FILES) + 1)
         self.assertEqual(manifest["minimumScoreCoverage"], MIN_SCORE_COVERAGE)
         self.assertEqual(
             manifest["marketOverview"],

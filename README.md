@@ -1,6 +1,6 @@
 # 全产品线竞品对标平台（XCMG ARC 独立开发）
 
-Executive dashboards and source-backed materials independently developed by XCMG ARC for excavator product benchmarking.
+Executive dashboards and source-backed materials independently developed by XCMG ARC for excavator and crane product benchmarking.
 
 ## Deliverables
 
@@ -21,6 +21,9 @@ Executive dashboards and source-backed materials independently developed by XCMG
 - `excavator-28-33t.html` - 28-33 ton excavator dashboard
 - `excavator-33-40t.html` - 33-40 ton excavator dashboard
 - `excavator-40-60t.html` - 40-60 ton excavator dashboard
+- `crane-overview.html` - crane benchmarking overview and class entry
+- `crane-rt-60t.html`, `crane-rt-75t.html`, `crane-rt-100t.html`, `crane-rt-130t.html`, `crane-rt-160t.html` - rough-terrain crane class dashboards
+- `crane-at-150t.html` - 150 ton all-terrain crane dashboard
 - `data/source-excel/XCMG_1-2t_mini_excavator_competitor_source.xlsx` - source workbook for the 1-2 ton dashboard
 - `data/source-excel/XCMG_2-3t_mini_excavator_competitor_source.xlsx` - source workbook for the 2-3 ton dashboard
 - `data/source-excel/XCMG_3.5t_mini_excavator_competitor_source.xlsx` - source workbook for the 3.5 ton dashboard
@@ -36,6 +39,8 @@ Executive dashboards and source-backed materials independently developed by XCMG
 - `data/source-excel/XCMG_28-33t_excavator_competitor_source.xlsx` - source workbook for the 28-33 ton dashboard
 - `data/source-excel/XCMG_33-40t_excavator_competitor_source.xlsx` - source workbook for the 33-40 ton dashboard
 - `data/source-excel/XCMG_40-60t_excavator_competitor_source.xlsx` - source workbook for the 40-60 ton dashboard
+- `data/source-excel/XCMG_crane_benchmark_data_pool.xlsx` - governed source workbook for the six crane benchmark classes
+- `data/generated/cranes/crane-benchmark.json` - normalized crane parameters, equipment states, coverage, and source-quality findings
 - `html-ppt/index.html` - browser-based executive presentation with presenter notes
 - `xcmg-mini-excavator-briefing.pptx` - downloadable PowerPoint deck
 - `xcmg-mini-excavator-briefing-script.md` - presentation script

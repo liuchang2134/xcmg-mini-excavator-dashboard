@@ -1,8 +1,12 @@
 {
   "productLineCount": 7,
+  "liveProductLineCount": 2,
   "excavatorTonnageCount": 15,
-  "benchmarkProductCount": 133,
-  "sourceWorkbookCount": 15,
+  "craneTonnageCount": 6,
+  "excavatorBenchmarkProductCount": 133,
+  "craneBenchmarkProductCount": 48,
+  "benchmarkProductCount": 181,
+  "sourceWorkbookCount": 16,
   "minimumScoreCoverage": 0.6,
   "overallWeights": {
     "parameter": 0.65,
@@ -12,6 +16,20 @@
     "output": "excavator-market-overview.html",
     "data": "data/ppt-insights/excavator-market-overview.json",
     "classification": "XCMG ARC INTERNAL"
+  },
+  "craneOverview": {
+    "output": "crane-overview.html",
+    "data": "data/generated/cranes/crane-benchmark.json",
+    "source": "data/source-excel/XCMG_crane_benchmark_data_pool.xlsx",
+    "classification": "XCMG ARC INTERNAL",
+    "dashboards": [
+      {"label": "RT-60t", "output": "crane-rt-60t.html", "xcmg": "XCMG XCR60U", "productCount": 9},
+      {"label": "RT-75t", "output": "crane-rt-75t.html", "xcmg": "XCMG XCR75U", "productCount": 8},
+      {"label": "RT-100t", "output": "crane-rt-100t.html", "xcmg": "XCMG XCR100U", "productCount": 9},
+      {"label": "RT-130t", "output": "crane-rt-130t.html", "xcmg": "XCMG XCR130U", "productCount": 7},
+      {"label": "RT-160t", "output": "crane-rt-160t.html", "xcmg": "XCMG XCR165U", "productCount": 8},
+      {"label": "AT-150t", "output": "crane-at-150t.html", "xcmg": "XCMG XCA150U", "productCount": 7}
+    ]
   },
   "pptBusinessTables": {
     "data": "data/ppt-insights/ppt-business-tables.json",

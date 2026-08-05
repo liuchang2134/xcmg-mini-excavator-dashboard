@@ -1261,7 +1261,7 @@
                     <option value="wheel-loaders" disabled>Wheel Loaders / 装载机（待接入）</option>
                     <option value="rollers" disabled>Rollers / 压路机（待接入）</option>
                     <option value="motor-graders" disabled>Motor Graders / 平地机（待接入）</option>
-                    <option value="cranes" disabled>Cranes and Hoisting / 起重设备（待接入）</option>
+                    <option value="cranes">Cranes and Hoisting / 起重设备</option>
                     <option value="haul-trucks" disabled>Haul Trucks / 矿用运输（待接入）</option>
                     <option value="mewp" disabled>MEWP / 高空作业平台（待接入）</option>
                   </select>
@@ -1281,8 +1281,8 @@
           </div>
           <div class="platformStrip" aria-label="平台关键状态">
             <div class="platformMetric"><b><!-- ARC_PRODUCT_LINES -->7<!-- /ARC_PRODUCT_LINES --></b><span>产品线规划</span></div>
-            <div class="platformMetric"><b><!-- ARC_TONNAGES -->15<!-- /ARC_TONNAGES --></b><span>已建吨级资产</span></div>
-            <div class="platformMetric"><b><!-- ARC_PRODUCTS -->133<!-- /ARC_PRODUCTS --></b><span>对标产品型号</span></div>
+            <div class="platformMetric"><b><!-- ARC_TONNAGES -->21<!-- /ARC_TONNAGES --></b><span>已建吨级资产</span></div>
+            <div class="platformMetric"><b><!-- ARC_PRODUCTS -->181<!-- /ARC_PRODUCTS --></b><span>对标产品型号</span></div>
           </div>
         </article>
       </section>
@@ -1339,14 +1339,15 @@
             </div>
           </article>
 
-          <article class="lineCard is-disabled" id="line-cranes" data-product-line="cranes" aria-disabled="true">
+          <a class="lineCard is-live" id="line-cranes" data-product-line="cranes" href="crane-overview.html" aria-label="进入起重设备竞品对标板块">
             <div class="lineImage scene"><img src="assets/arc/category-cranes.webp" alt="XCMG crane"></div>
             <div class="lineBody">
-              <div class="lineTop"><div><h3>Cranes and Hoisting</h3><small>起重设备</small></div><span class="status">待接入</span></div>
-              <p>重点围绕起重能力、工况表、支腿布置、转场效率和安全系统。</p>
-              <div class="tagRow"><span class="tag">载荷曲线</span><span class="tag">支腿</span><span class="tag">安全系统</span></div>
+              <div class="lineTop"><div><h3>Cranes and Hoisting</h3><small data-en="Rough-terrain and all-terrain cranes">越野轮胎与全地面起重机</small></div><span class="status live" data-en="Available">已接入</span></div>
+              <p data-en="Six class assets compare transport, mobility, boom and jib, outriggers, powertrain, winches, lifting performance, speeds and equipment status.">六个吨级资产统一比较运输、机动、主副臂、支腿、动力、卷扬、起重性能、作业速度和配置状态。</p>
+              <div class="tagRow"><span class="tag">RT 60-160t</span><span class="tag">AT 150t</span><span class="tag" data-en="Six work conditions">六类工况</span></div>
+              <span class="linePrimaryAction"><b data-en="Open crane benchmarking">进入起重设备对标</b><span aria-hidden="true">→</span></span>
             </div>
-          </article>
+          </a>
 
           <article class="lineCard is-disabled" id="line-haul-trucks" data-product-line="haul-trucks" aria-disabled="true">
             <div class="lineImage scene"><img src="assets/arc/category-haul-trucks.webp" alt="XCMG haul truck"></div>
@@ -1561,10 +1562,17 @@
       },
       cranes: {
         name: 'Cranes and Hoisting / 起重设备',
-        summary: '围绕起重能力、工况表、支腿布置、转场效率和安全系统组织对标维度。',
-        stats: [['5', '核心维度'], ['吊装', '主要场景'], ['XCMG USA', '产品资料']],
-        actionLabel: '查看官方产品', actionHref: 'https://xcmg-usa.com/',
-        groups: [{tonnage: 'all', label: '产品线总览', model: 'XCMG Cranes', url: '#line-cranes'}]
+        summary: '已建立 5 个越野轮胎起重机吨级和 1 个全地面起重机吨级，对比参数、配置、六类典型工况和数据覆盖。',
+        stats: [['6', '吨级资产'], ['8', '参数类别'], ['6', '典型工况']],
+        actionLabel: '查看起重设备总览', actionHref: 'crane-overview.html',
+        groups: [
+          {tonnage: 'rt-60', label: 'RT 60 吨级', model: 'XCMG XCR60U', url: 'crane-rt-60t.html'},
+          {tonnage: 'rt-75', label: 'RT 75 吨级', model: 'XCMG XCR75U', url: 'crane-rt-75t.html'},
+          {tonnage: 'rt-100', label: 'RT 100 吨级', model: 'XCMG XCR100U', url: 'crane-rt-100t.html'},
+          {tonnage: 'rt-130', label: 'RT 130 吨级', model: 'XCMG XCR130U', url: 'crane-rt-130t.html'},
+          {tonnage: 'rt-160', label: 'RT 160 吨级', model: 'XCMG XCR165U', url: 'crane-rt-160t.html'},
+          {tonnage: 'at-150', label: 'AT 150 吨级', model: 'XCMG XCA150U', url: 'crane-at-150t.html'}
+        ]
       },
       'haul-trucks': {
         name: 'Haul Trucks / 矿用运输',
