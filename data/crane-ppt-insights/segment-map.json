@@ -1,0 +1,132 @@
+{
+  "RT-60t": {
+    "title_zh": "60吨级越野轮胎起重机",
+    "title_en": "60 t Rough-Terrain Crane",
+    "models": [
+      "XCR60_U",
+      "XCR75_U"
+    ],
+    "source_scope": "current-at-source-date",
+    "slides": [
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95
+    ]
+  },
+  "RT-75t": {
+    "title_zh": "75吨级越野轮胎起重机",
+    "title_en": "75 t Rough-Terrain Crane",
+    "models": [
+      "XCR60_U",
+      "XCR75_U"
+    ],
+    "source_scope": "current-at-source-date",
+    "slides": [
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95
+    ]
+  },
+  "RT-100t": {
+    "title_zh": "100吨级越野轮胎起重机",
+    "title_en": "100 t Rough-Terrain Crane",
+    "models": [
+      "XCR100_U"
+    ],
+    "source_scope": "current-at-source-date",
+    "slides": [
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107
+    ]
+  },
+  "RT-130t": {
+    "title_zh": "130吨级越野轮胎起重机",
+    "title_en": "130 t Rough-Terrain Crane",
+    "models": [
+      "XCR130_U"
+    ],
+    "source_scope": "current-at-source-date",
+    "slides": [
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119
+    ]
+  },
+  "RT-160t": {
+    "title_zh": "160-165吨级越野轮胎起重机",
+    "title_en": "160-165 US ton Rough-Terrain Crane",
+    "models": [
+      "XCR165U"
+    ],
+    "source_scope": "plan",
+    "slides": [
+      132,
+      147,
+      152
+    ]
+  },
+  "AT-150t": {
+    "title_zh": "150吨级全地面起重机",
+    "title_en": "150 t All-Terrain Crane",
+    "models": [
+      "XCA150_U"
+    ],
+    "source_scope": "current-at-source-date",
+    "slides": [
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68
+    ]
+  }
+}
