@@ -64,6 +64,23 @@ def test_incomplete_crane_sheets_are_not_forced_into_rankings():
     assert "0.0 分" not in rt160 + at150
 
 
+def test_rt160_uses_an_official_same_series_reference_without_claiming_model_specific_evidence():
+    build_all()
+    definition = PAGE_DEFINITIONS["RT-160t"]
+    image_path = ROOT / definition["image"]
+    rt160 = (ROOT / definition["output"]).read_text(encoding="utf-8")
+    homepage = (ROOT / "arc.html").read_text(encoding="utf-8")
+
+    assert definition["image"] == "assets/arc/cranes/xcr130u-product-official.jpeg"
+    assert image_path.exists()
+    with Image.open(image_path) as image:
+        assert image.width >= 1600
+        assert image.height >= 1000
+    assert "仅用于 XCR165U 规划参考，不作为该型号实机证据" in rt160
+    assert "XCR130U 官方同系列示意" in homepage
+    assert "assets/arc/category-cranes.webp" not in homepage.split('data-tonnage="rt-160"', 1)[1].split("</a>", 1)[0]
+
+
 def test_crane_pages_are_bilingual_and_mobile_bounded():
     build_all()
     page = (ROOT / "crane-rt-100t.html").read_text(encoding="utf-8")

@@ -65,9 +65,11 @@ PAGE_DEFINITIONS = {
     },
     "RT-160t": {
         "output": "crane-rt-160t.html",
-        "image": "assets/arc/category-cranes.webp",
-        "image_alt": "XCMG crane product-line image",
+        "image": "assets/arc/cranes/xcr130u-product-official.jpeg",
+        "image_alt": "Official XCMG USA XCR130U same-series reference for the planned XCR165U class",
         "official": False,
+        "image_note_zh": "XCMG USA 官方 XCR130U 同系列实机图；仅用于 XCR165U 规划参考，不作为该型号实机证据",
+        "image_note_en": "Official XCMG USA XCR130U same-series image; planning reference only, not model-specific XCR165U evidence",
     },
     "AT-150t": {
         "output": "crane-at-150t.html",
@@ -1650,8 +1652,14 @@ def render_page(sheet: Any) -> str:
     rank = next((index for index, item in enumerate(ranked, 1) if item["is_xcmg"]), None)
     rank_display = f"第 {rank}" if rank else "暂不排名"
     rank_en = f"No. {rank}" if rank else "Not ranked"
-    image_note_zh = "XCMG USA 官方产品图" if definition["official"] else "XCMG 起重设备产品线示意图；XCR165U 对应官方图片待补"
-    image_note_en = "Official XCMG USA product image" if definition["official"] else "XCMG crane product-line image; model-specific XCR165U image pending"
+    image_note_zh = definition.get(
+        "image_note_zh",
+        "XCMG USA 官方产品图" if definition["official"] else "XCMG 起重设备产品线示意图",
+    )
+    image_note_en = definition.get(
+        "image_note_en",
+        "Official XCMG USA product image" if definition["official"] else "XCMG crane product-line image",
+    )
     crane_type_en = "Rough-Terrain" if sheet.label.startswith("RT-") else "All-Terrain"
     tonnage_en = sheet.tonnage.replace("t", "-USt")
     title_zh = f'{xcmg.display_name} {sheet.tonnage} 起重机竞品对标'
@@ -1723,8 +1731,13 @@ def render_overview(workbook: Any) -> str:
         xscore = get_score_record(scoring, xcmg.display_name)
         status_zh = "可形成参数对标" if xscore["parameter_score"] is not None else "数据范围待补齐"
         status_en = "Specification benchmark available" if xscore["parameter_score"] is not None else "Source scope requires completion"
+        reference_badge = (
+            '<span class="craneReferenceBadge" data-en="Official XCR130U same-series reference">XCR130U 官方同系列示意</span>'
+            if sheet.label == "RT-160t"
+            else ""
+        )
         cards.append(
-            f'<a class="craneAssetCard" href="{esc(definition["output"])}"><div class="craneAssetMedia"><img src="{esc(definition["image"])}" alt="{esc(definition["image_alt"])}"></div>'
+            f'<a class="craneAssetCard" href="{esc(definition["output"])}"><div class="craneAssetMedia"><img src="{esc(definition["image"])}" alt="{esc(definition["image_alt"])}">{reference_badge}</div>'
             f'<div class="craneAssetBody"><span>{esc(sheet.label)}</span><h3>{esc(xcmg.display_name)}</h3>'
             f'<p>{len(sheet.models)} 个对标产品 · 参数覆盖 {fmt_percent(xcmg.parameter_coverage)}</p>'
             f'<b data-en="{esc(status_en)}">{esc(status_zh)}</b></div></a>'
@@ -1758,7 +1771,7 @@ def render_overview(workbook: Any) -> str:
                 f'<div class="conditionFramework">{group_cards}</div></div>'
             )
     condition_cards = "".join(condition_groups)
-    return f'''<!doctype html><html lang="zh-CN" data-language="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>起重设备竞品对标总览 | XCMG ARC</title><link rel="stylesheet" href="assets/dashboard.css?v=20260805e"><link rel="stylesheet" href="assets/crane-dashboard.css?v=20260806a"></head><body>
+    return f'''<!doctype html><html lang="zh-CN" data-language="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>起重设备竞品对标总览 | XCMG ARC</title><link rel="stylesheet" href="assets/dashboard.css?v=20260805e"><link rel="stylesheet" href="assets/crane-dashboard.css?v=20260806b"></head><body>
 <a class="backTop" href="#top">回到顶部</a><div class="layout" id="top"><aside class="nav"><a class="navBrand" href="arc.html"><img src="assets/xcmg-logo.svg" alt="XCMG"></a><div><div class="navTitle" data-en="Crane Benchmark Overview">起重设备对标总览</div><small>XCMG ARC</small></div><button class="languageToggle" type="button">EN</button><button class="sidebarToggle" type="button"><span>收起侧栏</span></button><button class="navToggle" type="button">页面导航</button><div class="navMenu" id="page-nav"><a class="home" href="arc.html" data-en="Return to Platform Home">返回对标平台主页</a><a href="#portfolio" data-en="Class Assets">吨级资产</a><a href="#framework" data-en="Benchmark Framework">对标框架</a><a href="#method" data-en="Evaluation Boundary">评价边界</a></div></aside><main>
 <header class="hero craneOverviewHero"><div class="heroText"><p class="eyebrow">CRANES AND HOISTING</p><h1 data-en="Crane Competitive Benchmarking">起重设备竞品对标</h1><p data-en="Six rough-terrain and all-terrain classes are organized under one engineering framework covering source values, work conditions, equipment status and data-quality boundaries.">覆盖 5 个越野轮胎起重机吨级和 1 个全地面起重机吨级，统一管理参数原值、典型工况、配置状态和数据质量边界。</p><div class="actions"><a class="btn blue" href="#portfolio" data-en="Open Class Assets">查看吨级资产</a><a class="btn" href="{SOURCE_DOWNLOAD}" download data-en="Download Source Workbook">下载原始数据</a></div></div><div class="heroMedia"><img src="assets/arc/category-cranes.webp" alt="XCMG crane"></div></header>
  <section id="portfolio"><h2 data-en="Crane Class Assets">起重机吨级资产</h2><div class="kpis craneKpis"><div class="kpi"><b>6</b><span data-en="Tonnage classes">吨级 / 类别</span></div><div class="kpi"><b>{total_models}</b><span data-en="Benchmark products">对标产品</span></div><div class="kpi"><b>8</b><span data-en="Specification categories">参数类别</span></div><div class="kpi"><b>{len(CONDITIONS)}</b><span data-en="Work conditions">典型工况</span></div></div><div class="craneAssetGrid">{''.join(cards)}</div></section>
