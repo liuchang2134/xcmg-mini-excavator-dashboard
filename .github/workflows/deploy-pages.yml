@@ -1,0 +1,67 @@
+name: Deploy XCMG ARC platform
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Assemble public site
+        shell: bash
+        run: |
+          set -euo pipefail
+          public_dir="${RUNNER_TEMP}/xcmg-arc-site"
+          mkdir -p "${public_dir}"
+          rsync -a ./ "${public_dir}/" \
+            --exclude '/.git/' \
+            --exclude '/.github/' \
+            --exclude '/.venv-translate/' \
+            --exclude '/node_modules/' \
+            --exclude '/tests/' \
+            --exclude '/tools/' \
+            --exclude '/tmp/' \
+            --exclude '/artifacts/' \
+            --exclude '/docs/' \
+            --exclude '/ppt-integration-demo/' \
+            --exclude '/data/source-presentations/' \
+            --exclude '**/__pycache__/' \
+            --exclude '*.pyc'
+          touch "${public_dir}/.nojekyll"
+          test -f "${public_dir}/arc.html"
+          test -f "${public_dir}/crane-rt-75t.html"
+          du -sh "${public_dir}"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/xcmg-arc-site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
