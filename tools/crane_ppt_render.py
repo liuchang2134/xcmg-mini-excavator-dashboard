@@ -9,12 +9,23 @@ from typing import Any, Iterable
 
 try:
     from .crane_ppt_insights import CLASS_SLIDES, OUTPUT_DIR, SOURCE_DATE
+    from .postedit_crane_translations import (
+        MANUAL_OVERRIDES,
+        deterministic_cleanup,
+        generated_manual_override,
+    )
 except ImportError:
     from crane_ppt_insights import CLASS_SLIDES, OUTPUT_DIR, SOURCE_DATE
+    from postedit_crane_translations import (
+        MANUAL_OVERRIDES,
+        deterministic_cleanup,
+        generated_manual_override,
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGE_DISPLAY_MANIFEST = ROOT / "data" / "crane-ppt-insights" / "image-display.json"
+TRANSLATION_FILE = ROOT / "data" / "crane-ppt-insights" / "translations.en.json"
 
 
 def _load_image_display_map() -> dict[str, str]:
@@ -29,6 +40,348 @@ def _load_image_display_map() -> dict[str, str]:
 
 
 IMAGE_DISPLAY_MAP = _load_image_display_map()
+
+
+def _load_translations() -> dict[str, str]:
+    if not TRANSLATION_FILE.exists():
+        return {}
+    payload = json.loads(TRANSLATION_FILE.read_text(encoding="utf-8"))
+    return {
+        str(source).strip(): str(target).strip()
+        for source, target in (payload.get("translations") or {}).items()
+        if source and target
+    }
+
+
+EN_TRANSLATIONS = _load_translations()
+
+
+CRANE_ENGLISH_OVERRIDES = {
+    "汽车起重机": "Truck-mounted crane",
+    "占有率": "Market share",
+    "占有率/%": "Market share (%)",
+    "补充信息": "Additional information",
+    "是否通用场景": "Common across regions",
+    "竞品及型号": "Competitors and models",
+    "客户群": "Customer segment",
+    "客户对于关键参配的喜好": "Customer preferences for key specifications and equipment",
+    "用户口碑": "Customer feedback",
+    "徐工口碑": "XCMG customer feedback",
+    "结论": "Conclusion",
+    "销售价格/万美元": "Sales price (US$10,000)",
+    "2.2 占有率分析及竞争对手锁定": "2.2 Market Share Analysis and Competitor Selection",
+    "2022-2024各品牌销量及占有率 - 越野吊": "2022-2024 Brand Sales and Market Share - Rough-Terrain Cranes",
+    "加拿大安大略市场与工况": "Ontario Market and Operating Conditions",
+    "加拿大草原区域市场与工况": "Canadian Prairie Market and Operating Conditions",
+    "加拿大草原省份市场与工况": "Canadian Prairie Market and Operating Conditions",
+    "美国东北部市场与工况": "US Northeast Market and Operating Conditions",
+    "美国东中部市场与工况": "US East-Central Market and Operating Conditions",
+    "美国东中部市场": "US East-Central market",
+    "美国东南部市场与工况": "US Southeast Market and Operating Conditions",
+    "美国中南部市场与工况": "US South-Central Market and Operating Conditions",
+    "美国中西上部市场与工况": "US Upper Midwest Market and Operating Conditions",
+    "美国西海岸市场与工况": "US West Coast Market and Operating Conditions",
+    "徐工XCR60_U/XCR75_U客户使用评价对标": "Customer Evaluation Benchmark - XCMG XCR60_U / XCR75_U",
+    "徐工型号XCT35_U客户使用评价对标": "Customer Evaluation Benchmark - XCMG XCT35_U",
+    "徐工型号XCT35_U性能指标对标": "Performance Benchmark - XCMG XCT35_U",
+    "徐工型号XCT40_U客户使用评价对标": "Customer Evaluation Benchmark - XCMG XCT40_U",
+    "徐工型号XCT40_U性能指标对标": "Performance Benchmark - XCMG XCT40_U",
+    "徐工型号XCT60_U客户使用评价对标": "Customer Evaluation Benchmark - XCMG XCT60_U",
+    "徐工型号XCT60_U性能指标对标": "Performance Benchmark - XCMG XCT60_U",
+    "徐工型号XGC110U客户使用评价对标": "Customer Evaluation Benchmark - XCMG XGC110U",
+    "徐工型号XGC110U性能指标对标": "Performance Benchmark - XCMG XGC110U",
+    "住宅施工：北美大部分房屋为木质结构，需用起重机对框架、板材进行吊装和就位安装。": (
+        "Residential construction: North American homes use wood-frame construction. "
+        "Cranes lift and position structural frames, panels and other building components."
+    ),
+    "住宅施工：北美大部分房屋为木质结构，需用起重机对框架、板材进行吊装和就位安装。\n典型工况：作业幅度要求远≥30m，吊重量1000lb。": (
+        "Residential construction: North American homes use wood-frame construction. "
+        "Cranes lift and position structural frames and panels. Typical requirements include "
+        "an operating radius of at least 30 m and a 1,000-lb load."
+    ),
+    "区域范围：马萨诸塞州、缅因州、新罕布什尔州等，区域特点：老城区更新、高架作业多，空间限制大。": (
+        "Regional scope: Massachusetts, Maine and New Hampshire. Older urban districts, "
+        "frequent elevated work and constrained jobsites favor compact machines with precise controls."
+    ),
+    "区域范围：伊利诺伊、俄亥俄、印第安纳、密歇根等州，区域特点：城市集中、法规严格、电力/广告/通信高空作业多。": (
+        "Regional scope: Illinois, Ohio, Indiana and Michigan. Dense urban areas, strict regulations "
+        "and frequent aerial work for utilities, signage and telecommunications shape equipment demand."
+    ),
+    "区域范围：佛罗里达州、佐治亚州、南/北卡罗来纳州、阿拉巴马州，区域特点：平原地貌、房建旺盛、环境复杂。": (
+        "Regional scope: Florida, Georgia, North Carolina, South Carolina and Alabama. Flat terrain, "
+        "strong building-construction demand and varied environmental conditions define the market."
+    ),
+    "区域范围：加利福尼亚、华盛顿、俄勒冈州。区域特点：加州沙土、高温（＞40℃）；华盛顿州雨林、湿地、多雨丘陵，公路、桥梁、建筑等施工较多。": (
+        "Regional scope: California, Washington and Oregon. California combines sandy soils and "
+        "temperatures above 40°C; Washington adds rain forest, wetland and hilly conditions with "
+        "substantial road, bridge and building construction."
+    ),
+    "徐工型号XCR60_U：在售主打产品XCR60_U在显性参数和配置方面优于竞争对手，在产品软文资料方面仍需优化提升。": (
+        "XCR60_U is XCMG's primary model in this class. Its published specifications and equipment "
+        "package compare favorably with competitors, while sales literature still requires improvement."
+    ),
+    "徐工型号XCR75_U：在售主打产品XCR75_U在显性参数和配置方面优于竞争对手，在产品软文资料方面仍需优化提升。": (
+        "XCR75_U is XCMG's primary model in this class. Its published specifications and equipment "
+        "package compare favorably with competitors, while sales literature still requires improvement."
+    ),
+    "徐工型号XCR130_U：在售主打产品XCR130_U在核心参数和配置方面优于竞争对手，在底盘匹配品类和数量方面需进一步提升。": (
+        "XCR130_U is XCMG's primary model in this class. Its core specifications and equipment package "
+        "compare favorably with competitors; the range and number of compatible carrier configurations "
+        "should be expanded."
+    ),
+    "徐工型号XCT35_U：在售主打产品XCT35_U在核心参数和配置方面优于竞争对手，在底盘匹配品类和数量方面需进一步提升。": (
+        "XCT35_U is XCMG's primary model in this class. Its core specifications and equipment package "
+        "compare favorably with competitors; the range and number of compatible carrier configurations "
+        "should be expanded."
+    ),
+    "徐工型号XCT40_U：在售主打产品XCT40_U在核心参数和配置方面优于竞争对手，在底盘匹配品类和数量方面需进一步提升。": (
+        "XCT40_U is XCMG's primary model in this class. Its core specifications and equipment package "
+        "compare favorably with competitors; the range and number of compatible carrier configurations "
+        "should be expanded."
+    ),
+    "徐工型号XCT60_U：在售主打产品XCT60_U在核心参数和配置方面优于竞争对手，在底盘匹配品类和数量方面需进一步提升。": (
+        "XCT60_U is XCMG's primary model in this class. Its core specifications and equipment package "
+        "compare favorably with competitors; the range and number of compatible carrier configurations "
+        "should be expanded."
+    ),
+    "徐工型号XCA150_U：在售主打产品XCA150_U在显性参数和配置方面优于竞争对手，在产品操控性能、作业效率方面对比标杆仍需优化提升。": (
+        "XCA150_U is XCMG's primary model in this class. Its published specifications and equipment "
+        "package compare favorably with competitors, while control performance and jobsite efficiency "
+        "still trail the benchmark."
+    ),
+    "徐工型号XCA275_U：在售主打产品XCA275_U在显性参数和配置方面优于竞争对手，在产品操控性能、作业效率方面对比标杆仍需优化提升。": (
+        "XCA275_U is XCMG's primary model in this class. Its published specifications and equipment "
+        "package compare favorably with competitors, while control performance and jobsite efficiency "
+        "still trail the benchmark."
+    ),
+    "徐工口碑：\n产品性能卓越：整机起重性能高于行业最高水平且更加节能。其综合性能领先竞争对手。\n品牌2口碑：\n口碑1：\nGrove起重机技术太老了，配置还是十年前的，虽然没什么问题，但是有时我不得不自己改装加一些功能配置。": (
+        "XCMG customer feedback: lifting performance and energy efficiency are viewed as competitive. "
+        "Competitor feedback: Grove machines are considered reliable, but some customers regard the "
+        "technology and equipment package as dated and add functions through local modifications."
+    ),
+    "徐工口碑：\n徐工40吨通用底盘起重机像来自欧洲全地面起重机一样，U型臂很结实，它其实更像45-50美吨产品，很划算。\n品牌2口碑：\nNational的40美吨Boomtruck是他们的经典产品了，虽然配置简单，但是很可靠，他们可以根据我们的需要选择美国的几乎任一主流品牌的底盘，我们附近PeterBilt口碑不错，这是我选择它的原因之一。": (
+        "XCMG customer feedback: the 40-USt boom truck has a robust U-shaped boom and is perceived to "
+        "deliver lifting capability closer to a 45-50-USt machine at an attractive price. Competitor "
+        "feedback: National's 40-USt boom truck is valued for reliability and broad compatibility with "
+        "mainstream North American chassis brands, including Peterbilt."
+    ),
+    "徐工口碑：\n徐工40美吨boom truck在Tree Guys也是比较Famous，他们改了不少东西，之前早期故障多，现在少一些了，我买了2台，都是用来吊树木的。\n品牌2口碑：\nNational的40吨Boom truck不管上车和底盘操作、维修简单，我们不是专业的起重机操作者，我们需要的是简单的操作，便捷的服务。": (
+        "XCMG customer feedback: the 40-USt boom truck is established among tree-service contractors; "
+        "early reliability issues have reportedly declined after product updates. Competitor feedback: "
+        "National is favored by non-specialist operators for simple upper-structure and chassis controls, "
+        "straightforward maintenance and accessible service support."
+    ),
+    "徐工口碑：\n徐工60美吨boomtruck，U型臂很结实，动作稳。组合式平衡重可以全配重转场，支腿支持多个位置支撑作业，很方便，性能很高，触摸屏操作便捷。\n品牌2口碑：\nNBT60XL是National的新产品，一如既往的简单可靠，另外配置提升不少，支腿还可以在多个位置支撑作业，很方便。": (
+        "XCMG customer feedback: the 60-USt boom truck combines a robust U-shaped boom, stable motions, "
+        "modular counterweight, multiple outrigger positions and an intuitive touchscreen. Competitor "
+        "feedback: National's NBT60XL retains simple, reliable operation while adding a stronger equipment "
+        "package and multiple outrigger positions."
+    ),
+    "徐工口碑：\n徐工XCT60_U我这车性价比很高，和我原来买的80-90吨汽车吊出勤率要高，上路方便。\n品牌2口碑：\nNBT60XL这车还不错，我比较认可，性能很稳定。": (
+        "XCMG customer feedback: XCT60_U is viewed as cost-effective, easy to road and capable of higher "
+        "utilization than some previously owned 80-90-USt truck cranes. Competitor feedback: National's "
+        "NBT60XL is recognized for stable performance."
+    ),
+    "徐工口碑：\n我们公司主要承包当地工厂，用275主要是建筑施工，这台车吊装性能很高，功能配置很多用着不错。\n目前有一些问题，主要是液电的，操纵室翻转有时没有，取力偶尔挂不上，希望可靠性能更好一些，车能用，但是解决好这些问题就更好了。": (
+        "XCMG customer feedback: XCA275_U provides strong lifting performance and a comprehensive equipment "
+        "package for industrial and building construction. Reported improvement needs concern hydraulic and "
+        "electrical reliability, intermittent cab-tilt operation and occasional power-take-off engagement."
+    ),
+    "我公司底盘匹配品类少， 匹配多品类底盘，覆盖北美重点销售区域需求。\n布局一款35吨产品": (
+        "Current gap: XCMG supports too few carrier-chassis options. Expand compatibility across mainstream "
+        "North American chassis brands and add a 35-USt model for priority sales regions."
+    ),
+    "我公司底盘匹配品类少， 匹配多品类底盘，覆盖北美重点销售区域需求。\n布局一款40吨产品": (
+        "Current gap: XCMG supports too few carrier-chassis options. Expand compatibility across mainstream "
+        "North American chassis brands and add a 40-USt model for priority sales regions."
+    ),
+    "XCT45_U性能覆盖行业45吨，与竞品NBT50系列相当，价格低15%。\n布局一款45吨产品": (
+        "XCT45_U provides lifting capability comparable with the National NBT50 series at an indicated "
+        "price approximately 15% lower. Portfolio action: add a 45-USt model."
+    ),
+    "在40美吨XCT40_U基础上升级开发45美吨通用底盘起重机，相比40美吨租赁利润更高，为市场客户提供更多选择。主要变化包括平衡重增加，增加不同支腿跨距组合下起重性能。": (
+        "Develop a 45-USt boom truck from the XCT40_U platform to improve rental revenue potential and "
+        "broaden customer choice. Key changes include additional counterweight and updated load charts for "
+        "multiple outrigger spans."
+    ),
+    "研发目的：快速升级45美吨通用底盘起重机，相比40美吨租赁利润更高，同时边贡增加，满足市场对徐工45美吨产品需求；": (
+        "Development objective: rapidly introduce a 45-USt boom truck with stronger rental-revenue potential "
+        "and a broader operating envelope than the 40-USt model, addressing customer demand for an XCMG "
+        "product in this class."
+    ),
+    "45美吨通用底盘起重机(市场导入)\n研发目的：快速升级45美吨通用底盘起重机，相比40美吨租赁利润更高，同时边贡增加，满足市场对徐工45美吨产品需求；\n产品方案：在XCT40_U基础上升级研发，增加平衡重提升作业性能3-5%，支腿支持多跨距组合，底盘和XCT40_U相同；\n售价目标：徐工销售当地售价参考同吨位机型，相比我公司40美吨增加1.5万-2万美元；\n完成时间：2025年完成认证和上市，预计2026年初完成市场导入，具备上市状态。": (
+        "45-USt boom truck market-introduction plan. Objective: upgrade the XCT40_U platform to address "
+        "demand for a higher-revenue 45-USt rental product. Proposed changes: add counterweight for an "
+        "estimated 3-5% lifting-performance improvement, provide multiple outrigger-span configurations and "
+        "retain the XCT40_U carrier platform. Historical price target: US$15,000-US$20,000 above the 40-USt "
+        "model. The source plan targeted certification in 2025 and market introduction in early 2026; current "
+        "completion status requires confirmation."
+    ),
+    "徐工口碑：\n我们公司主要承包当地工厂，用275主要是建筑施工，这台车吊装性能很高，功能配置很多用着不错。\n目前有一些问题，主要是液电的，操纵室翻转有时没有，取力偶尔挂不上，希望可靠性能更好一些，车能用，但是解决好这些问题就更好了。\n品牌2口碑：利勃海尔车很可靠、我新买这台车很先进，智能化程度很高，我遇到过一些问题，不过他们很快给我解决了。": (
+        "XCMG customer feedback: XCA275_U provides strong lifting performance and a comprehensive equipment "
+        "package for industrial and building construction. Reported improvement needs concern hydraulic and "
+        "electrical reliability, intermittent cab-tilt operation and occasional power-take-off engagement. "
+        "Competitor feedback: the Liebherr benchmark is regarded as reliable and technologically advanced, "
+        "with responsive support when issues occur."
+    ),
+}
+
+
+def _clean_crane_english(value: str) -> str:
+    text = deterministic_cleanup(value)
+    replacements = (
+        (" ' s", "'s"),
+        (" ' S", "'s"),
+        ("Fuck Crane.", "Truck-mounted crane"),
+        ("Tablet distribution", "Product-class mix"),
+        ("Possession rate", "Market share"),
+        ("Occupancy rate", "Market share"),
+        ("occupancy rates", "market shares"),
+        ("occupancy rate", "market share"),
+        ("market occupancy", "market share"),
+        ("Sales price/$ million", "Sales price (US$10,000)"),
+        ("Sales price / $ million", "Sales price (US$10,000)"),
+        ("Markets and Works", "Market and Operating Conditions"),
+        ("Market and Works", "Market and Operating Conditions"),
+        ("Market and Work", "Market and Operating Conditions"),
+        ("customer usage evaluation benchmark", "Customer Evaluation Benchmark"),
+        ("performance benchmarking", "Performance Benchmark"),
+        ("obvious parameters", "published specifications"),
+        ("seller's hit product", "primary production model"),
+        ("vendor's hit product", "primary production model"),
+        ("XCMG type ", "XCMG "),
+        ("United East Central Markets", "US East-Central market"),
+        (", etc., regional characteristics:", ". Regional characteristics:"),
+        ("electricity/advertising/communications high altitude", "frequent aerial work for utilities, signage and telecommunications"),
+        ("well-building", "strong building-construction demand"),
+        ("The operational situation can be covered", "The required work conditions are covered"),
+        ("The operational situation partially meets the needs", "The machine partially covers the required work conditions"),
+        ("Work situation to meet needs", "Supported work conditions"),
+        ("The job situation can cover", "The required work conditions are covered"),
+        ("The job situation is satisfactory", "The required work conditions are covered"),
+        ("Job conditions are satisfactory", "The required work conditions are covered"),
+        ("axle charge", "axle load"),
+        ("nudity axle load", "unladen axle load"),
+        ("living capacity", "lifting capacity"),
+        ("balance weight", "counterweight"),
+        ("Variable counterweight", "Variable counterweight system"),
+        ("main arm", "main boom"),
+        ("secondary arm", "jib"),
+        ("arm length", "boom length"),
+        ("swing scale brakes", "proportional swing brake"),
+        ("swing scale brake", "proportional swing brake"),
+        ("control smoothing", "smooth control"),
+        ("operation smoothing", "smooth operation"),
+        ("manipulation, smoothing", "controls and smooth operation"),
+        ("at high altitude", "at height"),
+        ("high altitude operations", "lifting at height"),
+        ("high altitude stability", "stability during lifting at height"),
+        ("writing buildings", "office buildings"),
+        ("seattopator cofort", "operator comfort"),
+        ("Oporator cofort", "operator comfort"),
+        ("XCMG logo", "XCMG customer feedback"),
+        ("product sales literature", "sales and technical literature"),
+        ("force-limiters", "rated-capacity limiter"),
+        ("Machine reloads the jobsite level", "The machine can travel with a load between work positions"),
+        ("main boom maximum crime height", "maximum main-boom lifting height"),
+        ("high climate change", "wide seasonal temperature variation"),
+        ("high-temperature dryness", "hot, dry conditions"),
+        ("high urban construction", "intensive urban construction"),
+        ("State of Agriculture", "agricultural production"),
+        ("cold and cold weather", "cold winters"),
+        ("old energy infrastructure", "aging energy infrastructure"),
+        ("Construction scene and application description", "Application details"),
+        ("Construction scene description", "Application details"),
+        ("Construction scene", "Jobsite application"),
+        ("customer groups", "customer segments"),
+        ("customer group", "customer segment"),
+        ("United States Middle West Upper Markets", "US Upper Midwest Market and Operating Conditions"),
+        ("climate humid heat", "hot and humid climate"),
+        ("California Sand", "California sandy soils"),
+        ("Rain Hills", "rainy, hilly terrain"),
+        ("Rainforests, Wetlands, rainy, hilly terrain", "rain forests, wetlands and rainy, hilly terrain"),
+        ("Rainforest, Wetlands, Heavy rainy, hilly terrain", "rain forests, wetlands and steep, rainy terrain"),
+        ("The application is supported, but", "The machine covers the core application, but"),
+        ("The application is supported, while", "The machine covers the core application, while"),
+        ("The application is supported, with", "The machine covers the core application, with"),
+        ("The application is supported.", "The machine covers the application requirements."),
+        ("1 set of 30 tons of products", "One 30-USt model in the current portfolio"),
+        ("boom truck up to 35 t product segment", "Product segment: boom trucks up to 35 USt"),
+        ("boom truck 40-up to 45 t product segment", "Product segment: 40-45-USt boom trucks"),
+        ("boom truck 50 t and above product segment", "Product segment: boom trucks at 50 USt and above"),
+        ("all-terrain crane 100-150 t product segment", "Product segment: 100-150-USt all-terrain cranes"),
+        ("all-terrain crane 200-300 t product segment", "Product segment: 200-300-USt all-terrain cranes"),
+        ("all-terrain crane 220-300 t product segment", "Product segment: 220-300-USt all-terrain cranes"),
+        ("rough-terrain crane 60-75 t product segment", "Product segment: 60-75-USt rough-terrain cranes"),
+        ("rough-terrain crane 120-130 t product segment", "Product segment: 120-130-USt rough-terrain cranes"),
+        ("Comparison conclusion:.", "Comparison conclusion:"),
+        ("High Temperature (>40°C)", "temperatures above 40°C"),
+        ("mainly for natural disaster relief, bridge laying, engineering, etc.", "supporting disaster response, temporary bridge installation and civil construction."),
+        ("construction of roads, bridges, construction, etc.", "supporting road, bridge and building construction."),
+        ("Yes, ? deg", "Yes; angle not specified"),
+        ("Yes, ?", "Yes; value not specified"),
+    )
+    for source, target in replacements:
+        text = text.replace(source, target)
+    text = re.sub(r"(\d+(?:\.\d+)?)\s+per cent\b", r"\1%", text, flags=re.I)
+    text = re.sub(r"\bXCMG model\s+", "XCMG ", text, flags=re.I)
+    text = re.sub(r"\b(XC[RTG]\d+)\s+U\b", r"\1_U", text)
+    text = re.sub(
+        r"Regional scope:\s*(.+?)\.\s*Regional characteristics:\s*",
+        r"Region: \1. Market and operating context: ",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(
+        r"Regional scope:\s*(.+),\s*regional characteristics:\s*",
+        r"Region: \1. Market and operating context: ",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(
+        r"(.+?)\s+have regional characteristics:\s*",
+        r"Region: \1. Market and operating context: ",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(
+        r"^(rough-terrain crane|all-terrain crane|boom truck|crawler crane)\s+(.+?)\s+product segment\.$",
+        lambda match: f"Product segment: {match.group(1)}, {match.group(2)}.",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(r"\s+([,.;:])", r"\1", text)
+    text = re.sub(r"[ \t]{2,}", " ", text)
+    return text.strip()
+
+
+def _en(value: Any) -> str:
+    text = str(value or "").strip()
+    exact = (
+        CRANE_ENGLISH_OVERRIDES.get(text)
+        or MANUAL_OVERRIDES.get(text)
+        or generated_manual_override(text)
+        or EN_TRANSLATIONS.get(text)
+    )
+    if exact:
+        return _clean_crane_english(exact)
+    fallback = text.replace("现有产品", "Current products").replace("新品", "New products")
+    category_terms = {
+        "越野轮胎起重机": "rough-terrain crane",
+        "全地面起重机": "all-terrain crane",
+        "通用底盘起重机": "boom truck",
+        "履带起重机": "crawler crane",
+    }
+    for source_term, target_term in category_terms.items():
+        fallback = fallback.replace(source_term, target_term)
+    fallback = re.sub(r"(crane|truck)(?=\d)", r"\1 ", fallback)
+    fallback = re.sub(r"(\d+)\s*[~—–-]\s*(\d+)吨产品段", r"\1-\2 t product segment", fallback)
+    fallback = re.sub(r"(\d+)\s*[~—–-]\s*(\d+)吨级", r"\1-\2 t class", fallback)
+    fallback = re.sub(r"(\d+)吨及以下产品段", r"up to \1 t product segment", fallback)
+    fallback = re.sub(r"(\d+)吨及以上产品段", r"\1 t and above product segment", fallback)
+    fallback = re.sub(r"(\d+)吨产品段", r"\1 t product segment", fallback)
+    fallback = re.sub(r"(\d+)吨产品", r"\1 t product", fallback)
+    return _clean_crane_english(fallback)
 
 STATUS_COPY = {
     "historical": ("历史数据", "Historical data"),
@@ -50,6 +403,20 @@ SECTION_LABELS = {
     "go-to-market": "市场与服务",
 }
 
+SECTION_LABELS_EN = {
+    "macro": "Market Environment",
+    "market-volume": "Market Size",
+    "competition": "Competitive Landscape",
+    "regional-demand": "Regional Demand",
+    "boom-truck": "Boom Trucks",
+    "all-terrain": "All-Terrain Cranes",
+    "rough-terrain": "Rough-Terrain Cranes",
+    "crawler": "Crawler Cranes",
+    "portfolio": "Product Portfolio",
+    "roadmap": "Improvement Roadmap",
+    "go-to-market": "Market and Service",
+}
+
 SLIDE_TITLE_OVERRIDES = {
     2: "北美宏观环境及其对起重机业务的影响",
     3: "北美起重机销量与产品类别结构",
@@ -61,6 +428,17 @@ SLIDE_TITLE_OVERRIDES = {
     9: "北美区域需求与配置策略",
 }
 
+SLIDE_TITLE_OVERRIDES_EN = {
+    2: "North American Macro Environment and Business Implications",
+    3: "North American Crane Sales and Product-Class Mix",
+    4: "Boom-Truck and Rough-Terrain Crane Brand Share",
+    5: "All-Terrain and Crawler-Crane Brand Share",
+    6: "Competitive Benchmarks and Positioning by Product Class",
+    7: "Regional Distribution of North American Crane Demand",
+    8: "Regional Differences and Product Adaptation in North America",
+    9: "Regional Demand and Equipment Strategy",
+}
+
 IMAGE_CAPTION_OVERRIDES = {
     7: (
         "2024年加拿大越野轮胎起重机销量分布",
@@ -68,6 +446,37 @@ IMAGE_CAPTION_OVERRIDES = {
         "2024年美国全地面起重机销量分布",
         "2024年美国履带起重机销量分布",
         "2024年美国通用底盘起重机销量分布",
+    ),
+}
+
+IMAGE_CAPTION_OVERRIDES_EN = {
+    7: (
+        "2024 Canadian rough-terrain crane sales distribution",
+        "2024 US rough-terrain crane sales distribution",
+        "2024 US all-terrain crane sales distribution",
+        "2024 US crawler-crane sales distribution",
+        "2024 US boom-truck sales distribution",
+    ),
+}
+
+PARAGRAPH_OVERRIDES = {
+    81: (
+        (
+            "越野轮胎起重机占起重机产品线销量34.1%，主流吨级包括60吨、75吨、100吨、130吨，主需求吨级主要集中在50吨以上。",
+            "Rough-terrain cranes account for 34.1% of crane product-line sales. The primary classes are 60, 75, 100 and 130 USt, with most demand concentrated above 50 USt.",
+        ),
+        (
+            "0-16.9吨占比4.2%，17-24.9吨市场占比3.6%，25-34.9吨市场占比7.6%，35-39.9吨占比2.3%，40-49.9占比0.7%。",
+            "The 0-16.9 USt class represents 4.2% of the market; 17-24.9 USt, 3.6%; 25-34.9 USt, 7.6%; 35-39.9 USt, 2.3%; and 40-49.9 USt, 0.7%.",
+        ),
+        (
+            "50吨以下市场整体占比在18.4%，但需求分散，各吨级占比小，储备50美吨，根据市场需求推进。",
+            "Classes below 50 USt account for 18.4% in total, but demand is fragmented. Retain a 50-USt concept and advance it only as market demand develops.",
+        ),
+        (
+            "现有型谱覆盖XCR60_U、XCR75_U、XCR100_U和XCR130_U；165美吨产品仍处于论证阶段。",
+            "The current portfolio covers XCR60_U, XCR75_U, XCR100_U and XCR130_U; a 165-USt model remains under evaluation.",
+        ),
     ),
 }
 
@@ -272,32 +681,49 @@ def _clean_business_title(value: str) -> str:
 
 
 def _paragraphs(record: dict[str, Any], limit: int | None = None) -> str:
+    if record["slide"] in PARAGRAPH_OVERRIDES:
+        values = PARAGRAPH_OVERRIDES[record["slide"]]
+        if limit is not None:
+            values = values[:limit]
+        return "".join(
+            f'<p lang="zh-CN" data-en="{esc(en)}">{esc(zh)}</p>'
+            for zh, en in values
+        )
     items = _useful_text(record)
     title = _display_title(record)
     filtered = [item for item in items if item != title]
     if limit is not None:
         filtered = filtered[:limit]
-    paragraphs = []
-    short_run = []
+    paragraphs: list[tuple[str, str]] = []
+    short_run: list[tuple[str, str]] = []
     for item in filtered:
         compact = re.sub(r"\s+", " ", item).strip()
         compact = re.sub(r"^\d+(?:\.\d+)+\s+", "", compact)
         compact = compact.replace("市场洞察分析-", "", 1).strip(" -—·")
+        translated = re.sub(r"\s+", " ", _en(item)).strip()
+        translated = re.sub(r"^\d+(?:\.\d+)+\s+", "", translated)
         if not compact or compact == title:
             continue
         is_short = len(compact) <= 45 and not re.search(r"[。！？；:]$", compact)
         if is_short:
-            short_run.append(compact)
-            if sum(len(value) for value in short_run) < 90:
+            short_run.append((compact, translated))
+            if sum(len(value[0]) for value in short_run) < 90:
                 continue
         if short_run:
-            paragraphs.append("；".join(short_run) + "。")
+            paragraphs.append(
+                ("；".join(value[0] for value in short_run) + "。", "; ".join(value[1] for value in short_run) + ".")
+            )
             short_run = []
         if not is_short:
-            paragraphs.append(compact)
+            paragraphs.append((compact, translated))
     if short_run:
-        paragraphs.append("；".join(short_run) + "。")
-    return "".join(f'<p lang="zh-CN">{esc(item)}</p>' for item in paragraphs)
+        paragraphs.append(
+            ("；".join(value[0] for value in short_run) + "。", "; ".join(value[1] for value in short_run) + ".")
+        )
+    return "".join(
+        f'<p lang="zh-CN" data-en="{esc(en)}">{esc(zh)}</p>'
+        for zh, en in paragraphs
+    )
 
 
 def _meaningful_table(table: dict[str, Any]) -> bool:
@@ -311,15 +737,38 @@ def _render_table(table: dict[str, Any], slide_number: int, index: int) -> str:
     width = max((len(row) for row in rows), default=0)
     if width == 0:
         return ""
+    active_columns = [
+        column
+        for column in range(width)
+        if any(column < len(row) and str(row[column]).strip() for row in rows)
+    ]
+    if not active_columns:
+        return ""
+    headers = [
+        (str(rows[0][column]).strip() if column < len(rows[0]) else "") or "补充信息"
+        for column in active_columns
+    ]
     rendered_rows = []
     for row_index, row in enumerate(rows):
-        cells = list(row) + [""] * (width - len(row))
-        tag = "th" if row_index == 0 else "td"
+        cells = [str(row[column]) if column < len(row) else "" for column in active_columns]
+        if row_index == 0:
+            rendered_rows.append(
+                "<tr>" + "".join(
+                    f'<th data-en="{esc(_en(cell))}">{esc(cell)}</th>' for cell in cells
+                ) + "</tr>"
+            )
+            continue
         rendered_rows.append(
-            "<tr>" + "".join(f"<{tag}>{esc(cell)}</{tag}>" for cell in cells) + "</tr>"
+            "<tr>" + "".join(
+                f'<td data-label-zh="{esc(headers[cell_index])}" '
+                f'data-label-en="{esc(_en(headers[cell_index]))}" '
+                f'data-en="{esc(_en(cell))}">{esc(cell)}</td>'
+                for cell_index, cell in enumerate(cells)
+            ) + "</tr>"
         )
+    width_class = " wide" if len(active_columns) >= 7 else ""
     return (
-        f'<div class="craneSourceTable" data-table-slide="{slide_number}" data-table-index="{index}">'
+        f'<div class="craneSourceTable{width_class}" data-table-slide="{slide_number}" data-table-index="{index}">'
         '<table>' + "".join(rendered_rows) + "</table></div>"
     )
 
@@ -350,7 +799,7 @@ def _render_pie(chart: dict[str, Any], chart_id: str) -> str:
         stops.append(f"{color} {cursor:.3f}% {cursor + share:.3f}%")
         legend.append(
             f'<li tabindex="0" data-chart-key="{esc(category)}"><i style="background:{color}"></i>'
-            f'<span>{esc(category)}</span><b>{share:.1f}%</b><small>{value:,.0f}</small></li>'
+            f'<span data-en="{esc(_en(category))}">{esc(category)}</span><b>{share:.1f}%</b><small>{value:,.0f}</small></li>'
         )
         cursor += share
     return (
@@ -380,15 +829,17 @@ def _render_columns(chart: dict[str, Any], chart_id: str) -> str:
             height = max(2.0, abs(float(value)) / maximum * 100)
             color = colors[series_index % len(colors)]
             label = item.get("name") or "Series"
+            label_en = _en(label)
             bars.append(
                 f'<i tabindex="0" style="height:{height:.2f}%;background:{color}" '
-                f'data-label="{esc(label)}" data-value="{float(value):g}" title="{esc(label)}: {float(value):g}"></i>'
+                f'data-label="{esc(label_en)}" data-value="{float(value):g}" title="{esc(label_en)}: {float(value):g}"></i>'
             )
         groups.append(
-            f'<div class="insightColumnGroup"><div>{"".join(bars)}</div><span>{esc(category)}</span></div>'
+            f'<div class="insightColumnGroup"><div>{"".join(bars)}</div><span data-en="{esc(_en(category))}">{esc(category)}</span></div>'
         )
     legend = "".join(
-        f'<span><i style="background:{colors[index % len(colors)]}"></i>{esc(item.get("name") or "Series")}</span>'
+        f'<span><i style="background:{colors[index % len(colors)]}"></i>'
+        f'<em data-en="{esc(_en(item.get("name") or "Series"))}">{esc(item.get("name") or "Series")}</em></span>'
         for index, item in enumerate(series[:6])
     )
     return (
@@ -410,6 +861,7 @@ def _render_images(record: dict[str, Any]) -> str:
     if not images:
         return ""
     override_captions = IMAGE_CAPTION_OVERRIDES.get(record["slide"], ())
+    override_captions_en = IMAGE_CAPTION_OVERRIDES_EN.get(record["slide"], ())
     figures = []
     for index, path in enumerate(images):
         display_path = IMAGE_DISPLAY_MAP.get(path, path)
@@ -418,12 +870,18 @@ def _render_images(record: dict[str, Any]) -> str:
             if index < len(override_captions)
             else _display_title(record)
         )
+        caption_en = (
+            override_captions_en[index]
+            if index < len(override_captions_en)
+            else _en(caption)
+        )
         figures.append(
             '<figure><button type="button" class="insightImageButton" '
-            f'data-full-src="{esc(display_path)}" data-source-src="{esc(path)}" data-caption="{esc(caption)}" '
-            f'aria-label="放大查看：{esc(caption)}" title="放大查看">'
-            f'<img src="{esc(display_path)}" alt="{esc(caption)}" loading="lazy" decoding="async">'
-            f'</button><figcaption>{esc(caption)}</figcaption></figure>'
+            f'data-full-src="{esc(display_path)}" data-source-src="{esc(path)}" data-caption="{esc(caption_en)}" '
+            f'aria-label="放大查看：{esc(caption)}" data-aria-label-en="Open full-size image: {esc(caption_en)}" '
+            f'title="放大查看" data-title-en="Open full-size image">'
+            f'<img src="{esc(display_path)}" alt="{esc(caption)}" data-alt-en="{esc(caption_en)}" loading="lazy" decoding="async">'
+            f'</button><figcaption data-en="{esc(caption_en)}">{esc(caption)}</figcaption></figure>'
         )
     return f'<div class="craneInsightGallery count-{len(images)}">{"".join(figures)}</div>'
 
@@ -450,15 +908,18 @@ def render_slide_record(record: dict[str, Any]) -> str:
     if len(record.get("images") or []) >= 3:
         content_class += " many-media"
     record_label = SECTION_LABELS.get(record.get("section"), "产品分析")
+    record_label_en = SECTION_LABELS_EN.get(record.get("section"), "Product Analysis")
+    title = _display_title(record)
+    title_en = SLIDE_TITLE_OVERRIDES_EN.get(record["slide"], _en(title))
     return (
         f'<article class="craneInsightRecord{content_class}" data-source-slide="{record["slide"]}" '
         f'data-source-status="{esc(record["status"])}">'
         '<header><div>'
-        f'<span class="recordLabel">{esc(record_label)}</span>'
-        f'<h3>{esc(_display_title(record))}</h3></div>{_status_badge(record["status"])}</header>'
+        f'<span class="recordLabel" data-en="{esc(record_label_en)}">{esc(record_label)}</span>'
+        f'<h3 data-en="{esc(title_en)}">{esc(title)}</h3></div>{_status_badge(record["status"])}</header>'
         f'<div class="recordBody"><div class="recordNarrative">{body}</div>{media}</div>'
         f'{visual_html}{table_html}'
-        f'<footer>资料日期 {SOURCE_DATE} · 记录号 CR-{record["slide"]:03d}</footer>'
+        f'<footer data-en="Source date {SOURCE_DATE} · Record CR-{record["slide"]:03d}">资料日期 {SOURCE_DATE} · 记录号 CR-{record["slide"]:03d}</footer>'
         '</article>'
     )
 
@@ -515,7 +976,7 @@ def render_market_overview(language: str = "zh") -> str:
             '<div class="insightSectionHead"><div>'
             f'<h2 data-en="{esc(title_en)}">{esc(title_zh)}</h2>'
             f'<p data-en="{esc(lead_en)}">{esc(lead_zh)}</p></div>'
-            f'<span class="sectionCount">{len(numbers)} 项分析</span></div>'
+            f'<span class="sectionCount" data-en="{len(numbers)} analyses">{len(numbers)} 项分析</span></div>'
             f'<div class="craneInsightRecords">{"".join(render_slide_record(record) for record in records)}</div>'
             '</section>'
         )
@@ -537,28 +998,28 @@ def render_market_report_page() -> str:
     return f'''<!doctype html>
 <html lang="zh-CN" data-language="zh"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>北美起重机市场与产品洞察 | XCMG ARC</title>
-<link rel="stylesheet" href="assets/dashboard.css?v=20260805d">
-<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805d">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260805d">
+<title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
+<link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
+<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805i">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260805i">
 </head><body>
-<a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
+<a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
 <a class="navBrand" href="arc.html"><img src="assets/xcmg-logo.svg" alt="XCMG"></a>
 <div><div class="navTitle" data-en="North American Crane Insight">北美起重机市场洞察</div><small>XCMG ARC</small></div>
 <button class="languageToggle" type="button">EN</button>
-<button class="sidebarToggle" type="button"><span>收起侧栏</span></button>
-<button class="navToggle" type="button">页面导航</button>
+<button class="sidebarToggle" type="button"><span data-en="Collapse sidebar">收起侧栏</span></button>
+<button class="navToggle" type="button" data-en="Page navigation">页面导航</button>
 <div class="navMenu" id="page-nav">{report_navigation()}</div></aside><main>
 <header class="hero craneReportHero"><div class="heroText"><p class="eyebrow">CRANE MARKET AND PRODUCT INTELLIGENCE</p>
 <h1 data-en="North American Crane Market and Product Insight">北美起重机市场与产品洞察</h1>
 <p data-en="A complete view of market structure, regional demand, customer applications, product evaluation, portfolio gaps, roadmap, channels, service and localization.">覆盖市场结构、区域需求、客户工况、产品评价、型谱空白、产品路线图、渠道、服务和本地化保供，形成从市场到产品决策的完整分析。</p>
-<div class="reportKpis"><span><b>163</b>项分析记录</span><span><b>4</b>类起重设备</span><span><b>9</b>个北美区域</span><span><b>2025-07</b>资料日期</span></div>
-</div><figure class="heroMedia craneHeroMedia"><img src="assets/arc/category-cranes.webp" alt="XCMG crane product line"><figcaption>XCMG 起重设备产品线</figcaption></figure></header>
-<section class="reportScope"><b>市场、区域、产品与服务洞察</b><p>总体报告承载跨吨级信息；已有Excel数据的越野吊与全地面吨级继续在各自正式页面中展示参数、配置、工况和排名。</p></section>
+<div class="reportKpis"><span><b>163</b><small data-en="analysis records">项分析记录</small></span><span><b>4</b><small data-en="crane classes">类起重设备</small></span><span><b>9</b><small data-en="North American regions">个北美区域</small></span><span><b>2025-07</b><small data-en="source date">资料日期</small></span></div>
+</div><figure class="heroMedia craneHeroMedia"><img src="assets/arc/category-cranes.webp" alt="XCMG crane product line"><figcaption data-en="XCMG crane product line">XCMG 起重设备产品线</figcaption></figure></header>
+<section class="reportScope"><b data-en="Market, regional, product and service insight">市场、区域、产品与服务洞察</b><p data-en="The market report presents information that cuts across capacity classes. Rough-terrain and all-terrain classes with governed Excel datasets retain their specifications, equipment, work-condition and ranking analyses on the corresponding benchmark pages.">总体报告承载跨吨级信息；已有Excel数据的越野吊与全地面吨级继续在各自正式页面中展示参数、配置、工况和排名。</p></section>
 {render_market_overview()}
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260805d"></script><script src="assets/i18n.js?v=20260805d"></script><script src="assets/crane-insights.js?v=20260805d"></script>
+</main></div><script src="assets/dashboard.js?v=20260805e"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260805e"></script>
 </body></html>'''
 
 

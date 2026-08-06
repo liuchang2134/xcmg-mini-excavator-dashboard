@@ -759,8 +759,8 @@
     .lineDetailAction .btn{width:100%;background:#fff;color:var(--blue-ink);border-color:#fff}
     .overviewGateway{
       display:grid;
-      grid-template-columns:minmax(0,1fr) auto;
-      gap:28px;
+      grid-template-columns:minmax(0,1fr) minmax(300px,360px) auto;
+      gap:22px;
       align-items:center;
       margin:0 0 14px;
       padding:22px 24px;
@@ -780,6 +780,45 @@
       outline:none;
     }
     .overviewGatewayContent{min-width:0}
+    .overviewGatewayMedia{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px;
+      min-width:0;
+      align-self:stretch;
+    }
+    .overviewGatewayMachine{
+      position:relative;
+      min-width:0;
+      min-height:146px;
+      margin:0;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.18);
+      background:#fff;
+    }
+    .overviewGatewayMachine img{
+      width:100%;
+      height:116px;
+      object-fit:contain;
+      object-position:center;
+      padding:8px 9px 3px;
+    }
+    .overviewGatewayMachine figcaption{
+      position:absolute;
+      inset:auto 0 0;
+      min-height:29px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:5px 7px;
+      border-top:1px solid var(--line);
+      background:#f4f8fb;
+      color:var(--blue-ink);
+      font-size:10px;
+      font-weight:900;
+      text-align:center;
+      white-space:nowrap;
+    }
     .overviewGatewayEyebrow{
       display:block;
       margin-bottom:5px;
@@ -1111,6 +1150,8 @@
       .projectActions{grid-column:1 / -1;border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr}
       .lineDetailPanel{grid-template-columns:1fr 1fr}
       .lineDetailAction{grid-column:1 / -1;min-width:0}
+      .overviewGateway{grid-template-columns:minmax(0,1fr) minmax(280px,340px)}
+      .overviewGatewayAction{grid-column:1 / -1;width:100%}
       .methodBand{grid-template-columns:1fr}
       .methodIntro{border-right:0;border-bottom:1px solid rgba(255,255,255,.16)}
     }
@@ -1175,6 +1216,7 @@
       .subLine{grid-template-columns:1fr}
       .tonnageLinks{justify-content:flex-start}
       .overviewGateway{grid-template-columns:1fr;gap:16px}
+      .overviewGatewayMedia{grid-row:auto}
       .overviewGatewayAction{width:100%}
       .projectRow{grid-template-columns:1fr}
       .projectImage{border-right:0;border-bottom:1px solid var(--line);height:180px}
@@ -1234,6 +1276,10 @@
       .overviewGateway p{font-size:12px;line-height:1.6}
       .overviewGatewayMeta{gap:5px}
       .overviewGatewayMeta span{font-size:10px;padding:0 7px}
+      .overviewGatewayMedia{gap:6px}
+      .overviewGatewayMachine{min-height:126px}
+      .overviewGatewayMachine img{height:98px;padding:6px 7px 2px}
+      .overviewGatewayMachine figcaption{min-height:27px;font-size:9px}
       .projectToolbar{padding:10px;gap:9px}
       .projectFacts{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
       .fact{padding:8px 7px}
@@ -1305,8 +1351,8 @@
           </div>
           <div class="platformStrip" aria-label="平台关键状态">
             <div class="platformMetric"><b><!-- ARC_PRODUCT_LINES -->7<!-- /ARC_PRODUCT_LINES --></b><span>产品线规划</span></div>
-            <div class="platformMetric"><b><!-- ARC_TONNAGES -->21<!-- /ARC_TONNAGES --></b><span>已建吨级资产</span></div>
-            <div class="platformMetric"><b><!-- ARC_PRODUCTS -->181<!-- /ARC_PRODUCTS --></b><span>对标产品型号</span></div>
+            <div class="platformMetric"><b><!-- ARC_TONNAGES -->15<!-- /ARC_TONNAGES --></b><span>已建吨级资产</span></div>
+            <div class="platformMetric"><b><!-- ARC_PRODUCTS -->133<!-- /ARC_PRODUCTS --></b><span>对标产品型号</span></div>
           </div>
         </article>
       </section>
@@ -1364,7 +1410,7 @@
           </article>
 
           <a class="lineCard is-live" id="line-cranes" data-product-line="cranes" href="#crane-assets" aria-label="查看起重设备分析资产">
-            <div class="lineImage scene"><img src="assets/arc/category-cranes.webp" alt="XCMG crane"></div>
+            <div class="lineImage machine"><img src="assets/arc/cranes/xcr75u-official.jpg" alt="XCMG XCR75U rough-terrain crane"></div>
             <div class="lineBody">
               <div class="lineTop"><div><h3>Cranes and Hoisting</h3><small data-en="Rough-terrain and all-terrain cranes">越野轮胎与全地面起重机</small></div><span class="status live" data-en="Available">已接入</span></div>
               <p data-en="Six class assets compare transport, mobility, boom and jib, outriggers, powertrain, winches, lifting performance, speeds and equipment status.">六个吨级资产统一比较运输、机动、主副臂、支腿、动力、卷扬、起重性能、作业速度和配置状态。</p>
@@ -1412,6 +1458,16 @@
               <span data-en="Portfolio">产品型谱</span>
               <span data-en="Localization actions">本地化行动</span>
             </div>
+          </div>
+          <div class="overviewGatewayMedia" aria-label="XCMG 越野轮胎和全地面起重机代表产品">
+            <figure class="overviewGatewayMachine">
+              <img src="assets/arc/cranes/xcr75u-official.jpg" alt="XCMG XCR75U 越野轮胎起重机">
+              <figcaption>XCR75U · RT 75 USt</figcaption>
+            </figure>
+            <figure class="overviewGatewayMachine">
+              <img src="assets/arc/cranes/xca150u-product-official.jpeg" alt="XCMG XCA150U 全地面起重机">
+              <figcaption>XCA150U · AT 150 USt</figcaption>
+            </figure>
           </div>
           <span class="overviewGatewayAction"><b data-en="Open category insight">打开总体洞察</b><span aria-hidden="true">→</span></span>
         </a>
@@ -1478,6 +1534,16 @@
               <span>标杆与型谱</span>
               <span>产品行动</span>
             </div>
+          </div>
+          <div class="overviewGatewayMedia" aria-label="XCMG 小型和大型挖掘机代表产品">
+            <figure class="overviewGatewayMachine">
+              <img src="assets/arc/xe35u-official-cropped.jpg" alt="XCMG XE35U 小型挖掘机">
+              <figcaption>XE35U · Compact</figcaption>
+            </figure>
+            <figure class="overviewGatewayMachine">
+              <img src="assets/arc/xe490u-official.jpg" alt="XCMG XE490U 大型挖掘机">
+              <figcaption>XE490U · Heavy</figcaption>
+            </figure>
           </div>
           <span class="overviewGatewayAction"><b>打开总体洞察</b><span aria-hidden="true">→</span></span>
         </a>

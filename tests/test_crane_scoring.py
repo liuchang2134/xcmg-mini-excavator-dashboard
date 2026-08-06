@@ -21,9 +21,15 @@ class CraneScoringTests(unittest.TestCase):
     def test_weight_groups_and_condition_count(self):
         self.assertTrue(math.isclose(sum(CATEGORY_WEIGHTS.values()), 1.0))
         self.assertTrue(math.isclose(sum(OVERALL_WEIGHTS.values()), 1.0))
-        self.assertEqual(len(CONDITIONS), 6)
+        capability = [item for item in CONDITIONS if item.get("group", "capability") == "capability"]
+        application = [item for item in CONDITIONS if item.get("group") == "application"]
+        self.assertEqual(len(capability), 14)
+        self.assertEqual(len(application), 5)
+        self.assertEqual(len({item["id"] for item in CONDITIONS}), len(CONDITIONS))
         for condition in CONDITIONS:
-            self.assertTrue(condition["metric_patterns"])
+            self.assertTrue(condition["metric_rules"])
+            self.assertTrue(condition["config_rules"])
+            self.assertTrue(math.isclose(condition["parameter_share"] + condition["configuration_share"], 1.0))
 
     def test_normalization_matches_platform_behavior(self):
         self.assertEqual(normalize({"a": 10.0, "b": 20.0}, "high"), {"a": 0.0, "b": 100.0})

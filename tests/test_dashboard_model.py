@@ -21,6 +21,8 @@ from tools.build_excavator_dashboards import (
     load_workbook,
     option_score,
     parse_metric_value,
+    polish_english_text,
+    render_source_narrative_item,
 )
 from tools.ppt_scope import (
     DISPLAY_TITLE_OVERRIDES,
@@ -434,7 +436,7 @@ class DashboardModelTests(unittest.TestCase):
         )
         self.assertIn(
             'html[data-language="en"] th{white-space:normal;'
-            "overflow-wrap:break-word;word-break:normal}",
+            "overflow-wrap:break-word;word-break:normal;hyphens:auto}",
             dashboard_css,
         )
         self.assertIn(
@@ -1046,6 +1048,66 @@ class DashboardModelTests(unittest.TestCase):
         arc_html = (ROOT / "arc.html").read_text(encoding="utf-8")
         self.assertIn('href="excavator-market-overview.html"', arc_html)
         self.assertIn("北美挖掘机市场总体洞察", arc_html)
+
+    def test_market_overview_macro_copy_is_bilingual_and_professionally_edited(self):
+        html = (ROOT / "excavator-market-overview.html").read_text(encoding="utf-8")
+        macro_sections = re.findall(
+            r'<article class="sourceSlide sourceMacroSlide".*?</article>',
+            html,
+            flags=re.DOTALL,
+        )
+        self.assertTrue(macro_sections)
+        for section in macro_sections:
+            self.assertNotRegex(section, r'<(?:h4|p) class="macro[^\"]*"(?![^>]*data-en=)')
+        self.assertIn('data-en="Trends and contributing factors:"', html)
+        self.assertIn('data-en="Business implications:"', html)
+
+    def test_english_copy_polisher_removes_known_machine_translation_artifacts(self):
+        source = (
+            "Adaptive Analysis of Core Specifications Products - 1-2 tonnes "
+            "XCMGVS Kubota; the units States requires a CML commercial driver ' s licence."
+        )
+        polished = polish_english_text(source)
+        self.assertIn("Core Product Fit Analysis", polished)
+        self.assertIn("XCMG vs. Kubota", polished)
+        self.assertIn("United States", polished)
+        self.assertIn("CDL (commercial driver's license)", polished)
+        self.assertNotIn("units States", polished)
+        self.assertNotIn("XCMGVS", polished)
+        self.assertEqual(polish_english_text("Target customer groups"), "Target customer segments")
+
+    def test_english_source_narrative_polishes_complete_translated_paragraphs(self):
+        html = render_source_narrative_item(
+            {
+                "zh": "客户群体说明",
+                "en": "The current customer group requires construction scene validation.",
+            }
+        )
+        self.assertIn("current customer segment", html)
+        self.assertIn("Jobsite application validation", html)
+        self.assertNotIn("customer group", html)
+        self.assertNotIn("construction scene", html)
+
+    def test_english_copy_polisher_fixes_engineering_units_and_terms(self):
+        source = (
+            "Adaptive analysis of core specifications product - 8-10 tonnes XCMGVS Kubota. "
+            "XCMG XE80U weighs 9,500 tonnes and uses a thumbnail plier. "
+            "CML commercial driver's licence; Unit cost US$ million; Occupancy; 26 0001 pounds."
+        )
+        polished = polish_english_text(source)
+        self.assertIn("Core Product Fit Analysis", polished)
+        self.assertIn("XCMG vs. Kubota", polished)
+        self.assertIn("XE80U has an operating weight of 9,500 kg", polished)
+        self.assertIn("hydraulic thumb", polished)
+        self.assertIn("CDL (commercial driver's license)", polished)
+        self.assertIn("Unit price (US$10,000)", polished)
+        self.assertIn("Market share", polished)
+        self.assertIn("26,001 pounds", polished)
+        self.assertNotIn("clients", polish_english_text("Clients compare construction equipment."))
+        self.assertEqual(
+            polish_english_text("high-end, intelligent and greening; smart and electrodynamic products"),
+            "premium, intelligent and low-carbon development; intelligent and electric products",
+        )
 
     def test_time_sensitive_source_statements_have_explicit_status(self):
         source_path = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"

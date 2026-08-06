@@ -15,6 +15,7 @@ from build_excavator_dashboards import (
     esc,
     load_ppt_business_tables,
     load_ppt_source_content,
+    polish_english_text,
     render_source_slide,
     render_source_temporal_status,
     render_source_table,
@@ -130,6 +131,10 @@ MACRO_FACTOR_LABELS = {
 TREND_HEADING_RE = re.compile(r"^现象\s*/?\s*趋势\d+\s*[：:]")
 NUMBERED_LINE_RE = re.compile(r"^\d+\s*[、.]")
 INLINE_LABEL_RE = re.compile(r"^([^：:]{1,28}[：:])(.*)$")
+
+
+def chart_category_en(value):
+    return {"其他": "Other"}.get(str(value or "").strip(), str(value or "").strip())
 
 
 def format_percent(value, digits=0):
@@ -287,13 +292,14 @@ def render_donut_chart(chart, center_zh, center_en):
             'cx="120" cy="120" r="84" pathLength="100" fill="none" '
             f'stroke="{color}" stroke-width="52" stroke-dasharray="{length:.3f} {100 - length:.3f}" '
             f'stroke-dashoffset="{-start:.3f}">'
-            f"<title>{esc(category)}：{format_percent(value, 1)}</title>"
+            f'<title data-en="{esc(chart_category_en(category))}: {format_percent(value, 1)}">'
+            f"{esc(category)}：{format_percent(value, 1)}</title>"
             "</circle>"
         )
         current += normalized
         legends.append(
             f'<li data-series-index="{index}" role="button" tabindex="0">'
-            f'<i style="background:{color}"></i><span>{esc(category)}</span>'
+            f'<i style="background:{color}"></i><span data-en="{esc(chart_category_en(category))}">{esc(category)}</span>'
             f"<strong>{format_percent(value, 1)}</strong>"
             "</li>"
         )
@@ -409,38 +415,45 @@ def render_environment_context_strip():
     )
 
 
-def split_source_lines(item):
-    return [
-        line.strip()
-        for line in str((item or {}).get("zh") or "").splitlines()
+def split_source_line_pairs(item):
+    item = item or {}
+    zh_lines = [line.strip() for line in str(item.get("zh") or "").splitlines() if line.strip()]
+    en_lines = [
+        polish_english_text(line.strip())
+        for line in str(item.get("en") or "").splitlines()
         if line.strip()
+    ]
+    return [
+        (line, en_lines[index] if index < len(en_lines) else polish_english_text(line))
+        for index, line in enumerate(zh_lines)
     ]
 
 
-def render_macro_line(line, class_name="macroBodyLine"):
+def render_macro_line(line, line_en, class_name="macroBodyLine"):
     match = INLINE_LABEL_RE.match(line)
+    data_en = f' data-en="{esc(polish_english_text(line_en))}"'
     if match:
         return (
-            f'<p class="{class_name}">'
+            f'<p class="{class_name}"{data_en}>'
             f"<strong>{esc(match.group(1))}</strong>{esc(match.group(2))}"
             "</p>"
         )
-    return f'<p class="{class_name}">{esc(line)}</p>'
+    return f'<p class="{class_name}"{data_en}>{esc(line)}</p>'
 
 
 def collect_macro_trends(items):
     groups = []
     current = None
     for item in items:
-        for line in split_source_lines(item):
+        for line, line_en in split_source_line_pairs(item):
             if TREND_HEADING_RE.match(line):
                 if current:
                     groups.append(current)
-                current = {"title": line, "lines": []}
+                current = {"title": line, "title_en": line_en, "lines": []}
             else:
                 if current is None:
-                    current = {"title": "", "lines": []}
-                current["lines"].append(line)
+                    current = {"title": "", "title_en": "", "lines": []}
+                current["lines"].append((line, line_en))
     if current:
         groups.append(current)
     return groups
@@ -450,15 +463,15 @@ def collect_macro_actions(items):
     actions = []
     current = None
     for item in items:
-        for line in split_source_lines(item):
+        for line, line_en in split_source_line_pairs(item):
             if NUMBERED_LINE_RE.match(line):
                 if current:
                     actions.append(current)
-                current = [line]
+                current = [(line, line_en)]
             else:
                 if current is None:
                     current = []
-                current.append(line)
+                current.append((line, line_en))
     if current:
         actions.append(current)
     return actions
@@ -488,7 +501,7 @@ def render_macro_slide(record, table_records):
         (
             index
             for index, item in enumerate(body[2:], start=2)
-            if any(NUMBERED_LINE_RE.match(line) for line in split_source_lines(item))
+            if any(NUMBERED_LINE_RE.match(line) for line, _line_en in split_source_line_pairs(item))
         ),
         len(body),
     )
@@ -496,14 +509,14 @@ def render_macro_slide(record, table_records):
     action_groups = collect_macro_actions(body[split_index:])
     trend_html = []
     for group in trend_groups:
-        content_length = len(group["title"]) + sum(len(line) for line in group["lines"])
+        content_length = len(group["title"]) + sum(len(line) for line, _line_en in group["lines"])
         wide_class = " macroTrendItemWide" if content_length > 360 else ""
         heading = (
-            f'<h4>{esc(group["title"])}</h4>'
+            f'<h4 data-en="{esc(group["title_en"])}">{esc(group["title"])}</h4>'
             if group["title"]
             else ""
         )
-        paragraphs = "".join(render_macro_line(line) for line in group["lines"])
+        paragraphs = "".join(render_macro_line(line, line_en) for line, line_en in group["lines"])
         trend_html.append(
             f'<section class="macroTrendItem{wide_class}">{heading}{paragraphs}</section>'
         )
@@ -511,7 +524,7 @@ def render_macro_slide(record, table_records):
     for lines in action_groups:
         action_html.append(
             '<div class="macroActionItem">'
-            + "".join(render_macro_line(line, "macroActionLine") for line in lines)
+            + "".join(render_macro_line(line, line_en, "macroActionLine") for line, line_en in lines)
             + "</div>"
         )
     index_text, factor_zh, factor_en = MACRO_FACTOR_LABELS.get(

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import re
 from dataclasses import asdict, dataclass
 from typing import Any
 
@@ -26,103 +27,405 @@ CATEGORY_WEIGHTS = {
 
 CONDITIONS = [
     {
-        "id": "transport",
-        "title_zh": "道路转场 / 运输合规",
-        "title_en": "Road Transport / Compliance",
-        "metric_patterns": [
-            "minimum transport weight",
-            "transport width",
-            "transport height",
-            "transport length",
-            "removable cwt",
-            "number of cwt configurations",
-            "speed with max cwt",
+        "id": "road-transport",
+        "title_zh": "道路运输 / 轴荷与外廓合规",
+        "title_en": "Road Transport and Axle-Load Compliance",
+        "metric_rules": [
+            ("Minimum transport weight", 22),
+            ("Weight per axle", 18),
+            ("CWT on crane @12 mt per axle", 8),
+            ("CWT on crane @ 10mt per axle", 8),
+            ("Minimum transport with dolly", 10),
+            ("Weight per axle with dolly", 8),
+            ("Transport Width", 10),
+            ("Transport Height", 8),
+            ("Transport Length", 8),
+            ("Removable CWT", 8),
+            ("Number of CWT configurations", 6),
+            ("Speed with max CWT", 8),
         ],
-        "config_patterns": ["tow hooks", "cribbing rack"],
+        "config_rules": [("Tow hooks", 65), ("Cribbing rack", 35)],
+        "parameter_share": 0.85,
+        "configuration_share": 0.15,
+        "minimum_metric_items": 3,
     },
     {
-        "id": "mobility",
+        "id": "rapid-mobilization",
+        "title_zh": "快速拆装 / 多工地转场",
+        "title_en": "Rapid Setup and Multi-Site Mobilization",
+        "metric_rules": [
+            ("Removable CWT", 22),
+            ("Number of CWT configurations", 18),
+            ("CWT on crane @12 mt per axle", 12),
+            ("CWT on crane @ 10mt per axle", 10),
+            ("Minimum transport with dolly", 10),
+            ("Weight per axle with dolly", 8),
+            ("Speed with max CWT", 12),
+            ("Transport Length", 8),
+        ],
+        "config_rules": [
+            ("Tow hooks", 40),
+            ("Cribbing rack", 35),
+            ("Auto Lubrication system", 25),
+        ],
+        "parameter_share": 0.78,
+        "configuration_share": 0.22,
+        "minimum_metric_items": 3,
+    },
+    {
+        "id": "site-mobility",
         "title_zh": "场地进出 / 越野机动",
-        "title_en": "Site Access / Rough-Terrain Mobility",
-        "metric_patterns": [
-            "speed",
-            "wheelbase",
-            "number of steering modes",
-            "minimum turning radius",
-            "gradability",
-            "front approach angle",
-            "rear approach angle",
-            "number of drive axles",
-            "number of steering axles",
+        "title_en": "Site Access and Rough-Terrain Mobility",
+        "metric_rules": [
+            ("Speed", 20),
+            ("Minimum turning radius", 20),
+            ("Number of steering modes", 15),
+            ("Gradability", 15),
+            ("Front approach angle", 10),
+            ("Rear approach angle", 10),
+            ("Number of drive axles", 5),
+            ("Number of steering axles", 5),
+            ("Wheel travel up", 5),
+            ("Wheel travel down", 5),
         ],
-        "config_patterns": ["tires"],
+        "config_rules": [("Tires", 60), ("Tires options", 40)],
+        "parameter_share": 0.90,
+        "configuration_share": 0.10,
+        "minimum_metric_items": 3,
     },
     {
-        "id": "main-lift",
-        "title_zh": "主臂吊装 / 中近幅度",
-        "title_en": "Main-Boom Lifting / Near-to-Mid Radius",
-        "metric_patterns": [
-            "maximum capacity w/o special equipment",
-            "main boom @ 5m",
-            "main boom @ 15m",
-            "main boom @ 30m",
-            "main winch max line pull",
-            "main winch max speed",
-            "boom raise speed",
+        "id": "confined-positioning",
+        "title_zh": "狭窄场地 / 精细调位",
+        "title_en": "Confined-Site Maneuvering and Precision Positioning",
+        "metric_rules": [
+            ("Minimum turning radius", 28),
+            ("Tail swing radius", 28),
+            ("Retracted Boom Length", 18),
+            ("Number of steering modes", 16),
+            ("Swing Speed", 10),
         ],
-        "config_patterns": ["auto winch and boom control"],
+        "config_rules": [
+            ("360deg house lock", 40),
+            ("Auto winch and boom control", 60),
+        ],
+        "parameter_share": 0.82,
+        "configuration_share": 0.18,
+        "minimum_metric_items": 3,
     },
     {
-        "id": "long-reach",
-        "title_zh": "长臂大幅度 / 高空吊装",
-        "title_en": "Long-Reach / High-Elevation Lifting",
-        "metric_patterns": [
-            "extended boom length",
-            "max jib carried on crane",
-            "jib extensions",
-            "jib offset angles",
-            "main boom max rated radius",
-            "main boom @ max radius",
-            "jib w/o inserts @ 20m",
-            "jib w/o inserts @ 30m",
-            "jib w/o inserts max radius",
-            "boom extend speed",
+        "id": "near-heavy-lift",
+        "title_zh": "近幅度 / 重载吊装",
+        "title_en": "Near-Radius Heavy Lifting",
+        "metric_rules": [
+            ("Maximum capacity W/O special equipment", 22),
+            ("role:main-boom-near", 34),
+            ("Main winch max line pull", 18),
+            ("Main winch max speed", 12),
+            ("Boom raise speed", 14),
         ],
-        "config_patterns": ["short jib", "short heavy lift jib"],
+        "config_rules": [
+            ("heavy CWT", 50),
+            ("Short heavy lift Jib", 20),
+            ("Auto winch and boom control", 30),
+        ],
+        "parameter_share": 0.88,
+        "configuration_share": 0.12,
+        "minimum_metric_items": 3,
     },
     {
-        "id": "stability",
+        "id": "mid-radius-installation",
+        "title_zh": "中幅度 / 结构安装",
+        "title_en": "Mid-Radius Structural Installation",
+        "metric_rules": [
+            ("role:main-boom-mid", 42),
+            ("Main winch max line pull", 18),
+            ("Main winch max speed", 14),
+            ("Boom raise speed", 13),
+            ("Swing Speed", 13),
+        ],
+        "config_rules": [("Auto winch and boom control", 100)],
+        "parameter_share": 0.90,
+        "configuration_share": 0.10,
+        "minimum_metric_items": 3,
+    },
+    {
+        "id": "long-boom-high-lift",
+        "title_zh": "长臂大幅度 / 高空安装",
+        "title_en": "Long-Boom, Long-Radius High-Elevation Installation",
+        "metric_rules": [
+            ("Extended Boom Length", 16),
+            ("Main boom max rated radius", 14),
+            ("role:main-boom-far", 30),
+            ("Main boom @ max radius", 22),
+            ("Boom extend speed", 12),
+            ("Cab tilt", 6),
+        ],
+        "config_rules": [
+            ("Auto winch and boom control", 60),
+            ("heavy CWT", 40),
+        ],
+        "parameter_share": 0.88,
+        "configuration_share": 0.12,
+        "minimum_metric_items": 3,
+    },
+    {
+        "id": "jib-long-radius",
+        "title_zh": "副臂组合 / 远幅度作业",
+        "title_en": "Jib Configuration and Long-Radius Work",
+        "metric_rules": [
+            ("Max jib carried on crane", 15),
+            ("Jib extensions", 12),
+            ("role:jib-near", 28),
+            ("role:jib-far", 28),
+            ("Jib W/O inserts max radius", 17),
+        ],
+        "context_metrics": ["Jib offset angles", "Luffing jib"],
+        "config_rules": [
+            ("Short Jib", 45),
+            ("Short heavy lift Jib", 35),
+            ("Auto winch and boom control", 20),
+        ],
+        "parameter_share": 0.82,
+        "configuration_share": 0.18,
+        "minimum_metric_items": 3,
+    },
+    {
+        "id": "outrigger-stability",
         "title_zh": "支腿展开 / 不平地面稳定",
-        "title_en": "Outrigger Setup / Uneven-Ground Stability",
-        "metric_patterns": [
-            "outrigger penetration",
-            "full outrigger extension",
-            "number of outrigger extensions",
-            "asymmetric outrigger operation",
-            "pick and carry @ 5m",
-            "on tires @ 3m over front",
-            "on tires @ 7m over front",
+        "title_en": "Outrigger Setup and Uneven-Ground Stability",
+        "metric_rules": [
+            ("Full outrigger extension", 58),
+            ("Number of outrigger extensions", 42),
         ],
-        "config_patterns": ["2deg out of level load charts", "360deg house lock"],
+        "context_metrics": ["Outrigger penetration", "Asymmetric outrigger operation"],
+        "config_rules": [
+            ("2deg out of level load charts", 35),
+            ("Cribbing rack", 25),
+            ("360deg house lock", 20),
+            ("Auto winch and boom control", 20),
+        ],
+        "parameter_share": 0.65,
+        "configuration_share": 0.35,
+        "minimum_metric_items": 2,
     },
     {
-        "id": "continuous-duty",
-        "title_zh": "连续作业 / 低温与附件适配",
-        "title_en": "Continuous Duty / Cold-Weather and Attachments",
-        "metric_patterns": [
-            "engine power",
-            "engine torque",
-            "fuel tank",
-            "aux winch max line pull",
-            "aux winch max speed",
-            "swing speed",
+        "id": "partial-outrigger-confined",
+        "title_zh": "部分支腿 / 受限支撑",
+        "title_en": "Partial-Outrigger and Constrained-Support Operation",
+        "metric_rules": [
+            ("Full outrigger extension", 34),
+            ("Number of outrigger extensions", 34),
+            ("Tail swing radius", 16),
+            ("role:main-boom-mid", 16),
         ],
-        "config_patterns": [
-            "auto lubrication system",
-            "fuel engine heater",
-            "cold weather package",
-            "greasless boom",
+        "context_metrics": ["Asymmetric outrigger operation", "Outrigger penetration"],
+        "config_rules": [
+            ("2deg out of level load charts", 45),
+            ("Cribbing rack", 30),
+            ("360deg house lock", 25),
         ],
+        "parameter_share": 0.62,
+        "configuration_share": 0.38,
+        "minimum_metric_items": 2,
+    },
+    {
+        "id": "on-tire-pick-carry",
+        "title_zh": "轮胎吊装 / 带载行驶",
+        "title_en": "On-Tire Lifting and Pick-and-Carry",
+        "families": ["RT"],
+        "metric_rules": [
+            ("role:on-tire-near", 36),
+            ("role:on-tire-far", 32),
+            ("Pick and carry @ 5m", 24),
+            ("Speed", 8),
+        ],
+        "config_rules": [("Tires", 60), ("360deg house lock", 40)],
+        "parameter_share": 0.90,
+        "configuration_share": 0.10,
+        "minimum_metric_items": 2,
+    },
+    {
+        "id": "cycle-productivity",
+        "title_zh": "连续循环 / 双卷扬协同",
+        "title_en": "Continuous Cycles and Dual-Winch Coordination",
+        "metric_rules": [
+            ("Main winch max line pull", 14),
+            ("Aux winch max line pull", 14),
+            ("Main winch max speed", 16),
+            ("Aux winch max speed", 16),
+            ("Swing Speed", 14),
+            ("Boom raise speed", 13),
+            ("Boom extend speed", 13),
+        ],
+        "config_rules": [
+            ("Auto winch and boom control", 70),
+            ("Auto Lubrication system", 30),
+        ],
+        "parameter_share": 0.86,
+        "configuration_share": 0.14,
+        "minimum_metric_items": 4,
+    },
+    {
+        "id": "precision-maintenance-lift",
+        "title_zh": "精密落钩 / 高空维保",
+        "title_en": "Precision Placement and Elevated Maintenance",
+        "metric_rules": [
+            ("Main winch max speed", 18),
+            ("Aux winch max speed", 20),
+            ("Swing Speed", 22),
+            ("Boom raise speed", 15),
+            ("Boom extend speed", 15),
+            ("Cab tilt", 10),
+        ],
+        "config_rules": [
+            ("Auto winch and boom control", 70),
+            ("360deg house lock", 30),
+        ],
+        "parameter_share": 0.76,
+        "configuration_share": 0.24,
+        "minimum_metric_items": 4,
+    },
+    {
+        "id": "all-weather-duty",
+        "title_zh": "低温环境 / 全天候连续作业",
+        "title_en": "Cold-Weather and All-Weather Continuous Duty",
+        "metric_rules": [
+            ("Engine Power", 38),
+            ("Engine Torque", 38),
+            ("Fuel tank", 24),
+        ],
+        "config_rules": [
+            ("Auto Lubrication system", 20),
+            ("Fuel engine heater", 25),
+            ("Cold weather package", 35),
+            ("Greasless boom", 20),
+        ],
+        "parameter_share": 0.45,
+        "configuration_share": 0.55,
+        "minimum_metric_items": 2,
+    },
+    {
+        "id": "urban-utility-installation",
+        "group": "application",
+        "title_zh": "城市更新 / 公用设施高空作业",
+        "title_en": "Urban Renewal and Utility Installation",
+        "metric_rules": [
+            ("Minimum turning radius", 16),
+            ("Tail swing radius", 16),
+            ("Retracted Boom Length", 12),
+            ("role:main-boom-mid", 20),
+            ("role:main-boom-far", 16),
+            ("Swing Speed", 10),
+            ("Boom extend speed", 10),
+        ],
+        "config_rules": [
+            ("360deg house lock", 30),
+            ("Auto winch and boom control", 45),
+            ("2deg out of level load charts", 25),
+        ],
+        "parameter_share": 0.82,
+        "configuration_share": 0.18,
+        "minimum_metric_items": 4,
+    },
+    {
+        "id": "industrial-shutdown-maintenance",
+        "group": "application",
+        "title_zh": "油气装置 / 工业停机检修",
+        "title_en": "Oil, Gas and Industrial Shutdown Maintenance",
+        "metric_rules": [
+            ("role:main-boom-mid", 22),
+            ("role:main-boom-far", 14),
+            ("Aux winch max line pull", 12),
+            ("Aux winch max speed", 14),
+            ("Swing Speed", 12),
+            ("Boom raise speed", 12),
+            ("Boom extend speed", 14),
+        ],
+        "config_rules": [
+            ("Auto winch and boom control", 45),
+            ("Greasless boom", 25),
+            ("Auto Lubrication system", 30),
+        ],
+        "parameter_share": 0.80,
+        "configuration_share": 0.20,
+        "minimum_metric_items": 4,
+    },
+    {
+        "id": "bridge-infrastructure-placement",
+        "group": "application",
+        "title_zh": "道路桥梁 / 基础设施构件安装",
+        "title_en": "Road, Bridge and Infrastructure Placement",
+        "metric_rules": [
+            ("Minimum turning radius", 8),
+            ("Gradability", 8),
+            ("Full outrigger extension", 14),
+            ("Number of outrigger extensions", 8),
+            ("role:main-boom-mid", 24),
+            ("role:main-boom-far", 22),
+            ("Swing Speed", 8),
+            ("Boom raise speed", 8),
+        ],
+        "context_metrics": ["Asymmetric outrigger operation", "Outrigger penetration"],
+        "config_rules": [
+            ("2deg out of level load charts", 35),
+            ("Cribbing rack", 25),
+            ("Auto winch and boom control", 25),
+            ("360deg house lock", 15),
+        ],
+        "parameter_share": 0.82,
+        "configuration_share": 0.18,
+        "minimum_metric_items": 5,
+    },
+    {
+        "id": "emergency-response",
+        "group": "application",
+        "title_zh": "应急抢险 / 快速响应吊装",
+        "title_en": "Emergency Response and Rapid-Recovery Lifting",
+        "metric_rules": [
+            ("Speed", 12),
+            ("Minimum turning radius", 14),
+            ("Gradability", 12),
+            ("Front approach angle", 8),
+            ("Rear approach angle", 8),
+            ("role:main-boom-near", 12),
+            ("role:main-boom-mid", 12),
+            ("Boom raise speed", 10),
+            ("Swing Speed", 12),
+        ],
+        "context_metrics": ["Tire size", "Axle diff locks", "Interaxle lock"],
+        "config_rules": [
+            ("Tow hooks", 30),
+            ("Tires", 20),
+            ("Auto winch and boom control", 30),
+            ("360deg house lock", 20),
+        ],
+        "parameter_share": 0.84,
+        "configuration_share": 0.16,
+        "minimum_metric_items": 5,
+    },
+    {
+        "id": "port-yard-handling",
+        "group": "application",
+        "title_zh": "港口堆场 / 高频装卸",
+        "title_en": "Port and Yard High-Cycle Handling",
+        "metric_rules": [
+            ("Speed", 8),
+            ("Minimum turning radius", 8),
+            ("Main winch max line pull", 10),
+            ("Aux winch max line pull", 10),
+            ("Main winch max speed", 17),
+            ("Aux winch max speed", 17),
+            ("Swing Speed", 15),
+            ("Boom raise speed", 15),
+        ],
+        "config_rules": [
+            ("Auto winch and boom control", 60),
+            ("Auto Lubrication system", 25),
+            ("360deg house lock", 15),
+        ],
+        "parameter_share": 0.84,
+        "configuration_share": 0.16,
+        "minimum_metric_items": 5,
     },
 ]
 
@@ -135,7 +438,6 @@ LOWER_IS_BETTER = {
     "wheelbase",
     "minimum turning radius",
     "tail swing radius",
-    "outrigger penetration",
     "boom raise speed",
     "boom extend speed",
 }
@@ -164,6 +466,7 @@ class ProductScore:
     overall_rank: int | None
     category_scores: dict[str, float | None]
     condition_scores: dict[str, float | None]
+    condition_details: dict[str, dict[str, Any]]
     not_ranked_reason: str | None
 
 
@@ -202,6 +505,81 @@ def metric_direction(name: str) -> str | None:
     if key in LOWER_IS_BETTER:
         return "low"
     return "high"
+
+
+def condition_applicable(sheet: CraneSheet, condition: dict[str, Any]) -> bool:
+    return sheet.family in condition.get("families", ["RT", "AT"])
+
+
+def _radius_metrics(sheet: CraneSheet, prefix: str) -> list[tuple[float, str]]:
+    pattern = re.compile(rf"^{re.escape(prefix)}\s*(\d+(?:\.\d+)?)m$", re.IGNORECASE)
+    matches = []
+    for name in sheet.parameter_names:
+        match = pattern.match(name.strip())
+        if match:
+            matches.append((float(match.group(1)), name))
+    return sorted(matches)
+
+
+def _role_metric_name(sheet: CraneSheet, role: str) -> str | None:
+    role_definitions = {
+        "main-boom-near": ("Main boom @", "near"),
+        "main-boom-mid": ("Main boom @", "mid"),
+        "main-boom-far": ("Main boom @", "far"),
+        "jib-near": ("Jib W/O inserts @", "near"),
+        "jib-far": ("Jib W/O inserts @", "far"),
+        "on-tire-near": ("On tires @", "near"),
+        "on-tire-far": ("On tires @", "far"),
+    }
+    definition = role_definitions.get(role)
+    if not definition:
+        return None
+    candidates = _radius_metrics(sheet, definition[0])
+    if not candidates:
+        return None
+    position = definition[1]
+    if position == "near":
+        return candidates[0][1]
+    if position == "far":
+        return candidates[-1][1]
+    return candidates[len(candidates) // 2][1]
+
+
+def condition_metric_weights(sheet: CraneSheet, condition: dict[str, Any]) -> dict[str, float]:
+    """Resolve each engineering role to an exact source row for this tonnage class."""
+    available = {name.lower(): name for name in sheet.parameter_names}
+    resolved: dict[str, float] = {}
+    if not condition_applicable(sheet, condition):
+        return resolved
+    for rule, weight in condition.get("metric_rules", []):
+        if rule.startswith("role:"):
+            name = _role_metric_name(sheet, rule.split(":", 1)[1])
+        else:
+            name = available.get(rule.lower())
+        if name:
+            resolved[name] = resolved.get(name, 0.0) + float(weight)
+    return resolved
+
+
+def condition_config_weights(sheet: CraneSheet, condition: dict[str, Any]) -> dict[str, float]:
+    available = {name.lower(): name for name in sheet.configuration_names}
+    if not condition_applicable(sheet, condition):
+        return {}
+    return {
+        available[name.lower()]: float(weight)
+        for name, weight in condition.get("config_rules", [])
+        if name.lower() in available
+    }
+
+
+def condition_display_metric_names(sheet: CraneSheet, condition: dict[str, Any]) -> list[str]:
+    names = list(condition_metric_weights(sheet, condition))
+    available = {name.lower(): name for name in sheet.parameter_names}
+    for name in condition.get("context_metrics", []):
+        resolved = available.get(name.lower())
+        if resolved and resolved not in names:
+            names.append(resolved)
+    return names
 
 
 def _metric_score_map(sheet: CraneSheet) -> dict[str, dict[str, float]]:
@@ -244,34 +622,119 @@ def _configuration_score(model) -> tuple[float | None, float]:
     return weighted_average(parts)
 
 
+def _condition_score_and_detail(
+    sheet: CraneSheet,
+    model,
+    metric_scores: dict[str, dict[str, float]],
+    condition: dict[str, Any],
+) -> tuple[float | None, dict[str, Any]]:
+    if not condition_applicable(sheet, condition):
+        return None, {
+            "applicable": False,
+            "score": None,
+            "coverage": 0.0,
+            "parameter_score": None,
+            "parameter_coverage": 0.0,
+            "configuration_score": None,
+            "configuration_coverage": 0.0,
+            "components": [],
+        }
+
+    metric_weights = condition_metric_weights(sheet, condition)
+    config_weights = condition_config_weights(sheet, condition)
+    metric_parts = [
+        (metric_scores.get(name, {}).get(model.display_name), weight)
+        for name, weight in metric_weights.items()
+    ]
+    parameter_score, parameter_coverage = weighted_average(metric_parts)
+    valid_metric_count = sum(score is not None for score, _ in metric_parts)
+    if valid_metric_count < condition.get("minimum_metric_items", 2):
+        parameter_score = None
+
+    config_lookup = {item.name: item for item in model.configurations}
+    config_parts = [
+        (config_lookup[name].score if name in config_lookup else None, weight)
+        for name, weight in config_weights.items()
+    ]
+    configuration_score, configuration_coverage = weighted_average(config_parts)
+
+    parameter_share = float(condition.get("parameter_share", 0.8)) if metric_weights else 0.0
+    configuration_share = float(condition.get("configuration_share", 0.2)) if config_weights else 0.0
+    score, coverage = weighted_average(
+        [(parameter_score, parameter_share), (configuration_score, configuration_share)]
+    )
+
+    total_share = parameter_share + configuration_share
+    metric_weight_total = sum(metric_weights.values())
+    config_weight_total = sum(config_weights.values())
+    components = []
+    metric_lookup = {item.name: item for item in model.metrics}
+    for name, weight in metric_weights.items():
+        item = metric_lookup.get(name)
+        component_score = metric_scores.get(name, {}).get(model.display_name)
+        effective_weight = (
+            parameter_share / total_share * weight / metric_weight_total
+            if total_share and metric_weight_total
+            else 0.0
+        )
+        components.append(
+            {
+                "type": "metric",
+                "name": name,
+                "source_weight": weight,
+                "effective_weight": effective_weight,
+                "score": component_score,
+                "contribution": component_score * effective_weight if component_score is not None else None,
+                "raw_value": item.raw_value if item else None,
+                "unit": item.unit if item else "",
+                "status": None,
+            }
+        )
+    for name, weight in config_weights.items():
+        item = config_lookup.get(name)
+        component_score = item.score if item else None
+        effective_weight = (
+            configuration_share / total_share * weight / config_weight_total
+            if total_share and config_weight_total
+            else 0.0
+        )
+        components.append(
+            {
+                "type": "configuration",
+                "name": name,
+                "source_weight": weight,
+                "effective_weight": effective_weight,
+                "score": component_score,
+                "contribution": component_score * effective_weight if component_score is not None else None,
+                "raw_value": item.raw_status if item else None,
+                "unit": "",
+                "status": item.normalized_status if item else "unrecorded",
+            }
+        )
+    return score, {
+        "applicable": True,
+        "score": score,
+        "coverage": coverage,
+        "parameter_score": parameter_score,
+        "parameter_coverage": parameter_coverage,
+        "configuration_score": configuration_score,
+        "configuration_coverage": configuration_coverage,
+        "components": components,
+    }
+
+
 def _condition_scores(
     sheet: CraneSheet,
     model,
     metric_scores: dict[str, dict[str, float]],
-) -> dict[str, float | None]:
-    scores = {}
+) -> tuple[dict[str, float | None], dict[str, dict[str, Any]]]:
+    scores: dict[str, float | None] = {}
+    details: dict[str, dict[str, Any]] = {}
     for condition in CONDITIONS:
-        metric_names = [
-            metric.name
-            for metric in model.metrics
-            if any(pattern in metric.name.lower() for pattern in condition["metric_patterns"])
-            and metric_direction(metric.name) is not None
-        ]
-        config_items = [
-            config
-            for config in model.configurations
-            if any(pattern in config.name.lower() for pattern in condition["config_patterns"])
-        ]
-        metric_weight = 0.8 / len(metric_names) if metric_names else 0.0
-        config_weight = 0.2 / len(config_items) if config_items else 0.0
-        parts = [
-            (metric_scores.get(name, {}).get(model.display_name), metric_weight)
-            for name in metric_names
-        ]
-        parts.extend((config.score, config_weight) for config in config_items)
-        score, _ = weighted_average(parts)
+        score, detail = _condition_score_and_detail(sheet, model, metric_scores, condition)
         scores[condition["id"]] = score
-    return scores
+        details[condition["id"]] = detail
+    return scores, details
 
 
 def score_sheet(sheet: CraneSheet) -> dict[str, Any]:
@@ -296,6 +759,7 @@ def score_sheet(sheet: CraneSheet) -> dict[str, Any]:
         if "suspected_rt130_competitor_headers" in sheet.anomalies:
             overall_score = None
             reason = "竞品表头与数据范围待核验"
+        condition_scores, condition_details = _condition_scores(sheet, model, metric_scores)
         products.append(
             ProductScore(
                 product=model.display_name,
@@ -308,7 +772,8 @@ def score_sheet(sheet: CraneSheet) -> dict[str, Any]:
                 overall_score=overall_score,
                 overall_rank=None,
                 category_scores=categories,
-                condition_scores=_condition_scores(sheet, model, metric_scores),
+                condition_scores=condition_scores,
+                condition_details=condition_details,
                 not_ranked_reason=reason,
             )
         )

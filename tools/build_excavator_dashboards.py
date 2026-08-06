@@ -25,6 +25,220 @@ PPT_BUSINESS_TABLE_EN_PATH = ROOT / "data" / "ppt-insights" / "ppt-business-tabl
 PPT_SOURCE_CONTENT_EN_PATH = ROOT / "data" / "ppt-insights" / "ppt-source-content-en.json"
 
 
+def polish_english_text(value):
+    """Normalize recurring machine-translation artifacts in PPT sidecars."""
+    text = str(value or "")
+    if not text:
+        return text
+
+    replacements = (
+        ("Analysis of trends and causes:", "Trends and contributing factors:"),
+        ("The resulting inspiration or impact on the company:", "Business implications:"),
+        ("Adaptive Analysis of Core Specifications Products", "Core Product Fit Analysis"),
+        ("Adaptive analysis of core specifications products", "Core Product Fit Analysis"),
+        ("Adaptive analysis of core specifications product", "Core Product Fit Analysis"),
+        ("Adaptive analysis of products for core specifications", "Core Product Fit Analysis"),
+        ("Adaptive analysis of products of core specifications", "Core Product Fit Analysis"),
+        ("Core specification product parameters and equipment comparison", "Core Product Specifications and Equipment Comparison"),
+        ("Core specification product parameters and equipment comparison", "Core Product Specifications and Equipment Comparison"),
+        ("the units States", "the United States"),
+        ("units States", "United States"),
+        ("North Ka", "North Carolina"),
+        ("South Ka", "South Carolina"),
+        ("real estimate", "real estate"),
+        ("COREPLAND, CALIFORNIA", "California CORE Program (Clean Off-Road Equipment Voucher Incentive Project)"),
+        ("the Planned encourages", "the program encourages"),
+        ("market import", "market introduction"),
+        ("market for renters", "rental-customer market"),
+        ("salesable spectrometry", "Sales Volume by Model"),
+        ("Saleable spectrometry", "Sales Volume by Model"),
+        ("Solder spectrometry", "Sales Volume by Model"),
+        ("unit sales occupancy rate", "Unit Sales and Market Share"),
+        ("Brand occupancy analysis", "Brand Market Share Analysis"),
+        ("Occupancy", "Market share"),
+        ("CML commercial driver ' s licence", "CDL (commercial driver's license)"),
+        ("CML commercial driver's licence", "CDL (commercial driver's license)"),
+        ("CML commercial driver's license", "CDL (commercial driver's license)"),
+        ("commercial driver ' s licence", "commercial driver's license"),
+        ("driver ' s licence", "driver's license"),
+        ("commercial driver's licence", "commercial driver's license"),
+        ("driving licence", "driver's license"),
+        ("Unit cost US$ million", "Unit price (US$10,000)"),
+        ("unit cost US$ million", "unit price (US$10,000)"),
+        ("Occupancy", "Market share"),
+        ("tonage", "tonnage"),
+        ("thumbnail plier", "hydraulic thumb"),
+        ("thumb plier", "hydraulic thumb"),
+        ("maximum neck drag capacity", "maximum gooseneck towing capacity"),
+        ("Quick coupler", "quick coupler"),
+        ("narrower", "trenching bucket"),
+        ("26 0001 pounds", "26,001 pounds"),
+        ("Landscape Greening Company", "Landscaping contractor"),
+        ("landscaping Greening and Building Landscape Enterprises", "landscaping and grounds-maintenance contractors"),
+        ("landscaping greening and landscaping engineering", "landscaping and grounds work"),
+        ("Solder Spectrum", "Product Lineup"),
+        ("solder spectrum", "product lineup"),
+        ("microcompact excavator", "compact excavators"),
+        ("micro excavator", "compact excavators"),
+        ("large excavator and medium excavator", "large and medium excavators"),
+        ("large emcavatomarket", "large-excavator market"),
+        ("indigenous brands", "local brands"),
+        ("more sticky than XCMG", "have stronger customer loyalty than XCMG"),
+        ("high-end, intelligent and greening", "premium, intelligent and low-carbon development"),
+        ("high-end, intelligent and greener", "premium, intelligent and low-carbon"),
+        ("smart and electrodynamic products", "intelligent and electric products"),
+        ("awareness-raising efforts", "brand communication"),
+        ("anti-matching mechanisms", "targeted competitive positioning"),
+        ("culmination of the North American construction equipment market", "peak of the North American construction equipment market"),
+        ("580,000 United States and 30,000 Canadians", "580,000 units in the United States and more than 30,000 units in Canada"),
+        ("joint lease statement", "United Rentals financial statements"),
+        ("with an increase of 19.1 per year over year", "up 19.1% year over year"),
+        ("COREplanned", "CORE program"),
+        ("double back", "anti-dumping and countervailing-duty"),
+        ("high machine products", "aerial work platform products"),
+        ("friendly bank guarantee schemes", "friend-shoring supply plans"),
+        (
+            "Client custom equipment is capable of precision and adaptation to small-scale, different directions and angles of operation in order to avoid accidental damage around the site.",
+            "Customers require precise, finely controlled operation in confined spaces and at varied working angles to avoid damage to surrounding property.",
+        ),
+        (
+            "Good passability to enter small space requires equipment scalable bottom",
+            "Access to confined jobsites requires a retractable undercarriage.",
+        ),
+        (
+            "There is a need to avoid damage to the original lawn or road surfaces by using rubber-tracking or rubber-coated tracked blocks.",
+            "Rubber tracks or rubber track pads are required to protect finished lawns and paved surfaces.",
+        ),
+        (
+            "Multifunctional, requiring the installation of breaking hammers, hydraulic jails, hydraulic wrists, etc.",
+            "Attachment versatility is important, including hydraulic breakers, hydraulic thumbs and tilt couplers.",
+        ),
+        (
+            "The North American market has a large user size and greater requirements for driving space, while the North American excavator market is relatively mature, with clients being more picky about cab seats detonating operator comfort, human aircraft, etc.",
+            "North American operators often require more cab space. In this mature market, seat comfort, control ergonomics and operator-machine interface quality receive close scrutiny.",
+        ),
+        (
+            "Need for equipment to close cab and isolate the high dust environment created by demolition",
+            "An enclosed cab is needed to isolate the operator from demolition dust.",
+        ),
+        ("In order to avoid disturbance, beepers can silence,", "A travel-alarm mute function is needed for noise-sensitive jobsites."),
+        (
+            "(b) Construction scenes: broadly consistent with 1 to 2 tons of products, mainly landscaping and landscape engineering, residential and commercial upgrading, municipal engineering and maintenance and agriculture;\n(c) Construction application: mainly site clean-up, processing, excavation, loading, breaking, drilling, digging ditches, grabs and lifting operations;\nAttachment application:\nQuick coupler: Main hydraulic quick coupler, mechanical Quick Coupler, motor or tank tilter, tilted quick coupler\nbucket: 1,200 mm clearance/turning, 230-600,750 mm (12/18/24 inches) excavation;\nAttachment: Thumbnail pliers, breaking hammers, spirals, weed mowers.",
+            "Typical applications are broadly consistent with the 1-2 t class: landscaping and grounds work, residential and commercial renovation, municipal maintenance and agriculture. Core tasks include site cleanup, grading, excavation, loading, breaking, drilling, trenching, material handling and light lifting. Typical work tools include hydraulic or mechanical quick couplers, tilt couplers, grading and digging buckets, hydraulic thumbs, breakers, augers and mowers.",
+        ),
+        ("Construction scene and application description", "Application details"),
+        ("Construction scene", "Jobsite application"),
+        ("customer groups", "customer segments"),
+        ("customer group", "customer segment"),
+        ("working environment", "operating environment"),
+        ("Thumbnail pliers", "hydraulic thumb"),
+        ("spirals", "augers"),
+        ("weed mowers", "mowers"),
+        (
+            "Analysis Conclusion: 2-3 ton products have the same job applications and work conditions as those with 1-2 tons.",
+            "Analysis conclusion: 2-3 t excavators serve many of the same applications as 1-2 t machines.",
+        ),
+        (
+            "A function to alarm mute function the travel alarm should be added",
+            "A travel-alarm mute function should be added",
+        ),
+        (
+            "The micro-manipulability and smoothness of actions need further optimization compared to competitors",
+            "Fine control and motion smoothness require further improvement relative to competitors",
+        ),
+        (
+            "Two to three tons of major customer groups and one to two",
+            "The primary customer mix for 2-3 t excavators is similar to the 1-2 t class",
+        ),
+    )
+    for source, target in replacements:
+        text = text.replace(source, target)
+
+    text = re.sub(r"\b(?:Symptom|Scenario|Case|Phenomenal|Phenomenon|Event|Remarks?)/trend\s*", "Trend ", text, flags=re.I)
+    text = re.sub(r"\bphenomena/trend\s*", "Trend ", text, flags=re.I)
+    text = re.sub(r"\bclients\b", "customers", text, flags=re.I)
+    text = re.sub(r"\bclient\b", "customer", text, flags=re.I)
+    text = re.sub(r"\bengineering machinery\b", "construction equipment", text, flags=re.I)
+    text = re.sub(r"\bThumbnail pliers\b", "hydraulic thumb", text, flags=re.I)
+    text = re.sub(r"\bXCMG\s*VS\s*", "XCMG vs. ", text, flags=re.I)
+    text = re.sub(
+        r"\b(Kubota|Caterpillar|SANY|John Deere|Bobcat|Volvo|Komatsu)\s*VS\s*",
+        r"\1 vs. ",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(r"(\d+(?:\.\d+)?)\s+per cent\b", r"\1%", text, flags=re.I)
+    text = re.sub(
+        r"\bXCMG\s+(XE[0-9A-Z-]+)\s+weighs\s+([\d,]+)\s+tonnes\b",
+        r"XCMG \1 has an operating weight of \2 kg",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(r"\b(\d+)\s+k\b", r"\1K", text, flags=re.I)
+    text = re.sub(r"\b(\d+)\s*kgg\b", r"\1 kg", text, flags=re.I)
+    text = re.sub(r"\b(\d+)\s*KG\b", r"\1 kg", text)
+    text = re.sub(r"\bXCMG\s+vs\.\s*[.]+", "XCMG vs. ", text, flags=re.I)
+    text = re.sub(r"\bvs\.\s*[.]+", "vs. ", text, flags=re.I)
+    if (
+        text.startswith("(b) Jobsite applications: broadly consistent with 1 to 2 tons of products")
+        and "Attachment application:" in text
+    ):
+        text = (
+            "Typical applications are broadly consistent with the 1-2 t class: landscaping and grounds "
+            "work, residential and commercial renovation, municipal maintenance and agriculture. Core "
+            "tasks include site cleanup, grading, excavation, loading, breaking, drilling, trenching, "
+            "material handling and light lifting. Typical work tools include hydraulic or mechanical quick "
+            "couplers, tilt couplers, grading and digging buckets, hydraulic thumbs, breakers, augers and mowers."
+        )
+    text = re.sub(r"\bwork conditions\b", "operating conditions", text, flags=re.I)
+    text = re.sub(r"\bconstruction scenes?\b", "Jobsite application", text, flags=re.I)
+    text = re.sub(r"\bcustomer groups\b", "customer segments", text, flags=re.I)
+    text = re.sub(r"\bcustomer group\b", "customer segment", text, flags=re.I)
+    text = re.sub(r"\bproducts? with 1-2 tons\b", "1-2 t machines", text, flags=re.I)
+    text = re.sub(r"\bproducts? with 2-3 tons\b", "2-3 t machines", text, flags=re.I)
+    text = re.sub(
+        r"Two to three tons of major customer groups and one to two:",
+        "The primary customer mix for 2-3 t excavators is similar to the 1-2 t class:",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(r"\s+'\s+s\b", "'s", text)
+    text = re.sub(r"\s+([,.;:])", r"\1", text)
+    text = re.sub(r"[ \t]{2,}", " ", text)
+    if text.startswith("Summary: XE27U's travel speed"):
+        text = (
+            "Summary: XE27U requires further improvement in travel speed, bucket digging force and "
+            "attachment hydraulic flow. Demand for a canopy version is limited in the current North "
+            "American customer mix; given regional climate conditions, an enclosed cab with heating "
+            "and air conditioning should be introduced promptly while the identified performance gaps "
+            "are addressed."
+        )
+    if text.startswith("Kubota: Japanese brand, focus on compact excavators."):
+        text = (
+            "Kubota is a Japanese brand specializing in compact excavators. Its long-established North "
+            "American presence, mature product technology and leading share in the micro and compact "
+            "segments make it a relevant benchmark for hydraulic calibration, controllability, "
+            "manufacturing detail and platform standardization.\n"
+            "XCMG's target customers overlap with Kubota's core compact-excavator base: small and midsize "
+            "contractors that prioritize operability, reliability, access to financing or rental, a short "
+            "purchase decision cycle and word-of-mouth reputation. Kubota therefore provides a useful "
+            "benchmark for product design, channel strategy, service delivery and residual-value positioning.\n"
+            "Kubota's premium pricing leaves XCMG room to compete on acquisition value, lifecycle cost and "
+            "intelligent equipment, provided product execution and service support are verified."
+        )
+    return text.strip()
+
+
+def polish_english_value(value):
+    if isinstance(value, list):
+        return [polish_english_value(item) for item in value]
+    if isinstance(value, dict):
+        return {key: polish_english_value(item) for key, item in value.items()}
+    if isinstance(value, str):
+        return polish_english_text(value)
+    return value
+
+
 def load_tonnage_insights():
     if not TONNAGE_INSIGHT_PATH.exists():
         return {}
@@ -44,9 +258,9 @@ def load_ppt_business_tables():
             if not record:
                 continue
             if str(english.get("title") or "").strip():
-                record["title_en"] = english["title"]
+                record["title_en"] = polish_english_text(english["title"])
             if english.get("matrix"):
-                record["matrix_en"] = english["matrix"]
+                record["matrix_en"] = polish_english_value(english["matrix"])
     return {
         "records": records,
         "by_slug": payload.get("by_slug", {}),
@@ -66,13 +280,13 @@ def load_ppt_source_content():
             if not slide:
                 continue
             if str(english.get("title") or "").strip():
-                slide.setdefault("title", {})["en"] = english["title"]
+                slide.setdefault("title", {})["en"] = polish_english_text(english["title"])
             for index, value in enumerate(english.get("body", [])):
                 if index < len(slide.get("body", [])) and str(value or "").strip():
-                    slide["body"][index]["en"] = value
+                    slide["body"][index]["en"] = polish_english_text(value)
             for index, value in enumerate(english.get("notes", [])):
                 if index < len(slide.get("notes", [])) and str(value or "").strip():
-                    slide["notes"][index]["en"] = value
+                    slide["notes"][index]["en"] = polish_english_text(value)
             for index, visual_en in enumerate(english.get("visuals", [])):
                 if index >= len(slide.get("visuals", [])):
                     continue
@@ -81,18 +295,18 @@ def load_ppt_source_content():
                 if not chart or not translated_chart:
                     continue
                 if str(translated_chart.get("title") or "").strip():
-                    chart["title_en"] = translated_chart["title"]
+                    chart["title_en"] = polish_english_text(translated_chart["title"])
                 if translated_chart.get("categories"):
-                    chart["categories_en"] = translated_chart["categories"]
+                    chart["categories_en"] = polish_english_value(translated_chart["categories"])
                 if translated_chart.get("axis_titles"):
-                    chart["axis_titles_en"] = translated_chart["axis_titles"]
+                    chart["axis_titles_en"] = polish_english_value(translated_chart["axis_titles"])
                 series_names = translated_chart.get("series_names", [])
                 for series_index, value in enumerate(series_names):
                     if (
                         series_index < len(chart.get("series", []))
                         and str(value or "").strip()
                     ):
-                        chart["series"][series_index]["name_en"] = value
+                        chart["series"][series_index]["name_en"] = polish_english_text(value)
     return {
         "slides": slides,
         "by_slug": payload.get("by_slug", {}),
@@ -1654,7 +1868,7 @@ def render_overall_section(model):
 def bilingual_leaf(value, tag="span", class_name=""):
     if isinstance(value, dict):
         zh = value.get("zh", "")
-        en = value.get("en") or zh
+        en = polish_english_text(value.get("en") or zh)
     else:
         zh = en = str(value or "")
     class_attr = f' class="{esc(class_name)}"' if class_name else ""
@@ -1698,7 +1912,7 @@ def split_source_segments(value):
 def render_source_narrative_item(value):
     if isinstance(value, dict):
         zh = value.get("zh", "")
-        en = value.get("en") or zh
+        en = polish_english_text(value.get("en") or zh)
     else:
         zh = en = str(value or "")
     if en and en != zh:
@@ -2568,14 +2782,16 @@ def render_html(model):
     .sourceContentSection{{padding:0;border-top:4px solid var(--blue);overflow:hidden}}.sourceContentSection>h2{{padding:18px 20px 0;margin-bottom:6px}}.sourceSlideStack{{display:block}}.sourceSlide{{padding:20px;border-top:1px solid #c8d7e6;background:#fff}}.sourceSlide:first-child{{border-top:0}}.sourceSlideHeader{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:10px}}.sourceSlideHeader h3{{margin:0;color:#073c70;font-size:18px;line-height:1.45}}.sourceTemporalStatus{{flex:0 1 430px;padding:9px 11px;border-left:4px solid var(--yellow);background:#fff8df;color:#5e4900}}.sourceTemporalStatus>span{{display:block;margin-bottom:2px;font-size:11px;font-weight:900;text-transform:uppercase}}.sourceTemporalStatus>p{{margin:0;font-size:11px;line-height:1.55}}.sourceTemporalStatus-historical_target,.sourceTemporalStatus-historical_plan{{border-left-color:#d6594c;background:#fff1ef;color:#7b2119}}.sourceTemporalStatus-forward_plan{{border-left-color:var(--blue);background:#eef5fb;color:#073c70}}.sourceNarrative{{max-width:1180px}}.sourceParagraph{{margin:0 0 10px;color:#203f5b;font-size:14px;line-height:1.82;white-space:pre-line;overflow-wrap:anywhere}}.sourceParagraph:last-child{{margin-bottom:0}}.sourceMacroGrid{{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(340px,.65fr);gap:16px;align-items:start}}.sourceMacroColumn{{min-width:0;padding:14px 16px;border-left:4px solid var(--blue);background:#f6f9fc}}.sourceMacroColumn:last-child{{border-left-color:var(--yellow)}}.sourceMacroColumn .sourceParagraph:first-child{{color:#075da8;font-weight:900}}.sourceVisualGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 2px;align-items:start}}.sourceVisualGrid-1{{grid-template-columns:minmax(0,980px);justify-content:center}}.sourceVisualGrid-3{{grid-template-columns:repeat(3,minmax(0,1fr))}}.sourceVisualGrid-4{{grid-template-columns:repeat(2,minmax(0,1fr))}}.sourceVisual{{display:flex;align-items:center;justify-content:center;min-width:0;margin:0;border:1px solid #c8d7e6;background:#f7fafc;overflow:hidden}}.sourceVisual img{{display:block;width:100%;height:auto;max-height:560px;object-fit:contain;background:#fff}}.sourceVisual-picture img{{max-height:480px}}.sourceTableBlock{{margin-top:16px;border-top:3px solid var(--blue)}}.sourceTableScroll{{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;border:1px solid #b8ccdd;border-top:0;background:#fff}}.sourceTableScroll table{{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0;table-layout:auto;font-size:12px}}.sourceTableCaption{{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}}.sourceTableScroll th,.sourceTableScroll td{{position:static;min-width:118px;max-width:460px;padding:9px 10px;border-right:1px solid #d7e2ec;border-bottom:1px solid #d7e2ec;background:#fff;box-shadow:none;line-height:1.65;text-align:left;vertical-align:top;white-space:pre-line;overflow-wrap:anywhere}}.sourceTableScroll thead th{{position:sticky;top:0;z-index:3;background:#075da8;color:#fff;font-weight:900}}.sourceTableScroll tbody th{{position:sticky;left:0;z-index:2;min-width:150px;background:#eef5fa!important;color:#073c70;font-weight:900}}.sourceTableScroll tbody tr:nth-child(even) td{{background:#f8fbfd}}.sourceTableScroll tr>*:last-child{{border-right:0}}.sourceTableScroll tbody tr:last-child>*{{border-bottom:0}}.sourceNotes{{margin-top:12px;padding:9px 11px;border-left:4px solid var(--blue);background:#f3f7fa}}.sourceDataNote{{margin:0;color:#526a7f;font-size:11px;line-height:1.6;white-space:pre-line}}
     .simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:12px}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:900;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:900;font-size:12px}}.simOptions small{{color:#5d7083;font-size:11px}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:34px;color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:900;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:900;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
     @media(max-width:900px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:14px;margin:0}}.nav small{{font-size:10px}}.languageToggle{{margin:0}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:900}}.mobileTop{{font-size:12px}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home,.navGroup{{grid-column:1/-1}}.navMenu .home{{margin:0}}.navSubmenu{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.productGapSpotlight{{grid-template-columns:260px minmax(0,1fr)}}.conditionVisualNav{{grid-template-columns:repeat(2,minmax(0,1fr))}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
-    @media(max-width:720px){{body{{font-size:14px}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:12px;line-height:1.25}}.nav small{{font-size:9px}}.languageToggle{{min-width:40px;min-height:32px;padding:0 6px;font-size:11px}}.navToggle,.mobileTop{{padding:6px 8px;font-size:11px}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:12px;padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}.heroMedia img{{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}}h1{{font-size:26px;margin:6px 0 8px}}h2{{font-size:20px;margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:15px}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:12px}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:24px;line-height:1.15;margin:3px 0}}.kpi span{{font-size:11px;line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:12px;margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:18px;overflow-wrap:anywhere;margin-bottom:0}}.conditionTitle span{{font-size:10px}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:12px}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:12px}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:11px;padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:anywhere}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:anywhere;font-size:11px;padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:900;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:11px;color:var(--blue);font-weight:800}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:12px}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:12px;padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:28px}}.tableScroll{{max-height:62vh}}}}
+    @media(max-width:720px){{body{{font-size:14px}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:12px;line-height:1.25}}.nav small{{font-size:9px}}.languageToggle{{min-width:40px;min-height:32px;padding:0 6px;font-size:11px}}.navToggle,.mobileTop{{padding:6px 8px;font-size:11px}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:12px;padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}.heroMedia img{{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}}h1{{font-size:26px;margin:6px 0 8px}}h2{{font-size:20px;margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:15px}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:12px}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:24px;line-height:1.15;margin:3px 0}}.kpi span{{font-size:11px;line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:12px;margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:18px;overflow-wrap:break-word;word-break:normal;hyphens:auto;margin-bottom:0}}.conditionTitle span{{font-size:10px}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:12px}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:12px}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:11px;padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:auto}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:auto;font-size:11px;padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:900;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:11px;color:var(--blue);font-weight:800}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:12px}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:12px;padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:28px}}.tableScroll{{max-height:62vh}}}}
     @media(max-width:720px){{.actions{{display:grid;grid-template-columns:1fr;gap:6px;overflow:visible;margin-top:10px;padding-bottom:0}}.actions .btn{{width:100%;min-height:38px;padding:7px 9px;font-size:12px}}}}
     @media(max-width:720px){{.productGapSpotlight{{grid-template-columns:1fr;min-height:0}}.productGapMedia{{border-right:0;border-bottom:1px solid var(--line);padding:12px}}.productGapMedia img{{height:155px;padding:4px}}.productGapContent{{padding:12px}}.productGapContent h3{{font-size:17px}}.productGapContent ol{{grid-template-columns:1fr;gap:6px}}.conditionVisualNav{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:12%;margin:9px 0}}.conditionVisualCard{{scroll-snap-align:start;min-height:178px}}.conditionVisualSource{{font-size:9px}}}}
     @media(max-width:1280px){{.conditionTop{{grid-template-columns:1fr}}}}
     @media(max-width:1200px){{.marketInsightGrid,.marketEvidenceGrid{{grid-template-columns:1fr}}.applicationGrid{{grid-template-columns:repeat(2,minmax(0,1fr))}}.engineeringPriorityGrid{{grid-template-columns:1fr 1fr}}.sourceMacroGrid{{grid-template-columns:1fr}}.sourceVisualGrid-3{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
     @media(max-width:720px){{.navSubmenu{{grid-template-columns:1fr}}.marketKpis{{grid-template-columns:1fr 1fr;gap:7px}}.marketKpis>div{{padding:9px;min-height:82px}}.marketKpis b{{font-size:15px}}.marketInsightGrid,.marketEvidenceGrid{{gap:8px}}.marketTrendPanel,.marketReading,.marketDataPanel,.marketFactPanel{{padding:10px}}.marketColumns{{height:205px;grid-template-columns:repeat(4,minmax(46px,1fr));gap:4px;padding-inline:2px}}.marketColumn{{grid-template-rows:135px auto auto auto}}.marketBarShell{{height:135px}}.marketBar{{width:min(42px,78%)}}.marketColumn>strong{{font-size:10px}}.marketLegend{{gap:5px 9px}}.marketDecisionList>div{{grid-template-columns:1fr;gap:3px;padding:8px 0}}.marketDecisionList dt{{font-size:10px}}.marketSeriesEmpty{{min-height:170px;padding:14px}}.marketDataTableWrap{{overscroll-behavior-inline:contain}}.marketFactList{{gap:6px}}.applicationGrid{{grid-template-columns:1fr;gap:8px}}.applicationCard img{{aspect-ratio:16/9}}.applicationMatrixWrap{{padding:10px}}.applicationMatrix,.applicationMatrix tbody,.applicationMatrix tr,.applicationMatrix th,.applicationMatrix td{{display:block;width:100%}}.applicationMatrix thead{{display:none}}.applicationMatrix tr{{margin:0 0 9px;border:1px solid #b9ccdc;background:#fff}}.applicationMatrix th,.applicationMatrix td{{border-bottom:1px solid #dde7ef;padding:9px 10px}}.applicationMatrix tbody th{{border-left:4px solid var(--blue)}}.applicationMatrix .applicationCapabilityCell{{border-left:4px solid var(--yellow);border-bottom:0}}.engineeringScope{{grid-template-columns:1fr}}.engineeringScope>b{{border-right:0;border-bottom:1px solid #c8d7e6}}.engineeringPriorityGrid{{grid-template-columns:1fr;gap:6px}}.engineeringTableWrap{{overflow:visible;border:0}}.engineeringTable,.engineeringTable tbody,.engineeringTable tr,.engineeringTable th,.engineeringTable td{{display:block;width:100%}}.engineeringTable thead{{display:none}}.engineeringTable tr{{margin:0 0 9px;border:1px solid #b9ccdc;background:#fff}}.engineeringTable th,.engineeringTable td{{border-bottom:1px solid #dde7ef;padding:9px 10px}}.engineeringTable tbody th{{border-left:4px solid var(--green)}}.engineeringTable .gapColumn,.engineeringTable .actionColumn{{border-left:4px solid}}.engineeringTable .actionColumn{{border-bottom:0}}.cellLabel{{display:block;margin-bottom:3px;color:#5b7185;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}}.pptBusinessGroup{{margin-top:10px;padding-top:9px}}.pptBusinessGroupHead{{display:block;margin-bottom:7px}}.pptBusinessGroupHead h3{{font-size:14px}}.pptBusinessGroupHead p{{margin-top:4px;text-align:left}}.pptBusinessTableStack{{gap:8px}}.pptBusinessTable>summary{{align-items:flex-start;min-height:40px;padding:8px 9px}}.pptBusinessTable>summary h3{{font-size:12px}}.pptBusinessTableScroll{{max-height:72vh}}.pptBusinessTableScroll table{{font-size:10px}}.pptBusinessTableScroll th,.pptBusinessTableScroll td{{min-width:106px;max-width:290px;padding:7px 8px}}.pptBusinessTableScroll tbody th{{min-width:122px}}.sourceContentSection>h2{{padding:14px 12px 0}}.sourceSlide{{padding:14px 12px}}.sourceSlideHeader{{display:block}}.sourceSlideHeader h3{{font-size:16px}}.sourceTemporalStatus{{margin-top:8px;padding:8px 9px}}.sourceParagraph{{font-size:13px;line-height:1.75}}.sourceVisualGrid,.sourceVisualGrid-1,.sourceVisualGrid-3,.sourceVisualGrid-4{{grid-template-columns:1fr;gap:8px;margin-top:12px}}.sourceVisual img,.sourceVisual-picture img{{max-height:none}}.sourceTableScroll table{{font-size:10px}}.sourceTableScroll th,.sourceTableScroll td{{min-width:112px;max-width:300px;padding:7px 8px}}.sourceTableScroll tbody th{{min-width:126px}}}}
-    html[data-language="en"] .conditionIntro b:after,html[data-language="en"] .overallNotes p>b:first-child:after,html[data-language="en"] .summaryCard p>b:first-child:after{{content:" "}}html[data-language="en"] .navMenu a,html[data-language="en"] .conditionTitle h2,html[data-language="en"] .simOptions b,html[data-language="en"] .simOptions small{{overflow-wrap:anywhere}}html[data-language="en"] .sourceNote b{{white-space:normal}}html[data-language="en"] th{{white-space:normal;overflow-wrap:break-word;word-break:normal}}html[data-language="en"] .radar-label{{font-size:11px}}
-    @media(max-width:720px){{html[data-language="en"] .navTitle{{font-size:11px;line-height:1.2}}html[data-language="en"] .nav small{{display:none}}html[data-language="en"] .summaryGrid,html[data-language="en"] .conditionIntro,html[data-language="en"] .gapGrid{{display:grid;grid-template-columns:1fr;grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;scroll-snap-type:none;padding:0}}html[data-language="en"] .summaryCard{{min-height:0}}html[data-language="en"] .summaryCard,html[data-language="en"] .conditionIntro p,html[data-language="en"] .gapGrid article{{scroll-snap-align:none}}html[data-language="en"] .mobileDisclosure>summary,html[data-language="en"] .radarPicker>summary{{white-space:normal;overflow-wrap:anywhere}}html[data-language="en"] .radarHead{{align-items:flex-start;flex-wrap:wrap}}html[data-language="en"] .radarCurrent{{white-space:normal}}html[data-language="en"] .simHead{{gap:8px;align-items:flex-start}}html[data-language="en"] .resetSim{{flex:0 0 auto;white-space:normal}}}}
+    html[data-language="en"] .conditionIntro b:after,html[data-language="en"] .overallNotes p>b:first-child:after,html[data-language="en"] .summaryCard p>b:first-child:after{{content:" "}}html[data-language="en"] .navMenu a,html[data-language="en"] .conditionTitle h2,html[data-language="en"] .simOptions b,html[data-language="en"] .simOptions small{{overflow-wrap:break-word;word-break:normal;hyphens:auto}}html[data-language="en"] .sourceNote b{{white-space:normal}}html[data-language="en"] th{{white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:auto}}html[data-language="en"] .radar-label{{font-size:11px}}
+    html[data-language="en"] .detailMatrix tr>:nth-child(1){{width:220px;min-width:220px;white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:auto}}html[data-language="en"] .detailMatrix tr>:nth-child(2){{width:110px;min-width:110px}}html[data-language="en"] .detailMatrix tr>:nth-child(4){{width:320px;min-width:320px;white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:auto}}
+    @media(min-width:721px){{html[data-language="en"] .engineeringTableWrap{{overflow-x:auto}}html[data-language="en"] .engineeringTable{{width:100%;min-width:920px;table-layout:fixed}}html[data-language="en"] .engineeringTable th,html[data-language="en"] .engineeringTable td{{overflow-wrap:break-word;word-break:normal;hyphens:auto}}}}
+    @media(max-width:720px){{html[data-language="en"] .navTitle{{font-size:11px;line-height:1.2}}html[data-language="en"] .nav small{{display:none}}html[data-language="en"] .conditionTitle{{grid-template-columns:1fr}}html[data-language="en"] .conditionTitle>em{{justify-self:start;text-align:left}}html[data-language="en"] .summaryGrid,html[data-language="en"] .conditionIntro,html[data-language="en"] .gapGrid{{display:grid;grid-template-columns:1fr;grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;scroll-snap-type:none;padding:0}}html[data-language="en"] .summaryCard{{min-height:0}}html[data-language="en"] .summaryCard,html[data-language="en"] .conditionIntro p,html[data-language="en"] .gapGrid article{{scroll-snap-align:none}}html[data-language="en"] .mobileDisclosure>summary,html[data-language="en"] .radarPicker>summary{{white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:auto}}html[data-language="en"] .radarHead{{align-items:flex-start;flex-wrap:wrap}}html[data-language="en"] .radarCurrent{{white-space:normal}}html[data-language="en"] .simHead{{gap:8px;align-items:flex-start}}html[data-language="en"] .resetSim{{flex:0 0 auto;white-space:normal}}}}
     .sourceTableScroll.sourceTableScrollFit{{overflow-x:hidden}}
     .sourceTableScrollFit table.sourceTableFit{{width:100%;min-width:0;table-layout:fixed;font-size:11px}}
     .sourceTableScrollFit table.sourceTableFit th,.sourceTableScrollFit table.sourceTableFit td{{position:static;min-width:0;max-width:none;padding:8px 9px;white-space:pre-line;overflow-wrap:anywhere;word-break:normal;line-height:1.55}}
@@ -2594,6 +2810,7 @@ def render_html(model):
     .sidebarToggle{{display:none}}
     @media(min-width:901px){{.layout{{grid-template-columns:clamp(216px,16vw,252px) minmax(0,1fr);transition:grid-template-columns .18s ease}}aside.nav{{display:flex;flex-direction:column;overflow:hidden;padding-bottom:66px}}.navMenu{{display:block;grid-column:auto;flex:1;min-height:0;max-height:none;overflow-y:auto;padding:0 3px 0 0}}.navToggle,.mobileTop{{display:none}}.backTop{{left:14px;bottom:14px;min-height:40px;border-radius:4px;padding:8px 14px}}.sourceTableScroll table:not(:has(tr > :nth-child(11))){{width:100%;min-width:100%;table-layout:fixed}}.sourceTableScroll table:not(:has(tr > :nth-child(11))) th,.sourceTableScroll table:not(:has(tr > :nth-child(11))) td{{min-width:0;max-width:none}}.sidebarToggle{{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:36px;margin:0 0 10px;border:1px solid rgba(255,255,255,.36);border-radius:4px;background:transparent;color:#fff;font-size:12px;font-weight:800;cursor:pointer}}.sidebarToggle:hover,.sidebarToggle:focus-visible{{border-color:var(--yellow);color:var(--yellow);outline:none}}.layout.sidebarCollapsed{{grid-template-columns:76px minmax(0,1fr)}}.layout.sidebarCollapsed aside.nav{{padding-left:10px;padding-right:10px;align-items:center}}.layout.sidebarCollapsed .navBrand img{{width:48px;padding:4px}}.layout.sidebarCollapsed .navTitle,.layout.sidebarCollapsed aside.nav>div>small,.layout.sidebarCollapsed .languageToggle,.layout.sidebarCollapsed .navMenu{{display:none}}.layout.sidebarCollapsed .sidebarToggle{{width:52px;margin-top:10px;padding:5px;line-height:1.25}}}}
     @media(max-width:720px){{.languageToggle,.navToggle,.mobileTop,.actions .btn,.radarLegend button,.radarPicker>summary,.resetSim,.rawTabs button{{min-height:44px}}.languageToggle{{min-width:44px}}.navToggle,.mobileTop{{padding:8px 10px}}.insightLead,.marketRole,.marketDecisionList dd,.marketFactList p,.applicationCard>p,.engineeringScope>span,.engineeringPriorityGrid p,.sourceParagraph,.sourceDataNote{{font-size:15px;line-height:1.72}}.mobileDisclosure>summary,.radarPicker>summary{{min-height:44px}}}}
+    @media(max-width:720px){{aside.nav{{grid-template-columns:72px minmax(88px,1fr) auto auto}}.mobileTop{{display:none}}}}
   </style>
 </head>
 <body>
@@ -3207,17 +3424,56 @@ def update_arc_metrics(models):
 def write_project_manifest(models):
     ppt_business_tables = load_ppt_business_tables()
     table_summary = ppt_business_tables.get("summary", {})
+    crane_data_path = ROOT / "data" / "generated" / "cranes" / "crane-benchmark.json"
+    crane_data = json.loads(crane_data_path.read_text(encoding="utf-8")) if crane_data_path.exists() else {}
+    crane_outputs = {
+        "RT-60t": "crane-rt-60t.html",
+        "RT-75t": "crane-rt-75t.html",
+        "RT-100t": "crane-rt-100t.html",
+        "RT-130t": "crane-rt-130t.html",
+        "RT-160t": "crane-rt-160t.html",
+        "AT-150t": "crane-at-150t.html",
+    }
+    crane_dashboards = []
+    for sheet in crane_data.get("sheets", []):
+        label = sheet.get("label", "")
+        models_in_sheet = sheet.get("models", [])
+        if label not in crane_outputs:
+            continue
+        xcmg_model = next(
+            (item.get("model", "") for item in models_in_sheet if item.get("brand") == "XCMG"),
+            "",
+        )
+        crane_dashboards.append(
+            {
+                "label": label,
+                "output": crane_outputs[label],
+                "xcmg": xcmg_model,
+                "productCount": len(models_in_sheet),
+                "source": "data/source-excel/XCMG_crane_benchmark_data_pool.xlsx",
+            }
+        )
+    excavator_count = sum(len(model["products"]) for model in models)
+    crane_count = sum(item["productCount"] for item in crane_dashboards)
     manifest = {
         "productLineCount": 7,
         "excavatorTonnageCount": len(models),
-        "benchmarkProductCount": sum(len(model["products"]) for model in models),
-        "sourceWorkbookCount": len(SOURCE_FILES),
+        "excavatorBenchmarkProductCount": excavator_count,
+        "craneBenchmarkProductCount": crane_count,
+        "benchmarkProductCount": excavator_count + crane_count,
+        "sourceWorkbookCount": len(SOURCE_FILES) + (1 if crane_dashboards else 0),
         "minimumScoreCoverage": MIN_SCORE_COVERAGE,
         "overallWeights": OVERALL_WEIGHTS,
         "marketOverview": {
             "output": "excavator-market-overview.html",
             "data": "data/ppt-insights/excavator-market-overview.json",
             "classification": "XCMG ARC INTERNAL",
+        },
+        "craneOverview": {
+            "output": "crane-overview.html",
+            "marketOutput": "crane-market-overview.html",
+            "classification": "XCMG ARC INTERNAL",
+            "dashboards": crane_dashboards,
         },
         "pptBusinessTables": {
             "data": "data/ppt-insights/ppt-business-tables.json",
