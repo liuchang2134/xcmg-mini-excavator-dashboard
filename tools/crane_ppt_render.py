@@ -856,7 +856,7 @@ def _render_chart(chart: dict[str, Any], slide_number: int, index: int) -> str:
     return _render_columns(chart, chart_id)
 
 
-def _render_images(record: dict[str, Any]) -> str:
+def _render_images(record: dict[str, Any], compact_captions: bool = False) -> str:
     images = record.get("images") or []
     if not images:
         return ""
@@ -875,7 +875,20 @@ def _render_images(record: dict[str, Any]) -> str:
         else:
             base_caption = _display_title(record)
             base_caption_en = SLIDE_TITLE_OVERRIDES_EN.get(record["slide"], _en(base_caption))
-            if len(images) == 1:
+            if compact_captions:
+                if len(images) == 1:
+                    caption = "现场影像"
+                    caption_en = "Field image"
+                elif "客户使用评价" in base_caption:
+                    caption = f"评价细节 {index + 1}"
+                    caption_en = f"Evaluation detail {index + 1}"
+                elif "市场与工况" in base_caption:
+                    caption = f"应用场景 {index + 1}"
+                    caption_en = f"Application scene {index + 1}"
+                else:
+                    caption = f"图像 {index + 1}"
+                    caption_en = f"Image {index + 1}"
+            elif len(images) == 1:
                 caption = base_caption
                 caption_en = base_caption_en
             elif "客户使用评价" in base_caption:
@@ -909,7 +922,7 @@ def _render_class_visual_summary(records: list[dict[str, Any]]) -> str:
             f'<article class="classVisualGroup" data-source-slide="{record["slide"]}">'
             f'<header><h4 data-en="{esc(title_en)}">{esc(title)}</h4>'
             f'<span data-en="{len(record["images"])} images">{len(record["images"])} 张</span></header>'
-            f'{_render_images(record)}</article>'
+            f'{_render_images(record, compact_captions=True)}</article>'
         )
     if not groups:
         return ""
@@ -1040,7 +1053,7 @@ def render_market_report_page() -> str:
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805i">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260805i">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260806k">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">

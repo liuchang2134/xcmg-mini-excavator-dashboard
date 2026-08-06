@@ -491,6 +491,30 @@ def test_crane_ppt_images_use_high_resolution_powerpoint_exports():
     assert rendered_sources <= set(manifest["images"])
 
 
+def test_crane_class_image_galleries_use_balanced_count_aware_layouts():
+    css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
+    assert ".classVisualGroup .craneInsightGallery.count-1{max-width:960px;grid-template-columns:minmax(0,1fr)}" in css
+    assert ".classVisualGroup .craneInsightGallery.count-2{max-width:1280px;grid-template-columns:repeat(2,minmax(0,1fr))}" in css
+    assert ".classVisualGroup .craneInsightGallery.count-3,.classVisualGroup .craneInsightGallery.count-6{grid-template-columns:repeat(3,minmax(0,1fr))}" in css
+    assert ".classVisualGroup .craneInsightGallery.count-4{max-width:1280px;grid-template-columns:repeat(2,minmax(0,1fr))}" in css
+    assert ".classVisualGroup .craneInsightGallery.count-1 .insightImageButton{aspect-ratio:auto}" in css
+    assert ".classVisualGroup .craneInsightGallery.count-1 img{height:auto}" in css
+    assert "repeat(auto-fit,minmax(270px,1fr))" not in css
+    assert "grid-template-columns:minmax(0,760px)" not in css
+
+    build_all()
+    for definition in PAGE_DEFINITIONS.values():
+        page = (ROOT / definition["output"]).read_text(encoding="utf-8")
+        assert "assets/crane-insights.css?v=20260806k" in page
+
+    rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
+    visual_summary = rt75_page.split('id="class-visuals"', 1)[1].split(
+        'id="macro-analysis"', 1
+    )[0]
+    assert ">评价细节 1</figcaption>" in visual_summary
+    assert "客户使用评价对标 · 评价图像" not in visual_summary
+
+
 def test_crane_ppt_reader_content_has_complete_local_english_translation():
     slides = json.loads(
         (ROOT / "data" / "crane-ppt-insights" / "slides.json").read_text(
