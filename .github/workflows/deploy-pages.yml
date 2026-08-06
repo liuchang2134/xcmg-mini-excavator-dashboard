@@ -45,9 +45,55 @@ jobs:
             --exclude '/data/source-presentations/' \
             --exclude '**/__pycache__/' \
             --exclude '*.pyc'
+
+          export PUBLIC_DIR="${public_dir}"
+          python - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          root = Path(os.environ["PUBLIC_DIR"])
+          sha = os.environ["GITHUB_SHA"]
+          raw_root = (
+              "https://raw.githubusercontent.com/"
+              f"liuchang2134/xcmg-mini-excavator-dashboard/{sha}/"
+          )
+          remote_asset_dirs = (
+              "crane-ppt-source",
+              "crane-ppt-display",
+              "ppt-source",
+              "ppt-insights",
+              "arc",
+              "conditions",
+          )
+          names = "|".join(re.escape(name) for name in remote_asset_dirs)
+          pattern = re.compile(
+              rf"(?<![A-Za-z0-9:/])(?:\.\./|/)?assets/({names})/"
+          )
+
+          for path in root.rglob("*"):
+              if not path.is_file() or path.suffix.lower() not in {
+                  ".html", ".css", ".js", ".json"
+              }:
+                  continue
+              text = path.read_text(encoding="utf-8")
+              updated = pattern.sub(
+                  lambda match: f"{raw_root}assets/{match.group(1)}/", text
+              )
+              if updated != text:
+                  path.write_text(updated, encoding="utf-8")
+
+          for directory in remote_asset_dirs:
+              target = root / "assets" / directory
+              if target.exists():
+                  import shutil
+                  shutil.rmtree(target)
+          PY
+
           touch "${public_dir}/.nojekyll"
           test -f "${public_dir}/arc.html"
           test -f "${public_dir}/crane-rt-75t.html"
+          grep -q "raw.githubusercontent.com" "${public_dir}/crane-rt-75t.html"
           du -sh "${public_dir}"
 
       - name: Upload Pages artifact
