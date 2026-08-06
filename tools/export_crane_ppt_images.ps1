@@ -1,5 +1,5 @@
 param(
-    [int]$LongEdge = 1600
+    [int]$LongEdge = 1800
 )
 
 $ErrorActionPreference = "Stop"
@@ -79,7 +79,7 @@ finally {
 }
 
 $python = (Get-Command python -ErrorAction Stop).Source
-& $python $optimizerPath --input-dir $stagingDirectory --output-dir $outputDirectory --quality 92
+& $python $optimizerPath --input-dir $stagingDirectory --output-dir $outputDirectory --quality 94
 if ($LASTEXITCODE -ne 0) {
     throw "Image optimization failed with exit code $LASTEXITCODE"
 }
@@ -89,7 +89,7 @@ Remove-Item -LiteralPath $stagingDirectory -Force
 
 $manifest = [ordered]@{
     source_presentation = "data/source-presentations/$([IO.Path]::GetFileName($sourcePresentation))"
-    render_method = "PowerPoint Shape.Export with source crop, then WebP quality 92"
+    render_method = "PowerPoint Shape.Export with source crop, restrained edge sharpening, then WebP quality 94"
     long_edge = $LongEdge
     image_count = $rendered
     images = $imageMap

@@ -493,7 +493,10 @@ def test_crane_ppt_images_use_high_resolution_powerpoint_exports():
 
 def test_crane_class_image_galleries_use_balanced_count_aware_layouts():
     css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
+    assert ".classVisualGroups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))" in css
+    assert ".classVisualGroup.visual-multi,.classVisualGroup.visual-single-wide{grid-column:1/-1}" in css
     assert ".classVisualGroup .craneInsightGallery.count-1{max-width:960px;grid-template-columns:minmax(0,1fr)}" in css
+    assert ".classVisualGroup.visual-single-compact .craneInsightGallery.count-1{max-width:100%}" in css
     assert ".classVisualGroup .craneInsightGallery.count-2{max-width:1280px;grid-template-columns:repeat(2,minmax(0,1fr))}" in css
     assert ".classVisualGroup .craneInsightGallery.count-3,.classVisualGroup .craneInsightGallery.count-6{grid-template-columns:repeat(3,minmax(0,1fr))}" in css
     assert ".classVisualGroup .craneInsightGallery.count-4{max-width:1280px;grid-template-columns:repeat(2,minmax(0,1fr))}" in css
@@ -501,18 +504,38 @@ def test_crane_class_image_galleries_use_balanced_count_aware_layouts():
     assert ".classVisualGroup .craneInsightGallery.count-1 img{height:auto}" in css
     assert "repeat(auto-fit,minmax(270px,1fr))" not in css
     assert "grid-template-columns:minmax(0,760px)" not in css
+    assert ".classVisualGroups{grid-template-columns:1fr}" in css
 
     build_all()
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
-        assert "assets/crane-insights.css?v=20260806k" in page
+        assert "assets/crane-insights.css?v=20260806m" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
     visual_summary = rt75_page.split('id="class-visuals"', 1)[1].split(
         'id="macro-analysis"', 1
     )[0]
+    assert 'class="classVisualGroup visual-single-compact"' in visual_summary
+    assert 'class="classVisualGroup visual-multi"' in visual_summary
+    assert 'class="source-low"' in visual_summary
+    assert 'data-source-resolution="' in visual_summary
     assert ">评价细节 1</figcaption>" in visual_summary
     assert "客户使用评价对标 · 评价图像" not in visual_summary
+
+    rt160_page = (ROOT / "crane-rt-160t.html").read_text(encoding="utf-8")
+    assert 'class="classVisualGroup visual-single-wide"' in rt160_page
+
+    optimizer = (ROOT / "tools" / "optimize_crane_ppt_images.py").read_text(
+        encoding="utf-8"
+    )
+    assert "ImageFilter.UnsharpMask" in optimizer
+    manifest = json.loads(
+        (ROOT / "data" / "crane-ppt-insights" / "image-display.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert manifest["long_edge"] == 1800
+    assert "WebP quality 94" in manifest["render_method"]
 
 
 def test_crane_ppt_reader_content_has_complete_local_english_translation():

@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageFilter
 
 
 def parse_args() -> argparse.Namespace:
@@ -12,7 +12,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--input-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--quality", type=int, default=92)
+    parser.add_argument("--quality", type=int, default=94)
     return parser.parse_args()
 
 
@@ -25,6 +25,14 @@ def main() -> None:
         output_path = args.output_dir / f"{source_path.stem}.webp"
         with Image.open(source_path) as image:
             image.load()
+            if image.mode not in {"RGB", "RGBA"}:
+                image = image.convert("RGBA" if "transparency" in image.info else "RGB")
+            # PowerPoint must enlarge several compact field photos to preserve
+            # their crop. A restrained unsharp mask restores edge definition
+            # without inventing scene detail or altering the evidence content.
+            image = image.filter(
+                ImageFilter.UnsharpMask(radius=1.15, percent=95, threshold=3)
+            )
             image.save(
                 output_path,
                 "WEBP",

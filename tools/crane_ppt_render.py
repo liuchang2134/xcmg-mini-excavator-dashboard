@@ -4,8 +4,11 @@ import html
 import json
 import math
 import re
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable
+
+from PIL import Image
 
 try:
     from .crane_ppt_insights import CLASS_SLIDES, OUTPUT_DIR, SOURCE_DATE
@@ -40,6 +43,24 @@ def _load_image_display_map() -> dict[str, str]:
 
 
 IMAGE_DISPLAY_MAP = _load_image_display_map()
+
+
+@lru_cache(maxsize=None)
+def _source_image_size(path: str) -> tuple[int, int]:
+    try:
+        with Image.open(ROOT / path) as image:
+            return image.size
+    except (OSError, ValueError):
+        return (0, 0)
+
+
+def _source_quality_class(path: str) -> str:
+    long_edge = max(_source_image_size(path))
+    if long_edge >= 1200:
+        return "source-high"
+    if long_edge >= 600:
+        return "source-medium"
+    return "source-low"
 
 
 def _load_translations() -> dict[str, str]:
@@ -865,6 +886,8 @@ def _render_images(record: dict[str, Any], compact_captions: bool = False) -> st
     figures = []
     for index, path in enumerate(images):
         display_path = IMAGE_DISPLAY_MAP.get(path, path)
+        source_width, source_height = _source_image_size(path)
+        quality_class = _source_quality_class(path)
         if index < len(override_captions):
             caption = override_captions[index]
             caption_en = (
@@ -901,7 +924,8 @@ def _render_images(record: dict[str, Any], compact_captions: bool = False) -> st
                 caption = f"{base_caption} · 图像 {index + 1}"
                 caption_en = f"{base_caption_en} · Image {index + 1}"
         figures.append(
-            '<figure><button type="button" class="insightImageButton" '
+            f'<figure class="{quality_class}" data-source-resolution="{source_width}x{source_height}">'
+            '<button type="button" class="insightImageButton" '
             f'data-full-src="{esc(display_path)}" data-source-src="{esc(path)}" data-caption="{esc(caption_en)}" '
             f'aria-label="放大查看：{esc(caption)}" data-aria-label-en="Open full-size image: {esc(caption_en)}" '
             f'title="放大查看" data-title-en="Open full-size image">'
@@ -918,8 +942,18 @@ def _render_class_visual_summary(records: list[dict[str, Any]]) -> str:
             continue
         title = _display_title(record)
         title_en = SLIDE_TITLE_OVERRIDES_EN.get(record["slide"], _en(title))
+        source_long_edge = max(
+            (max(_source_image_size(path)) for path in record["images"]),
+            default=0,
+        )
+        if len(record["images"]) > 1:
+            layout_class = "visual-multi"
+        elif source_long_edge >= 900:
+            layout_class = "visual-single-wide"
+        else:
+            layout_class = "visual-single-compact"
         groups.append(
-            f'<article class="classVisualGroup" data-source-slide="{record["slide"]}">'
+            f'<article class="classVisualGroup {layout_class}" data-source-slide="{record["slide"]}">'
             f'<header><h4 data-en="{esc(title_en)}">{esc(title)}</h4>'
             f'<span data-en="{len(record["images"])} images">{len(record["images"])} 张</span></header>'
             f'{_render_images(record, compact_captions=True)}</article>'
@@ -1053,7 +1087,7 @@ def render_market_report_page() -> str:
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805i">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260806k">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260806m">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
