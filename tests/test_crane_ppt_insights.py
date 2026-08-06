@@ -67,7 +67,15 @@ def test_crane_ppt_extraction_counts_are_stable():
     slides = load_json("slides.json")
     assert sum(len(item["tables"]) for item in slides) == 354
     assert sum(len(item["charts"]) for item in slides) == 26
-    assert sum(len(item["images"]) for item in slides) == 85
+    assert sum(len(item["images"]) for item in slides) >= 250
+
+
+def test_crane_class_pages_retain_compact_field_and_diagnostic_images():
+    build_crane_ppt_insights()
+    slides = {item["slide"]: item for item in load_json("slides.json")}
+    assert sum(len(slides[number]["images"]) for number in range(81, 96)) >= 15
+    assert sum(len(slides[number]["images"]) for number in range(96, 108)) >= 14
+    assert sum(len(slides[number]["images"]) for number in range(108, 120)) >= 25
 
 
 def test_extracted_assets_are_not_whole_slide_screenshots():

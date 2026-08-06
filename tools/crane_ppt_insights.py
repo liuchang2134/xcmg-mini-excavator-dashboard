@@ -23,6 +23,8 @@ DEFAULT_SOURCE = (
 OUTPUT_DIR = ROOT / "data" / "crane-ppt-insights"
 ASSET_DIR = ROOT / "assets" / "crane-ppt-source"
 SOURCE_DATE = "2025-07-01"
+MIN_IMAGE_SLIDE_AREA_RATIO = 0.007
+MIN_IMAGE_PIXEL_AREA = 25_000
 
 CLASS_SLIDES = {
     "RT-60t": list(range(81, 96)),
@@ -199,7 +201,10 @@ def _extract_images(
         shape_ratio = geometry["width"] * geometry["height"] / slide_area
         pixel_width, pixel_height = shape.image.size
         pixel_area = pixel_width * pixel_height
-        if shape_ratio < 0.025 or pixel_area < 45_000:
+        # The presentation uses compact field photos and diagnostic close-ups.
+        # They are business evidence, even when each occupies only a small part
+        # of the original slide, so retain them while filtering tiny ornaments.
+        if shape_ratio < MIN_IMAGE_SLIDE_AREA_RATIO or pixel_area < MIN_IMAGE_PIXEL_AREA:
             continue
         blob = shape.image.blob
         digest = hashlib.sha256(blob).hexdigest()[:10]

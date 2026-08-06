@@ -1,4 +1,5 @@
 /data/source-presentations/*.pptx
+/assets/crane-ppt-source/s*-image-*
 /artifacts/
 /.agents/
 /.codex/

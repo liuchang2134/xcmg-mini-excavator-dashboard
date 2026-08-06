@@ -865,16 +865,28 @@ def _render_images(record: dict[str, Any]) -> str:
     figures = []
     for index, path in enumerate(images):
         display_path = IMAGE_DISPLAY_MAP.get(path, path)
-        caption = (
-            override_captions[index]
-            if index < len(override_captions)
-            else _display_title(record)
-        )
-        caption_en = (
-            override_captions_en[index]
-            if index < len(override_captions_en)
-            else _en(caption)
-        )
+        if index < len(override_captions):
+            caption = override_captions[index]
+            caption_en = (
+                override_captions_en[index]
+                if index < len(override_captions_en)
+                else _en(caption)
+            )
+        else:
+            base_caption = _display_title(record)
+            base_caption_en = SLIDE_TITLE_OVERRIDES_EN.get(record["slide"], _en(base_caption))
+            if len(images) == 1:
+                caption = base_caption
+                caption_en = base_caption_en
+            elif "客户使用评价" in base_caption:
+                caption = f"{base_caption} · 评价图像 {index + 1}"
+                caption_en = f"{base_caption_en} · Evaluation image {index + 1}"
+            elif "市场与工况" in base_caption:
+                caption = f"{base_caption} · 应用场景 {index + 1}"
+                caption_en = f"{base_caption_en} · Application scene {index + 1}"
+            else:
+                caption = f"{base_caption} · 图像 {index + 1}"
+                caption_en = f"{base_caption_en} · Image {index + 1}"
         figures.append(
             '<figure><button type="button" class="insightImageButton" '
             f'data-full-src="{esc(display_path)}" data-source-src="{esc(path)}" data-caption="{esc(caption_en)}" '

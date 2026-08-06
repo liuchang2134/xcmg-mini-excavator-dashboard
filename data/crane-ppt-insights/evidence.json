@@ -82,7 +82,8 @@
       "assets/crane-ppt-source/s007-image-04-dd85e58c63.png",
       "assets/crane-ppt-source/s007-image-06-f23edbad67.png",
       "assets/crane-ppt-source/s007-image-07-a013bd1fff.png",
-      "assets/crane-ppt-source/s007-image-10-336e8b8ed6.png"
+      "assets/crane-ppt-source/s007-image-10-336e8b8ed6.png",
+      "assets/crane-ppt-source/s007-image-11-05b244db79.png"
     ]
   },
   {
@@ -132,7 +133,9 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s011-image-06-42163dcca5.jpg"
+      "assets/crane-ppt-source/s011-image-05-00b02b0837.png",
+      "assets/crane-ppt-source/s011-image-06-42163dcca5.jpg",
+      "assets/crane-ppt-source/s011-image-10-997929764b.jpg"
     ]
   },
   {
@@ -145,7 +148,9 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s012-image-09-e3c8d1dacb.jpg"
+      "assets/crane-ppt-source/s012-image-05-1d04b732fe.jpg",
+      "assets/crane-ppt-source/s012-image-09-e3c8d1dacb.jpg",
+      "assets/crane-ppt-source/s012-image-10-9da9aa33cb.png"
     ]
   },
   {
@@ -158,7 +163,9 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s013-image-09-567139ec82.png"
+      "assets/crane-ppt-source/s013-image-05-f829a17585.jpg",
+      "assets/crane-ppt-source/s013-image-09-567139ec82.png",
+      "assets/crane-ppt-source/s013-image-10-f9fb933b69.png"
     ]
   },
   {
@@ -170,7 +177,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s014-image-05-146b9953dc.jpg",
+      "assets/crane-ppt-source/s014-image-09-00f058ccdf.png",
+      "assets/crane-ppt-source/s014-image-10-f62646e57e.png"
+    ]
   },
   {
     "id": "crane-slide-015",
@@ -181,7 +192,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s015-image-07-01eb6f9c4f.jpg",
+      "assets/crane-ppt-source/s015-image-09-64cd0a6087.png",
+      "assets/crane-ppt-source/s015-image-10-4b816d8f41.png"
+    ]
   },
   {
     "id": "crane-slide-016",
@@ -192,7 +207,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s016-image-08-9286822b50.png",
+      "assets/crane-ppt-source/s016-image-09-78d2563ae8.png",
+      "assets/crane-ppt-source/s016-image-10-55934992ac.png"
+    ]
   },
   {
     "id": "crane-slide-017",
@@ -204,7 +223,9 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s017-image-05-8ddf350cdb.jpg"
+      "assets/crane-ppt-source/s017-image-05-8ddf350cdb.jpg",
+      "assets/crane-ppt-source/s017-image-09-fd0681b601.png",
+      "assets/crane-ppt-source/s017-image-10-7676548f7e.png"
     ]
   },
   {
@@ -238,7 +259,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s020-image-06-4e02dbc854.jpg",
+      "assets/crane-ppt-source/s020-image-07-d0932e1ee2.jpg",
+      "assets/crane-ppt-source/s020-image-08-3b6578c5cf.png"
+    ]
   },
   {
     "id": "crane-slide-021",
@@ -263,7 +288,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s022-image-06-965d4da744.png",
+      "assets/crane-ppt-source/s022-image-07-965d4da744.png",
+      "assets/crane-ppt-source/s022-image-08-318ab1b5de.png"
+    ]
   },
   {
     "id": "crane-slide-023",
@@ -274,7 +303,12 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s023-image-06-31c6da551c.jpg",
+      "assets/crane-ppt-source/s023-image-07-184facd015.png",
+      "assets/crane-ppt-source/s023-image-08-3231b6f250.png",
+      "assets/crane-ppt-source/s023-image-09-28ccb9db4e.png"
+    ]
   },
   {
     "id": "crane-slide-024",
@@ -285,7 +319,10 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s024-image-06-363895689f.png",
+      "assets/crane-ppt-source/s024-image-07-d5f6ceaa0b.png"
+    ]
   },
   {
     "id": "crane-slide-025",
@@ -322,7 +359,9 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s027-image-03-ec9d8a685c.jpg"
+      "assets/crane-ppt-source/s027-image-03-ec9d8a685c.jpg",
+      "assets/crane-ppt-source/s027-image-04-b7be709da4.jpg",
+      "assets/crane-ppt-source/s027-image-05-432396c4f6.png"
     ]
   },
   {
@@ -334,7 +373,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s028-image-03-1d04b732fe.jpg",
+      "assets/crane-ppt-source/s028-image-07-9da9aa33cb.png",
+      "assets/crane-ppt-source/s028-image-09-fc5b20a055.png"
+    ]
   },
   {
     "id": "crane-slide-029",
@@ -345,7 +388,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s029-image-04-f829a17585.jpg",
+      "assets/crane-ppt-source/s029-image-07-997929764b.jpg",
+      "assets/crane-ppt-source/s029-image-09-e9fa56c4ff.png"
+    ]
   },
   {
     "id": "crane-slide-030",
@@ -356,7 +403,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s030-image-04-146b9953dc.jpg",
+      "assets/crane-ppt-source/s030-image-07-f62646e57e.png",
+      "assets/crane-ppt-source/s030-image-09-fc7c77a34f.png"
+    ]
   },
   {
     "id": "crane-slide-031",
@@ -367,7 +418,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s031-image-08-dd39aaf0d3.png",
+      "assets/crane-ppt-source/s031-image-09-ad99d6aa83.png",
+      "assets/crane-ppt-source/s031-image-10-c9792c7c54.png"
+    ]
   },
   {
     "id": "crane-slide-032",
@@ -378,7 +433,10 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s032-image-08-4cf37863fe.png",
+      "assets/crane-ppt-source/s032-image-10-01eb6f9c4f.jpg"
+    ]
   },
   {
     "id": "crane-slide-033",
@@ -390,6 +448,8 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
+      "assets/crane-ppt-source/s033-image-08-e707b78840.png",
+      "assets/crane-ppt-source/s033-image-09-690b957992.png",
       "assets/crane-ppt-source/s033-image-10-4517d94a50.png"
     ]
   },
@@ -424,7 +484,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s036-image-05-434dde21c9.jpg",
+      "assets/crane-ppt-source/s036-image-06-965d4da744.png",
+      "assets/crane-ppt-source/s036-image-07-8c32fd5504.jpg"
+    ]
   },
   {
     "id": "crane-slide-037",
@@ -449,7 +513,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s038-image-04-965d4da744.png",
+      "assets/crane-ppt-source/s038-image-05-965d4da744.png",
+      "assets/crane-ppt-source/s038-image-06-318ab1b5de.png"
+    ]
   },
   {
     "id": "crane-slide-039",
@@ -460,7 +528,12 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s039-image-04-31c6da551c.jpg",
+      "assets/crane-ppt-source/s039-image-05-184facd015.png",
+      "assets/crane-ppt-source/s039-image-06-3231b6f250.png",
+      "assets/crane-ppt-source/s039-image-09-b0f41d4be9.jpg"
+    ]
   },
   {
     "id": "crane-slide-040",
@@ -471,7 +544,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s040-image-04-c019935521.png",
+      "assets/crane-ppt-source/s040-image-05-363895689f.png",
+      "assets/crane-ppt-source/s040-image-06-d5f6ceaa0b.png"
+    ]
   },
   {
     "id": "crane-slide-041",
@@ -508,7 +585,9 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s043-image-08-2e05a4bf11.png"
+      "assets/crane-ppt-source/s043-image-08-2e05a4bf11.png",
+      "assets/crane-ppt-source/s043-image-09-0480d4b167.png",
+      "assets/crane-ppt-source/s043-image-10-72f1b7551e.png"
     ]
   },
   {
@@ -520,7 +599,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s044-image-08-d2da66f4fd.png",
+      "assets/crane-ppt-source/s044-image-09-4ec09d458b.png",
+      "assets/crane-ppt-source/s044-image-10-7674341fcd.png"
+    ]
   },
   {
     "id": "crane-slide-045",
@@ -531,7 +614,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s045-image-08-7a6998164f.png",
+      "assets/crane-ppt-source/s045-image-09-4a2dc1d85f.png",
+      "assets/crane-ppt-source/s045-image-10-432396c4f6.png"
+    ]
   },
   {
     "id": "crane-slide-046",
@@ -542,7 +629,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s046-image-08-9a49deea8b.png",
+      "assets/crane-ppt-source/s046-image-09-d798156296.png",
+      "assets/crane-ppt-source/s046-image-10-112b9edee0.png"
+    ]
   },
   {
     "id": "crane-slide-047",
@@ -553,7 +644,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s047-image-06-55934992ac.png",
+      "assets/crane-ppt-source/s047-image-09-afa6d2bafd.png",
+      "assets/crane-ppt-source/s047-image-10-72cdeee5fa.png"
+    ]
   },
   {
     "id": "crane-slide-048",
@@ -564,7 +659,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s048-image-08-c748f85652.png",
+      "assets/crane-ppt-source/s048-image-09-26410c1a21.png",
+      "assets/crane-ppt-source/s048-image-10-3966ca9a5c.png"
+    ]
   },
   {
     "id": "crane-slide-049",
@@ -597,7 +696,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s051-image-05-434dde21c9.jpg",
+      "assets/crane-ppt-source/s051-image-06-965d4da744.png",
+      "assets/crane-ppt-source/s051-image-07-8c32fd5504.jpg"
+    ]
   },
   {
     "id": "crane-slide-052",
@@ -621,7 +724,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s053-image-04-965d4da744.png",
+      "assets/crane-ppt-source/s053-image-05-965d4da744.png",
+      "assets/crane-ppt-source/s053-image-06-318ab1b5de.png"
+    ]
   },
   {
     "id": "crane-slide-054",
@@ -632,7 +739,12 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s054-image-04-31c6da551c.jpg",
+      "assets/crane-ppt-source/s054-image-05-3231b6f250.png",
+      "assets/crane-ppt-source/s054-image-08-1a06a89c71.png",
+      "assets/crane-ppt-source/s054-image-09-c387ed0e74.png"
+    ]
   },
   {
     "id": "crane-slide-055",
@@ -643,7 +755,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s055-image-04-c019935521.png",
+      "assets/crane-ppt-source/s055-image-05-363895689f.png",
+      "assets/crane-ppt-source/s055-image-06-d5f6ceaa0b.png"
+    ]
   },
   {
     "id": "crane-slide-056",
@@ -695,7 +811,9 @@
       "AT-150t"
     ],
     "assets": [
-      "assets/crane-ppt-source/s059-image-04-a3d89227bc.png"
+      "assets/crane-ppt-source/s059-image-04-a3d89227bc.png",
+      "assets/crane-ppt-source/s059-image-05-37069385bf.jpg",
+      "assets/crane-ppt-source/s059-image-06-7f0174728b.png"
     ]
   },
   {
@@ -710,6 +828,8 @@
       "AT-150t"
     ],
     "assets": [
+      "assets/crane-ppt-source/s060-image-08-22e1c49848.png",
+      "assets/crane-ppt-source/s060-image-09-877d517b2d.png",
       "assets/crane-ppt-source/s060-image-10-a99ffe1fa7.jpg"
     ]
   },
@@ -742,7 +862,9 @@
       "AT-150t"
     ],
     "assets": [
-      "assets/crane-ppt-source/s062-image-09-20dc1b9923.png"
+      "assets/crane-ppt-source/s062-image-09-20dc1b9923.png",
+      "assets/crane-ppt-source/s062-image-10-236fddf19a.png",
+      "assets/crane-ppt-source/s062-image-11-ab33772bd7.png"
     ]
   },
   {
@@ -783,6 +905,7 @@
       "AT-150t"
     ],
     "assets": [
+      "assets/crane-ppt-source/s065-image-06-df79fab8fc.jpg",
       "assets/crane-ppt-source/s065-image-07-283dcee6a2.png",
       "assets/crane-ppt-source/s065-image-08-48d3ab603d.png"
     ]
@@ -798,7 +921,12 @@
     "classes": [
       "AT-150t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s066-image-06-afd067bc74.jpg",
+      "assets/crane-ppt-source/s066-image-07-9e13af88f0.jpg",
+      "assets/crane-ppt-source/s066-image-08-a66eefaa3e.jpg",
+      "assets/crane-ppt-source/s066-image-09-33db49475e.jpg"
+    ]
   },
   {
     "id": "crane-slide-067",
@@ -812,7 +940,9 @@
       "AT-150t"
     ],
     "assets": [
-      "assets/crane-ppt-source/s067-image-06-0868a81b6e.png"
+      "assets/crane-ppt-source/s067-image-06-0868a81b6e.png",
+      "assets/crane-ppt-source/s067-image-07-bf44954b89.png",
+      "assets/crane-ppt-source/s067-image-08-1d9caaf7c5.png"
     ]
   },
   {
@@ -839,7 +969,8 @@
     "classes": [],
     "assets": [
       "assets/crane-ppt-source/s069-image-04-b0937df2c7.jpg",
-      "assets/crane-ppt-source/s069-image-05-31f06641fb.png"
+      "assets/crane-ppt-source/s069-image-05-31f06641fb.png",
+      "assets/crane-ppt-source/s069-image-06-a99ffe1fa7.jpg"
     ]
   },
   {
@@ -851,7 +982,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s070-image-08-52e6dcb28b.jpg",
+      "assets/crane-ppt-source/s070-image-09-86c1e531fe.jpg",
+      "assets/crane-ppt-source/s070-image-10-d1f89dc21b.jpg"
+    ]
   },
   {
     "id": "crane-slide-071",
@@ -877,7 +1012,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s072-image-09-31b752dc8d.png",
+      "assets/crane-ppt-source/s072-image-10-c4ef40fdda.png",
+      "assets/crane-ppt-source/s072-image-11-1b9ffad830.png"
+    ]
   },
   {
     "id": "crane-slide-073",
@@ -911,6 +1050,7 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
+      "assets/crane-ppt-source/s075-image-06-3e7508e771.png",
       "assets/crane-ppt-source/s075-image-08-8966d39109.jpg"
     ]
   },
@@ -937,7 +1077,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s077-image-06-ea171fe4b4.jpg",
+      "assets/crane-ppt-source/s077-image-07-0b26f1320f.jpg",
+      "assets/crane-ppt-source/s077-image-08-3777cec67a.png"
+    ]
   },
   {
     "id": "crane-slide-078",
@@ -949,7 +1093,9 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s078-image-07-225a1c87fa.png"
+      "assets/crane-ppt-source/s078-image-06-dbdd9caaaa.png",
+      "assets/crane-ppt-source/s078-image-07-225a1c87fa.png",
+      "assets/crane-ppt-source/s078-image-08-80acee6192.jpg"
     ]
   },
   {
@@ -961,7 +1107,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s079-image-06-9e3b5d2666.png",
+      "assets/crane-ppt-source/s079-image-07-cc1c02422c.png",
+      "assets/crane-ppt-source/s079-image-08-7fede91b0f.png"
+    ]
   },
   {
     "id": "crane-slide-080",
@@ -1000,7 +1150,9 @@
       "RT-60t",
       "RT-75t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s082-image-08-05d3f0169a.png"
+    ]
   },
   {
     "id": "crane-slide-083",
@@ -1014,7 +1166,9 @@
       "RT-60t",
       "RT-75t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s083-image-10-c6630ff4d6.png"
+    ]
   },
   {
     "id": "crane-slide-084",
@@ -1028,7 +1182,9 @@
       "RT-60t",
       "RT-75t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s084-image-08-eb4c60cd22.png"
+    ]
   },
   {
     "id": "crane-slide-085",
@@ -1043,7 +1199,9 @@
       "RT-75t"
     ],
     "assets": [
-      "assets/crane-ppt-source/s085-image-04-c609ec82e8.jpg"
+      "assets/crane-ppt-source/s085-image-04-c609ec82e8.jpg",
+      "assets/crane-ppt-source/s085-image-05-9b3164edc0.png",
+      "assets/crane-ppt-source/s085-image-06-21f8e9dbc0.png"
     ]
   },
   {
@@ -1100,7 +1258,9 @@
       "RT-60t",
       "RT-75t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s089-image-06-54a2ca2089.jpg"
+    ]
   },
   {
     "id": "crane-slide-090",
@@ -1114,7 +1274,10 @@
       "RT-60t",
       "RT-75t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s090-image-06-3d52aad866.png",
+      "assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg"
+    ]
   },
   {
     "id": "crane-slide-091",
@@ -1156,7 +1319,14 @@
       "RT-60t",
       "RT-75t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s093-image-06-ab65b3992d.png",
+      "assets/crane-ppt-source/s093-image-07-7bc4e5204c.jpg",
+      "assets/crane-ppt-source/s093-image-08-acf78a6c28.jpg",
+      "assets/crane-ppt-source/s093-image-09-c6b6dd0e06.jpg",
+      "assets/crane-ppt-source/s093-image-10-671618ed7f.png",
+      "assets/crane-ppt-source/s093-image-11-9dd8ce25b2.png"
+    ]
   },
   {
     "id": "crane-slide-094",
@@ -1197,7 +1367,9 @@
     "classes": [
       "RT-100t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s096-image-08-9dc3489f98.png"
+    ]
   },
   {
     "id": "crane-slide-097",
@@ -1210,7 +1382,9 @@
     "classes": [
       "RT-100t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s097-image-10-b4401683f6.jpg"
+    ]
   },
   {
     "id": "crane-slide-098",
@@ -1236,7 +1410,11 @@
     "classes": [
       "RT-100t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s099-image-04-6d0182f163.jpg",
+      "assets/crane-ppt-source/s099-image-09-c5d4a39540.jpg",
+      "assets/crane-ppt-source/s099-image-10-b901bca137.png"
+    ]
   },
   {
     "id": "crane-slide-100",
@@ -1275,7 +1453,9 @@
     "classes": [
       "RT-100t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s102-image-06-2afc12f4dc.jpg"
+    ]
   },
   {
     "id": "crane-slide-103",
@@ -1288,7 +1468,10 @@
     "classes": [
       "RT-100t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s103-image-06-3d52aad866.png",
+      "assets/crane-ppt-source/s103-image-07-2a20456bf8.jpg"
+    ]
   },
   {
     "id": "crane-slide-104",
@@ -1327,7 +1510,14 @@
     "classes": [
       "RT-100t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s106-image-06-ab65b3992d.png",
+      "assets/crane-ppt-source/s106-image-07-7bc4e5204c.jpg",
+      "assets/crane-ppt-source/s106-image-08-acf78a6c28.jpg",
+      "assets/crane-ppt-source/s106-image-09-c6b6dd0e06.jpg",
+      "assets/crane-ppt-source/s106-image-10-671618ed7f.png",
+      "assets/crane-ppt-source/s106-image-11-9dd8ce25b2.png"
+    ]
   },
   {
     "id": "crane-slide-107",
@@ -1355,6 +1545,7 @@
     ],
     "assets": [
       "assets/crane-ppt-source/s108-image-08-17b92c640d.jpg",
+      "assets/crane-ppt-source/s108-image-09-ef2696e583.jpg",
       "assets/crane-ppt-source/s108-image-10-8b3c1e74f7.jpg"
     ]
   },
@@ -1370,7 +1561,9 @@
       "RT-130t"
     ],
     "assets": [
-      "assets/crane-ppt-source/s109-image-09-b416a9677b.jpg"
+      "assets/crane-ppt-source/s109-image-08-2742b7b563.png",
+      "assets/crane-ppt-source/s109-image-09-b416a9677b.jpg",
+      "assets/crane-ppt-source/s109-image-10-b83a260a17.png"
     ]
   },
   {
@@ -1385,6 +1578,8 @@
       "RT-130t"
     ],
     "assets": [
+      "assets/crane-ppt-source/s110-image-08-567139ec82.png",
+      "assets/crane-ppt-source/s110-image-09-bdaa14b7a8.png",
       "assets/crane-ppt-source/s110-image-10-9ce0734dad.png"
     ]
   },
@@ -1400,7 +1595,9 @@
       "RT-130t"
     ],
     "assets": [
-      "assets/crane-ppt-source/s111-image-09-71dbdd9e52.png"
+      "assets/crane-ppt-source/s111-image-08-f7a3e71aff.png",
+      "assets/crane-ppt-source/s111-image-09-71dbdd9e52.png",
+      "assets/crane-ppt-source/s111-image-10-224f018c1c.jpg"
     ]
   },
   {
@@ -1415,7 +1612,9 @@
       "RT-130t"
     ],
     "assets": [
-      "assets/crane-ppt-source/s112-image-08-17b92c640d.jpg"
+      "assets/crane-ppt-source/s112-image-08-17b92c640d.jpg",
+      "assets/crane-ppt-source/s112-image-09-9697ef72d0.jpg",
+      "assets/crane-ppt-source/s112-image-10-64190937f8.jpg"
     ]
   },
   {
@@ -1429,7 +1628,11 @@
     "classes": [
       "RT-130t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s113-image-08-da4aedc9f7.jpg",
+      "assets/crane-ppt-source/s113-image-09-be2ea56291.jpg",
+      "assets/crane-ppt-source/s113-image-10-73c37360a4.jpg"
+    ]
   },
   {
     "id": "crane-slide-114",
@@ -1443,7 +1646,9 @@
       "RT-130t"
     ],
     "assets": [
-      "assets/crane-ppt-source/s114-image-09-e92d6b2d64.jpg"
+      "assets/crane-ppt-source/s114-image-05-3862441dce.jpg",
+      "assets/crane-ppt-source/s114-image-09-e92d6b2d64.jpg",
+      "assets/crane-ppt-source/s114-image-10-73c37360a4.jpg"
     ]
   },
   {
@@ -1483,7 +1688,11 @@
     "classes": [
       "RT-130t"
     ],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s117-image-06-3dbbe66806.png",
+      "assets/crane-ppt-source/s117-image-07-fc3fa3c7ff.png",
+      "assets/crane-ppt-source/s117-image-08-182a12805a.png"
+    ]
   },
   {
     "id": "crane-slide-118",
@@ -1534,7 +1743,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s121-image-07-e0aa49fdfc.jpg",
+      "assets/crane-ppt-source/s121-image-08-c95965db98.jpg",
+      "assets/crane-ppt-source/s121-image-09-9d40a17a23.jpg"
+    ]
   },
   {
     "id": "crane-slide-122",
@@ -1582,7 +1795,10 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s125-image-06-4eb4a4ed89.png"
+      "assets/crane-ppt-source/s125-image-06-4eb4a4ed89.png",
+      "assets/crane-ppt-source/s125-image-07-367fae0e23.jpg",
+      "assets/crane-ppt-source/s125-image-08-35b8941acb.png",
+      "assets/crane-ppt-source/s125-image-09-453f7356a1.png"
     ]
   },
   {
@@ -1608,7 +1824,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s127-image-06-d08914cad0.png",
+      "assets/crane-ppt-source/s127-image-07-0c9d8121b2.png",
+      "assets/crane-ppt-source/s127-image-08-2aa26891e0.png"
+    ]
   },
   {
     "id": "crane-slide-128",
@@ -1620,6 +1840,8 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
+      "assets/crane-ppt-source/s128-image-06-a7dbb05a03.png",
+      "assets/crane-ppt-source/s128-image-07-07011bff39.png",
       "assets/crane-ppt-source/s128-image-08-f8e856dc12.png",
       "assets/crane-ppt-source/s128-image-09-94dad19109.jpg"
     ]
@@ -1680,6 +1902,7 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
+      "assets/crane-ppt-source/s133-image-05-8cd531c411.png",
       "assets/crane-ppt-source/s133-image-06-0cdcd80a35.png",
       "assets/crane-ppt-source/s133-image-07-9fe7bc070f.png"
     ]
@@ -1693,7 +1916,11 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s134-image-04-026e29b44f.png",
+      "assets/crane-ppt-source/s134-image-05-f34ed73a71.png",
+      "assets/crane-ppt-source/s134-image-06-fbbb8c5242.png"
+    ]
   },
   {
     "id": "crane-slide-135",
@@ -1705,7 +1932,9 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s135-image-04-026e29b44f.png"
+      "assets/crane-ppt-source/s135-image-04-026e29b44f.png",
+      "assets/crane-ppt-source/s135-image-05-6d73fcedd8.png",
+      "assets/crane-ppt-source/s135-image-06-a449b008be.png"
     ]
   },
   {
@@ -1718,7 +1947,10 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s136-image-05-5baf947915.png"
+      "assets/crane-ppt-source/s136-image-05-5baf947915.png",
+      "assets/crane-ppt-source/s136-image-06-176dc7ab79.png",
+      "assets/crane-ppt-source/s136-image-07-f10aea9096.png",
+      "assets/crane-ppt-source/s136-image-08-bec0563375.png"
     ]
   },
   {
@@ -1731,7 +1963,8 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s137-image-05-ead1e1eea6.png"
+      "assets/crane-ppt-source/s137-image-05-ead1e1eea6.png",
+      "assets/crane-ppt-source/s137-image-06-e26fc45dc3.jpg"
     ]
   },
   {
@@ -1744,7 +1977,9 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s138-image-06-ead1e1eea6.png"
+      "assets/crane-ppt-source/s138-image-05-407633a4aa.jpg",
+      "assets/crane-ppt-source/s138-image-06-ead1e1eea6.png",
+      "assets/crane-ppt-source/s138-image-07-46c631f1a4.jpg"
     ]
   },
   {
@@ -1757,7 +1992,11 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s139-image-06-12d8d5978c.jpg"
+      "assets/crane-ppt-source/s139-image-05-79f2a49ed0.jpg",
+      "assets/crane-ppt-source/s139-image-06-12d8d5978c.jpg",
+      "assets/crane-ppt-source/s139-image-07-6bdb690c73.jpg",
+      "assets/crane-ppt-source/s139-image-08-25ba21e6e8.png",
+      "assets/crane-ppt-source/s139-image-09-309445ff1d.jpg"
     ]
   },
   {
@@ -1770,7 +2009,10 @@
     "source_date": "2025-07-01",
     "classes": [],
     "assets": [
-      "assets/crane-ppt-source/s140-image-05-b8f33ba3c6.png"
+      "assets/crane-ppt-source/s140-image-05-b8f33ba3c6.png",
+      "assets/crane-ppt-source/s140-image-06-1006d8a9d7.png",
+      "assets/crane-ppt-source/s140-image-07-e5ad383468.png",
+      "assets/crane-ppt-source/s140-image-08-5dc6f2e5a8.png"
     ]
   },
   {
@@ -1782,7 +2024,9 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [],
-    "assets": []
+    "assets": [
+      "assets/crane-ppt-source/s141-image-06-65d763eb04.jpg"
+    ]
   },
   {
     "id": "crane-slide-142",
