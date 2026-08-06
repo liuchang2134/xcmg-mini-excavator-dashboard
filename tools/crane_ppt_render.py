@@ -63,6 +63,19 @@ def _source_quality_class(path: str) -> str:
     return "source-low"
 
 
+def _evidence_display_width(path: str) -> int:
+    """Cap display width so small PPT embeds are not enlarged into blurry panels."""
+    source_width, source_height = _source_image_size(path)
+    long_edge = max(source_width, source_height)
+    if long_edge <= 0:
+        return 420
+    if long_edge < 600:
+        return min(420, max(120, round(source_width * 1.18)))
+    if long_edge < 1200:
+        return min(720, max(360, round(source_width * 1.08)))
+    return min(1100, max(520, source_width))
+
+
 def _load_translations() -> dict[str, str]:
     if not TRANSLATION_FILE.exists():
         return {}
@@ -923,8 +936,10 @@ def _render_images(record: dict[str, Any], compact_captions: bool = False) -> st
             else:
                 caption = f"{base_caption} · 图像 {index + 1}"
                 caption_en = f"{base_caption_en} · Image {index + 1}"
+        display_width = _evidence_display_width(path)
         figures.append(
-            f'<figure class="{quality_class}" data-source-resolution="{source_width}x{source_height}">'
+            f'<figure class="{quality_class}" data-source-resolution="{source_width}x{source_height}" '
+            f'style="--evidence-max-width:{display_width}px">'
             '<button type="button" class="insightImageButton" '
             f'data-full-src="{esc(display_path)}" data-source-src="{esc(path)}" data-caption="{esc(caption_en)}" '
             f'aria-label="放大查看：{esc(caption)}" data-aria-label-en="Open full-size image: {esc(caption_en)}" '
@@ -1087,7 +1102,7 @@ def render_market_report_page() -> str:
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805i">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260806m">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260806o">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">

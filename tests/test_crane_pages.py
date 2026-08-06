@@ -493,7 +493,8 @@ def test_crane_ppt_images_use_high_resolution_powerpoint_exports():
 
 def test_crane_class_image_galleries_use_balanced_count_aware_layouts():
     css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
-    assert ".classVisualGroups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))" in css
+    assert ".classVisualGroups{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))" in css
+    assert ".classVisualGroup.visual-single-compact{grid-column:span 4}" in css
     assert ".classVisualGroup.visual-multi,.classVisualGroup.visual-single-wide{grid-column:1/-1}" in css
     assert ".classVisualGroup .craneInsightGallery.count-1{max-width:960px;grid-template-columns:minmax(0,1fr)}" in css
     assert ".classVisualGroup.visual-single-compact .craneInsightGallery.count-1{max-width:100%}" in css
@@ -509,7 +510,7 @@ def test_crane_class_image_galleries_use_balanced_count_aware_layouts():
     build_all()
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
-        assert "assets/crane-insights.css?v=20260806m" in page
+        assert "assets/crane-insights.css?v=20260806o" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
     visual_summary = rt75_page.split('id="class-visuals"', 1)[1].split(
@@ -518,6 +519,7 @@ def test_crane_class_image_galleries_use_balanced_count_aware_layouts():
     assert 'class="classVisualGroup visual-single-compact"' in visual_summary
     assert 'class="classVisualGroup visual-multi"' in visual_summary
     assert 'class="source-low"' in visual_summary
+    assert "--evidence-max-width:" in visual_summary
     assert 'data-source-resolution="' in visual_summary
     assert ">评价细节 1</figcaption>" in visual_summary
     assert "客户使用评价对标 · 评价图像" not in visual_summary
