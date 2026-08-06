@@ -12,6 +12,7 @@ from tools.build_crane_dashboards import (
 )
 from tools.crane_condition_context import CONDITION_EXECUTION, OFFICIAL_REFERENCES, field_observation
 from tools.crane_data import load_crane_workbook
+from tools.crane_ppt_insights import CLASS_SLIDES
 from tools.crane_scoring import (
     CONDITIONS,
     condition_applicable,
@@ -133,13 +134,62 @@ def test_generated_crane_conditions_publish_workflow_constraints_validation_and_
     assert page.count('class="conditionExecution"') == len(CONDITIONS)
     assert page.count('class="conditionWorkflow"') == len(CONDITIONS)
     assert page.count('class="conditionVerification"') == len(CONDITIONS)
-    assert page.count('class="conditionFieldObservation"') == len(CONDITIONS)
+    assert page.count('class="conditionFieldObservation"') == 0
+    assert page.count('class="classFieldEvaluation"') == 1
     assert "标准任务链" in page
     assert "建议验证记录" in page
     assert "地基与支撑条件" in page
     assert "临近电力线路作业" in page
     assert "https://www.osha.gov/" in page
     assert "https://mediahub.tadano.com/" in page
+
+
+def test_crane_class_pages_surface_each_presentation_image_once_before_deep_analysis():
+    build_all()
+    slides = json.loads(
+        (ROOT / "data" / "crane-ppt-insights" / "slides.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    by_slide = {item["slide"]: item for item in slides}
+    for class_id, slide_numbers in CLASS_SLIDES.items():
+        page = (ROOT / PAGE_DEFINITIONS[class_id]["output"]).read_text(
+            encoding="utf-8"
+        )
+        class_images = [
+            image
+            for number in slide_numbers
+            for image in by_slide[number].get("images", [])
+        ]
+
+        assert class_images, class_id
+        assert page.count('class="classVisualSummary"') == 1, class_id
+        assert 'id="class-visuals"' in page, class_id
+        assert 'href="#class-visuals"' in page, class_id
+        assert page.index('class="classVisualSummary"') < page.index(
+            'class="craneInsightRecords"'
+        ), class_id
+        for image in class_images:
+            assert page.count(f'data-source-src="{image}"') == 1, (
+                class_id,
+                image,
+            )
+
+
+def test_crane_condition_method_boundaries_are_centralized_instead_of_repeated():
+    build_all()
+    page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
+    assert 'class="conditionScenarioBoundary"' not in page
+    assert page.count("贡献分仅表示该指标在当前工况权重下的作用") == 1
+    assert page.count("本场景将可追溯参数与配置组合为纸面适配性对比") == 1
+
+    css = (ROOT / "assets" / "crane-dashboard.css").read_text(encoding="utf-8")
+    decision_children = re.search(
+        r"\.conditionDecisionGrid>\.gapPanel,\.conditionDecisionGrid>\.simulator\{([^}]*)\}",
+        css,
+    )
+    assert decision_children
+    assert "height:100%" not in decision_children.group(1).replace(" ", "")
 
 
 def test_field_observations_preserve_tonnage_specific_evidence_boundaries():

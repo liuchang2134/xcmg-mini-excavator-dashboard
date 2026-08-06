@@ -898,7 +898,33 @@ def _render_images(record: dict[str, Any]) -> str:
     return f'<div class="craneInsightGallery count-{len(images)}">{"".join(figures)}</div>'
 
 
-def render_slide_record(record: dict[str, Any]) -> str:
+def _render_class_visual_summary(records: list[dict[str, Any]]) -> str:
+    groups = []
+    for record in records:
+        if not record.get("images"):
+            continue
+        title = _display_title(record)
+        title_en = SLIDE_TITLE_OVERRIDES_EN.get(record["slide"], _en(title))
+        groups.append(
+            f'<article class="classVisualGroup" data-source-slide="{record["slide"]}">'
+            f'<header><h4 data-en="{esc(title_en)}">{esc(title)}</h4>'
+            f'<span data-en="{len(record["images"])} images">{len(record["images"])} 张</span></header>'
+            f'{_render_images(record)}</article>'
+        )
+    if not groups:
+        return ""
+    return (
+        '<section id="class-visuals" class="classVisualSummary"><div class="classVisualSummaryHead">'
+        '<div><h3 data-en="Field Applications and Product Detail Images">现场应用与产品细节影像</h3>'
+        '<p data-en="Regional applications, operating scenes, safety details and service observations are shown at full available resolution. Select any image to inspect it at larger scale.">'
+        '集中展示区域应用、施工现场、安全细节与维修观察；点击任一图片可放大查看完整画面。</p></div>'
+        f'<b data-en="{sum(len(record.get("images") or []) for record in records)} images">'
+        f'{sum(len(record.get("images") or []) for record in records)} 张影像</b></div>'
+        f'<div class="classVisualGroups">{"".join(groups)}</div></section>'
+    )
+
+
+def render_slide_record(record: dict[str, Any], include_media: bool = True) -> str:
     tables = [
         (index, table)
         for index, table in enumerate(record.get("tables", []), 1)
@@ -910,7 +936,7 @@ def render_slide_record(record: dict[str, Any]) -> str:
     ]
     charts = [chart for chart in charts if chart]
     body = _paragraphs(record)
-    media = _render_images(record)
+    media = _render_images(record) if include_media else ""
     table_html = "".join(
         _render_table(table, record["slide"], index)
         for index, table in tables
@@ -970,7 +996,8 @@ def render_class_context(class_id: str, language: str = "zh") -> str:
         '<div class="insightSectionHead"><div><p class="eyebrow">MARKET AND PRODUCT EVIDENCE</p>'
         f'<h2 data-en="Market, Customer and Product Evidence">市场、客户与产品证据</h2>'
         f'<p data-en="{esc(intro_en)}">{esc(intro_zh)}</p></div>{_status_badge(status)}</div>'
-        f'<div class="craneInsightRecords">{"".join(render_slide_record(record) for record in records)}</div>'
+        f'{_render_class_visual_summary(records)}'
+        f'<div class="craneInsightRecords">{"".join(render_slide_record(record, include_media=False) for record in records)}</div>'
         f'{render_source_register(CLASS_SLIDES[class_id])}</section>'
     )
 

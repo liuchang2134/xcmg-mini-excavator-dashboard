@@ -842,12 +842,17 @@ def render_condition_overview(sheet: Any, scoring: dict[str, Any]) -> str:
     return (
         '<section id="condition-overview"><h2 data-en="Work-Condition Competitive Panorama">工况竞争全景</h2>'
         '<p class="sectionLead" data-en="The heatmap covers every applicable work condition and product. The radar uses only complete comparable data, followed by condition cards that expose ranking eligibility, key inputs and source coverage before the detailed sections.">热力矩阵覆盖全部适用工况和全部产品；雷达仅使用完整可比数据。工况卡片先说明排名资格、关键输入和资料覆盖，再进入逐工况参数、配置、差距与提升模拟。</p>'
+        '<div class="conditionMethodology"><b data-en="Interpretation boundary">阅读边界</b><div>'
+        '<p data-en="Application scenarios combine traceable specifications and equipment into a paper-based fit comparison. They do not replace a site lift plan, matched load-chart review or field trial.">本场景将可追溯参数与配置组合为纸面适配性对比，不替代现场吊装方案、同口径载荷表复核或实机验证。</p>'
+        '<p data-en="Contribution points show only the input effect under the current work-condition weighting and are not a stand-alone machine-performance conclusion. Improvement simulations use only existing comparable inputs; missing evidence, engineering feasibility and cost are never assumed.">贡献分仅表示该指标在当前工况权重下的作用，不等于整机性能的独立结论；提升模拟只使用已有可比字段，不自动假设缺失数据、工程可行性或成本。</p></div></div>'
         '<div class="conditionOverviewGrid"><article class="panel">'
         + render_condition_overview_radar(sheet, scoring)
         + '</article><article class="panel conditionHeatmapPanel"><h3 data-en="Product by Work-Condition Heatmap">产品 × 工况热力矩阵</h3>'
         + render_condition_heatmap(sheet, scoring)
         + "</article></div>"
         + render_condition_overview_cards(sheet, scoring)
+        + render_class_field_evaluation(sheet)
+        + render_condition_gap_ledger(sheet, scoring)
         + "</section>"
     )
     rows = []
@@ -930,6 +935,77 @@ def concrete_gaps(sheet: Any, scoring: dict[str, Any], condition: dict[str, Any]
         )
         findings.append((zh, en))
     return findings[:4]
+
+
+def render_class_field_evaluation(sheet: Any) -> str:
+    grouped: dict[str, dict[str, Any]] = {}
+    for condition in CONDITIONS:
+        if not condition_applicable(sheet, condition):
+            continue
+        observation = field_observation(sheet.label, condition["id"])
+        if not observation:
+            continue
+        item = grouped.setdefault(
+            observation["zh"],
+            {"zh": observation["zh"], "en": observation["en"], "conditions": []},
+        )
+        item["conditions"].append((condition["title_zh"], condition["title_en"]))
+    if not grouped:
+        return ""
+
+    rows = []
+    for index, item in enumerate(grouped.values(), 1):
+        conditions_zh = "、".join(value[0] for value in item["conditions"])
+        conditions_en = ", ".join(value[1] for value in item["conditions"])
+        rows.append(
+            '<article><span>' + f'{index:02d}' + '</span><div>'
+            f'<p data-en="{esc(item["en"])}">{esc(item["zh"])}</p>'
+            f'<small data-en="Related conditions: {esc(conditions_en)}">关联工况：{esc(conditions_zh)}</small>'
+            '</div></article>'
+        )
+    return (
+        '<section class="classFieldEvaluation"><header><div>'
+        '<h3 data-en="Field-Evaluation Findings for This Class">本吨级实机评价结论</h3>'
+        '<p data-en="Repeated observations are consolidated here once and linked to the conditions they affect.">'
+        '同一实机观察只在此汇总一次，并标明影响的工况，避免在逐工况分析中重复出现。</p></div>'
+        f'<b data-en="{len(rows)} distinct findings">{len(rows)} 项独立结论</b></header>'
+        f'<div class="classFieldEvaluationGrid">{"".join(rows)}</div></section>'
+    )
+
+
+def render_condition_gap_ledger(sheet: Any, scoring: dict[str, Any]) -> str:
+    grouped: dict[str, dict[str, Any]] = {}
+    for condition in CONDITIONS:
+        if not condition_applicable(sheet, condition):
+            continue
+        for gap_zh, gap_en in concrete_gaps(sheet, scoring, condition):
+            item = grouped.setdefault(
+                gap_zh,
+                {"zh": gap_zh, "en": gap_en, "conditions": []},
+            )
+            item["conditions"].append((condition["title_zh"], condition["title_en"]))
+    if not grouped:
+        return ""
+
+    rows = []
+    for index, item in enumerate(grouped.values(), 1):
+        conditions_zh = "、".join(value[0] for value in item["conditions"])
+        conditions_en = ", ".join(value[1] for value in item["conditions"])
+        rows.append(
+            f'<tr><td>{index:02d}</td><td data-en="{esc(item["en"])}">{esc(item["zh"])}</td>'
+            f'<td data-en="{esc(conditions_en)}">{esc(conditions_zh)}</td></tr>'
+        )
+    return (
+        '<section class="conditionGapLedger"><header><div>'
+        '<h3 data-en="XCMG Verified Gap Register">XCMG 可核验差距台账</h3>'
+        '<p data-en="Each distinct gap is listed once. The final column shows every work condition affected by the same engineering limitation.">'
+        '每项独立差距只列一次，右侧集中标明同一工程限制影响的全部工况。</p></div>'
+        f'<b data-en="{len(rows)} distinct gaps">{len(rows)} 项独立差距</b></header>'
+        '<div class="tableScroll"><table><thead><tr><th>#</th>'
+        '<th data-en="Verified specification gap">可核验参数差距</th>'
+        '<th data-en="Affected work conditions">影响工况</th></tr></thead>'
+        f'<tbody>{"".join(rows)}</tbody></table></div></section>'
+    )
 
 
 def condition_ranking_rows(sheet: Any, scoring: dict[str, Any], condition: dict[str, Any]) -> list[dict[str, Any]]:
@@ -1172,11 +1248,6 @@ def render_condition_contribution(sheet: Any, scoring: dict[str, Any], condition
     return (
         '<div class="conditionContribution"><div class="conditionContributionHead">'
         + bilingual("全部指标 / 配置贡献明细", "Complete Input and Equipment Contribution Detail", "h3")
-        + bilingual(
-            "贡献分仅表示该指标在当前工况权重下的作用，不等于整机性能的独立结论；灰色为资料未记录或不参与评分。",
-            "Contribution points show only the input's effect under this work-condition weighting. They are not a stand-alone machine-performance conclusion; gray indicates unrecorded or non-scored evidence.",
-            "p",
-        )
         + '</div><div class="tableScroll conditionContributionTable"><table><thead><tr>'
         + bilingual("类型", "Type", "th") + bilingual("指标 / 配置", "Input / Equipment", "th")
         + bilingual("工况权重", "Work-Condition Weight", "th") + bilingual("对工况影响", "Effect on Work Condition", "th")
@@ -1240,12 +1311,6 @@ def render_condition_simulator(sheet: Any, scoring: dict[str, Any], condition: d
         f'<div class="simulator craneConditionSimulator" data-base="{base:.4f}" data-xcmg="{esc(xcmg["product"])}" data-rivals="{esc(rivals)}">'
         '<div class="simHead">' + bilingual("XCMG 工况提升模拟", "XCMG Work-Condition Improvement Simulator", "h3")
         + '<button type="button" class="resetSim" data-en="Reset selections">恢复当前</button></div>'
-        + bilingual(
-            "仅使用本工况已有可比字段模拟“达到当前标杆”后的排名变化；未记录数据、工程可行性和成本不在模拟中自动假设。",
-            "The simulation uses only comparable inputs in this work condition and estimates the effect of matching the current benchmark. Missing evidence, engineering feasibility and cost are never assumed.",
-            "p",
-            "simDisclaimer",
-        )
         + '<div class="simGrid"><div class="simOptions">' + options
         + f'</div><div class="simResult"><strong>{base:.1f}</strong><span data-en="Simulated work-condition score">模拟工况分</span><b data-en="Current position">当前位置</b><small></small></div></div><div class="rankPanel"></div></div>'
     )
@@ -1319,15 +1384,6 @@ def render_condition_execution(sheet: Any, condition: dict[str, Any]) -> str:
             f'data-en="{esc(reference["label"]["en"])}">{esc(reference["label"]["zh"])}</a>'
         )
     references = "".join(reference_links)
-    observation = field_observation(sheet.label, condition["id"])
-    observation_html = ""
-    if observation:
-        observation_html = (
-            '<aside class="conditionFieldObservation"><b data-en="Field-evaluation signal for this class">'
-            '本吨级实机评价信号</b>'
-            f'<p data-en="{esc(observation["en"])}">{esc(observation["zh"])}</p></aside>'
-        )
-
     return (
         '<section class="conditionExecution" aria-label="作业执行与工程验证">'
         '<div class="conditionExecutionHeading"><div><b data-en="Job execution and engineering validation">'
@@ -1343,7 +1399,7 @@ def render_condition_execution(sheet: Any, condition: dict[str, Any]) -> str:
         f'<p data-en="{esc(context["boundary"]["en"])}">{esc(context["boundary"]["zh"])}</p></div></article></div>'
         '<div class="conditionVerification"><div class="conditionVerificationTitle"><h3 data-en="Recommended validation record">'
         '建议验证记录</h3><span data-en="Record measured results; do not invent pass thresholds">记录实测结果，不虚构通过阈值</span></div>'
-        f'<div class="conditionCheckList">{checks}</div></div>{observation_html}'
+        f'<div class="conditionCheckList">{checks}</div></div>'
         f'<div class="conditionReferenceStrip"><b data-en="Engineering references">工程依据</b>{references}</div>'
         '</section>'
     )
@@ -1372,15 +1428,6 @@ def render_condition(sheet: Any, scoring: dict[str, Any], condition: dict[str, A
     xcmg_record = get_score_record(scoring, xcmg.display_name)
     detail = xcmg_record["condition_details"][condition["id"]]
 
-    gaps = concrete_gaps(sheet, scoring, condition)
-    if gaps:
-        gap_html = '<ol class="gapList craneGapList">' + "".join(f'<li data-en="{esc(en)}">{esc(zh)}</li>' for zh, en in gaps) + "</ol>"
-    else:
-        gap_html = bilingual(
-            "现有可比字段未显示明显落后项；仍需优先补齐资料未记录项，并核对同配重、同支腿和同臂长条件下的载荷口径。",
-            "Available comparable fields show no clear disadvantage. Complete unrecorded fields and confirm like-for-like counterweight, outrigger and boom-length conditions before setting targets.",
-            "p",
-        )
     copy_zh, copy_en = CONDITION_COPY[condition["id"]]
     benefit_zh, benefit_en = CONDITION_BENEFITS[condition["id"]]
     coverage_zh = (
@@ -1393,18 +1440,12 @@ def render_condition(sheet: Any, scoring: dict[str, Any], condition: dict[str, A
     group = condition.get("group", "capability")
     group_zh = "典型施工场景" if group == "application" else "工程能力工况"
     group_en = "Typical Application Scenario" if group == "application" else "Engineering Capability Condition"
-    scenario_note = (
-        '<p class="conditionScenarioBoundary" data-en="This scenario combines source-backed specifications and equipment into a paper-based fit comparison. It does not replace a site lift plan, matched load-chart review or field trial.">'
-        '本场景将可追溯参数与配置组合为纸面适配性对比，不替代现场吊装方案、同口径载荷表复核或实机验证。</p>'
-        if group == "application"
-        else ""
-    )
     return (
         f'<section id="cond{index}" class="conditionSection" data-condition-group="{esc(group)}">'
         f'<div class="conditionTitle"><div><span data-en="{esc(group_en)} {index:02d}">{esc(group_zh)} {index:02d}</span>'
         f'<h2 data-en="{esc(condition["title_en"])}">{esc(condition["title_zh"])}</h2></div>'
         f'<em data-en="{len(metric_names)} specifications / {len(config_names)} equipment items">{len(metric_names)} 个参数 / {len(config_names)} 个配置项</em></div>'
-        f'<p class="conditionNarrative" data-en="{esc(copy_en)}">{esc(copy_zh)}</p>{scenario_note}'
+        f'<p class="conditionNarrative" data-en="{esc(copy_en)}">{esc(copy_zh)}</p>'
         + render_condition_execution(sheet, condition)
         + '<div class="conditionBrief"><article><b data-en="Beneficial equipment and design features">有益配置与设计特征</b>'
         f'<p data-en="{esc(benefit_en)}">{esc(benefit_zh)}</p></article><article><b data-en="Evaluation composition">评价构成</b>'
@@ -1415,8 +1456,7 @@ def render_condition(sheet: Any, scoring: dict[str, Any], condition: dict[str, A
         + ranking_html
         + f'<p class="coverageNote" data-en="{esc(coverage_en)}">{esc(coverage_zh)}</p></article></div>'
         + render_condition_contribution(sheet, scoring, condition)
-        + '<div class="conditionDecisionGrid"><div class="gapPanel"><h3 data-en="Documented gaps and validation points">具体差距与复核重点</h3>'
-        + gap_html + "</div>" + simulator + "</div></section>"
+        + '<div class="conditionDecisionGrid">' + simulator + "</div></section>"
     )
 
 
@@ -1584,6 +1624,7 @@ def page_nav(sheet: Any) -> str:
         '<a class="home" href="arc.html" data-en="Return to Platform Home">返回对标平台主页</a>'
         '<a href="#summary" data-en="Benchmark Overview">对标概览</a>'
         '<a href="#market-context" data-en="Market, Customer and Product Evidence">市场、客户与产品证据</a>'
+        '<a href="#class-visuals" data-en="Field Images and Product Details">现场图片与产品细节</a>'
         '<a href="#condition-overview" data-en="Work-Condition Panorama">工况竞争全景</a>'
         '<a href="#position" data-en="Specification Position">参数竞争位置</a>'
         '<details class="navGroup" open><summary data-en="Engineering Conditions">工程能力工况</summary><div class="navSubmenu">'
@@ -1625,8 +1666,8 @@ def render_page(sheet: Any) -> str:
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title data-en="{esc(title_en)} | XCMG ARC">{esc(title_zh)} | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
-<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260806a">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260805i">
+<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260806b">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260806j">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
