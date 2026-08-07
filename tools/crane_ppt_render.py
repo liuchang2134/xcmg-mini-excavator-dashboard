@@ -890,6 +890,78 @@ def _render_chart(chart: dict[str, Any], slide_number: int, index: int) -> str:
     return _render_columns(chart, chart_id)
 
 
+def _render_regional_crane_sales(charts: list[dict[str, Any]]) -> str:
+    """Render slide 7's four US/Canada charts as one comparable matrix."""
+    labels = {
+        "chart-05": ("通用底盘起重机", "Boom Trucks"),
+        "chart-12": ("越野轮胎起重机", "Rough-Terrain Cranes"),
+        "chart-08": ("全地面起重机", "All-Terrain Cranes"),
+        "chart-09": ("履带起重机", "Crawler Cranes"),
+    }
+    ordered_ids = ("chart-05", "chart-12", "chart-08", "chart-09")
+    by_id = {
+        chart.get("id"): (index, chart)
+        for index, chart in enumerate(charts, 1)
+    }
+    rows = []
+    for chart_id in ordered_ids:
+        chart_entry = by_id.get(chart_id)
+        if not chart_entry:
+            continue
+        chart_index, chart = chart_entry
+        categories = chart.get("categories") or []
+        series = chart.get("series") or []
+        values = series[0].get("values", []) if series else []
+        if len(categories) < 2 or len(values) < 2:
+            continue
+        usa = float(values[0] or 0)
+        canada = float(values[1] or 0)
+        rows.append((labels[chart_id][0], labels[chart_id][1], usa, canada, chart_index))
+    if not rows:
+        return ""
+
+    scale = max(max(usa, canada) for _zh, _en, usa, canada, _index in rows) or 1
+    total_usa = sum(row[2] for row in rows)
+    total_canada = sum(row[3] for row in rows)
+    grand_total = total_usa + total_canada
+    usa_share = total_usa / grand_total * 100 if grand_total else 0
+    canada_share = total_canada / grand_total * 100 if grand_total else 0
+    rendered_rows = []
+    for label_zh, label_en, usa, canada, chart_index in rows:
+        total = usa + canada
+        rendered_rows.append(
+            f'<div class="regionalSalesRow" role="row" data-chart-id="slide-7-chart-{chart_index}">'
+            f'<b role="rowheader" data-en="{esc(label_en)}">{esc(label_zh)}</b>'
+            '<div class="regionalSalesValue usa" role="cell">'
+            f'<span><i style="width:{usa / scale * 100:.2f}%"></i></span><strong>{usa:,.0f}</strong></div>'
+            '<div class="regionalSalesValue canada" role="cell">'
+            f'<span><i style="width:{canada / scale * 100:.2f}%"></i></span><strong>{canada:,.0f}</strong></div>'
+            f'<strong class="regionalSalesTotal" role="cell">{total:,.0f}</strong>'
+            '</div>'
+        )
+    return (
+        '<section class="regionalSalesMatrix" aria-label="2024年北美起重机销量区域分布" '
+        'data-aria-label-en="2024 North American crane sales by country">'
+        '<header><div><h4 data-en="2024 North American Crane Sales by Country">'
+        '2024年北美起重机销量区域分布</h4>'
+        '<p data-en="The four crane categories use one common scale; values are units.">'
+        '四类起重设备使用同一比例尺，单位为台。</p></div>'
+        '<div class="regionalSalesSummary">'
+        f'<span><b>{grand_total:,.0f}</b><small data-en="units in chart scope">图表口径合计</small></span>'
+        f'<span><b>{usa_share:.1f}%</b><small data-en="United States">美国</small></span>'
+        f'<span><b>{canada_share:.1f}%</b><small data-en="Canada">加拿大</small></span>'
+        '</div></header>'
+        '<div class="regionalSalesTable" role="table">'
+        '<div class="regionalSalesHead" role="row">'
+        '<span data-en="Crane category">设备类别</span><span data-en="United States">美国</span>'
+        '<span data-en="Canada">加拿大</span><span data-en="Total">合计</span></div>'
+        f'{"".join(rendered_rows)}</div>'
+        '<footer data-en="The chart records 2,380 units in the United States and 198 in Canada. Rough-terrain cranes are the largest of the four categories; Canada represents 7.7% of the chart total.">'
+        f'图表记录美国 {total_usa:,.0f} 台、加拿大 {total_canada:,.0f} 台；越野轮胎起重机为四类中销量最高，加拿大占图表口径 {canada_share:.1f}%。'
+        '</footer></section>'
+    )
+
+
 def _render_images(record: dict[str, Any], compact_captions: bool = False) -> str:
     images = record.get("images") or []
     if not images:
@@ -992,10 +1064,13 @@ def render_slide_record(record: dict[str, Any], include_media: bool = True) -> s
         for index, table in enumerate(record.get("tables", []), 1)
         if _meaningful_table(table)
     ]
-    charts = [
-        _render_chart(chart, record["slide"], index)
-        for index, chart in enumerate(record.get("charts", []), 1)
-    ]
+    if record["slide"] == 7:
+        charts = [_render_regional_crane_sales(record.get("charts", []))]
+    else:
+        charts = [
+            _render_chart(chart, record["slide"], index)
+            for index, chart in enumerate(record.get("charts", []), 1)
+        ]
     charts = [chart for chart in charts if chart]
     body = _paragraphs(record)
     media = _render_images(record) if include_media else ""
@@ -1102,7 +1177,7 @@ def render_market_report_page() -> str:
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805i">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260806o">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260807a">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">

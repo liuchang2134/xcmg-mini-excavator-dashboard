@@ -376,6 +376,20 @@ def test_crane_market_report_is_not_a_navigation_hub_and_covers_global_slides():
     assert "市场、区域、产品与服务洞察" in report
 
 
+def test_crane_market_report_compacts_regional_country_charts():
+    build_all()
+    report = (ROOT / "crane-market-overview.html").read_text(encoding="utf-8")
+
+    assert report.count('class="regionalSalesMatrix"') == 1
+    assert '2024年北美起重机销量区域分布' in report
+    assert '通用底盘起重机' in report
+    assert '越野轮胎起重机' in report
+    assert '全地面起重机' in report
+    assert '履带起重机' in report
+    assert 'class="insightColumns" data-chart-id="slide-7-chart-' not in report
+    assert '>Series<' not in report
+
+
 def test_every_crane_ppt_slide_is_rendered_in_the_report_or_a_class_page():
     build_all()
     pages = [
