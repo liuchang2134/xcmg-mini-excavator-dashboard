@@ -1,0 +1,454 @@
+[
+  {
+    "hash": "5e989141fc2e6ef182f5ebe2354d4805",
+    "files": [
+      "assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg",
+      "assets/crane-ppt-source/s103-image-07-2a20456bf8.jpg"
+    ],
+    "usages": [
+      {
+        "page": "crane-rt-100t",
+        "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 2"
+      },
+      {
+        "page": "crane-rt-60t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"
+      },
+      {
+        "page": "crane-rt-75t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"
+      }
+    ]
+  },
+  {
+    "hash": "481c5f5ef88aba9f17f6499a2c8367f1",
+    "files": [
+      "assets/crane-ppt-display/s093-image-07-7bc4e5204c.webp",
+      "assets/crane-ppt-display/s106-image-07-7bc4e5204c.webp"
+    ],
+    "usages": [
+      {
+        "page": "crane-rt-100t",
+        "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 2"
+      },
+      {
+        "page": "crane-rt-60t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"
+      },
+      {
+        "page": "crane-rt-75t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"
+      }
+    ]
+  },
+  {
+    "hash": "a307b9a31a0991f87cbf20e057560e33",
+    "files": [
+      "assets/crane-ppt-source/s093-image-08-acf78a6c28.jpg",
+      "assets/crane-ppt-source/s106-image-08-acf78a6c28.jpg"
+    ],
+    "usages": [
+      {
+        "page": "crane-rt-100t",
+        "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 3"
+      },
+      {
+        "page": "crane-rt-60t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 3"
+      },
+      {
+        "page": "crane-rt-75t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 3"
+      }
+    ]
+  },
+  {
+    "hash": "04b8d3352828fd2f98d2d4d7aab6d157",
+    "files": [
+      "assets/crane-ppt-display/s093-image-09-c6b6dd0e06.webp",
+      "assets/crane-ppt-display/s106-image-09-c6b6dd0e06.webp"
+    ],
+    "usages": [
+      {
+        "page": "crane-rt-100t",
+        "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 4"
+      },
+      {
+        "page": "crane-rt-60t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 4"
+      },
+      {
+        "page": "crane-rt-75t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 4"
+      }
+    ]
+  },
+  {
+    "hash": "e65ac0743c1d7e16baae8d7ec9a9bfbd",
+    "files": [
+      "assets/crane-ppt-display/s093-image-10-671618ed7f.webp",
+      "assets/crane-ppt-display/s106-image-10-671618ed7f.webp"
+    ],
+    "usages": [
+      {
+        "page": "crane-rt-100t",
+        "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 5"
+      },
+      {
+        "page": "crane-rt-60t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 5"
+      },
+      {
+        "page": "crane-rt-75t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 5"
+      }
+    ]
+  },
+  {
+    "hash": "27bd5b6563db8d263463d9bf87689e9d",
+    "files": [
+      "assets/crane-ppt-source/s093-image-11-9dd8ce25b2.png",
+      "assets/crane-ppt-source/s106-image-11-9dd8ce25b2.png"
+    ],
+    "usages": [
+      {
+        "page": "crane-rt-100t",
+        "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 6"
+      },
+      {
+        "page": "crane-rt-60t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 6"
+      },
+      {
+        "page": "crane-rt-75t",
+        "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 6"
+      }
+    ]
+  },
+  {
+    "hash": "26d89439a1c3bb8d31e72d7ced904e02",
+    "files": [
+      "assets/crane-ppt-source/s108-image-08-17b92c640d.jpg",
+      "assets/crane-ppt-source/s112-image-08-17b92c640d.jpg"
+    ],
+    "usages": [
+      {
+        "page": "crane-rt-130t",
+        "caption": "美国东北部市场与工况 · 应用场景 1"
+      },
+      {
+        "page": "crane-rt-130t",
+        "caption": "美国中西上市场与工况 · 应用场景 1"
+      }
+    ]
+  },
+  {
+    "hash": "7d6e24f38ddabe43bb01f2878d90f831",
+    "files": [
+      "assets/crane-ppt-source/s013-image-09-567139ec82.png",
+      "assets/crane-ppt-source/s110-image-08-567139ec82.png"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "美国东南部市场与工况 · 应用场景 2"
+      },
+      {
+        "page": "crane-rt-130t",
+        "caption": "美国东南部市场与工况 · 应用场景 1"
+      }
+    ]
+  },
+  {
+    "hash": "5395011de9aa5877ae06f89bcee3d0c7",
+    "files": [
+      "assets/crane-ppt-source/s113-image-10-73c37360a4.jpg",
+      "assets/crane-ppt-source/s114-image-10-73c37360a4.jpg"
+    ],
+    "usages": [
+      {
+        "page": "crane-rt-130t",
+        "caption": "加拿大安大略市场与工况 · 应用场景 3"
+      },
+      {
+        "page": "crane-rt-130t",
+        "caption": "美国西海岸市场与工况 · 应用场景 3"
+      }
+    ]
+  },
+  {
+    "hash": "06144d5a6860309d14b593ac4054d80c",
+    "files": [
+      "assets/crane-ppt-display/s012-image-10-9da9aa33cb.webp",
+      "assets/crane-ppt-display/s028-image-07-9da9aa33cb.webp"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "美国中东部市场与工况 · 应用场景 2"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "美国中东部市场与工况 · 应用场景 3"
+      }
+    ]
+  },
+  {
+    "hash": "029bcdcfec21308eeb70a23639b36d41",
+    "files": [
+      "assets/crane-ppt-source/s014-image-10-f62646e57e.png",
+      "assets/crane-ppt-source/s030-image-07-f62646e57e.png"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "美国南中部市场与工况 · 应用场景 2"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "美国南中部市场与工况 · 应用场景 3"
+      }
+    ]
+  },
+  {
+    "hash": "777d8bbfae7860441ef53e9d0de95fae",
+    "files": [
+      "assets/crane-ppt-source/s022-image-06-965d4da744.png",
+      "assets/crane-ppt-source/s022-image-07-965d4da744.png",
+      "assets/crane-ppt-source/s036-image-06-965d4da744.png",
+      "assets/crane-ppt-source/s038-image-04-965d4da744.png",
+      "assets/crane-ppt-source/s038-image-05-965d4da744.png",
+      "assets/crane-ppt-source/s051-image-06-965d4da744.png",
+      "assets/crane-ppt-source/s053-image-04-965d4da744.png",
+      "assets/crane-ppt-source/s053-image-05-965d4da744.png"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 1"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 2"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 2"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 1"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 2"
+      }
+    ]
+  },
+  {
+    "hash": "fad6cd30ee9b692b90e1392d32d89a9b",
+    "files": [
+      "assets/crane-ppt-display/s022-image-08-318ab1b5de.webp",
+      "assets/crane-ppt-display/s038-image-06-318ab1b5de.webp",
+      "assets/crane-ppt-display/s053-image-06-318ab1b5de.webp"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 3"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 3"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 3"
+      }
+    ]
+  },
+  {
+    "hash": "2342f0a9ce8bcd2e4d86771258b922e6",
+    "files": [
+      "assets/crane-ppt-source/s023-image-07-184facd015.png",
+      "assets/crane-ppt-source/s039-image-05-184facd015.png"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 2"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 2"
+      }
+    ]
+  },
+  {
+    "hash": "790ff1d37bc0fba8da72c3c06a4eb091",
+    "files": [
+      "assets/crane-ppt-source/s023-image-08-3231b6f250.png",
+      "assets/crane-ppt-source/s039-image-06-3231b6f250.png",
+      "assets/crane-ppt-source/s054-image-05-3231b6f250.png"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 3"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 3"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 2"
+      }
+    ]
+  },
+  {
+    "hash": "344f4846ddc6028ad200bba6be4f3c42",
+    "files": [
+      "assets/crane-ppt-display/s025-image-06-4ea098324a.webp",
+      "assets/crane-ppt-display/s041-image-04-4ea098324a.webp",
+      "assets/crane-ppt-display/s056-image-04-4ea098324a.webp"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 1"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 1"
+      }
+    ]
+  },
+  {
+    "hash": "50ad30d48f60505e55fff35f3ea4b26f",
+    "files": [
+      "assets/crane-ppt-source/s036-image-05-434dde21c9.jpg",
+      "assets/crane-ppt-source/s051-image-05-434dde21c9.jpg"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 1"
+      }
+    ]
+  },
+  {
+    "hash": "41eb00648d4aedb69044fb6631e23c19",
+    "files": [
+      "assets/crane-ppt-source/s036-image-07-8c32fd5504.jpg",
+      "assets/crane-ppt-source/s051-image-07-8c32fd5504.jpg"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 3"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 3"
+      }
+    ]
+  },
+  {
+    "hash": "0e9a2f73006a5b202fa2f10272c929ce",
+    "files": [
+      "assets/crane-ppt-source/s037-image-06-28150f8964.jpg",
+      "assets/crane-ppt-source/s037-image-07-28150f8964.jpg"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 2"
+      }
+    ]
+  },
+  {
+    "hash": "048cfd4b5c4982601f9afbaac5088816",
+    "files": [
+      "assets/crane-ppt-display/s040-image-04-c019935521.webp",
+      "assets/crane-ppt-display/s055-image-04-c019935521.webp"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 1"
+      }
+    ]
+  },
+  {
+    "hash": "f2abedf77f2955b9254771634e73dfa6",
+    "files": [
+      "assets/crane-ppt-display/s040-image-05-363895689f.webp",
+      "assets/crane-ppt-display/s055-image-05-363895689f.webp"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 2"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 2"
+      }
+    ]
+  },
+  {
+    "hash": "3ba80648b0e2b7ebc3222422c4285788",
+    "files": [
+      "assets/crane-ppt-display/s040-image-06-d5f6ceaa0b.webp",
+      "assets/crane-ppt-display/s055-image-06-d5f6ceaa0b.webp"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 3"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 3"
+      }
+    ]
+  },
+  {
+    "hash": "569b05f3ee4b8e0775d0a244f741399f",
+    "files": [
+      "assets/crane-ppt-source/s137-image-05-ead1e1eea6.png",
+      "assets/crane-ppt-source/s138-image-06-ead1e1eea6.png"
+    ],
+    "usages": [
+      {
+        "page": "crane-market-overview",
+        "caption": "聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 1"
+      },
+      {
+        "page": "crane-market-overview",
+        "caption": "聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 2"
+      }
+    ]
+  }
+]

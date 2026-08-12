@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>起重机图片归属人工裁决</title>
+  <style>
+    :root{--blue:#004d8f;--blue-2:#0066b3;--yellow:#f5b400;--ink:#092b4c;--muted:#52697f;--line:#c7d7e6;--soft:#f3f7fa;--white:#fff}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#edf3f7;color:var(--ink);font-family:Arial,"Microsoft YaHei",sans-serif}
+    .topbar{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:16px;align-items:center;padding:16px 28px;background:#062f55;color:#fff;border-bottom:4px solid var(--yellow)}
+    .topbar h1{margin:0;font-size:22px}.topbar p{margin:4px 0 0;color:#d7e6f2;font-size:13px}.progress{font-weight:700;white-space:nowrap}button{font:inherit}
+    .toolbar{display:flex;gap:8px;align-items:center}.copy,.filter{border:1px solid #fff;background:#fff;color:#073e6e;padding:9px 14px;font-weight:700;cursor:pointer}.copy:hover,.filter:hover,.filter.active{background:var(--yellow)}
+    main{width:min(1500px,calc(100% - 32px));margin:24px auto 64px;display:grid;gap:18px}
+    .conflict{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--blue-2)}
+    .conflict>header{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:14px 18px;border-bottom:1px solid var(--line)}
+    .conflict>header>div{display:flex;align-items:center;gap:12px}.conflict h2{margin:0;font-size:18px}.number{display:grid;place-items:center;width:40px;height:30px;background:var(--blue);color:#fff;font-weight:800}
+    code{font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.review-grid{display:grid;grid-template-columns:minmax(360px,46%) minmax(0,1fr);gap:20px;padding:18px}
+    figure{margin:0;min-width:0}.image-button{display:block;width:100%;padding:0;border:1px solid var(--line);background:#e8eef3;cursor:zoom-in}
+    figure img{display:block;width:100%;max-height:520px;object-fit:contain;background:#fff}figcaption{padding:8px 10px;color:var(--muted);font-size:12px;border:1px solid var(--line);border-top:0}
+    .decision h3{margin:0 0 12px;font-size:16px}.choices{display:grid;gap:8px}.choice{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;align-items:start;padding:12px;border:1px solid var(--line);background:var(--soft);cursor:pointer}
+    .choice:hover{border-color:var(--blue-2)}.choice:has(input:checked){border-color:var(--yellow);box-shadow:inset 4px 0 var(--yellow);background:#fff9df}.choice input{margin-top:3px}.choice span{line-height:1.55}.choice b{display:block;color:var(--blue);font-size:12px}
+    .reuse{background:#eef8f4}.unresolved{background:#fff4f2}details{border-top:1px solid var(--line)}summary{padding:12px 18px;font-weight:700;cursor:pointer}.evidence{padding:0 18px 18px;overflow:auto}ul{margin:0 0 12px;padding-left:20px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:var(--blue);color:#fff}
+    dialog{width:min(94vw,1400px);max-height:94vh;border:0;padding:12px;background:#fff}dialog::backdrop{background:rgba(0,25,48,.86)}dialog img{display:block;max-width:100%;max-height:88vh;margin:auto;object-fit:contain}dialog button{position:absolute;right:16px;top:16px;width:40px;height:40px;border:0;background:#062f55;color:#fff;font-size:24px;cursor:pointer}
+    .conflict.resolved{border-top-color:#1f8b62}.conflict.hidden-by-filter{display:none}
+    @media(max-width:800px){.topbar{grid-template-columns:1fr auto;padding:12px 16px}.topbar p{display:none}.toolbar{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}main{width:calc(100% - 20px);margin-top:12px}.review-grid{grid-template-columns:1fr;padding:12px}.conflict>header{align-items:flex-start;flex-direction:column;gap:8px}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div><h1>起重机图片归属人工裁决</h1><p>选择正确归属，或明确标记源材料复用。选择结果自动保存在本机浏览器。</p></div><div class="progress">已裁决 <span id="done">0</span> / 23</div><div class="toolbar"><button class="filter" id="filter">只看未裁决</button><button class="copy" id="copy">复制 / 下载结果</button></div></header>
+  <main>
+    <section class="conflict" data-index="1">
+      <header>
+        <div><span class="number">01</span><h2>图片归属冲突</h2></div>
+        <code>5e989141fc2e6ef182f5ebe2354d4805</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg" alt="第 1 组待裁决图片">
+          </button>
+          <figcaption>原图 440 × 332px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-1" value="徐工XCR100_U客户使用评价对标 · 评价图像 2"><span><b>候选 1</b>徐工XCR100_U客户使用评价对标 · 评价图像 2</span></label><label class="choice"><input type="radio" name="group-1" value="徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"><span><b>候选 2</b>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2</span></label>
+            <label class="choice reuse"><input type="radio" name="group-1" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-1" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg</code></li><li><code>assets/crane-ppt-source/s103-image-07-2a20456bf8.jpg</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-rt-100t</td><td>徐工XCR100_U客户使用评价对标 · 评价图像 2</td></tr><tr><td>crane-rt-60t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2</td></tr><tr><td>crane-rt-75t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="2">
+      <header>
+        <div><span class="number">02</span><h2>图片归属冲突</h2></div>
+        <code>481c5f5ef88aba9f17f6499a2c8367f1</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-display/s093-image-07-7bc4e5204c.webp" alt="第 2 组待裁决图片">
+          </button>
+          <figcaption>原图 2401 × 2401px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-2" value="徐工XCR100_U客户使用评价对标 · 评价图像 2"><span><b>候选 1</b>徐工XCR100_U客户使用评价对标 · 评价图像 2</span></label><label class="choice"><input type="radio" name="group-2" value="徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"><span><b>候选 2</b>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2</span></label>
+            <label class="choice reuse"><input type="radio" name="group-2" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-2" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-display/s093-image-07-7bc4e5204c.webp</code></li><li><code>assets/crane-ppt-display/s106-image-07-7bc4e5204c.webp</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-rt-100t</td><td>徐工XCR100_U客户使用评价对标 · 评价图像 2</td></tr><tr><td>crane-rt-60t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2</td></tr><tr><td>crane-rt-75t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="3">
+      <header>
+        <div><span class="number">03</span><h2>图片归属冲突</h2></div>
+        <code>a307b9a31a0991f87cbf20e057560e33</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s093-image-08-acf78a6c28.jpg" alt="第 3 组待裁决图片">
+          </button>
+          <figcaption>原图 194 × 262px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-3" value="徐工XCR100_U客户使用评价对标 · 评价图像 3"><span><b>候选 1</b>徐工XCR100_U客户使用评价对标 · 评价图像 3</span></label><label class="choice"><input type="radio" name="group-3" value="徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 3"><span><b>候选 2</b>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 3</span></label>
+            <label class="choice reuse"><input type="radio" name="group-3" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-3" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s093-image-08-acf78a6c28.jpg</code></li><li><code>assets/crane-ppt-source/s106-image-08-acf78a6c28.jpg</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-rt-100t</td><td>徐工XCR100_U客户使用评价对标 · 评价图像 3</td></tr><tr><td>crane-rt-60t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 3</td></tr><tr><td>crane-rt-75t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 3</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="4">
+      <header>
+        <div><span class="number">04</span><h2>图片归属冲突</h2></div>
+        <code>04b8d3352828fd2f98d2d4d7aab6d157</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-display/s093-image-09-c6b6dd0e06.webp" alt="第 4 组待裁决图片">
+          </button>
+          <figcaption>原图 2400 × 2401px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-4" value="徐工XCR100_U客户使用评价对标 · 评价图像 4"><span><b>候选 1</b>徐工XCR100_U客户使用评价对标 · 评价图像 4</span></label><label class="choice"><input type="radio" name="group-4" value="徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 4"><span><b>候选 2</b>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 4</span></label>
+            <label class="choice reuse"><input type="radio" name="group-4" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-4" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-display/s093-image-09-c6b6dd0e06.webp</code></li><li><code>assets/crane-ppt-display/s106-image-09-c6b6dd0e06.webp</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-rt-100t</td><td>徐工XCR100_U客户使用评价对标 · 评价图像 4</td></tr><tr><td>crane-rt-60t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 4</td></tr><tr><td>crane-rt-75t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 4</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="5">
+      <header>
+        <div><span class="number">05</span><h2>图片归属冲突</h2></div>
+        <code>e65ac0743c1d7e16baae8d7ec9a9bfbd</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-display/s093-image-10-671618ed7f.webp" alt="第 5 组待裁决图片">
+          </button>
+          <figcaption>原图 2400 × 2293px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-5" value="徐工XCR100_U客户使用评价对标 · 评价图像 5"><span><b>候选 1</b>徐工XCR100_U客户使用评价对标 · 评价图像 5</span></label><label class="choice"><input type="radio" name="group-5" value="徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 5"><span><b>候选 2</b>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 5</span></label>
+            <label class="choice reuse"><input type="radio" name="group-5" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-5" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-display/s093-image-10-671618ed7f.webp</code></li><li><code>assets/crane-ppt-display/s106-image-10-671618ed7f.webp</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-rt-100t</td><td>徐工XCR100_U客户使用评价对标 · 评价图像 5</td></tr><tr><td>crane-rt-60t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 5</td></tr><tr><td>crane-rt-75t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 5</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="6">
+      <header>
+        <div><span class="number">06</span><h2>图片归属冲突</h2></div>
+        <code>27bd5b6563db8d263463d9bf87689e9d</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s093-image-11-9dd8ce25b2.png" alt="第 6 组待裁决图片">
+          </button>
+          <figcaption>原图 293 × 238px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-6" value="徐工XCR100_U客户使用评价对标 · 评价图像 6"><span><b>候选 1</b>徐工XCR100_U客户使用评价对标 · 评价图像 6</span></label><label class="choice"><input type="radio" name="group-6" value="徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 6"><span><b>候选 2</b>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 6</span></label>
+            <label class="choice reuse"><input type="radio" name="group-6" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-6" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s093-image-11-9dd8ce25b2.png</code></li><li><code>assets/crane-ppt-source/s106-image-11-9dd8ce25b2.png</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-rt-100t</td><td>徐工XCR100_U客户使用评价对标 · 评价图像 6</td></tr><tr><td>crane-rt-60t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 6</td></tr><tr><td>crane-rt-75t</td><td>徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 6</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="7">
+      <header>
+        <div><span class="number">07</span><h2>图片归属冲突</h2></div>
+        <code>26d89439a1c3bb8d31e72d7ced904e02</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s108-image-08-17b92c640d.jpg" alt="第 7 组待裁决图片">
+          </button>
+          <figcaption>原图 327 × 427px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-7" value="美国东北部市场与工况 · 应用场景 1"><span><b>候选 1</b>美国东北部市场与工况 · 应用场景 1</span></label><label class="choice"><input type="radio" name="group-7" value="美国中西上市场与工况 · 应用场景 1"><span><b>候选 2</b>美国中西上市场与工况 · 应用场景 1</span></label>
+            <label class="choice reuse"><input type="radio" name="group-7" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-7" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s108-image-08-17b92c640d.jpg</code></li><li><code>assets/crane-ppt-source/s112-image-08-17b92c640d.jpg</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-rt-130t</td><td>美国东北部市场与工况 · 应用场景 1</td></tr><tr><td>crane-rt-130t</td><td>美国中西上市场与工况 · 应用场景 1</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="8">
+      <header>
+        <div><span class="number">08</span><h2>图片归属冲突</h2></div>
+        <code>7d6e24f38ddabe43bb01f2878d90f831</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s013-image-09-567139ec82.png" alt="第 8 组待裁决图片">
+          </button>
+          <figcaption>原图 341 × 478px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-8" value="美国东南部市场与工况 · 应用场景 2"><span><b>候选 1</b>美国东南部市场与工况 · 应用场景 2</span></label><label class="choice"><input type="radio" name="group-8" value="美国东南部市场与工况 · 应用场景 1"><span><b>候选 2</b>美国东南部市场与工况 · 应用场景 1</span></label>
+            <label class="choice reuse"><input type="radio" name="group-8" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-8" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s013-image-09-567139ec82.png</code></li><li><code>assets/crane-ppt-source/s110-image-08-567139ec82.png</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>美国东南部市场与工况 · 应用场景 2</td></tr><tr><td>crane-rt-130t</td><td>美国东南部市场与工况 · 应用场景 1</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="9">
+      <header>
+        <div><span class="number">09</span><h2>图片归属冲突</h2></div>
+        <code>5395011de9aa5877ae06f89bcee3d0c7</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s113-image-10-73c37360a4.jpg" alt="第 9 组待裁决图片">
+          </button>
+          <figcaption>原图 374 × 498px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-9" value="加拿大安大略市场与工况 · 应用场景 3"><span><b>候选 1</b>加拿大安大略市场与工况 · 应用场景 3</span></label><label class="choice"><input type="radio" name="group-9" value="美国西海岸市场与工况 · 应用场景 3"><span><b>候选 2</b>美国西海岸市场与工况 · 应用场景 3</span></label>
+            <label class="choice reuse"><input type="radio" name="group-9" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-9" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s113-image-10-73c37360a4.jpg</code></li><li><code>assets/crane-ppt-source/s114-image-10-73c37360a4.jpg</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-rt-130t</td><td>加拿大安大略市场与工况 · 应用场景 3</td></tr><tr><td>crane-rt-130t</td><td>美国西海岸市场与工况 · 应用场景 3</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="10">
+      <header>
+        <div><span class="number">10</span><h2>图片归属冲突</h2></div>
+        <code>06144d5a6860309d14b593ac4054d80c</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-display/s012-image-10-9da9aa33cb.webp" alt="第 10 组待裁决图片">
+          </button>
+          <figcaption>原图 2400 × 1827px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-10" value="美国中东部市场与工况 · 应用场景 2"><span><b>候选 1</b>美国中东部市场与工况 · 应用场景 2</span></label><label class="choice"><input type="radio" name="group-10" value="美国中东部市场与工况 · 应用场景 3"><span><b>候选 2</b>美国中东部市场与工况 · 应用场景 3</span></label>
+            <label class="choice reuse"><input type="radio" name="group-10" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-10" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-display/s012-image-10-9da9aa33cb.webp</code></li><li><code>assets/crane-ppt-display/s028-image-07-9da9aa33cb.webp</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>美国中东部市场与工况 · 应用场景 2</td></tr><tr><td>crane-market-overview</td><td>美国中东部市场与工况 · 应用场景 3</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="11">
+      <header>
+        <div><span class="number">11</span><h2>图片归属冲突</h2></div>
+        <code>029bcdcfec21308eeb70a23639b36d41</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s014-image-10-f62646e57e.png" alt="第 11 组待裁决图片">
+          </button>
+          <figcaption>原图 513 × 280px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-11" value="美国南中部市场与工况 · 应用场景 2"><span><b>候选 1</b>美国南中部市场与工况 · 应用场景 2</span></label><label class="choice"><input type="radio" name="group-11" value="美国南中部市场与工况 · 应用场景 3"><span><b>候选 2</b>美国南中部市场与工况 · 应用场景 3</span></label>
+            <label class="choice reuse"><input type="radio" name="group-11" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-11" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s014-image-10-f62646e57e.png</code></li><li><code>assets/crane-ppt-source/s030-image-07-f62646e57e.png</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>美国南中部市场与工况 · 应用场景 2</td></tr><tr><td>crane-market-overview</td><td>美国南中部市场与工况 · 应用场景 3</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="12">
+      <header>
+        <div><span class="number">12</span><h2>图片归属冲突</h2></div>
+        <code>777d8bbfae7860441ef53e9d0de95fae</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s022-image-06-965d4da744.png" alt="第 12 组待裁决图片">
+          </button>
+          <figcaption>原图 468 × 724px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-12" value="徐工型号XCT35_U客户使用评价对标 · 评价图像 1"><span><b>候选 1</b>徐工型号XCT35_U客户使用评价对标 · 评价图像 1</span></label><label class="choice"><input type="radio" name="group-12" value="徐工型号XCT35_U客户使用评价对标 · 评价图像 2"><span><b>候选 2</b>徐工型号XCT35_U客户使用评价对标 · 评价图像 2</span></label><label class="choice"><input type="radio" name="group-12" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 1"><span><b>候选 3</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</span></label><label class="choice"><input type="radio" name="group-12" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 2"><span><b>候选 4</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 2</span></label><label class="choice"><input type="radio" name="group-12" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 1"><span><b>候选 5</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 1</span></label><label class="choice"><input type="radio" name="group-12" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 2"><span><b>候选 6</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 2</span></label>
+            <label class="choice reuse"><input type="radio" name="group-12" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-12" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s022-image-06-965d4da744.png</code></li><li><code>assets/crane-ppt-source/s022-image-07-965d4da744.png</code></li><li><code>assets/crane-ppt-source/s036-image-06-965d4da744.png</code></li><li><code>assets/crane-ppt-source/s038-image-04-965d4da744.png</code></li><li><code>assets/crane-ppt-source/s038-image-05-965d4da744.png</code></li><li><code>assets/crane-ppt-source/s051-image-06-965d4da744.png</code></li><li><code>assets/crane-ppt-source/s053-image-04-965d4da744.png</code></li><li><code>assets/crane-ppt-source/s053-image-05-965d4da744.png</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT35_U客户使用评价对标 · 评价图像 1</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT35_U客户使用评价对标 · 评价图像 2</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 2</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 1</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 2</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="13">
+      <header>
+        <div><span class="number">13</span><h2>图片归属冲突</h2></div>
+        <code>fad6cd30ee9b692b90e1392d32d89a9b</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-display/s022-image-08-318ab1b5de.webp" alt="第 13 组待裁决图片">
+          </button>
+          <figcaption>原图 2428 × 1865px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-13" value="徐工型号XCT35_U客户使用评价对标 · 评价图像 3"><span><b>候选 1</b>徐工型号XCT35_U客户使用评价对标 · 评价图像 3</span></label><label class="choice"><input type="radio" name="group-13" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 3"><span><b>候选 2</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 3</span></label><label class="choice"><input type="radio" name="group-13" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 3"><span><b>候选 3</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 3</span></label>
+            <label class="choice reuse"><input type="radio" name="group-13" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-13" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-display/s022-image-08-318ab1b5de.webp</code></li><li><code>assets/crane-ppt-display/s038-image-06-318ab1b5de.webp</code></li><li><code>assets/crane-ppt-display/s053-image-06-318ab1b5de.webp</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT35_U客户使用评价对标 · 评价图像 3</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 3</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 3</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="14">
+      <header>
+        <div><span class="number">14</span><h2>图片归属冲突</h2></div>
+        <code>2342f0a9ce8bcd2e4d86771258b922e6</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s023-image-07-184facd015.png" alt="第 14 组待裁决图片">
+          </button>
+          <figcaption>原图 585 × 922px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-14" value="徐工型号XCT35_U客户使用评价对标 · 评价图像 2"><span><b>候选 1</b>徐工型号XCT35_U客户使用评价对标 · 评价图像 2</span></label><label class="choice"><input type="radio" name="group-14" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 2"><span><b>候选 2</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 2</span></label>
+            <label class="choice reuse"><input type="radio" name="group-14" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-14" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s023-image-07-184facd015.png</code></li><li><code>assets/crane-ppt-source/s039-image-05-184facd015.png</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT35_U客户使用评价对标 · 评价图像 2</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 2</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="15">
+      <header>
+        <div><span class="number">15</span><h2>图片归属冲突</h2></div>
+        <code>790ff1d37bc0fba8da72c3c06a4eb091</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s023-image-08-3231b6f250.png" alt="第 15 组待裁决图片">
+          </button>
+          <figcaption>原图 1082 × 796px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-15" value="徐工型号XCT35_U客户使用评价对标 · 评价图像 3"><span><b>候选 1</b>徐工型号XCT35_U客户使用评价对标 · 评价图像 3</span></label><label class="choice"><input type="radio" name="group-15" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 3"><span><b>候选 2</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 3</span></label><label class="choice"><input type="radio" name="group-15" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 2"><span><b>候选 3</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 2</span></label>
+            <label class="choice reuse"><input type="radio" name="group-15" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-15" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s023-image-08-3231b6f250.png</code></li><li><code>assets/crane-ppt-source/s039-image-06-3231b6f250.png</code></li><li><code>assets/crane-ppt-source/s054-image-05-3231b6f250.png</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT35_U客户使用评价对标 · 评价图像 3</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 3</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 2</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="16">
+      <header>
+        <div><span class="number">16</span><h2>图片归属冲突</h2></div>
+        <code>344f4846ddc6028ad200bba6be4f3c42</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-display/s025-image-06-4ea098324a.webp" alt="第 16 组待裁决图片">
+          </button>
+          <figcaption>原图 2400 × 2178px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-16" value="徐工型号XCT35_U客户使用评价对标 · 评价图像 1"><span><b>候选 1</b>徐工型号XCT35_U客户使用评价对标 · 评价图像 1</span></label><label class="choice"><input type="radio" name="group-16" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 1"><span><b>候选 2</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</span></label><label class="choice"><input type="radio" name="group-16" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 1"><span><b>候选 3</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 1</span></label>
+            <label class="choice reuse"><input type="radio" name="group-16" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-16" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-display/s025-image-06-4ea098324a.webp</code></li><li><code>assets/crane-ppt-display/s041-image-04-4ea098324a.webp</code></li><li><code>assets/crane-ppt-display/s056-image-04-4ea098324a.webp</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT35_U客户使用评价对标 · 评价图像 1</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 1</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="17">
+      <header>
+        <div><span class="number">17</span><h2>图片归属冲突</h2></div>
+        <code>50ad30d48f60505e55fff35f3ea4b26f</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s036-image-05-434dde21c9.jpg" alt="第 17 组待裁决图片">
+          </button>
+          <figcaption>原图 297 × 661px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-17" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 1"><span><b>候选 1</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</span></label><label class="choice"><input type="radio" name="group-17" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 1"><span><b>候选 2</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 1</span></label>
+            <label class="choice reuse"><input type="radio" name="group-17" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-17" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s036-image-05-434dde21c9.jpg</code></li><li><code>assets/crane-ppt-source/s051-image-05-434dde21c9.jpg</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 1</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="18">
+      <header>
+        <div><span class="number">18</span><h2>图片归属冲突</h2></div>
+        <code>41eb00648d4aedb69044fb6631e23c19</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s036-image-07-8c32fd5504.jpg" alt="第 18 组待裁决图片">
+          </button>
+          <figcaption>原图 701 × 338px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-18" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 3"><span><b>候选 1</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 3</span></label><label class="choice"><input type="radio" name="group-18" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 3"><span><b>候选 2</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 3</span></label>
+            <label class="choice reuse"><input type="radio" name="group-18" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-18" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s036-image-07-8c32fd5504.jpg</code></li><li><code>assets/crane-ppt-source/s051-image-07-8c32fd5504.jpg</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 3</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 3</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="19">
+      <header>
+        <div><span class="number">19</span><h2>图片归属冲突</h2></div>
+        <code>0e9a2f73006a5b202fa2f10272c929ce</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s037-image-06-28150f8964.jpg" alt="第 19 组待裁决图片">
+          </button>
+          <figcaption>原图 844 × 1125px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-19" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 1"><span><b>候选 1</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</span></label><label class="choice"><input type="radio" name="group-19" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 2"><span><b>候选 2</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 2</span></label>
+            <label class="choice reuse"><input type="radio" name="group-19" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-19" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s037-image-06-28150f8964.jpg</code></li><li><code>assets/crane-ppt-source/s037-image-07-28150f8964.jpg</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 2</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="20">
+      <header>
+        <div><span class="number">20</span><h2>图片归属冲突</h2></div>
+        <code>048cfd4b5c4982601f9afbaac5088816</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-display/s040-image-04-c019935521.webp" alt="第 20 组待裁决图片">
+          </button>
+          <figcaption>原图 2400 × 1943px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-20" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 1"><span><b>候选 1</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</span></label><label class="choice"><input type="radio" name="group-20" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 1"><span><b>候选 2</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 1</span></label>
+            <label class="choice reuse"><input type="radio" name="group-20" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-20" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-display/s040-image-04-c019935521.webp</code></li><li><code>assets/crane-ppt-display/s055-image-04-c019935521.webp</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 1</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 1</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="21">
+      <header>
+        <div><span class="number">21</span><h2>图片归属冲突</h2></div>
+        <code>f2abedf77f2955b9254771634e73dfa6</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-display/s040-image-05-363895689f.webp" alt="第 21 组待裁决图片">
+          </button>
+          <figcaption>原图 2400 × 1934px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-21" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 2"><span><b>候选 1</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 2</span></label><label class="choice"><input type="radio" name="group-21" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 2"><span><b>候选 2</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 2</span></label>
+            <label class="choice reuse"><input type="radio" name="group-21" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-21" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-display/s040-image-05-363895689f.webp</code></li><li><code>assets/crane-ppt-display/s055-image-05-363895689f.webp</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 2</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 2</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="22">
+      <header>
+        <div><span class="number">22</span><h2>图片归属冲突</h2></div>
+        <code>3ba80648b0e2b7ebc3222422c4285788</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-display/s040-image-06-d5f6ceaa0b.webp" alt="第 22 组待裁决图片">
+          </button>
+          <figcaption>原图 2400 × 2310px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-22" value="徐工型号XCT40_U客户使用评价对标 · 评价图像 3"><span><b>候选 1</b>徐工型号XCT40_U客户使用评价对标 · 评价图像 3</span></label><label class="choice"><input type="radio" name="group-22" value="徐工型号XCT60_U客户使用评价对标 · 评价图像 3"><span><b>候选 2</b>徐工型号XCT60_U客户使用评价对标 · 评价图像 3</span></label>
+            <label class="choice reuse"><input type="radio" name="group-22" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-22" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-display/s040-image-06-d5f6ceaa0b.webp</code></li><li><code>assets/crane-ppt-display/s055-image-06-d5f6ceaa0b.webp</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>徐工型号XCT40_U客户使用评价对标 · 评价图像 3</td></tr><tr><td>crane-market-overview</td><td>徐工型号XCT60_U客户使用评价对标 · 评价图像 3</td></tr></tbody></table></div>
+      </details>
+    </section>
+    <section class="conflict" data-index="23">
+      <header>
+        <div><span class="number">23</span><h2>图片归属冲突</h2></div>
+        <code>569b05f3ee4b8e0775d0a244f741399f</code>
+      </header>
+      <div class="review-grid">
+        <figure>
+          <button type="button" class="image-button" aria-label="查看图片原尺寸">
+            <img src="assets/crane-ppt-source/s137-image-05-ead1e1eea6.png" alt="第 23 组待裁决图片">
+          </button>
+          <figcaption>原图 553 × 528px</figcaption>
+        </figure>
+        <div class="decision">
+          <h3>请选择正确说明</h3>
+          <div class="choices"><label class="choice"><input type="radio" name="group-23" value="聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 1"><span><b>候选 1</b>聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 1</span></label><label class="choice"><input type="radio" name="group-23" value="聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 2"><span><b>候选 2</b>聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 2</span></label>
+            <label class="choice reuse"><input type="radio" name="group-23" value="SOURCE_REUSE"><span><b>源材料复用</b>保留多处展示，并标明各自来源幻灯片</span></label>
+            <label class="choice unresolved"><input type="radio" name="group-23" value="UNRESOLVED"><span><b>暂无法判断</b>保留待核验状态，不进入后续去重</span></label>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>查看文件与当前使用位置</summary>
+        <div class="evidence"><ul><li><code>assets/crane-ppt-source/s137-image-05-ead1e1eea6.png</code></li><li><code>assets/crane-ppt-source/s138-image-06-ead1e1eea6.png</code></li></ul><table><thead><tr><th>页面</th><th>当前说明</th></tr></thead><tbody><tr><td>crane-market-overview</td><td>聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 1</td></tr><tr><td>crane-market-overview</td><td>聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 2</td></tr></tbody></table></div>
+      </details>
+    </section></main>
+  <dialog id="viewer"><button type="button" aria-label="关闭">×</button><img src="assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg" alt="原始图片预览"></dialog>
+  <script>
+    const total=23,storageKey='xcmg-crane-image-decisions-v1',done=document.querySelector('#done'),viewer=document.querySelector('#viewer'),viewerImage=viewer.querySelector('img'),filterButton=document.querySelector('#filter');
+    function decisions(){return [...document.querySelectorAll('.conflict')].map(section=>{const selected=section.querySelector('input:checked');return {group:Number(section.dataset.index),decision:selected?selected.value:null}})}
+    function save(){localStorage.setItem(storageKey,JSON.stringify(decisions()))}
+    function refresh(){const values=decisions(),complete=values.filter(item=>item.decision).length;done.textContent=complete;document.querySelectorAll('.conflict').forEach(section=>{const resolved=Boolean(section.querySelector('input:checked'));section.classList.toggle('resolved',resolved);section.classList.toggle('hidden-by-filter',filterButton.classList.contains('active')&&resolved)});save()}
+    try{const stored=JSON.parse(localStorage.getItem(storageKey)||'[]');stored.forEach(item=>{if(!item.decision)return;const input=[...document.querySelectorAll(`input[name="group-${item.group}"]`)].find(candidate=>candidate.value===item.decision);if(input)input.checked=true})}catch(error){console.warn('Unable to restore decisions',error)}
+    document.addEventListener('change',refresh);filterButton.addEventListener('click',()=>{filterButton.classList.toggle('active');filterButton.textContent=filterButton.classList.contains('active')?'显示全部':'只看未裁决';refresh()});
+    document.querySelectorAll('.image-button').forEach(button=>button.addEventListener('click',()=>{viewerImage.src=button.querySelector('img').src;viewer.showModal()}));
+    viewer.querySelector('button').addEventListener('click',()=>viewer.close());viewer.addEventListener('click',event=>{if(event.target===viewer)viewer.close()});
+    document.querySelector('#copy').addEventListener('click',async event=>{const result=JSON.stringify(decisions(),null,2);await navigator.clipboard.writeText(result);const blob=new Blob([result],{type:'application/json'}),link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='crane-image-decisions.json';link.click();URL.revokeObjectURL(link.href);event.currentTarget.textContent='已复制并下载';setTimeout(()=>event.currentTarget.textContent='复制 / 下载结果',1600)});refresh();
+  </script>
+</body>
+</html>
