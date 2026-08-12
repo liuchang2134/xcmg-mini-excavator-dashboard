@@ -12,8 +12,8 @@ from pptx.enum.shapes import MSO_SHAPE_TYPE
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFLICTS_PATH = ROOT / "crane-image-conflicts.json"
 DECISIONS_PATH = ROOT / "data" / "crane-ppt-insights" / "image-ownership.json"
+SLIDES_PATH = ROOT / "data" / "crane-ppt-insights" / "slides.json"
 SOURCE_DIR = ROOT / "assets" / "crane-ppt-source"
 PRESENTATION_DIR = ROOT / "data" / "source-presentations"
 
@@ -54,17 +54,23 @@ def _source_asset(path: str) -> str:
     return matches[0].relative_to(ROOT).as_posix()
 
 
-def _topic(usages: list[dict[str, str]]) -> tuple[str, str]:
-    captions = " ".join(item.get("caption", "") for item in usages)
-    if "客户使用评价" in captions:
+def _topic(records: list[dict[str, Any]]) -> tuple[str, str]:
+    context = " ".join(
+        block.get("text", "")
+        for record in records
+        for block in (record.get("text_blocks") or [])
+    )
+    if "客户使用评价" in context:
         return "客户使用评价影像", "Customer evaluation image"
-    if "市场与工况" in captions:
+    if "区域范围" in context or "市场与工况" in context:
         return "区域施工场景影像", "Regional jobsite image"
-    return "产品改进支撑影像", "Product improvement reference image"
+    if any(record.get("section") in {"portfolio", "roadmap"} for record in records):
+        return "产品改进支撑影像", "Product improvement reference image"
+    return "源资料复用影像", "Reused source image"
 
 
 def adjudicate() -> dict[str, Any]:
-    conflicts = json.loads(CONFLICTS_PATH.read_text(encoding="utf-8"))
+    records = json.loads(SLIDES_PATH.read_text(encoding="utf-8"))
     presentations = sorted(PRESENTATION_DIR.glob("*.pptx"))
     if len(presentations) != 1:
         raise FileNotFoundError(
@@ -72,61 +78,60 @@ def adjudicate() -> dict[str, Any]:
         )
     presentation = presentations[0]
     ppt_pages = _presentation_image_pages(presentation)
+    records_by_slide = {int(record["slide"]): record for record in records}
+    assets: dict[str, list[int]] = defaultdict(list)
+    for record in records:
+        for asset in record.get("images") or []:
+            assets[str(asset)].append(int(record["slide"]))
     decisions = []
-    assets: dict[str, dict[str, Any]] = {}
+    asset_decisions: dict[str, dict[str, Any]] = {}
 
-    for index, conflict in enumerate(conflicts, 1):
-        source_assets = sorted({_source_asset(path) for path in conflict["files"]})
-        source_digests = {
-            hashlib.md5((ROOT / path).read_bytes()).hexdigest() for path in source_assets
-        }
-        relevant_pages = sorted({_slide_number(path) for path in source_assets})
-        confirmed_pages = sorted(
-            {
-                page
-                for digest in source_digests
-                for page in ppt_pages.get(digest, [])
-                if page in relevant_pages
-            }
-        )
-        if set(confirmed_pages) != set(relevant_pages):
-            raise ValueError(
-                f"Conflict {index} is not confirmed as exact PPT reuse: "
-                f"expected pages {relevant_pages}, confirmed {confirmed_pages}"
-            )
+    reused_assets = []
+    for asset, referenced_pages in assets.items():
+        digest = hashlib.md5((ROOT / asset).read_bytes()).hexdigest()
+        source_pages = ppt_pages.get(digest, [])
+        if len(source_pages) > 1:
+            reused_assets.append((asset, digest, source_pages, referenced_pages))
 
-        caption_zh, caption_en = _topic(conflict["usages"])
-        pages_zh = "、".join(str(page) for page in relevant_pages)
-        pages_en = ", ".join(str(page) for page in relevant_pages)
+    for index, (asset, digest, source_pages, referenced_pages) in enumerate(
+        sorted(reused_assets, key=lambda item: (_slide_number(item[0]), item[0])), 1
+    ):
+        context_records = [
+            records_by_slide[slide]
+            for slide in sorted(set(referenced_pages))
+            if slide in records_by_slide
+        ]
+        caption_zh, caption_en = _topic(context_records)
+        pages_zh = "、".join(str(page) for page in source_pages)
+        pages_en = ", ".join(str(page) for page in source_pages)
         decision = {
             "id": f"reuse-{index:02d}",
-            "content_hash": conflict["hash"],
+            "content_hash": digest,
             "decision": "SOURCE_REUSE",
             "confidence": 1.0,
-            "source_slides": relevant_pages,
+            "source_slides": source_pages,
             "caption_zh": caption_zh,
             "caption_en": caption_en,
             "reason_zh": f"PPT 原始文件在第 {pages_zh} 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
             "reason_en": f"The source presentation reuses the exact same image binary on slides {pages_en}; it cannot establish a unique model or region.",
-            "source_assets": source_assets,
-            "usages": conflict["usages"],
+            "source_assets": [asset],
+            "referenced_slides": sorted(set(referenced_pages)),
         }
         decisions.append(decision)
-        for asset in source_assets:
-            assets[asset] = {
-                "decision_id": decision["id"],
-                "decision": decision["decision"],
-                "source_slides": relevant_pages,
-                "caption_zh": caption_zh,
-                "caption_en": caption_en,
-            }
+        asset_decisions[asset] = {
+            "decision_id": decision["id"],
+            "decision": decision["decision"],
+            "source_slides": source_pages,
+            "caption_zh": caption_zh,
+            "caption_en": caption_en,
+        }
 
     payload = {
         "source_presentation": presentation.relative_to(ROOT).as_posix(),
         "method": "Exact binary-image reuse verified inside the source PPTX; no model or region inferred from filenames.",
         "decision_count": len(decisions),
         "decisions": decisions,
-        "assets": assets,
+        "assets": asset_decisions,
     }
     DECISIONS_PATH.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"

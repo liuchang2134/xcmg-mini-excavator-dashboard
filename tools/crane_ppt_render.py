@@ -1253,8 +1253,15 @@ def _render_regional_crane_sales(charts: list[dict[str, Any]]) -> str:
     )
 
 
-def _render_images(record: dict[str, Any], compact_captions: bool = False) -> str:
-    images = record.get("images") or []
+def _render_images(
+    record: dict[str, Any],
+    compact_captions: bool = False,
+    seen_images: set[str] | None = None,
+) -> str:
+    images = list(record.get("images") or [])
+    if seen_images is not None:
+        images = [path for path in images if path not in seen_images]
+        seen_images.update(images)
     if not images:
         return ""
     override_captions = IMAGE_CAPTION_OVERRIDES.get(record["slide"], ())
@@ -1374,6 +1381,7 @@ def render_slide_record(
     record: dict[str, Any],
     include_media: bool = True,
     compact_context: bool = False,
+    seen_images: set[str] | None = None,
 ) -> str:
     tables = [
         (index, table)
@@ -1389,7 +1397,7 @@ def render_slide_record(
         ]
     charts = [chart for chart in charts if chart]
     body = _paragraphs(record)
-    media = _render_images(record) if include_media else ""
+    media = _render_images(record, seen_images=seen_images) if include_media else ""
     table_html = "".join(
         _render_table(table, record["slide"], index)
         for index, table in tables
@@ -1456,6 +1464,7 @@ def render_class_context(class_id: str, language: str = "zh") -> str:
     segment = data["segments"][class_id]
     status = "plan" if segment["source_scope"] == "plan" else "current-at-source-date"
     sections = []
+    seen_images: set[str] = set()
     for section_id, title_zh, title_en, lead_zh, lead_en in CLASS_PAGE_SECTIONS:
         if section_id == "market-insight":
             lead_zh = f"{intro_zh}{lead_zh}"
@@ -1464,7 +1473,12 @@ def render_class_context(class_id: str, language: str = "zh") -> str:
         records = [data["by_slide"][number] for number in slide_numbers]
         if records:
             records_html = "".join(
-                render_slide_record(record, include_media=True, compact_context=True)
+                render_slide_record(
+                    record,
+                    include_media=True,
+                    compact_context=True,
+                    seen_images=seen_images,
+                )
                 for record in records
             )
         else:

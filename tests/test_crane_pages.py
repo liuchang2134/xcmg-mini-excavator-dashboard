@@ -1,4 +1,6 @@
 from pathlib import Path
+from collections import Counter
+import hashlib
 import json
 import re
 
@@ -42,7 +44,7 @@ def test_reused_ppt_images_have_neutral_captions_and_source_pages():
             encoding="utf-8"
         )
     )
-    assert manifest["decision_count"] == 23
+    assert manifest["decision_count"] == 37
     assert {item["decision"] for item in manifest["decisions"]} == {"SOURCE_REUSE"}
 
     rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
@@ -51,6 +53,23 @@ def test_reused_ppt_images_have_neutral_captions_and_source_pages():
     assert caption in rt60
     assert caption in rt100
     assert "徐工XCR100_U客户使用评价对标 · 评价图像 2" not in rt100
+
+
+def test_crane_ppt_assets_are_content_deduplicated():
+    for directory in ("assets/crane-ppt-source", "assets/crane-ppt-display"):
+        files = sorted((ROOT / directory).glob("*"))
+        assert len(files) == 230
+        digests = Counter(hashlib.md5(path.read_bytes()).hexdigest() for path in files)
+        assert all(count == 1 for count in digests.values())
+
+    source = json.loads(
+        (ROOT / "data" / "crane-ppt-insights" / "source.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert source["generated_assets"] == 230
+    assert source["deduplicated_groups"] == 37
+    assert source["deduplicated_files"] == 51
 
 
 def test_crane_pages_preserve_unknowns_and_exclude_stale_excavator_scoring():

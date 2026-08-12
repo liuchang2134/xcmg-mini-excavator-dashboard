@@ -389,6 +389,18 @@ def build_crane_ppt_insights(source: Path | None = None) -> dict[str, Any]:
             }
         )
 
+    try:
+        from .deduplicate_crane_ppt_images import deduplicate
+    except ImportError:
+        from deduplicate_crane_ppt_images import deduplicate
+
+    dedupe_result = deduplicate(
+        records,
+        evidence,
+        update_manifests=False,
+        delete_files=True,
+    )
+
     segment_map = {
         name: {**CLASS_META[name], "slides": slides}
         for name, slides in CLASS_SLIDES.items()
@@ -403,14 +415,16 @@ def build_crane_ppt_insights(source: Path | None = None) -> dict[str, Any]:
             "sha256": source_hash,
             "slide_count": len(records),
             "source_date": SOURCE_DATE,
-            "generated_assets": sum(len(item["images"]) for item in records),
+            "generated_assets": dedupe_result["unique_assets"],
+            "deduplicated_groups": dedupe_result["duplicate_groups"],
+            "deduplicated_files": dedupe_result["removed_files"],
             "native_tables": sum(len(item["tables"]) for item in records),
             "native_charts": sum(len(item["charts"]) for item in records),
         },
     )
     return {
         "slide_count": len(records),
-        "asset_count": sum(len(item["images"]) for item in records),
+        "asset_count": dedupe_result["unique_assets"],
         "table_count": sum(len(item["tables"]) for item in records),
         "chart_count": sum(len(item["charts"]) for item in records),
     }

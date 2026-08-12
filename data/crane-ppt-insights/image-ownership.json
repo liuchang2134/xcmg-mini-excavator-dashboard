@@ -1,230 +1,94 @@
 {
   "source_presentation": "data/source-presentations/XCMG_North_America_Crane_Market_Insight_2025-07-01_V13_source.pptx",
   "method": "Exact binary-image reuse verified inside the source PPTX; no model or region inferred from filenames.",
-  "decision_count": 23,
+  "decision_count": 37,
   "decisions": [
     {
       "id": "reuse-01",
-      "content_hash": "5e989141fc2e6ef182f5ebe2354d4805",
+      "content_hash": "1b2977328a98955bc33aa7df7d4d0246",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
       "source_slides": [
-        90,
-        103
+        11,
+        29
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
-      "reason_zh": "PPT 原始文件在第 90、103 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 90, 103; it cannot establish a unique model or region.",
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image",
+      "reason_zh": "PPT 原始文件在第 11、29 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 11, 29; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg",
-        "assets/crane-ppt-source/s103-image-07-2a20456bf8.jpg"
+        "assets/crane-ppt-source/s011-image-10-997929764b.jpg"
       ],
-      "usages": [
-        {
-          "page": "crane-rt-100t",
-          "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 2"
-        },
-        {
-          "page": "crane-rt-60t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"
-        },
-        {
-          "page": "crane-rt-75t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"
-        }
+      "referenced_slides": [
+        11,
+        29
       ]
     },
     {
       "id": "reuse-02",
-      "content_hash": "481c5f5ef88aba9f17f6499a2c8367f1",
+      "content_hash": "fe527b2e02aa29771e0b17dca77a384f",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
       "source_slides": [
-        93,
-        106
+        12,
+        28
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
-      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image",
+      "reason_zh": "PPT 原始文件在第 12、28 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 12, 28; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s093-image-07-7bc4e5204c.jpg",
-        "assets/crane-ppt-source/s106-image-07-7bc4e5204c.jpg"
+        "assets/crane-ppt-source/s012-image-05-1d04b732fe.jpg"
       ],
-      "usages": [
-        {
-          "page": "crane-rt-100t",
-          "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 2"
-        },
-        {
-          "page": "crane-rt-60t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"
-        },
-        {
-          "page": "crane-rt-75t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 2"
-        }
+      "referenced_slides": [
+        12,
+        28
       ]
     },
     {
       "id": "reuse-03",
-      "content_hash": "a307b9a31a0991f87cbf20e057560e33",
+      "content_hash": "ba85e9323bba380bcb330c9be6df63cb",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
       "source_slides": [
-        93,
-        106
+        12,
+        28
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
-      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image",
+      "reason_zh": "PPT 原始文件在第 12、28 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 12, 28; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s093-image-08-acf78a6c28.jpg",
-        "assets/crane-ppt-source/s106-image-08-acf78a6c28.jpg"
+        "assets/crane-ppt-source/s012-image-10-9da9aa33cb.png"
       ],
-      "usages": [
-        {
-          "page": "crane-rt-100t",
-          "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 3"
-        },
-        {
-          "page": "crane-rt-60t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 3"
-        },
-        {
-          "page": "crane-rt-75t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 3"
-        }
+      "referenced_slides": [
+        12,
+        28
       ]
     },
     {
       "id": "reuse-04",
-      "content_hash": "04b8d3352828fd2f98d2d4d7aab6d157",
+      "content_hash": "bf0a22f7942f8c9291d93fad856f4c24",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
       "source_slides": [
-        93,
-        106
+        13,
+        29
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
-      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image",
+      "reason_zh": "PPT 原始文件在第 13、29 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 13, 29; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s093-image-09-c6b6dd0e06.jpg",
-        "assets/crane-ppt-source/s106-image-09-c6b6dd0e06.jpg"
+        "assets/crane-ppt-source/s013-image-05-f829a17585.jpg"
       ],
-      "usages": [
-        {
-          "page": "crane-rt-100t",
-          "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 4"
-        },
-        {
-          "page": "crane-rt-60t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 4"
-        },
-        {
-          "page": "crane-rt-75t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 4"
-        }
+      "referenced_slides": [
+        13,
+        29
       ]
     },
     {
       "id": "reuse-05",
-      "content_hash": "e65ac0743c1d7e16baae8d7ec9a9bfbd",
-      "decision": "SOURCE_REUSE",
-      "confidence": 1.0,
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
-      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
-      "source_assets": [
-        "assets/crane-ppt-source/s093-image-10-671618ed7f.png",
-        "assets/crane-ppt-source/s106-image-10-671618ed7f.png"
-      ],
-      "usages": [
-        {
-          "page": "crane-rt-100t",
-          "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 5"
-        },
-        {
-          "page": "crane-rt-60t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 5"
-        },
-        {
-          "page": "crane-rt-75t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 5"
-        }
-      ]
-    },
-    {
-      "id": "reuse-06",
-      "content_hash": "27bd5b6563db8d263463d9bf87689e9d",
-      "decision": "SOURCE_REUSE",
-      "confidence": 1.0,
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
-      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
-      "source_assets": [
-        "assets/crane-ppt-source/s093-image-11-9dd8ce25b2.png",
-        "assets/crane-ppt-source/s106-image-11-9dd8ce25b2.png"
-      ],
-      "usages": [
-        {
-          "page": "crane-rt-100t",
-          "caption": "徐工XCR100_U客户使用评价对标 · 评价图像 6"
-        },
-        {
-          "page": "crane-rt-60t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 6"
-        },
-        {
-          "page": "crane-rt-75t",
-          "caption": "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 6"
-        }
-      ]
-    },
-    {
-      "id": "reuse-07",
-      "content_hash": "26d89439a1c3bb8d31e72d7ced904e02",
-      "decision": "SOURCE_REUSE",
-      "confidence": 1.0,
-      "source_slides": [
-        108,
-        112
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
-      "reason_zh": "PPT 原始文件在第 108、112 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 108, 112; it cannot establish a unique model or region.",
-      "source_assets": [
-        "assets/crane-ppt-source/s108-image-08-17b92c640d.jpg",
-        "assets/crane-ppt-source/s112-image-08-17b92c640d.jpg"
-      ],
-      "usages": [
-        {
-          "page": "crane-rt-130t",
-          "caption": "美国东北部市场与工况 · 应用场景 1"
-        },
-        {
-          "page": "crane-rt-130t",
-          "caption": "美国中西上市场与工况 · 应用场景 1"
-        }
-      ]
-    },
-    {
-      "id": "reuse-08",
       "content_hash": "7d6e24f38ddabe43bb01f2878d90f831",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
@@ -237,78 +101,36 @@
       "reason_zh": "PPT 原始文件在第 13、110 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 13, 110; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s013-image-09-567139ec82.png",
-        "assets/crane-ppt-source/s110-image-08-567139ec82.png"
+        "assets/crane-ppt-source/s013-image-09-567139ec82.png"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "美国东南部市场与工况 · 应用场景 2"
-        },
-        {
-          "page": "crane-rt-130t",
-          "caption": "美国东南部市场与工况 · 应用场景 1"
-        }
+      "referenced_slides": [
+        13,
+        110
       ]
     },
     {
-      "id": "reuse-09",
-      "content_hash": "5395011de9aa5877ae06f89bcee3d0c7",
+      "id": "reuse-06",
+      "content_hash": "e34ce7af52f011ceb09c10645762c0d0",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
       "source_slides": [
-        113,
-        114
+        14,
+        30
       ],
       "caption_zh": "区域施工场景影像",
       "caption_en": "Regional jobsite image",
-      "reason_zh": "PPT 原始文件在第 113、114 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 113, 114; it cannot establish a unique model or region.",
+      "reason_zh": "PPT 原始文件在第 14、30 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 14, 30; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s113-image-10-73c37360a4.jpg",
-        "assets/crane-ppt-source/s114-image-10-73c37360a4.jpg"
+        "assets/crane-ppt-source/s014-image-05-146b9953dc.jpg"
       ],
-      "usages": [
-        {
-          "page": "crane-rt-130t",
-          "caption": "加拿大安大略市场与工况 · 应用场景 3"
-        },
-        {
-          "page": "crane-rt-130t",
-          "caption": "美国西海岸市场与工况 · 应用场景 3"
-        }
+      "referenced_slides": [
+        14,
+        30
       ]
     },
     {
-      "id": "reuse-10",
-      "content_hash": "06144d5a6860309d14b593ac4054d80c",
-      "decision": "SOURCE_REUSE",
-      "confidence": 1.0,
-      "source_slides": [
-        12,
-        28
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
-      "reason_zh": "PPT 原始文件在第 12、28 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 12, 28; it cannot establish a unique model or region.",
-      "source_assets": [
-        "assets/crane-ppt-source/s012-image-10-9da9aa33cb.png",
-        "assets/crane-ppt-source/s028-image-07-9da9aa33cb.png"
-      ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "美国中东部市场与工况 · 应用场景 2"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "美国中东部市场与工况 · 应用场景 3"
-        }
-      ]
-    },
-    {
-      "id": "reuse-11",
+      "id": "reuse-07",
       "content_hash": "029bcdcfec21308eeb70a23639b36d41",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
@@ -321,22 +143,78 @@
       "reason_zh": "PPT 原始文件在第 14、30 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 14, 30; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s014-image-10-f62646e57e.png",
-        "assets/crane-ppt-source/s030-image-07-f62646e57e.png"
+        "assets/crane-ppt-source/s014-image-10-f62646e57e.png"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "美国南中部市场与工况 · 应用场景 2"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "美国南中部市场与工况 · 应用场景 3"
-        }
+      "referenced_slides": [
+        14,
+        30
       ]
     },
     {
-      "id": "reuse-12",
+      "id": "reuse-08",
+      "content_hash": "773dcaeaa34221b5905703d6a40a7761",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        15,
+        32
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image",
+      "reason_zh": "PPT 原始文件在第 15、32 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 15, 32; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s015-image-07-01eb6f9c4f.jpg"
+      ],
+      "referenced_slides": [
+        15,
+        32
+      ]
+    },
+    {
+      "id": "reuse-09",
+      "content_hash": "80d547b73d823936d767df63cee5a295",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        16,
+        47
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image",
+      "reason_zh": "PPT 原始文件在第 16、47 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 16, 47; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s016-image-10-55934992ac.png"
+      ],
+      "referenced_slides": [
+        16,
+        47
+      ]
+    },
+    {
+      "id": "reuse-10",
+      "content_hash": "1aa58a0b38d8b8f766bbf15b43d99ddc",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        21,
+        25
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 21、25 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 21, 25; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s021-image-06-a410f0ea73.png"
+      ],
+      "referenced_slides": [
+        21,
+        25
+      ]
+    },
+    {
+      "id": "reuse-11",
       "content_hash": "777d8bbfae7860441ef53e9d0de95fae",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
@@ -352,45 +230,19 @@
       "reason_zh": "PPT 原始文件在第 22、36、38、51、53 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 22, 36, 38, 51, 53; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s022-image-06-965d4da744.png",
-        "assets/crane-ppt-source/s022-image-07-965d4da744.png",
-        "assets/crane-ppt-source/s036-image-06-965d4da744.png",
-        "assets/crane-ppt-source/s038-image-04-965d4da744.png",
-        "assets/crane-ppt-source/s038-image-05-965d4da744.png",
-        "assets/crane-ppt-source/s051-image-06-965d4da744.png",
-        "assets/crane-ppt-source/s053-image-04-965d4da744.png",
-        "assets/crane-ppt-source/s053-image-05-965d4da744.png"
+        "assets/crane-ppt-source/s022-image-06-965d4da744.png"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 1"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 2"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 2"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 1"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 2"
-        }
+      "referenced_slides": [
+        22,
+        36,
+        38,
+        51,
+        53
       ]
     },
     {
-      "id": "reuse-13",
-      "content_hash": "fad6cd30ee9b692b90e1392d32d89a9b",
+      "id": "reuse-12",
+      "content_hash": "a4b30dd89b9466b500f9556e9372a245",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
       "source_slides": [
@@ -403,23 +255,35 @@
       "reason_zh": "PPT 原始文件在第 22、38、53 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 22, 38, 53; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s022-image-08-318ab1b5de.png",
-        "assets/crane-ppt-source/s038-image-06-318ab1b5de.png",
-        "assets/crane-ppt-source/s053-image-06-318ab1b5de.png"
+        "assets/crane-ppt-source/s022-image-08-318ab1b5de.png"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 3"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 3"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 3"
-        }
+      "referenced_slides": [
+        22,
+        38,
+        53
+      ]
+    },
+    {
+      "id": "reuse-13",
+      "content_hash": "2925eed0a7ce945a56064de3e3f6fcb6",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        23,
+        39,
+        54
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 23、39、54 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 23, 39, 54; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s023-image-06-31c6da551c.jpg"
+      ],
+      "referenced_slides": [
+        23,
+        39,
+        54
       ]
     },
     {
@@ -436,18 +300,11 @@
       "reason_zh": "PPT 原始文件在第 23、39 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 23, 39; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s023-image-07-184facd015.png",
-        "assets/crane-ppt-source/s039-image-05-184facd015.png"
+        "assets/crane-ppt-source/s023-image-07-184facd015.png"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 2"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 2"
-        }
+      "referenced_slides": [
+        23,
+        39
       ]
     },
     {
@@ -465,28 +322,63 @@
       "reason_zh": "PPT 原始文件在第 23、39、54 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 23, 39, 54; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s023-image-08-3231b6f250.png",
-        "assets/crane-ppt-source/s039-image-06-3231b6f250.png",
-        "assets/crane-ppt-source/s054-image-05-3231b6f250.png"
+        "assets/crane-ppt-source/s023-image-08-3231b6f250.png"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 3"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 3"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 2"
-        }
+      "referenced_slides": [
+        23,
+        39,
+        54
       ]
     },
     {
       "id": "reuse-16",
-      "content_hash": "344f4846ddc6028ad200bba6be4f3c42",
+      "content_hash": "8a970d9fd0587a3452d41f5eac1d16be",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        24,
+        40,
+        55
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 24、40、55 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 24, 40, 55; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s024-image-06-363895689f.png"
+      ],
+      "referenced_slides": [
+        24,
+        40,
+        55
+      ]
+    },
+    {
+      "id": "reuse-17",
+      "content_hash": "542bb7e6824b7e5363316d6e1e2d6075",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        24,
+        40,
+        55
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 24、40、55 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 24, 40, 55; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s024-image-07-d5f6ceaa0b.png"
+      ],
+      "referenced_slides": [
+        24,
+        40,
+        55
+      ]
+    },
+    {
+      "id": "reuse-18",
+      "content_hash": "a494da48330b106f455ca6c320b7413a",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
       "source_slides": [
@@ -499,27 +391,37 @@
       "reason_zh": "PPT 原始文件在第 25、41、56 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 25, 41, 56; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s025-image-06-4ea098324a.png",
-        "assets/crane-ppt-source/s041-image-04-4ea098324a.png",
-        "assets/crane-ppt-source/s056-image-04-4ea098324a.png"
+        "assets/crane-ppt-source/s025-image-06-4ea098324a.png"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT35_U客户使用评价对标 · 评价图像 1"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 1"
-        }
+      "referenced_slides": [
+        25,
+        41,
+        56
       ]
     },
     {
-      "id": "reuse-17",
+      "id": "reuse-19",
+      "content_hash": "66c86bddfd74cd4458aeb15f6ab4c454",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        27,
+        45
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image",
+      "reason_zh": "PPT 原始文件在第 27、45 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 27, 45; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s027-image-05-432396c4f6.png"
+      ],
+      "referenced_slides": [
+        27,
+        45
+      ]
+    },
+    {
+      "id": "reuse-20",
       "content_hash": "50ad30d48f60505e55fff35f3ea4b26f",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
@@ -532,22 +434,15 @@
       "reason_zh": "PPT 原始文件在第 36、51 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 36, 51; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s036-image-05-434dde21c9.jpg",
-        "assets/crane-ppt-source/s051-image-05-434dde21c9.jpg"
+        "assets/crane-ppt-source/s036-image-05-434dde21c9.jpg"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 1"
-        }
+      "referenced_slides": [
+        36,
+        51
       ]
     },
     {
-      "id": "reuse-18",
+      "id": "reuse-21",
       "content_hash": "41eb00648d4aedb69044fb6631e23c19",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
@@ -560,106 +455,37 @@
       "reason_zh": "PPT 原始文件在第 36、51 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 36, 51; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s036-image-07-8c32fd5504.jpg",
-        "assets/crane-ppt-source/s051-image-07-8c32fd5504.jpg"
+        "assets/crane-ppt-source/s036-image-07-8c32fd5504.jpg"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 3"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 3"
-        }
-      ]
-    },
-    {
-      "id": "reuse-19",
-      "content_hash": "0e9a2f73006a5b202fa2f10272c929ce",
-      "decision": "SOURCE_REUSE",
-      "confidence": 1.0,
-      "source_slides": [
-        37
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
-      "reason_zh": "PPT 原始文件在第 37 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 37; it cannot establish a unique model or region.",
-      "source_assets": [
-        "assets/crane-ppt-source/s037-image-06-28150f8964.jpg",
-        "assets/crane-ppt-source/s037-image-07-28150f8964.jpg"
-      ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 2"
-        }
-      ]
-    },
-    {
-      "id": "reuse-20",
-      "content_hash": "048cfd4b5c4982601f9afbaac5088816",
-      "decision": "SOURCE_REUSE",
-      "confidence": 1.0,
-      "source_slides": [
-        40,
-        55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
-      "reason_zh": "PPT 原始文件在第 40、55 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 40, 55; it cannot establish a unique model or region.",
-      "source_assets": [
-        "assets/crane-ppt-source/s040-image-04-c019935521.png",
-        "assets/crane-ppt-source/s055-image-04-c019935521.png"
-      ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 1"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 1"
-        }
-      ]
-    },
-    {
-      "id": "reuse-21",
-      "content_hash": "f2abedf77f2955b9254771634e73dfa6",
-      "decision": "SOURCE_REUSE",
-      "confidence": 1.0,
-      "source_slides": [
-        40,
-        55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
-      "reason_zh": "PPT 原始文件在第 40、55 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
-      "reason_en": "The source presentation reuses the exact same image binary on slides 40, 55; it cannot establish a unique model or region.",
-      "source_assets": [
-        "assets/crane-ppt-source/s040-image-05-363895689f.png",
-        "assets/crane-ppt-source/s055-image-05-363895689f.png"
-      ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 2"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 2"
-        }
+      "referenced_slides": [
+        36,
+        51
       ]
     },
     {
       "id": "reuse-22",
-      "content_hash": "3ba80648b0e2b7ebc3222422c4285788",
+      "content_hash": "0e9a2f73006a5b202fa2f10272c929ce",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        37,
+        41
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 37、41 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 37, 41; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s037-image-06-28150f8964.jpg"
+      ],
+      "referenced_slides": [
+        37,
+        41
+      ]
+    },
+    {
+      "id": "reuse-23",
+      "content_hash": "b29f0166d706e6d47ffc461ffc57cdc9",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
       "source_slides": [
@@ -671,22 +497,288 @@
       "reason_zh": "PPT 原始文件在第 40、55 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 40, 55; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s040-image-06-d5f6ceaa0b.png",
-        "assets/crane-ppt-source/s055-image-06-d5f6ceaa0b.png"
+        "assets/crane-ppt-source/s040-image-04-c019935521.png"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT40_U客户使用评价对标 · 评价图像 3"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "徐工型号XCT60_U客户使用评价对标 · 评价图像 3"
-        }
+      "referenced_slides": [
+        40,
+        55
       ]
     },
     {
-      "id": "reuse-23",
+      "id": "reuse-24",
+      "content_hash": "d3d6b99c7b6ac65c767b5b1b5ca8f5cd",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        60,
+        69
+      ],
+      "caption_zh": "源资料复用影像",
+      "caption_en": "Reused source image",
+      "reason_zh": "PPT 原始文件在第 60、69 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 60, 69; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s060-image-10-a99ffe1fa7.jpg"
+      ],
+      "referenced_slides": [
+        60,
+        69
+      ]
+    },
+    {
+      "id": "reuse-25",
+      "content_hash": "b7f3d168cfe07f3708150a831a3b76bc",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        90,
+        103
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 90、103 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 90, 103; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s090-image-06-3d52aad866.png"
+      ],
+      "referenced_slides": [
+        90,
+        103
+      ]
+    },
+    {
+      "id": "reuse-26",
+      "content_hash": "5e989141fc2e6ef182f5ebe2354d4805",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        90,
+        103
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 90、103 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 90, 103; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg"
+      ],
+      "referenced_slides": [
+        90,
+        103
+      ]
+    },
+    {
+      "id": "reuse-27",
+      "content_hash": "32a5c330aab3e5704ea00d05f8a26c48",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s093-image-06-ab65b3992d.png"
+      ],
+      "referenced_slides": [
+        93,
+        106
+      ]
+    },
+    {
+      "id": "reuse-28",
+      "content_hash": "1a047674ff91dc6453ea6a7f055fe0d5",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s093-image-07-7bc4e5204c.jpg"
+      ],
+      "referenced_slides": [
+        93,
+        106
+      ]
+    },
+    {
+      "id": "reuse-29",
+      "content_hash": "a307b9a31a0991f87cbf20e057560e33",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s093-image-08-acf78a6c28.jpg"
+      ],
+      "referenced_slides": [
+        93,
+        106
+      ]
+    },
+    {
+      "id": "reuse-30",
+      "content_hash": "c7058d8310ea078f9fdeebb95cf10ee2",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s093-image-09-c6b6dd0e06.jpg"
+      ],
+      "referenced_slides": [
+        93,
+        106
+      ]
+    },
+    {
+      "id": "reuse-31",
+      "content_hash": "b802ac1b1c8a7732f855727ef7393626",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s093-image-10-671618ed7f.png"
+      ],
+      "referenced_slides": [
+        93,
+        106
+      ]
+    },
+    {
+      "id": "reuse-32",
+      "content_hash": "27bd5b6563db8d263463d9bf87689e9d",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s093-image-11-9dd8ce25b2.png"
+      ],
+      "referenced_slides": [
+        93,
+        106
+      ]
+    },
+    {
+      "id": "reuse-33",
+      "content_hash": "26d89439a1c3bb8d31e72d7ced904e02",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        108,
+        112
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image",
+      "reason_zh": "PPT 原始文件在第 108、112 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 108, 112; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s108-image-08-17b92c640d.jpg"
+      ],
+      "referenced_slides": [
+        108,
+        112
+      ]
+    },
+    {
+      "id": "reuse-34",
+      "content_hash": "5395011de9aa5877ae06f89bcee3d0c7",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        113,
+        114
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image",
+      "reason_zh": "PPT 原始文件在第 113、114 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 113, 114; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s113-image-10-73c37360a4.jpg"
+      ],
+      "referenced_slides": [
+        113,
+        114
+      ]
+    },
+    {
+      "id": "reuse-35",
+      "content_hash": "2e20e4c09073b920be55c3a951597841",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        125,
+        126
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image",
+      "reason_zh": "PPT 原始文件在第 125、126 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 125, 126; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s125-image-06-4eb4a4ed89.png"
+      ],
+      "referenced_slides": [
+        125,
+        126
+      ]
+    },
+    {
+      "id": "reuse-36",
+      "content_hash": "06957fe9215032903dc731d949c451a4",
+      "decision": "SOURCE_REUSE",
+      "confidence": 1.0,
+      "source_slides": [
+        134,
+        135
+      ],
+      "caption_zh": "产品改进支撑影像",
+      "caption_en": "Product improvement reference image",
+      "reason_zh": "PPT 原始文件在第 134、135 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
+      "reason_en": "The source presentation reuses the exact same image binary on slides 134, 135; it cannot establish a unique model or region.",
+      "source_assets": [
+        "assets/crane-ppt-source/s134-image-04-026e29b44f.png"
+      ],
+      "referenced_slides": [
+        134,
+        135
+      ]
+    },
+    {
+      "id": "reuse-37",
       "content_hash": "569b05f3ee4b8e0775d0a244f741399f",
       "decision": "SOURCE_REUSE",
       "confidence": 1.0,
@@ -699,204 +791,37 @@
       "reason_zh": "PPT 原始文件在第 137、138 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 137, 138; it cannot establish a unique model or region.",
       "source_assets": [
-        "assets/crane-ppt-source/s137-image-05-ead1e1eea6.png",
-        "assets/crane-ppt-source/s138-image-06-ead1e1eea6.png"
+        "assets/crane-ppt-source/s137-image-05-ead1e1eea6.png"
       ],
-      "usages": [
-        {
-          "page": "crane-market-overview",
-          "caption": "聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 1"
-        },
-        {
-          "page": "crane-market-overview",
-          "caption": "聚焦通用底盘、越野吊工况适应性和人性化提升，全地面攻关产品可靠性，提升起重机产品综合竞争力： · 图像 2"
-        }
+      "referenced_slides": [
+        137,
+        138
       ]
     }
   ],
   "assets": {
-    "assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg": {
+    "assets/crane-ppt-source/s011-image-10-997929764b.jpg": {
       "decision_id": "reuse-01",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        90,
-        103
+        11,
+        29
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image"
     },
-    "assets/crane-ppt-source/s103-image-07-2a20456bf8.jpg": {
-      "decision_id": "reuse-01",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        90,
-        103
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s093-image-07-7bc4e5204c.jpg": {
+    "assets/crane-ppt-source/s012-image-05-1d04b732fe.jpg": {
       "decision_id": "reuse-02",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s106-image-07-7bc4e5204c.jpg": {
-      "decision_id": "reuse-02",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s093-image-08-acf78a6c28.jpg": {
-      "decision_id": "reuse-03",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s106-image-08-acf78a6c28.jpg": {
-      "decision_id": "reuse-03",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s093-image-09-c6b6dd0e06.jpg": {
-      "decision_id": "reuse-04",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s106-image-09-c6b6dd0e06.jpg": {
-      "decision_id": "reuse-04",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s093-image-10-671618ed7f.png": {
-      "decision_id": "reuse-05",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s106-image-10-671618ed7f.png": {
-      "decision_id": "reuse-05",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s093-image-11-9dd8ce25b2.png": {
-      "decision_id": "reuse-06",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s106-image-11-9dd8ce25b2.png": {
-      "decision_id": "reuse-06",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        93,
-        106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s108-image-08-17b92c640d.jpg": {
-      "decision_id": "reuse-07",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        108,
-        112
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
-    },
-    "assets/crane-ppt-source/s112-image-08-17b92c640d.jpg": {
-      "decision_id": "reuse-07",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        108,
-        112
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
-    },
-    "assets/crane-ppt-source/s013-image-09-567139ec82.png": {
-      "decision_id": "reuse-08",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        13,
-        110
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
-    },
-    "assets/crane-ppt-source/s110-image-08-567139ec82.png": {
-      "decision_id": "reuse-08",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        13,
-        110
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
-    },
-    "assets/crane-ppt-source/s113-image-10-73c37360a4.jpg": {
-      "decision_id": "reuse-09",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        113,
-        114
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
-    },
-    "assets/crane-ppt-source/s114-image-10-73c37360a4.jpg": {
-      "decision_id": "reuse-09",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        113,
-        114
+        12,
+        28
       ],
       "caption_zh": "区域施工场景影像",
       "caption_en": "Regional jobsite image"
     },
     "assets/crane-ppt-source/s012-image-10-9da9aa33cb.png": {
-      "decision_id": "reuse-10",
+      "decision_id": "reuse-03",
       "decision": "SOURCE_REUSE",
       "source_slides": [
         12,
@@ -905,18 +830,38 @@
       "caption_zh": "区域施工场景影像",
       "caption_en": "Regional jobsite image"
     },
-    "assets/crane-ppt-source/s028-image-07-9da9aa33cb.png": {
-      "decision_id": "reuse-10",
+    "assets/crane-ppt-source/s013-image-05-f829a17585.jpg": {
+      "decision_id": "reuse-04",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        12,
-        28
+        13,
+        29
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image"
+    },
+    "assets/crane-ppt-source/s013-image-09-567139ec82.png": {
+      "decision_id": "reuse-05",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        13,
+        110
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image"
+    },
+    "assets/crane-ppt-source/s014-image-05-146b9953dc.jpg": {
+      "decision_id": "reuse-06",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        14,
+        30
       ],
       "caption_zh": "区域施工场景影像",
       "caption_en": "Regional jobsite image"
     },
     "assets/crane-ppt-source/s014-image-10-f62646e57e.png": {
-      "decision_id": "reuse-11",
+      "decision_id": "reuse-07",
       "decision": "SOURCE_REUSE",
       "source_slides": [
         14,
@@ -925,109 +870,38 @@
       "caption_zh": "区域施工场景影像",
       "caption_en": "Regional jobsite image"
     },
-    "assets/crane-ppt-source/s030-image-07-f62646e57e.png": {
-      "decision_id": "reuse-11",
+    "assets/crane-ppt-source/s015-image-07-01eb6f9c4f.jpg": {
+      "decision_id": "reuse-08",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        14,
-        30
+        15,
+        32
       ],
       "caption_zh": "区域施工场景影像",
       "caption_en": "Regional jobsite image"
+    },
+    "assets/crane-ppt-source/s016-image-10-55934992ac.png": {
+      "decision_id": "reuse-09",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        16,
+        47
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image"
+    },
+    "assets/crane-ppt-source/s021-image-06-a410f0ea73.png": {
+      "decision_id": "reuse-10",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        21,
+        25
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
     },
     "assets/crane-ppt-source/s022-image-06-965d4da744.png": {
-      "decision_id": "reuse-12",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        22,
-        36,
-        38,
-        51,
-        53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s022-image-07-965d4da744.png": {
-      "decision_id": "reuse-12",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        22,
-        36,
-        38,
-        51,
-        53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s036-image-06-965d4da744.png": {
-      "decision_id": "reuse-12",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        22,
-        36,
-        38,
-        51,
-        53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s038-image-04-965d4da744.png": {
-      "decision_id": "reuse-12",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        22,
-        36,
-        38,
-        51,
-        53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s038-image-05-965d4da744.png": {
-      "decision_id": "reuse-12",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        22,
-        36,
-        38,
-        51,
-        53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s051-image-06-965d4da744.png": {
-      "decision_id": "reuse-12",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        22,
-        36,
-        38,
-        51,
-        53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s053-image-04-965d4da744.png": {
-      "decision_id": "reuse-12",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        22,
-        36,
-        38,
-        51,
-        53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s053-image-05-965d4da744.png": {
-      "decision_id": "reuse-12",
+      "decision_id": "reuse-11",
       "decision": "SOURCE_REUSE",
       "source_slides": [
         22,
@@ -1040,7 +914,7 @@
       "caption_en": "Customer evaluation image"
     },
     "assets/crane-ppt-source/s022-image-08-318ab1b5de.png": {
-      "decision_id": "reuse-13",
+      "decision_id": "reuse-12",
       "decision": "SOURCE_REUSE",
       "source_slides": [
         22,
@@ -1050,39 +924,18 @@
       "caption_zh": "客户使用评价影像",
       "caption_en": "Customer evaluation image"
     },
-    "assets/crane-ppt-source/s038-image-06-318ab1b5de.png": {
+    "assets/crane-ppt-source/s023-image-06-31c6da551c.jpg": {
       "decision_id": "reuse-13",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        22,
-        38,
-        53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s053-image-06-318ab1b5de.png": {
-      "decision_id": "reuse-13",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        22,
-        38,
-        53
+        23,
+        39,
+        54
       ],
       "caption_zh": "客户使用评价影像",
       "caption_en": "Customer evaluation image"
     },
     "assets/crane-ppt-source/s023-image-07-184facd015.png": {
-      "decision_id": "reuse-14",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        23,
-        39
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s039-image-05-184facd015.png": {
       "decision_id": "reuse-14",
       "decision": "SOURCE_REUSE",
       "source_slides": [
@@ -1103,30 +956,30 @@
       "caption_zh": "客户使用评价影像",
       "caption_en": "Customer evaluation image"
     },
-    "assets/crane-ppt-source/s039-image-06-3231b6f250.png": {
-      "decision_id": "reuse-15",
+    "assets/crane-ppt-source/s024-image-06-363895689f.png": {
+      "decision_id": "reuse-16",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        23,
-        39,
-        54
+        24,
+        40,
+        55
       ],
       "caption_zh": "客户使用评价影像",
       "caption_en": "Customer evaluation image"
     },
-    "assets/crane-ppt-source/s054-image-05-3231b6f250.png": {
-      "decision_id": "reuse-15",
+    "assets/crane-ppt-source/s024-image-07-d5f6ceaa0b.png": {
+      "decision_id": "reuse-17",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        23,
-        39,
-        54
+        24,
+        40,
+        55
       ],
       "caption_zh": "客户使用评价影像",
       "caption_en": "Customer evaluation image"
     },
     "assets/crane-ppt-source/s025-image-06-4ea098324a.png": {
-      "decision_id": "reuse-16",
+      "decision_id": "reuse-18",
       "decision": "SOURCE_REUSE",
       "source_slides": [
         25,
@@ -1136,40 +989,18 @@
       "caption_zh": "客户使用评价影像",
       "caption_en": "Customer evaluation image"
     },
-    "assets/crane-ppt-source/s041-image-04-4ea098324a.png": {
-      "decision_id": "reuse-16",
+    "assets/crane-ppt-source/s027-image-05-432396c4f6.png": {
+      "decision_id": "reuse-19",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        25,
-        41,
-        56
+        27,
+        45
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s056-image-04-4ea098324a.png": {
-      "decision_id": "reuse-16",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        25,
-        41,
-        56
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image"
     },
     "assets/crane-ppt-source/s036-image-05-434dde21c9.jpg": {
-      "decision_id": "reuse-17",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        36,
-        51
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s051-image-05-434dde21c9.jpg": {
-      "decision_id": "reuse-17",
+      "decision_id": "reuse-20",
       "decision": "SOURCE_REUSE",
       "source_slides": [
         36,
@@ -1179,17 +1010,7 @@
       "caption_en": "Customer evaluation image"
     },
     "assets/crane-ppt-source/s036-image-07-8c32fd5504.jpg": {
-      "decision_id": "reuse-18",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        36,
-        51
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s051-image-07-8c32fd5504.jpg": {
-      "decision_id": "reuse-18",
+      "decision_id": "reuse-21",
       "decision": "SOURCE_REUSE",
       "source_slides": [
         36,
@@ -1199,95 +1020,157 @@
       "caption_en": "Customer evaluation image"
     },
     "assets/crane-ppt-source/s037-image-06-28150f8964.jpg": {
-      "decision_id": "reuse-19",
+      "decision_id": "reuse-22",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        37
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s037-image-07-28150f8964.jpg": {
-      "decision_id": "reuse-19",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        37
+        37,
+        41
       ],
       "caption_zh": "客户使用评价影像",
       "caption_en": "Customer evaluation image"
     },
     "assets/crane-ppt-source/s040-image-04-c019935521.png": {
-      "decision_id": "reuse-20",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        40,
-        55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s055-image-04-c019935521.png": {
-      "decision_id": "reuse-20",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        40,
-        55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s040-image-05-363895689f.png": {
-      "decision_id": "reuse-21",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        40,
-        55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s055-image-05-363895689f.png": {
-      "decision_id": "reuse-21",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        40,
-        55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s040-image-06-d5f6ceaa0b.png": {
-      "decision_id": "reuse-22",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        40,
-        55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s055-image-06-d5f6ceaa0b.png": {
-      "decision_id": "reuse-22",
-      "decision": "SOURCE_REUSE",
-      "source_slides": [
-        40,
-        55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
-    },
-    "assets/crane-ppt-source/s137-image-05-ead1e1eea6.png": {
       "decision_id": "reuse-23",
       "decision": "SOURCE_REUSE",
       "source_slides": [
-        137,
-        138
+        40,
+        55
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s060-image-10-a99ffe1fa7.jpg": {
+      "decision_id": "reuse-24",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        60,
+        69
+      ],
+      "caption_zh": "源资料复用影像",
+      "caption_en": "Reused source image"
+    },
+    "assets/crane-ppt-source/s090-image-06-3d52aad866.png": {
+      "decision_id": "reuse-25",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        90,
+        103
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg": {
+      "decision_id": "reuse-26",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        90,
+        103
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s093-image-06-ab65b3992d.png": {
+      "decision_id": "reuse-27",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s093-image-07-7bc4e5204c.jpg": {
+      "decision_id": "reuse-28",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s093-image-08-acf78a6c28.jpg": {
+      "decision_id": "reuse-29",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s093-image-09-c6b6dd0e06.jpg": {
+      "decision_id": "reuse-30",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s093-image-10-671618ed7f.png": {
+      "decision_id": "reuse-31",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s093-image-11-9dd8ce25b2.png": {
+      "decision_id": "reuse-32",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        93,
+        106
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s108-image-08-17b92c640d.jpg": {
+      "decision_id": "reuse-33",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        108,
+        112
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image"
+    },
+    "assets/crane-ppt-source/s113-image-10-73c37360a4.jpg": {
+      "decision_id": "reuse-34",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        113,
+        114
+      ],
+      "caption_zh": "区域施工场景影像",
+      "caption_en": "Regional jobsite image"
+    },
+    "assets/crane-ppt-source/s125-image-06-4eb4a4ed89.png": {
+      "decision_id": "reuse-35",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        125,
+        126
+      ],
+      "caption_zh": "客户使用评价影像",
+      "caption_en": "Customer evaluation image"
+    },
+    "assets/crane-ppt-source/s134-image-04-026e29b44f.png": {
+      "decision_id": "reuse-36",
+      "decision": "SOURCE_REUSE",
+      "source_slides": [
+        134,
+        135
       ],
       "caption_zh": "产品改进支撑影像",
       "caption_en": "Product improvement reference image"
     },
-    "assets/crane-ppt-source/s138-image-06-ead1e1eea6.png": {
-      "decision_id": "reuse-23",
+    "assets/crane-ppt-source/s137-image-05-ead1e1eea6.png": {
+      "decision_id": "reuse-37",
       "decision": "SOURCE_REUSE",
       "source_slides": [
         137,
