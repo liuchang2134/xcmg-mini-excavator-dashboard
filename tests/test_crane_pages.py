@@ -70,6 +70,7 @@ def test_crane_ppt_assets_are_content_deduplicated():
     assert source["generated_assets"] == 230
     assert source["deduplicated_groups"] == 37
     assert source["deduplicated_files"] == 51
+    assert source["image_reuse_decisions"] == 37
 
 
 def test_crane_source_images_respect_web_resolution_limit():
@@ -645,6 +646,29 @@ def test_crane_gallery_uses_exported_image_aspect_ratio_without_fixed_crop_boxes
     assert "figure.layout-portrait" in css
 
 
+def test_every_rendered_low_resolution_crane_image_has_a_bilingual_lightbox_notice():
+    build_all()
+    page_names = [
+        "crane-market-overview.html",
+        *(definition["output"] for definition in PAGE_DEFINITIONS.values()),
+    ]
+    low_resolution_figures = 0
+    for page_name in page_names:
+        page = (ROOT / page_name).read_text(encoding="utf-8")
+        figures = re.findall(r"<figure\b.*?</figure>", page, flags=re.DOTALL)
+        for figure in figures:
+            match = re.search(r'data-source-resolution="(\d+)x(\d+)"', figure)
+            if not match:
+                continue
+            width, height = (int(value) for value in match.groups())
+            if max(width, height) >= 400:
+                continue
+            low_resolution_figures += 1
+            assert 'data-quality-note-zh="原始素材分辨率有限（' in figure
+            assert 'data-quality-note-en="Original source resolution is limited (' in figure
+    assert low_resolution_figures > 0
+
+
 def test_crane_class_images_are_integrated_with_their_business_context():
     css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
     assert ".classContextGroup .craneInsightRecords{grid-template-columns:minmax(0,1fr)}" in css
@@ -654,7 +678,8 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     build_all()
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
-        assert "assets/crane-insights.css?v=20260812d" in page
+        assert "assets/crane-insights.css?v=20260812e" in page
+        assert "assets/crane-insights.js?v=20260812f" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
     job_section = rt75_page.split('id="job-applications"', 1)[1].split(
@@ -669,6 +694,8 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     assert 'class="source-low ' in rt75_page
     assert "--evidence-max-width:" in rt75_page
     assert 'data-source-resolution="' in rt75_page
+    assert 'data-quality-note-zh="原始素材分辨率有限（' in rt75_page
+    assert 'data-quality-note-en="Original source resolution is limited (' in rt75_page
 
     rt160_page = (ROOT / "crane-rt-160t.html").read_text(encoding="utf-8")
     assert rt160_page.count('class="classEvidenceBoundary"') == 2

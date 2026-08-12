@@ -400,12 +400,6 @@ def build_crane_ppt_insights(source: Path | None = None) -> dict[str, Any]:
         update_manifests=False,
         delete_files=True,
     )
-    try:
-        from .resize_crane_ppt_source_images import resize_oversized_images
-    except ImportError:
-        from resize_crane_ppt_source_images import resize_oversized_images
-
-    resize_result = resize_oversized_images()
 
     segment_map = {
         name: {**CLASS_META[name], "slides": slides}
@@ -414,6 +408,20 @@ def build_crane_ppt_insights(source: Path | None = None) -> dict[str, Any]:
     _write_json("slides.json", records)
     _write_json("segment-map.json", segment_map)
     _write_json("evidence.json", evidence)
+
+    try:
+        from .adjudicate_crane_image_conflicts import adjudicate
+    except ImportError:
+        from adjudicate_crane_image_conflicts import adjudicate
+
+    ownership_result = adjudicate(source_path)
+
+    try:
+        from .resize_crane_ppt_source_images import resize_oversized_images
+    except ImportError:
+        from resize_crane_ppt_source_images import resize_oversized_images
+
+    resize_result = resize_oversized_images()
     _write_json(
         "source.json",
         {
@@ -424,6 +432,7 @@ def build_crane_ppt_insights(source: Path | None = None) -> dict[str, Any]:
             "generated_assets": dedupe_result["unique_assets"],
             "deduplicated_groups": dedupe_result["duplicate_groups"],
             "deduplicated_files": dedupe_result["removed_files"],
+            "image_reuse_decisions": ownership_result["decision_count"],
             "resized_oversized_assets": resize_result["resized_count"],
             "source_image_long_edge_limit": resize_result["long_edge"],
             "native_tables": sum(len(item["tables"]) for item in records),

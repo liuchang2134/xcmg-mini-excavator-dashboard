@@ -48,10 +48,11 @@
 
   const lightbox = document.createElement('dialog');
   lightbox.className = 'insightLightbox';
-  lightbox.innerHTML = '<button type="button" class="insightLightboxClose" aria-label="关闭">&times;</button><img alt=""><p></p>';
+  lightbox.innerHTML = '<button type="button" class="insightLightboxClose" aria-label="关闭">&times;</button><img alt=""><div class="insightLightboxMeta"><p class="insightLightboxCaption"></p><p class="insightLightboxQuality" hidden></p></div>';
   document.body.appendChild(lightbox);
   const lightboxImage = lightbox.querySelector('img');
-  const lightboxCaption = lightbox.querySelector('p');
+  const lightboxCaption = lightbox.querySelector('.insightLightboxCaption');
+  const lightboxQuality = lightbox.querySelector('.insightLightboxQuality');
   const closeLightbox = () => lightbox.close();
   lightbox.querySelector('.insightLightboxClose').addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (event) => {
@@ -59,9 +60,18 @@
   });
   document.querySelectorAll('.insightImageButton').forEach((button) => {
     button.addEventListener('click', () => {
+      const isEnglish = document.documentElement.dataset.language === 'en';
+      const caption = isEnglish
+        ? (button.dataset.captionEn || button.dataset.caption || '')
+        : (button.dataset.captionZh || button.dataset.caption || '');
+      const qualityNote = isEnglish
+        ? (button.dataset.qualityNoteEn || '')
+        : (button.dataset.qualityNoteZh || '');
       lightboxImage.src = button.dataset.fullSrc || '';
-      lightboxImage.alt = button.dataset.caption || '';
-      lightboxCaption.textContent = button.dataset.caption || '';
+      lightboxImage.alt = caption;
+      lightboxCaption.textContent = caption;
+      lightboxQuality.textContent = qualityNote;
+      lightboxQuality.hidden = !qualityNote;
       lightbox.showModal();
     });
   });

@@ -1325,13 +1325,26 @@ def _render_images(
                 caption_en = f"{base_caption_en} · Image {index + 1}"
         display_width = _evidence_display_width(path)
         ratio_css = f"{preferred_width_px}/{preferred_height_px}" if preferred_width_px and preferred_height_px else "4/3"
+        low_resolution = max(source_width, source_height) < 400
+        quality_note_zh = (
+            f"原始素材分辨率有限（{source_width}×{source_height}）"
+            if low_resolution
+            else ""
+        )
+        quality_note_en = (
+            f"Original source resolution is limited ({source_width}×{source_height})"
+            if low_resolution
+            else ""
+        )
         figures.append(
             f'<figure class="{quality_class} {layout_class}" data-source-resolution="{source_width}x{source_height}" '
             f'data-display-resolution="{display_width_px}x{display_height_px}" '
             f'data-render-resolution="{preferred_width_px}x{preferred_height_px}" data-asset-mode="{asset_mode}" '
             f'style="--evidence-max-width:{display_width}px;--evidence-ratio:{ratio_css}">'
             '<button type="button" class="insightImageButton" '
-            f'data-full-src="{esc(path)}" data-source-src="{esc(path)}" data-ppt-src="{esc(display_path)}" data-caption="{esc(caption_en)}" '
+            f'data-full-src="{esc(path)}" data-source-src="{esc(path)}" data-ppt-src="{esc(display_path)}" '
+            f'data-caption="{esc(caption_en)}" data-caption-zh="{esc(caption)}" data-caption-en="{esc(caption_en)}" '
+            f'data-quality-note-zh="{esc(quality_note_zh)}" data-quality-note-en="{esc(quality_note_en)}" '
             f'aria-label="放大查看：{esc(caption)}" data-aria-label-en="Open full-size image: {esc(caption_en)}" '
             f'title="放大查看" data-title-en="Open full-size image">'
             f'<img src="{esc(preferred_path)}" alt="{esc(caption)}" data-alt-en="{esc(caption_en)}" '
@@ -1541,7 +1554,7 @@ def render_market_report_page() -> str:
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260812d">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260812d">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260812e">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
@@ -1559,7 +1572,7 @@ def render_market_report_page() -> str:
 <section class="reportScope"><b data-en="Market, regional, product and service insight">市场、区域、产品与服务洞察</b><p data-en="The market report presents information that cuts across capacity classes. Rough-terrain and all-terrain classes with governed Excel datasets retain their specifications, equipment, work-condition and ranking analyses on the corresponding benchmark pages.">总体报告承载跨吨级信息；已有Excel数据的越野吊与全地面吨级继续在各自正式页面中展示参数、配置、工况和排名。</p></section>
 {render_market_overview()}
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260812b"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260805e"></script>
+</main></div><script src="assets/dashboard.js?v=20260812b"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260812f"></script>
 </body></html>'''
 
 

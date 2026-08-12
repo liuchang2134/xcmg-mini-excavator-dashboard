@@ -69,14 +69,16 @@ def _topic(records: list[dict[str, Any]]) -> tuple[str, str]:
     return "源资料复用影像", "Reused source image"
 
 
-def adjudicate() -> dict[str, Any]:
+def adjudicate(presentation: Path | None = None) -> dict[str, Any]:
     records = json.loads(SLIDES_PATH.read_text(encoding="utf-8"))
-    presentations = sorted(PRESENTATION_DIR.glob("*.pptx"))
-    if len(presentations) != 1:
-        raise FileNotFoundError(
-            f"Expected one source presentation in {PRESENTATION_DIR}; found {len(presentations)}"
-        )
-    presentation = presentations[0]
+    if presentation is None:
+        presentations = sorted(PRESENTATION_DIR.glob("*.pptx"))
+        if len(presentations) != 1:
+            raise FileNotFoundError(
+                f"Expected one source presentation in {PRESENTATION_DIR}; found {len(presentations)}"
+            )
+        presentation = presentations[0]
+    presentation = Path(presentation)
     ppt_pages = _presentation_image_pages(presentation)
     records_by_slide = {int(record["slide"]): record for record in records}
     assets: dict[str, list[int]] = defaultdict(list)
@@ -127,7 +129,7 @@ def adjudicate() -> dict[str, Any]:
         }
 
     payload = {
-        "source_presentation": presentation.relative_to(ROOT).as_posix(),
+        "source_presentation": presentation.resolve().relative_to(ROOT.resolve()).as_posix(),
         "method": "Exact binary-image reuse verified inside the source PPTX; no model or region inferred from filenames.",
         "decision_count": len(decisions),
         "decisions": decisions,

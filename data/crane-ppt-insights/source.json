@@ -4,10 +4,11 @@
   "slide_count": 163,
   "source_date": "2025-07-01",
   "generated_assets": 230,
-  "native_tables": 354,
-  "native_charts": 26,
   "deduplicated_groups": 37,
   "deduplicated_files": 51,
-  "resized_oversized_assets": 0,
-  "source_image_long_edge_limit": 2000
+  "image_reuse_decisions": 37,
+  "resized_oversized_assets": 5,
+  "source_image_long_edge_limit": 2000,
+  "native_tables": 354,
+  "native_charts": 26
 }
