@@ -38,6 +38,7 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGE_DISPLAY_MANIFEST = ROOT / "data" / "crane-ppt-insights" / "image-display.json"
+IMAGE_OWNERSHIP_MANIFEST = ROOT / "data" / "crane-ppt-insights" / "image-ownership.json"
 TRANSLATION_FILE = ROOT / "data" / "crane-ppt-insights" / "translations.en.json"
 
 
@@ -53,6 +54,20 @@ def _load_image_display_map() -> dict[str, str]:
 
 
 IMAGE_DISPLAY_MAP = _load_image_display_map()
+
+
+def _load_image_ownership_map() -> dict[str, dict[str, Any]]:
+    if not IMAGE_OWNERSHIP_MANIFEST.exists():
+        return {}
+    payload = json.loads(IMAGE_OWNERSHIP_MANIFEST.read_text(encoding="utf-8"))
+    return {
+        str(source): dict(metadata)
+        for source, metadata in (payload.get("assets") or {}).items()
+        if source and isinstance(metadata, dict)
+    }
+
+
+IMAGE_OWNERSHIP_MAP = _load_image_ownership_map()
 
 
 @lru_cache(maxsize=None)
@@ -1246,6 +1261,7 @@ def _render_images(record: dict[str, Any], compact_captions: bool = False) -> st
     override_captions_en = IMAGE_CAPTION_OVERRIDES_EN.get(record["slide"], ())
     figures = []
     for index, path in enumerate(images):
+        ownership = IMAGE_OWNERSHIP_MAP.get(path)
         display_path = IMAGE_DISPLAY_MAP.get(path, path)
         preferred_path, preferred_size, asset_mode = _preferred_image_asset(path)
         source_width, source_height = _source_image_size(path)
@@ -1253,7 +1269,19 @@ def _render_images(record: dict[str, Any], compact_captions: bool = False) -> st
         preferred_width_px, preferred_height_px = preferred_size
         quality_class = _source_quality_class(path)
         layout_class = _image_layout_class(path)
-        if index < len(override_captions):
+        if ownership and ownership.get("decision") == "SOURCE_REUSE":
+            source_slides = [int(value) for value in ownership.get("source_slides", [])]
+            pages_zh = "、".join(str(value) for value in source_slides)
+            pages_en = ", ".join(str(value) for value in source_slides)
+            caption = (
+                f"{ownership.get('caption_zh', '资料复用影像')} · "
+                f"源资料复用于第 {pages_zh} 页"
+            )
+            caption_en = (
+                f"{ownership.get('caption_en', 'Reused source image')} · "
+                f"reused on source slides {pages_en}"
+            )
+        elif index < len(override_captions):
             caption = override_captions[index]
             caption_en = (
                 override_captions_en[index]

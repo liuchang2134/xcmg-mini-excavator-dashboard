@@ -35,6 +35,24 @@ def test_crane_builder_generates_overview_and_six_tonnage_pages():
         assert (ROOT / output).exists()
 
 
+def test_reused_ppt_images_have_neutral_captions_and_source_pages():
+    build_all()
+    manifest = json.loads(
+        (ROOT / "data" / "crane-ppt-insights" / "image-ownership.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert manifest["decision_count"] == 23
+    assert {item["decision"] for item in manifest["decisions"]} == {"SOURCE_REUSE"}
+
+    rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
+    rt100 = (ROOT / "crane-rt-100t.html").read_text(encoding="utf-8")
+    caption = "客户使用评价影像 · 源资料复用于第 90、103 页"
+    assert caption in rt60
+    assert caption in rt100
+    assert "徐工XCR100_U客户使用评价对标 · 评价图像 2" not in rt100
+
+
 def test_crane_pages_preserve_unknowns_and_exclude_stale_excavator_scoring():
     build_all()
     rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
