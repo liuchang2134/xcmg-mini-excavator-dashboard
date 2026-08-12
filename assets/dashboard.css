@@ -55,6 +55,9 @@
     main p{font-size:var(--font-body)!important}
     table{font-size:var(--font-xs)}
     table :is(th,td){font-size:var(--font-xs)!important}
+    /* Keep narrative lines scannable without narrowing data or media surfaces. */
+    main p{max-inline-size:34em;text-wrap:pretty}
+    :is(table,.tableScroll,.detailMatrix,.rawTable,.conditionHeatmap,.sourceVisualGrid) p{max-inline-size:none}
 /* Source charts are rebuilt from the embedded workbook data. */
 .sourceVisualGrid:has(.sourceDataChart){grid-template-columns:minmax(0,1fr)}
 .sourceDataChart{display:block;min-width:0;padding:0;border:1px solid #b8ccdd;background:#fff;overflow:hidden}

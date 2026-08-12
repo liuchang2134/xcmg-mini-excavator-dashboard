@@ -2816,6 +2816,9 @@ def render_html(model):
     main p{{font-size:var(--font-body)!important}}
     table{{font-size:var(--font-xs)}}
     table :is(th,td){{font-size:var(--font-xs)!important}}
+    /* Keep narrative lines scannable without narrowing data or media surfaces. */
+    main p{{max-inline-size:34em;text-wrap:pretty}}
+    :is(table,.tableScroll,.detailMatrix,.rawTable,.conditionHeatmap,.sourceVisualGrid) p{{max-inline-size:none}}
   </style>
 </head>
 <body>

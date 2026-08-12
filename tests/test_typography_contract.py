@@ -30,3 +30,9 @@ def test_dashboard_defines_and_enforces_readable_type_floor():
         assert token in css
     assert "main p{font-size:var(--font-body)!important}" in css
     assert "table :is(th,td){font-size:var(--font-xs)!important}" in css
+
+
+def test_narrative_measure_is_constrained_without_narrowing_data_surfaces():
+    css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
+    assert "main p{max-inline-size:34em;text-wrap:pretty}" in css
+    assert ":is(table,.tableScroll,.detailMatrix,.rawTable,.conditionHeatmap,.sourceVisualGrid) p{max-inline-size:none}" in css
