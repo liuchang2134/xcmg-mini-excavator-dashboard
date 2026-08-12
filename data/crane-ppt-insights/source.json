@@ -7,5 +7,7 @@
   "native_tables": 354,
   "native_charts": 26,
   "deduplicated_groups": 37,
-  "deduplicated_files": 51
+  "deduplicated_files": 51,
+  "resized_oversized_assets": 0,
+  "source_image_long_edge_limit": 2000
 }

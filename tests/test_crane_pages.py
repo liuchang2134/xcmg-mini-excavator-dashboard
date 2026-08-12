@@ -72,6 +72,15 @@ def test_crane_ppt_assets_are_content_deduplicated():
     assert source["deduplicated_files"] == 51
 
 
+def test_crane_source_images_respect_web_resolution_limit():
+    sizes = []
+    for path in sorted((ROOT / "assets" / "crane-ppt-source").glob("*")):
+        with Image.open(path) as image:
+            sizes.append(image.size)
+    assert sizes
+    assert max(max(size) for size in sizes) <= 2200
+
+
 def test_crane_pages_preserve_unknowns_and_exclude_stale_excavator_scoring():
     build_all()
     rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
