@@ -81,6 +81,22 @@ def test_crane_source_images_respect_web_resolution_limit():
     assert max(max(size) for size in sizes) <= 2200
 
 
+def test_full_slide_candidates_have_explicit_gallery_review_decisions():
+    review = json.loads(
+        (ROOT / "data" / "crane-ppt-insights" / "gallery-image-review.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert review["reviewed_count"] == 5
+    assert review["excluded_from_gallery"] == 0
+    assert len(review["items"]) == 5
+    assert {item["decision"] for item in review["items"]} == {"KEEP"}
+    for item in review["items"]:
+        assert (ROOT / item["path"]).exists()
+        assert item["reason_zh"]
+        assert item["reason_en"]
+
+
 def test_crane_pages_preserve_unknowns_and_exclude_stale_excavator_scoring():
     build_all()
     rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")

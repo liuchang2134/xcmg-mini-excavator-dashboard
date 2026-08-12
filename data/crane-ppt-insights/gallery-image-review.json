@@ -1,0 +1,48 @@
+{
+  "review_scope": "Five assets flagged by geometric heuristics as possible full-slide screenshots",
+  "review_method": "Manual visual inspection against the extracted source image and its PPT slide context",
+  "reviewed_count": 5,
+  "excluded_from_gallery": 0,
+  "items": [
+    {
+      "path": "assets/crane-ppt-source/s001-image-01-38973a58d6.png",
+      "decision": "KEEP",
+      "asset_type_zh": "演示文稿封面背景",
+      "asset_type_en": "Presentation cover background",
+      "reason_zh": "图像仅包含 XCMG 品牌背景和标识，不含整页标题、表格或正文，不属于整页截图。",
+      "reason_en": "The image is the XCMG cover background and mark only; it contains no slide title, table, or body copy and is not a full-slide screenshot."
+    },
+    {
+      "path": "assets/crane-ppt-source/s062-image-09-20dc1b9923.png",
+      "decision": "KEEP",
+      "asset_type_zh": "工业吊装现场照片",
+      "asset_type_en": "Industrial lifting jobsite photo",
+      "reason_zh": "原图为两台起重机协同吊装的现场照片，可直接支撑工况分析。",
+      "reason_en": "The source is a field photo of two cranes performing a coordinated lift and directly supports work-condition analysis."
+    },
+    {
+      "path": "assets/crane-ppt-source/s134-image-06-fbbb8c5242.png",
+      "decision": "KEEP",
+      "asset_type_zh": "XCMG 随车起重机实拍",
+      "asset_type_en": "XCMG truck-mounted crane photo",
+      "reason_zh": "原图为完整产品实拍，能够说明整车布置、支腿和作业姿态。",
+      "reason_en": "The source is a complete product photo that documents vehicle packaging, outrigger layout, and working posture."
+    },
+    {
+      "path": "assets/crane-ppt-source/s141-image-06-65d763eb04.jpg",
+      "decision": "KEEP",
+      "asset_type_zh": "轮式起重机产品场景照片",
+      "asset_type_en": "Mobile crane product scene",
+      "reason_zh": "原图展示多台轮式起重机及长臂展开状态，是产品型谱和臂架能力的有效影像。",
+      "reason_en": "The source shows multiple mobile cranes with extended booms and is valid evidence for portfolio and boom-capability context."
+    },
+    {
+      "path": "assets/crane-ppt-source/s149-image-10-79d8407efe.png",
+      "decision": "KEEP",
+      "asset_type_zh": "履带起重机透明底产品图",
+      "asset_type_en": "Crawler crane product cutout",
+      "reason_zh": "原图为透明底整机产品图，不含 PPT 页面元素，适合用于产品型谱展示。",
+      "reason_en": "The source is a transparent-background product cutout with no slide UI or text and is suitable for portfolio presentation."
+    }
+  ]
+}
