@@ -704,7 +704,7 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     build_all()
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
-        assert "assets/crane-insights.css?v=20260812e" in page
+        assert "assets/crane-insights.css?v=20260812f" in page
         assert "assets/crane-insights.js?v=20260812f" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
@@ -738,6 +738,29 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     )
     assert manifest["long_edge"] == 1800
     assert "WebP quality 94" in manifest["render_method"]
+
+
+def test_rt60_and_rt75_keep_separate_pages_with_an_explicit_shared_research_boundary():
+    build_all()
+    rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
+    rt75 = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
+    rt100 = (ROOT / "crane-rt-100t.html").read_text(encoding="utf-8")
+
+    assert 'class="sharedResearchNotice"' in rt60
+    assert 'data-shared-class="RT-75t"' in rt60
+    assert "CR-81-85、CR-88-93" in rt60
+    assert "XCR60_U" in rt60
+    assert "第86、94页" in rt60
+    assert "XCR60_U specifications, benchmark model, pricing and conclusions are presented separately" in rt60
+
+    assert 'class="sharedResearchNotice"' in rt75
+    assert 'data-shared-class="RT-60t"' in rt75
+    assert "CR-81-85、CR-88-93" in rt75
+    assert "XCR75_U" in rt75
+    assert "第87、95页" in rt75
+    assert "XCR75_U specifications, benchmark model, pricing and conclusions are presented separately" in rt75
+
+    assert 'class="sharedResearchNotice"' not in rt100
 
 
 def test_crane_pages_define_an_english_sidebar_collapse_label():

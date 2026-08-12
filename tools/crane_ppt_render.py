@@ -611,6 +611,33 @@ CLASS_INTRO = {
     ),
 }
 
+SHARED_RESEARCH_NOTICES = {
+    "RT-60t": {
+        "shared_class": "RT-75t",
+        "zh": (
+            "本页与75吨级共用60-75吨级市场、区域需求、客户工况及实机评价资料（CR-81-85、CR-88-93）。"
+            "XCR60_U的参数、标杆机型、售价及产品结论按本机型独立展示，见第86、94页。"
+        ),
+        "en": (
+            "This page shares the 60-75-USt market, regional-demand, customer-application and field-evaluation research "
+            "with the 75-USt page (CR-81-85 and CR-88-93). XCR60_U specifications, benchmark model, pricing and "
+            "conclusions are presented separately on slides 86 and 94."
+        ),
+    },
+    "RT-75t": {
+        "shared_class": "RT-60t",
+        "zh": (
+            "本页与60吨级共用60-75吨级市场、区域需求、客户工况及实机评价资料（CR-81-85、CR-88-93）。"
+            "XCR75_U的参数、标杆机型、售价及产品结论按本机型独立展示，见第87、95页。"
+        ),
+        "en": (
+            "This page shares the 60-75-USt market, regional-demand, customer-application and field-evaluation research "
+            "with the 60-USt page (CR-81-85 and CR-88-93). XCR75_U specifications, benchmark model, pricing and "
+            "conclusions are presented separately on slides 87 and 95."
+        ),
+    },
+}
+
 CLASS_PAGE_SECTIONS = (
     (
         "market-insight",
@@ -1479,6 +1506,15 @@ def render_class_context(class_id: str, language: str = "zh") -> str:
     segment = data["segments"][class_id]
     status = "plan" if segment["source_scope"] == "plan" else "current-at-source-date"
     sections = []
+    shared_notice = ""
+    if class_id in SHARED_RESEARCH_NOTICES:
+        notice = SHARED_RESEARCH_NOTICES[class_id]
+        shared_notice = (
+            f'<aside class="sharedResearchNotice" data-shared-class="{esc(notice["shared_class"])}">'
+            '<b data-en="Research boundary">资料边界</b>'
+            f'<p data-en="{esc(notice["en"])}">{esc(notice["zh"])}</p>'
+            '</aside>'
+        )
     seen_images: set[str] = set()
     for section_id, title_zh, title_en, lead_zh, lead_en in CLASS_PAGE_SECTIONS:
         if section_id == "market-insight":
@@ -1515,7 +1551,7 @@ def render_class_context(class_id: str, language: str = "zh") -> str:
             f'<p data-en="{esc(lead_en)}">{esc(lead_zh)}</p></div>{badge}</div>'
             f'<div class="craneInsightRecords">{records_html}</div></section>'
         )
-    return "".join(sections)
+    return shared_notice + "".join(sections)
 
 
 def render_market_overview(language: str = "zh") -> str:
@@ -1556,7 +1592,7 @@ def render_market_report_page() -> str:
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260812d">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260812e">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260812f">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">

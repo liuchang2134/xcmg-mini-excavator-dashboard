@@ -12,6 +12,9 @@
 .classEvidenceBoundary{grid-column:1/-1;padding:18px;border:1px solid #c7d7e5;border-left:4px solid #d29b00;background:#f7fafc}
 .classEvidenceBoundary b{color:#082f52;font-size:14px}
 .classEvidenceBoundary p{max-width:980px;margin:6px 0 0;color:#4f687b;font-size:12px;line-height:1.7}
+.sharedResearchNotice{display:grid;grid-template-columns:112px minmax(0,1fr);gap:14px;align-items:start;margin:14px 0;padding:12px 16px;border:1px solid #b9cee0;border-left:4px solid var(--yellow);background:#f5f8fb}
+.sharedResearchNotice b{color:#075a9f;font-size:12px;line-height:1.65}
+.sharedResearchNotice p{margin:0;color:#29475e;font-size:12px;line-height:1.75}
 .insightSectionHead{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;padding:16px 18px 13px;border-bottom:1px solid var(--line);background:#f6f9fc}
 .insightSectionHead h2{margin:0 0 6px}
 .insightSectionHead p{max-width:1120px;margin:0;color:#3f5c73;font-size:13px;line-height:1.75}
