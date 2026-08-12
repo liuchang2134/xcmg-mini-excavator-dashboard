@@ -1733,13 +1733,8 @@ def render_overview(workbook: Any) -> str:
         xscore = get_score_record(scoring, xcmg.display_name)
         status_zh = "可形成参数对标" if xscore["parameter_score"] is not None else "数据范围待补齐"
         status_en = "Specification benchmark available" if xscore["parameter_score"] is not None else "Source scope requires completion"
-        reference_badge = (
-            '<span class="craneReferenceBadge" data-en="Official XCR130U same-series reference">XCR130U 官方同系列示意</span>'
-            if sheet.label == "RT-160t"
-            else ""
-        )
         cards.append(
-            f'<a class="craneAssetCard" href="{esc(definition["output"])}"><div class="craneAssetMedia"><img src="{esc(definition["image"])}" alt="{esc(definition["image_alt"])}">{reference_badge}</div>'
+            f'<a class="craneAssetCard" href="{esc(definition["output"])}"><div class="craneAssetMedia"><img src="{esc(definition["image"])}" alt="{esc(definition["image_alt"])}"></div>'
             f'<div class="craneAssetBody"><span>{esc(sheet.label)}</span><h3>{esc(xcmg.display_name)}</h3>'
             f'<p>{len(sheet.models)} 个对标产品 · 参数覆盖 {fmt_percent(xcmg.parameter_coverage)}</p>'
             f'<b data-en="{esc(status_en)}">{esc(status_zh)}</b></div></a>'

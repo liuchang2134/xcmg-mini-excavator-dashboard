@@ -166,7 +166,9 @@ def test_rt160_uses_an_official_same_series_reference_without_claiming_model_spe
         assert image.width >= 1600
         assert image.height >= 1000
     assert "仅用于 XCR165U 规划参考，不作为该型号实机证据" in rt160
-    assert "XCR130U 官方同系列示意" in homepage
+    assert "XCR130U 官方同系列示意" not in homepage
+    assert "Official XCR130U same-series reference" not in homepage
+    assert "craneReferenceBadge" not in (ROOT / "crane-market-overview.html").read_text(encoding="utf-8")
     assert "assets/arc/category-cranes.webp" not in homepage.split('data-tonnage="rt-160"', 1)[1].split("</a>", 1)[0]
 
 
