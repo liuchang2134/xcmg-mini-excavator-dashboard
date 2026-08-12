@@ -98,6 +98,19 @@ def test_full_slide_candidates_have_explicit_gallery_review_decisions():
         assert item["reason_en"]
 
 
+def test_crane_image_review_page_is_a_read_only_auto_adjudication_report():
+    from tools.render_crane_image_conflict_review import main as build_review
+
+    build_review()
+    page = (ROOT / "crane-image-conflict-review.html").read_text(encoding="utf-8")
+    assert "起重机图片自动裁决报告" in page
+    assert "37</b><span>已确认复用组" in page
+    assert "5</b><span>候选整页图已复核" in page
+    assert "人工裁决" not in page
+    assert "待裁决" not in page
+    assert 'type="radio"' not in page
+
+
 def test_crane_pages_preserve_unknowns_and_exclude_stale_excavator_scoring():
     build_all()
     rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
