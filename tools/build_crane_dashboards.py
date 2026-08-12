@@ -1677,7 +1677,7 @@ def render_page(sheet: Any) -> str:
 <title data-en="{esc(title_en)} | XCMG ARC">{esc(title_zh)} | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260812d">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260812g">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260812h">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">

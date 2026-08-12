@@ -155,7 +155,7 @@ def adjudicate(presentation: Path | None = None) -> dict[str, Any]:
 
     payload = {
         "source_presentation": presentation.resolve().relative_to(ROOT.resolve()).as_posix(),
-        "method": "Exact binary-image reuse verified inside the source PPTX. Page captions retain their own slide context and disclose every source slide that reuses the image.",
+        "method": "Exact binary-image reuse verified inside the source PPTX. Reader-facing captions remain business-focused; slide and reuse traceability is retained in page data attributes.",
         "decision_count": len(decisions),
         "decisions": decisions,
         "assets": asset_decisions,

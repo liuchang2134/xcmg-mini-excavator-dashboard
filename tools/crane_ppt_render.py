@@ -1339,19 +1339,14 @@ def _render_images(
                 caption = f"{base_caption} · 图像 {index + 1}"
                 caption_en = f"{base_caption_en} · Image {index + 1}"
         current_slide = int(record["slide"])
-        caption = f"{caption}（源自幻灯片 {current_slide}）"
-        caption_en = f"{caption_en} (source slide {current_slide})"
+        other_slides: list[int] = []
         if ownership and ownership.get("decision") == "SOURCE_REUSE":
             other_slides = sorted(
                 int(value)
                 for value in ownership.get("source_slides", [])
                 if int(value) != current_slide
             )
-            if other_slides:
-                pages_zh = "、".join(str(value) for value in other_slides)
-                pages_en = ", ".join(str(value) for value in other_slides)
-                caption = f"{caption}；同图亦见第 {pages_zh} 页"
-                caption_en = f"{caption_en}; same image also appears on slide(s) {pages_en}"
+        reused_slides = ",".join(str(value) for value in other_slides)
         display_width = _evidence_display_width(path)
         ratio_css = f"{preferred_width_px}/{preferred_height_px}" if preferred_width_px and preferred_height_px else "4/3"
         low_resolution = max(source_width, source_height) < 400
@@ -1367,6 +1362,7 @@ def _render_images(
         )
         figures.append(
             f'<figure class="{quality_class} {layout_class}" data-source-resolution="{source_width}x{source_height}" '
+            f'data-image-source-slide="{current_slide}" data-image-reused-slides="{reused_slides}" '
             f'data-display-resolution="{display_width_px}x{display_height_px}" '
             f'data-render-resolution="{preferred_width_px}x{preferred_height_px}" data-asset-mode="{asset_mode}" '
             f'style="--evidence-max-width:{display_width}px;--evidence-ratio:{ratio_css}">'

@@ -37,7 +37,7 @@ def test_crane_builder_generates_overview_and_six_tonnage_pages():
         assert (ROOT / output).exists()
 
 
-def test_reused_ppt_images_keep_slide_context_and_expose_source_pages():
+def test_reused_ppt_images_keep_traceability_out_of_reader_facing_captions():
     build_all()
     manifest = json.loads(
         (ROOT / "data" / "crane-ppt-insights" / "image-ownership.json").read_text(
@@ -50,11 +50,31 @@ def test_reused_ppt_images_keep_slide_context_and_expose_source_pages():
     rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
     rt100 = (ROOT / "crane-rt-100t.html").read_text(encoding="utf-8")
     assert "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 1" in rt60
-    assert "源自幻灯片 90" in rt60
-    assert "同图亦见第 103 页" in rt60
     assert "徐工XCR100_U客户使用评价对标 · 评价图像 1" in rt100
-    assert "源自幻灯片 103" in rt100
-    assert "同图亦见第 90 页" in rt100
+    assert 'data-image-source-slide="90"' in rt60
+    assert 'data-image-reused-slides="103"' in rt60
+    assert 'data-image-source-slide="103"' in rt100
+    assert 'data-image-reused-slides="90"' in rt100
+
+    rendered = "\n".join(
+        (ROOT / page).read_text(encoding="utf-8")
+        for page in (
+            "crane-market-overview.html",
+            "crane-rt-60t.html",
+            "crane-rt-75t.html",
+            "crane-rt-100t.html",
+            "crane-rt-130t.html",
+            "crane-rt-160t.html",
+            "crane-at-150t.html",
+        )
+    )
+    for internal_caption in (
+        "源自幻灯片",
+        "同图亦见第",
+        "(source slide ",
+        "same image also appears on slide",
+    ):
+        assert internal_caption not in rendered
 
 
 def test_source_ppt_reuse_report_covers_all_cross_slide_reuse_groups():
@@ -664,9 +684,14 @@ def test_crane_ppt_images_use_high_resolution_powerpoint_exports():
     assert f'<img src="{severe_crop_source}"' in market_page
 
 
-def test_crane_gallery_uses_exported_image_aspect_ratio_without_fixed_crop_boxes():
+def test_crane_gallery_uses_balanced_frames_without_cropping_source_images():
     css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
-    assert "aspect-ratio:var(--evidence-ratio)" in css
+    assert "aspect-ratio:4/3" in css
+    assert ".layout-landscape .insightImageButton" in css
+    assert ".layout-portrait .insightImageButton" in css
+    assert "object-fit:contain" in css
+    assert ".craneInsightRecord.many-media .recordBody{grid-template-columns:1fr}" in css
+    assert ".craneInsightRecord.many-media .recordNarrative{display:grid" in css
     assert "grid-template-rows:minmax(220px,1fr) auto" not in css
     assert ".insightImageButton{display:block;width:100%;min-width:0;min-height:220px" not in css
     assert ".craneInsightGallery img{display:block;width:100%;height:100%;min-height:220px" not in css
@@ -706,7 +731,7 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     build_all()
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
-        assert "assets/crane-insights.css?v=20260812g" in page
+        assert "assets/crane-insights.css?v=20260812h" in page
         assert "assets/crane-insights.js?v=20260812f" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")

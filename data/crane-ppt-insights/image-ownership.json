@@ -1,6 +1,6 @@
 {
   "source_presentation": "data/source-presentations/XCMG_North_America_Crane_Market_Insight_2025-07-01_V13_source.pptx",
-  "method": "Exact binary-image reuse verified inside the source PPTX. Page captions retain their own slide context and disclose every source slide that reuses the image.",
+  "method": "Exact binary-image reuse verified inside the source PPTX. Reader-facing captions remain business-focused; slide and reuse traceability is retained in page data attributes.",
   "decision_count": 37,
   "decisions": [
     {
