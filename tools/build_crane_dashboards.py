@@ -773,7 +773,70 @@ def render_condition_heatmap(sheet: Any, scoring: dict[str, Any]) -> str:
         + "".join(headers)
         + "</div>"
         + "".join(rows)
-        + '</div><p class="conditionHeatmapNote" data-en="Green indicates a stronger comparable result, yellow the middle band, red a weaker result, and gray means the evidence is insufficient for ranking. Unrecorded values are never treated as zero.">绿色表示可比结果较强，黄色表示中间区间，红色表示相对较弱；灰色表示证据不足，资料未记录，不按0分处理。</p>'
+        + '</div><p class="conditionHeatmapNote" data-en="Green indicates a stronger comparable result, yellow the middle band and red a weaker result. Gray means that the product did not form a valid work-condition score, or that fewer than two products are comparable. Unrecorded values are never treated as zero.">绿色表示可比结果较强，黄色表示中间区间，红色表示相对较弱；灰色表示该产品未形成有效工况得分，或该工况少于 2 个产品可比。资料未记录不按 0 分处理。</p>'
+    )
+
+
+def condition_score_candidates(scoring: dict[str, Any], condition: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = [
+        item for item in scoring["products"]
+        if item["condition_scores"].get(condition["id"]) is not None
+    ]
+    rows.sort(key=lambda item: item["condition_scores"][condition["id"]], reverse=True)
+    return rows
+
+
+def condition_unranked_reason(
+    sheet: Any,
+    condition: dict[str, Any],
+    xrecord: dict[str, Any],
+    comparable_count: int,
+) -> tuple[str, str]:
+    if "suspected_rt130_competitor_headers" in sheet.anomalies:
+        return (
+            "竞品表头与数据范围尚未核验，按数据治理规则暂停排名",
+            "Competitor headers and source ranges remain unverified; ranking is withheld under the data-governance rule.",
+        )
+
+    score = xrecord["condition_scores"].get(condition["id"])
+    if score is not None and comparable_count < 2:
+        return (
+            f"仅 {comparable_count} 个产品形成同口径得分，少于发布排名所需的 2 个产品",
+            f"Only {comparable_count} product has a like-for-like score; at least 2 are required to publish a ranking.",
+        )
+
+    detail = xrecord["condition_details"].get(condition["id"], {})
+    components = detail.get("components", [])
+    metric_components = [item for item in components if item.get("type") == "metric"]
+    config_components = [item for item in components if item.get("type") == "configuration"]
+    valid_metrics = sum(item.get("score") is not None for item in metric_components)
+    valid_configs = sum(item.get("score") is not None for item in config_components)
+    minimum_metrics = int(condition.get("minimum_metric_items", 2))
+
+    if valid_metrics < minimum_metrics:
+        return (
+            f"XCMG 有效关键参数 {valid_metrics}/{len(metric_components)} 项，少于形成工况参数分所需的 {minimum_metrics} 项",
+            f"XCMG has {valid_metrics} of {len(metric_components)} valid key specifications, below the {minimum_metrics} required for a work-condition specification score.",
+        )
+
+    parameter_coverage = float(detail.get("parameter_coverage") or 0)
+    if detail.get("parameter_score") is None:
+        return (
+            f"XCMG 关键参数权重覆盖 {parameter_coverage * 100:.0f}%，低于形成参数分所需的 60%",
+            f"XCMG key-specification weight coverage is {parameter_coverage * 100:.0f}%, below the 60% required for a specification score.",
+        )
+
+    configuration_coverage = float(detail.get("configuration_coverage") or 0)
+    overall_coverage = float(detail.get("coverage") or 0)
+    if config_components and detail.get("configuration_score") is None:
+        return (
+            f"XCMG 配置状态仅记录 {valid_configs}/{len(config_components)} 项（权重覆盖 {configuration_coverage * 100:.0f}%），工况组合有效权重 {overall_coverage * 100:.0f}% 低于 60%",
+            f"XCMG records {valid_configs} of {len(config_components)} equipment states ({configuration_coverage * 100:.0f}% weighted coverage), leaving combined work-condition coverage at {overall_coverage * 100:.0f}%, below 60%.",
+        )
+
+    return (
+        "当前记录未形成有效工况得分，需补齐同口径参数或配置状态后再排名",
+        "The current record does not form a valid work-condition score; like-for-like specifications or equipment states must be completed before ranking.",
     )
 
 
@@ -783,6 +846,7 @@ def render_condition_overview_cards(sheet: Any, scoring: dict[str, Any]) -> str:
     xrecord = get_score_record(scoring, xcmg.display_name)
     cards: dict[str, list[str]] = {"capability": [], "application": []}
     for index, condition in enumerate(applicable, 1):
+        candidates = condition_score_candidates(scoring, condition)
         ranked = _condition_comparison_rows(sheet, scoring, condition)
         rank = next((position for position, item in enumerate(ranked, 1) if item["is_xcmg"]), None)
         score = xrecord["condition_scores"].get(condition["id"])
@@ -794,8 +858,9 @@ def render_condition_overview_cards(sheet: Any, scoring: dict[str, Any]) -> str:
             position_en = f"No. {rank} of {len(ranked)} · {gap:.1f} points behind leader"
             value = f"{score:.1f}"
         else:
-            position_zh = "证据不足，暂不排名"
-            position_en = "Insufficient evidence for ranking"
+            position_zh, position_en = condition_unranked_reason(
+                sheet, condition, xrecord, len(candidates)
+            )
             value = "—"
         metric_names = list(condition_metric_weights(sheet, condition))[:3]
         config_names = list(condition_config_weights(sheet, condition))[:2]
@@ -811,7 +876,7 @@ def render_condition_overview_cards(sheet: Any, scoring: dict[str, Any]) -> str:
             f'<p data-en="{esc(position_en)}">{esc(position_zh)}</p>'
             f'<dl><div><dt data-en="Key specifications">关键参数</dt><dd data-en="{esc(key_en)}">{esc(key_zh)}</dd></div>'
             f'<div><dt data-en="Beneficial equipment">有益配置</dt><dd data-en="{esc(config_en)}">{esc(config_zh)}</dd></div></dl>'
-            f'<small data-en="Specification coverage {float(detail.get("parameter_coverage") or 0) * 100:.0f}% · Equipment coverage {float(detail.get("configuration_coverage") or 0) * 100:.0f}%">参数覆盖 {float(detail.get("parameter_coverage") or 0) * 100:.0f}% · 配置覆盖 {float(detail.get("configuration_coverage") or 0) * 100:.0f}%</small></a>'
+            f'<small data-en="XCMG specification coverage {float(detail.get("parameter_coverage") or 0) * 100:.0f}% · equipment coverage {float(detail.get("configuration_coverage") or 0) * 100:.0f}% · comparable products {len(candidates)}/{len(sheet.models)}">XCMG 参数覆盖 {float(detail.get("parameter_coverage") or 0) * 100:.0f}% · 配置覆盖 {float(detail.get("configuration_coverage") or 0) * 100:.0f}% · 可比产品 {len(candidates)}/{len(sheet.models)}</small></a>'
         )
     groups = []
     for group, title_zh, title_en, note_zh, note_en in (
@@ -846,6 +911,7 @@ def render_condition_overview(sheet: Any, scoring: dict[str, Any]) -> str:
         '<p class="sectionLead" data-en="The heatmap covers every applicable work condition and product. The radar uses only complete comparable data, followed by condition cards that expose ranking eligibility, key inputs and source coverage before the detailed sections.">热力矩阵覆盖全部适用工况和全部产品；雷达仅使用完整可比数据。工况卡片先说明排名资格、关键输入和资料覆盖，再进入逐工况参数、配置、差距与提升模拟。</p>'
         '<div class="conditionMethodology"><b data-en="Interpretation boundary">阅读边界</b><div>'
         '<p data-en="Application scenarios combine traceable specifications and equipment into a paper-based fit comparison. They do not replace a site lift plan, matched load-chart review or field trial.">本场景将可追溯参数与配置组合为纸面适配性对比，不替代现场吊装方案、同口径载荷表复核或实机验证。</p>'
+        '<p data-en="Coverage describes the completeness of XCMG inputs only. A ranking is published only when XCMG forms a valid work-condition score and at least 2 products have like-for-like comparable scores.">覆盖率仅表示XCMG自身字段完整度；排名需同时满足XCMG形成有效工况得分，且至少 2 个产品形成同口径可比得分。</p>'
         '<p data-en="Contribution points show only the input effect under the current work-condition weighting and are not a stand-alone machine-performance conclusion. Improvement simulations use only existing comparable inputs; missing evidence, engineering feasibility and cost are never assumed.">贡献分仅表示该指标在当前工况权重下的作用，不等于整机性能的独立结论；提升模拟只使用已有可比字段，不自动假设缺失数据、工程可行性或成本。</p></div></div>'
         '<div class="conditionOverviewGrid"><article class="panel">'
         + render_condition_overview_radar(sheet, scoring)
@@ -1013,11 +1079,7 @@ def render_condition_gap_ledger(sheet: Any, scoring: dict[str, Any]) -> str:
 def condition_ranking_rows(sheet: Any, scoring: dict[str, Any], condition: dict[str, Any]) -> list[dict[str, Any]]:
     if "suspected_rt130_competitor_headers" in sheet.anomalies:
         return []
-    rows = [
-        item for item in scoring["products"]
-        if item["condition_scores"].get(condition["id"]) is not None
-    ]
-    rows.sort(key=lambda item: item["condition_scores"][condition["id"]], reverse=True)
+    rows = condition_score_candidates(scoring, condition)
     return rows if len(rows) >= 2 else []
 
 

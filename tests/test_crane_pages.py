@@ -348,7 +348,22 @@ def test_crane_pages_publish_a_work_condition_panorama_before_deep_dive_sections
     assert at_page.count('class="conditionOverviewCard"') == sum(
         condition_applicable(at_sheet, condition) for condition in CONDITIONS
     )
-    assert "资料未记录，不按0分处理" in rt_page
+    assert "覆盖率仅表示XCMG自身字段完整度" in rt_page
+    assert "至少 2 个产品形成同口径可比得分" in rt_page
+    assert "证据不足，暂不排名" not in rt_page
+    assert "可比产品 7/8" in rt_page
+
+
+def test_crane_condition_cards_explain_the_exact_reason_when_ranking_is_withheld():
+    build_all()
+    page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
+
+    assert "城市公用设施" in page
+    assert "第 2 / 7" in page
+    assert "工业停机检修" in page
+    assert "第 1 / 7" in page
+    assert "少于形成工况参数分所需的" in page
+    assert "Insufficient evidence for ranking" not in page
 
 
 def test_crane_condition_framework_covers_additional_source_backed_work_conditions():
