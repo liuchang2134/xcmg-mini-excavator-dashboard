@@ -95,7 +95,7 @@
 }
 
 .overviewSourceSection .sourceSlideHeader h3 {
-  font-size: 16px;
+  font-size: var(--font-base);
 }
 
 .overviewSourceSection .sourceNarrative {
@@ -104,7 +104,7 @@
 
 .overviewSourceSection .sourceParagraph {
   margin-bottom: 8px;
-  font-size: 13px;
+  font-size: var(--font-sm);
   line-height: 1.72;
 }
 
@@ -127,14 +127,14 @@
 
 .environmentContextHeader span {
   color: #075da8;
-  font-size: 13px;
+  font-size: var(--font-sm);
   font-weight: 900;
 }
 
 .environmentContextHeader p {
   margin: 0;
   color: #49657d;
-  font-size: 12px;
+  font-size: var(--font-xs);
   line-height: 1.7;
 }
 
@@ -183,13 +183,13 @@
 
 .environmentContextFigure figcaption strong {
   color: #073c70;
-  font-size: 12px;
+  font-size: var(--font-xs);
   line-height: 1.55;
 }
 
 .environmentContextFigure figcaption span {
   color: #49657d;
-  font-size: 11px;
+  font-size: var(--font-min);
   line-height: 1.65;
 }
 
@@ -214,7 +214,7 @@
   border-bottom: 4px solid #f5b400;
   background: #075da8;
   color: #fff;
-  font-size: 13px;
+  font-size: var(--font-sm);
   font-weight: 900;
   font-variant-numeric: tabular-nums;
 }
@@ -228,13 +228,13 @@
   display: block;
   margin-bottom: 2px;
   color: #5a7185;
-  font-size: 10px;
+  font-size: var(--font-min);
   font-weight: 900;
   letter-spacing: .06em;
 }
 
 .macroSlideHeader h3 {
-  font-size: 17px !important;
+  font-size: var(--font-lg) !important;
 }
 
 .macroFactStrip {
@@ -260,14 +260,14 @@
 
 .macroFact strong {
   color: #075da8;
-  font-size: 18px;
+  font-size: var(--font-lg);
   line-height: 1.25;
   overflow-wrap: anywhere;
 }
 
 .macroFact span {
   color: #5b7185;
-  font-size: 10px;
+  font-size: var(--font-min);
   line-height: 1.55;
 }
 
@@ -280,7 +280,7 @@
   padding-left: 9px;
   border-left: 3px solid #075da8;
   color: #075da8;
-  font-size: 12px;
+  font-size: var(--font-xs);
   font-weight: 900;
   line-height: 1.5;
 }
@@ -314,7 +314,7 @@
 .macroTrendItem h4 {
   margin: 0 0 5px;
   color: #073c70;
-  font-size: 13px;
+  font-size: var(--font-sm);
   line-height: 1.55;
 }
 
@@ -322,7 +322,7 @@
 .macroActionLine {
   margin: 0 0 5px;
   color: #294760;
-  font-size: 13px;
+  font-size: var(--font-sm);
   line-height: 1.78;
   overflow-wrap: anywhere;
 }
@@ -395,7 +395,7 @@
   width: 100%;
   min-width: 0;
   table-layout: fixed;
-  font-size: 11px;
+  font-size: var(--font-min);
 }
 
 .overviewSourceSection .sourceTableFit th,
@@ -424,7 +424,7 @@
 
 .overviewSourceSection .sourceDataNote {
   color: #5c7083;
-  font-size: 10px;
+  font-size: var(--font-min);
 }
 
 .sourceNativeChartSlide .sourceTableBlock {
@@ -449,7 +449,7 @@
 .nativeChartPanel h4 {
   margin: 0 0 12px;
   color: #073c70;
-  font-size: 17px;
+  font-size: var(--font-lg);
   line-height: 1.45;
 }
 
@@ -472,7 +472,7 @@
 .nativeChartSvg text {
   fill: #4d6579;
   font-family: Arial, "Microsoft YaHei", sans-serif;
-  font-size: 12px;
+  font-size: var(--font-xs);
 }
 
 .nativeChartGrid line {
@@ -488,13 +488,13 @@
 
 .nativeChartSvg .nativeChartValue {
   fill: #102f4b;
-  font-size: 12px;
+  font-size: var(--font-xs);
   font-weight: 800;
 }
 
 .nativeChartSvg .nativeChartBarValue {
   fill: #073c70;
-  font-size: 14px;
+  font-size: var(--font-body);
   font-weight: 900;
 }
 
@@ -510,7 +510,7 @@
   align-items: center;
   gap: 6px;
   color: #294760;
-  font-size: 12px;
+  font-size: var(--font-xs);
   font-weight: 700;
 }
 
@@ -566,13 +566,13 @@
 
 .nativeDonutCenter b {
   color: #073c70;
-  font-size: 15px;
+  font-size: var(--font-md);
 }
 
 .nativeDonutCenter span {
   margin-top: 3px;
   color: #6b8092;
-  font-size: 10px;
+  font-size: var(--font-min);
 }
 
 .nativeDonutLegend {
@@ -591,7 +591,7 @@
   align-items: center;
   min-width: 0;
   color: #294760;
-  font-size: 11px;
+  font-size: var(--font-min);
 }
 
 .nativeDonutLegend span {
@@ -600,7 +600,7 @@
 
 .nativeDonutLegend strong {
   color: #073c70;
-  font-size: 11px;
+  font-size: var(--font-min);
 }
 
 .nativeChartReading {
@@ -609,7 +609,7 @@
   border-left: 3px solid #f7b500;
   background: #f3f7fa;
   color: #294760;
-  font-size: 13px;
+  font-size: var(--font-sm);
   line-height: 1.7;
 }
 
@@ -707,7 +707,7 @@
   }
 
   .macroSlideHeader h3 {
-    font-size: 15px !important;
+    font-size: var(--font-md) !important;
   }
 
   .macroFactStrip {
@@ -727,7 +727,7 @@
   }
 
   .macroFact strong {
-    font-size: 15px;
+    font-size: var(--font-md);
   }
 
   .macroTrendGrid,
@@ -747,7 +747,7 @@
 
   .macroBodyLine,
   .macroActionLine {
-    font-size: 12px;
+    font-size: var(--font-xs);
     line-height: 1.72;
   }
 
@@ -794,7 +794,7 @@
   .overviewSourceSection .sourceTableFit td::before {
     content: attr(data-label);
     color: #075da8;
-    font-size: 10px;
+    font-size: var(--font-min);
     font-weight: 900;
   }
 
@@ -817,11 +817,11 @@
   }
 
   .nativeChartPanel h4 {
-    font-size: 15px;
+    font-size: var(--font-md);
   }
 
   .nativeChartSvg text {
-    font-size: 11px;
+    font-size: var(--font-min);
   }
 
   .nativeDonutLayout {
@@ -838,6 +838,6 @@
   }
 
   .nativeChartReading {
-    font-size: 12px;
+    font-size: var(--font-xs);
   }
 }

@@ -458,7 +458,7 @@ class DashboardModelTests(unittest.TestCase):
             dashboard_css,
         )
         self.assertIn(
-            ".keyTable{width:100%;border-collapse:collapse;font-size:12px;"
+            ".keyTable{width:100%;border-collapse:collapse;font-size:var(--font-xs);"
             "table-layout:fixed}",
             dashboard_css,
         )
