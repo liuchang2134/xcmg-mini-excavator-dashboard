@@ -79,6 +79,22 @@ def test_crane_ppt_extraction_counts_are_stable():
     assert sum(len(item["images"]) for item in slides) >= 250
 
 
+def test_scatter_and_bubble_charts_preserve_all_source_dimensions():
+    build_crane_ppt_insights()
+    slides = {item["slide"]: item for item in load_json("slides.json")}
+
+    scatter = slides[26]["charts"][0]["series"]
+    assert scatter[0]["x_values"] == [36.9]
+    assert scatter[0]["y_values"] == [0.014]
+    assert scatter[1]["x_values"] == [37.1]
+    assert scatter[1]["y_values"] == [0.365]
+
+    bubble = slides[154]["charts"][0]["series"][0]
+    assert bubble["x_values"] == [6.2, 4.9, 4.8, 3.6]
+    assert bubble["y_values"] == [8.3, 6.0, 6.0, 5.9]
+    assert bubble["bubble_sizes"] == [19.3, 45.6, 52.6, 70.2]
+
+
 def test_crane_class_pages_retain_compact_field_and_diagnostic_images():
     build_crane_ppt_insights()
     slides = {item["slide"]: item for item in load_json("slides.json")}

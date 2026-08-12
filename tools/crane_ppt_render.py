@@ -64,6 +64,33 @@ def _source_image_size(path: str) -> tuple[int, int]:
         return (0, 0)
 
 
+@lru_cache(maxsize=None)
+def _display_image_size(path: str) -> tuple[int, int]:
+    """Return the rendered PowerPoint shape size, including picture cropping."""
+    display_path = IMAGE_DISPLAY_MAP.get(path, path)
+    try:
+        with Image.open(ROOT / display_path) as image:
+            return image.size
+    except (OSError, ValueError):
+        return _source_image_size(path)
+
+
+def _preferred_image_asset(path: str) -> tuple[str, tuple[int, int], str]:
+    """Use the complete source when the PowerPoint export is heavily cropped."""
+    display_path = IMAGE_DISPLAY_MAP.get(path, path)
+    source_size = _source_image_size(path)
+    display_size = _display_image_size(path)
+    source_width, source_height = source_size
+    display_width, display_height = display_size
+    if source_width and source_height and display_width and display_height:
+        source_ratio = source_width / source_height
+        display_ratio = display_width / display_height
+        ratio_delta = abs(math.log(display_ratio / source_ratio))
+        if ratio_delta > math.log(1.25):
+            return path, source_size, "complete-source"
+    return display_path, display_size, "ppt-export"
+
+
 def _source_quality_class(path: str) -> str:
     long_edge = max(_source_image_size(path))
     if long_edge >= 1200:
@@ -76,14 +103,32 @@ def _source_quality_class(path: str) -> str:
 def _evidence_display_width(path: str) -> int:
     """Cap display width so small PPT embeds are not enlarged into blurry panels."""
     source_width, source_height = _source_image_size(path)
+    _, (display_width, display_height), _ = _preferred_image_asset(path)
     long_edge = max(source_width, source_height)
+    ratio = display_width / display_height if display_height else 1.0
     if long_edge <= 0:
         return 420
     if long_edge < 600:
-        return min(420, max(120, round(source_width * 1.18)))
+        return min(420, max(180, round(source_width * 1.18)))
     if long_edge < 1200:
-        return min(720, max(360, round(source_width * 1.08)))
-    return min(1100, max(520, source_width))
+        return min(720, max(360, round(display_width * 0.72)))
+    if ratio < 0.82:
+        return min(420, max(300, round(display_width * 0.32)))
+    if ratio > 3.2:
+        return 1180
+    return min(1040, max(520, display_width))
+
+
+def _image_layout_class(path: str) -> str:
+    _, (width, height), _ = _preferred_image_asset(path)
+    ratio = width / height if height else 1.0
+    if ratio >= 3.2:
+        return "layout-panoramic"
+    if ratio >= 1.45:
+        return "layout-landscape"
+    if ratio <= 0.82:
+        return "layout-portrait"
+    return "layout-standard"
 
 
 def _load_translations() -> dict[str, str]:
@@ -803,8 +848,10 @@ def _paragraphs(record: dict[str, Any], limit: int | None = None) -> str:
 
 def _meaningful_table(table: dict[str, Any]) -> bool:
     rows = table.get("rows") or []
-    nonempty = [cell for row in rows for cell in row if str(cell).strip()]
-    return len(rows) >= 2 and len(nonempty) >= 4
+    nonempty = [str(cell).strip() for row in rows for cell in row if str(cell).strip()]
+    if len(rows) >= 2 and len(nonempty) >= 4:
+        return True
+    return 1 <= len(nonempty) <= 2 and max((len(cell) for cell in nonempty), default=0) >= 80
 
 
 def _render_table(table: dict[str, Any], slide_number: int, index: int) -> str:
@@ -819,14 +866,37 @@ def _render_table(table: dict[str, Any], slide_number: int, index: int) -> str:
     ]
     if not active_columns:
         return ""
+    nonempty = [str(cell).strip() for row in rows for cell in row if str(cell).strip()]
+    if len(nonempty) == 1:
+        content = nonempty[0]
+        return (
+            f'<aside class="craneSourceCallout" data-table-slide="{slide_number}" data-table-index="{index}">'
+            f'<p data-en="{esc(_en(content))}">{esc(content)}</p></aside>'
+        )
+
+    first_row_values = [
+        str(rows[0][column]).strip() if column < len(rows[0]) else ""
+        for column in active_columns
+    ]
+    first_row_nonempty = [value for value in first_row_values if value]
+    header_index = 0
+    caption = ""
+    if len(rows) > 1 and len(first_row_nonempty) == 1:
+        second_row_values = [
+            str(rows[1][column]).strip() if column < len(rows[1]) else ""
+            for column in active_columns
+        ]
+        if len([value for value in second_row_values if value]) >= 2:
+            caption = first_row_nonempty[0]
+            header_index = 1
     headers = [
-        (str(rows[0][column]).strip() if column < len(rows[0]) else "") or "补充信息"
+        (str(rows[header_index][column]).strip() if column < len(rows[header_index]) else "") or "补充信息"
         for column in active_columns
     ]
     rendered_rows = []
-    for row_index, row in enumerate(rows):
+    for row_index, row in enumerate(rows[header_index:], start=header_index):
         cells = [str(row[column]) if column < len(row) else "" for column in active_columns]
-        if row_index == 0:
+        if row_index == header_index:
             rendered_rows.append(
                 "<tr>" + "".join(
                     f'<th data-en="{esc(_en(cell))}">{esc(cell)}</th>' for cell in cells
@@ -841,10 +911,23 @@ def _render_table(table: dict[str, Any], slide_number: int, index: int) -> str:
                 for cell_index, cell in enumerate(cells)
             ) + "</tr>"
         )
-    width_class = " wide" if len(active_columns) >= 7 else ""
+    if len(active_columns) >= 11:
+        width_class = " wide ultra-wide"
+    elif len(active_columns) >= 7:
+        width_class = " wide"
+    else:
+        width_class = ""
+    caption_html = (
+        f'<caption data-en="{esc(_en(caption))}">{esc(caption)}</caption>'
+        if caption
+        else ""
+    )
     return (
-        f'<div class="craneSourceTable{width_class}" data-table-slide="{slide_number}" data-table-index="{index}">'
-        '<table>' + "".join(rendered_rows) + "</table></div>"
+        f'<div class="craneSourceTable{width_class}" data-table-slide="{slide_number}" data-table-index="{index}" '
+        f'data-column-count="{len(active_columns)}">'
+        f'<table>{caption_html}<thead>{rendered_rows[0]}</thead><tbody>'
+        + "".join(rendered_rows[1:])
+        + "</tbody></table></div>"
     )
 
 
@@ -923,11 +1006,163 @@ def _render_columns(chart: dict[str, Any], chart_id: str) -> str:
     )
 
 
+def _render_scalar_comparison(chart: dict[str, Any], chart_id: str) -> str:
+    series = chart.get("series") or []
+    items = []
+    for index, item in enumerate(series):
+        values = item.get("values") or []
+        if len(values) != 1 or not isinstance(values[0], (int, float)):
+            continue
+        name = re.sub(r"\s+", " ", str(item.get("name") or "")).strip()
+        if not name:
+            continue
+        items.append((name, float(values[0]), index))
+    if len(items) < 2:
+        return ""
+    maximum = max(abs(value) for _name, value, _index in items) or 1
+    rows = []
+    for name, value, index in items:
+        width = max(1.5, abs(value) / maximum * 100)
+        color = "#f5b400" if index == 0 else "#075a9f"
+        value_label = f"{value * 100:.1f}%" if abs(value) <= 1 else f"{value:g}"
+        rows.append(
+            '<div class="comparisonRow" tabindex="0">'
+            f'<b data-en="{esc(_en(name))}">{esc(name)}</b>'
+            f'<span><i style="width:{width:.2f}%;background:{color}"></i></span>'
+            f'<strong>{esc(value_label)}</strong></div>'
+        )
+    return (
+        f'<div class="insightComparison" data-chart-id="{esc(chart_id)}">'
+        '<h4 data-en="Market share comparison">市场份额对比</h4>'
+        f'{"".join(rows)}</div>'
+    )
+
+
+def _chart_extent(values: list[float]) -> tuple[float, float]:
+    low, high = min(values), max(values)
+    span = high - low
+    padding = span * 0.22 if span else max(abs(high) * 0.15, 1.0)
+    return low - padding, high + padding
+
+
+def _render_scatter(chart: dict[str, Any], chart_id: str, slide_number: int) -> str:
+    points = []
+    for index, item in enumerate(chart.get("series") or []):
+        x_values = item.get("x_values") or []
+        y_values = item.get("y_values") or item.get("values") or []
+        if not x_values or not y_values:
+            continue
+        if not isinstance(x_values[0], (int, float)) or not isinstance(y_values[0], (int, float)):
+            continue
+        points.append({
+            "name": re.sub(r"\s+", " ", str(item.get("name") or "")).strip(),
+            "x": float(x_values[0]),
+            "y": float(y_values[0]),
+            "index": index,
+        })
+    if len(points) < 2:
+        return ""
+    x_low, x_high = _chart_extent([point["x"] for point in points])
+    y_low, y_high = _chart_extent([point["y"] for point in points])
+    left, right, top, bottom = 90.0, 720.0, 36.0, 310.0
+    x_pos = lambda value: left + (value - x_low) / (x_high - x_low) * (right - left)
+    y_pos = lambda value: bottom - (value - y_low) / (y_high - y_low) * (bottom - top)
+    grid = []
+    for step in range(5):
+        ratio = step / 4
+        x = left + ratio * (right - left)
+        y = bottom - ratio * (bottom - top)
+        x_value = x_low + ratio * (x_high - x_low)
+        y_value = y_low + ratio * (y_high - y_low)
+        grid.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" y2="{bottom}"/><text x="{x:.1f}" y="334" text-anchor="middle">{x_value:.1f}</text>')
+        grid.append(f'<line x1="{left}" y1="{y:.1f}" x2="{right}" y2="{y:.1f}"/><text x="80" y="{y + 4:.1f}" text-anchor="end">{y_value * 100:.1f}%</text>')
+    marks = []
+    legend = []
+    for point in points:
+        color = "#f5b400" if point["index"] == 0 else "#075a9f"
+        px, py = x_pos(point["x"]), y_pos(point["y"])
+        name_en = _en(point["name"])
+        value_label = f'{point["x"]:.1f} / {point["y"] * 100:.1f}%'
+        anchor = "start" if px < (left + right) / 2 else "end"
+        label_x = px + 12 if anchor == "start" else px - 12
+        marks.append(
+            f'<g class="scatterPoint" tabindex="0" data-chart-key="{esc(name_en)}">'
+            f'<circle cx="{px:.1f}" cy="{py:.1f}" r="9" fill="{color}"/>'
+            f'<text x="{label_x:.1f}" y="{py - 5:.1f}" text-anchor="{anchor}" class="pointName" data-en="{esc(name_en)}">{esc(point["name"])}</text>'
+            f'<text x="{label_x:.1f}" y="{py + 11:.1f}" text-anchor="{anchor}" class="pointValue">{esc(value_label)}</text>'
+            f'<title>{esc(name_en)}: {esc(value_label)}</title></g>'
+        )
+        legend.append(f'<span><i style="background:{color}"></i><b data-en="{esc(name_en)}">{esc(point["name"])}</b><small>{esc(value_label)}</small></span>')
+    return (
+        f'<div class="insightScatter" data-chart-id="{esc(chart_id)}">'
+        '<header><h4 data-en="Price and market-position comparison">价格与市场位置对比</h4>'
+        '<p data-en="Horizontal axis: reported selling-price index; vertical axis: recorded market share. Hover or focus a point for its values.">横轴为资料记录售价指标，纵轴为对应市场占有率；悬停或聚焦点位可查看数值。</p></header>'
+        f'<svg viewBox="0 0 760 365" role="img" aria-label="第{slide_number}页价格与市场位置散点图"><g class="scatterGrid">{"".join(grid)}</g>'
+        f'<line class="scatterAxis" x1="{left}" y1="{bottom}" x2="{right}" y2="{bottom}"/><line class="scatterAxis" x1="{left}" y1="{top}" x2="{left}" y2="{bottom}"/>'
+        '<text class="axisTitle" x="405" y="360" text-anchor="middle" data-en="Reported selling-price index">资料记录售价指标</text>'
+        '<text class="axisTitle" transform="translate(18 175) rotate(-90)" text-anchor="middle" data-en="Market share">市场占有率</text>'
+        f'{"".join(marks)}</svg><div class="scatterLegend">{"".join(legend)}</div></div>'
+    )
+
+
+def _render_bubble(chart: dict[str, Any], chart_id: str) -> str:
+    series = (chart.get("series") or [{}])[0]
+    x_values = [float(value) for value in series.get("x_values") or [] if isinstance(value, (int, float))]
+    y_values = [float(value) for value in series.get("y_values") or series.get("values") or [] if isinstance(value, (int, float))]
+    bubble_sizes = [float(value) for value in series.get("bubble_sizes") or [] if isinstance(value, (int, float))]
+    if not (len(x_values) == len(y_values) == len(bubble_sizes) and len(x_values) >= 2):
+        return ""
+    labels_zh = ["通用底盘", "越野吊", "全地面", "履带吊"] if len(x_values) == 4 else [f"业务{i + 1}" for i in range(len(x_values))]
+    labels_en = ["Boom truck", "Rough-terrain", "All-terrain", "Crawler"] if len(x_values) == 4 else [f"Business {i + 1}" for i in range(len(x_values))]
+    left, right, top, bottom = 70.0, 720.0, 30.0, 330.0
+    max_size = max(bubble_sizes) or 1
+    grid = []
+    for step in range(6):
+        value = step * 2
+        x = left + value / 10 * (right - left)
+        y = bottom - value / 10 * (bottom - top)
+        grid.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" y2="{bottom}"/><text x="{x:.1f}" y="350" text-anchor="middle">{value}</text>')
+        grid.append(f'<line x1="{left}" y1="{y:.1f}" x2="{right}" y2="{y:.1f}"/><text x="58" y="{y + 4:.1f}" text-anchor="end">{value}</text>')
+    marks = []
+    legend = []
+    colors = ["#075a9f", "#f5b400", "#279b7d", "#e2605f"]
+    for index, (x_value, y_value, size) in enumerate(zip(x_values, y_values, bubble_sizes)):
+        px = left + x_value / 10 * (right - left)
+        py = bottom - y_value / 10 * (bottom - top)
+        radius = 13 + math.sqrt(size / max_size) * 28
+        label, label_en = labels_zh[index], labels_en[index]
+        marks.append(
+            f'<g class="bubblePoint" tabindex="0" data-chart-key="{esc(label_en)}">'
+            f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{radius:.1f}" fill="{colors[index % len(colors)]}"/>'
+            f'<text x="{px:.1f}" y="{py - 2:.1f}" text-anchor="middle" class="pointName" data-en="{esc(label_en)}">{esc(label)}</text>'
+            f'<text x="{px:.1f}" y="{py + 13:.1f}" text-anchor="middle" class="pointValue">{size:g}</text>'
+            f'<title>{esc(label_en)}: capability {x_value:g}, attractiveness {y_value:g}, capacity {size:g}</title></g>'
+        )
+        legend.append(f'<span><i style="background:{colors[index % len(colors)]}"></i><b data-en="{esc(label_en)}">{esc(label)}</b><small>能力 {x_value:g} / 吸引力 {y_value:g} / 容量 {size:g}</small></span>')
+    return (
+        f'<div class="insightScatter insightBubble" data-chart-id="{esc(chart_id)}"><header>'
+        '<h4 data-en="Business opportunity matrix">业务机会矩阵</h4>'
+        '<p data-en="Horizontal axis is organizational capability, vertical axis is market attractiveness, and bubble area represents the source market-capacity value.">横轴表示企业能力，纵轴表示市场吸引力，气泡面积表示资料中的市场容量。</p></header>'
+        f'<svg viewBox="0 0 760 365" role="img" aria-label="起重机业务机会气泡图"><g class="scatterGrid">{"".join(grid)}</g>'
+        f'<line class="scatterAxis" x1="{left}" y1="{bottom}" x2="{right}" y2="{bottom}"/><line class="scatterAxis" x1="{left}" y1="{top}" x2="{left}" y2="{bottom}"/>'
+        '<text class="axisTitle" x="395" y="362" text-anchor="middle" data-en="Capability (0-10)">能力（0-10）</text>'
+        '<text class="axisTitle" transform="translate(17 180) rotate(-90)" text-anchor="middle" data-en="Market attractiveness (0-10)">市场吸引力（0-10）</text>'
+        f'{"".join(marks)}</svg><div class="scatterLegend">{"".join(legend)}</div></div>'
+    )
+
+
 def _render_chart(chart: dict[str, Any], slide_number: int, index: int) -> str:
     chart_id = f"slide-{slide_number}-chart-{index}"
     chart_type = chart.get("chart_type", "").upper()
     if "PIE" in chart_type or "DOUGHNUT" in chart_type:
         return _render_pie(chart, chart_id)
+    if "BUBBLE" in chart_type:
+        return _render_bubble(chart, chart_id)
+    if "XY_SCATTER" in chart_type:
+        return _render_scatter(chart, chart_id, slide_number)
+    series = chart.get("series") or []
+    if not chart.get("categories") and len(series) >= 2:
+        return _render_scalar_comparison(chart, chart_id)
     return _render_columns(chart, chart_id)
 
 
@@ -1012,8 +1247,12 @@ def _render_images(record: dict[str, Any], compact_captions: bool = False) -> st
     figures = []
     for index, path in enumerate(images):
         display_path = IMAGE_DISPLAY_MAP.get(path, path)
+        preferred_path, preferred_size, asset_mode = _preferred_image_asset(path)
         source_width, source_height = _source_image_size(path)
+        display_width_px, display_height_px = _display_image_size(path)
+        preferred_width_px, preferred_height_px = preferred_size
         quality_class = _source_quality_class(path)
+        layout_class = _image_layout_class(path)
         if index < len(override_captions):
             caption = override_captions[index]
             caption_en = (
@@ -1050,14 +1289,18 @@ def _render_images(record: dict[str, Any], compact_captions: bool = False) -> st
                 caption = f"{base_caption} · 图像 {index + 1}"
                 caption_en = f"{base_caption_en} · Image {index + 1}"
         display_width = _evidence_display_width(path)
+        ratio_css = f"{preferred_width_px}/{preferred_height_px}" if preferred_width_px and preferred_height_px else "4/3"
         figures.append(
-            f'<figure class="{quality_class}" data-source-resolution="{source_width}x{source_height}" '
-            f'style="--evidence-max-width:{display_width}px">'
+            f'<figure class="{quality_class} {layout_class}" data-source-resolution="{source_width}x{source_height}" '
+            f'data-display-resolution="{display_width_px}x{display_height_px}" '
+            f'data-render-resolution="{preferred_width_px}x{preferred_height_px}" data-asset-mode="{asset_mode}" '
+            f'style="--evidence-max-width:{display_width}px;--evidence-ratio:{ratio_css}">'
             '<button type="button" class="insightImageButton" '
-            f'data-full-src="{esc(display_path)}" data-source-src="{esc(path)}" data-caption="{esc(caption_en)}" '
+            f'data-full-src="{esc(path)}" data-source-src="{esc(path)}" data-ppt-src="{esc(display_path)}" data-caption="{esc(caption_en)}" '
             f'aria-label="放大查看：{esc(caption)}" data-aria-label-en="Open full-size image: {esc(caption_en)}" '
             f'title="放大查看" data-title-en="Open full-size image">'
-            f'<img src="{esc(display_path)}" alt="{esc(caption)}" data-alt-en="{esc(caption_en)}" loading="lazy" decoding="async">'
+            f'<img src="{esc(preferred_path)}" alt="{esc(caption)}" data-alt-en="{esc(caption_en)}" '
+            f'width="{preferred_width_px}" height="{preferred_height_px}" loading="lazy" decoding="async">'
             f'</button><figcaption data-en="{esc(caption_en)}">{esc(caption)}</figcaption></figure>'
         )
     return f'<div class="craneInsightGallery count-{len(images)}">{"".join(figures)}</div>'
@@ -1071,7 +1314,7 @@ def _render_class_visual_summary(records: list[dict[str, Any]]) -> str:
         title = _display_title(record)
         title_en = SLIDE_TITLE_OVERRIDES_EN.get(record["slide"], _en(title))
         source_long_edge = max(
-            (max(_source_image_size(path)) for path in record["images"]),
+            (max(_preferred_image_asset(path)[1]) for path in record["images"]),
             default=0,
         )
         if len(record["images"]) > 1:
@@ -1255,8 +1498,8 @@ def render_market_report_page() -> str:
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
-<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805i">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260811a">
+<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260812d">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260812d">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
@@ -1274,7 +1517,7 @@ def render_market_report_page() -> str:
 <section class="reportScope"><b data-en="Market, regional, product and service insight">市场、区域、产品与服务洞察</b><p data-en="The market report presents information that cuts across capacity classes. Rough-terrain and all-terrain classes with governed Excel datasets retain their specifications, equipment, work-condition and ranking analyses on the corresponding benchmark pages.">总体报告承载跨吨级信息；已有Excel数据的越野吊与全地面吨级继续在各自正式页面中展示参数、配置、工况和排名。</p></section>
 {render_market_overview()}
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260811a"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260805e"></script>
+</main></div><script src="assets/dashboard.js?v=20260812b"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260805e"></script>
 </body></html>'''
 
 

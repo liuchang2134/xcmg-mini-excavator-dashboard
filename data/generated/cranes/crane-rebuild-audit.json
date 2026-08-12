@@ -51,7 +51,7 @@
   "pages": {
     "market_overview": {
       "file": "crane-market-overview.html",
-      "bytes": 1126804,
+      "bytes": 1187856,
       "sections": [
         "macro",
         "competition",
@@ -62,7 +62,7 @@
         "roadmap",
         "go-to-market"
       ],
-      "tables": 102,
+      "tables": 103,
       "images": 204,
       "source_slide_refs": [
         1,
@@ -186,7 +186,7 @@
         "class_id": "RT-60t",
         "page": {
           "file": "crane-rt-60t.html",
-          "bytes": 887824,
+          "bytes": 894365,
           "sections": [
             "summary",
             "market-insight",
@@ -405,7 +405,7 @@
         "class_id": "RT-75t",
         "page": {
           "file": "crane-rt-75t.html",
-          "bytes": 846431,
+          "bytes": 853008,
           "sections": [
             "summary",
             "market-insight",
@@ -612,7 +612,7 @@
         "class_id": "RT-100t",
         "page": {
           "file": "crane-rt-100t.html",
-          "bytes": 889113,
+          "bytes": 895469,
           "sections": [
             "summary",
             "market-insight",
@@ -832,7 +832,7 @@
         "class_id": "RT-130t",
         "page": {
           "file": "crane-rt-130t.html",
-          "bytes": 833871,
+          "bytes": 843007,
           "sections": [
             "summary",
             "market-insight",
@@ -1025,7 +1025,7 @@
         "class_id": "RT-160t",
         "page": {
           "file": "crane-rt-160t.html",
-          "bytes": 638169,
+          "bytes": 638827,
           "sections": [
             "summary",
             "market-insight",
@@ -1058,7 +1058,7 @@
             "configurations",
             "quality"
           ],
-          "tables": 32,
+          "tables": 33,
           "images": 3,
           "source_slide_refs": [
             81,
@@ -1221,7 +1221,7 @@
         "class_id": "AT-150t",
         "page": {
           "file": "crane-at-150t.html",
-          "bytes": 651841,
+          "bytes": 660081,
           "sections": [
             "summary",
             "market-insight",

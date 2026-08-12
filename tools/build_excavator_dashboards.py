@@ -4107,6 +4107,7 @@ def dashboard_asset_version(css=None, javascript=None):
 def synchronize_dashboard_asset_references(asset_version=None):
     version = asset_version or dashboard_asset_version()
     dependent_pages = [
+        *(ROOT / meta["output"] for meta in SOURCE_FILES),
         ROOT / "excavator-market-overview.html",
         ROOT / "ppt-integration-demo" / "index.html",
         ROOT / "ppt-integration-demo" / "excavator-overview.html",

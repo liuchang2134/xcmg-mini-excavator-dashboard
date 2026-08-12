@@ -429,11 +429,46 @@ def test_every_useful_crane_ppt_visual_and_native_table_is_rendered():
         for index, table in enumerate(slide["tables"], 1):
             rows = table.get("rows") or []
             nonempty = [cell for row in rows for cell in row if str(cell).strip()]
-            if len(rows) >= 2 and len(nonempty) >= 4:
+            single_cell_text = str(nonempty[0]).strip() if len(nonempty) == 1 else ""
+            if (
+                (len(rows) >= 2 and len(nonempty) >= 4)
+                or len(single_cell_text) >= 80
+            ):
                 assert f'data-table-slide="{slide["slide"]}" data-table-index="{index}"' in combined
         for index, chart in enumerate(slide["charts"], 1):
-            if chart.get("categories") and chart.get("series"):
+            series = chart.get("series") or []
+            scalar_comparison = len(series) >= 2 and all(
+                len(item.get("values") or []) == 1 for item in series
+            )
+            if (chart.get("categories") and series) or scalar_comparison:
                 assert f'data-chart-id="slide-{slide["slide"]}-chart-{index}"' in combined
+
+
+def test_crane_price_share_charts_are_rendered_as_two_axis_scatter_plots():
+    build_all()
+    rt75 = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
+    market = (ROOT / "crane-market-overview.html").read_text(encoding="utf-8")
+    assert 'class="insightScatter" data-chart-id="slide-95-chart-1"' in rt75
+    assert 'class="insightComparison" data-chart-id="slide-95-chart-1"' not in rt75
+    assert "XCMG XCR75_U" in rt75
+    assert "73.4%" in rt75
+    assert 'class="insightScatter" data-chart-id="slide-26-chart-1"' in market
+    assert 'class="insightComparison" data-chart-id="slide-26-chart-1"' not in market
+
+
+def test_crane_scatter_bubble_and_planning_content_are_rendered_with_source_fidelity():
+    build_all()
+    market = (ROOT / "crane-market-overview.html").read_text(encoding="utf-8")
+    assert 'class="insightScatter" data-chart-id="slide-26-chart-1"' in market
+    assert 'class="insightScatter insightBubble" data-chart-id="slide-154-chart-1"' in market
+    assert "36.9 / 1.4%" in market
+    assert "能力 6.2 / 吸引力 8.3 / 容量 19.3" in market
+    assert 'data-table-slide="152" data-table-index="2"' in market
+    assert "布局110USt履带吊" in market
+
+    css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
+    assert ".insightScatter{display:grid" in css
+    assert ".scatterPoint:hover circle" in css
 
 
 def test_crane_insight_titles_and_multi_image_galleries_are_reader_facing():
@@ -466,6 +501,21 @@ def test_crane_source_tables_expand_without_nested_scrolling():
     assert "overflow:visible" in table_wrap.group(1).replace(" ", "")
     assert "min-width:0" in table_rule.group(1).replace(" ", "")
     assert "table-layout:fixed" in table_rule.group(1).replace(" ", "")
+    assert ".craneSourceTable.wide table,.craneSourceTable.wide tbody{display:block}" not in css
+    assert ".craneSourceTable.wide tr:first-child{display:none}" not in css
+    assert 'html[data-language="en"] .craneSourceTable:not(.wide){overflow-x:auto' not in css
+    assert ".craneSourceTable.ultra-wide table,.craneSourceTable.ultra-wide tbody{display:block}" in css
+    assert ".craneSourceTable table,.craneSourceTable thead,.craneSourceTable tbody{display:block}" in css
+
+
+def test_crane_source_tables_preserve_wide_comparison_matrices_and_long_callouts():
+    build_all()
+    report = (ROOT / "crane-market-overview.html").read_text(encoding="utf-8")
+    assert 'data-table-slide="161" data-table-index="1"' in report
+    assert 'class="craneSourceCallout"' in report
+    assert 'data-table-slide="161" data-table-index="2"' in report
+    assert 'class="craneSourceTable wide"' in report
+    assert "策略一：稳步推进" in report
 
 
 def test_crane_ppt_images_use_high_resolution_powerpoint_exports():
@@ -500,10 +550,37 @@ def test_crane_ppt_images_use_high_resolution_powerpoint_exports():
             re.findall(r'data-source-src="([^"]+)"', page)
         )
         if 'data-source-src="assets/crane-ppt-source/' in page:
-            assert 'src="assets/crane-ppt-display/' in page
+            assert 'data-ppt-src="assets/crane-ppt-display/' in page
 
     assert rendered_sources
     assert rendered_sources <= set(manifest["images"])
+    rendered = "\n".join(
+        page_path.read_text(encoding="utf-8")
+        for page_path in ROOT.glob("crane-*.html")
+    )
+    assert 'data-display-resolution="' in rendered
+    assert 'data-render-resolution="' in rendered
+    assert 'data-asset-mode="complete-source"' in rendered
+    assert 'data-asset-mode="ppt-export"' in rendered
+    assert "--evidence-ratio:" in rendered
+    assert re.search(r'<img[^>]+ width="\d+" height="\d+"', rendered)
+
+    severe_crop_source = "assets/crane-ppt-source/s163-image-15-86a23bfb19.png"
+    severe_crop_display = "assets/crane-ppt-display/s163-image-15-86a23bfb19.webp"
+    market_page = (ROOT / "crane-market-overview.html").read_text(encoding="utf-8")
+    assert f'data-full-src="{severe_crop_source}"' in market_page
+    assert f'data-ppt-src="{severe_crop_display}"' in market_page
+    assert f'<img src="{severe_crop_source}"' in market_page
+
+
+def test_crane_gallery_uses_exported_image_aspect_ratio_without_fixed_crop_boxes():
+    css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
+    assert "aspect-ratio:var(--evidence-ratio)" in css
+    assert "grid-template-rows:minmax(220px,1fr) auto" not in css
+    assert ".insightImageButton{display:block;width:100%;min-width:0;min-height:220px" not in css
+    assert ".craneInsightGallery img{display:block;width:100%;height:100%;min-height:220px" not in css
+    assert "figure.layout-panoramic" in css
+    assert "figure.layout-portrait" in css
 
 
 def test_crane_class_images_are_integrated_with_their_business_context():
@@ -515,7 +592,7 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     build_all()
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
-        assert "assets/crane-insights.css?v=20260811a" in page
+        assert "assets/crane-insights.css?v=20260812d" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
     job_section = rt75_page.split('id="job-applications"', 1)[1].split(
@@ -527,7 +604,7 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     assert 'class="classVisualSummary"' not in rt75_page
     assert 'data-source-slide="82"' in job_section
     assert 'data-source-slide="89"' in engineering_section
-    assert 'class="source-low"' in rt75_page
+    assert 'class="source-low ' in rt75_page
     assert "--evidence-max-width:" in rt75_page
     assert 'data-source-resolution="' in rt75_page
 
@@ -629,10 +706,9 @@ def test_crane_english_layout_does_not_split_table_labels_letter_by_letter():
     assert 'html[data-language="en"] .engineeringTableWrap' in dashboard_css
     assert 'html[data-language="en"] .craneInsightRecord>header' in insight_css
     assert 'html[data-language="en"] .craneInsightRecord>header>div{display:block}' in insight_css
-    assert 'html[data-language="en"] .craneSourceTable:not(.wide){overflow-x:auto;overflow-y:visible}' in insight_css
-    assert 'html[data-language="en"] .craneSourceTable:not(.wide) table{width:max-content;min-width:920px;table-layout:auto}' in insight_css
-    assert 'html[data-language="en"] .craneSourceTable:not(.wide) tr>:first-child{width:190px;min-width:190px}' in insight_css
-    assert 'html[data-language="en"] .craneSourceTable:not(.wide) tr>:last-child{width:320px;min-width:320px}' in insight_css
+    assert 'html[data-language="en"] .craneSourceTable table{width:100%;min-width:0;table-layout:fixed}' in insight_css
+    assert 'html[data-language="en"] .craneSourceTable th:first-child' in insight_css
+    assert 'html[data-language="en"] .craneSourceTable:not(.wide){overflow-x:auto' not in insight_css
 
 
 def test_crane_english_copy_uses_professional_market_terms():

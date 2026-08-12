@@ -156,7 +156,10 @@
               2568.0,
               2778.0,
               2764.11
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "增长率",
@@ -165,7 +168,10 @@
               0.207334273624824,
               0.0817757009345794,
               -0.005
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 480060,
@@ -190,7 +196,10 @@
               534.0,
               946.0,
               360.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 7124065,
@@ -1102,7 +1111,10 @@
             "values": [
               775.0,
               93.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 9230361,
@@ -1123,7 +1135,10 @@
             "values": [
               417.0,
               46.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 3402965,
@@ -1144,7 +1159,10 @@
             "values": [
               381.0,
               18.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 9448800,
@@ -1165,7 +1183,10 @@
             "values": [
               807.0,
               41.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 3451860,
@@ -1463,7 +1484,10 @@
               136.0,
               88.0,
               193.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2023",
@@ -1474,7 +1498,10 @@
               133.0,
               96.0,
               221.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2024",
@@ -1485,7 +1512,10 @@
               126.0,
               124.0,
               229.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2024年增长率",
@@ -1496,7 +1526,10 @@
               -0.0526315789473684,
               0.291666666666667,
               0.0361990950226244
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 484505,
@@ -3706,13 +3739,27 @@
             "name": "徐工\nXCT35_U",
             "values": [
               0.014
-            ]
+            ],
+            "x_values": [
+              36.9
+            ],
+            "y_values": [
+              0.014
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "Nationa\nl1400A",
             "values": [
               0.365
-            ]
+            ],
+            "x_values": [
+              37.1
+            ],
+            "y_values": [
+              0.365
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 5824537,
@@ -5926,13 +5973,27 @@
             "name": "徐工\nXCT40_U",
             "values": [
               0.071
-            ]
+            ],
+            "x_values": [
+              46.6
+            ],
+            "y_values": [
+              0.071
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "National\nNBT40-2",
             "values": [
               0.571
-            ]
+            ],
+            "x_values": [
+              51.5
+            ],
+            "y_values": [
+              0.571
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 5600699,
@@ -8009,13 +8070,27 @@
             "name": "徐工\nXCT60_U",
             "values": [
               0.004
-            ]
+            ],
+            "x_values": [
+              64.5
+            ],
+            "y_values": [
+              0.004
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "National\nNBT60XL",
             "values": [
               0.519
-            ]
+            ],
+            "x_values": [
+              69.9
+            ],
+            "y_values": [
+              0.519
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 5905500,
@@ -8145,7 +8220,10 @@
               73.0,
               24.0,
               44.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2023",
@@ -8159,7 +8237,10 @@
               90.0,
               38.0,
               61.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2024",
@@ -8173,7 +8254,10 @@
               99.0,
               44.0,
               55.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2024年增长率",
@@ -8187,7 +8271,10 @@
               0.1,
               0.157894736842105,
               -0.0983606557377049
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 503555,
@@ -9653,13 +9740,27 @@
             "name": "徐工\nXCA150_U",
             "values": [
               0.01
-            ]
+            ],
+            "x_values": [
+              133.0
+            ],
+            "y_values": [
+              0.01
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "利勃海尔\nLTM 1130-5.1",
             "values": [
               0.577
-            ]
+            ],
+            "x_values": [
+              146.0
+            ],
+            "y_values": [
+              0.577
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 5993765,
@@ -11302,13 +11403,27 @@
             "name": "徐工\nXCA275_U",
             "values": [
               0.001
-            ]
+            ],
+            "x_values": [
+              183.5
+            ],
+            "y_values": [
+              0.001
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "利勃海尔\nLTM 1250-5.1",
             "values": [
               0.308
-            ]
+            ],
+            "x_values": [
+              253.0
+            ],
+            "y_values": [
+              0.308
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 6002655,
@@ -11437,7 +11552,10 @@
               192.0,
               113.0,
               0.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2023",
@@ -11452,7 +11570,10 @@
               277.0,
               101.0,
               69.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2024",
@@ -11467,7 +11588,10 @@
               266.0,
               107.0,
               64.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2024年增长率",
@@ -11482,7 +11606,10 @@
               -0.0397111913357401,
               0.0594059405940594,
               -0.072463768115942
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 614680,
@@ -13382,13 +13509,27 @@
             "name": "徐工XCR60_U",
             "values": [
               0.007
-            ]
+            ],
+            "x_values": [
+              51.5
+            ],
+            "y_values": [
+              0.007
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "多田野GR-550XL",
             "values": [
               0.734
-            ]
+            ],
+            "x_values": [
+              55.8
+            ],
+            "y_values": [
+              0.734
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 6266815,
@@ -13500,13 +13641,27 @@
             "name": "徐工XCR75_U",
             "values": [
               0.007
-            ]
+            ],
+            "x_values": [
+              64.1
+            ],
+            "y_values": [
+              0.007
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "多田野\nGR-750XL-3",
             "values": [
               0.734
-            ]
+            ],
+            "x_values": [
+              65.4
+            ],
+            "y_values": [
+              0.734
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 6233160,
@@ -15164,13 +15319,27 @@
             "name": "徐工XCR100_U",
             "values": [
               0.004
-            ]
+            ],
+            "x_values": [
+              79.7
+            ],
+            "y_values": [
+              0.004
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "多田野GR-1000XLL-4",
             "values": [
               0.868
-            ]
+            ],
+            "x_values": [
+              89.4
+            ],
+            "y_values": [
+              0.868
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 6319520,
@@ -16924,13 +17093,27 @@
             "name": "徐工XCR130_U",
             "values": [
               0.0
-            ]
+            ],
+            "x_values": [
+              85.2
+            ],
+            "y_values": [
+              0.0
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "Grove\nRT9130E",
             "values": [
               0.36
-            ]
+            ],
+            "x_values": [
+              114.0
+            ],
+            "y_values": [
+              0.36
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 5634990,
@@ -17049,7 +17232,10 @@
               6.0,
               11.0,
               10.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2023",
@@ -17062,7 +17248,10 @@
               8.0,
               17.0,
               4.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2024",
@@ -17075,7 +17264,10 @@
               2.0,
               13.0,
               5.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "2024年增长率",
@@ -17088,7 +17280,10 @@
               -0.75,
               -0.235294117647059,
               0.25
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 514985,
@@ -18294,13 +18489,27 @@
             "name": "徐工\nXCT35_U",
             "values": [
               0.014
-            ]
+            ],
+            "x_values": [
+              36.9
+            ],
+            "y_values": [
+              0.014
+            ],
+            "bubble_sizes": []
           },
           {
             "name": "Nationa\nl1400A",
             "values": [
               0.365
-            ]
+            ],
+            "x_values": [
+              37.1
+            ],
+            "y_values": [
+              0.365
+            ],
+            "bubble_sizes": []
           }
         ],
         "left": 5785460,
@@ -19597,7 +19806,10 @@
               89.0,
               97.0,
               100.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           },
           {
             "name": "臂长(m)",
@@ -19605,7 +19817,10 @@
               50.0,
               48.0,
               50.0
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 8262378,
@@ -20714,6 +20929,24 @@
               6.0,
               6.0,
               5.9
+            ],
+            "x_values": [
+              6.2,
+              4.9,
+              4.8,
+              3.6
+            ],
+            "y_values": [
+              8.3,
+              6.0,
+              6.0,
+              5.9
+            ],
+            "bubble_sizes": [
+              19.3,
+              45.6,
+              52.6,
+              70.2
             ]
           }
         ],
@@ -20735,7 +20968,10 @@
             "values": [
               3.4,
               15.9
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 7589526,
@@ -20756,7 +20992,10 @@
             "values": [
               1.02,
               69.18
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 1362478,
@@ -20777,7 +21016,10 @@
             "values": [
               3.3,
               49.3
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 4261485,
@@ -20798,7 +21040,10 @@
             "values": [
               3.7,
               41.9
-            ]
+            ],
+            "x_values": [],
+            "y_values": [],
+            "bubble_sizes": []
           }
         ],
         "left": 5246880,

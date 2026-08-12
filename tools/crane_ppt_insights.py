@@ -179,6 +179,23 @@ def _chart_categories(chart: Any) -> list[str]:
         return []
 
 
+def _chart_xml_values(series: Any, tag: str) -> list[float | str | None]:
+    """Read scatter and bubble values not exposed by python-pptx's public API."""
+    try:
+        nodes = series._element.xpath(f"./c:{tag}")
+    except (AttributeError, TypeError):
+        return []
+    if not nodes:
+        return []
+    values: list[float | str | None] = []
+    for raw in nodes[0].xpath(".//c:pt/c:v/text()"):
+        try:
+            values.append(float(raw))
+        except (TypeError, ValueError):
+            values.append(_clean_text(raw))
+    return values
+
+
 def _extract_charts(shapes: list[Any]) -> list[dict[str, Any]]:
     charts = []
     for index, shape in enumerate(shapes, 1):
@@ -196,7 +213,15 @@ def _extract_charts(shapes: list[Any]) -> list[dict[str, Any]]:
                         values.append(float(value))
                     except (TypeError, ValueError):
                         values.append(_clean_text(value))
-            series.append({"name": _clean_text(item.name), "values": values})
+            series.append(
+                {
+                    "name": _clean_text(item.name),
+                    "values": values,
+                    "x_values": _chart_xml_values(item, "xVal"),
+                    "y_values": _chart_xml_values(item, "yVal"),
+                    "bubble_sizes": _chart_xml_values(item, "bubbleSize"),
+                }
+            )
         charts.append(
             {
                 "id": f"chart-{index:02d}",
