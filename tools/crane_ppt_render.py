@@ -11,14 +11,24 @@ from typing import Any, Iterable
 from PIL import Image
 
 try:
-    from .crane_ppt_insights import CLASS_SLIDES, OUTPUT_DIR, SOURCE_DATE
+    from .crane_ppt_insights import (
+        CLASS_SECTION_SLIDES,
+        CLASS_SLIDES,
+        OUTPUT_DIR,
+        SOURCE_DATE,
+    )
     from .postedit_crane_translations import (
         MANUAL_OVERRIDES,
         deterministic_cleanup,
         generated_manual_override,
     )
 except ImportError:
-    from crane_ppt_insights import CLASS_SLIDES, OUTPUT_DIR, SOURCE_DATE
+    from crane_ppt_insights import (
+        CLASS_SECTION_SLIDES,
+        CLASS_SLIDES,
+        OUTPUT_DIR,
+        SOURCE_DATE,
+    )
     from postedit_crane_translations import (
         MANUAL_OVERRIDES,
         deterministic_cleanup,
@@ -541,6 +551,37 @@ CLASS_INTRO = {
     ),
 }
 
+CLASS_PAGE_SECTIONS = (
+    (
+        "market-insight",
+        "吨级市场与竞争定位",
+        "Market and Competitive Position",
+        "先明确该吨级在北美起重机产品线中的需求位置、主流产品范围和竞争边界，再进入具体产品比较。",
+        "Establishes the class's demand position, mainstream product range and competitive boundary in North America before moving into product-level comparison.",
+    ),
+    (
+        "job-applications",
+        "区域需求与典型施工任务",
+        "Regional Demand and Typical Jobs",
+        "按区域产业、气候、法规和施工任务展示真实应用条件，并把现场影像与对应作业要求放在同一处阅读。",
+        "Connects regional industry, climate, regulation and job tasks with field imagery and the corresponding operating requirements.",
+    ),
+    (
+        "engineering-insight",
+        "参数、配置与实机评价",
+        "Specifications, Equipment and Field Evaluation",
+        "把纸面参数与配置对比、客户使用反馈和实机观察分开呈现，避免将参数优势直接等同于现场表现。",
+        "Separates published specifications and equipment from customer feedback and field observations so paper strengths are not treated as field-performance proof.",
+    ),
+    (
+        "product-positioning",
+        "产品定位与推进计划",
+        "Product Positioning and Program Plan",
+        "保留资料形成时的价格定位、销量目标和产品计划；规划内容仅作为决策输入，不代表已经上市或完成验证。",
+        "Retains source-date pricing, volume targets and product plans. Planned items are decision inputs, not evidence of launch or completed validation.",
+    ),
+)
+
 REPORT_SECTIONS = [
     (
         "macro",
@@ -1058,7 +1099,11 @@ def _render_class_visual_summary(records: list[dict[str, Any]]) -> str:
     )
 
 
-def render_slide_record(record: dict[str, Any], include_media: bool = True) -> str:
+def render_slide_record(
+    record: dict[str, Any],
+    include_media: bool = True,
+    compact_context: bool = False,
+) -> str:
     tables = [
         (index, table)
         for index, table in enumerate(record.get("tables", []), 1)
@@ -1086,15 +1131,27 @@ def render_slide_record(record: dict[str, Any], include_media: bool = True) -> s
     record_label_en = SECTION_LABELS_EN.get(record.get("section"), "Product Analysis")
     title = _display_title(record)
     title_en = SLIDE_TITLE_OVERRIDES_EN.get(record["slide"], _en(title))
+    label_html = "" if compact_context else (
+        f'<span class="recordLabel" data-en="{esc(record_label_en)}">{esc(record_label)}</span>'
+    )
+    status_html = (
+        _status_badge(record["status"])
+        if not compact_context or record["status"] == "plan"
+        else ""
+    )
+    footer_html = "" if compact_context else (
+        f'<footer data-en="Source date {SOURCE_DATE} · Record CR-{record["slide"]:03d}">'
+        f'资料日期 {SOURCE_DATE} · 记录号 CR-{record["slide"]:03d}</footer>'
+    )
+    context_class = " contextRecord" if compact_context else ""
     return (
-        f'<article class="craneInsightRecord{content_class}" data-source-slide="{record["slide"]}" '
+        f'<article class="craneInsightRecord{content_class}{context_class}" data-source-slide="{record["slide"]}" '
         f'data-source-status="{esc(record["status"])}">'
         '<header><div>'
-        f'<span class="recordLabel" data-en="{esc(record_label_en)}">{esc(record_label)}</span>'
-        f'<h3 data-en="{esc(title_en)}">{esc(title)}</h3></div>{_status_badge(record["status"])}</header>'
+        f'{label_html}<h3 data-en="{esc(title_en)}">{esc(title)}</h3></div>{status_html}</header>'
         f'<div class="recordBody"><div class="recordNarrative">{body}</div>{media}</div>'
         f'{visual_html}{table_html}'
-        f'<footer data-en="Source date {SOURCE_DATE} · Record CR-{record["slide"]:03d}">资料日期 {SOURCE_DATE} · 记录号 CR-{record["slide"]:03d}</footer>'
+        f'{footer_html}'
         '</article>'
     )
 
@@ -1124,19 +1181,41 @@ def render_class_context(class_id: str, language: str = "zh") -> str:
     data = load_crane_insights()
     if class_id not in CLASS_SLIDES:
         raise KeyError(class_id)
-    records = [data["by_slide"][number] for number in CLASS_SLIDES[class_id]]
     intro_zh, intro_en = CLASS_INTRO[class_id]
     segment = data["segments"][class_id]
     status = "plan" if segment["source_scope"] == "plan" else "current-at-source-date"
-    return (
-        '<section id="market-context" class="craneInsightSection classContext">'
-        '<div class="insightSectionHead"><div><p class="eyebrow">MARKET AND PRODUCT EVIDENCE</p>'
-        f'<h2 data-en="Market, Customer and Product Evidence">市场、客户与产品证据</h2>'
-        f'<p data-en="{esc(intro_en)}">{esc(intro_zh)}</p></div>{_status_badge(status)}</div>'
-        f'{_render_class_visual_summary(records)}'
-        f'<div class="craneInsightRecords">{"".join(render_slide_record(record, include_media=False) for record in records)}</div>'
-        f'{render_source_register(CLASS_SLIDES[class_id])}</section>'
-    )
+    sections = []
+    for section_id, title_zh, title_en, lead_zh, lead_en in CLASS_PAGE_SECTIONS:
+        if section_id == "market-insight":
+            lead_zh = f"{intro_zh}{lead_zh}"
+            lead_en = f"{intro_en} {lead_en}"
+        slide_numbers = CLASS_SECTION_SLIDES[class_id][section_id]
+        records = [data["by_slide"][number] for number in slide_numbers]
+        if records:
+            records_html = "".join(
+                render_slide_record(record, include_media=True, compact_context=True)
+                for record in records
+            )
+        else:
+            records_html = (
+                '<div class="classEvidenceBoundary"><b data-en="No class-specific field evidence is available">'
+                '当前缺少该吨级专属现场证据</b>'
+                '<p data-en="The available source does not provide verified jobsite images, customer evaluation or machine-test results for this class. No conclusions are inferred from adjacent classes.">'
+                '现有资料未提供该吨级可核验的施工影像、客户评价或实机测试结果；页面不引用相邻吨级结论代替。</p></div>'
+            )
+        badge = (
+            _status_badge(status)
+            if status == "plan" and section_id == "product-positioning"
+            else ""
+        )
+        sections.append(
+            f'<section id="{esc(section_id)}" class="craneInsightSection classContextGroup {esc(section_id)}">'
+            '<div class="insightSectionHead"><div>'
+            f'<h2 data-en="{esc(title_en)}">{esc(title_zh)}</h2>'
+            f'<p data-en="{esc(lead_en)}">{esc(lead_zh)}</p></div>{badge}</div>'
+            f'<div class="craneInsightRecords">{records_html}</div></section>'
+        )
+    return "".join(sections)
 
 
 def render_market_overview(language: str = "zh") -> str:
@@ -1177,14 +1256,14 @@ def render_market_report_page() -> str:
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260805i">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260807a">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260811a">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
 <a class="navBrand" href="arc.html"><img src="assets/xcmg-logo.svg" alt="XCMG"></a>
 <div><div class="navTitle" data-en="North American Crane Insight">北美起重机市场洞察</div><small>XCMG ARC</small></div>
 <button class="languageToggle" type="button">EN</button>
-<button class="sidebarToggle" type="button"><span data-en="Collapse sidebar">收起侧栏</span></button>
+<button class="sidebarToggle" type="button"><span data-en="Collapse navigation">收起侧栏</span></button>
 <button class="navToggle" type="button" data-en="Page navigation">页面导航</button>
 <div class="navMenu" id="page-nav">{report_navigation()}</div></aside><main>
 <header class="hero craneReportHero"><div class="heroText"><p class="eyebrow">CRANE MARKET AND PRODUCT INTELLIGENCE</p>
@@ -1195,7 +1274,7 @@ def render_market_report_page() -> str:
 <section class="reportScope"><b data-en="Market, regional, product and service insight">市场、区域、产品与服务洞察</b><p data-en="The market report presents information that cuts across capacity classes. Rough-terrain and all-terrain classes with governed Excel datasets retain their specifications, equipment, work-condition and ranking analyses on the corresponding benchmark pages.">总体报告承载跨吨级信息；已有Excel数据的越野吊与全地面吨级继续在各自正式页面中展示参数、配置、工况和排名。</p></section>
 {render_market_overview()}
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260805e"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260805e"></script>
+</main></div><script src="assets/dashboard.js?v=20260811a"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260805e"></script>
 </body></html>'''
 
 

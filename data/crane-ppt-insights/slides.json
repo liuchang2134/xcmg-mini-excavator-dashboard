@@ -11329,7 +11329,10 @@
     "source_type": "pptx",
     "classes": [
       "RT-60t",
-      "RT-75t"
+      "RT-75t",
+      "RT-100t",
+      "RT-130t",
+      "RT-160t"
     ],
     "text_blocks": [
       {
@@ -12053,8 +12056,7 @@
     "source_date": "2025-07-01",
     "source_type": "pptx",
     "classes": [
-      "RT-60t",
-      "RT-75t"
+      "RT-60t"
     ],
     "text_blocks": [
       {
@@ -12288,7 +12290,6 @@
     "source_date": "2025-07-01",
     "source_type": "pptx",
     "classes": [
-      "RT-60t",
       "RT-75t"
     ],
     "text_blocks": [
@@ -13289,8 +13290,7 @@
     "source_date": "2025-07-01",
     "source_type": "pptx",
     "classes": [
-      "RT-60t",
-      "RT-75t"
+      "RT-60t"
     ],
     "text_blocks": [
       {
@@ -13408,7 +13408,6 @@
     "source_date": "2025-07-01",
     "source_type": "pptx",
     "classes": [
-      "RT-60t",
       "RT-75t"
     ],
     "text_blocks": [

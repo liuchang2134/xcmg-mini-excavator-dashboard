@@ -26,13 +26,54 @@ SOURCE_DATE = "2025-07-01"
 MIN_IMAGE_SLIDE_AREA_RATIO = 0.007
 MIN_IMAGE_PIXEL_AREA = 25_000
 
+CLASS_SECTION_SLIDES = {
+    "RT-60t": {
+        "market-insight": [81],
+        "job-applications": list(range(82, 86)),
+        "engineering-insight": [86, *range(88, 94)],
+        "product-positioning": [94],
+    },
+    "RT-75t": {
+        "market-insight": [81],
+        "job-applications": list(range(82, 86)),
+        "engineering-insight": list(range(87, 94)),
+        "product-positioning": [95],
+    },
+    "RT-100t": {
+        "market-insight": [81],
+        "job-applications": list(range(96, 100)),
+        "engineering-insight": list(range(100, 107)),
+        "product-positioning": [107],
+    },
+    "RT-130t": {
+        "market-insight": [81],
+        "job-applications": list(range(108, 115)),
+        "engineering-insight": list(range(115, 119)),
+        "product-positioning": [119],
+    },
+    "RT-160t": {
+        "market-insight": [81, 132],
+        "job-applications": [],
+        "engineering-insight": [],
+        "product-positioning": [147, 152],
+    },
+    "AT-150t": {
+        "market-insight": [58],
+        "job-applications": list(range(59, 63)),
+        "engineering-insight": list(range(63, 68)),
+        "product-positioning": [68],
+    },
+}
+
 CLASS_SLIDES = {
-    "RT-60t": list(range(81, 96)),
-    "RT-75t": list(range(81, 96)),
-    "RT-100t": list(range(96, 108)),
-    "RT-130t": list(range(108, 120)),
-    "RT-160t": [132, 147, 152],
-    "AT-150t": list(range(58, 69)),
+    class_id: list(
+        dict.fromkeys(
+            slide
+            for section_slides in sections.values()
+            for slide in section_slides
+        )
+    )
+    for class_id, sections in CLASS_SECTION_SLIDES.items()
 }
 
 CLASS_META = {

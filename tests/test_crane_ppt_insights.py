@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from tools.crane_ppt_insights import (
+    CLASS_SECTION_SLIDES,
     CLASS_SLIDES,
     DEFAULT_SOURCE,
     OUTPUT_DIR,
@@ -33,13 +34,21 @@ def test_crane_slide_map_covers_all_163_slides():
 def test_crane_segment_map_assigns_formal_class_ranges():
     build_crane_ppt_insights()
     mapping = load_json("segment-map.json")
-    assert mapping["RT-60t"]["slides"] == list(range(81, 96))
-    assert mapping["RT-75t"]["slides"] == list(range(81, 96))
-    assert mapping["RT-100t"]["slides"] == list(range(96, 108))
-    assert mapping["RT-130t"]["slides"] == list(range(108, 120))
+    assert mapping["RT-60t"]["slides"] == [81, *range(82, 87), *range(88, 95)]
+    assert mapping["RT-75t"]["slides"] == [81, *range(82, 86), *range(87, 94), 95]
+    assert mapping["RT-100t"]["slides"] == [81, *range(96, 108)]
+    assert mapping["RT-130t"]["slides"] == [81, *range(108, 120)]
     assert mapping["AT-150t"]["slides"] == list(range(58, 69))
-    assert mapping["RT-160t"]["slides"] == [132, 147, 152]
+    assert mapping["RT-160t"]["slides"] == [81, 132, 147, 152]
     assert CLASS_SLIDES == {key: value["slides"] for key, value in mapping.items()}
+
+
+def test_crane_class_sections_keep_tonnage_specific_product_pages_separate():
+    assert 94 in CLASS_SECTION_SLIDES["RT-60t"]["product-positioning"]
+    assert 95 not in CLASS_SLIDES["RT-60t"]
+    assert 95 in CLASS_SECTION_SLIDES["RT-75t"]["product-positioning"]
+    assert 94 not in CLASS_SLIDES["RT-75t"]
+    assert all(81 in CLASS_SLIDES[class_id] for class_id in ("RT-60t", "RT-75t", "RT-100t", "RT-130t", "RT-160t"))
 
 
 def test_crane_plans_are_not_marked_current():

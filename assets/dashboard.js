@@ -222,7 +222,7 @@ function setupSidebarCollapse(){
     toggle.type='button';
     toggle.setAttribute('aria-expanded','true');
     toggle.setAttribute('aria-controls',nav.querySelector('.navMenu')?.id||'page-nav');
-    toggle.innerHTML='<span>收起侧栏</span>';
+    toggle.innerHTML='<span data-en="Collapse navigation">收起侧栏</span>';
     nav.insertBefore(toggle,nav.querySelector('.navToggle')||nav.querySelector('.navMenu'));
   }
   const desktop=window.matchMedia('(min-width:901px)');
@@ -239,7 +239,10 @@ function setupSidebarCollapse(){
     toggle.setAttribute('aria-expanded',String(!effective));
     const text=getLabel(effective);
     const label=toggle.querySelector('span');
-    if(label)label.textContent=text;
+    if(label){
+      label.dataset.en=effective?'Open navigation':'Collapse navigation';
+      label.textContent=text;
+    }
     toggle.setAttribute('aria-label',text);
     if(persist){
       stored=effective;

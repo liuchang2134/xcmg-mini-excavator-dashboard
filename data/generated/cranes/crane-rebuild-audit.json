@@ -1,0 +1,1510 @@
+{
+  "source": {
+    "ppt": {
+      "file_name": "XCMG_North_America_Crane_Market_Insight_2025-07-01_V13_source.pptx",
+      "sha256": "d2ede87bdee7e63600471889478a58c7c1a37cca9aaf8282fc7f994b3b4ba73f",
+      "slide_count": 163,
+      "source_date": "2025-07-01",
+      "generated_assets": 281,
+      "native_tables": 354,
+      "native_charts": 26
+    },
+    "workbook": {
+      "file_name": "XCMG_crane_benchmark_data_pool.xlsx",
+      "sha256": "0DF8DDC77F1F8018861204BEE4A8BAEEEDC65745302D51430CE51A7FD9005898",
+      "excluded_sheets": [
+        "40-60",
+        "5-6",
+        "6-7 缺",
+        "Sheet1",
+        "总结"
+      ]
+    }
+  },
+  "ppt_total": {
+    "slides": 163,
+    "text_blocks": 666,
+    "text_characters": 26768,
+    "native_tables": 354,
+    "native_table_cells": 8049,
+    "native_charts": 26,
+    "images": 281,
+    "sections": {
+      "all-terrain": 23,
+      "boom-truck": 48,
+      "competition": 3,
+      "crawler": 10,
+      "go-to-market": 11,
+      "macro": 2,
+      "market-volume": 1,
+      "portfolio": 13,
+      "regional-demand": 3,
+      "roadmap": 10,
+      "rough-terrain": 39
+    },
+    "statuses": {
+      "current-at-source-date": 122,
+      "historical": 10,
+      "plan": 31
+    }
+  },
+  "pages": {
+    "market_overview": {
+      "file": "crane-market-overview.html",
+      "bytes": 1126804,
+      "sections": [
+        "macro",
+        "competition",
+        "boom-truck",
+        "all-terrain",
+        "crawler",
+        "portfolio",
+        "roadmap",
+        "go-to-market"
+      ],
+      "tables": 102,
+      "images": 204,
+      "source_slide_refs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163
+      ],
+      "source_slide_ref_count": 113
+    },
+    "class_pages": [
+      {
+        "class_id": "RT-60t",
+        "page": {
+          "file": "crane-rt-60t.html",
+          "bytes": 887824,
+          "sections": [
+            "summary",
+            "market-insight",
+            "job-applications",
+            "engineering-insight",
+            "product-positioning",
+            "condition-overview",
+            "position",
+            "cond1",
+            "cond2",
+            "cond3",
+            "cond4",
+            "cond5",
+            "cond6",
+            "cond7",
+            "cond8",
+            "cond9",
+            "cond10",
+            "cond11",
+            "cond12",
+            "cond13",
+            "cond14",
+            "cond15",
+            "cond16",
+            "cond17",
+            "cond18",
+            "cond19",
+            "actions",
+            "parameters",
+            "configurations",
+            "quality"
+          ],
+          "tables": 42,
+          "images": 17,
+          "source_slide_refs": [
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94
+          ],
+          "source_slide_ref_count": 13
+        },
+        "ppt": {
+          "slides": 13,
+          "text_blocks": 47,
+          "text_characters": 1843,
+          "native_tables": 32,
+          "native_table_cells": 661,
+          "native_charts": 2,
+          "images": 15,
+          "sections": {
+            "rough-terrain": 13
+          },
+          "statuses": {
+            "current-at-source-date": 11,
+            "historical": 1,
+            "plan": 1
+          },
+          "slide_numbers": [
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94
+          ],
+          "missing_page_references": [],
+          "unexpected_page_references": []
+        },
+        "excel": {
+          "source_sheet": "RT-60t",
+          "model_count": 9,
+          "parameter_rows": 58,
+          "configuration_rows": 9,
+          "models": [
+            {
+              "product": "XCMG XCR60U",
+              "is_xcmg": true,
+              "numeric_parameter_values": 47,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.8103,
+              "recorded_configuration_values": 1,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.1111,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Tadano GR-550XL",
+              "is_xcmg": false,
+              "numeric_parameter_values": 40,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.6897,
+              "recorded_configuration_values": 1,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.1111,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Grove GRT765",
+              "is_xcmg": false,
+              "numeric_parameter_values": 45,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7759,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.2222,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Grove GRT655",
+              "is_xcmg": false,
+              "numeric_parameter_values": 46,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7931,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.2222,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Grove GRT655L",
+              "is_xcmg": false,
+              "numeric_parameter_values": 46,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7931,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.2222,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Link-Belt 65RT",
+              "is_xcmg": false,
+              "numeric_parameter_values": 44,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7586,
+              "recorded_configuration_values": 1,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.1111,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Terex TRT60US",
+              "is_xcmg": false,
+              "numeric_parameter_values": 41,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7069,
+              "recorded_configuration_values": 1,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.1111,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Zoomlion ZRT600V",
+              "is_xcmg": false,
+              "numeric_parameter_values": 40,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.6897,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Sany SRA550A",
+              "is_xcmg": false,
+              "numeric_parameter_values": 45,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7759,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            }
+          ],
+          "anomalies": [
+            "stale_excavator_scoring_block_excluded"
+          ]
+        }
+      },
+      {
+        "class_id": "RT-75t",
+        "page": {
+          "file": "crane-rt-75t.html",
+          "bytes": 846431,
+          "sections": [
+            "summary",
+            "market-insight",
+            "job-applications",
+            "engineering-insight",
+            "product-positioning",
+            "condition-overview",
+            "position",
+            "cond1",
+            "cond2",
+            "cond3",
+            "cond4",
+            "cond5",
+            "cond6",
+            "cond7",
+            "cond8",
+            "cond9",
+            "cond10",
+            "cond11",
+            "cond12",
+            "cond13",
+            "cond14",
+            "cond15",
+            "cond16",
+            "cond17",
+            "cond18",
+            "cond19",
+            "actions",
+            "parameters",
+            "configurations",
+            "quality"
+          ],
+          "tables": 42,
+          "images": 17,
+          "source_slide_refs": [
+            81,
+            82,
+            83,
+            84,
+            85,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            95
+          ],
+          "source_slide_ref_count": 13
+        },
+        "ppt": {
+          "slides": 13,
+          "text_blocks": 47,
+          "text_characters": 1827,
+          "native_tables": 32,
+          "native_table_cells": 661,
+          "native_charts": 2,
+          "images": 15,
+          "sections": {
+            "rough-terrain": 13
+          },
+          "statuses": {
+            "current-at-source-date": 11,
+            "historical": 1,
+            "plan": 1
+          },
+          "slide_numbers": [
+            81,
+            82,
+            83,
+            84,
+            85,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            95
+          ],
+          "missing_page_references": [],
+          "unexpected_page_references": []
+        },
+        "excel": {
+          "source_sheet": "RT-75t ",
+          "model_count": 8,
+          "parameter_rows": 58,
+          "configuration_rows": 11,
+          "models": [
+            {
+              "product": "XCMG XCR75U",
+              "is_xcmg": true,
+              "numeric_parameter_values": 46,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7931,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 11,
+              "configuration_coverage": 0.1818,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Tadano GR-800XL-4",
+              "is_xcmg": false,
+              "numeric_parameter_values": 47,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.8103,
+              "recorded_configuration_values": 1,
+              "configuration_value_slots": 11,
+              "configuration_coverage": 0.0909,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Tadano GR-800XXL-4",
+              "is_xcmg": false,
+              "numeric_parameter_values": 45,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7759,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 11,
+              "configuration_coverage": 0.1818,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Grove GRT780",
+              "is_xcmg": false,
+              "numeric_parameter_values": 45,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7759,
+              "recorded_configuration_values": 6,
+              "configuration_value_slots": 11,
+              "configuration_coverage": 0.5455,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Link-Belt 75RT",
+              "is_xcmg": false,
+              "numeric_parameter_values": 45,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7759,
+              "recorded_configuration_values": 3,
+              "configuration_value_slots": 11,
+              "configuration_coverage": 0.2727,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Terex TRT80US",
+              "is_xcmg": false,
+              "numeric_parameter_values": 45,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7759,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 11,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Zoomlion ZRT800V542A",
+              "is_xcmg": false,
+              "numeric_parameter_values": 11,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.1897,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 11,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_parameter_coverage",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Sany SRA750A",
+              "is_xcmg": false,
+              "numeric_parameter_values": 45,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7759,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 11,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            }
+          ],
+          "anomalies": [
+            "stale_excavator_scoring_block_excluded"
+          ]
+        }
+      },
+      {
+        "class_id": "RT-100t",
+        "page": {
+          "file": "crane-rt-100t.html",
+          "bytes": 889113,
+          "sections": [
+            "summary",
+            "market-insight",
+            "job-applications",
+            "engineering-insight",
+            "product-positioning",
+            "condition-overview",
+            "position",
+            "cond1",
+            "cond2",
+            "cond3",
+            "cond4",
+            "cond5",
+            "cond6",
+            "cond7",
+            "cond8",
+            "cond9",
+            "cond10",
+            "cond11",
+            "cond12",
+            "cond13",
+            "cond14",
+            "cond15",
+            "cond16",
+            "cond17",
+            "cond18",
+            "cond19",
+            "actions",
+            "parameters",
+            "configurations",
+            "quality"
+          ],
+          "tables": 42,
+          "images": 16,
+          "source_slide_refs": [
+            81,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107
+          ],
+          "source_slide_ref_count": 13
+        },
+        "ppt": {
+          "slides": 13,
+          "text_blocks": 47,
+          "text_characters": 1819,
+          "native_tables": 31,
+          "native_table_cells": 676,
+          "native_charts": 2,
+          "images": 14,
+          "sections": {
+            "rough-terrain": 13
+          },
+          "statuses": {
+            "current-at-source-date": 11,
+            "historical": 1,
+            "plan": 1
+          },
+          "slide_numbers": [
+            81,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107
+          ],
+          "missing_page_references": [],
+          "unexpected_page_references": []
+        },
+        "excel": {
+          "source_sheet": "RT-100t",
+          "model_count": 9,
+          "parameter_rows": 58,
+          "configuration_rows": 9,
+          "models": [
+            {
+              "product": "XCMG XCR100U",
+              "is_xcmg": true,
+              "numeric_parameter_values": 48,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.8276,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.2222,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Tadano GR-1000XL-4",
+              "is_xcmg": false,
+              "numeric_parameter_values": 46,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7931,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Tadano GR-1000XLL-4",
+              "is_xcmg": false,
+              "numeric_parameter_values": 46,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7931,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Grove GRT8100-1",
+              "is_xcmg": false,
+              "numeric_parameter_values": 47,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.8103,
+              "recorded_configuration_values": 3,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.3333,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Link-Belt 100RT",
+              "is_xcmg": false,
+              "numeric_parameter_values": 45,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7759,
+              "recorded_configuration_values": 1,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.1111,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Liebherr LRT1090-2.1",
+              "is_xcmg": false,
+              "numeric_parameter_values": 43,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7414,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.2222,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Terex TRT100US",
+              "is_xcmg": false,
+              "numeric_parameter_values": 36,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.6207,
+              "recorded_configuration_values": 3,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.3333,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Zoomlion ZRT1000V543A",
+              "is_xcmg": false,
+              "numeric_parameter_values": 15,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.2586,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_parameter_coverage",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Sany SRA1000A",
+              "is_xcmg": false,
+              "numeric_parameter_values": 44,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7586,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 9,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            }
+          ],
+          "anomalies": [
+            "stale_excavator_scoring_block_excluded"
+          ]
+        }
+      },
+      {
+        "class_id": "RT-130t",
+        "page": {
+          "file": "crane-rt-130t.html",
+          "bytes": 833871,
+          "sections": [
+            "summary",
+            "market-insight",
+            "job-applications",
+            "engineering-insight",
+            "product-positioning",
+            "condition-overview",
+            "position",
+            "cond1",
+            "cond2",
+            "cond3",
+            "cond4",
+            "cond5",
+            "cond6",
+            "cond7",
+            "cond8",
+            "cond9",
+            "cond10",
+            "cond11",
+            "cond12",
+            "cond13",
+            "cond14",
+            "cond15",
+            "cond16",
+            "cond17",
+            "cond18",
+            "cond19",
+            "actions",
+            "parameters",
+            "configurations",
+            "quality"
+          ],
+          "tables": 42,
+          "images": 28,
+          "source_slide_refs": [
+            81,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119
+          ],
+          "source_slide_ref_count": 13
+        },
+        "ppt": {
+          "slides": 13,
+          "text_blocks": 47,
+          "text_characters": 1837,
+          "native_tables": 38,
+          "native_table_cells": 682,
+          "native_charts": 2,
+          "images": 26,
+          "sections": {
+            "rough-terrain": 13
+          },
+          "statuses": {
+            "current-at-source-date": 11,
+            "historical": 1,
+            "plan": 1
+          },
+          "slide_numbers": [
+            81,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119
+          ],
+          "missing_page_references": [],
+          "unexpected_page_references": []
+        },
+        "excel": {
+          "source_sheet": "RT-130t",
+          "model_count": 7,
+          "parameter_rows": 58,
+          "configuration_rows": 10,
+          "models": [
+            {
+              "product": "XCMG XCR130U",
+              "is_xcmg": true,
+              "numeric_parameter_values": 49,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.8448,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.2,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Tadano GR-1300XL-4",
+              "is_xcmg": false,
+              "numeric_parameter_values": 48,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.8276,
+              "recorded_configuration_values": 1,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.1,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Grove GRT8120",
+              "is_xcmg": false,
+              "numeric_parameter_values": 48,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.8276,
+              "recorded_configuration_values": 1,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.1,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Link-Belt 120RT",
+              "is_xcmg": false,
+              "numeric_parameter_values": 46,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7931,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.2,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Liebherr LRT1130-2.1",
+              "is_xcmg": false,
+              "numeric_parameter_values": 43,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7414,
+              "recorded_configuration_values": 1,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.1,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Zoomlion ZRT1300V",
+              "is_xcmg": false,
+              "numeric_parameter_values": 43,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7414,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Sany SRA1200A",
+              "is_xcmg": false,
+              "numeric_parameter_values": 44,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7586,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            }
+          ],
+          "anomalies": [
+            "stale_excavator_scoring_block_excluded"
+          ]
+        }
+      },
+      {
+        "class_id": "RT-160t",
+        "page": {
+          "file": "crane-rt-160t.html",
+          "bytes": 638169,
+          "sections": [
+            "summary",
+            "market-insight",
+            "job-applications",
+            "engineering-insight",
+            "product-positioning",
+            "condition-overview",
+            "position",
+            "cond1",
+            "cond2",
+            "cond3",
+            "cond4",
+            "cond5",
+            "cond6",
+            "cond7",
+            "cond8",
+            "cond9",
+            "cond10",
+            "cond11",
+            "cond12",
+            "cond13",
+            "cond14",
+            "cond15",
+            "cond16",
+            "cond17",
+            "cond18",
+            "cond19",
+            "actions",
+            "parameters",
+            "configurations",
+            "quality"
+          ],
+          "tables": 32,
+          "images": 3,
+          "source_slide_refs": [
+            81,
+            132,
+            147,
+            152
+          ],
+          "source_slide_ref_count": 4
+        },
+        "ppt": {
+          "slides": 4,
+          "text_blocks": 27,
+          "text_characters": 1137,
+          "native_tables": 3,
+          "native_table_cells": 65,
+          "native_charts": 1,
+          "images": 1,
+          "sections": {
+            "portfolio": 1,
+            "roadmap": 2,
+            "rough-terrain": 1
+          },
+          "statuses": {
+            "current-at-source-date": 1,
+            "historical": 1,
+            "plan": 2
+          },
+          "slide_numbers": [
+            81,
+            132,
+            147,
+            152
+          ],
+          "missing_page_references": [],
+          "unexpected_page_references": []
+        },
+        "excel": {
+          "source_sheet": "RT-160t",
+          "model_count": 8,
+          "parameter_rows": 58,
+          "configuration_rows": 8,
+          "models": [
+            {
+              "product": "XCMG XCR165U",
+              "is_xcmg": true,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 8,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Tadano GR-1600XL",
+              "is_xcmg": false,
+              "numeric_parameter_values": 47,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.8103,
+              "recorded_configuration_values": 2,
+              "configuration_value_slots": 8,
+              "configuration_coverage": 0.25,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Grove GRT9165",
+              "is_xcmg": false,
+              "numeric_parameter_values": 46,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7931,
+              "recorded_configuration_values": 3,
+              "configuration_value_slots": 8,
+              "configuration_coverage": 0.375,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Link-Belt RTC80160",
+              "is_xcmg": false,
+              "numeric_parameter_values": 44,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.7586,
+              "recorded_configuration_values": 3,
+              "configuration_value_slots": 8,
+              "configuration_coverage": 0.375,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Liebherr Liebherr",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 8,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Terex Terex",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 8,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Zoomlion Zoomlion",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 8,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Sany Sany",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 58,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 8,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            }
+          ],
+          "anomalies": [
+            "stale_excavator_scoring_block_excluded",
+            "xcmg_parameter_data_missing"
+          ]
+        }
+      },
+      {
+        "class_id": "AT-150t",
+        "page": {
+          "file": "crane-at-150t.html",
+          "bytes": 651841,
+          "sections": [
+            "summary",
+            "market-insight",
+            "job-applications",
+            "engineering-insight",
+            "product-positioning",
+            "condition-overview",
+            "position",
+            "cond1",
+            "cond2",
+            "cond3",
+            "cond4",
+            "cond5",
+            "cond6",
+            "cond7",
+            "cond8",
+            "cond9",
+            "cond10",
+            "cond11",
+            "cond12",
+            "cond13",
+            "cond14",
+            "cond15",
+            "cond16",
+            "cond17",
+            "cond18",
+            "actions",
+            "parameters",
+            "configurations",
+            "quality"
+          ],
+          "tables": 38,
+          "images": 24,
+          "source_slide_refs": [
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68
+          ],
+          "source_slide_ref_count": 11
+        },
+        "ppt": {
+          "slides": 11,
+          "text_blocks": 42,
+          "text_characters": 1612,
+          "native_tables": 28,
+          "native_table_cells": 596,
+          "native_charts": 2,
+          "images": 22,
+          "sections": {
+            "all-terrain": 11
+          },
+          "statuses": {
+            "current-at-source-date": 9,
+            "historical": 1,
+            "plan": 1
+          },
+          "slide_numbers": [
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68
+          ],
+          "missing_page_references": [],
+          "unexpected_page_references": []
+        },
+        "excel": {
+          "source_sheet": "AT-150t",
+          "model_count": 7,
+          "parameter_rows": 62,
+          "configuration_rows": 10,
+          "models": [
+            {
+              "product": "XCMG XCA150U",
+              "is_xcmg": true,
+              "numeric_parameter_values": 35,
+              "parameter_value_slots": 62,
+              "parameter_coverage": 0.5645,
+              "recorded_configuration_values": 3,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.3,
+              "anomalies": [
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Tadano GR-1300XL-4",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 62,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Grove GRT8120",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 62,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Link-Belt 120RT",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 62,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Liebherr LRT1130-2.1",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 62,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Zoomlion ZRT1300V",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 62,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            },
+            {
+              "product": "Sany SRA1200A",
+              "is_xcmg": false,
+              "numeric_parameter_values": 0,
+              "parameter_value_slots": 62,
+              "parameter_coverage": 0.0,
+              "recorded_configuration_values": 0,
+              "configuration_value_slots": 10,
+              "configuration_coverage": 0.0,
+              "anomalies": [
+                "no_parameter_data",
+                "low_configuration_coverage"
+              ]
+            }
+          ],
+          "anomalies": [
+            "stale_excavator_scoring_block_excluded",
+            "suspected_rt130_competitor_headers",
+            "no_rankable_competitor"
+          ]
+        }
+      }
+    ],
+    "referenced_source_slides": 163,
+    "unreferenced_source_slides": []
+  },
+  "excavator_reference": {
+    "page": {
+      "file": "excavator-4-5t.html",
+      "bytes": 377727,
+      "sections": [
+        "summary",
+        "market-insight",
+        "job-applications",
+        "engineering-insight",
+        "product-positioning",
+        "overall",
+        "radar",
+        "conditions",
+        "cond1",
+        "cond2",
+        "cond3",
+        "cond4",
+        "cond5",
+        "cond6",
+        "raw"
+      ],
+      "tables": 35,
+      "images": 34,
+      "source_slide_refs": [
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "source_slide_ref_count": 21
+    },
+    "required_business_sections": [
+      "summary",
+      "market-insight",
+      "job-applications",
+      "engineering-insight",
+      "product-positioning",
+      "condition-overview",
+      "position",
+      "actions",
+      "parameters",
+      "configurations",
+      "quality"
+    ],
+    "class_section_gaps": {
+      "RT-60t": [],
+      "RT-75t": [],
+      "RT-100t": [],
+      "RT-130t": [],
+      "RT-160t": [],
+      "AT-150t": []
+    }
+  },
+  "findings": [
+    {
+      "severity": "high",
+      "code": "CONFIGURATION_COVERAGE_LIMITS_TOTAL_SCORE",
+      "finding": "Configuration status is sparse in the governed workbook, especially where cells are blank or descriptive rather than explicitly standard/optional/absent.",
+      "impact": "Configuration and overall rankings must remain withheld where evidence coverage is below the publication threshold."
+    },
+    {
+      "severity": "high",
+      "code": "PLANS_REQUIRE_CURRENT_STATUS_CONFIRMATION",
+      "finding": "The presentation includes future plans and target dates. These records are not current completion evidence.",
+      "impact": "Roadmap items must be presented as source-date plans until a current owner confirms status."
+    },
+    {
+      "severity": "medium",
+      "code": "RT160_AND_AT150_SOURCE_SPARSE",
+      "finding": "RT-160t and AT-150t workbook parameter coverage is materially lower than the four established rough-terrain classes.",
+      "impact": "These pages need evidence-first layouts and must not imitate a fully ranked product page."
+    }
+  ]
+}

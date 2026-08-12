@@ -1625,8 +1625,10 @@ def page_nav(sheet: Any) -> str:
     return (
         '<a class="home" href="arc.html" data-en="Return to Platform Home">返回对标平台主页</a>'
         '<a href="#summary" data-en="Benchmark Overview">对标概览</a>'
-        '<a href="#market-context" data-en="Market, Customer and Product Evidence">市场、客户与产品证据</a>'
-        '<a href="#class-visuals" data-en="Field Images and Product Details">现场图片与产品细节</a>'
+        '<a href="#market-insight" data-en="Market and Competitive Position">吨级市场与竞争定位</a>'
+        '<a href="#job-applications" data-en="Regional Demand and Typical Jobs">区域需求与典型施工任务</a>'
+        '<a href="#engineering-insight" data-en="Specifications, Equipment and Field Evaluation">参数、配置与实机评价</a>'
+        '<a href="#product-positioning" data-en="Product Positioning and Program Plan">产品定位与推进计划</a>'
         '<a href="#condition-overview" data-en="Work-Condition Panorama">工况竞争全景</a>'
         '<a href="#position" data-en="Specification Position">参数竞争位置</a>'
         '<details class="navGroup" open><summary data-en="Engineering Conditions">工程能力工况</summary><div class="navSubmenu">'
@@ -1675,14 +1677,14 @@ def render_page(sheet: Any) -> str:
 <title data-en="{esc(title_en)} | XCMG ARC">{esc(title_zh)} | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260806b">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260806o">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260811a">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
   <a class="navBrand" href="arc.html" aria-label="返回全产品线竞品对标平台主页"><img src="assets/xcmg-logo.svg" alt="XCMG"></a>
   <div><div class="navTitle" data-en="{esc(sheet.label)} Crane Benchmark">{esc(sheet.label)} 起重机对标</div><small>{esc(xcmg.display_name)}</small></div>
   <button class="languageToggle" type="button" aria-label="Switch to English">EN</button>
-  <button class="sidebarToggle" type="button" aria-expanded="true" aria-controls="page-nav"><span>收起侧栏</span></button>
+  <button class="sidebarToggle" type="button" aria-expanded="true" aria-controls="page-nav"><span data-en="Collapse navigation">收起侧栏</span></button>
   <button class="navToggle" type="button" aria-expanded="false" aria-controls="page-nav">页面导航</button>
   <a class="mobileTop" href="#top">顶部</a><div class="navMenu" id="page-nav">{page_nav(sheet)}</div>
 </aside><main>
@@ -1716,7 +1718,7 @@ def render_page(sheet: Any) -> str:
 <section id="quality"><h2 data-en="Data Quality and Publication Boundary">数据质量与发布边界</h2>{render_quality(sheet, scoring)}</section>
 
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260805e"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260805e"></script>
+</main></div><script src="assets/dashboard.js?v=20260811a"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260805e"></script>
 </body></html>'''
 
 
@@ -1778,7 +1780,7 @@ def render_overview(workbook: Any) -> str:
 <section id="framework"><h2 data-en="Work-Condition Benchmark Framework">工况对标框架</h2><div class="conditionFramework">{condition_cards}</div></section>
 <section id="method"><h2 data-en="Evaluation and Data Boundary">评分与数据边界</h2><div class="qualityGrid"><article class="panel"><h3 data-en="Specification evaluation">参数评价</h3><p data-en="Direction-aware normalization is applied within each class. Category weights are transport 10%, chassis and mobility 12%, boom and jib 18%, outriggers 12%, powertrain 8%, winches 10%, lifting performance 25% and speeds 5%.">各吨级内部按指标方向归一化；运输 10%、底盘机动 12%、主副臂 18%、支腿 12%、动力 8%、卷扬 10%、起重性能 25%、速度 5%。</p></article><article class="panel"><h3 data-en="Equipment and missing data">配置与缺失值</h3><p data-en="Explicit unavailable, optional and standard states use 0, 60 and 100. Blank cells remain unrecorded. No overall score is published below 60% verified configuration coverage, and blank six-characteristic rows are not converted into machine-test ratings.">明确的无配置、选配、标配按 0、60、100 计入；空白保留为资料未记录。配置有效覆盖率不足 60% 时不发布综合分；空白的六大特性区域不转化为实机评价。</p></article></div></section>
 <footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260805e"></script><script src="assets/i18n.js?v=20260805e"></script></body></html>'''
+</main></div><script src="assets/dashboard.js?v=20260811a"></script><script src="assets/i18n.js?v=20260805e"></script></body></html>'''
 
 
 def build_all() -> list[Path]:

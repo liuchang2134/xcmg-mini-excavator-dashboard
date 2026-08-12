@@ -1134,7 +1134,10 @@
     "source_date": "2025-07-01",
     "classes": [
       "RT-60t",
-      "RT-75t"
+      "RT-75t",
+      "RT-100t",
+      "RT-130t",
+      "RT-160t"
     ],
     "assets": []
   },
@@ -1213,8 +1216,7 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [
-      "RT-60t",
-      "RT-75t"
+      "RT-60t"
     ],
     "assets": []
   },
@@ -1227,7 +1229,6 @@
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
     "classes": [
-      "RT-60t",
       "RT-75t"
     ],
     "assets": []
@@ -1337,8 +1338,7 @@
     "validation_status": "plan-not-verified",
     "source_date": "2025-07-01",
     "classes": [
-      "RT-60t",
-      "RT-75t"
+      "RT-60t"
     ],
     "assets": []
   },
@@ -1351,7 +1351,6 @@
     "validation_status": "plan-not-verified",
     "source_date": "2025-07-01",
     "classes": [
-      "RT-60t",
       "RT-75t"
     ],
     "assets": []

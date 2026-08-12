@@ -12,7 +12,7 @@ from tools.build_crane_dashboards import (
 )
 from tools.crane_condition_context import CONDITION_EXECUTION, OFFICIAL_REFERENCES, field_observation
 from tools.crane_data import load_crane_workbook
-from tools.crane_ppt_insights import CLASS_SLIDES
+from tools.crane_ppt_insights import CLASS_SECTION_SLIDES, CLASS_SLIDES
 from tools.crane_scoring import (
     CONDITIONS,
     condition_applicable,
@@ -161,7 +161,7 @@ def test_generated_crane_conditions_publish_workflow_constraints_validation_and_
     assert "https://mediahub.tadano.com/" in page
 
 
-def test_crane_class_pages_surface_each_presentation_image_once_before_deep_analysis():
+def test_crane_class_pages_integrate_each_image_once_in_business_sections():
     build_all()
     slides = json.loads(
         (ROOT / "data" / "crane-ppt-insights" / "slides.json").read_text(
@@ -180,12 +180,13 @@ def test_crane_class_pages_surface_each_presentation_image_once_before_deep_anal
         ]
 
         assert class_images, class_id
-        assert page.count('class="classVisualSummary"') == 1, class_id
-        assert 'id="class-visuals"' in page, class_id
-        assert 'href="#class-visuals"' in page, class_id
-        assert page.index('class="classVisualSummary"') < page.index(
-            'class="craneInsightRecords"'
-        ), class_id
+        assert 'class="classVisualSummary"' not in page, class_id
+        section_positions = []
+        for section_id in CLASS_SECTION_SLIDES[class_id]:
+            assert f'id="{section_id}"' in page, (class_id, section_id)
+            assert f'href="#{section_id}"' in page, (class_id, section_id)
+            section_positions.append(page.index(f'id="{section_id}"'))
+        assert section_positions == sorted(section_positions), class_id
         for image in class_images:
             assert page.count(f'data-source-src="{image}"') == 1, (
                 class_id,
@@ -505,41 +506,34 @@ def test_crane_ppt_images_use_high_resolution_powerpoint_exports():
     assert rendered_sources <= set(manifest["images"])
 
 
-def test_crane_class_image_galleries_use_balanced_count_aware_layouts():
+def test_crane_class_images_are_integrated_with_their_business_context():
     css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
-    assert ".classVisualGroups{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))" in css
-    assert ".classVisualGroup.visual-single-compact{grid-column:span 4}" in css
-    assert ".classVisualGroup.visual-multi,.classVisualGroup.visual-single-wide{grid-column:1/-1}" in css
-    assert ".classVisualGroup .craneInsightGallery.count-1{max-width:960px;grid-template-columns:minmax(0,1fr)}" in css
-    assert ".classVisualGroup.visual-single-compact .craneInsightGallery.count-1{max-width:100%}" in css
-    assert ".classVisualGroup .craneInsightGallery.count-2{max-width:1280px;grid-template-columns:repeat(2,minmax(0,1fr))}" in css
-    assert ".classVisualGroup .craneInsightGallery.count-3,.classVisualGroup .craneInsightGallery.count-6{grid-template-columns:repeat(3,minmax(0,1fr))}" in css
-    assert ".classVisualGroup .craneInsightGallery.count-4{max-width:1280px;grid-template-columns:repeat(2,minmax(0,1fr))}" in css
-    assert ".classVisualGroup .craneInsightGallery.count-1 .insightImageButton{aspect-ratio:auto}" in css
-    assert ".classVisualGroup .craneInsightGallery.count-1 img{height:auto}" in css
-    assert "repeat(auto-fit,minmax(270px,1fr))" not in css
-    assert "grid-template-columns:minmax(0,760px)" not in css
-    assert ".classVisualGroups{grid-template-columns:1fr}" in css
+    assert ".classContextGroup .craneInsightRecords{grid-template-columns:minmax(0,1fr)}" in css
+    assert ".classContextGroup .contextRecord.has-media .recordBody" in css
+    assert ".classEvidenceBoundary" in css
 
     build_all()
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
-        assert "assets/crane-insights.css?v=20260806o" in page
+        assert "assets/crane-insights.css?v=20260811a" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
-    visual_summary = rt75_page.split('id="class-visuals"', 1)[1].split(
-        'id="macro-analysis"', 1
+    job_section = rt75_page.split('id="job-applications"', 1)[1].split(
+        'id="engineering-insight"', 1
     )[0]
-    assert 'class="classVisualGroup visual-single-compact"' in visual_summary
-    assert 'class="classVisualGroup visual-multi"' in visual_summary
-    assert 'class="source-low"' in visual_summary
-    assert "--evidence-max-width:" in visual_summary
-    assert 'data-source-resolution="' in visual_summary
-    assert ">评价细节 1</figcaption>" in visual_summary
-    assert "客户使用评价对标 · 评价图像" not in visual_summary
+    engineering_section = rt75_page.split('id="engineering-insight"', 1)[1].split(
+        'id="product-positioning"', 1
+    )[0]
+    assert 'class="classVisualSummary"' not in rt75_page
+    assert 'data-source-slide="82"' in job_section
+    assert 'data-source-slide="89"' in engineering_section
+    assert 'class="source-low"' in rt75_page
+    assert "--evidence-max-width:" in rt75_page
+    assert 'data-source-resolution="' in rt75_page
 
     rt160_page = (ROOT / "crane-rt-160t.html").read_text(encoding="utf-8")
-    assert 'class="classVisualGroup visual-single-wide"' in rt160_page
+    assert rt160_page.count('class="classEvidenceBoundary"') == 2
+    assert 'data-source-slide="147"' in rt160_page
 
     optimizer = (ROOT / "tools" / "optimize_crane_ppt_images.py").read_text(
         encoding="utf-8"
@@ -552,6 +546,16 @@ def test_crane_class_image_galleries_use_balanced_count_aware_layouts():
     )
     assert manifest["long_edge"] == 1800
     assert "WebP quality 94" in manifest["render_method"]
+
+
+def test_crane_pages_define_an_english_sidebar_collapse_label():
+    build_all()
+    for page_name in [
+        "crane-market-overview.html",
+        *(definition["output"] for definition in PAGE_DEFINITIONS.values()),
+    ]:
+        page = (ROOT / page_name).read_text(encoding="utf-8")
+        assert 'data-en="Collapse navigation">收起侧栏</span>' in page
 
 
 def test_crane_ppt_reader_content_has_complete_local_english_translation():
