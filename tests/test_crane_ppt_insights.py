@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from PIL import Image
+
 from tools.crane_ppt_insights import (
     CLASS_SECTION_SLIDES,
     CLASS_SLIDES,
@@ -105,8 +107,18 @@ def test_crane_class_pages_retain_compact_field_and_diagnostic_images():
 
 def test_extracted_assets_are_not_whole_slide_screenshots():
     build_crane_ppt_insights()
-    slides = load_json("slides.json")
-    asset_paths = [ROOT / path for item in slides for path in item["images"]]
-    assert asset_paths
-    assert all(path.exists() for path in asset_paths)
-    assert all("slide-screenshot" not in path.name for path in asset_paths)
+    review = load_json("gallery-image-review.json")
+    reviewed = {item["path"]: item for item in review["items"]}
+    candidates = {}
+    for path in sorted((ROOT / "assets" / "crane-ppt-source").glob("*")):
+        with Image.open(path) as image:
+            width, height = image.size
+        ratio = width / height
+        if width >= 1000 and 1.68 <= ratio <= 1.85:
+            candidates[path.relative_to(ROOT).as_posix()] = (width, height)
+
+    assert candidates
+    assert set(candidates) == set(reviewed)
+    assert all(reviewed[path]["decision"] in {"KEEP", "EXCLUDE"} for path in candidates)
+    assert all(reviewed[path]["reason_zh"] for path in candidates)
+    assert all(reviewed[path]["reason_en"] for path in candidates)
