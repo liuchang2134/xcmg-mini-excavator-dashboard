@@ -1276,19 +1276,7 @@ def _render_images(
         preferred_width_px, preferred_height_px = preferred_size
         quality_class = _source_quality_class(path)
         layout_class = _image_layout_class(path)
-        if ownership and ownership.get("decision") == "SOURCE_REUSE":
-            source_slides = [int(value) for value in ownership.get("source_slides", [])]
-            pages_zh = "、".join(str(value) for value in source_slides)
-            pages_en = ", ".join(str(value) for value in source_slides)
-            caption = (
-                f"{ownership.get('caption_zh', '资料复用影像')} · "
-                f"源资料复用于第 {pages_zh} 页"
-            )
-            caption_en = (
-                f"{ownership.get('caption_en', 'Reused source image')} · "
-                f"reused on source slides {pages_en}"
-            )
-        elif index < len(override_captions):
+        if index < len(override_captions):
             caption = override_captions[index]
             caption_en = (
                 override_captions_en[index]
@@ -1323,6 +1311,20 @@ def _render_images(
             else:
                 caption = f"{base_caption} · 图像 {index + 1}"
                 caption_en = f"{base_caption_en} · Image {index + 1}"
+        current_slide = int(record["slide"])
+        caption = f"{caption}（源自幻灯片 {current_slide}）"
+        caption_en = f"{caption_en} (source slide {current_slide})"
+        if ownership and ownership.get("decision") == "SOURCE_REUSE":
+            other_slides = sorted(
+                int(value)
+                for value in ownership.get("source_slides", [])
+                if int(value) != current_slide
+            )
+            if other_slides:
+                pages_zh = "、".join(str(value) for value in other_slides)
+                pages_en = ", ".join(str(value) for value in other_slides)
+                caption = f"{caption}；同图亦见第 {pages_zh} 页"
+                caption_en = f"{caption_en}; same image also appears on slide(s) {pages_en}"
         display_width = _evidence_display_width(path)
         ratio_css = f"{preferred_width_px}/{preferred_height_px}" if preferred_width_px and preferred_height_px else "4/3"
         low_resolution = max(source_width, source_height) < 400

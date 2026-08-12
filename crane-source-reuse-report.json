@@ -1,0 +1,480 @@
+{
+  "source_presentation": "data/source-presentations/XCMG_North_America_Crane_Market_Insight_2025-07-01_V13_source.pptx",
+  "method": "Exact MD5 reuse across PPT media relationships; includes all media references, not only rendered picture shapes.",
+  "reuse_group_count": 46,
+  "groups": [
+    {
+      "content_hash": "1b2977328a98955bc33aa7df7d4d0246",
+      "slides": [
+        11,
+        29
+      ],
+      "media": [
+        "image20.jpeg"
+      ]
+    },
+    {
+      "content_hash": "ba85e9323bba380bcb330c9be6df63cb",
+      "slides": [
+        12,
+        28
+      ],
+      "media": [
+        "image23.png"
+      ]
+    },
+    {
+      "content_hash": "fe527b2e02aa29771e0b17dca77a384f",
+      "slides": [
+        12,
+        28
+      ],
+      "media": [
+        "image21.jpeg"
+      ]
+    },
+    {
+      "content_hash": "bf0a22f7942f8c9291d93fad856f4c24",
+      "slides": [
+        13,
+        29
+      ],
+      "media": [
+        "image24.jpeg"
+      ]
+    },
+    {
+      "content_hash": "7d6e24f38ddabe43bb01f2878d90f831",
+      "slides": [
+        13,
+        110
+      ],
+      "media": [
+        "image25.png"
+      ]
+    },
+    {
+      "content_hash": "029bcdcfec21308eeb70a23639b36d41",
+      "slides": [
+        14,
+        30
+      ],
+      "media": [
+        "image29.png"
+      ]
+    },
+    {
+      "content_hash": "e34ce7af52f011ceb09c10645762c0d0",
+      "slides": [
+        14,
+        30
+      ],
+      "media": [
+        "image27.jpeg"
+      ]
+    },
+    {
+      "content_hash": "773dcaeaa34221b5905703d6a40a7761",
+      "slides": [
+        15,
+        32
+      ],
+      "media": [
+        "image30.jpeg"
+      ]
+    },
+    {
+      "content_hash": "80d547b73d823936d767df63cee5a295",
+      "slides": [
+        16,
+        47
+      ],
+      "media": [
+        "image35.png"
+      ]
+    },
+    {
+      "content_hash": "190d30b9b46a9c29c18f20627cfa8738",
+      "slides": [
+        21,
+        25
+      ],
+      "media": [
+        "image43.wdp"
+      ]
+    },
+    {
+      "content_hash": "1aa58a0b38d8b8f766bbf15b43d99ddc",
+      "slides": [
+        21,
+        25
+      ],
+      "media": [
+        "image42.png"
+      ]
+    },
+    {
+      "content_hash": "777d8bbfae7860441ef53e9d0de95fae",
+      "slides": [
+        22,
+        36,
+        38,
+        51,
+        53
+      ],
+      "media": [
+        "image44.png"
+      ]
+    },
+    {
+      "content_hash": "a4b30dd89b9466b500f9556e9372a245",
+      "slides": [
+        22,
+        38,
+        53
+      ],
+      "media": [
+        "image45.png"
+      ]
+    },
+    {
+      "content_hash": "2342f0a9ce8bcd2e4d86771258b922e6",
+      "slides": [
+        23,
+        39
+      ],
+      "media": [
+        "image47.png"
+      ]
+    },
+    {
+      "content_hash": "2925eed0a7ce945a56064de3e3f6fcb6",
+      "slides": [
+        23,
+        39,
+        54
+      ],
+      "media": [
+        "image46.jpeg"
+      ]
+    },
+    {
+      "content_hash": "790ff1d37bc0fba8da72c3c06a4eb091",
+      "slides": [
+        23,
+        39,
+        54
+      ],
+      "media": [
+        "image48.png"
+      ]
+    },
+    {
+      "content_hash": "542bb7e6824b7e5363316d6e1e2d6075",
+      "slides": [
+        24,
+        40,
+        55
+      ],
+      "media": [
+        "image51.png"
+      ]
+    },
+    {
+      "content_hash": "8a970d9fd0587a3452d41f5eac1d16be",
+      "slides": [
+        24,
+        40,
+        55
+      ],
+      "media": [
+        "image50.png"
+      ]
+    },
+    {
+      "content_hash": "a494da48330b106f455ca6c320b7413a",
+      "slides": [
+        25,
+        41,
+        56
+      ],
+      "media": [
+        "image52.png"
+      ]
+    },
+    {
+      "content_hash": "66c86bddfd74cd4458aeb15f6ab4c454",
+      "slides": [
+        27,
+        45
+      ],
+      "media": [
+        "image55.png"
+      ]
+    },
+    {
+      "content_hash": "41eb00648d4aedb69044fb6631e23c19",
+      "slides": [
+        36,
+        51
+      ],
+      "media": [
+        "image68.jpeg"
+      ]
+    },
+    {
+      "content_hash": "50ad30d48f60505e55fff35f3ea4b26f",
+      "slides": [
+        36,
+        51
+      ],
+      "media": [
+        "image67.jpeg"
+      ]
+    },
+    {
+      "content_hash": "0e9a2f73006a5b202fa2f10272c929ce",
+      "slides": [
+        37,
+        41
+      ],
+      "media": [
+        "image69.jpeg"
+      ]
+    },
+    {
+      "content_hash": "b29f0166d706e6d47ffc461ffc57cdc9",
+      "slides": [
+        40,
+        55
+      ],
+      "media": [
+        "image71.png"
+      ]
+    },
+    {
+      "content_hash": "d3d6b99c7b6ac65c767b5b1b5ca8f5cd",
+      "slides": [
+        60,
+        69
+      ],
+      "media": [
+        "image97.jpeg"
+      ]
+    },
+    {
+      "content_hash": "4bc637b9592c3f1212aa9f81206950dd",
+      "slides": [
+        75,
+        89,
+        102
+      ],
+      "media": [
+        "image130.png"
+      ]
+    },
+    {
+      "content_hash": "86fbdfd5697b3bcb198604d9cbddd2a2",
+      "slides": [
+        83,
+        97
+      ],
+      "media": [
+        "image146.png"
+      ]
+    },
+    {
+      "content_hash": "a3e7a273a61b7476ea205650f837f30e",
+      "slides": [
+        84,
+        96,
+        98
+      ],
+      "media": [
+        "image151.png"
+      ]
+    },
+    {
+      "content_hash": "084d3b13bc6fc75282c8cb08553a0007",
+      "slides": [
+        84,
+        98
+      ],
+      "media": [
+        "image150.png"
+      ]
+    },
+    {
+      "content_hash": "117ff6c42e138b48b32fb4473c93fb9c",
+      "slides": [
+        89,
+        102
+      ],
+      "media": [
+        "image156.png"
+      ]
+    },
+    {
+      "content_hash": "375f82120aa8b9d941a88f51f63f1c6e",
+      "slides": [
+        90,
+        103
+      ],
+      "media": [
+        "image159.png"
+      ]
+    },
+    {
+      "content_hash": "5e989141fc2e6ef182f5ebe2354d4805",
+      "slides": [
+        90,
+        103
+      ],
+      "media": [
+        "image158.jpeg"
+      ]
+    },
+    {
+      "content_hash": "b7f3d168cfe07f3708150a831a3b76bc",
+      "slides": [
+        90,
+        103
+      ],
+      "media": [
+        "image157.png"
+      ]
+    },
+    {
+      "content_hash": "df2ebe28d4a4ffc3bb85423b125acaf5",
+      "slides": [
+        91,
+        92,
+        104,
+        105
+      ],
+      "media": [
+        "image161.png"
+      ]
+    },
+    {
+      "content_hash": "2ce9352ac0315a9e89b7d595e54e2ebe",
+      "slides": [
+        91,
+        104
+      ],
+      "media": [
+        "image160.png"
+      ]
+    },
+    {
+      "content_hash": "1a047674ff91dc6453ea6a7f055fe0d5",
+      "slides": [
+        93,
+        106
+      ],
+      "media": [
+        "image163.jpeg"
+      ]
+    },
+    {
+      "content_hash": "27bd5b6563db8d263463d9bf87689e9d",
+      "slides": [
+        93,
+        106
+      ],
+      "media": [
+        "image167.png"
+      ]
+    },
+    {
+      "content_hash": "32a5c330aab3e5704ea00d05f8a26c48",
+      "slides": [
+        93,
+        106
+      ],
+      "media": [
+        "image162.png"
+      ]
+    },
+    {
+      "content_hash": "a307b9a31a0991f87cbf20e057560e33",
+      "slides": [
+        93,
+        106
+      ],
+      "media": [
+        "image164.jpeg"
+      ]
+    },
+    {
+      "content_hash": "b802ac1b1c8a7732f855727ef7393626",
+      "slides": [
+        93,
+        106
+      ],
+      "media": [
+        "image166.png"
+      ]
+    },
+    {
+      "content_hash": "c7058d8310ea078f9fdeebb95cf10ee2",
+      "slides": [
+        93,
+        106
+      ],
+      "media": [
+        "image165.jpeg"
+      ]
+    },
+    {
+      "content_hash": "26d89439a1c3bb8d31e72d7ced904e02",
+      "slides": [
+        108,
+        112
+      ],
+      "media": [
+        "image177.jpeg"
+      ]
+    },
+    {
+      "content_hash": "5395011de9aa5877ae06f89bcee3d0c7",
+      "slides": [
+        113,
+        114
+      ],
+      "media": [
+        "image192.jpeg"
+      ]
+    },
+    {
+      "content_hash": "2e20e4c09073b920be55c3a951597841",
+      "slides": [
+        125,
+        126
+      ],
+      "media": [
+        "image205.png"
+      ]
+    },
+    {
+      "content_hash": "06957fe9215032903dc731d949c451a4",
+      "slides": [
+        134,
+        135
+      ],
+      "media": [
+        "image220.png"
+      ]
+    },
+    {
+      "content_hash": "569b05f3ee4b8e0775d0a244f741399f",
+      "slides": [
+        137,
+        138
+      ],
+      "media": [
+        "image229.png"
+      ]
+    }
+  ]
+}

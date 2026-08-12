@@ -32,17 +32,17 @@ def render_reuse_decision(index: int, decision: dict) -> str:
       <div class="decision-index">{index:02d}</div>
       <figure>
         <button type="button" class="image-button" data-full-src="{esc(asset)}" aria-label="放大查看第 {index} 组图片">
-          <img src="{esc(asset)}" alt="{esc(decision['caption_zh'])}" loading="lazy">
+          <img src="{esc(asset)}" alt="源资料复用图片，第 {slides} 页" loading="lazy">
         </button>
         <figcaption>{width} × {height}px</figcaption>
       </figure>
       <div class="decision-copy">
         <span class="status">已确认源资料复用</span>
-        <h2>{esc(decision['caption_zh'])}</h2>
+        <h2>源幻灯片第 {slides} 页共用图片</h2>
         <dl>
           <div><dt>PPT 原页</dt><dd>第 {slides} 页</dd></div>
           <div><dt>裁决理由</dt><dd>{esc(decision['reason_zh'])}</dd></div>
-          <div><dt>处理结果</dt><dd>保留一份唯一图片资产；页面使用中采用中性说明并列明复用页码。</dd></div>
+          <div><dt>处理结果</dt><dd>保留一份唯一图片资产；各页面保留自身章节说明，并列明当前源页及同图复用页。</dd></div>
         </dl>
       </div>
     </article>"""
@@ -99,7 +99,7 @@ def main() -> None:
   <main>
     <div class="summary"><div><b>{ownership['decision_count']}</b><span>已确认复用组</span></div><div><b>{source['deduplicated_groups']}</b><span>已去重组</span></div><div><b>{source['generated_assets']}</b><span>唯一图片资产</span></div><div><b>{gallery_review['reviewed_count']}</b><span>候选整页图已复核</span></div></div>
     <section><div class="section-head"><h2>候选整页截图复核</h2><p>5 张均为有效背景、工况、产品或型谱素材，未从证据库排除。</p></div><div class="gallery-review-grid">{gallery_cards}</div></section>
-    <section><div class="section-head"><h2>源资料复用裁决</h2><p>完全相同的图片仅保留一份文件，页面说明不再强行绑定唯一机型或区域。</p></div><div class="decision-grid">{decision_cards}</div></section>
+    <section><div class="section-head"><h2>源资料复用核验</h2><p>完全相同的图片仅保留一份文件；页面继续采用所属章节的业务说明，同时公开当前源页和同图复用页。</p></div><div class="decision-grid">{decision_cards}</div></section>
   </main>
   <dialog id="viewer"><button type="button" aria-label="关闭">×</button><img alt="原始图片预览"></dialog>
   <script>

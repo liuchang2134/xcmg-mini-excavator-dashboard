@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import zipfile
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Iterable
@@ -13,6 +14,7 @@ from pptx.enum.shapes import MSO_SHAPE_TYPE
 
 ROOT = Path(__file__).resolve().parents[1]
 DECISIONS_PATH = ROOT / "data" / "crane-ppt-insights" / "image-ownership.json"
+REUSE_REPORT_PATH = ROOT / "crane-source-reuse-report.json"
 SLIDES_PATH = ROOT / "data" / "crane-ppt-insights" / "slides.json"
 SOURCE_DIR = ROOT / "assets" / "crane-ppt-source"
 PRESENTATION_DIR = ROOT / "data" / "source-presentations"
@@ -36,6 +38,40 @@ def _presentation_image_pages(presentation: Path) -> dict[str, list[int]]:
     return {digest: sorted(values) for digest, values in pages.items()}
 
 
+def _presentation_media_reuse(presentation: Path) -> list[dict[str, Any]]:
+    with zipfile.ZipFile(presentation) as archive:
+        media = {
+            name: hashlib.md5(archive.read(name)).hexdigest()
+            for name in archive.namelist()
+            if name.startswith("ppt/media/")
+        }
+        references: dict[str, set[int]] = defaultdict(set)
+        media_names: dict[str, set[str]] = defaultdict(set)
+        for name in archive.namelist():
+            match = re.fullmatch(r"ppt/slides/_rels/slide(\d+)\.xml\.rels", name)
+            if not match:
+                continue
+            slide_number = int(match.group(1))
+            relationships = archive.read(name).decode("utf-8", "ignore")
+            for target in re.findall(r'Target="\.\./media/([^"]+)"', relationships):
+                media_path = f"ppt/media/{target}"
+                digest = media.get(media_path)
+                if not digest:
+                    continue
+                references[digest].add(slide_number)
+                media_names[digest].add(target)
+    groups = [
+        {
+            "content_hash": digest,
+            "slides": sorted(slides),
+            "media": sorted(media_names[digest]),
+        }
+        for digest, slides in references.items()
+        if len(slides) > 1
+    ]
+    return sorted(groups, key=lambda item: (item["slides"], item["content_hash"]))
+
+
 def _slide_number(path: str) -> int:
     match = re.search(r"(?:^|/)s(\d+)-", path.replace("\\", "/"))
     if not match:
@@ -54,21 +90,6 @@ def _source_asset(path: str) -> str:
     return matches[0].relative_to(ROOT).as_posix()
 
 
-def _topic(records: list[dict[str, Any]]) -> tuple[str, str]:
-    context = " ".join(
-        block.get("text", "")
-        for record in records
-        for block in (record.get("text_blocks") or [])
-    )
-    if "客户使用评价" in context:
-        return "客户使用评价影像", "Customer evaluation image"
-    if "区域范围" in context or "市场与工况" in context:
-        return "区域施工场景影像", "Regional jobsite image"
-    if any(record.get("section") in {"portfolio", "roadmap"} for record in records):
-        return "产品改进支撑影像", "Product improvement reference image"
-    return "源资料复用影像", "Reused source image"
-
-
 def adjudicate(presentation: Path | None = None) -> dict[str, Any]:
     records = json.loads(SLIDES_PATH.read_text(encoding="utf-8"))
     if presentation is None:
@@ -80,7 +101,6 @@ def adjudicate(presentation: Path | None = None) -> dict[str, Any]:
         presentation = presentations[0]
     presentation = Path(presentation)
     ppt_pages = _presentation_image_pages(presentation)
-    records_by_slide = {int(record["slide"]): record for record in records}
     assets: dict[str, list[int]] = defaultdict(list)
     for record in records:
         for asset in record.get("images") or []:
@@ -98,12 +118,6 @@ def adjudicate(presentation: Path | None = None) -> dict[str, Any]:
     for index, (asset, digest, source_pages, referenced_pages) in enumerate(
         sorted(reused_assets, key=lambda item: (_slide_number(item[0]), item[0])), 1
     ):
-        context_records = [
-            records_by_slide[slide]
-            for slide in sorted(set(referenced_pages))
-            if slide in records_by_slide
-        ]
-        caption_zh, caption_en = _topic(context_records)
         pages_zh = "、".join(str(page) for page in source_pages)
         pages_en = ", ".join(str(page) for page in source_pages)
         decision = {
@@ -112,8 +126,6 @@ def adjudicate(presentation: Path | None = None) -> dict[str, Any]:
             "decision": "SOURCE_REUSE",
             "confidence": 1.0,
             "source_slides": source_pages,
-            "caption_zh": caption_zh,
-            "caption_en": caption_en,
             "reason_zh": f"PPT 原始文件在第 {pages_zh} 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
             "reason_en": f"The source presentation reuses the exact same image binary on slides {pages_en}; it cannot establish a unique model or region.",
             "source_assets": [asset],
@@ -124,13 +136,26 @@ def adjudicate(presentation: Path | None = None) -> dict[str, Any]:
             "decision_id": decision["id"],
             "decision": decision["decision"],
             "source_slides": source_pages,
-            "caption_zh": caption_zh,
-            "caption_en": caption_en,
         }
+
+    reuse_groups = _presentation_media_reuse(presentation)
+    REUSE_REPORT_PATH.write_text(
+        json.dumps(
+            {
+                "source_presentation": presentation.resolve().relative_to(ROOT.resolve()).as_posix(),
+                "method": "Exact MD5 reuse across PPT media relationships; includes all media references, not only rendered picture shapes.",
+                "reuse_group_count": len(reuse_groups),
+                "groups": reuse_groups,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
 
     payload = {
         "source_presentation": presentation.resolve().relative_to(ROOT.resolve()).as_posix(),
-        "method": "Exact binary-image reuse verified inside the source PPTX; no model or region inferred from filenames.",
+        "method": "Exact binary-image reuse verified inside the source PPTX. Page captions retain their own slide context and disclose every source slide that reuses the image.",
         "decision_count": len(decisions),
         "decisions": decisions,
         "assets": asset_decisions,

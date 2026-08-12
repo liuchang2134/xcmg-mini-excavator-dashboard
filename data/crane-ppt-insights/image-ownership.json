@@ -1,6 +1,6 @@
 {
   "source_presentation": "data/source-presentations/XCMG_North_America_Crane_Market_Insight_2025-07-01_V13_source.pptx",
-  "method": "Exact binary-image reuse verified inside the source PPTX; no model or region inferred from filenames.",
+  "method": "Exact binary-image reuse verified inside the source PPTX. Page captions retain their own slide context and disclose every source slide that reuses the image.",
   "decision_count": 37,
   "decisions": [
     {
@@ -12,8 +12,6 @@
         11,
         29
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 11、29 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 11, 29; it cannot establish a unique model or region.",
       "source_assets": [
@@ -33,8 +31,6 @@
         12,
         28
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 12、28 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 12, 28; it cannot establish a unique model or region.",
       "source_assets": [
@@ -54,8 +50,6 @@
         12,
         28
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 12、28 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 12, 28; it cannot establish a unique model or region.",
       "source_assets": [
@@ -75,8 +69,6 @@
         13,
         29
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 13、29 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 13, 29; it cannot establish a unique model or region.",
       "source_assets": [
@@ -96,8 +88,6 @@
         13,
         110
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 13、110 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 13, 110; it cannot establish a unique model or region.",
       "source_assets": [
@@ -117,8 +107,6 @@
         14,
         30
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 14、30 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 14, 30; it cannot establish a unique model or region.",
       "source_assets": [
@@ -138,8 +126,6 @@
         14,
         30
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 14、30 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 14, 30; it cannot establish a unique model or region.",
       "source_assets": [
@@ -159,8 +145,6 @@
         15,
         32
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 15、32 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 15, 32; it cannot establish a unique model or region.",
       "source_assets": [
@@ -180,8 +164,6 @@
         16,
         47
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 16、47 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 16, 47; it cannot establish a unique model or region.",
       "source_assets": [
@@ -201,8 +183,6 @@
         21,
         25
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 21、25 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 21, 25; it cannot establish a unique model or region.",
       "source_assets": [
@@ -225,8 +205,6 @@
         51,
         53
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 22、36、38、51、53 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 22, 36, 38, 51, 53; it cannot establish a unique model or region.",
       "source_assets": [
@@ -250,8 +228,6 @@
         38,
         53
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 22、38、53 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 22, 38, 53; it cannot establish a unique model or region.",
       "source_assets": [
@@ -273,8 +249,6 @@
         39,
         54
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 23、39、54 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 23, 39, 54; it cannot establish a unique model or region.",
       "source_assets": [
@@ -295,8 +269,6 @@
         23,
         39
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 23、39 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 23, 39; it cannot establish a unique model or region.",
       "source_assets": [
@@ -317,8 +289,6 @@
         39,
         54
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 23、39、54 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 23, 39, 54; it cannot establish a unique model or region.",
       "source_assets": [
@@ -340,8 +310,6 @@
         40,
         55
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 24、40、55 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 24, 40, 55; it cannot establish a unique model or region.",
       "source_assets": [
@@ -363,8 +331,6 @@
         40,
         55
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 24、40、55 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 24, 40, 55; it cannot establish a unique model or region.",
       "source_assets": [
@@ -386,8 +352,6 @@
         41,
         56
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 25、41、56 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 25, 41, 56; it cannot establish a unique model or region.",
       "source_assets": [
@@ -408,8 +372,6 @@
         27,
         45
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 27、45 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 27, 45; it cannot establish a unique model or region.",
       "source_assets": [
@@ -429,8 +391,6 @@
         36,
         51
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 36、51 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 36, 51; it cannot establish a unique model or region.",
       "source_assets": [
@@ -450,8 +410,6 @@
         36,
         51
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 36、51 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 36, 51; it cannot establish a unique model or region.",
       "source_assets": [
@@ -471,8 +429,6 @@
         37,
         41
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 37、41 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 37, 41; it cannot establish a unique model or region.",
       "source_assets": [
@@ -492,8 +448,6 @@
         40,
         55
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 40、55 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 40, 55; it cannot establish a unique model or region.",
       "source_assets": [
@@ -513,8 +467,6 @@
         60,
         69
       ],
-      "caption_zh": "源资料复用影像",
-      "caption_en": "Reused source image",
       "reason_zh": "PPT 原始文件在第 60、69 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 60, 69; it cannot establish a unique model or region.",
       "source_assets": [
@@ -534,8 +486,6 @@
         90,
         103
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 90、103 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 90, 103; it cannot establish a unique model or region.",
       "source_assets": [
@@ -555,8 +505,6 @@
         90,
         103
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 90、103 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 90, 103; it cannot establish a unique model or region.",
       "source_assets": [
@@ -576,8 +524,6 @@
         93,
         106
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
       "source_assets": [
@@ -597,8 +543,6 @@
         93,
         106
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
       "source_assets": [
@@ -618,8 +562,6 @@
         93,
         106
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
       "source_assets": [
@@ -639,8 +581,6 @@
         93,
         106
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
       "source_assets": [
@@ -660,8 +600,6 @@
         93,
         106
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
       "source_assets": [
@@ -681,8 +619,6 @@
         93,
         106
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 93、106 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 93, 106; it cannot establish a unique model or region.",
       "source_assets": [
@@ -702,8 +638,6 @@
         108,
         112
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 108、112 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 108, 112; it cannot establish a unique model or region.",
       "source_assets": [
@@ -723,8 +657,6 @@
         113,
         114
       ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image",
       "reason_zh": "PPT 原始文件在第 113、114 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 113, 114; it cannot establish a unique model or region.",
       "source_assets": [
@@ -744,8 +676,6 @@
         125,
         126
       ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image",
       "reason_zh": "PPT 原始文件在第 125、126 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 125, 126; it cannot establish a unique model or region.",
       "source_assets": [
@@ -765,8 +695,6 @@
         134,
         135
       ],
-      "caption_zh": "产品改进支撑影像",
-      "caption_en": "Product improvement reference image",
       "reason_zh": "PPT 原始文件在第 134、135 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 134, 135; it cannot establish a unique model or region.",
       "source_assets": [
@@ -786,8 +714,6 @@
         137,
         138
       ],
-      "caption_zh": "产品改进支撑影像",
-      "caption_en": "Product improvement reference image",
       "reason_zh": "PPT 原始文件在第 137、138 页复用了完全相同的图片二进制，不能据此判断唯一机型或区域。",
       "reason_en": "The source presentation reuses the exact same image binary on slides 137, 138; it cannot establish a unique model or region.",
       "source_assets": [
@@ -806,9 +732,7 @@
       "source_slides": [
         11,
         29
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s012-image-05-1d04b732fe.jpg": {
       "decision_id": "reuse-02",
@@ -816,9 +740,7 @@
       "source_slides": [
         12,
         28
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s012-image-10-9da9aa33cb.png": {
       "decision_id": "reuse-03",
@@ -826,9 +748,7 @@
       "source_slides": [
         12,
         28
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s013-image-05-f829a17585.jpg": {
       "decision_id": "reuse-04",
@@ -836,9 +756,7 @@
       "source_slides": [
         13,
         29
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s013-image-09-567139ec82.png": {
       "decision_id": "reuse-05",
@@ -846,9 +764,7 @@
       "source_slides": [
         13,
         110
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s014-image-05-146b9953dc.jpg": {
       "decision_id": "reuse-06",
@@ -856,9 +772,7 @@
       "source_slides": [
         14,
         30
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s014-image-10-f62646e57e.png": {
       "decision_id": "reuse-07",
@@ -866,9 +780,7 @@
       "source_slides": [
         14,
         30
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s015-image-07-01eb6f9c4f.jpg": {
       "decision_id": "reuse-08",
@@ -876,9 +788,7 @@
       "source_slides": [
         15,
         32
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s016-image-10-55934992ac.png": {
       "decision_id": "reuse-09",
@@ -886,9 +796,7 @@
       "source_slides": [
         16,
         47
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s021-image-06-a410f0ea73.png": {
       "decision_id": "reuse-10",
@@ -896,9 +804,7 @@
       "source_slides": [
         21,
         25
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s022-image-06-965d4da744.png": {
       "decision_id": "reuse-11",
@@ -909,9 +815,7 @@
         38,
         51,
         53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s022-image-08-318ab1b5de.png": {
       "decision_id": "reuse-12",
@@ -920,9 +824,7 @@
         22,
         38,
         53
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s023-image-06-31c6da551c.jpg": {
       "decision_id": "reuse-13",
@@ -931,9 +833,7 @@
         23,
         39,
         54
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s023-image-07-184facd015.png": {
       "decision_id": "reuse-14",
@@ -941,9 +841,7 @@
       "source_slides": [
         23,
         39
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s023-image-08-3231b6f250.png": {
       "decision_id": "reuse-15",
@@ -952,9 +850,7 @@
         23,
         39,
         54
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s024-image-06-363895689f.png": {
       "decision_id": "reuse-16",
@@ -963,9 +859,7 @@
         24,
         40,
         55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s024-image-07-d5f6ceaa0b.png": {
       "decision_id": "reuse-17",
@@ -974,9 +868,7 @@
         24,
         40,
         55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s025-image-06-4ea098324a.png": {
       "decision_id": "reuse-18",
@@ -985,9 +877,7 @@
         25,
         41,
         56
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s027-image-05-432396c4f6.png": {
       "decision_id": "reuse-19",
@@ -995,9 +885,7 @@
       "source_slides": [
         27,
         45
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s036-image-05-434dde21c9.jpg": {
       "decision_id": "reuse-20",
@@ -1005,9 +893,7 @@
       "source_slides": [
         36,
         51
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s036-image-07-8c32fd5504.jpg": {
       "decision_id": "reuse-21",
@@ -1015,9 +901,7 @@
       "source_slides": [
         36,
         51
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s037-image-06-28150f8964.jpg": {
       "decision_id": "reuse-22",
@@ -1025,9 +909,7 @@
       "source_slides": [
         37,
         41
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s040-image-04-c019935521.png": {
       "decision_id": "reuse-23",
@@ -1035,9 +917,7 @@
       "source_slides": [
         40,
         55
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s060-image-10-a99ffe1fa7.jpg": {
       "decision_id": "reuse-24",
@@ -1045,9 +925,7 @@
       "source_slides": [
         60,
         69
-      ],
-      "caption_zh": "源资料复用影像",
-      "caption_en": "Reused source image"
+      ]
     },
     "assets/crane-ppt-source/s090-image-06-3d52aad866.png": {
       "decision_id": "reuse-25",
@@ -1055,9 +933,7 @@
       "source_slides": [
         90,
         103
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s090-image-07-2a20456bf8.jpg": {
       "decision_id": "reuse-26",
@@ -1065,9 +941,7 @@
       "source_slides": [
         90,
         103
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s093-image-06-ab65b3992d.png": {
       "decision_id": "reuse-27",
@@ -1075,9 +949,7 @@
       "source_slides": [
         93,
         106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s093-image-07-7bc4e5204c.jpg": {
       "decision_id": "reuse-28",
@@ -1085,9 +957,7 @@
       "source_slides": [
         93,
         106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s093-image-08-acf78a6c28.jpg": {
       "decision_id": "reuse-29",
@@ -1095,9 +965,7 @@
       "source_slides": [
         93,
         106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s093-image-09-c6b6dd0e06.jpg": {
       "decision_id": "reuse-30",
@@ -1105,9 +973,7 @@
       "source_slides": [
         93,
         106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s093-image-10-671618ed7f.png": {
       "decision_id": "reuse-31",
@@ -1115,9 +981,7 @@
       "source_slides": [
         93,
         106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s093-image-11-9dd8ce25b2.png": {
       "decision_id": "reuse-32",
@@ -1125,9 +989,7 @@
       "source_slides": [
         93,
         106
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s108-image-08-17b92c640d.jpg": {
       "decision_id": "reuse-33",
@@ -1135,9 +997,7 @@
       "source_slides": [
         108,
         112
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s113-image-10-73c37360a4.jpg": {
       "decision_id": "reuse-34",
@@ -1145,9 +1005,7 @@
       "source_slides": [
         113,
         114
-      ],
-      "caption_zh": "区域施工场景影像",
-      "caption_en": "Regional jobsite image"
+      ]
     },
     "assets/crane-ppt-source/s125-image-06-4eb4a4ed89.png": {
       "decision_id": "reuse-35",
@@ -1155,9 +1013,7 @@
       "source_slides": [
         125,
         126
-      ],
-      "caption_zh": "客户使用评价影像",
-      "caption_en": "Customer evaluation image"
+      ]
     },
     "assets/crane-ppt-source/s134-image-04-026e29b44f.png": {
       "decision_id": "reuse-36",
@@ -1165,9 +1021,7 @@
       "source_slides": [
         134,
         135
-      ],
-      "caption_zh": "产品改进支撑影像",
-      "caption_en": "Product improvement reference image"
+      ]
     },
     "assets/crane-ppt-source/s137-image-05-ead1e1eea6.png": {
       "decision_id": "reuse-37",
@@ -1175,9 +1029,7 @@
       "source_slides": [
         137,
         138
-      ],
-      "caption_zh": "产品改进支撑影像",
-      "caption_en": "Product improvement reference image"
+      ]
     }
   }
 }

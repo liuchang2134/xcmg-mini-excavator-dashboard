@@ -37,7 +37,7 @@ def test_crane_builder_generates_overview_and_six_tonnage_pages():
         assert (ROOT / output).exists()
 
 
-def test_reused_ppt_images_have_neutral_captions_and_source_pages():
+def test_reused_ppt_images_keep_slide_context_and_expose_source_pages():
     build_all()
     manifest = json.loads(
         (ROOT / "data" / "crane-ppt-insights" / "image-ownership.json").read_text(
@@ -49,10 +49,23 @@ def test_reused_ppt_images_have_neutral_captions_and_source_pages():
 
     rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
     rt100 = (ROOT / "crane-rt-100t.html").read_text(encoding="utf-8")
-    caption = "客户使用评价影像 · 源资料复用于第 90、103 页"
-    assert caption in rt60
-    assert caption in rt100
-    assert "徐工XCR100_U客户使用评价对标 · 评价图像 2" not in rt100
+    assert "徐工XCR60_U/XCR75_U客户使用评价对标 · 评价图像 1" in rt60
+    assert "源自幻灯片 90" in rt60
+    assert "同图亦见第 103 页" in rt60
+    assert "徐工XCR100_U客户使用评价对标 · 评价图像 1" in rt100
+    assert "源自幻灯片 103" in rt100
+    assert "同图亦见第 90 页" in rt100
+
+
+def test_source_ppt_reuse_report_covers_all_cross_slide_reuse_groups():
+    report = json.loads(
+        (ROOT / "crane-source-reuse-report.json").read_text(encoding="utf-8")
+    )
+    assert report["reuse_group_count"] == 46
+    assert len(report["groups"]) == 46
+    assert all(len(item["slides"]) > 1 for item in report["groups"])
+    assert any(item["slides"] == [89, 102] for item in report["groups"])
+    assert any(item["slides"] == [91, 92, 104, 105] for item in report["groups"])
 
 
 def test_crane_ppt_assets_are_content_deduplicated():
