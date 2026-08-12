@@ -704,7 +704,7 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     build_all()
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
-        assert "assets/crane-insights.css?v=20260812f" in page
+        assert "assets/crane-insights.css?v=20260812g" in page
         assert "assets/crane-insights.js?v=20260812f" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
@@ -761,6 +761,23 @@ def test_rt60_and_rt75_keep_separate_pages_with_an_explicit_shared_research_boun
     assert "XCR75_U specifications, benchmark model, pricing and conclusions are presented separately" in rt75
 
     assert 'class="sharedResearchNotice"' not in rt100
+
+
+def test_crane_insight_tables_keep_all_content_and_have_a_390px_card_layout():
+    css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
+    assert "@media(max-width:390px)" in css
+    assert ".craneSourceTable td" in css
+    assert "grid-template-columns:minmax(76px,30%) minmax(0,1fr)" in css
+    assert "overflow-wrap:anywhere" in css
+
+    build_all()
+    rt60 = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
+    assert "展开全部" not in rt60
+    assert "Show all" not in rt60
+    assert "data-collapsed" not in rt60
+    assert "主臂臂长" in rt60
+    assert "43.6m" in rt60
+    assert "客户对于关键参配的喜好" in rt60
 
 
 def test_crane_pages_define_an_english_sidebar_collapse_label():

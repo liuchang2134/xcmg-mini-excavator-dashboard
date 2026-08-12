@@ -1592,7 +1592,7 @@ def render_market_report_page() -> str:
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260812d">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260812f">
+<link rel="stylesheet" href="assets/crane-insights.css?v=20260812g">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
