@@ -779,6 +779,12 @@ def test_crane_gallery_groups_images_by_source_aspect_ratio():
     assert rendered_groups > 0
 
 
+def test_crane_gallery_captions_have_visual_separation_and_aligned_cards():
+    css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
+    assert ".craneInsightGallery figcaption{margin-top:8px" in css
+    assert "align-self:stretch;align-items:stretch" in css
+
+
 def test_every_rendered_low_resolution_crane_image_has_a_bilingual_lightbox_notice():
     build_all()
     page_names = [
