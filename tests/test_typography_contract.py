@@ -43,3 +43,9 @@ def test_shared_font_stack_covers_cjk_system_fonts():
     css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
     assert expected in css
     assert css.count(expected) >= 2
+
+
+def test_390px_breakpoint_preserves_readable_text_and_tables():
+    css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
+    assert "@media(max-width:390px){body,main p{font-size:var(--font-body)}" in css
+    assert "table,table :is(th,td){font-size:var(--font-xs)!important}" in css

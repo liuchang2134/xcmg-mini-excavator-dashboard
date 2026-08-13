@@ -2819,6 +2819,7 @@ def render_html(model):
     /* Keep narrative lines scannable without narrowing data or media surfaces. */
     main p{{max-inline-size:34em;text-wrap:pretty}}
     :is(table,.tableScroll,.detailMatrix,.rawTable,.conditionHeatmap,.sourceVisualGrid) p{{max-inline-size:none}}
+    @media(max-width:390px){{body,main p{{font-size:var(--font-body)}}table,table :is(th,td){{font-size:var(--font-xs)!important}}button,input,select,a.btn{{font-size:max(var(--font-xs),1em)}}}}
   </style>
 </head>
 <body>
