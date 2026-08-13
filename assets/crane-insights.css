@@ -100,6 +100,7 @@
 .insightLightbox{width:min(96vw,1400px);max-width:none;height:min(92vh,980px);padding:44px 18px 18px;border:1px solid #7794ab;background:#fff;box-shadow:0 24px 70px rgba(0,28,52,.38)}
 .insightLightbox::backdrop{background:rgba(3,22,39,.78)}
 .insightLightbox img{display:block;width:100%;height:calc(100% - 58px);object-fit:contain;background:#fff}
+.insightLightbox.sourceLow img{width:auto;height:auto;max-width:100%;max-height:calc(100% - 58px);margin:auto}
 .insightLightboxMeta{display:flex;align-items:baseline;justify-content:space-between;gap:18px;margin:9px 42px 0 0}
 .insightLightboxMeta p{margin:0;color:#173f5f;font-size:var(--font-sm);font-weight:700}
 .insightLightboxMeta .insightLightboxQuality{color:#8a5b00;font-size:var(--font-xs);font-weight:700;text-align:right}

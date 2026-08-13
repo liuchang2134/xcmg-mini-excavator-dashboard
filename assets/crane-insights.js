@@ -72,6 +72,7 @@
       lightboxCaption.textContent = caption;
       lightboxQuality.textContent = qualityNote;
       lightboxQuality.hidden = !qualityNote;
+      lightbox.classList.toggle('sourceLow', Boolean(qualityNote));
       lightbox.showModal();
     });
   });

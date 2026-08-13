@@ -808,6 +808,13 @@ def test_every_rendered_low_resolution_crane_image_has_a_bilingual_lightbox_noti
     assert low_resolution_figures > 0
 
 
+def test_low_resolution_crane_images_are_not_upscaled_in_the_lightbox():
+    script = (ROOT / "assets" / "crane-insights.js").read_text(encoding="utf-8")
+    css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
+    assert "lightbox.classList.toggle('sourceLow', Boolean(qualityNote))" in script
+    assert ".insightLightbox.sourceLow img{width:auto;height:auto" in css
+
+
 def test_crane_class_images_are_integrated_with_their_business_context():
     css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
     assert ".classContextGroup .craneInsightRecords{grid-template-columns:minmax(0,1fr)}" in css
@@ -818,7 +825,7 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
         assert "assets/crane-insights.css?v=20260812h" in page
-        assert "assets/crane-insights.js?v=20260812f" in page
+        assert "assets/crane-insights.js?v=20260812g" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
     job_section = rt75_page.split('id="job-applications"', 1)[1].split(
