@@ -36,3 +36,10 @@ def test_narrative_measure_is_constrained_without_narrowing_data_surfaces():
     css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
     assert "main p{max-inline-size:34em;text-wrap:pretty}" in css
     assert ":is(table,.tableScroll,.detailMatrix,.rawTable,.conditionHeatmap,.sourceVisualGrid) p{max-inline-size:none}" in css
+
+
+def test_shared_font_stack_covers_cjk_system_fonts():
+    expected = 'system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC",sans-serif'
+    css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
+    assert expected in css
+    assert css.count(expected) >= 2

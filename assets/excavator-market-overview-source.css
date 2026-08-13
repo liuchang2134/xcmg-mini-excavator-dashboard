@@ -471,7 +471,7 @@
 
 .nativeChartSvg text {
   fill: #4d6579;
-  font-family: Arial, "Microsoft YaHei", sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
   font-size: var(--font-xs);
 }
 
