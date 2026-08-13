@@ -5,6 +5,7 @@ HTML tables. It intentionally avoids editorial summary data maintained outside
 the presentation source.
 """
 
+import hashlib
 import re
 from pathlib import Path
 
@@ -12,6 +13,7 @@ from build_excavator_dashboards import (
     ROOT,
     bilingual_leaf,
     dashboard_asset_version,
+    ensure_display_thumbnail,
     esc,
     load_ppt_business_tables,
     load_ppt_source_content,
@@ -391,11 +393,19 @@ def render_competition_chart_slide(record, table_records):
 def render_environment_context_strip():
     figures = []
     for item in ENVIRONMENT_CONTEXT_MEDIA:
+        display_image, image_width, image_height = ensure_display_thumbnail(
+            item["file"], 720
+        )
+        image_size = (
+            f' width="{image_width}" height="{image_height}"'
+            if image_width and image_height
+            else ""
+        )
         figures.append(
             '<figure class="environmentContextFigure">'
             '<div class="environmentContextImage">'
-            f'<img src="{esc(item["file"])}" '
-            f'alt="{esc(item["alt_zh"])}" data-alt-en="{esc(item["alt_en"])}" loading="lazy">'
+            f'<img src="{esc(display_image)}" '
+            f'alt="{esc(item["alt_zh"])}" data-alt-en="{esc(item["alt_en"])}"{image_size} loading="lazy" decoding="async">'
             "</div>"
             "<figcaption>"
             f'<strong data-en="{esc(item["title_en"])}">{esc(item["title_zh"])}</strong>'
@@ -627,6 +637,9 @@ def render_section(section, anchor, title_zh, title_en, records, table_records):
 
 def build_page():
     shared_asset_version = dashboard_asset_version()
+    overview_asset_version = hashlib.sha256(
+        (ROOT / "assets" / "excavator-market-overview-source.css").read_bytes()
+    ).hexdigest()[:10]
     source = load_ppt_source_content()
     tables = load_ppt_business_tables()["records"]
     records = [
@@ -642,6 +655,14 @@ def build_page():
         f'<a href="#{anchor}" data-en="{esc(title_en)}">{esc(title_zh)}</a>'
         for _, anchor, title_zh, title_en in SECTION_META
     )
+    hero_image, hero_width, hero_height = ensure_display_thumbnail(
+        "assets/arc/xe55u-official-cropped.jpg", 720
+    )
+    hero_size = (
+        f' width="{hero_width}" height="{hero_height}"'
+        if hero_width and hero_height
+        else ""
+    )
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -651,7 +672,7 @@ def build_page():
   <title data-en="North American Excavator Market and Product Insight | XCMG ARC">北美挖掘机市场与产品洞察｜XCMG ARC</title>
   <link rel="icon" href="assets/xcmg-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/dashboard.css?v={shared_asset_version}">
-  <link rel="stylesheet" href="assets/excavator-market-overview-source.css?v=20260724d">
+  <link rel="stylesheet" href="assets/excavator-market-overview-source.css?v={overview_asset_version}">
   <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">
 </head>
 <body class="marketOverviewPage sourceOverviewPage">
@@ -684,7 +705,7 @@ def build_page():
           <a class="btn" href="#portfolio" data-en="Product portfolio">产品型谱</a>
         </div>
       </div>
-      <div class="heroMedia"><img src="assets/arc/xe55u-official-cropped.jpg" alt="XCMG XE55U 挖掘机完整产品图"></div>
+      <div class="heroMedia"><img src="{esc(hero_image)}" alt="XCMG XE55U 挖掘机完整产品图"{hero_size}></div>
     </div>
     {sections}
     <div class="siteCredits" aria-label="项目署名">

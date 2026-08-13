@@ -1654,8 +1654,8 @@ def render_market_report_page(asset_version: str) -> str:
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v={asset_version}">
 <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">
-<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260812d">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260812g">
+<link rel="stylesheet" href="assets/crane-dashboard.css?v={asset_version}">
+<link rel="stylesheet" href="assets/crane-insights.css?v={asset_version}">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部" data-en="Back to top">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
@@ -1673,7 +1673,7 @@ def render_market_report_page(asset_version: str) -> str:
 <section class="reportScope"><b data-en="Market, regional, product and service insight">市场、区域、产品与服务洞察</b><p data-en="The market report presents information that cuts across capacity classes. Rough-terrain and all-terrain classes with governed Excel datasets retain their specifications, equipment, work-condition and ranking analyses on the corresponding benchmark pages.">总体报告承载跨吨级信息；已有Excel数据的越野吊与全地面吨级继续在各自正式页面中展示参数、配置、工况和排名。</p></section>
 {render_market_overview()}
 {render_site_credits()}
-</main></div><script src="assets/dashboard.js?v={asset_version}"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260812g"></script>
+</main></div><script src="assets/dashboard.js?v={asset_version}"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v={asset_version}"></script>
 </body></html>''')
 
 

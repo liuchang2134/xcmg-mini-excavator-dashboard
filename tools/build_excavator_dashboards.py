@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import pandas as pd
+from PIL import Image, ImageOps
 
 try:
     from .render_ppt_charts import render_chart_figure
@@ -23,6 +24,32 @@ PPT_BUSINESS_TABLE_PATH = ROOT / "data" / "ppt-insights" / "ppt-business-tables.
 PPT_SOURCE_CONTENT_PATH = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
 PPT_BUSINESS_TABLE_EN_PATH = ROOT / "data" / "ppt-insights" / "ppt-business-tables-en.json"
 PPT_SOURCE_CONTENT_EN_PATH = ROOT / "data" / "ppt-insights" / "ppt-source-content-en.json"
+DISPLAY_THUMB_DIR = ROOT / "assets" / "display-thumbs"
+
+
+def ensure_display_thumbnail(asset_path, long_edge=640):
+    """Create a page-sized preview while preserving the original image."""
+    relative = Path(str(asset_path or ""))
+    source = ROOT / relative
+    if not source.exists() or source.suffix.lower() == ".svg":
+        return relative.as_posix(), None, None
+
+    with Image.open(source) as opened:
+        image = ImageOps.exif_transpose(opened)
+        width, height = image.size
+        if max(width, height) <= long_edge:
+            return relative.as_posix(), width, height
+
+        digest = hashlib.sha1(relative.as_posix().encode("utf-8")).hexdigest()[:10]
+        destination = DISPLAY_THUMB_DIR / f"{source.stem}-{digest}-{long_edge}.webp"
+        if not destination.exists() or destination.stat().st_mtime < source.stat().st_mtime:
+            DISPLAY_THUMB_DIR.mkdir(parents=True, exist_ok=True)
+            preview = image.convert("RGB")
+            preview.thumbnail((long_edge, long_edge), Image.Resampling.LANCZOS)
+            preview.save(destination, "WEBP", quality=86, method=6)
+        with Image.open(destination) as preview:
+            preview_width, preview_height = preview.size
+    return destination.relative_to(ROOT).as_posix(), preview_width, preview_height
 
 
 def polish_english_text(value):
@@ -1803,11 +1830,19 @@ def render_product_gap_spotlight(model, xcmg, leader):
         title = "当前资料未显示明确落后项"
         summary = "继续复核缺失字段、配置口径和来源版本，避免把未披露信息误判为无配置。"
         rows = '<li class="gapEmpty"><span>01</span><div><small>数据复核</small><b>来源与口径</b><p>补齐缺失字段并核验同版本、同配置条件后再形成产品目标。</p></div></li>'
+    display_image, image_width, image_height = ensure_display_thumbnail(
+        model["meta"]["image"], 420
+    )
+    image_size = (
+        f' width="{image_width}" height="{image_height}"'
+        if image_width and image_height
+        else ""
+    )
     return (
         '<div class="productGapSpotlight">'
         '<div class="productGapMedia">'
         '<span>Product Gap Focus</span>'
-        f'<img src="{esc(model["meta"]["image"])}" alt="{esc(xcmg)} 产品图">'
+        f'<img src="{esc(display_image)}" alt="{esc(xcmg)} 产品图"{image_size}>'
         f'<div><b>{esc(xcmg)}</b><small>当前对标产品</small></div>'
         '</div>'
         '<div class="productGapContent">'
@@ -1822,9 +1857,17 @@ def render_condition_visual_nav(model):
     cards = []
     for idx, condition in enumerate(model["conditions"], start=1):
         focus = "、".join(item[1] for item in condition["items"][:3])
+        display_image, image_width, image_height = ensure_display_thumbnail(
+            condition["image"], 640
+        )
+        image_size = (
+            f' width="{image_width}" height="{image_height}"'
+            if image_width and image_height
+            else ""
+        )
         cards.append(
             f'<a class="conditionVisualCard" href="#cond{idx}">'
-            f'<img src="{esc(condition["image"])}" alt="{esc(condition["image_alt"])}">'
+            f'<img src="{esc(display_image)}" alt="{esc(condition["image_alt"])}"{image_size} loading="lazy" decoding="async">'
             '<div>'
             f'<span>典型工况 {idx:02d}</span><strong>{esc(condition["name"])}</strong>'
             f'<small>关键项：{esc(focus)}</small>'
@@ -2592,6 +2635,11 @@ def render_source_visuals(record):
             if aspect <= 0.82
             else " sourceVisual-standard"
         )
+        display_image, display_width, display_height = ensure_display_thumbnail(
+            visual.get("file"), 720
+        )
+        if display_width and display_height:
+            image_width, image_height = display_width, display_height
         figures.append(
             f'<figure class="sourceVisual sourceVisual-{esc(kind)}{aspect_class}">'
             f'<button type="button" class="sourceVisualOpen" '
@@ -2600,7 +2648,7 @@ def render_source_visuals(record):
             f'data-media-caption="{esc(caption_zh)}" '
             f'data-media-caption-en="{esc(caption_en)}" '
             f'aria-label="放大查看：{esc(alt)}">'
-            f'<img src="{esc(visual.get("file"))}" alt="{esc(alt)}" '
+            f'<img src="{esc(display_image)}" alt="{esc(alt)}" '
             f'data-alt-en="{esc(alt_en)}" width="{image_width}" '
             f'height="{image_height}" loading="lazy" decoding="async">'
             '<span class="sourceVisualAction" data-en="Open image">查看大图</span>'
@@ -2752,6 +2800,12 @@ def render_html(model):
         "products": model["products"],
         "colors": model["colors"],
     }, ensure_ascii=False)
+    hero_image, hero_width, hero_height = ensure_display_thumbnail(meta["image"], 420)
+    hero_size = (
+        f' width="{hero_width}" height="{hero_height}"'
+        if hero_width and hero_height
+        else ""
+    )
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -2820,6 +2874,10 @@ def render_html(model):
     main p{{max-inline-size:34em;text-wrap:pretty}}
     :is(table,.tableScroll,.detailMatrix,.rawTable,.conditionHeatmap,.sourceVisualGrid) p{{max-inline-size:none}}
     @media(max-width:390px){{body,main p{{font-size:var(--font-body)}}table,table :is(th,td){{font-size:var(--font-xs)!important}}button,input,select,a.btn{{font-size:max(var(--font-xs),1em)}}}}
+    body :is(b,strong){{font-weight:700}}
+    body small{{font-size:var(--font-min)}}
+    .heroMedia{{display:flex;align-items:center;justify-content:center}}
+    .heroMedia img{{position:static;inset:auto;width:auto;max-width:100%;height:auto;max-height:100%;margin:auto}}
   </style>
 </head>
 <body>
@@ -2850,7 +2908,7 @@ def render_html(model):
         <h1>{esc(meta["title"])}</h1>
         <div class="actions"><a class="btn blue" href="{primary_analysis_target}" data-en="{primary_analysis_en}">{primary_analysis_zh}</a><a class="btn yellow" href="#conditions" data-en="Work-condition benchmark">工况对标</a><a class="btn" href="data-downloads.html" data-en="Data center">数据中心</a></div>
       </div>
-      <div class="heroMedia"><img src="{esc(meta["image"])}" alt="{esc(meta["xcmg"])} 产品图"></div>
+      <div class="heroMedia"><img src="{esc(hero_image)}" alt="{esc(meta["xcmg"])} 产品图"{hero_size}></div>
     </div>
 
     <section id="summary">
@@ -3516,7 +3574,7 @@ PPT_CHART_CSS = r"""
 /* Source charts are rebuilt from the embedded workbook data. */
 .sourceVisualGrid:has(.sourceDataChart){grid-template-columns:minmax(0,1fr)}
 .sourceDataChart{display:block;min-width:0;padding:0;border:1px solid #b8ccdd;background:#fff;overflow:hidden}
-.sourceDataChart>figcaption{display:flex;align-items:center;min-height:42px;padding:10px 14px;border-bottom:1px solid #d7e2ec;background:#f3f8fb;color:#073c70;font-size:var(--font-body);font-weight:700;line-height:1.4}
+.sourceDataChart>figcaption{display:flex;align-items:center;min-height:42px;margin:8px 8px 0;padding:10px 14px;border-bottom:1px solid #d7e2ec;background:#f3f8fb;color:#073c70;font-size:var(--font-body);font-weight:700;line-height:1.4}
 .sourceChartViewport{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-color:#8299ad #edf2f6;background:#fff}
 .sourceChartSvg{display:block;width:min(100%,72rem);min-width:0;height:auto;max-height:none;margin-inline:auto;background:#fff;font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC",sans-serif}
 .sourceDataChart[data-chart-density="dense"] .sourceChartSvg{width:100%;min-width:0}
@@ -3559,7 +3617,7 @@ PPT_CHART_CSS = r"""
 .sourceVisual-picture img{display:block;width:auto;max-width:100%;height:auto;max-height:480px;margin:auto;object-fit:contain}
 .sourceVisualAction{position:absolute;right:8px;bottom:8px;padding:5px 8px;border:1px solid rgba(255,255,255,.68);background:rgba(4,45,80,.88);color:#fff;font-size:var(--font-min);font-weight:700;line-height:1.2;opacity:0;transform:translateY(3px);transition:opacity .15s ease,transform .15s ease}
 .sourceVisualOpen:hover .sourceVisualAction,.sourceVisualOpen:focus-visible .sourceVisualAction{opacity:1;transform:translateY(0)}
-.sourceVisualCaption{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-height:44px;padding:9px 11px;border-top:1px solid #d7e2ec;background:#f3f8fb;color:#274961;font-size:var(--font-min);line-height:1.45;text-align:left}
+.sourceVisualCaption{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-height:44px;margin-top:8px;padding:9px 11px;border-top:1px solid #d7e2ec;background:#f3f8fb;color:#274961;font-size:var(--font-min);line-height:1.45;text-align:left}
 .sourceVisualCaption strong{color:#073c70;font-weight:700}
 .sourceVisualCaption span{flex:0 0 auto;color:#64798c;white-space:nowrap}
 .mediaViewer{width:min(1180px,calc(100vw - 28px));max-width:none;height:min(880px,calc(100vh - 28px));max-height:none;padding:0;border:1px solid #6f9cbd;background:#071d30;color:#fff;box-shadow:0 24px 70px rgba(0,24,44,.38)}

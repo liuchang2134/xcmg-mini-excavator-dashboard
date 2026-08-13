@@ -6,6 +6,8 @@ import math
 from pathlib import Path
 from typing import Any
 
+from PIL import Image, ImageOps
+
 try:
     from .crane_condition_context import CONDITION_EXECUTION, OFFICIAL_REFERENCES, field_observation
     from .crane_data import load_crane_workbook
@@ -42,8 +44,12 @@ SOURCE_DOWNLOAD = "data/source-excel/XCMG_crane_benchmark_data_pool.xlsx"
 
 def dashboard_asset_version() -> str:
     css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
+    crane_css = (ROOT / "assets" / "crane-dashboard.css").read_text(encoding="utf-8")
+    insight_css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
     javascript = (ROOT / "assets" / "dashboard.js").read_text(encoding="utf-8")
-    return hashlib.sha256(f"{css}\n{javascript}".encode("utf-8")).hexdigest()[:10]
+    return hashlib.sha256(
+        f"{css}\n{crane_css}\n{insight_css}\n{javascript}".encode("utf-8")
+    ).hexdigest()[:10]
 
 PAGE_DEFINITIONS = {
     "RT-60t": {
@@ -85,6 +91,22 @@ PAGE_DEFINITIONS = {
         "official": True,
     },
 }
+
+
+def ensure_official_image_thumbnail(source: str, long_edge: int = 480) -> str:
+    """Serve compact overview art while retaining the official source file."""
+    source_path = ROOT / source
+    if not source_path.exists():
+        return source
+    thumb_path = source_path.with_name(f"{source_path.stem}-thumb.webp")
+    if not thumb_path.exists() or thumb_path.stat().st_mtime < source_path.stat().st_mtime:
+        with Image.open(source_path) as opened:
+            image = ImageOps.exif_transpose(opened)
+            if image.mode not in {"RGB", "RGBA"}:
+                image = image.convert("RGB")
+            image.thumbnail((long_edge, long_edge), Image.Resampling.LANCZOS)
+            image.save(thumb_path, "WEBP", quality=84, method=6)
+    return thumb_path.relative_to(ROOT).as_posix()
 
 CATEGORY_NAMES = {
     "Transport Parameters": ("运输参数", "Transport Parameters"),
@@ -1714,6 +1736,7 @@ def page_nav(sheet: Any) -> str:
 def render_page(sheet: Any, asset_version: str | None = None) -> str:
     asset_version = asset_version or dashboard_asset_version()
     definition = PAGE_DEFINITIONS[sheet.label]
+    display_image = ensure_official_image_thumbnail(definition["image"])
     scoring = score_sheet(sheet)
     xcmg = next(model for model in sheet.models if model.is_xcmg)
     xscore = get_score_record(scoring, xcmg.display_name)
@@ -1747,8 +1770,8 @@ def render_page(sheet: Any, asset_version: str | None = None) -> str:
 <title data-en="{esc(title_en)} | XCMG ARC">{esc(title_zh)} | XCMG ARC</title>
 <link rel="stylesheet" href="assets/dashboard.css?v={asset_version}">
 <link rel="stylesheet" href="assets/site-credits.css?v=20260724a">
-<link rel="stylesheet" href="assets/crane-dashboard.css?v=20260812d">
-<link rel="stylesheet" href="assets/crane-insights.css?v=20260812h">
+<link rel="stylesheet" href="assets/crane-dashboard.css?v={asset_version}">
+<link rel="stylesheet" href="assets/crane-insights.css?v={asset_version}">
 </head><body>
 <a class="backTop" href="#top" aria-label="回到页面顶部">回到顶部</a>
 <div class="layout" id="top"><aside class="nav">
@@ -1763,7 +1786,7 @@ def render_page(sheet: Any, asset_version: str | None = None) -> str:
   <h1 data-en="{esc(title_en)}">{esc(title_zh)}</h1>
   <p data-en="Source-backed comparison of transport, chassis, boom and jib, outriggers, powertrain, winches, lifting performance, operating speeds and equipment status.">按同吨级比较运输、底盘机动、主副臂、支腿、动力、卷扬、起重性能、作业速度和标选配状态，所有结论保留原始值与缺失状态。</p>
   <div class="actions"><a class="btn blue" href="#position" data-en="Open Benchmark">查看对标</a><a class="btn" href="{SOURCE_DOWNLOAD}" download data-en="Download Source Workbook">下载原始数据</a></div>
-</div><figure class="heroMedia craneHeroMedia"><img src="{esc(definition['image'])}" alt="{esc(definition['image_alt'])}"><figcaption data-en="{esc(image_note_en)}">{esc(image_note_zh)}</figcaption></figure></header>
+</div><figure class="heroMedia craneHeroMedia"><img src="{esc(display_image)}" alt="{esc(definition['image_alt'])}" width="480" loading="eager"><figcaption data-en="{esc(image_note_en)}">{esc(image_note_zh)}</figcaption></figure></header>
 
 <section id="summary"><h2 data-en="Benchmark Overview">对标概览</h2><div class="kpis craneKpis">
   <div class="kpi"><b>{len(sheet.models)}</b><span data-en="Benchmark products">对标产品数</span></div>
@@ -1789,7 +1812,7 @@ def render_page(sheet: Any, asset_version: str | None = None) -> str:
 <section id="quality"><h2 data-en="Data Quality and Publication Boundary">数据质量与发布边界</h2>{render_quality(sheet, scoring)}</section>
 
 {render_site_credits()}
-</main></div><script src="assets/dashboard.js?v={asset_version}"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260812g"></script>
+</main></div><script src="assets/dashboard.js?v={asset_version}"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v={asset_version}"></script>
 </body></html>''')
 
 
@@ -1799,6 +1822,7 @@ def render_overview(workbook: Any, asset_version: str | None = None) -> str:
     total_models = 0
     for sheet in workbook.sheets:
         definition = PAGE_DEFINITIONS[sheet.label]
+        display_image = ensure_official_image_thumbnail(definition["image"])
         total_models += len(sheet.models)
         scoring = score_sheet(sheet)
         xcmg = next(model for model in sheet.models if model.is_xcmg)
@@ -1806,7 +1830,7 @@ def render_overview(workbook: Any, asset_version: str | None = None) -> str:
         status_zh = "可形成参数对标" if xscore["parameter_score"] is not None else "数据范围待补齐"
         status_en = "Specification benchmark available" if xscore["parameter_score"] is not None else "Source scope requires completion"
         cards.append(
-            f'<a class="craneAssetCard" href="{esc(definition["output"])}"><div class="craneAssetMedia"><img src="{esc(definition["image"])}" alt="{esc(definition["image_alt"])}"></div>'
+            f'<a class="craneAssetCard" href="{esc(definition["output"])}"><div class="craneAssetMedia"><img src="{esc(display_image)}" alt="{esc(definition["image_alt"])}" loading="lazy"></div>'
             f'<div class="craneAssetBody"><span>{esc(sheet.label)}</span><h3>{esc(xcmg.display_name)}</h3>'
             f'<p>{len(sheet.models)} 个对标产品 · 参数覆盖 {fmt_percent(xcmg.parameter_coverage)}</p>'
             f'<b data-en="{esc(status_en)}">{esc(status_zh)}</b></div></a>'
@@ -1840,7 +1864,7 @@ def render_overview(workbook: Any, asset_version: str | None = None) -> str:
                 f'<div class="conditionFramework">{group_cards}</div></div>'
             )
     condition_cards = "".join(condition_groups)
-    return f'''<!doctype html><html lang="zh-CN" data-language="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>起重设备竞品对标总览 | XCMG ARC</title><link rel="stylesheet" href="assets/dashboard.css?v={asset_version}"><link rel="stylesheet" href="assets/site-credits.css?v=20260724a"><link rel="stylesheet" href="assets/crane-dashboard.css?v=20260812d"></head><body>
+    return f'''<!doctype html><html lang="zh-CN" data-language="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>起重设备竞品对标总览 | XCMG ARC</title><link rel="stylesheet" href="assets/dashboard.css?v={asset_version}"><link rel="stylesheet" href="assets/site-credits.css?v=20260724a"><link rel="stylesheet" href="assets/crane-dashboard.css?v={asset_version}"></head><body>
 <a class="backTop" href="#top">回到顶部</a><div class="layout" id="top"><aside class="nav"><a class="navBrand" href="arc.html"><img src="assets/xcmg-logo.svg" alt="XCMG"></a><div><div class="navTitle" data-en="Crane Benchmark Overview">起重设备对标总览</div><small>XCMG ARC</small></div><button class="languageToggle" type="button">EN</button><button class="sidebarToggle" type="button"><span>收起侧栏</span></button><button class="navToggle" type="button">页面导航</button><div class="navMenu" id="page-nav"><a class="home" href="arc.html" data-en="Return to Platform Home">返回对标平台主页</a><a href="#portfolio" data-en="Class Assets">吨级资产</a><a href="#framework" data-en="Benchmark Framework">对标框架</a><a href="#method" data-en="Evaluation Boundary">评价边界</a></div></aside><main>
 <header class="hero craneOverviewHero"><div class="heroText"><p class="eyebrow">CRANES AND HOISTING</p><h1 data-en="Crane Competitive Benchmarking">起重设备竞品对标</h1><p data-en="Six rough-terrain and all-terrain classes are organized under one engineering framework covering source values, work conditions, equipment status and data-quality boundaries.">覆盖 5 个越野轮胎起重机吨级和 1 个全地面起重机吨级，统一管理参数原值、典型工况、配置状态和数据质量边界。</p><div class="actions"><a class="btn blue" href="#portfolio" data-en="Open Class Assets">查看吨级资产</a><a class="btn" href="{SOURCE_DOWNLOAD}" download data-en="Download Source Workbook">下载原始数据</a></div></div><div class="heroMedia"><img src="assets/arc/category-cranes.webp" alt="XCMG crane"></div></header>
  <section id="portfolio"><h2 data-en="Crane Class Assets">起重机吨级资产</h2><div class="kpis craneKpis"><div class="kpi"><b>6</b><span data-en="Tonnage classes">吨级 / 类别</span></div><div class="kpi"><b>{total_models}</b><span data-en="Benchmark products">对标产品</span></div><div class="kpi"><b>8</b><span data-en="Specification categories">参数类别</span></div><div class="kpi"><b>{len(CONDITIONS)}</b><span data-en="Work conditions">典型工况</span></div></div><div class="craneAssetGrid">{''.join(cards)}</div></section>

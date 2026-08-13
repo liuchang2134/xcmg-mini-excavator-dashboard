@@ -18,7 +18,7 @@
 .sharedResearchNotice p{margin:0;color:#29475e;font-size:var(--font-xs);line-height:1.75}
 .insightSectionHead{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;padding:16px 18px 13px;border-bottom:1px solid var(--line);background:#f6f9fc}
 .insightSectionHead h2{margin:0 0 6px}
-.insightSectionHead p{max-width:1120px;margin:0;color:#3f5c73;font-size:var(--font-sm);line-height:1.75}
+.insightSectionHead p{max-width:34em;margin:0;color:#3f5c73;font-size:var(--font-sm);line-height:1.75;text-wrap:pretty}
 .insightSectionHead .eyebrow{margin:0 0 5px;color:#0a5ca4;font-size:var(--font-min);font-weight:700;letter-spacing:.1em}
 .sectionCount,.sourceStatus{flex:none;padding:5px 8px;border:1px solid #b8cadb;background:#fff;color:#28516f;font-size:var(--font-min);font-weight:700;white-space:nowrap}
 .sourceStatus.historical{border-color:#8fb7d8;background:#edf6fd;color:#075794}

@@ -59,10 +59,14 @@
     main p{max-inline-size:34em;text-wrap:pretty}
     :is(table,.tableScroll,.detailMatrix,.rawTable,.conditionHeatmap,.sourceVisualGrid) p{max-inline-size:none}
     @media(max-width:390px){body,main p{font-size:var(--font-body)}table,table :is(th,td){font-size:var(--font-xs)!important}button,input,select,a.btn{font-size:max(var(--font-xs),1em)}}
+    body :is(b,strong){font-weight:700}
+    body small{font-size:var(--font-min)}
+    .heroMedia{display:flex;align-items:center;justify-content:center}
+    .heroMedia img{position:static;inset:auto;width:auto;max-width:100%;height:auto;max-height:100%;margin:auto}
 /* Source charts are rebuilt from the embedded workbook data. */
 .sourceVisualGrid:has(.sourceDataChart){grid-template-columns:minmax(0,1fr)}
 .sourceDataChart{display:block;min-width:0;padding:0;border:1px solid #b8ccdd;background:#fff;overflow:hidden}
-.sourceDataChart>figcaption{display:flex;align-items:center;min-height:42px;padding:10px 14px;border-bottom:1px solid #d7e2ec;background:#f3f8fb;color:#073c70;font-size:var(--font-body);font-weight:700;line-height:1.4}
+.sourceDataChart>figcaption{display:flex;align-items:center;min-height:42px;margin:8px 8px 0;padding:10px 14px;border-bottom:1px solid #d7e2ec;background:#f3f8fb;color:#073c70;font-size:var(--font-body);font-weight:700;line-height:1.4}
 .sourceChartViewport{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-color:#8299ad #edf2f6;background:#fff}
 .sourceChartSvg{display:block;width:min(100%,72rem);min-width:0;height:auto;max-height:none;margin-inline:auto;background:#fff;font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC",sans-serif}
 .sourceDataChart[data-chart-density="dense"] .sourceChartSvg{width:100%;min-width:0}
@@ -105,7 +109,7 @@
 .sourceVisual-picture img{display:block;width:auto;max-width:100%;height:auto;max-height:480px;margin:auto;object-fit:contain}
 .sourceVisualAction{position:absolute;right:8px;bottom:8px;padding:5px 8px;border:1px solid rgba(255,255,255,.68);background:rgba(4,45,80,.88);color:#fff;font-size:var(--font-min);font-weight:700;line-height:1.2;opacity:0;transform:translateY(3px);transition:opacity .15s ease,transform .15s ease}
 .sourceVisualOpen:hover .sourceVisualAction,.sourceVisualOpen:focus-visible .sourceVisualAction{opacity:1;transform:translateY(0)}
-.sourceVisualCaption{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-height:44px;padding:9px 11px;border-top:1px solid #d7e2ec;background:#f3f8fb;color:#274961;font-size:var(--font-min);line-height:1.45;text-align:left}
+.sourceVisualCaption{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-height:44px;margin-top:8px;padding:9px 11px;border-top:1px solid #d7e2ec;background:#f3f8fb;color:#274961;font-size:var(--font-min);line-height:1.45;text-align:left}
 .sourceVisualCaption strong{color:#073c70;font-weight:700}
 .sourceVisualCaption span{flex:0 0 auto;color:#64798c;white-space:nowrap}
 .mediaViewer{width:min(1180px,calc(100vw - 28px));max-width:none;height:min(880px,calc(100vh - 28px));max-height:none;padding:0;border:1px solid #6f9cbd;background:#071d30;color:#fff;box-shadow:0 24px 70px rgba(0,24,44,.38)}

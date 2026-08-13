@@ -850,10 +850,11 @@ def test_crane_class_images_are_integrated_with_their_business_context():
     assert ".classEvidenceBoundary" in css
 
     build_all()
+    asset_version = dashboard_asset_version()
     for definition in PAGE_DEFINITIONS.values():
         page = (ROOT / definition["output"]).read_text(encoding="utf-8")
-        assert "assets/crane-insights.css?v=20260812h" in page
-        assert "assets/crane-insights.js?v=20260812g" in page
+        assert f"assets/crane-insights.css?v={asset_version}" in page
+        assert f"assets/crane-insights.js?v={asset_version}" in page
 
     rt75_page = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
     job_section = rt75_page.split('id="job-applications"', 1)[1].split(

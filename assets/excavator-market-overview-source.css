@@ -178,6 +178,7 @@
   grid-template-columns: minmax(105px, .72fr) minmax(0, 1.28fr);
   gap: 10px;
   min-height: 76px;
+  margin-top: 8px;
   padding: 10px 12px 12px;
 }
 
