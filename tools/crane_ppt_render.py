@@ -85,6 +85,27 @@ def _load_thumbnail_map() -> dict[str, str]:
 THUMBNAIL_MAP = _load_thumbnail_map()
 
 
+def normalize_crane_chinese_html(markup: str) -> str:
+    """Normalize visible Chinese copy without changing tags or embedded scripts."""
+    blocks = re.split(
+        r"(<(?:script|style)\b.*?</(?:script|style)>|<[^>]+>)",
+        markup,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    normalized: list[str] = []
+    for block in blocks:
+        if not block or block.startswith("<"):
+            normalized.append(block)
+            continue
+        block = re.sub(r"(?<=[\u3400-\u9fff])(?=[A-Za-z0-9])", " ", block)
+        block = re.sub(r"(?<=[A-Za-z0-9_])(?=[\u3400-\u9fff])", " ", block)
+        block = re.sub(r"(?<=[\u3400-\u9fff]),(?=[\u3400-\u9fff])", "，", block)
+        block = re.sub(r"(?<=[\u3400-\u9fff]);(?=[\u3400-\u9fff])", "；", block)
+        block = re.sub(r"(?<=[\u3400-\u9fff]):(?=[\u3400-\u9fff])", "：", block)
+        normalized.append(block)
+    return "".join(normalized)
+
+
 @lru_cache(maxsize=None)
 def _source_image_size(path: str) -> tuple[int, int]:
     try:
@@ -1627,7 +1648,7 @@ def render_site_credits() -> str:
 
 
 def render_market_report_page(asset_version: str) -> str:
-    return f'''<!doctype html>
+    return normalize_crane_chinese_html(f'''<!doctype html>
 <html lang="zh-CN" data-language="zh"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
@@ -1653,7 +1674,7 @@ def render_market_report_page(asset_version: str) -> str:
 {render_market_overview()}
 {render_site_credits()}
 </main></div><script src="assets/dashboard.js?v={asset_version}"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260812g"></script>
-</body></html>'''
+</body></html>''')
 
 
 def render_legacy_redirect() -> str:

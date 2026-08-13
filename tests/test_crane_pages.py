@@ -209,7 +209,7 @@ def test_incomplete_crane_sheets_are_not_forced_into_rankings():
     build_all()
     rt160 = (ROOT / "crane-rt-160t.html").read_text(encoding="utf-8")
     at150 = (ROOT / "crane-at-150t.html").read_text(encoding="utf-8")
-    assert "参数有效覆盖率不足60%" in rt160
+    assert "参数有效覆盖率不足 60%" in rt160
     assert "竞品表头与数据范围待核验" in at150
     assert "第 0" not in rt160 + at150
     assert "0.0 分" not in rt160 + at150
@@ -390,7 +390,7 @@ def test_crane_pages_publish_a_work_condition_panorama_before_deep_dive_sections
     assert at_page.count('class="conditionOverviewCard"') == sum(
         condition_applicable(at_sheet, condition) for condition in CONDITIONS
     )
-    assert "覆盖率仅表示XCMG自身字段完整度" in rt_page
+    assert "覆盖率仅表示 XCMG 自身字段完整度" in rt_page
     assert "至少 2 个产品形成同口径可比得分" in rt_page
     assert "证据不足，暂不排名" not in rt_page
     assert "可比产品 7/8" in rt_page
@@ -632,7 +632,7 @@ def test_crane_scatter_bubble_and_planning_content_are_rendered_with_source_fide
     assert "36.9 / 1.4%" in market
     assert "能力 6.2 / 吸引力 8.3 / 容量 19.3" in market
     assert 'data-table-slide="152" data-table-index="2"' in market
-    assert "布局110USt履带吊" in market
+    assert "布局 110USt 履带吊" in market
 
     css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
     assert ".insightScatter{display:grid" in css
@@ -815,6 +815,34 @@ def test_low_resolution_crane_images_are_not_upscaled_in_the_lightbox():
     assert ".insightLightbox.sourceLow img{width:auto;height:auto" in css
 
 
+def test_visible_crane_copy_uses_normalized_chinese_spacing_and_punctuation():
+    build_all()
+    page_names = [
+        "crane-market-overview.html",
+        *(definition["output"] for definition in PAGE_DEFINITIONS.values()),
+    ]
+    for page_name in page_names:
+        page = (ROOT / page_name).read_text(encoding="utf-8")
+        visible = re.sub(
+            r"<(?:script|style)\b.*?</(?:script|style)>",
+            "",
+            page,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+        text_nodes = [
+            part for part in re.split(r"(<[^>]+>)", visible) if part and not part.startswith("<")
+        ]
+        for text_node in text_nodes:
+            assert not re.search(
+                r"(?<=[\u3400-\u9fff])(?=[A-Za-z0-9])|(?<=[A-Za-z0-9_])(?=[\u3400-\u9fff])",
+                text_node,
+            ), page_name
+            assert not re.search(
+                r"(?<=[\u3400-\u9fff])[,;:](?=[\u3400-\u9fff])", text_node
+            ), page_name
+            assert not re.search(r"\b(?:undefined|NaN|null)\b", text_node), page_name
+
+
 def test_crane_class_images_are_integrated_with_their_business_context():
     css = (ROOT / "assets" / "crane-insights.css").read_text(encoding="utf-8")
     assert ".classContextGroup .craneInsightRecords{grid-template-columns:minmax(0,1fr)}" in css
@@ -870,14 +898,14 @@ def test_rt60_and_rt75_keep_separate_pages_with_an_explicit_shared_research_boun
     assert 'data-shared-class="RT-75t"' in rt60
     assert "CR-81-85、CR-88-93" in rt60
     assert "XCR60_U" in rt60
-    assert "第86、94页" in rt60
+    assert "第 86、94 页" in rt60
     assert "XCR60_U specifications, benchmark model, pricing and conclusions are presented separately" in rt60
 
     assert 'class="sharedResearchNotice"' in rt75
     assert 'data-shared-class="RT-60t"' in rt75
     assert "CR-81-85、CR-88-93" in rt75
     assert "XCR75_U" in rt75
-    assert "第87、95页" in rt75
+    assert "第 87、95 页" in rt75
     assert "XCR75_U specifications, benchmark model, pricing and conclusions are presented separately" in rt75
 
     assert 'class="sharedResearchNotice"' not in rt100

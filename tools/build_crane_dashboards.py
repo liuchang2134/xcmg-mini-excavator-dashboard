@@ -9,7 +9,7 @@ from typing import Any
 try:
     from .crane_condition_context import CONDITION_EXECUTION, OFFICIAL_REFERENCES, field_observation
     from .crane_data import load_crane_workbook
-    from .crane_ppt_render import _clean_crane_english, render_class_context, render_legacy_redirect, render_market_report_page, render_site_credits
+    from .crane_ppt_render import _clean_crane_english, normalize_crane_chinese_html, render_class_context, render_legacy_redirect, render_market_report_page, render_site_credits
     from .crane_scoring import (
         CATEGORY_WEIGHTS,
         CONDITIONS,
@@ -23,7 +23,7 @@ try:
 except ImportError:
     from crane_condition_context import CONDITION_EXECUTION, OFFICIAL_REFERENCES, field_observation
     from crane_data import load_crane_workbook
-    from crane_ppt_render import _clean_crane_english, render_class_context, render_legacy_redirect, render_market_report_page, render_site_credits
+    from crane_ppt_render import _clean_crane_english, normalize_crane_chinese_html, render_class_context, render_legacy_redirect, render_market_report_page, render_site_credits
     from crane_scoring import (
         CATEGORY_WEIGHTS,
         CONDITIONS,
@@ -1741,7 +1741,7 @@ def render_page(sheet: Any, asset_version: str | None = None) -> str:
         render_condition(sheet, scoring, condition, index)
         for index, condition in enumerate(applicable_conditions, 1)
     )
-    return f'''<!doctype html>
+    return normalize_crane_chinese_html(f'''<!doctype html>
 <html lang="zh-CN" data-language="zh"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title data-en="{esc(title_en)} | XCMG ARC">{esc(title_zh)} | XCMG ARC</title>
@@ -1790,7 +1790,7 @@ def render_page(sheet: Any, asset_version: str | None = None) -> str:
 
 {render_site_credits()}
 </main></div><script src="assets/dashboard.js?v={asset_version}"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260812g"></script>
-</body></html>'''
+</body></html>''')
 
 
 def render_overview(workbook: Any, asset_version: str | None = None) -> str:
