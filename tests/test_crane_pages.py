@@ -730,6 +730,29 @@ def test_crane_gallery_uses_balanced_frames_without_cropping_source_images():
     assert "figure.layout-portrait" in css
 
 
+def test_crane_gallery_groups_images_by_source_aspect_ratio():
+    build_all()
+    pages = [ROOT / "crane-market-overview.html"] + [
+        ROOT / definition["output"] for definition in PAGE_DEFINITIONS.values()
+    ]
+    rendered_groups = 0
+    for path in pages:
+        html = path.read_text(encoding="utf-8")
+        for group_name, content in re.findall(
+            r'<div class="craneInsightGallery aspect-(portrait|square|landscape)[^"]*"[^>]*>(.*?)</div>',
+            html,
+            flags=re.DOTALL,
+        ):
+            rendered_groups += 1
+            for width, height in re.findall(
+                r'data-source-resolution="(\d+)x(\d+)"', content
+            ):
+                ratio = int(width) / int(height)
+                expected = "portrait" if ratio < 0.9 else "square" if ratio <= 1.15 else "landscape"
+                assert group_name == expected, (path.name, group_name, ratio)
+    assert rendered_groups > 0
+
+
 def test_every_rendered_low_resolution_crane_image_has_a_bilingual_lightbox_notice():
     build_all()
     page_names = [

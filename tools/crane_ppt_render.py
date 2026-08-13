@@ -146,6 +146,16 @@ def _image_layout_class(path: str) -> str:
     return "layout-standard"
 
 
+def _image_aspect_group(path: str) -> str:
+    width, height = _source_image_size(path)
+    ratio = width / height if height else 1.0
+    if ratio < 0.9:
+        return "portrait"
+    if ratio <= 1.15:
+        return "square"
+    return "landscape"
+
+
 def _load_translations() -> dict[str, str]:
     if not TRANSLATION_FILE.exists():
         return {}
@@ -1293,7 +1303,7 @@ def _render_images(
         return ""
     override_captions = IMAGE_CAPTION_OVERRIDES.get(record["slide"], ())
     override_captions_en = IMAGE_CAPTION_OVERRIDES_EN.get(record["slide"], ())
-    figures = []
+    figures: list[tuple[str, str]] = []
     for index, path in enumerate(images):
         ownership = IMAGE_OWNERSHIP_MAP.get(path)
         display_path = IMAGE_DISPLAY_MAP.get(path, path)
@@ -1303,6 +1313,7 @@ def _render_images(
         preferred_width_px, preferred_height_px = preferred_size
         quality_class = _source_quality_class(path)
         layout_class = _image_layout_class(path)
+        aspect_group = _image_aspect_group(path)
         if index < len(override_captions):
             caption = override_captions[index]
             caption_en = (
@@ -1360,8 +1371,9 @@ def _render_images(
             if low_resolution
             else ""
         )
-        figures.append(
-            f'<figure class="{quality_class} {layout_class}" data-source-resolution="{source_width}x{source_height}" '
+        figures.append((
+            aspect_group,
+            f'<figure class="{quality_class} {layout_class} source-aspect-{aspect_group}" data-source-resolution="{source_width}x{source_height}" '
             f'data-image-source-slide="{current_slide}" data-image-reused-slides="{reused_slides}" '
             f'data-display-resolution="{display_width_px}x{display_height_px}" '
             f'data-render-resolution="{preferred_width_px}x{preferred_height_px}" data-asset-mode="{asset_mode}" '
@@ -1375,8 +1387,16 @@ def _render_images(
             f'<img src="{esc(preferred_path)}" alt="{esc(caption)}" data-alt-en="{esc(caption_en)}" '
             f'width="{preferred_width_px}" height="{preferred_height_px}" loading="lazy" decoding="async">'
             f'</button><figcaption data-en="{esc(caption_en)}">{esc(caption)}</figcaption></figure>'
-        )
-    return f'<div class="craneInsightGallery count-{len(images)}">{"".join(figures)}</div>'
+        ))
+    grouped: dict[str, list[str]] = {}
+    for aspect_group, figure in figures:
+        grouped.setdefault(aspect_group, []).append(figure)
+    galleries = "".join(
+        f'<div class="craneInsightGallery aspect-{aspect_group} count-{len(group)}" '
+        f'data-aspect-group="{aspect_group}">{"".join(group)}</div>'
+        for aspect_group, group in grouped.items()
+    )
+    return f'<div class="craneInsightGalleryGroups">{galleries}</div>'
 
 
 def _render_class_visual_summary(records: list[dict[str, Any]]) -> str:
