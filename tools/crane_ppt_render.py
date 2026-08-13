@@ -1581,12 +1581,22 @@ def report_navigation() -> str:
     )
 
 
-def render_market_report_page() -> str:
+def render_site_credits() -> str:
+    return '''<div class="siteCredits" aria-label="项目署名">
+  <span data-en="Executive Sponsor: Zhang Shengnan">指导领导：张盛楠</span>
+  <span data-en="Data Visualization: Liu Chang">数据可视化：刘畅</span>
+  <span data-en="Data Source: ARC Product Team">数据来源：ARC产品小组</span>
+  <span><span data-en="Issue Reporting:">问题提报：</span> <a href="mailto:changl@xcmgarc.com">changl@xcmgarc.com</a></span>
+</div>'''
+
+
+def render_market_report_page(asset_version: str) -> str:
     return f'''<!doctype html>
 <html lang="zh-CN" data-language="zh"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title data-en="North American Crane Market and Product Insight | XCMG ARC">北美起重机市场与产品洞察 | XCMG ARC</title>
-<link rel="stylesheet" href="assets/dashboard.css?v=20260805e">
+<link rel="stylesheet" href="assets/dashboard.css?v={asset_version}">
+<link rel="stylesheet" href="assets/site-credits.css?v=20260724a">
 <link rel="stylesheet" href="assets/crane-dashboard.css?v=20260812d">
 <link rel="stylesheet" href="assets/crane-insights.css?v=20260812g">
 </head><body>
@@ -1605,8 +1615,8 @@ def render_market_report_page() -> str:
 </div><figure class="heroMedia craneHeroMedia"><img src="assets/arc/category-cranes.webp" alt="XCMG crane product line"><figcaption data-en="XCMG crane product line">XCMG 起重设备产品线</figcaption></figure></header>
 <section class="reportScope"><b data-en="Market, regional, product and service insight">市场、区域、产品与服务洞察</b><p data-en="The market report presents information that cuts across capacity classes. Rough-terrain and all-terrain classes with governed Excel datasets retain their specifications, equipment, work-condition and ranking analyses on the corresponding benchmark pages.">总体报告承载跨吨级信息；已有Excel数据的越野吊与全地面吨级继续在各自正式页面中展示参数、配置、工况和排名。</p></section>
 {render_market_overview()}
-<footer class="dashboardFooter"><small data-en="Executive sponsor: Zhang Shengnan · Data visualization: Liu Chang · Data source: ARC Product Team · Issue reporting: changl@xcmgarc.com">指导领导：张盛楠　数据可视化：刘畅　数据来源：ARC产品小组　问题提报：changl@xcmgarc.com</small></footer>
-</main></div><script src="assets/dashboard.js?v=20260812b"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260812f"></script>
+{render_site_credits()}
+</main></div><script src="assets/dashboard.js?v={asset_version}"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v=20260812f"></script>
 </body></html>'''
 
 

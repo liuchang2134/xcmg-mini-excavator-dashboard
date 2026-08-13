@@ -11,6 +11,7 @@ from tools.build_crane_dashboards import (
     METRIC_ZH,
     PAGE_DEFINITIONS,
     build_all,
+    dashboard_asset_version,
 )
 from tools.crane_condition_context import CONDITION_EXECUTION, OFFICIAL_REFERENCES, field_observation
 from tools.crane_data import load_crane_workbook
@@ -35,6 +36,21 @@ def test_crane_builder_generates_overview_and_six_tonnage_pages():
     assert {path.name for path in outputs} == expected
     for output in expected:
         assert (ROOT / output).exists()
+
+
+def test_crane_pages_share_dashboard_cache_key_and_site_credits():
+    build_all()
+    version = dashboard_asset_version()
+    pages = [ROOT / "crane-market-overview.html"] + [
+        ROOT / definition["output"] for definition in PAGE_DEFINITIONS.values()
+    ]
+    for path in pages:
+        html = path.read_text(encoding="utf-8")
+        assert f'assets/dashboard.css?v={version}' in html
+        assert f'assets/dashboard.js?v={version}' in html
+        assert 'assets/site-credits.css?v=20260724a' in html
+        assert html.count('class="siteCredits"') == 1
+        assert 'href="mailto:changl@xcmgarc.com"' in html
 
 
 def test_reused_ppt_images_keep_traceability_out_of_reader_facing_captions():
