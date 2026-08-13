@@ -40,6 +40,7 @@ ROOT = Path(__file__).resolve().parents[1]
 IMAGE_DISPLAY_MANIFEST = ROOT / "data" / "crane-ppt-insights" / "image-display.json"
 IMAGE_OWNERSHIP_MANIFEST = ROOT / "data" / "crane-ppt-insights" / "image-ownership.json"
 TRANSLATION_FILE = ROOT / "data" / "crane-ppt-insights" / "translations.en.json"
+THUMBNAIL_MANIFEST = ROOT / "data" / "crane-ppt-insights" / "image-thumbnails.json"
 
 
 def _load_image_display_map() -> dict[str, str]:
@@ -68,6 +69,20 @@ def _load_image_ownership_map() -> dict[str, dict[str, Any]]:
 
 
 IMAGE_OWNERSHIP_MAP = _load_image_ownership_map()
+
+
+def _load_thumbnail_map() -> dict[str, str]:
+    if not THUMBNAIL_MANIFEST.exists():
+        return {}
+    payload = json.loads(THUMBNAIL_MANIFEST.read_text(encoding="utf-8"))
+    return {
+        str(source): str(thumbnail)
+        for source, thumbnail in (payload.get("images") or {}).items()
+        if source and thumbnail
+    }
+
+
+THUMBNAIL_MAP = _load_thumbnail_map()
 
 
 @lru_cache(maxsize=None)
@@ -1308,6 +1323,7 @@ def _render_images(
         ownership = IMAGE_OWNERSHIP_MAP.get(path)
         display_path = IMAGE_DISPLAY_MAP.get(path, path)
         preferred_path, preferred_size, asset_mode = _preferred_image_asset(path)
+        thumbnail_path = THUMBNAIL_MAP.get(path, preferred_path)
         source_width, source_height = _source_image_size(path)
         display_width_px, display_height_px = _display_image_size(path)
         preferred_width_px, preferred_height_px = preferred_size
@@ -1379,12 +1395,12 @@ def _render_images(
             f'data-render-resolution="{preferred_width_px}x{preferred_height_px}" data-asset-mode="{asset_mode}" '
             f'style="--evidence-max-width:{display_width}px;--evidence-ratio:{ratio_css}">'
             '<button type="button" class="insightImageButton" '
-            f'data-full-src="{esc(path)}" data-source-src="{esc(path)}" data-ppt-src="{esc(display_path)}" '
+            f'data-full="{esc(path)}" data-full-src="{esc(path)}" data-source-src="{esc(path)}" data-ppt-src="{esc(display_path)}" '
             f'data-caption="{esc(caption_en)}" data-caption-zh="{esc(caption)}" data-caption-en="{esc(caption_en)}" '
             f'data-quality-note-zh="{esc(quality_note_zh)}" data-quality-note-en="{esc(quality_note_en)}" '
             f'aria-label="放大查看：{esc(caption)}" data-aria-label-en="Open full-size image: {esc(caption_en)}" '
             f'title="放大查看" data-title-en="Open full-size image">'
-            f'<img src="{esc(preferred_path)}" alt="{esc(caption)}" data-alt-en="{esc(caption_en)}" '
+            f'<img src="{esc(thumbnail_path)}" alt="{esc(caption)}" data-alt-en="{esc(caption_en)}" '
             f'width="{preferred_width_px}" height="{preferred_height_px}" loading="lazy" decoding="async">'
             f'</button><figcaption data-en="{esc(caption_en)}">{esc(caption)}</figcaption></figure>'
         ))

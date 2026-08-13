@@ -131,6 +131,32 @@ def test_crane_source_images_respect_web_resolution_limit():
     assert max(max(size) for size in sizes) <= 2200
 
 
+def test_crane_galleries_use_600px_webp_thumbnails_and_keep_full_source_links():
+    manifest = json.loads(
+        (ROOT / "data" / "crane-ppt-insights" / "image-thumbnails.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert manifest["source_count"] == 230
+    assert len(manifest["images"]) == 230
+    for thumbnail in manifest["images"].values():
+        path = ROOT / thumbnail
+        assert path.name.endswith("-thumb.webp")
+        with Image.open(path) as image:
+            assert max(image.size) <= 600, (path.name, image.size)
+
+    build_all()
+    rendered = "\n".join(
+        (ROOT / page).read_text(encoding="utf-8")
+        for page in (
+            "crane-market-overview.html",
+            *(definition["output"] for definition in PAGE_DEFINITIONS.values()),
+        )
+    )
+    assert 'src="assets/crane-ppt-thumbs/' in rendered
+    assert 'data-full="assets/crane-ppt-source/' in rendered
+
+
 def test_full_slide_candidates_have_explicit_gallery_review_decisions():
     review = json.loads(
         (ROOT / "data" / "crane-ppt-insights" / "gallery-image-review.json").read_text(
@@ -712,7 +738,7 @@ def test_crane_ppt_images_use_high_resolution_powerpoint_exports():
     market_page = (ROOT / "crane-market-overview.html").read_text(encoding="utf-8")
     assert f'data-full-src="{severe_crop_source}"' in market_page
     assert f'data-ppt-src="{severe_crop_display}"' in market_page
-    assert f'<img src="{severe_crop_source}"' in market_page
+    assert '<img src="assets/crane-ppt-thumbs/s163-image-15-86a23bfb19-thumb.webp"' in market_page
 
 
 def test_crane_gallery_uses_balanced_frames_without_cropping_source_images():
