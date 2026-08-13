@@ -49,7 +49,7 @@
   margin-bottom: .2rem;
   color: var(--overview-blue);
   font-size: .65rem;
-  font-weight: 900;
+  font-weight:700;
   letter-spacing: .08em;
 }
 
@@ -329,7 +329,7 @@
   padding: .28rem .15rem;
   color: #fff;
   font-size: .62rem;
-  font-weight: 900;
+  font-weight:700;
   line-height: 1.1;
   white-space: nowrap;
 }
@@ -773,7 +773,7 @@
 .expandedTierTable span {
   color: var(--overview-blue);
   font-size: .68rem;
-  font-weight: 900;
+  font-weight:700;
 }
 
 .expandedTierTable > div p {
@@ -867,7 +867,7 @@
   color: var(--overview-blue);
   background: var(--overview-fill);
   font-size: .62rem;
-  font-weight: 900;
+  font-weight:700;
 }
 
 .applicationFigure h3 {
@@ -1037,7 +1037,7 @@
 .portfolioCoverageSummary span {
   color: var(--overview-blue);
   font-size: .68rem;
-  font-weight: 800;
+  font-weight:700;
 }
 
 .portfolioCoverageSummary b {
@@ -1118,7 +1118,7 @@
 
 .portfolioRow > span {
   font-size: .61rem;
-  font-weight: 800;
+  font-weight:700;
 }
 
 .portfolioRow > p {
@@ -1379,7 +1379,7 @@
   margin-bottom: .25rem;
   color: var(--overview-yellow);
   font-size: .65rem;
-  font-weight: 900;
+  font-weight:700;
 }
 
 .validationFramework b {
@@ -1496,7 +1496,7 @@
 .environmentDossier > header span {
   color: var(--overview-yellow);
   font-size: .66rem;
-  font-weight: 900;
+  font-weight:700;
 }
 
 .environmentDossier > header h4 {
@@ -1623,7 +1623,7 @@
   min-width: 0;
   color: #fff;
   font-size: .54rem;
-  font-weight: 900;
+  font-weight:700;
 }
 
 .originMixBar .north_american,
@@ -1729,7 +1729,7 @@
   margin-top: .14rem;
   color: var(--overview-blue);
   font-size: .74rem;
-  font-weight: 900;
+  font-weight:700;
 }
 
 .brandMovementGrid {
@@ -2134,7 +2134,7 @@
   border: 1px solid var(--overview-blue);
   color: var(--overview-blue);
   font-size: .65rem;
-  font-weight: 900;
+  font-weight:700;
   text-decoration: none;
 }
 
@@ -2573,7 +2573,7 @@
     margin-bottom: .2rem;
     color: var(--overview-blue);
     font-size: .57rem;
-    font-weight: 900;
+    font-weight:700;
   }
 
   .applicationGallery {
@@ -2690,7 +2690,7 @@
     margin-bottom: .18rem;
     color: var(--overview-blue);
     font-size: .57rem;
-    font-weight: 900;
+    font-weight:700;
   }
 
   .expandedTargetLayout {
@@ -2815,7 +2815,7 @@
   flex: 0 0 auto;
   color: #60758a;
   font-size: .68rem;
-  font-weight: 800;
+  font-weight:700;
 }
 
 .businessTablePanel:not([open]) > summary {
@@ -2863,7 +2863,7 @@
   min-width: 8.5rem;
   background: #075da8;
   color: #fff;
-  font-weight: 900;
+  font-weight:700;
 }
 
 .businessTableScroll tbody th {
@@ -2873,7 +2873,7 @@
   min-width: 9.5rem;
   background: #eef5fa;
   color: #073c70;
-  font-weight: 900;
+  font-weight:700;
 }
 
 .businessTableScroll tbody tr:nth-child(even) td {

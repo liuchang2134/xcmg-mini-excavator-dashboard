@@ -128,7 +128,7 @@
 .environmentContextHeader span {
   color: #075da8;
   font-size: var(--font-sm);
-  font-weight: 900;
+  font-weight:700;
 }
 
 .environmentContextHeader p {
@@ -215,7 +215,7 @@
   background: #075da8;
   color: #fff;
   font-size: var(--font-sm);
-  font-weight: 900;
+  font-weight:700;
   font-variant-numeric: tabular-nums;
 }
 
@@ -229,7 +229,7 @@
   margin-bottom: 2px;
   color: #5a7185;
   font-size: var(--font-min);
-  font-weight: 900;
+  font-weight:700;
   letter-spacing: .06em;
 }
 
@@ -281,7 +281,7 @@
   border-left: 3px solid #075da8;
   color: #075da8;
   font-size: var(--font-xs);
-  font-weight: 900;
+  font-weight:700;
   line-height: 1.5;
 }
 
@@ -335,7 +335,7 @@
 .macroBodyLine strong,
 .macroActionLine strong {
   color: #075da8;
-  font-weight: 900;
+  font-weight:700;
 }
 
 .macroImpactSection {
@@ -489,13 +489,13 @@
 .nativeChartSvg .nativeChartValue {
   fill: #102f4b;
   font-size: var(--font-xs);
-  font-weight: 800;
+  font-weight:700;
 }
 
 .nativeChartSvg .nativeChartBarValue {
   fill: #073c70;
   font-size: var(--font-body);
-  font-weight: 900;
+  font-weight:700;
 }
 
 .nativeChartLegend {
@@ -795,7 +795,7 @@
     content: attr(data-label);
     color: #075da8;
     font-size: var(--font-min);
-    font-weight: 900;
+    font-weight:700;
   }
 
   .overviewSourceSection .sourceTableFit tbody th {

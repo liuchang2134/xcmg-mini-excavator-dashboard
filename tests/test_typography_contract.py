@@ -10,6 +10,7 @@ STYLE_FILES = (
     ROOT / "assets" / "excavator-market-overview-source.css",
     ROOT / "assets" / "site-credits.css",
 )
+FORMAL_STYLE_FILES = tuple((ROOT / "assets").glob("*.css"))
 
 
 def test_shared_styles_use_rem_type_scale_instead_of_pixel_font_sizes():
@@ -49,3 +50,10 @@ def test_390px_breakpoint_preserves_readable_text_and_tables():
     css = (ROOT / "assets" / "dashboard.css").read_text(encoding="utf-8")
     assert "@media(max-width:390px){body,main p{font-size:var(--font-body)}" in css
     assert "table,table :is(th,td){font-size:var(--font-xs)!important}" in css
+
+
+def test_formal_styles_use_only_real_400_and_700_font_weights():
+    unsupported = re.compile(r"font-weight\s*:\s*(?:[1-3]00|[5689]00|650|750|850)|font\s*:\s*(?:600|650|750|800|850|900)\b")
+    for path in FORMAL_STYLE_FILES:
+        css = path.read_text(encoding="utf-8")
+        assert not unsupported.search(css), path
