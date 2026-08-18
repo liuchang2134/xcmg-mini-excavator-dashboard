@@ -870,9 +870,7 @@
     "status": "current-at-source-date",
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
-    "classes": [
-      "AT-150t"
-    ],
+    "classes": [],
     "assets": []
   },
   {
@@ -1210,9 +1208,7 @@
     "status": "current-at-source-date",
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
-    "classes": [
-      "RT-60t"
-    ],
+    "classes": [],
     "assets": []
   },
   {
@@ -1223,9 +1219,7 @@
     "status": "current-at-source-date",
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
-    "classes": [
-      "RT-75t"
-    ],
+    "classes": [],
     "assets": []
   },
   {
@@ -1418,9 +1412,7 @@
     "status": "current-at-source-date",
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
-    "classes": [
-      "RT-100t"
-    ],
+    "classes": [],
     "assets": []
   },
   {
@@ -1653,9 +1645,7 @@
     "status": "current-at-source-date",
     "validation_status": "source-recorded",
     "source_date": "2025-07-01",
-    "classes": [
-      "RT-130t"
-    ],
+    "classes": [],
     "assets": []
   },
   {

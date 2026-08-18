@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { chromium } = require('../ppt-integration-demo/node_modules/playwright-core');
+const { chromium } = require('./playwright_loader.cjs');
 
 const base = process.argv[2] || 'http://127.0.0.1:4174';
 const pages = [
@@ -20,7 +20,14 @@ const pages = [
   'excavator-24-28t-short-tail.html',
   'excavator-28-33t.html',
   'excavator-33-40t.html',
-  'excavator-40-60t.html'
+  'excavator-40-60t.html',
+  'crane-market-overview.html',
+  'crane-rt-60t.html',
+  'crane-rt-75t.html',
+  'crane-rt-100t.html',
+  'crane-rt-130t.html',
+  'crane-rt-160t.html',
+  'crane-at-150t.html'
 ];
 
 function browserExecutable() {
@@ -34,15 +41,21 @@ function browserExecutable() {
 
 async function loadLazyImages(page) {
   await page.evaluate(() => {
-    for (const image of document.images) image.loading = 'eager';
+    for (const image of document.images) {
+      if (image.getAttribute('src')) image.loading = 'eager';
+    }
   });
   await page.waitForFunction(
-    () => [...document.images].every((image) => image.complete),
+    () => [...document.images]
+      .filter((image) => image.getAttribute('src'))
+      .every((image) => image.complete),
     null,
     { timeout: 20000 }
   ).catch(() => null);
   await page.evaluate(() =>
-    Promise.all([...document.images].map((image) => image.decode().catch(() => null)))
+    Promise.all([...document.images]
+      .filter((image) => image.getAttribute('src'))
+      .map((image) => image.decode().catch(() => null)))
   );
 }
 
@@ -58,7 +71,9 @@ async function loadLazyImages(page) {
       await loadLazyImages(page);
       const state = await page.evaluate(() => ({
         pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-        images: [...document.images].map((image) => {
+        images: [...document.images]
+          .filter((image) => image.currentSrc || image.getAttribute('src'))
+          .map((image) => {
           const rect = image.getBoundingClientRect();
           const style = getComputedStyle(image);
           const widthScale = image.naturalWidth ? rect.width / image.naturalWidth : 0;
@@ -68,7 +83,7 @@ async function loadLazyImages(page) {
           const hasPadding = ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft']
             .some((property) => parseFloat(style[property]) > 0);
           return {
-            src: new URL(image.currentSrc || image.src).pathname,
+            src: new URL(image.currentSrc || image.getAttribute('src'), document.baseURI).pathname,
             className: image.closest('figure')?.className || image.className || '',
             natural: `${image.naturalWidth}x${image.naturalHeight}`,
             rendered: `${Math.round(rect.width)}x${Math.round(rect.height)}`,

@@ -1,14 +1,14 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { chromium } = require('../ppt-integration-demo/node_modules/playwright-core');
+const { chromium } = require('./playwright_loader.cjs');
 
 const base = process.argv[2] || 'http://127.0.0.1:4174';
 const expected = {
-  sections: 8,
-  slides: 26,
+  sections: 9,
+  slides: 27,
   tables: 19,
-  visuals: 7
+  visuals: 13
 };
 
 function browserExecutable() {
@@ -92,8 +92,8 @@ async function inspectOverview(page, language, viewportName) {
     sourceDataCharts: document.querySelectorAll('.sourceDataChart').length,
     rasterChartImages: document.querySelectorAll('.sourceVisual-chart img').length,
     nativeCharts: document.querySelectorAll('.nativeChartPanel').length,
-    productStructureChart: (() => {
-      const slide = document.querySelector('[data-source-slide="11"]');
+    marketHistoryChart: (() => {
+      const slide = document.querySelector('[data-source-slide="9"]');
       const figure = slide?.querySelector('.sourceDataChart');
       const viewport = figure?.querySelector('.sourceChartViewport');
       const svg = figure?.querySelector('.sourceChartSvg');
@@ -245,7 +245,7 @@ async function inspectOverview(page, language, viewportName) {
   if (
     state.sourceVisuals + state.sourceDataCharts + state.nativeCharts !== expected.visuals
     || state.nativeCharts !== 4
-    || state.sourceDataCharts !== 3
+    || state.sourceDataCharts !== 5
     || state.rasterChartImages !== 0
   ) {
     throw new Error(
@@ -255,15 +255,15 @@ async function inspectOverview(page, language, viewportName) {
     );
   }
   if (
-    !state.productStructureChart
-    || state.productStructureChart.images !== 0
-    || state.productStructureChart.captionEn !== 'Excavator size-class structure'
-    || state.productStructureChart.svgTop < state.productStructureChart.viewportTop - 1
-    || state.productStructureChart.svgBottom > state.productStructureChart.viewportBottom + 1
+    !state.marketHistoryChart
+    || state.marketHistoryChart.images !== 0
+    || state.marketHistoryChart.captionEn !== '2023-2025 North American Excavator Market Volume (Units)'
+    || state.marketHistoryChart.svgTop < state.marketHistoryChart.viewportTop - 1
+    || state.marketHistoryChart.svgBottom > state.marketHistoryChart.viewportBottom + 1
   ) {
     throw new Error(
-      `${viewportName}/${language}: product-structure chart is cropped or rasterized ` +
-      JSON.stringify(state.productStructureChart)
+      `${viewportName}/${language}: market-history chart is cropped or rasterized ` +
+      JSON.stringify(state.marketHistoryChart)
     );
   }
   if (!state.nativeChartLayout || state.nativeChartLayout.panels.length !== 4) {
@@ -334,6 +334,7 @@ async function inspectOverview(page, language, viewportName) {
     '#environment',
     '#industry',
     '#competition',
+    '#regional-market',
     '#class-structure',
     '#portfolio',
     '#roadmap',

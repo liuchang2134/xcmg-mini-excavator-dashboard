@@ -61,6 +61,7 @@ def polish_english_text(value):
     replacements = (
         ("Analysis of trends and causes:", "Trends and contributing factors:"),
         ("The resulting inspiration or impact on the company:", "Business implications:"),
+        ("2023-2025 North American Digger Market Size/units", "2023-2025 North American Excavator Market Volume (Units)"),
         ("Adaptive Analysis of Core Specifications Products", "Core Product Fit Analysis"),
         ("Adaptive analysis of core specifications products", "Core Product Fit Analysis"),
         ("Adaptive analysis of core specifications product", "Core Product Fit Analysis"),
@@ -107,6 +108,13 @@ def polish_english_text(value):
         ("solder spectrum", "product lineup"),
         ("microcompact excavator", "compact excavators"),
         ("micro excavator", "compact excavators"),
+        ("Digger product lines", "Excavator product lines"),
+        ("digger equipment", "excavator"),
+        ("tracked hydraulic fluids", "crawler hydraulic excavators"),
+        ("independent hydraulic fluids and vents", "a dedicated hydraulic-oil fill port and vent"),
+        ("hydraulic fluids for independent injection", "a dedicated hydraulic-oil fill port"),
+        ("independent hydraulic fluids for infusion", "a dedicated hydraulic-oil fill port"),
+        ("Unindependent hydraulic fluids plus vent", "No dedicated hydraulic-oil fill port or vent"),
         ("large excavator and medium excavator", "large and medium excavators"),
         ("large emcavatomarket", "large-excavator market"),
         ("indigenous brands", "local brands"),
@@ -186,6 +194,7 @@ def polish_english_text(value):
     text = re.sub(r"\bclients\b", "customers", text, flags=re.I)
     text = re.sub(r"\bclient\b", "customer", text, flags=re.I)
     text = re.sub(r"\bengineering machinery\b", "construction equipment", text, flags=re.I)
+    text = re.sub(r"\bdiggers?\b", "excavator", text, flags=re.I)
     text = re.sub(r"\bThumbnail pliers\b", "hydraulic thumb", text, flags=re.I)
     text = re.sub(r"\bXCMG\s*VS\s*", "XCMG vs. ", text, flags=re.I)
     text = re.sub(
@@ -1958,6 +1967,21 @@ def render_source_narrative_item(value):
         en = polish_english_text(value.get("en") or zh)
     else:
         zh = en = str(value or "")
+    # The source deck sometimes embeds a self-selected star-product comparison in
+    # a broader market paragraph. Excel scoring is authoritative for product
+    # comparison, so remove only those lines while retaining the market analysis.
+    zh = "\n".join(
+        line
+        for line in str(zh).splitlines()
+        if not re.search(r"徐工\s*VS\s*(?:久保田|卡特(?:彼勒)?|三一)", line, re.I)
+    )
+    en = "\n".join(
+        line
+        for line in str(en).splitlines()
+        if not re.search(r"XCMG\s+VS\s+(?:Kubota|Caterpillar|CAT|SANY)", line, re.I)
+    )
+    if not clean(zh) and not clean(en):
+        return ""
     if en and en != zh:
         return (
             '<div class="sourceNarrativeBlock">'
@@ -2462,26 +2486,21 @@ SOURCE_SECTION_META = {
         "zh": "市场销量与产品结构",
         "en": "Market Volume and Product Structure",
     },
-    "applications": {
-        "id": "job-applications",
-        "zh": "客户工况与运输适应性",
-        "en": "Customer Applications and Transport Fit",
-    },
-    "comparison": {
-        "id": "engineering-insight",
-        "zh": "参数、配置与实机对比",
-        "en": "Specification, Equipment and Field Comparison",
-    },
     "positioning": {
         "id": "product-positioning",
         "zh": "产品定位与市场目标",
         "en": "Product Positioning and Market Target",
     },
-    "analysis": {
-        "id": "source-analysis",
-        "zh": "产品分析",
-        "en": "Product Analysis",
-    },
+}
+
+
+CONDITION_CONTEXT_KEYWORDS = {
+    "narrow": ("狭窄", "园林", "景观", "住宅", "房屋", "城市", "市政", "街区", "室内"),
+    "trench": ("沟槽", "管线", "管道", "地基", "基础", "排水", "地下", "道路", "桥梁"),
+    "loading": ("土方", "装车", "搬运", "清运", "回填", "平整", "场平"),
+    "attachment": ("破碎", "拆除", "属具", "锤", "岩石", "石方", "拇指钳"),
+    "slope": ("坡地", "软土", "吊装", "起吊", "林业", "农业", "农场", "土地清理"),
+    "rental": ("租赁", "运输", "转场", "皮卡", "拖车", "交付", "客户"),
 }
 
 
@@ -2714,30 +2733,372 @@ def render_source_section(section, records, table_records):
     )
 
 
-def render_tonnage_insights(model):
+def source_records_for_model(model):
     slug = model["meta"].get("slug")
     source_payload = load_ppt_source_content()
     slide_ids = source_payload["by_slug"].get(slug, [])
-    records = [
+    return [
         source_payload["slides"][slide_id]
         for slide_id in slide_ids
         if slide_id in source_payload["slides"]
     ]
-    if not records:
-        return ""
+
+
+def _source_plain_text(record):
+    parts = [record.get("title", {}).get("zh", "")]
+    parts.extend(item.get("zh", "") for item in record.get("body", []))
+    return "\n".join(str(part or "") for part in parts)
+
+
+def _source_table_row(record, table_records):
+    for table_id in record.get("table_ids", []):
+        table = table_records.get(table_id) or {}
+        matrix = table.get("matrix_zh") or []
+        if len(matrix) < 2:
+            continue
+        header = [clean(cell) for cell in matrix[0]]
+        width = len(header)
+        for raw_row in matrix[1:]:
+            row = list(raw_row) + [""] * max(0, width - len(raw_row))
+            if not any(clean(cell) for cell in row):
+                continue
+            values = {}
+            for index, heading in enumerate(header):
+                heading = clean(heading)
+                value = clean(row[index])
+                if not heading or not value:
+                    continue
+                values.setdefault(heading, value)
+            if values:
+                return values
+    return {}
+
+
+def _value_for_heading(values, *tokens):
+    for heading, value in values.items():
+        if all(token in heading for token in tokens):
+            return value
+    return ""
+
+
+def _clean_application_text(value):
+    lines = []
+    for raw_line in str(value or "").splitlines():
+        line = clean(raw_line)
+        if not line:
+            continue
+        if re.search(r"(?:核心规格产品适应性分析|XCMG\s+VS|徐工VS)", line, re.I):
+            continue
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def _application_context(record, table_records):
+    values = _source_table_row(record, table_records)
+    scene = (
+        _value_for_heading(values, "施工", "场景")
+        or _value_for_heading(values, "应用", "场景")
+        or _value_for_heading(values, "施工场景")
+    )
+    description = _clean_application_text(_value_for_heading(values, "场景", "描述"))
+    customers = _value_for_heading(values, "客户", "类型")
+    needs = _value_for_heading(values, "客户", "需求")
+    narrative = _source_plain_text(record)
+    if "运输场景" in narrative and not scene:
+        scene = "设备运输与转场"
+        description = _clean_application_text(narrative)
+    if not scene and not description and not customers and not needs:
+        return None
+    match_text = "\n".join((scene, description, customers, needs, narrative))
+    scores = {
+        condition_id: sum(match_text.count(keyword) for keyword in keywords)
+        for condition_id, keywords in CONDITION_CONTEXT_KEYWORDS.items()
+    }
+    condition_id = max(scores, key=scores.get)
+    if not scores[condition_id]:
+        condition_id = "rental" if "运输" in match_text else "narrow"
+    return {
+        "condition_id": condition_id,
+        "scene": scene or "典型施工任务",
+        "description": description,
+        "customers": customers,
+        "needs": needs,
+        "record": record,
+    }
+
+
+def build_tonnage_context(model):
+    records = source_records_for_model(model)
     table_payload = load_ppt_business_tables()
-    sections = []
-    for section in ("market", "applications", "comparison", "positioning", "analysis"):
-        selected = [record for record in records if record.get("section") == section]
-        if selected:
-            sections.append(
-                render_source_section(
-                    section,
-                    selected,
-                    table_payload["records"],
-                )
+    applications = {condition_id: [] for condition_id in CONDITION_CONTEXT_KEYWORDS}
+    for record in records:
+        if record.get("section") != "applications":
+            continue
+        context = _application_context(record, table_payload["records"])
+        if context:
+            applications[context["condition_id"]].append(context)
+    return {
+        "records": records,
+        "tables": table_payload["records"],
+        "market": [record for record in records if record.get("section") == "market"],
+        "positioning": [record for record in records if record.get("section") == "positioning"],
+        "applications": applications,
+    }
+
+
+def render_decision_source_section(section, records, table_records):
+    meta = SOURCE_SECTION_META[section]
+    if not records:
+        boundary_zh = (
+            "当前资料未单列该吨级市场销量，页面保留现有产品评分与工况分析，不推算市场规模。"
+            if section == "market"
+            else "当前资料未单列该吨级定位目标，页面不以其他吨级目标代替。"
+        )
+        boundary_en = (
+            "No class-specific sales series is recorded. Existing product scoring and application analysis remain available without an inferred market size."
+            if section == "market"
+            else "No class-specific positioning target is recorded, and no target from another class is substituted."
+        )
+        return (
+            f'<section id="{meta["id"]}" class="insightSection decisionSourceSection">'
+            f'<h2 data-en="{esc(meta["en"])}">{esc(meta["zh"])}</h2>'
+            f'<p class="methodNote" data-en="{esc(boundary_en)}">{esc(boundary_zh)}</p></section>'
+        )
+    cards = []
+    for record in records:
+        body = "".join(render_source_narrative_item(item) for item in record.get("body", []))
+        notes = "".join(
+            bilingual_leaf(item, "p", "sourceDataNote")
+            for item in record.get("notes", [])
+        )
+        visuals = render_source_visuals(record)
+        tables = ""
+        if section == "market":
+            tables = "".join(
+                render_source_table(table_records[table_id])
+                for table_id in record.get("table_ids", [])
+                if table_id in table_records
             )
-    return "".join(sections)
+        cards.append(
+            f'<article class="decisionSourceArticle" data-source-slide="{record.get("slide")}">'
+            f'{render_source_temporal_status(record)}'
+            f'<div class="decisionNarrative">{body}</div>{visuals}{tables}'
+            + (f'<div class="sourceNotes">{notes}</div>' if notes else "")
+            + "</article>"
+        )
+    return (
+        f'<section id="{meta["id"]}" class="insightSection decisionSourceSection">'
+        f'<h2 data-en="{esc(meta["en"])}">{esc(meta["zh"])}</h2>'
+        f'<div class="decisionSourceStack">{"".join(cards)}</div></section>'
+    )
+
+
+def render_context_visuals(record, scene_title="", scene_title_en=""):
+    visuals = record.get("visuals") or []
+    if not visuals:
+        return ""
+    title = clean(scene_title) or "施工场景"
+    title_en = clean(scene_title_en) or title
+    figures = []
+    for index, visual in enumerate(visuals, start=1):
+        if visual.get("kind") == "chart":
+            continue
+        display_image, display_width, display_height = ensure_display_thumbnail(
+            visual.get("file"), 720
+        )
+        size = (
+            f' width="{display_width}" height="{display_height}"'
+            if display_width and display_height
+            else ""
+        )
+        figures.append(
+            '<figure><button type="button" class="sourceVisualOpen" '
+            f'data-media-src="{esc(visual.get("file"))}" data-media-title="{esc(title)}" '
+            f'data-media-title-en="{esc(title_en)}" aria-label="放大查看施工场景图片">'
+            f'<img src="{esc(display_image)}" alt="{esc(title)}"{size} loading="lazy" decoding="async">'
+            '</button></figure>'
+        )
+    return f'<div class="conditionContextMedia">{"".join(figures)}</div>' if figures else ""
+
+
+def render_condition_context(condition, contexts):
+    if not contexts:
+        return (
+            '<div class="conditionIntro">'
+            f'<p><b data-en="Work-condition characteristics">工况特点：</b>{esc(condition["feature"])}</p>'
+            f'<p><b data-en="Beneficial equipment">有益配置：</b>{esc(condition["benefit"])}</p>'
+            '</div>'
+        )
+    cards = []
+    for context in contexts:
+        facts = []
+        if context["customers"]:
+            facts.append(
+                '<div><b data-en="Primary customers">主要客户</b>'
+                f'<p>{esc(context["customers"])}</p></div>'
+            )
+        if context["needs"]:
+            facts.append(
+                '<div><b data-en="Customer requirements">客户需求</b>'
+                f'<p>{esc(context["needs"])}</p></div>'
+            )
+        if context["description"]:
+            facts.append(
+                '<div class="conditionTaskChain"><b data-en="Work tasks and operating boundary">作业任务与边界</b>'
+                f'<p>{esc(context["description"])}</p></div>'
+            )
+        cards.append(
+            f'<article class="conditionContextCard" data-source-slide="{context["record"].get("slide")}">'
+            f'<h3>{esc(context["scene"])}</h3>'
+            f'{render_source_temporal_status(context["record"])}'
+            f'{render_context_visuals(context["record"], context["scene"], context.get("scene_en", ""))}'
+            f'<div class="conditionContextFacts">{"".join(facts)}</div></article>'
+        )
+    return (
+        '<div class="conditionContext"><div class="conditionContextHead">'
+        '<h3 data-en="Customers, tasks and operating requirements">客户、任务与作业要求</h3>'
+        f'<p><b data-en="Work-condition characteristics">工况特点：</b>{esc(condition["feature"])} '
+        f'<b data-en="Beneficial equipment">有益配置：</b>{esc(condition["benefit"])}</p></div>'
+        f'<div class="conditionContextGrid">{"".join(cards)}</div></div>'
+    )
+
+
+def render_condition_overview_context(model, application_map):
+    """Summarize source-backed customer and requirement context before scoring."""
+    cards = []
+    for condition in model["conditions"]:
+        contexts = application_map.get(condition["id"], [])
+        if not contexts:
+            continue
+        customers = []
+        needs = []
+        for context in contexts:
+            customer = clean(context.get("customers"))
+            requirement = clean(context.get("needs"))
+            if customer and customer not in customers:
+                customers.append(customer)
+            if requirement and requirement not in needs:
+                needs.append(requirement)
+        if not customers and not needs:
+            continue
+        cards.append(
+            '<article class="conditionOverviewContextCard">'
+            f'<h3>{esc(condition["name"])}</h3>'
+            + (
+                '<div><b data-en="Primary customers">主要客户</b>'
+                f'<p>{esc("；".join(customers))}</p></div>'
+                if customers
+                else ""
+            )
+            + (
+                '<div><b data-en="Customer requirements">客户需求</b>'
+                f'<p>{esc("；".join(needs))}</p></div>'
+                if needs
+                else ""
+            )
+            + '</article>'
+        )
+    if not cards:
+        return ""
+    return (
+        '<div class="conditionOverviewContext">'
+        '<h3 data-en="Customer and task context">客户与任务背景</h3>'
+        f'<div>{"".join(cards)}</div></div>'
+    )
+
+
+def _split_roadmap_lines(value):
+    return [clean(item) for item in re.split(r"[\n；;]+", str(value or "")) if clean(item)]
+
+
+def roadmap_rows_for_model(model):
+    xcmg_model = re.sub(r"^XCMG\s+", "", model["meta"]["xcmg"], flags=re.I).strip()
+    source_payload = load_ppt_source_content()
+    table_payload = load_ppt_business_tables()
+    rows = []
+    for slide_id in source_payload.get("overview", []):
+        record = source_payload["slides"].get(slide_id)
+        if not record or record.get("section") != "roadmap":
+            continue
+        for table_id in record.get("table_ids", []):
+            table = table_payload["records"].get(table_id) or {}
+            matrix = table.get("matrix_zh") or []
+            if len(matrix) < 2:
+                continue
+            header = [clean(cell) for cell in matrix[0]]
+            for raw in matrix[1:]:
+                row = list(raw) + [""] * max(0, len(header) - len(raw))
+                model_name = clean(row[0]) if row else ""
+                if not model_name or not (
+                    model_name.upper() == xcmg_model.upper()
+                    or model_name.upper() in xcmg_model.upper()
+                    or xcmg_model.upper() in model_name.upper()
+                ):
+                    continue
+                values = {header[i]: clean(row[i]) for i in range(len(header)) if header[i]}
+                rows.append({
+                    "model": model_name,
+                    "type": values.get("产品类型", ""),
+                    "problems": _split_roadmap_lines(values.get("产品竞争力问题", "")),
+                    "actions": _split_roadmap_lines(values.get("产品力提升方案", "")),
+                    "completion": values.get("完成升级时间", ""),
+                    "production": values.get("量产时间", ""),
+                })
+    return rows
+
+
+def scoring_gap_items(model, limit=6):
+    xcmg = model["meta"]["xcmg"]
+    gaps = []
+    for row in model["rawParamRows"]:
+        gap = raw_param_gap_text(row, model, xcmg)
+        if gap:
+            gaps.append((gap[0], "参数", gap[2], gap[1]))
+    for row in model["rawOptionRows"]:
+        gap = raw_option_gap_text(row, model, xcmg)
+        if gap:
+            gaps.append((gap[0], "配置", gap[2], gap[1]))
+    gaps.sort(reverse=True, key=lambda item: item[0])
+    return gaps[:limit]
+
+
+def render_upgrade_roadmap(model):
+    score_gaps = scoring_gap_items(model)
+    ledger = roadmap_rows_for_model(model)
+    gap_rows = "".join(
+        f'<tr><td>{esc(kind)}</td><th scope="row">{esc(item)}</th><td>{esc(detail)}</td></tr>'
+        for _weight, kind, item, detail in score_gaps
+    )
+    if not gap_rows:
+        gap_rows = '<tr><td colspan="3" data-en="No material gap is visible in the verified Excel fields; review missing fields before defining an engineering action.">当前Excel可核验字段未显示明显落后项，工程动作前应先复核缺失字段。</td></tr>'
+    ledger_cards = []
+    for row in ledger:
+        problems = as_list(row["problems"], "当前升级台账未记录具体问题。")
+        actions = as_list(row["actions"], "当前升级台账未记录具体动作。")
+        milestone = " / ".join(value for value in (row["completion"], row["production"]) if value)
+        ledger_cards.append(
+            '<article class="roadmapLedgerCard">'
+            f'<header><div><span data-en="Product upgrade ledger">产品升级台账</span><h3>{esc(row["model"])}</h3></div>'
+            f'<em>{esc(row["type"] or "状态待复核")}</em></header>'
+            f'<div><section><b data-en="Recorded issues">已记录问题</b>{problems}</section>'
+            f'<section><b data-en="Upgrade actions">升级动作</b>{actions}</section></div>'
+            + (f'<p class="roadmapMilestone"><b data-en="Milestone">节点：</b>{esc(milestone)}</p>' if milestone else "")
+            + '<p class="roadmapValidation"><b data-en="Validation status">验证状态：</b><span data-en="Confirm against the current production configuration and engineering release record.">需结合当前量产配置与工程发布记录确认。</span></p>'
+            + '</article>'
+        )
+    if not ledger_cards:
+        ledger_cards.append(
+            '<article class="roadmapLedgerCard roadmapLedgerEmpty"><h3 data-en="No model-specific upgrade ledger">未匹配到该型号升级台账</h3>'
+            '<p data-en="Use the verified Excel gaps below as the review queue; no action or completion state is inferred.">以下仅以Excel差距作为复核清单，不推断工程动作或完成状态。</p></article>'
+        )
+    return (
+        '<section id="upgrade-roadmap" class="upgradeRoadmap"><h2 data-en="Upgrade and Improvement Plan">升级与提升方案</h2>'
+        '<div class="roadmapBoundary"><b data-en="Decision boundary">决策边界</b>'
+        '<p data-en="The score-gap side uses only verified Excel specification and equipment fields. Upgrade actions come from the model ledger and remain subject to production-configuration and engineering-release validation.">评分差距仅采用Excel中可核验的参数与配置字段；升级动作来自对应型号台账，仍须结合量产配置与工程发布记录确认验证状态。</p></div>'
+        '<div class="roadmapGrid"><article><h3 data-en="Score gaps and review priorities">评分差距与复核重点</h3>'
+        '<div class="tableScroll compact roadmapGapTable"><table><caption class="srOnly" data-en="Verified specification and equipment gaps">可核验参数与配置差距</caption><thead><tr><th data-en="Type">类型</th><th data-en="Item">项目</th><th data-en="Verified gap">可核验差距</th></tr></thead>'
+        f'<tbody>{gap_rows}</tbody></table></div></article><div>{"".join(ledger_cards)}</div></div></section>'
+    )
 
 
 def render_html(model):
@@ -2751,34 +3112,26 @@ def render_html(model):
     total_detail_rows = sum(len(v) for v in model["conditionDetails"].values())
     product_count = len(model["products"])
     summary_cards = render_summary_cards(model)
-    tonnage_insights_html = render_tonnage_insights(model)
-    primary_analysis_target = "#market-insight" if tonnage_insights_html else "#overall"
-    primary_analysis_zh = "市场与产品分析" if tonnage_insights_html else "查看总体评分"
-    primary_analysis_en = "Market and product analysis" if tonnage_insights_html else "View overall score"
-    source_nav_html = (
-        """
-      <details class="navGroup" open>
-        <summary data-en="Product and market insight">产品与市场洞察</summary>
-        <div class="navSubmenu">
-          <a href="#market-insight" data-en="Market volume and product structure">市场销量与产品结构</a>
-          <a href="#job-applications" data-en="Customers, applications and transport">客户工况与运输适应性</a>
-          <a href="#engineering-insight" data-en="Specifications, equipment and field comparison">参数、配置与实机对比</a>
-          <a href="#product-positioning" data-en="Product positioning and market target">产品定位与市场目标</a>
-        </div>
-      </details>
-        """
-        if tonnage_insights_html
-        else ""
+    tonnage_context = build_tonnage_context(model)
+    market_insight_html = render_decision_source_section(
+        "market", tonnage_context["market"], tonnage_context["tables"]
     )
+    positioning_html = render_decision_source_section(
+        "positioning", tonnage_context["positioning"], tonnage_context["tables"]
+    )
+    primary_analysis_target = "#market-insight"
+    primary_analysis_zh = "市场与产品分析"
+    primary_analysis_en = "Market and product analysis"
     condition_visual_nav = render_condition_visual_nav(model)
+    condition_overview_context = render_condition_overview_context(
+        model, tonnage_context["applications"]
+    )
     conditions_html = []
     for idx, c in enumerate(model["conditions"], start=1):
         conditions_html.append(
-            f'<section id="cond{idx}" class="conditionBlock"><div class="conditionTitle"><div><span>典型工况</span><h2>{esc(c["name"])}</h2></div><em>权重 {int(c["weight"]*100)}%</em></div>'
-            '<div class="conditionIntro">'
-            f'<p><b>工况特点：</b>{esc(c["feature"])}</p><p><b>有益配置：</b>{esc(c["benefit"])}</p>'
-            "</div>"
-            '<div class="conditionTop">'
+            f'<section id="cond{idx}" class="conditionSection"><div class="conditionTitle"><div><span>典型工况</span><h2>{esc(c["name"])}</h2></div><em>权重 {int(c["weight"]*100)}%</em></div>'
+            + render_condition_context(c, tonnage_context["applications"].get(c["id"], []))
+            + '<div class="conditionTop">'
             f'<details class="mobileDisclosure factorDisclosure" open data-mobile-open="false"><summary>关键参数 / 配置雷达图</summary><div class="panel">{render_condition_factor_radar(model, c)}</div></details>'
             f'<div class="panel conditionRanking"><h3>工况评分排名</h3><div class="bars">{render_bar_ranking(cond_scores[c["id"]], xcmg, coverage=model["conditionCoverage"][c["id"]])}</div></div>'
             "</div>"
@@ -2837,6 +3190,7 @@ def render_html(model):
     .simulator{{border:1px solid #c8d7e6;border-radius:5px;overflow:hidden;margin-top:12px}}.simHead{{display:flex;justify-content:space-between;padding:12px;background:#f7fafc;border-bottom:1px solid #e3edf5}}.simDisclaimer{{margin:0;padding:9px 12px;background:#fffdf4;border-bottom:1px solid #ecd991;color:#526a7f;font-size:var(--font-xs)}}.resetSim{{border:1px solid #b9cadb;border-radius:4px;background:#fff;padding:6px 10px;font-weight:700;cursor:pointer}}.simGrid{{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;padding:12px}}.simOptions{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.simOptions label{{border:1px solid #d6e2ee;background:#fbfdff;padding:9px;display:grid;grid-template-columns:18px 1fr;gap:8px}}.simOptions b,.simOptions em,.simOptions small{{display:block}}.simOptions em{{color:var(--blue);font-style:normal;font-weight:700;font-size:var(--font-xs)}}.simOptions small{{color:#5d7083;font-size:var(--font-min)}}.simResult{{border-left:5px solid var(--yellow);background:#f7fafc;padding:18px}}.simResult strong{{display:block;font-size:var(--font-4xl);color:var(--blue)}}.simResult b,.simResult span,.simResult small{{display:block}}.rankPanel{{display:none;padding:0 12px 12px}}.rankPanel.show{{display:block}}.muted{{color:var(--muted)}}.rawTabs{{display:flex;gap:8px;margin-bottom:10px}}.rawTabs button{{border:1px solid #bfd0e0;background:#fff;border-radius:4px;padding:7px 11px;font-weight:700;cursor:pointer}}.rawTabs button.active{{background:var(--yellow);border-color:var(--yellow)}}.rawTable[data-open="false"]{{display:none}}.backTop{{position:fixed;left:14px;bottom:14px;z-index:40;background:var(--yellow);border:1px solid #c89200;border-radius:18px;padding:8px 12px;font-weight:700;color:#08213d;box-shadow:0 8px 20px rgba(0,58,112,.18);opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s}}.backTop.show{{opacity:1;pointer-events:auto;transform:none}}
     @media(max-width:900px){{html{{scroll-padding-top:72px}}.layout{{display:block}}aside.nav{{height:auto;position:sticky;top:0;overflow:visible;border-right:0;border-bottom:4px solid var(--yellow);padding:8px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:10px;align-items:center}}.nav img{{width:82px}}.navTitle{{font-size:var(--font-body);margin:0}}.nav small{{font-size:var(--font-min)}}.languageToggle{{margin:0}}.navToggle,.mobileTop{{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:4px;padding:7px 10px;font-weight:700}}.mobileTop{{font-size:var(--font-xs)}}.navMenu{{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;max-height:calc(100vh - 76px);overflow:auto;padding-top:8px}}.navMenu.open{{display:grid}}.navMenu .home,.navGroup{{grid-column:1/-1}}.navMenu .home{{margin:0}}.navSubmenu{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}}main{{padding:14px}}section,.hero{{scroll-margin-top:78px}}.hero,.split,.conditionTop{{grid-template-columns:1fr}}.factorRadarGrid{{grid-template-columns:1fr}}.kpis,.summaryGrid,.gapGrid{{grid-template-columns:1fr 1fr}}.conditionIntro,.simGrid,.simOptions{{grid-template-columns:1fr}}.heroMedia{{height:220px}}.productGapSpotlight{{grid-template-columns:260px minmax(0,1fr)}}.conditionVisualNav{{grid-template-columns:repeat(2,minmax(0,1fr))}}.backTop{{display:none}}.detailMatrix table{{min-width:1360px}}.rawTable table{{min-width:1100px}}}}
     @media(max-width:720px){{body{{font-size:var(--font-body)}}main{{padding:8px}}section{{padding:12px;margin:8px 0;border-radius:4px;box-shadow:none}}section,.hero{{scroll-margin-top:66px}}aside.nav{{grid-template-columns:72px minmax(0,1fr) auto auto auto;padding:6px 8px;gap:7px}}.nav img{{width:72px;padding:4px}}.navTitle{{font-size:var(--font-xs);line-height:1.25}}.nav small{{font-size:var(--font-min)}}.languageToggle{{min-width:40px;min-height:32px;padding:0 6px;font-size:var(--font-min)}}.navToggle,.mobileTop{{padding:6px 8px;font-size:var(--font-min)}}.navMenu{{max-height:calc(100vh - 64px);grid-template-columns:1fr 1fr}}.navMenu a{{font-size:var(--font-xs);padding:7px 8px}}.hero{{margin-bottom:8px}}.heroText{{padding:16px 14px 12px}}.heroDescription{{display:none}}.heroMedia{{height:142px;border-left:0;border-top:1px solid var(--line);padding:10px}}.heroMedia img{{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}}h1{{font-size:var(--font-3xl);margin:6px 0 8px}}h2{{font-size:var(--font-xl);margin-bottom:10px}}h2:after{{margin-top:6px}}h3{{font-size:var(--font-md)}}.actions{{gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-top:10px;padding-bottom:2px}}.actions .btn{{flex:0 0 auto;padding:7px 9px;font-size:var(--font-xs)}}.kpis{{grid-template-columns:1fr 1fr;gap:7px}}.kpi{{padding:9px;border-left-width:4px;min-height:92px}}.kpi b{{font-size:var(--font-2xl);line-height:1.15;margin:3px 0}}.kpi span{{font-size:var(--font-min);line-height:1.35;display:block}}.summaryGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:1px 13% 6px 1px}}.summaryCard{{scroll-snap-align:start;padding:10px;min-height:150px}}.summaryCard p{{font-size:var(--font-xs);margin:5px 0}}.conditionBlock{{padding:11px}}.conditionTitle{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-bottom:8px;margin-bottom:8px}}.conditionTitle h2{{font-size:var(--font-lg);overflow-wrap:break-word;word-break:normal;hyphens:auto;margin-bottom:0}}.conditionTitle span{{font-size:var(--font-min)}}.conditionIntro{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;margin-bottom:8px;padding-right:10%}}.conditionIntro p{{scroll-snap-align:start;padding:9px 10px;font-size:var(--font-xs)}}.conditionTop{{gap:8px;margin-bottom:8px}}.panel{{padding:10px}}.conditionRanking .bars{{gap:5px}}.bar{{grid-template-columns:24px minmax(82px,105px) minmax(64px,1fr) 40px;gap:5px}}.bar span{{padding:2px 0}}.bar b,.bar strong{{font-size:var(--font-xs)}}.bar i{{height:14px}}.barCoverage{{display:none}}.coverageNote,.methodNote,.sourceNote{{font-size:var(--font-min);padding:8px 9px;margin-bottom:8px}}th,td{{padding:7px 6px}}.sourceNote{{display:block}}.factorRadarGrid>div{{min-width:0;width:100%}}.factorRadarGrid .keyTable{{width:100%;min-width:0;table-layout:fixed}}.factorRadarGrid .keyTable th,.factorRadarGrid .keyTable td{{white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:auto}}.radarSvg{{height:260px;margin:2px auto}}.radarSvg.small{{width:100%;height:auto;max-height:255px}}.radarLegend{{min-width:0;padding-top:6px}}.radarLegend button{{white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:auto;font-size:var(--font-min);padding:4px 5px}}.mobileDisclosure>summary,.radarPicker>summary{{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;padding:9px 11px;border:1px solid #c8d7e6;border-left:4px solid var(--blue);border-radius:4px;background:#f7fafc;color:#0b3155;font-weight:700;cursor:pointer;list-style:none}}.mobileDisclosure>summary::-webkit-details-marker,.radarPicker>summary::-webkit-details-marker{{display:none}}.mobileDisclosure>summary:after,.radarPicker>summary:after{{content:"展开";font-size:var(--font-min);color:var(--blue);font-weight:700}}.mobileDisclosure[open]>summary:after,.radarPicker[open]>summary:after{{content:"收起"}}.mobileDisclosure[open]>summary,.radarPicker[open]>summary{{margin-bottom:8px;border-left-color:var(--yellow)}}.conditionTop>.mobileDisclosure>.panel{{height:auto}}.factorDisclosure>.panel{{border:0;padding:0}}.matrixDisclosure,.simulatorDisclosure{{margin:8px 0}}.matrixDisclosure>.detailMatrix,.simulatorDisclosure>.simulator{{margin-top:0}}.overallTableDisclosure{{margin-top:10px}}.radarDisclosure>.panel{{border:0;padding:0}}.radarPicker{{margin-top:4px}}.radarPicker>summary{{min-height:36px;padding:7px 9px;border-left-width:3px;font-size:var(--font-xs)}}.gapPanel{{padding:10px;margin:8px 0}}.gapGrid{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:88%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:10%}}.gapGrid article{{scroll-snap-align:start;padding:10px}}.gapList{{font-size:var(--font-xs);padding-left:17px}}.simGrid{{padding:8px}}.simOptions{{gap:6px}}.simOptions label{{padding:8px}}.simResult{{padding:12px}}.simResult strong{{font-size:var(--font-3xl)}}.tableScroll{{max-height:62vh}}}}
+    @media(max-width:720px){{.conditionSection{{padding:11px}}}}
     @media(max-width:720px){{.actions{{display:grid;grid-template-columns:1fr;gap:6px;overflow:visible;margin-top:10px;padding-bottom:0}}.actions .btn{{width:100%;min-height:38px;padding:7px 9px;font-size:var(--font-xs)}}}}
     @media(max-width:720px){{.productGapSpotlight{{grid-template-columns:1fr;min-height:0}}.productGapMedia{{border-right:0;border-bottom:1px solid var(--line);padding:12px}}.productGapMedia img{{height:155px;padding:4px}}.productGapContent{{padding:12px}}.productGapContent h3{{font-size:var(--font-lg)}}.productGapContent ol{{grid-template-columns:1fr;gap:6px}}.conditionVisualNav{{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:12%;margin:9px 0}}.conditionVisualCard{{scroll-snap-align:start;min-height:178px}}.conditionVisualSource{{font-size:var(--font-min)}}}}
     @media(max-width:1280px){{.conditionTop{{grid-template-columns:1fr}}}}
@@ -2857,6 +3211,9 @@ def render_html(model):
     html[data-language="en"] .sourceTableScrollFit table.sourceTableFit tr>*{{min-width:140px}}
     html[data-language="en"] .sourceTableScrollFit table.sourceTableFit tr>:first-child{{min-width:160px}}
     @media(max-width:720px){{.sourceTableScroll.sourceTableScrollFit{{max-height:none;overflow:visible;border:0}}.sourceTableScrollFit table.sourceTableFit,.sourceTableScrollFit .sourceTableFit tbody,.sourceTableScrollFit .sourceTableFit tr,.sourceTableScrollFit .sourceTableFit th,.sourceTableScrollFit .sourceTableFit td{{display:block;width:100%}}.sourceTableScrollFit .sourceTableFit colgroup,.sourceTableScrollFit .sourceTableFit thead{{display:none}}.sourceTableScrollFit .sourceTableFit tr{{margin-bottom:10px;border:1px solid #b8ccdd;background:#fff}}.sourceTableScrollFit .sourceTableFit th,.sourceTableScrollFit .sourceTableFit td{{display:grid;grid-template-columns:minmax(88px,7rem) minmax(0,1fr);gap:8px;border-right:0;padding:8px 9px}}.sourceTableScrollFit .sourceTableFit th::before,.sourceTableScrollFit .sourceTableFit td::before{{content:attr(data-label);color:#075da8;font-size:var(--font-min);font-weight:700}}.sourceTableScrollFit .sourceTableFit tbody th{{border-left:4px solid #075da8;background:#eef5fa!important}}.sourceTableScrollFit .sourceTableFit tr>:last-child{{border-bottom:0}}}}
+    .decisionSourceSection{{padding:18px}}.decisionSourceStack{{display:grid;gap:14px}}.decisionSourceArticle{{border-top:3px solid var(--blue);padding-top:14px}}.decisionSourceArticle>.sourceTemporalStatus{{max-width:620px;margin:0 0 12px}}.decisionNarrative{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;margin-bottom:12px}}.decisionNarrative>*{{margin:0;max-inline-size:none}}.decisionSourceArticle .sourceVisualGrid{{margin:10px 0}}.conditionOverviewContext{{border:1px solid #c8d7e6;background:#f8fbfd;margin:0 0 14px;padding:12px}}.conditionOverviewContext>h3{{margin-bottom:10px}}.conditionOverviewContext>div{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}}.conditionOverviewContextCard{{border-left:4px solid var(--blue);background:#fff;padding:9px 11px}}.conditionOverviewContextCard h3,.conditionOverviewContextCard p{{margin:0}}.conditionOverviewContextCard>div+div{{margin-top:6px}}.conditionOverviewContextCard b{{font-size:var(--font-xs);color:#075da8}}.conditionOverviewContextCard p{{font-size:var(--font-xs)!important;line-height:1.5}}.conditionContext{{margin:0 0 14px;border:1px solid #bed0e0;background:#f8fbfd}}.conditionContextHead{{display:grid;grid-template-columns:minmax(220px,.34fr) minmax(0,1fr);gap:16px;padding:12px 14px;border-bottom:1px solid #d6e3ed}}.conditionContextHead h3,.conditionContextHead p{{margin:0;max-inline-size:none}}.conditionContextHead p{{font-size:var(--font-sm)!important;line-height:1.65}}.conditionContextGrid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}}.conditionContextCard{{padding:14px;border-bottom:1px solid #d6e3ed}}.conditionContextCard:nth-child(odd){{border-right:1px solid #d6e3ed}}.conditionContextCard h3{{font-size:var(--font-base);margin-bottom:10px}}.conditionContextCard>.sourceTemporalStatus{{max-width:none;margin:0 0 10px}}.conditionContextMedia{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:10px}}.conditionContextMedia figure{{margin:0;min-width:0}}.conditionContextMedia button{{display:block;width:100%;height:150px;padding:0;border:1px solid #cbd9e5;background:#fff;cursor:zoom-in;overflow:hidden}}.conditionContextMedia img{{display:block;width:100%;height:100%;object-fit:cover}}.conditionContextFacts{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.conditionContextFacts>div{{border-left:3px solid var(--blue);padding:8px 10px;background:#fff}}.conditionContextFacts>div.conditionTaskChain{{grid-column:1/-1;border-left-color:var(--yellow)}}.conditionContextFacts b{{color:#075da8;font-size:var(--font-xs)}}.conditionContextFacts p{{max-inline-size:none;margin:4px 0 0;white-space:pre-line;font-size:var(--font-sm)!important;line-height:1.65}}.upgradeRoadmap{{border-top:4px solid var(--blue);min-width:0}}.roadmapBoundary{{display:grid;grid-template-columns:180px minmax(0,1fr);border:1px solid #c8d7e6;background:#f5f9fc;margin-bottom:14px}}.roadmapBoundary b,.roadmapBoundary p{{padding:10px 12px;margin:0;max-inline-size:none}}.roadmapBoundary b{{border-right:1px solid #c8d7e6;color:#075da8}}.roadmapGrid{{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:14px;min-width:0}}.roadmapGrid>article,.roadmapLedgerCard{{border:1px solid #c8d7e6;background:#fff;padding:12px;min-width:0}}.roadmapGapTable{{max-width:100%;overflow-x:auto}}.roadmapGapTable table{{min-width:700px}}.roadmapLedgerCard header{{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid #d7e3ed;padding-bottom:9px;margin-bottom:10px}}.roadmapLedgerCard header span{{color:#075da8;font-size:var(--font-min);font-weight:700;letter-spacing:.08em}}.roadmapLedgerCard header h3{{margin:3px 0 0}}.roadmapLedgerCard header em{{font-style:normal;padding:4px 7px;background:#fff4cc;color:#6d5200;font-size:var(--font-xs);font-weight:700}}.roadmapLedgerCard>div{{display:grid;grid-template-columns:1fr 1fr;gap:12px}}.roadmapLedgerCard section{{box-shadow:none;border:0;border-left:4px solid var(--red);border-radius:0;padding:8px 10px;margin:0;background:#f8fbfd}}.roadmapLedgerCard section+section{{border-left-color:var(--yellow)}}.roadmapLedgerCard .gapList{{margin-top:5px}}.roadmapMilestone,.roadmapValidation{{max-inline-size:none!important;margin:10px 0 0;padding-top:9px;border-top:1px solid #d7e3ed}}.roadmapValidation{{font-size:var(--font-xs)}}
+    @media(max-width:1100px){{.conditionOverviewContext>div{{grid-template-columns:repeat(2,minmax(0,1fr))}}.conditionContextGrid,.roadmapGrid{{grid-template-columns:1fr}}.conditionContextCard:nth-child(odd){{border-right:0}}}}
+    @media(max-width:720px){{.decisionNarrative,.conditionContextHead,.conditionContextFacts,.roadmapBoundary,.roadmapLedgerCard>div{{grid-template-columns:1fr}}.conditionOverviewContext>div{{display:block}}.conditionOverviewContextCard+.conditionOverviewContextCard{{margin-top:7px}}.conditionContextGrid{{display:block}}.conditionContextCard{{padding:11px}}.conditionContextMedia{{grid-template-columns:1fr}}.conditionContextMedia button{{height:210px}}.roadmapBoundary b{{border-right:0;border-bottom:1px solid #c8d7e6}}.roadmapGrid{{gap:8px}}}}
     /* Reader-facing copy remains comfortable without loosening dense data tables. */
     .insightLead,.marketRole,.marketDecisionList dd,.marketFactList p,.applicationCard>p,.engineeringScope>span,.engineeringPriorityGrid p,.sourceParagraph,.sourceDataNote{{font-size:var(--font-body);line-height:1.7}}
     .sourceParagraph-complete{{white-space:pre-line}}
@@ -2893,11 +3250,17 @@ def render_html(model):
     <div class="navMenu" id="page-nav">
       <a class="home" href="arc.html">返回对标平台主页</a>
       <a href="#summary">对标概览</a>
-      {source_nav_html}
+      <a href="#market-insight" data-en="Market volume and product structure">市场销量与产品结构</a>
+      <a href="#product-positioning" data-en="Product positioning and market target">产品定位与市场目标</a>
       <a href="#overall">总体评分</a>
-      <a href="#radar">工况竞争格局</a>
-      <a href="#conditions">工况总览</a>
-      {''.join(f'<a href="#cond{i}">{esc(c["name"])}</a>' for i,c in enumerate(model["conditions"],1))}
+      <details class="navGroup" open>
+        <summary data-en="Work-condition overview and analysis">工况总览 / 分析</summary>
+        <div class="navSubmenu">
+          <a href="#condition-overview" data-en="Work-condition overview">工况总览</a>
+          {''.join(f'<a href="#cond{i}">{esc(c["name"])}</a>' for i,c in enumerate(model["conditions"],1))}
+        </div>
+      </details>
+      <a href="#upgrade-roadmap" data-en="Upgrade and improvement plan">升级与提升方案</a>
       <a href="#raw">原始数据</a>
     </div>
   </aside>
@@ -2906,7 +3269,7 @@ def render_html(model):
       <div class="heroText">
         <span class="eyebrow" data-en="North America Product Benchmark">北美产品竞争力分析</span>
         <h1>{esc(meta["title"])}</h1>
-        <div class="actions"><a class="btn blue" href="{primary_analysis_target}" data-en="{primary_analysis_en}">{primary_analysis_zh}</a><a class="btn yellow" href="#conditions" data-en="Work-condition benchmark">工况对标</a><a class="btn" href="data-downloads.html" data-en="Data center">数据中心</a></div>
+        <div class="actions"><a class="btn blue" href="{primary_analysis_target}" data-en="{primary_analysis_en}">{primary_analysis_zh}</a><a class="btn yellow" href="#condition-overview" data-en="Work-condition benchmark">工况对标</a><a class="btn" href="data-downloads.html" data-en="Data center">数据中心</a></div>
       </div>
       <div class="heroMedia"><img src="{esc(hero_image)}" alt="{esc(meta["xcmg"])} 产品图"{hero_size}></div>
     </div>
@@ -2921,26 +3284,27 @@ def render_html(model):
       </div>
     </section>
 
-    {tonnage_insights_html}
+    {market_insight_html}
+
+    {positioning_html}
 
     {render_overall_section(model)}
 
-    <section id="radar">
-      <h2>工况竞争格局</h2>
+    <section id="condition-overview">
+      <h2>工况总览 / 分析</h2>
+      <p class="methodNote">工况得分仅使用对应Excel中的参数与明确配置状态；客户、任务链、运输边界和作业要求用于解释评分结果，不另行编造分数。</p>
+      {condition_overview_context}
       <div class="split">
         <details class="mobileDisclosure radarDisclosure" open data-mobile-open="false"><summary>工况雷达图</summary><div class="panel">{radar}</div></details>
         <div class="panel"><h3>工况综合排名（按 6 类工况）</h3><div class="bars">{render_bar_ranking(cond_total, xcmg, coverage=model["conditionTotalCoverage"])}</div><p class="muted">默认显示 XCMG 与工况领先产品；点击图例可增加或取消品牌，全部取消后恢复全品牌展示。</p></div>
       </div>
-    </section>
-
-    <section id="conditions">
-      <h2>工况总览</h2>
-      <p class="methodNote">排名口径：工况字段覆盖率低于 {int(MIN_SCORE_COVERAGE*100)}% 的产品不进入正式排名；缺失项仍保留在指标明细中。</p>
       {condition_visual_nav}
       <div class="summaryGrid">{summary_cards}</div>
     </section>
 
     {''.join(conditions_html)}
+
+    {render_upgrade_roadmap(model)}
 
     <section id="raw">
       <h2>原始数据</h2>

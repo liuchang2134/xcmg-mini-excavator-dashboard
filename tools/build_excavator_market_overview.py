@@ -29,6 +29,7 @@ SECTION_META = [
     ("environment", "environment", "宏观环境与北美市场基础", "External Environment and North American Market"),
     ("industry", "industry", "行业趋势与竞争格局", "Industry Trend and Competitive Landscape"),
     ("competition", "competition", "品牌占有率与标杆锁定", "Brand Share and Benchmark Selection"),
+    ("regional", "regional-market", "区域市场与销售热区", "Regional Markets and Sales Hotspots"),
     ("class_structure", "class-structure", "吨级结构与核心规格", "Tonnage Structure and Core Classes"),
     ("portfolio", "portfolio", "产品型谱与覆盖能力", "Product Portfolio and Coverage"),
     ("roadmap", "roadmap", "产品竞争力提升举措", "Product Competitiveness Roadmap"),
@@ -394,7 +395,7 @@ def render_environment_context_strip():
     figures = []
     for item in ENVIRONMENT_CONTEXT_MEDIA:
         display_image, image_width, image_height = ensure_display_thumbnail(
-            item["file"], 720
+            item["file"], 960
         )
         image_size = (
             f' width="{image_width}" height="{image_height}"'

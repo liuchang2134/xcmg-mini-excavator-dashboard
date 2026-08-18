@@ -26,29 +26,38 @@ SOURCE_DATE = "2025-07-01"
 MIN_IMAGE_SLIDE_AREA_RATIO = 0.007
 MIN_IMAGE_PIXEL_AREA = 25_000
 
+# These slides compare PPT-selected representative products on paper. The
+# governed Excel workbook is the authoritative source for specifications and
+# equipment scoring, so the pages deliberately omit these duplicate snapshots.
+EXCLUDED_PAPER_COMPARISON_SLIDES = {63, 86, 87, 100, 115}
+
 CLASS_SECTION_SLIDES = {
     "RT-60t": {
         "market-insight": [81],
         "job-applications": list(range(82, 86)),
-        "engineering-insight": [86, *range(88, 94)],
+        # Slide 86 is the PPT's selected-star-product paper comparison. The
+        # governed Excel workbook remains authoritative for specifications and
+        # equipment, so only field observations and improvement findings are
+        # carried into the integrated page.
+        "engineering-insight": list(range(88, 94)),
         "product-positioning": [94],
     },
     "RT-75t": {
         "market-insight": [81],
         "job-applications": list(range(82, 86)),
-        "engineering-insight": list(range(87, 94)),
+        "engineering-insight": list(range(88, 94)),
         "product-positioning": [95],
     },
     "RT-100t": {
         "market-insight": [81],
         "job-applications": list(range(96, 100)),
-        "engineering-insight": list(range(100, 107)),
+        "engineering-insight": list(range(101, 107)),
         "product-positioning": [107],
     },
     "RT-130t": {
         "market-insight": [81],
         "job-applications": list(range(108, 115)),
-        "engineering-insight": list(range(115, 119)),
+        "engineering-insight": list(range(116, 119)),
         "product-positioning": [119],
     },
     "RT-160t": {
@@ -60,7 +69,7 @@ CLASS_SECTION_SLIDES = {
     "AT-150t": {
         "market-insight": [58],
         "job-applications": list(range(59, 63)),
-        "engineering-insight": list(range(63, 68)),
+        "engineering-insight": list(range(64, 68)),
         "product-positioning": [68],
     },
 }

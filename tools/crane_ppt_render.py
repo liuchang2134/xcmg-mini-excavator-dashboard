@@ -1551,7 +1551,12 @@ def render_source_register(slide_numbers: Iterable[int]) -> str:
     )
 
 
-def render_class_context(class_id: str, language: str = "zh") -> str:
+def render_class_context(
+    class_id: str,
+    language: str = "zh",
+    section_ids: Iterable[str] | None = None,
+    include_shared_notice: bool = True,
+) -> str:
     data = load_crane_insights()
     if class_id not in CLASS_SLIDES:
         raise KeyError(class_id)
@@ -1560,7 +1565,7 @@ def render_class_context(class_id: str, language: str = "zh") -> str:
     status = "plan" if segment["source_scope"] == "plan" else "current-at-source-date"
     sections = []
     shared_notice = ""
-    if class_id in SHARED_RESEARCH_NOTICES:
+    if include_shared_notice and class_id in SHARED_RESEARCH_NOTICES:
         notice = SHARED_RESEARCH_NOTICES[class_id]
         shared_notice = (
             f'<aside class="sharedResearchNotice" data-shared-class="{esc(notice["shared_class"])}">'
@@ -1569,7 +1574,10 @@ def render_class_context(class_id: str, language: str = "zh") -> str:
             '</aside>'
         )
     seen_images: set[str] = set()
+    selected_sections = set(section_ids) if section_ids is not None else None
     for section_id, title_zh, title_en, lead_zh, lead_en in CLASS_PAGE_SECTIONS:
+        if selected_sections is not None and section_id not in selected_sections:
+            continue
         if section_id == "market-insight":
             lead_zh = f"{intro_zh}{lead_zh}"
             lead_en = f"{intro_en} {lead_en}"

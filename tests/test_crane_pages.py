@@ -15,7 +15,11 @@ from tools.build_crane_dashboards import (
 )
 from tools.crane_condition_context import CONDITION_EXECUTION, OFFICIAL_REFERENCES, field_observation
 from tools.crane_data import load_crane_workbook
-from tools.crane_ppt_insights import CLASS_SECTION_SLIDES, CLASS_SLIDES
+from tools.crane_ppt_insights import (
+    CLASS_SECTION_SLIDES,
+    CLASS_SLIDES,
+    EXCLUDED_PAPER_COMPARISON_SLIDES,
+)
 from tools.crane_scoring import (
     CONDITIONS,
     condition_applicable,
@@ -215,6 +219,25 @@ def test_incomplete_crane_sheets_are_not_forced_into_rankings():
     assert "0.0 分" not in rt160 + at150
 
 
+def test_crane_condition_cards_never_use_an_ambiguous_evidence_fallback():
+    build_all()
+    rendered = "\n".join(
+        (ROOT / definition["output"]).read_text(encoding="utf-8")
+        for definition in PAGE_DEFINITIONS.values()
+    )
+    for ambiguous_label in (
+        "证据不足，暂不排名",
+        "资料不足，暂不评分",
+        "Insufficient evidence; not ranked",
+    ):
+        assert ambiguous_label not in rendered
+
+    rt75 = (ROOT / "crane-rt-75t.html").read_text(encoding="utf-8")
+    assert "城市公用设施" in rt75
+    assert "68.8" in rt75
+    assert "第 2 / 7" in rt75
+
+
 def test_rt160_uses_an_official_same_series_reference_without_claiming_model_specific_evidence():
     build_all()
     definition = PAGE_DEFINITIONS["RT-160t"]
@@ -335,11 +358,25 @@ def test_crane_class_pages_integrate_each_image_once_in_business_sections():
         assert class_images, class_id
         assert 'class="classVisualSummary"' not in page, class_id
         section_positions = []
-        for section_id in CLASS_SECTION_SLIDES[class_id]:
+        for section_id in (
+            "market-insight",
+            "product-positioning",
+            "job-applications",
+            "engineering-insight",
+        ):
+            if not CLASS_SECTION_SLIDES[class_id].get(section_id):
+                continue
             assert f'id="{section_id}"' in page, (class_id, section_id)
-            assert f'href="#{section_id}"' in page, (class_id, section_id)
             section_positions.append(page.index(f'id="{section_id}"'))
         assert section_positions == sorted(section_positions), class_id
+        assert 'href="#market-insight"' in page, class_id
+        assert 'href="#product-positioning"' in page, class_id
+        assert 'href="#job-applications"' not in page, class_id
+        assert 'href="#engineering-insight"' not in page, class_id
+        condition_overview_start = page.index('id="condition-overview"')
+        for section_id in ("job-applications", "engineering-insight"):
+            if CLASS_SECTION_SLIDES[class_id].get(section_id):
+                assert page.index(f'id="{section_id}"') > condition_overview_start
         for image in class_images:
             assert page.count(f'data-source-src="{image}"') == 1, (
                 class_id,
@@ -475,13 +512,13 @@ def test_crane_pages_visually_separate_capability_conditions_and_application_sce
 def test_crane_pages_separate_publication_status_and_add_measurable_actions():
     build_all()
     page = (ROOT / "crane-rt-60t.html").read_text(encoding="utf-8")
-    assert 'id="actions"' in page
-    assert "XCMG 量化补强清单" in page
+    assert 'id="upgrade-roadmap"' in page
+    assert "XCMG 升级与提升方案" in page
     assert "首要量化差距" in page
     assert "参数排名资格" in page
     assert "配置评价资格" in page
     assert "综合排名" in page
-    assert "逐项把工况竞争位置" in page
+    assert "逐项闭环当前工况下的竞争位置" in page
 
 
 def test_crane_pages_expose_all_normalized_parameters_and_configurations():
@@ -529,7 +566,7 @@ def test_crane_class_pages_include_mapped_ppt_analysis_without_changing_scores()
     assert 'data-source-slide="58"' in at150
     assert 'data-source-slide="147"' in rt160
     assert 'data-source-status="plan"' in rt160
-    assert "XCMG 量化补强清单" in rt60
+    assert "XCMG 升级与提升方案" in rt60
     assert 'assets/crane-insights.css' in rt60
 
 
@@ -574,7 +611,7 @@ def test_every_crane_ppt_slide_is_rendered_in_the_report_or_a_class_page():
         for number in range(1, 164)
         if f'data-source-slide="{number}"' not in combined
     ]
-    assert missing == []
+    assert missing == sorted(EXCLUDED_PAPER_COMPARISON_SLIDES)
 
 
 def test_every_useful_crane_ppt_visual_and_native_table_is_rendered():
@@ -591,6 +628,9 @@ def test_every_useful_crane_ppt_visual_and_native_table_is_rendered():
     ]
     combined = "\n".join(pages)
     for slide in slides:
+        if slide["slide"] in EXCLUDED_PAPER_COMPARISON_SLIDES:
+            assert f'data-source-slide="{slide["slide"]}"' not in combined
+            continue
         if slide["slide"] != 1:
             for image in slide["images"]:
                 assert image in combined, (slide["slide"], image)
@@ -924,9 +964,11 @@ def test_crane_insight_tables_keep_all_content_and_have_a_390px_card_layout():
     assert "展开全部" not in rt60
     assert "Show all" not in rt60
     assert "data-collapsed" not in rt60
-    assert "主臂臂长" in rt60
-    assert "43.6m" in rt60
-    assert "客户对于关键参配的喜好" in rt60
+    assert 'data-source-slide="86"' not in rt60
+    assert "客户对于关键参配的喜好" not in rt60
+    assert 'id="raw-data"' in rt60
+    assert 'id="parameters"' in rt60
+    assert 'id="configurations"' in rt60
 
 
 def test_crane_pages_define_an_english_sidebar_collapse_label():
@@ -1072,7 +1114,7 @@ def test_crane_rendered_english_removes_known_machine_translation_artifacts():
         assert artifact not in rendered
     assert "North American homes use wood-frame construction" in rendered
     assert "US East-Central market" in rendered
-    assert "XCR75_U is XCMG&#x27;s primary model in this class" in rendered
+    assert "XCR75_U is XCMG&#x27;s primary model in this class" not in rendered
 
 
 def test_crane_english_translation_table_has_no_known_corrupt_phrases():

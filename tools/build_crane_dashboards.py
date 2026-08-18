@@ -934,7 +934,11 @@ def render_condition_overview_cards(sheet: Any, scoring: dict[str, Any]) -> str:
     return "".join(groups)
 
 
-def render_condition_overview(sheet: Any, scoring: dict[str, Any]) -> str:
+def render_condition_overview(
+    sheet: Any,
+    scoring: dict[str, Any],
+    source_context_html: str = "",
+) -> str:
     return (
         '<section id="condition-overview"><h2 data-en="Work-Condition Competitive Panorama">工况竞争全景</h2>'
         '<p class="sectionLead" data-en="The heatmap covers every applicable work condition and product. The radar uses only complete comparable data, followed by condition cards that expose ranking eligibility, key inputs and source coverage before the detailed sections.">热力矩阵覆盖全部适用工况和全部产品；雷达仅使用完整可比数据。工况卡片先说明排名资格、关键输入和资料覆盖，再进入逐工况参数、配置、差距与提升模拟。</p>'
@@ -942,6 +946,8 @@ def render_condition_overview(sheet: Any, scoring: dict[str, Any]) -> str:
         '<p data-en="Application scenarios combine traceable specifications and equipment into a paper-based fit comparison. They do not replace a site lift plan, matched load-chart review or field trial.">本场景将可追溯参数与配置组合为纸面适配性对比，不替代现场吊装方案、同口径载荷表复核或实机验证。</p>'
         '<p data-en="Coverage describes the completeness of XCMG inputs only. A ranking is published only when XCMG forms a valid work-condition score and at least 2 products have like-for-like comparable scores.">覆盖率仅表示XCMG自身字段完整度；排名需同时满足XCMG形成有效工况得分，且至少 2 个产品形成同口径可比得分。</p>'
         '<p data-en="Contribution points show only the input effect under the current work-condition weighting and are not a stand-alone machine-performance conclusion. Improvement simulations use only existing comparable inputs; missing evidence, engineering feasibility and cost are never assumed.">贡献分仅表示该指标在当前工况权重下的作用，不等于整机性能的独立结论；提升模拟只使用已有可比字段，不自动假设缺失数据、工程可行性或成本。</p></div></div>'
+        + source_context_html
+        +
         '<div class="conditionOverviewGrid"><article class="panel">'
         + render_condition_overview_radar(sheet, scoring)
         + '</article><article class="panel conditionHeatmapPanel"><h3 data-en="Product by Work-Condition Heatmap">产品 × 工况热力矩阵</h3>'
@@ -1625,8 +1631,8 @@ def render_quality(sheet: Any, scoring: dict[str, Any]) -> str:
             config_zh = f"可评价：{score['configuration_score']:.1f} 分"
             config_en = f"Eligible: {score['configuration_score']:.1f}"
         else:
-            config_zh = "资料不足，暂不评分"
-            config_en = "Insufficient source coverage; not scored"
+            config_zh = f"配置状态覆盖率 {fmt_percent(model.configuration_coverage)}，低于 60% 评分门槛"
+            config_en = f"Equipment-state coverage {fmt_percent(model.configuration_coverage)} is below the 60% scoring threshold"
         if score["overall_score"] is not None:
             overall_zh = f"第 {score['overall_rank']}，{score['overall_score']:.1f} 分"
             overall_en = f"No. {score['overall_rank']}, {score['overall_score']:.1f}"
@@ -1703,33 +1709,21 @@ def render_publication_status(xscore: dict[str, Any]) -> str:
 def page_nav(sheet: Any) -> str:
     applicable_conditions = [condition for condition in CONDITIONS if condition_applicable(sheet, condition)]
     indexed_conditions = list(enumerate(applicable_conditions, 1))
-    capability_links = "".join(
+    condition_links = "".join(
         f'<a href="#cond{index}" data-en="{esc(condition["title_en"])}">{esc(condition["title_zh"])}</a>'
         for index, condition in indexed_conditions
-        if condition.get("group", "capability") == "capability"
-    )
-    application_links = "".join(
-        f'<a href="#cond{index}" data-en="{esc(condition["title_en"])}">{esc(condition["title_zh"])}</a>'
-        for index, condition in indexed_conditions
-        if condition.get("group") == "application"
     )
     return (
         '<a class="home" href="arc.html" data-en="Return to Platform Home">返回对标平台主页</a>'
         '<a href="#summary" data-en="Benchmark Overview">对标概览</a>'
-        '<a href="#market-insight" data-en="Market and Competitive Position">吨级市场与竞争定位</a>'
-        '<a href="#job-applications" data-en="Regional Demand and Typical Jobs">区域需求与典型施工任务</a>'
-        '<a href="#engineering-insight" data-en="Specifications, Equipment and Field Evaluation">参数、配置与实机评价</a>'
-        '<a href="#product-positioning" data-en="Product Positioning and Program Plan">产品定位与推进计划</a>'
-        '<a href="#condition-overview" data-en="Work-Condition Panorama">工况竞争全景</a>'
-        '<a href="#position" data-en="Specification Position">参数竞争位置</a>'
-        '<details class="navGroup" open><summary data-en="Engineering Conditions">工程能力工况</summary><div class="navSubmenu">'
-        + capability_links + '</div></details>'
-        '<details class="navGroup" open><summary data-en="Application Scenarios">典型施工场景</summary><div class="navSubmenu">'
-        + application_links + '</div></details>'
-        '<a href="#actions" data-en="Improvement Actions">补强清单</a>'
-        '<a href="#parameters" data-en="Specification Matrix">参数明细</a>'
-        '<a href="#configurations" data-en="Equipment Matrix">配置明细</a>'
-        '<a href="#quality" data-en="Data Quality">数据质量</a>'
+        '<a href="#market-insight" data-en="Market Volume and Product Structure">市场销量与产品结构</a>'
+        '<a href="#product-positioning" data-en="Product Positioning and Market Targets">产品定位与市场目标</a>'
+        '<a href="#overall-score" data-en="Overall Score">总体评分</a>'
+        '<details class="navGroup" open><summary data-en="Work-Condition Overview and Analysis">工况总览 / 分析</summary><div class="navSubmenu">'
+        '<a href="#condition-overview" data-en="Competitive Panorama">竞争全景</a>'
+        + condition_links + '</div></details>'
+        '<a href="#upgrade-roadmap" data-en="Upgrade and Improvement Plan">升级与提升方案</a>'
+        '<a href="#raw-data" data-en="Source Data">原始数据</a>'
     )
 
 
@@ -1764,6 +1758,21 @@ def render_page(sheet: Any, asset_version: str | None = None) -> str:
         render_condition(sheet, scoring, condition, index)
         for index, condition in enumerate(applicable_conditions, 1)
     )
+    market_context = render_class_context(
+        sheet.label,
+        section_ids=("market-insight",),
+        include_shared_notice=True,
+    )
+    positioning_context = render_class_context(
+        sheet.label,
+        section_ids=("product-positioning",),
+        include_shared_notice=False,
+    )
+    condition_source_context = render_class_context(
+        sheet.label,
+        section_ids=("job-applications", "engineering-insight"),
+        include_shared_notice=False,
+    )
     return normalize_crane_chinese_html(f'''<!doctype html>
 <html lang="zh-CN" data-language="zh"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1785,7 +1794,7 @@ def render_page(sheet: Any, asset_version: str | None = None) -> str:
 <header class="hero craneHero"><div class="heroText"><p class="eyebrow">XCMG ARC CRANE BENCHMARK</p>
   <h1 data-en="{esc(title_en)}">{esc(title_zh)}</h1>
   <p data-en="Source-backed comparison of transport, chassis, boom and jib, outriggers, powertrain, winches, lifting performance, operating speeds and equipment status.">按同吨级比较运输、底盘机动、主副臂、支腿、动力、卷扬、起重性能、作业速度和标选配状态，所有结论保留原始值与缺失状态。</p>
-  <div class="actions"><a class="btn blue" href="#position" data-en="Open Benchmark">查看对标</a><a class="btn" href="{SOURCE_DOWNLOAD}" download data-en="Download Source Workbook">下载原始数据</a></div>
+  <div class="actions"><a class="btn blue" href="#overall-score" data-en="Open Benchmark">查看对标</a><a class="btn" href="{SOURCE_DOWNLOAD}" download data-en="Download Source Workbook">下载原始数据</a></div>
 </div><figure class="heroMedia craneHeroMedia"><img src="{esc(display_image)}" alt="{esc(definition['image_alt'])}" width="480" loading="eager"><figcaption data-en="{esc(image_note_en)}">{esc(image_note_zh)}</figcaption></figure></header>
 
 <section id="summary"><h2 data-en="Benchmark Overview">对标概览</h2><div class="kpis craneKpis">
@@ -1795,21 +1804,22 @@ def render_page(sheet: Any, asset_version: str | None = None) -> str:
   <div class="kpi"><b>{fmt_percent(xcmg.parameter_coverage)}</b><span data-en="XCMG source coverage">XCMG 参数覆盖率</span></div>
 </div>{render_publication_status(xscore)}<div class="methodStrip"><b data-en="Evaluation boundary">评价边界</b><p data-en="Specification values use direction-aware normalization within the current tonnage class. Category weights total 100%. Equipment uses 0 for unavailable, 60 for optional and 100 for standard only when status is explicit. Overall scoring is withheld when verified equipment coverage is below 60%.">参数按当前吨级内同口径、方向归一化，八类权重合计 100%；配置仅在状态明确时按无配置 0、选配 60、标配 100 计入。当前配置有效覆盖率低于 60% 时，不生成综合总分和综合排名。</p></div></section>
 
-{render_class_context(sheet.label)}
+{market_context}
 
-{render_condition_overview(sheet, scoring)}
+{positioning_context}
 
-<section id="position"><h2 data-en="Specification Position">参数竞争位置</h2><div class="positionGrid"><article class="panel"><h3 data-en="Specification ranking">参数竞争力排名</h3>{render_rank_bars(scoring, 'parameter_score', xcmg.display_name)}</article><article class="panel">{render_category_radar(sheet, scoring)}</article></div>{render_category_table(sheet, scoring)}</section>
+<section id="overall-score"><h2 data-en="Overall Score and Competitive Position">总体评分与竞争位置</h2><div class="positionGrid"><article class="panel"><h3 data-en="Specification ranking">参数竞争力排名</h3>{render_rank_bars(scoring, 'parameter_score', xcmg.display_name)}</article><article class="panel">{render_category_radar(sheet, scoring)}</article></div>{render_category_table(sheet, scoring)}</section>
+
+{render_condition_overview(sheet, scoring, condition_source_context)}
 
 <div id="conditions">{conditions}</div>
 
-<section id="actions"><h2 data-en="XCMG Measurable Improvement Actions">XCMG 量化补强清单</h2><p class="sectionLead" data-en="Each row connects the current work-condition position to the largest verified specification gap and the engineering validation required before a design target is approved. These actions are not presented as completed improvements.">逐项把工况竞争位置、最大可核验参数差距和工程验证动作对应起来；以下为验证与产品决策输入，不代表改进已经完成。</p>{render_action_plan(sheet, scoring)}</section>
+<section id="upgrade-roadmap"><h2 data-en="XCMG Upgrade and Improvement Plan">XCMG 升级与提升方案</h2><p class="sectionLead" data-en="Each item closes the loop between the current work-condition position, the largest verified specification gap and the engineering validation required before a design target is approved. These actions are not presented as completed improvements.">逐项闭环当前工况下的竞争位置、最大可核验参数差距和工程验证动作；以下为验证与产品决策输入，不代表改进已经完成。</p>{render_action_plan(sheet, scoring)}</section>
 
-<section id="parameters"><h2 data-en="Complete Specification Matrix">全部参数明细</h2><p class="sectionLead" data-en="Values are grouped by eight crane engineering systems. Empty cells remain unrecorded and are not treated as zero.">按八类起重机工程系统展示全部参数；空白保留为“资料未记录”，不按 0 值处理。</p>{render_parameter_matrix(sheet)}</section>
-
-<section id="configurations"><h2 data-en="Standard and Optional Equipment Matrix">标配 / 选配明细</h2><p class="sectionLead" data-en="Only explicit source states are classified. A blank cell means the source did not record the status.">仅对源表明确记录的状态进行分类；空白表示资料未记录，不等于无配置。</p>{render_configuration_matrix(sheet)}</section>
-
-<section id="quality"><h2 data-en="Data Quality and Publication Boundary">数据质量与发布边界</h2>{render_quality(sheet, scoring)}</section>
+<section id="raw-data"><h2 data-en="Source Data">原始数据</h2>
+<div class="rawDataSection" id="parameters"><h3 data-en="Complete Specification Matrix">全部参数明细</h3><p class="sectionLead" data-en="Values are grouped by eight crane engineering systems. Empty cells remain unrecorded and are not treated as zero.">按八类起重机工程系统展示全部参数；空白保留为“资料未记录”，不按 0 值处理。</p>{render_parameter_matrix(sheet)}</div>
+<div class="rawDataSection" id="configurations"><h3 data-en="Standard and Optional Equipment Matrix">标配 / 选配明细</h3><p class="sectionLead" data-en="Only explicit source states are classified. A blank cell means the source did not record the status.">仅对源表明确记录的状态进行分类；空白表示资料未记录，不等于无配置。</p>{render_configuration_matrix(sheet)}</div>
+<div class="rawDataSection" id="quality"><h3 data-en="Data Quality and Publication Boundary">数据质量与发布边界</h3>{render_quality(sheet, scoring)}</div></section>
 
 {render_site_credits()}
 </main></div><script src="assets/dashboard.js?v={asset_version}"></script><script src="assets/i18n.js?v=20260805e"></script><script src="assets/crane-insights.js?v={asset_version}"></script>

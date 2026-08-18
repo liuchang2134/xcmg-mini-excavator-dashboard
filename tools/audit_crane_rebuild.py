@@ -141,24 +141,23 @@ def build_audit() -> dict[str, Any]:
     required_business_sections = [
         "summary",
         "market-insight",
-        "job-applications",
-        "engineering-insight",
         "product-positioning",
+        "overall-score",
         "condition-overview",
-        "position",
-        "actions",
-        "parameters",
-        "configurations",
-        "quality",
+        "upgrade-roadmap",
+        "raw-data",
     ]
-    class_section_gaps = {
-        item["class_id"]: [
+    class_section_gaps = {}
+    for item in class_audits:
+        sections = item["page"]["sections"]
+        gaps = [
             section
             for section in required_business_sections
-            if section not in item["page"]["sections"]
+            if section not in sections
         ]
-        for item in class_audits
-    }
+        if not any(section.startswith("cond") and section != "condition-overview" for section in sections):
+            gaps.append("scored-work-condition")
+        class_section_gaps[item["class_id"]] = gaps
 
     findings = []
     incomplete_architecture = {

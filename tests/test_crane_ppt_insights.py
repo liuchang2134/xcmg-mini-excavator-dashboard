@@ -36,11 +36,11 @@ def test_crane_slide_map_covers_all_163_slides():
 def test_crane_segment_map_assigns_formal_class_ranges():
     build_crane_ppt_insights()
     mapping = load_json("segment-map.json")
-    assert mapping["RT-60t"]["slides"] == [81, *range(82, 87), *range(88, 95)]
-    assert mapping["RT-75t"]["slides"] == [81, *range(82, 86), *range(87, 94), 95]
-    assert mapping["RT-100t"]["slides"] == [81, *range(96, 108)]
-    assert mapping["RT-130t"]["slides"] == [81, *range(108, 120)]
-    assert mapping["AT-150t"]["slides"] == list(range(58, 69))
+    assert mapping["RT-60t"]["slides"] == [81, *range(82, 86), *range(88, 95)]
+    assert mapping["RT-75t"]["slides"] == [81, *range(82, 86), *range(88, 94), 95]
+    assert mapping["RT-100t"]["slides"] == [81, *range(96, 100), *range(101, 108)]
+    assert mapping["RT-130t"]["slides"] == [81, *range(108, 115), *range(116, 120)]
+    assert mapping["AT-150t"]["slides"] == [*range(58, 63), *range(64, 69)]
     assert mapping["RT-160t"]["slides"] == [81, 132, 147, 152]
     assert CLASS_SLIDES == {key: value["slides"] for key, value in mapping.items()}
 

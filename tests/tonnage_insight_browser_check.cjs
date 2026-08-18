@@ -1,7 +1,7 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { chromium } = require('../ppt-integration-demo/node_modules/playwright-core');
+const { chromium } = require('./playwright_loader.cjs');
 
 const repo = path.resolve(__dirname, '..');
 const base = process.argv[2] || 'http://127.0.0.1:4174';
@@ -27,22 +27,16 @@ const pages = [
   ['excavator-40-60t.html', 'excavator-40-60t']
 ].map(([file, slug]) => {
   const sourceSlides = source.by_slug[slug] || [];
+  const publishedSlides = sourceSlides.filter(
+    (slideId) => slides.get(slideId)?.section !== 'comparison'
+  );
   return {
     file,
     slug,
     sourceSlides,
-    expectedTables: sourceSlides.reduce(
-      (total, slideId) => total + (slides.get(slideId)?.table_ids?.length || 0),
-      0
-    ),
-    expectedVisuals: sourceSlides.reduce(
-      (total, slideId) => total + (slides.get(slideId)?.visuals?.length || 0),
-      0
-    ),
-    expectedDataCharts: sourceSlides.reduce(
-      (total, slideId) => total + (slides.get(slideId)?.visuals || [])
-        .filter((visual) => visual.kind === 'chart' && visual.chart_data).length,
-      0
+    publishedSlides,
+    excludedComparisonSlides: sourceSlides.filter(
+      (slideId) => slides.get(slideId)?.section === 'comparison'
     )
   };
 });
@@ -59,7 +53,7 @@ function browserExecutable() {
 async function inspect(page, spec, language, viewportName) {
   const query = language === 'en' ? '?lang=en' : '';
   await page.goto(`${base}/${spec.file}${query}`, { waitUntil: 'networkidle' });
-  const target = spec.sourceSlides.length ? '#market-insight' : '#summary';
+  const target = '#market-insight';
   await page.locator(target).scrollIntoViewIfNeeded();
 
   const state = await page.evaluate(() => ({
@@ -70,28 +64,19 @@ async function inspect(page, spec, language, viewportName) {
     brokenImages: [...document.images]
       .filter((image) => image.complete && image.naturalWidth === 0)
       .map((image) => image.src),
-    sourceSlides: document.querySelectorAll('[data-source-slide]').length,
-    sourceSections: document.querySelectorAll('.sourceContentSection').length,
-    sourceTables: document.querySelectorAll('.sourceTableBlock').length,
-    sourceTableCaptions: document.querySelectorAll('.sourceTableBlock caption').length,
-    fitTableOverflows: [...document.querySelectorAll('.sourceTableScrollFit')]
-      .filter((wrapper) => wrapper.scrollWidth > wrapper.clientWidth + 1)
-      .map((wrapper) => `${wrapper.scrollWidth}/${wrapper.clientWidth}`),
-    emptyFitTableColumns: [...document.querySelectorAll('.sourceTableFit')].flatMap((table, tableIndex) => {
-      const headers = [...table.querySelectorAll('thead th')];
-      const bodyRows = [...table.querySelectorAll('tbody tr')];
-      return headers.flatMap((header, columnIndex) => {
-        const headerIsEmpty = !(header.textContent || '').trim();
-        const bodyIsEmpty = bodyRows.every((row) => {
-          const cell = row.children[columnIndex];
-          return !cell || !(cell.textContent || '').trim();
-        });
-        return headerIsEmpty && bodyIsEmpty ? [`${tableIndex}:${columnIndex}`] : [];
-      });
-    }),
-    sourceVisuals: document.querySelectorAll('.sourceVisual img').length,
-    sourceVisualButtons: document.querySelectorAll('.sourceVisualOpen').length,
-    sourceVisualCaptions: document.querySelectorAll('.sourceVisualCaption').length,
+    sourceSlideIds: [...document.querySelectorAll('[data-source-slide]')]
+      .map((element) => `slide-${String(element.dataset.sourceSlide).padStart(3, '0')}`),
+    requiredSections: [
+      'summary', 'market-insight', 'product-positioning', 'overall',
+      'condition-overview', 'cond1', 'cond2', 'cond3', 'cond4', 'cond5', 'cond6',
+      'upgrade-roadmap', 'raw'
+    ].filter((id) => document.getElementById(id)).length,
+    obsoleteSections: ['job-applications', 'engineering-insight', 'source-analysis']
+      .filter((id) => document.getElementById(id)),
+    conditionBlocks: document.querySelectorAll('.conditionSection[id^="cond"]').length,
+    roadmapRows: document.querySelectorAll('#upgrade-roadmap tbody tr').length,
+    rawTables: document.querySelectorAll('#raw table').length,
+    conditionImages: document.querySelectorAll('.conditionContextCard img').length,
     sourceDataCharts: document.querySelectorAll('.sourceDataChart').length,
     rasterChartImages: document.querySelectorAll('.sourceVisual-chart img').length,
     crampedChartLabels: [...document.querySelectorAll(
@@ -116,7 +101,7 @@ async function inspect(page, spec, language, viewportName) {
       }
       return overlaps;
     }),
-    sourceParagraphs: document.querySelectorAll('.sourceParagraph').length
+    sourceParagraphs: document.querySelectorAll('.decisionSourceArticle p, .conditionContextCard p').length
   }));
 
   const expectedLanguage = language === 'en' ? 'en-US' : 'zh-CN';
@@ -133,44 +118,33 @@ async function inspect(page, spec, language, viewportName) {
       `${spec.file}/${viewportName}/${language}: broken images ${state.brokenImages.join(', ')}`
     );
   }
-  if (state.sourceSlides !== spec.sourceSlides.length) {
+  const actualSlides = [...new Set(state.sourceSlideIds)].sort();
+  const expectedSlides = [...spec.publishedSlides].sort();
+  if (JSON.stringify(actualSlides) !== JSON.stringify(expectedSlides)) {
     throw new Error(
-      `${spec.file}/${viewportName}/${language}: source slides ${state.sourceSlides}/${spec.sourceSlides.length}`
+      `${spec.file}/${viewportName}/${language}: published source slides ` +
+      `${JSON.stringify(actualSlides)}/${JSON.stringify(expectedSlides)}`
     );
   }
-  if (state.sourceTables !== spec.expectedTables || state.sourceTableCaptions !== spec.expectedTables) {
+  if (spec.excludedComparisonSlides.some((slideId) => actualSlides.includes(slideId))) {
     throw new Error(
-      `${spec.file}/${viewportName}/${language}: source tables ${state.sourceTables}/${state.sourceTableCaptions}/${spec.expectedTables}`
+      `${spec.file}/${viewportName}/${language}: obsolete PPT comparison slide was published`
     );
   }
-  if (state.fitTableOverflows.length || state.emptyFitTableColumns.length) {
+  if (state.requiredSections !== 13 || state.obsoleteSections.length) {
     throw new Error(
-      `${spec.file}/${viewportName}/${language}: fit table regression ` +
-      `overflow ${state.fitTableOverflows.join(', ') || 'none'}; ` +
-      `empty columns ${state.emptyFitTableColumns.join(', ') || 'none'}`
+      `${spec.file}/${viewportName}/${language}: information architecture ` +
+      `${state.requiredSections}/13; obsolete ${state.obsoleteSections.join(', ') || 'none'}`
     );
   }
-  if (
-    state.sourceVisuals + state.sourceDataCharts !== spec.expectedVisuals
-    || state.sourceDataCharts !== spec.expectedDataCharts
-    || state.rasterChartImages !== 0
-  ) {
+  if (state.conditionBlocks !== 6 || state.roadmapRows < 1 || state.rawTables < 1) {
     throw new Error(
-      `${spec.file}/${viewportName}/${language}: source visuals ` +
-      `${state.sourceVisuals}+${state.sourceDataCharts}/${spec.expectedVisuals}; ` +
-      `data charts ${state.sourceDataCharts}/${spec.expectedDataCharts}; ` +
-      `raster charts ${state.rasterChartImages}`
+      `${spec.file}/${viewportName}/${language}: condition/roadmap/raw coverage ` +
+      `${state.conditionBlocks}/${state.roadmapRows}/${state.rawTables}`
     );
   }
-  const expectedPictureVisuals = spec.expectedVisuals - spec.expectedDataCharts;
-  if (
-    state.sourceVisualButtons !== expectedPictureVisuals
-    || state.sourceVisualCaptions !== expectedPictureVisuals
-  ) {
-    throw new Error(
-      `${spec.file}/${viewportName}/${language}: image interaction ` +
-      `${state.sourceVisualButtons}/${state.sourceVisualCaptions}/${expectedPictureVisuals}`
-    );
+  if (state.rasterChartImages !== 0) {
+    throw new Error(`${spec.file}/${viewportName}/${language}: raster chart image remains`);
   }
   if (state.crampedChartLabels.length) {
     throw new Error(
@@ -184,44 +158,15 @@ async function inspect(page, spec, language, viewportName) {
       state.bubbleLabelOverlaps.slice(0, 5).join(', ')
     );
   }
-  if (spec.sourceSlides.length && (state.sourceSections !== 4 || state.sourceParagraphs < 1)) {
+  if (spec.publishedSlides.length && state.sourceParagraphs < 1) {
     throw new Error(
-      `${spec.file}/${viewportName}/${language}: incomplete source sections ${state.sourceSections}/${state.sourceParagraphs}`
+      `${spec.file}/${viewportName}/${language}: PPT narrative is missing from integrated sections`
     );
-  }
-  if (!spec.sourceSlides.length && state.sourceSections !== 0) {
-    throw new Error(`${spec.file}/${viewportName}/${language}: unrelated source chapter was assigned`);
   }
   if (state.textLength < 6500) {
     throw new Error(
       `${spec.file}/${viewportName}/${language}: unexpectedly short page ${state.textLength}`
     );
-  }
-
-  if (state.sourceVisualButtons) {
-    const firstImage = page.locator('.sourceVisualOpen').first();
-    await firstImage.evaluate((element) => {
-      let parent = element.parentElement;
-      while (parent) {
-        if (parent.tagName === 'DETAILS') parent.open = true;
-        parent = parent.parentElement;
-      }
-    });
-    await firstImage.scrollIntoViewIfNeeded();
-    await firstImage.click();
-    const viewerState = await page.evaluate(() => ({
-      open: document.querySelector('.mediaViewer')?.open === true,
-      imageLoaded: (document.querySelector('.mediaViewerImage')?.naturalWidth || 0) > 0,
-      title: (document.querySelector('.mediaViewerHeader h2')?.textContent || '').trim(),
-      count: (document.querySelector('.mediaViewerCount')?.textContent || '').trim()
-    }));
-    if (!viewerState.open || !viewerState.imageLoaded || !viewerState.title || !viewerState.count) {
-      throw new Error(
-        `${spec.file}/${viewportName}/${language}: media viewer failed ` +
-        JSON.stringify(viewerState)
-      );
-    }
-    await page.locator('.mediaViewerClose').click();
   }
 
   let screenshot = '';
@@ -240,9 +185,8 @@ async function inspect(page, spec, language, viewportName) {
     viewportName,
     language,
     width: `${state.scrollWidth}/${state.clientWidth}`,
-    sourceSlides: state.sourceSlides,
-    sourceTables: state.sourceTables,
-    sourceVisuals: state.sourceVisuals + state.sourceDataCharts,
+    sourceSlides: actualSlides.length,
+    conditionImages: state.conditionImages,
     sourceDataCharts: state.sourceDataCharts,
     screenshot
   };

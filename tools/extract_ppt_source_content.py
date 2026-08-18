@@ -23,12 +23,13 @@ from pptx.oxml.ns import qn
 
 try:
     from tools.ppt_scope import OVERVIEW_SLIDES, display_title, slugs_for_slide
+    from tools.ppt_source import source_pptx
 except ModuleNotFoundError:
     from ppt_scope import OVERVIEW_SLIDES, display_title, slugs_for_slide
+    from ppt_source import source_pptx
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_DIR = ROOT / "data" / "source-presentations"
 OUTPUT_PATH = ROOT / "data" / "ppt-insights" / "ppt-source-content.json"
 ASSET_DIR = ROOT / "assets" / "ppt-source"
 
@@ -51,13 +52,6 @@ def normalize_text(value: str) -> str:
     value = re.sub(r" *\n *", "\n", value)
     value = re.sub(r"\n{3,}", "\n\n", value)
     return value.strip()
-
-
-def source_pptx() -> Path:
-    files = sorted(SOURCE_DIR.glob("*.pptx"), key=lambda item: item.stat().st_size, reverse=True)
-    if not files:
-        raise FileNotFoundError(f"No presentation found in {SOURCE_DIR}")
-    return files[0]
 
 
 def iter_shapes(shape_collection):
@@ -157,19 +151,21 @@ def split_source_paragraphs(value):
 def classify_overview(slide_number, title):
     if 3 <= slide_number <= 8:
         return "environment"
-    if 9 <= slide_number <= 11:
+    if slide_number == 9:
         return "industry"
-    if 12 <= slide_number <= 14:
+    if 10 <= slide_number <= 13:
         return "competition"
-    if slide_number == 15:
+    if 14 <= slide_number <= 17:
+        return "regional"
+    if slide_number == 18:
         return "class_structure"
-    if slide_number in {233, 234, 242, 243}:
+    if slide_number in {236, 237, 243, 244}:
         return "portfolio"
-    if 235 <= slide_number <= 241:
+    if 238 <= slide_number <= 242:
         return "roadmap"
-    if slide_number == 244:
+    if slide_number == 245:
         return "sales_plan"
-    if slide_number == 246:
+    if slide_number == 247:
         return "intelligence"
     return "overview"
 
@@ -187,6 +183,18 @@ def classify_tonnage(title):
 
 
 TEMPORAL_STATUS_META = {
+    "current_estimate": {
+        "label_zh": "2026预期",
+        "label_en": "2026 expected volume",
+        "note_zh": "该值是当前年度预期，不等同于已实现销量；年末应以实际交付数据回填。",
+        "note_en": "This is the current-year expectation rather than achieved sales. Replace it with actual deliveries after year-end close.",
+    },
+    "current_target": {
+        "label_zh": "2026目标",
+        "label_en": "2026 target",
+        "note_zh": "该值是当前年度经营目标，不代表已经完成；实际结果以销售结算数据为准。",
+        "note_en": "This is the current-year operating target, not a completed result. Actual performance remains subject to booked sales data.",
+    },
     "forecast": {
         "label_zh": "预测口径",
         "label_en": "Forecast basis",
@@ -231,31 +239,37 @@ def detect_temporal_status(slide_number, title, body, notes, visuals=None):
         + [chart_text]
     )
 
-    sales_forecast_slides = {
-        16,
-        35,
-        48,
-        69,
-        90,
-        108,
-        126,
-        127,
-        152,
-        169,
-        170,
-        199,
-        216,
+    current_market_slides = {
+        19,
+        38,
+        51,
+        72,
+        93,
+        111,
+        129,
+        130,
+        155,
+        172,
+        173,
+        202,
+        219,
     }
-    if (
+    if slide_number in current_market_slides:
+        code = "current_estimate"
+    elif (
         "预测" in text
-        or slide_number in sales_forecast_slides
         or re.search(r"预计2025年[^。\n]*市场(?:销售量|销量)", text)
     ):
         code = "forecast"
     elif (
+        ("占有率目标" in title or "未来三年产品销售目标" in title)
+        and re.search(r"2026年[^。\n]*(?:目标|预计|销量|达到)", text)
+    ):
+        code = "current_target"
+    elif (
         "未来三年" in text
         or re.search(r"202[7-9]年[^。\n]*(?:目标|规划|预计|计划)", text)
-        or slide_number in {242, 243, 244}
+        or slide_number in {243, 244}
     ):
         code = "forward_plan"
     elif (
@@ -264,7 +278,7 @@ def detect_temporal_status(slide_number, title, body, notes, visuals=None):
     ):
         code = "historical_target"
     elif (
-        slide_number in {176, 233, 235}
+        slide_number in {179, 236, 238}
         or re.search(r"202[0-5]年[^。\n]*(?:计划|预计|导入|量产|样机)", text)
         or re.search(r"(?:计划|预计)[^。\n]*(?:7月|年底|季度|Q[1-4])", text, re.I)
     ):
@@ -504,7 +518,7 @@ def extract(render_dir: Path):
     seen = {}
 
     for slide_number, slide in enumerate(deck.slides, start=1):
-        if slide_number in {1, 2, 245}:
+        if slide_number in {1, 2, 246}:
             continue
         slug_values = slugs_for_slide(slide_number)
         is_overview = slide_number in OVERVIEW_SLIDES
@@ -585,7 +599,7 @@ def extract(render_dir: Path):
             "content_rule": "Original slide text order, original table cells and source visual objects.",
             "excluded": {
                 "cover_and_section_slides": [1, 2],
-                "personnel_slide": [245],
+                "personnel_slide": [246],
             },
         },
         "summary": {

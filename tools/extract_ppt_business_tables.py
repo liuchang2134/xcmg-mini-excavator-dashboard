@@ -7,17 +7,14 @@ from pptx import Presentation
 
 try:
     from tools.ppt_scope import OVERVIEW_SLIDES, display_title, slugs_for_slide
+    from tools.ppt_source import source_pptx
 except ModuleNotFoundError:
     from ppt_scope import OVERVIEW_SLIDES, display_title, slugs_for_slide
+    from ppt_source import source_pptx
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PPTX_PATH = (
-    ROOT
-    / "data"
-    / "source-presentations"
-    / "XCMG_北美挖机产品线洞察_11.14_源文件.pptx"
-)
+PPTX_PATH = source_pptx()
 OUTPUT_PATH = ROOT / "data" / "ppt-insights" / "ppt-business-tables.json"
 
 NAVIGATION_LABELS = {
@@ -133,9 +130,9 @@ def classify_role(title, slide_number):
         return "portfolio"
     if "提升举措" in title:
         return "roadmap"
-    if slide_number == 244:
+    if slide_number == 245:
         return "sales_plan"
-    if slide_number == 246:
+    if slide_number == 247:
         return "evidence_system"
     return "field_evaluation"
 
@@ -153,7 +150,7 @@ def extract():
     excluded = Counter()
 
     for slide_number, slide in enumerate(deck.slides, start=1):
-        if slide_number == 245:
+        if slide_number == 246:
             excluded["personnel_table"] += sum(
                 1 for shape in slide.shapes if getattr(shape, "has_table", False)
             )

@@ -23,6 +23,7 @@
 
 .sourceOverviewHero .heroMedia {
   height: 210px;
+  padding: 0;
   border-left: 1px solid #d5e0e9;
   background: #fff;
 }

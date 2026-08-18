@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { chromium } = require('../ppt-integration-demo/node_modules/playwright-core');
+const { chromium } = require('./playwright_loader.cjs');
 
 const base = process.argv[2] || 'http://127.0.0.1:4174';
 
@@ -57,12 +57,12 @@ async function inspectOverview(page, language, viewportName) {
     `${viewportName}/${language}/area`
   );
 
-  const structure = page.locator('[data-source-slide="11"] .sourceDataChart');
+  const structure = page.locator('[data-source-slide="9"] .sourceDataChart');
   await assertMarkInteraction(
     page,
     structure,
     structure.locator('.chartInteractable').first(),
-    `${viewportName}/${language}/product-structure`
+    `${viewportName}/${language}/market-history`
   );
 
   const donut = page.locator('.nativeChartPanel').nth(2);
